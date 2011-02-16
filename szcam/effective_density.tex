@@ -1,0 +1,79 @@
+\documentclass[preprint]{aastex}
+
+\begin{document}
+
+%\title{test}
+
+\section{Shear Sensitivity}
+
+The figure of merit for lensing is the shear sensitivity.  For no noise, this
+is simply the standard deviation of source galaxy ellipticity (or "shape
+noise") over root N, divided by 2 to convert ellipticity to shear.  In the real
+world there is noise, and this must be taken into account.  Hu and Jain put
+this effect into a larger assumed shape noise.  Also, small objects (relative
+to the PSF) contribute less signal, and this is just as important as the noise.
+
+I used Huan's CFH12k data to estimate the shear sensitivity for the magnitude
+limits 24.1 and 23.7, and a range of seeing.  I ran his images through my shape
+measurement code, which calculates the shapes and their noise, as well as their
+size.  Given these data, I can calculate the shear sensitity.  Usually Fisher
+matrix code actually takes in the shape noise and the number density, so I
+converted the shear sensitivity to an effective number density assuming the
+shape noise is 0.32.  Then the S/N just goes as sqrt(effective area).
+
+Figure \ref{fig:weight} shows the lensing weight as a function of magnitude
+(IAB), which drops rapidly after IAB = 22.5. The numbers are in table
+\ref{tab:weight}. Figure \ref{fig:sens} shows the shear sensitity vs. seeing,
+and the effective number density vs. seeing, for each of the mag limits 23.7
+and 24.1 and a survey of 5000 square degrees.  Note this is an over-estimate of
+the sensitivity for 23.7 because this is a pretty deep image so the noise is a
+bit underestimated.
+
+As you can see, the effective number density drops rapidly with seeing.
+This is also summarized in table \ref{tab:sens}.
+
+I took a very crude look at how we would do with the equation of state:
+
+Hu and Jain calculated their stuff for a feducial survey of 70 galaxies per
+square arcmin and 4000 square degrees.  They also assumed a large shape noise
+of 0.6 in order to account for measurement error.  We would do a little better
+than half (0.63) as well in shear sensitivity compared to their survey.  On the
+other hand, they also assumed a mean source redshift of 1.5, whereas we will
+have more like 0.7 as I recall.  This means the signal will be smaller for our
+survey by roughly a factor of 2.  So the signal to noise will be something like
+a third as high as their estimates.  They showed that you could expect
+something like 0.02 in a constant w for their survey under the best possible
+conditions. So we are looking at 0.06 in w for 1" seeing.  This would drop
+to something like 0.04 or so for 0.7" seeing.
+
+This is not exactly right because the lever arm in z is smaller for our survey,
+and thus the constraints will be weaker since there is less time over which to
+see the effect of lambda on the angular diameter distances.  In other words, we
+should do the full calculation to get it right, but you get the general
+picture.
+
+Note also that the weights vs. mag. must also be applied to any estimate of the
+effective source redshift distribution for lensing.
+
+\epsscale{0.8}
+
+\begin{figure}
+\plotone{huan_weights_vs_mag.eps} \figcaption{ The relative weight as a
+function of magnitude, accounting for shape measurement uncertainties and
+dilution.
+\label{fig:weight} }
+\end{figure}
+
+
+\begin{figure}
+\plotone{huan_sensitivity.eps} \figcaption{ The shear sensitivity (top) and
+effective density (bottom) as a function of magnitude cut and seeing.  The
+feducial survey is 5000 square degrees. This is an overestimate of the
+sensitivity for IAB $< 23.7$ since the extra noise was not accounted for.
+\label{fig:sens} }
+\end{figure}
+
+\input{weight.tex}
+\input{sensitivity.tex}
+
+\end{document}

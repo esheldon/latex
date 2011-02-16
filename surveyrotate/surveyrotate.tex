@@ -1,0 +1,92 @@
+%\documentclass{aastex}
+
+%% -- This is what phil used
+%\documentclass[manuscript]{aastex}
+%\usepackage{aastexug}
+
+%% -- preprint produces a one-column, single-spaced document:
+\documentclass[preprint]{aastex}
+
+%% -- preprint2 produces a double-column, single-spaced document:
+% \documentclass[preprint2]{aastex}
+
+%% -- EMULATE APJ
+%\documentclass{aastex}
+%\usepackage{emulateapj5}
+
+\def\eone{e$_1$}
+\def\etwo{e$_2$}
+
+\begin{document}
+
+\title{Converting SDSS Shape Measurements from CCD Coordinates to Survey
+Coordinates}
+
+\author{Erin Scott Sheldon}
+
+\section{Introduction}
+We measure the ellipticity parameters (\eone,\etwo) in CCD coordinates,
+(row,col). This coordinate system is fine within a single run, but is not a 
+well defined for the survey as a whole.  The logical coordinate system is 
+survey coordinates, ($\lambda,\eta$), which is parallel to the center of 
+each SDSS stripe.  This coordinate
+system is not parallel to the (row,col) system, however, especially in the
+outer camera columns and near the ends of stripes where the two coord. systems
+can be misaligned by as much as three degrees.
+
+\section{Transforming (\eone, \etwo) Into Survey Coordinates}
+The survey will be at least 30$\degr$ from the poles in ($\lambda,\eta$) 
+\footnote{see
+http://www.astro.princeton.edu/PBOOK/strategy/strategy.htm\#mapProjectionGridFig and\\
+http://www-sdss.fnal.gov:8000/$\sim$sdssdp/status/imaging/imagingStatus.gif},
+so the misalignment with the (row,col) system will always be small. In fact, 
+within a single field, the 
+misalignment can accurately be represented by a simple
+rotation. Fig. \ref{grid_rotate} illustrates this for the first field in 
+run 756, camera column 1, where I have converted a grid of (row,col) points
+to the ($\lambda, \eta$) coord. system (using the asTrans file
+\footnote{http://www-sdss.fnal.gov:8000/dm/flatFiles/asTrans.html}), and 
+then tangent plane projected
+in units of pixels. Note this field is outside of the survey, and is a 
+worst case senario. Fig. \ref{fieldrot} shows this angle as a function
+of field for 756 camcol 6.
+
+Because the transformation to survey coordinates can locally be represented
+by a rotation, we can simply rotate $(e)$ = (\eone,\etwo). The ellipticity
+parameters (\eone,\etwo) 
+transform under a rotaion $\theta$ as $(e)^\prime = R(2\theta)*(e)$. 
+Fig. \ref{rote1e2} shows such a rotation for an angle of three degrees.
+
+\section{Conclusions} 
+The transformation of (\eone,\etwo) to survey coordinates 
+deviates from a simple
+rotation by $\lesssim 1\%$, so this should be fine for studies such
+as galaxy-galaxy lensing where a systematic leftover distortion in 
+a particular direction will just cancel. For cosmic shear, however, 
+one might want to apply a more sophisticated transformation.
+
+\begin{figure}
+\plotone{grid_rotate.ps}
+\figcaption{A grid of (row,col) points in run 756, column 6, field 11,
+converted to survey coordinates ($\lambda, \eta$) and tangent plane projected
+in units of pixels.
+The solid lines are drawn to help illustrate the simple rotation. The
+transformation differs from a simple rotation by no more than a few percent
+anywhere in the run (within a given field).\label{grid_rotate}}
+\end{figure}
+
+\begin{figure}
+\plotone{surveyrot_000756_6_1_N3.ps}
+\figcaption{The angle between survey coordinages ($\lambda, \eta$) and 
+CCD coordinates (row,col) as a function of field for camera column
+6 in run 756. Note the ends of the run are actually outside of the
+survey area.\label{fieldrot}}
+\end{figure}
+
+\begin{figure}
+\plotone{test_rotate_e1e2.ps}
+\figcaption{Illustration of the rotaion of \eone, \etwo by an
+angle of three degrees \label{rote1e2}}
+\end{figure}
+
+\end{document}

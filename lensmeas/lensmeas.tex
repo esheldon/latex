@@ -1,0 +1,226 @@
+%\documentclass[12pt,preprint]{aastex}
+%\documentclass{aastex}
+%\documentclass[manuscript]{aastex}
+%\documentclass[preprint2]{aastex}
+%\documentclass[preprint]{aastex}
+
+%For submission to AJ
+%\documentclass{aastex}
+%For astro-ph
+\documentclass{emulateapj}
+
+\usepackage{ifthen}
+
+\slugcomment{Last revision 26-May-2004}
+
+\shortauthors{Sheldon et al.}
+\shorttitle{Lensing Measurements}                                  
+
+% For color
+\newcommand{\mpname}[1]{#1_color.eps}
+\newcommand{\clraitoff}{red}
+\newcommand{\lumblack}{(black)}
+\newcommand{\lumblue}{(blue)}
+\newcommand{\lumred}{(red)}
+\newcommand{\vdisred}{(red-dashed curve)}
+\newcommand{\vdisblue}{(blue-solid curve)}
+
+
+
+\newcommand{\umag}{$u$}
+\newcommand{\gmag}{$g$}
+\newcommand{\rmag}{$r$}
+\newcommand{\imag}{$i$}
+\newcommand{\zmag}{$z$}
+\newcommand{\gmr}{$g-r$}
+\newcommand{\deltasig}{$\Delta \Sigma$}
+\newcommand{\deltaplus}{$\Delta \Sigma_+$}
+\newcommand{\deltacross}{$\Delta \Sigma_\times$}
+
+\newcommand{\photo}{\texttt{PHOTO}}
+\newcommand{\astrop}{\texttt{ASTRO}}
+\newcommand{\mt}{\texttt{MT}}
+\newcommand{\spectro}{\texttt{SPECTRO}}
+\newcommand{\spectroone}{\texttt{SPECTRO1d}}
+\newcommand{\spectrotwo}{\texttt{SPECTRO2d}}
+\newcommand{\target}{\texttt{TARGET}}
+
+\def\eone{e$_1$}
+\def\etwo{e$_2$}
+\newcommand{\etan}{e$_+$}
+\newcommand{\erad}{e$_\times$}
+\newcommand{\eclass}{\texttt{ECLASS}}
+\newcommand{\eclasscut}{-0.06}
+\newcommand{\gmrcut}{0.7}
+
+\newcommand{\hrs}{$^{\mathrm h}$}
+\newcommand{\minutes}{$^{\mathrm m}$}
+
+\newcommand{\ugriz}{$u, g, r, i, z$}
+\newcommand{\polarization}{polarization}
+
+\newcommand{\wgm}{$w_{gm}$}
+\newcommand{\wgg}{$w_{gg}^p$}
+\newcommand{\wmm}{$w_{mm}$}
+\newcommand{\xigg}{$\xi_{gg}$}
+\newcommand{\ximm}{$\xi_{mm}$}
+\newcommand{\xigm}{$\xi_{gm}$}
+
+\newcommand{\numspec}{127,001}
+\newcommand{\numspecvlim}{10,277}
+\newcommand{\numrand}{1,270,010}
+\newcommand{\numspectot}{278,192}
+\newcommand{\numvdis}{49,024}
+%\newcommand{\numsource}{10,259,949}
+% hirata: 
+\newcommand{\numsource}{9,020,388}
+\newcommand{\numpairs}{4,776,222,720}
+\newcommand{\altnumpairs}{4.8 billion}
+
+\newcommand{\xirmax}{$\xi_{gm}(R_{max})$}
+
+\clearpage
+
+
+\begin{document}
+
+\title{Lensing Measurements in the SDSS}
+
+\author{
+Erin S. Sheldon,\altaffilmark{1,2}}
+
+\altaffiltext{1}{Kavli Institute for Cosmological Physics, The University of Chicago, 5640 South Ellis Avenue Chicago, IL  60637}
+\altaffiltext{2}{Department of Astronomy and Astrophysics, The University of Chicago, 5640 South Ellis Avenue, Chicago, IL 60637.}
+
+
+\begin{abstract}
+I describe the process used to measure lensing cross-correlations in the SDSS.
+Firstly, the assembling of lens samples and random samples to be cross
+correlated with the shear catalog.  The assembly of the source catalog is 
+described elsewhere.  The production of jackknife samples used
+to measure the covariance matrix is discussed.  Finally, sub-sampling of
+the lenses is outlined.  The focus is on the basic algorithms as well as the
+actual routines that are to be run.
+\end{abstract}
+
+\keywords{cosmology:observations --- dark matter --- gravitational lensing ---
+large-scale structure of the universe}
+
+
+\section{Introduction} \label{intro}
+
+It is assumed that a source galaxy sample has been assembled. These sources
+must have a mask associated with them, the SDSSPix mask assembled by
+Ryan Scranton.  These sources may or may not have photometric redshifts, 
+but there must be an estimate of their redshift distribution.  
+
+The lenses must have a redshift estimate.  This is currently assumed to
+be high S/N, so no integration over the redshift probability distribution is 
+performed.
+
+The lenses must have a window function which can be used in combination with
+the photometric mask for the sources to generate random samples. This lens
+sample and sets of random points have already been created for the SDSS
+spectroscopic sample, and must only be checked against the photometric mask.
+For the clusters, a window is created separately by me which is very similar to
+the basic photometric mask, not including bright stars, etc. This may be
+smaller than the unmasked region of the photometry because Jim's catalog is
+often created from a subset of the available data.
+
+Also from the mask a number of equal-area jackknife samples are created. The
+size of these regions are chosen to reflect the size over which residuals in
+the PSF correction scheme change.  This is roughly a square degree.
+
+A code is run that ``sets up'' the lenses.  The catalog is read, checked
+against the window, including a possible completeness cut.  Then edge checking
+is done against the source catalog.  Only lenses with at least two adjacent
+quadrants that do not hit an edge are used.  Here the rmax is important, since
+larger rmax means edge collisions are more likely.
+
+After other cuts, such as a maximum angle cut, are made the catalog is written
+out with tags appended which are required by the lensing code.  One especially
+important tag is the zindex.  When random points are generated, they are
+associated with a particular lens by the zindex.  The random point has the same
+redshift as this lens.  Later, when sub-sampling, the random points are chosen
+to match the zindex list for the lenses.  Should probably do this differently.
+Each sub-sample should get an equal, large number of randoms.
+
+A similar code ``sets up'' the randoms.  It reads the \emph{original} lens
+catalog before cuts and randomly assigns each random point, with replacement,
+to a lens.  Then the cuts are applied.  This preserves the selection function
+entirely except for the varying magnitude limit for the spectroscopic sample.
+Need to talk to Micheal about this.
+
+A wrapper for the lensing code reads in the lens or random catalog as well
+as the source catalog.  Only a subset of the source tags are read, and a
+subset of the rows which pass various cuts, in order to save memory.
+The lensing code is called.
+
+Each lens/random is then associated with its jackknife sample, and the sums are
+calculated for each jackknife region. These are output to a subdirectory
+``jackknife\_samples'' and the word ``jackknife\_samples\_'' is also prepended to
+the filename.  In the case of multiple files, such as for the randoms, these
+sums can be added up over the different samples in each file.  These samples
+are then jackknifed and the results output to the same directory.
+
+Sub-sampling is done and output to the same directory except for the luminosity
+samples, which are output to a subdirectory ``sublum/color'' where color is
+\ugriz.
+
+These outputs are analyzed by a code which reads in the files, makes the
+clustering correction and shear polarizability correction, does many fits and
+outputs the corrected files.  A basic corrected file is output to the same
+directory, and a ``combined'' file is output to the combstripe/comb directory.
+We don't combine the stripes separately anymore, so this is a bit outdated, but
+I don't feel like changing the convention right now. Further analysis, such as
+inversion to $\rho(r)-\overline{\rho}$ is then performed afterward.
+
+
+\section{Basic Outline of Basic Procedure}
+
+\begin{enumerate}
+  \item Assemble a lens sample.
+    \begin{enumerate}
+      \item Basic Selection Criteria
+      \item Create the Window Function
+    \end{enumerate}
+  \item Random Point Generation in Window
+  \item Define Jackknife Regions for this Window
+  \item Check Lenses agains photometric mask, including edges. Make other cuts.
+    Output new file with lensing tags.
+  \item Check Randoms, Output file.
+  \item Run lensing code on Lenses and Random
+  \item Combine multiple random files into a combined ``average'' file.
+  \item Make sub-samples.
+  \item Create the jackknife samples for all samples.
+    \begin{enumerate}
+      \item Assign each object to a region, create sums for each region. Write
+	to disk.
+      \item Read in all relavent files, including multiple for random, etc.,
+        add up sums and jackknife.
+    \end{enumerate}
+  \item Run basic analysis code.
+  \item Further analysis.
+\end{enumerate}
+
+\section{Outline of Code}
+
+\newpage
+
+\bibliographystyle{apj}
+% Bib database
+\bibliography{apj-jour,astroref}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Figure captions here
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Table for all/early,etc.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\end{document}

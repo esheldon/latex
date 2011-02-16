@@ -1,0 +1,316 @@
+\documentclass{emulateapj}
+
+\newcommand{\Lya}{Ly$\alpha$~}
+\newcommand{\Lyapunc}{Ly$\alpha$}
+\newcommand{\Lyaf}{Ly$\alpha$~Forest~}
+\newcommand{\Lyafpunc}{Ly$\alpha$~Forest}
+
+\begin{document}
+
+\section{The Quasar Target Selection Framework}
+%ADM wrote v1.0 of this section October 7, 2010
+In this section, we describe the overarching framework of the BOSS quasar target selection algorithm. The algorithm is complex, having developed from a philosophy that attempts to allow BOSS to optimize it's main goal---the baryon acoustic feature in the \Lyaf---while maintaining a more generally useful sample for the community.
+
+\subsection{The CORE and the BONUS}
+
+   The primary science for which BOSS is assembling a large sample of quasar spectra is to detect and measure the baryon acoustic feature in large-scale structure as traced by the \Lyafpunc. As the \Lyaf is unchanged on large scales by being illuminated in absorption by background quasars, a complex angular quasar coverage has no bearing on the power of the survey to measure structure.
+   
+   In addition to the \Lyaf survey, BOSS will assemble an unparalleled collection of quasars at $2 < z < 4$, potentially making a range of new science possible in the moderate-redshift universe. Many quasars in the BOSS target range are easy to find in single-epoch $ugriz$ imaging without any detrimental effect on measurements of clustering in the \Lyafpunc.
+	
+   To address both of these considerations, the BOSS quasar targeting framework was effectively divided into two algorithms. The first algorithm takes {\tt calibObj} objects from the datasweeps and only uses single-epoch $ugriz$ data from within the SDSS to implement target selection decisions. The sample that results from this algorithm is called the ``CORE" sample, and is intended to be useful for statistical studies of quasars. The second algorithm is free to incorporate multi-epoch data from within SDSS and multi-wavelength and multi-epoch data from any external survey that might help improve the ultimate signal derived by BOSS In the \Lyafpunc. The sample that results from this second algorithm is called the ``BONUS" sample. We caution the reader that the targeting algorithm that defines the BONUS sample may continue to change---sufficiently to render this document obsolete.
+
+Over Year~1 of the survey, the definition of the CORE algorithm was altered several times to attempt to optimize return within the statistical sample of BOSS quasars. Here, we describe the final definition of the CORE, derived near the end of Year~1 which uses the Extreme Deconvolution method of Bovy et al. (2011)/Likelihood method of Kirkpatrick et al. (2011). We caution the reader that prior to Year~1, the quasar CORE did not reflect a statistical sample.
+
+\subsection{Single-Epoch and Multi-Epoch Photometry}
+\label{sec:epochs}
+
+%ADM maybe I Should include some version of my plot at http://geordie.astro.illinois.edu/forbossqso/diagnostics/multi/images/dualcol.png
+
+Certain areas of the SDSS SGC (e.g., stripe 82) were deliberately targeted multiple times for imaging, and therefore comprise a sample in which multi-epoch imaging can be used to improve target selection, either through variation in information across multiple epochs, or by coaddition to reach a deeper flux limit. It is less well known that, due to the drift-scan nature of the survey, the SDSS NGC, and wider footprint, contains many areas with multi-epoch coverage where multiple scan lines overlapped. This is particularly a feature near the edges of the survey.
+
+The quasar targeting algorithm incorporates two types of input fluxes. First, the standard imaging datasweeps compiled in, e.g., the NYU Value Added Galaxy Catalog. Second, a different set of imaging that co-adds fluxes where there is multi-epoch information from overlapping scans. Single-epoch $ugriz$ imaging from SDSS is always sent to the CORE algorithm and multi-epoch imaging is always sent to the BONUS algorithm. Adopting only single-epoch imaging from SDSS in the CORE ensures that quasars selected in the CORE have a simple survey footprint that is easier to statistically reproduce.
+
+Maybe include exact equation for coadd....it's in sdss\_fcombine.pro
+
+\subsection{Logic Cuts}
+\label{sec:logic}
+
+Along with the CORE and the BONUS algorithms, two other main algorithms
+are used in BOSS quasar target selection. The first includes or excludes
+sources based on whether they are known quasars or stars from other
+surveys. The second includes objects based on whether they have a
+match to an object in the FIRST radio survey. We discuss each of these
+algorithms subsequently and will refer to them as CORE, BONUS, KNOWN and
+FIRST.
+
+Each algorithm is sent a different set of logic flags. All logic cuts
+are applied using single-epoch data with one exception: color cuts made
+in the FIRST selection algorithm are made on coadded, multi-epoch data.
+This is because FIRST objects are not considered to be part of the
+statistical sample that CORE is designed for, unless they also meet the
+criteria of CORE.
+
+The logic cuts are made in the form of an overall bitmask, based on the
+combination of a subset of bitmasks. The choice of a bitmask allows
+any cut to be recorded as a unique bit, then combined logic cuts can
+be made based on whether combinations of those bits are non-zero. The
+7 subset bitmasks are {\tt RESOLVE\_BITMASK}, {\tt CALIB\_BITMASK},
+{\tt BOUNDS\_BITMASK}, {\tt GMAG\_BITMASK}, {\tt GMAG\_BITMASK\_NOB},
+{\tt FIRST\_COLOR\_BITMASK}, {\tt FLAG\_BITMASK} and are discussed
+in full in Appendix~\ref{sec:app1}. Note that {\tt CALIB\_BITMASK},
+which cuts to objects with top-quality photometry in SDSS imaging, is
+{\em not, in general, populated} but its definition is retained for
+backwards-compatibility.
+
+Both CORE and BONUS are sent {\tt BOUNDS\_BITMASK} + {\tt
+RESOLVE\_BITMASK} + {\tt CALIB\_BITMASK} + {\tt FLAG\_BITMASK} + {\tt
+GMAG\_BITMASK}. Again, see Appendix~\ref{sec:app1} for definitions of
+these bitmasks.
+
+KNOWN objects are sent {\tt BOUNDS\_BITMASK} + {\tt RESOLVE\_BITMASK} +
+{\tt CALIB\_BITMASK}. In essence, this means that all known objects are
+considered regardless of the quality of SDSS images, provided that they
+are primary objects in the SDSS footprint.
+
+FIRST objects are sent {\tt BOUNDS\_BITMASK} + {\tt RESOLVE\_BITMASK} +
+{\tt CALIB\_BITMASK} + {\tt FLAG\_BITMASK} + {\tt GMAG\_BITMASK\_NOB}
++ {\tt FIRST\_COLOR\_BITMASK}. {\tt GMAG\_BITMASK\_NOB} is applied
+to FIRST rather than {\tt GMAG\_BITMASK} because the main quasar
+contaminant at bright magnitudes are Galactic stars, which are
+radio-quiet. The {\tt FIRST\_COLOR\_BITMASK} contains a cut on $u-g$
+color to restrict to radio-loud sources that have colors consistent with
+$z > 2.2$ quasars. This is the only logic cut that we allow to be made
+on (coadded) multi-epoch photometry.
+
+
+\subsection{Known objects}
+
+The KNOWN algorithm takes objects passed to quasar targeting and matches
+them against a database of spectroscopically confirmed stars and quasars
+assembled from a range of surveys. An initial coordinate match between
+target imaging and the database of known objects is made at 1.5\arcsec.
+Objects that don't already match a known object are then matched again
+at 2.0\arcsec, with the additional caveat that they must muse also be
+within 0.5 luptitudes in the $g-band$. Objects are {\em always} targeted
+if they match a known quasar at $z \ge z_{\rm cut}$ and are {\em never}
+targeted if they match a known quasar at $z < z_{\rm cut}$ or a known
+star. Through the end of Year~1 of BOSS $z_{\rm cut}=2.15$. It became
+clear that the blue response of the spectrograph left little signal in
+the \Lyaf for $z\sim2.15$, so from Year~1 onwards, $z_{\rm cut}=2.2$
+
+The database of known objects consists of confirmed stars and quasars
+from the 2dF QSO Redshift Survey (2QZ;), the 2dF-SDSS LRG and QSO
+(2SLAQ;); the SDSS DR7 quasar catalog (); the Sloan Extension
+for Galactic Understanding and Exploration survey (SEGUE;); the
+AA$\omega$-UKIDSS-SDSS Survey (AUS;); and a deep commissioning survey
+of BOSS quasars in SDSS stripe 82 carried out with the MMT/Hectospec
+(A.~D.~Myers, private communication). Objects observed through Year~1
+of BOSS were also placed in the database of known objects, so that
+additional signal could be obtained from duplicate observations of
+quasars in overlapping plates confirmed for the first time by BOSS.
+
+ADM...I'm never gonna publish the MMT survey, maybe just add unique
+objects from it as a table in an appendix in this paper...
+
+\subsection{Sources that match the FIRST Survey}
+
+The FIRST algorithm takes objects passed to quasar targeting and
+matches them against the FIRST survey source catalog (Faint Images
+of the Radio Sky at Twenty-Centimeters; ). A coordinate match of
+1\arcsec is made, with no additional cuts (beyond those mentioned in
+Section~\ref{sec:logic}) on the basis of flags in the FIRST catalog.
+In general, only extragalactic objects are radio-loud. As most of
+the unresolved objects classified as ``star-like" in SDSS imaging
+are not galaxies, the majority of unresolved radio-loud objects are
+quasars provided a close coordinate match is made to reduce chance
+superpositions (e.g., McGreer paper).
+
+As noted in Appendix~\ref{sec:app1}, a reverse UV-excess (UVX) cut
+is made on FIRST matches to mainly limit to quasars at $z > 2.2$.
+As the FIRST matches are not considered part of the statistical
+(``CORE") sample, this reverse UVX cut is made on co-added colors, where
+available, using the information in the multiple-epoch coadded flux
+files (section~\ref{sec:epochs}).
+
+\subsection{The CORE Algorithm}
+
+The CORE algorithm takes objects passed to quasar targeting and applies
+the Extreme Deconvolution method of Bovy et al. (2011)/Likelihood method
+of Kirkpatrick et al. (2011) processed using single-epoch fluxes.
+Ideally, the CORE algorithm would be designed to reflect a nearly
+constant fiber density of $20~{\rm deg}^{-2}$ across the entire BOSS
+survey. But, in actuality the CORE density fluctuates significantly
+across the survey. This is due to two major effects: First, because
+single-epoch fluxes have large measurement errors near the magnitude
+limit of the BOSS survey---and Galactic stars have similar colors to
+quasars at $z\sim3$; and second, because the number of contaminating
+stars is a strong function of position in BOSS, while the number of
+quasars remains constant. From the end of Year~1, a threshold on
+(RELEVANT PARAMETER) of ($>$ X) was chosen to define the BOSS sample.
+This fixes the fiber density for the core to $20~{\rm deg}^{-2}$ across
+the NGC region of the SDSS.
+
+The CORE algorithm is designed to create a statistical sample of
+quasars. But, over Year~1 of the survey, the algorithm was altered
+several times to attempt to find the best targeting approach, using
+many of the techniques that currently inform the BONUS algorithm
+(see~Section~\ref{sec:BONUS}). In addition, the CORE algorithm over
+the commissioning period, and through the end of Year~1, was tuned
+in a variety of ways to attempt to meet a fiber density of $20~{\rm
+deg}^{-2}$. We therefore caution readers not to consider the CORE a
+statistical sample during year~1 of the survey.
+
+\subsection{The BONUS Algorithm}
+\label{sec:BONUS}
+
+KDE \\
+Likelihood\\
+ExD\\
+NN\\
+Combinator\\
+uses multi-epoch fluxes\\
+Will continue to change, it's a living algorithm\\
+Could incorporate IR, GALEX etc.\\
+Tuned to 40 by filling in difference on top of core.\\
+	
+\subsection{Quasar Target Selection Flags}
+
+What comes out of this mess and in what combination (QSOFIRST+QSOKNOWN+
+etc.). Currently put table in Appendix, could be here instead.
+
+
+\appendix
+
+\section{Quasar Targeting Logic Cuts}
+\label{sec:app1}
+%ADM wrote v1.0 of this section October 7, 2010
+\newcommand{\fb}{{\em bitmask }}
+\newcommand{\fbpunc}{{\em bitmask}}
+
+
+All objects initially classified as a star (i.e. {\tt OBJC\_TYPE $=$
+6}) are passed to the quasar target selection code. Subsequently, 6
+different sets of combinations of possible logic cuts are combined and
+applied to sources that are passed to quasar targeting, depending on the
+reasons that source could be targeted. For instance, sources targeted
+because they are known quasars undergo a different set of logic cuts
+than sources targeted because they match the FIRST radio survey. The
+flag cuts are quicker to process than the more complex main quasar
+targeting algorithms, so are carried out at the start of the algorithm
+to reduce runtime.
+
+Several individual masks of bits are populated according to logic cuts,
+and combined into a parent mask of bits (henceforth referred to as the
+\fbpunc). The \fb makes it possible to determine why a source was not
+passed through a particular portion of the quasar targeting algorithm.
+For example, the bit $2^0$ was reserved for extended objects, and so is
+never populated in the \fbpunc. In this supplement we describe these 6
+parent logic cuts and how the \fb is populated. Note that the magnitude
+logic contains two sets of possible parent logic cuts. In the main text,
+we refer to various combinations of the individual masks listed in the
+individual subsections of this supplement.
+
+\subsection{Resolve Logic}
+	The {\tt RESOLVE\_BITMASK} records whether a source is a primary target in the SDSS photometry. The \fb is populated with a value of $2^{13}$ for objects that are not primary. In the latest version of the target selection code, only sources that are primary are passed through targeting.
+	
+\subsection{Calibration Logic}
+	The {\tt CALIB\_BITMASK} records whether a target was observed in photometric conditions. The \fb is populated with a value of $2^{14}$ for objects that were not observed in photometric conditions. In the latest versions of the target selection code, no cut is made on calibration logic but we retain the {\tt CALIB\_BITMASK} information for backwards compatibility with pieces of code written earlier in the survey.
+
+\subsection{Boundary Logic}
+	The {\tt BOUNDS\_BITMASK} records whether a source is within the SDSS geographical target footprint. The \fb is populated with a value of $2^{16}$ for objects that are outside of the footprint. Only sources that are within the footprint are passed through targeting.
+
+\subsection{FIRST Color Logic}
+	The {\tt FIRST\_COLOR\_BITMASK} is a special color cut reserved for objects that are targeted because they match a radio source from the FIRST survey. To better limit to high redshift quasars within the FIRST sample, we impose a reverse UVX cut at $u - g > 0.4$ (extincted PSF luptitudes) on all FIRST matches. Sources that fail this cut (but might otherwise match FIRST sources) are flagged in the \fb with a value of $2^{17}$.
+
+\subsection{Magnitude Logic}
+	The {\tt GMAG\_BITMASK} records whether a target meets the default magnitude limits required to be targeted as a quasar. Magnitude cuts are made on extincted PSF luptitudes. In the latest version of target selection, the default magnitude limits are $(g \le 22 \parallel r \le 21.85)~\&\&~i \ge 17.8$.  The \fb is populated with a value of $2^{11}$ for objects that lie outside of this magnitude range. A second incarnation, {\tt GMAG\_BITMASK\_NOB}, is used when no bright cut is required---such as when retargeting known quasars. Magnitude cuts are then simply based on the faint limit $(g \le 22 \parallel r \le 21.85$).  The \fb is populated with a value of $2^{12}$ for objects that fail this logic.
+
+\subsection{Flag Logic}
+	By far the most complicated set of logic cuts is based on flags for sources that had problems when processed through the photometric reduction pipeline, which populate the {\tt FLAG\_BITMASK}. The \fb contains rich information on which of these flag cuts a potential target failed, as listed in Table~1. The raw flag cut definitions used below are detailed in Stoughton et al. (2002) except for gerr, rerr and ierr, which denote errors on extincted PSF luptitudes in the $g$, $r$ and $i$ bands, , and for the column and row movement information.
+	
+	First, two sets of flag cuts are defined from the raw flag cuts, denoting whether the photometric pipeline had difficulty deblending or interpolating a source:\\
+
+	\noindent
+    {\tt INTERP\_PROBLEMS} = ({\tt PSF\_FLUX\_INTERP} \&\& ($ {\rm gerr}>0.2 \parallel {\rm rerr} >0.2 \parallel {\rm ierr}>0.2$)) $\parallel$ {\tt BAD\_COUNTS\_ERROR} $\parallel$ ({\tt INTERP\_CENTER} \&\& {\tt CR}) \\
+        
+    \noindent
+    {\tt DEBLEND\_PROBLEMS} = {\tt PEAKCENTER} $\parallel$ {\tt NOTCHECKED} $\parallel$ ({\tt DEBLEND\_NOPEAK} \&\& (${\rm gerr}>0.2 \parallel {\rm rerr}>0.2 \parallel {\rm ierr}>0.2$))\\
+        
+        \noindent where symbols (\&\&, $\parallel$, !) denote standard Boolean logic. Then, a source is determined to pass the flag logic (is {\tt GOOD}) if it passes a range of flag cuts: \\
+                
+    \noindent
+    {\tt GOOD} = {\tt BINNED1} \&\& {\tt !BRIGHT} \&\& {\tt !SATURATED} \&\& {\tt !EDGE} \&\& {\tt !BLENDED} \&\& {\tt !NODEBLEND} \&\& {\tt !NOPROFILE} \&\& {\tt !INTERP\_PROBLEMS} \&\& {\tt !DEBLEND\_PROBLEMS} \&\& {\tt !MOVED} \\
+        
+  \noindent  where {\tt MOVED} is set if the raw flag {\tt DEBLENDED\_AS\_MOVING} is set {\em and} if the value and error on the row or column position in the SDSS imaging pipeline (rowv, colv, rowverr, colverr) suggests a $> 3\sigma$ move across a row or a column.
+
+
+\begin{table}
+  \begin{center}
+    \setlength{\tabcolsep}{4pt}
+    \begin{tabular}{l c l c}
+      \hline
+      \hline
+      Flag & \fb value & Flag & \fb value \\
+      \hline
+                {\tt EXTENDED}  &  $2^0$  & {\tt NODEBLEND} &  $2^9$ \\
+                {\tt INTERP\_PROBLEMS} &  $2^1$  & {\tt NOPROFILE} &  $2^{10}$ \\
+                {\tt DEBLEND\_PROBLEMS} &  $2^2$  & {\tt GMAG\_RANGE} &  $2^{11}$ \\
+                {\tt NOT\_BINNED1} &  $2^3$  & {\tt GMAG\_RANGE\_NO\_BRIGHT\_CUT} &  $2^{12}$ \\
+                {\tt EDGE} &  $2^4$  &  {\tt NOT\_PRIMARY} &  $2^{13}$ \\
+                {\tt BRIGHT} &  $2^5$  & {\tt NOT\_PHOTOMETRIC} &  $2^{14}$ \\
+                {\tt SATUR} &  $2^6$  & {\tt EXTRA\_LOGIC} &  $2^{15}$ \\
+                {\tt MOVED} &  $2^7$  &  {\tt OUT\_OF\_BOUNDS} &  $2^{16}$ \\
+                {\tt BLENDED} &  $2^8$  & {\tt FIRST\_MATCH\_UMG\_TOO\_BLUE} &  $2^{17}$ \\
+
+                	\hline
+       \label{tab:quasarflags}
+     \end{tabular}
+     \caption{Possible imaging problems that cause a source to be flagged in the \fbpunc. Sources with non-zero values in the \fb are not passed through certain sections of the quasar targeting code. All values in the \fb are described in the appendix, except for {\tt EXTRA\_LOGIC} which is used for testing alterations to the algorithm.}
+   \end{center}
+\end{table}
+
+
+\section{Quasar Target Flags}
+
+
+\begin{table}
+  \begin{center}
+    \setlength{\tabcolsep}{4pt}
+    \begin{tabular}{l c l c}
+      \hline
+      \hline
+      Flag & \fb value & Flag & \fb value \\
+      \hline
+
+{\tt QSO\_CORE} & $2^{10}$  % restrictive qso selection     
+& {\tt QSO\_LIKE} & $2^{17}$ \\ % likelihood method     
+{\tt QSO\_BONUS} & $2^{11}$  % permissive qso selection     
+& {\tt QSO\_FIRST\_BOSS} & $2^{18}$ \\ % FIRST radio match     
+{\tt QSO\_KNOWN\_MIDZ} & $2^{12}$  % known qso between [2.2,9.99]    
+& {\tt QSO\_KDE} & $2^{19}$ \\ % selected by kde+chi2     
+{\tt QSO\_KNOWN\_LOHIZ} & $2^{13}$ % known qso outside of miz range. never target
+& {\tt QSO\_CORE\_MAIN} & $2^{40}$ \\ % Main survey core sample    
+{\tt QSO\_NN} & $2^{14}$ % Neural Net that match to sweeps/pass cuts 
+& {\tt QSO\_BONUS\_MAIN} & $2^{41}$ \\ % Main survey bonus sample    
+{\tt QSO\_UKIDSS} & $2^{15}$ % UKIDSS stars that match sweeps/pass flag cuts 
+& {\tt QSO\_CORE\_ED} & $2^{42}$ \\ % Extreme Deconvolution in Core    
+{\tt QSO\_KDE\_COADD} & $2^{16}$ % kde targets from the stripe82 coadd  
+& {\tt QSO\_CORE\_LIKE} & $2^{43}$ \\ % Likelihood that make it into core  
+
+                	\hline
+	
+       \label{tab:quasartargetflags}
+     \end{tabular}
+     \caption{Quasar target flags.}
+   \end{center}
+\end{table}
+
+
+
+\end{document}
+
+
+
+
+
+

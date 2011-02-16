@@ -1,0 +1,17 @@
+\subsection{Selection of Entries}
+
+The database contains all entries within the primary row range for each
+field. Recall that the fields in the SDSS runs are defined artificially, since
+in fact each camcol of each run is one long image. When breaking up into
+fields, some overlap is kept between the two fields in order to minimize the
+effect of this arbitrary edge.  This overlap is 64 rows on either side of the
+field.
+
+This cut is equivalent to demanding the STATUS flag \texttt{OK\_RUN} is
+set. The only exceptions are the first and last field: since there is actually
+no overlap, there is no need to cut the first 64 rows for the first field and
+the last 64 for the last field.  Thus the actual cut is this:
+
+\begin{equation}
+\textrm{row} > (field > fieldmin)*64~~\&\&~~\textrm{row} < \left[1489 - (field < fieldmax)*64 \right]
+\end{equation}

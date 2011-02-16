@@ -1,0 +1,1379 @@
+\documentclass{emulateapj}
+\usepackage{graphics}
+
+\usepackage{color}
+
+%\usepackage{verbatim}
+
+%\documentclass[12pt,preprint]{aastex}
+
+%% manuscript produces a one-column, double-spaced document:
+
+% \documentclass[manuscript]{aastex}
+
+%% preprint2 produces a double-column, single-spaced document:
+
+% \documentclass[preprint2]{aastex}
+
+\slugcomment{Last revision \today}
+
+\input{newcommands.tex}
+\def \epssmall {0.7}
+
+\shorttitle{Cluster Galaxy Populations}
+\shortauthors{Hansen et al.}
+
+\begin{document}
+
+\title{Cluster Galaxy Populations in the Local Universe}
+
+\author{Sarah M. Hansen\altaffilmark{1,2},
+Erin Scott Sheldon\altaffilmark{3},
+Risa H. Wechsler\altaffilmark{4}.
+Benjamin P. Koester\altaffilmark{1}
+et al.?}
+
+\altaffiltext{1}{Department of Astronomy and Astrophysics,
+University of Chicago, Chicago, IL 60637}
+\altaffiltext{2}{Kavli Institute for Cosmological Physics,
+University of Chicago, Chicago, IL 60637}
+\altaffiltext{3}{Center for Cosmology and Particle Physics, Department of Physics, New York University, 4 Washington Place, New York, NY 10003}
+\altaffiltext{4}{Kavli Institute for Particle Astrophysics \& Cosmology,
+  Physics Department, and Stanford Linear Accelerator Center,
+  Stanford University, Stanford, CA 94305}
+
+\begin{abstract}
+  Imaging data from the Sloan Digital Sky Survey are used to
+  investigate the population of galaxies in clusters detected with the
+  \maxbcg\ algorithm in Sloan Digital Sky Survey Data. We find stuff. 
+
+\end{abstract}
+
+\keywords{galaxies: clusters --- galaxies: evolution --- galaxies: halos --- cosmology: observations}
+
+
+\section{Introduction}\label{sec:intro}
+
+Clusters of galaxies are important systems for studying both cosmology and
+galaxy evolution. Used as tracers of the underlying mass distribution, these
+massive objects are a tool for investigating the evolution of structure and the
+nature of dark energy in the universe.  Used as laboratories with well-defined
+environments they are a tool for investigating processes influencing galaxy
+evolution.  \textcolor{red}{The fact is, only by understanding the full picture
+can we understand either.}
+
+{\bf [Comments about characterizing samples of clusters for use in cosmology].}
+
+
+\textcolor{red}{I think the following paragraph should be merged with the
+following paragraphs; I didn't modify it. Some references are called for.
+Also, The BCG comment can be made stronger: The brightest cluster galaxy is
+observed to have properties very different from other galaxies.  I think this
+was purely observational to begin with, which has motivated a special treatment
+by both observers and theorists.} Galaxy populations in clusters have been
+quantified for as long as clusters have been identified, and galaxy morphology,
+star-formation, and luminosity all can be shown to depend on various
+cluster-related properties.  The distribution of properties of cluster members
+reveals information about the build-up of clusters and what happens to galaxies
+in these dense environments.  The brightness and color of the member galaxies
+have historically been quantified respectively by the luminosity function (LF)
+of members and by  a galaxy type fraction (such as the blue fraction). As
+observational and theoretical results indicate that the Brightest Cluster
+Galaxies (BCGs) are drawn from a different population that the rest of the
+cluster members, BCGs and satellites are often treated separately.
+
+Galaxies are bimodal in color and spectral type, with red, early-type galaxies
+displaying little ongoing star formation, and blue, late-type galaxies
+exhibiting signs of recent star formation \citep[e.g.,][]{Strateva01, Baldry04,
+Bell04, Menanteau06, Blanton05b}.  While this bimodality persists in all
+environments, the relative numbers of galaxies in these two classes (a.k.a the
+blue fraction) changes systematically with local density; this is the so-called
+morphology-density relationship \citep{Oemler74,Dressler80}.  In recent large
+galaxy surveys this work has been extended to show that a wide range of galaxy
+properties, including morphology, star-formation rate, and color, depend on
+local density 
+\citep{Gomez03,Balogh04a,Balogh04b,Hogg04,Kauffmann04,Tovmassian04,Blanton05b,Christlein05,Croton05,Rojas05,Cooper06,Mandelbaum06,Cooper07}.
+
+The fraction of star-forming galaxies at fixed local density is larger at
+higher redshift, an effect known as the Butcher-Oemler effect
+\citep{ButcherOemler}. This effect is now well-documented, if not entirely
+well-explained, in clusters over a wide range of masses by studies of the blue
+fraction, or its converse, the red fraction
+\citep{Rakos95,Margoniner00,Ellingson01,KodamaBower01,Margoniner01,depropris04,Martinez06,Gerke07}
+and other star-formation indicators including galaxy morphology and emission
+line strength
+\citep{AS93,ODB97,Balogh97,Couch98,vanDokkum00,Fasano00,Lubin02,Goto03,Treu03,Wilman05,Poggianti06,Desai07,vanderwel07}.
+The dependence of galaxy type fraction on mass, redshift, enviroment, and galaxy
+luminosity provide important constraints on which physical mechanisms are
+responsible for setting the observed cluster galaxy population.
+
+The luminosity function (LF) of cluster galaxies departs significantly from the
+cosmological average.  Measurement of the LF as a function of cluster mass and
+galaxy color provides insight into physical mechanisms affecting galaxy
+evolution that are particularly extreme in dense environments.  Additionally,
+the LF as a function of halo mass (the conditional luminosity function, CLF) is
+an important ingredient in models explaining the cosmology-dependent
+distribution of galaxies \citep[see][and references therein]{vdB07}.  The
+advent of large galaxy surveys has made it possible to place observational
+constraints on the CLF and its dependence on galaxy color and distance from the
+cluster center.  In the Sloan Digital Sky Survey \citep*[][SDSS]{York00},
+\citet{Hansen05} examined the LF as a function of cluster richness and
+$r/$\rtwo\ for systems found with an early version of the \maxbcg\ cluster
+catalog; \textcolor{red}{Need to make introduction of \maxbcg\ more organic}
+\citet{Weinmann06b} examined the CLF measured from a group catalog derived from
+an early SDSS spectroscopic sample.  Using the 2dF Galaxy Redshift Survey,
+\citet{depropris03} and \citet{Robotham06} compared the LF in high- and
+low-mass systems; a similar study was performed with a sample of 93 X-ray
+selected clusters \citet{LMS04}.  However, few samples to date have had both
+large numbers of systems and well-understood mass proxies, so the dynamical
+range and mass resolution has been somewhat limited.
+
+The independent variable we wish to probe is the cluster mass, but the LF
+depends on a number of variables complicating detailed comparison between
+different clusters.  For example, the cluster galaxy LF depends on
+cluster-centric distance, and the size of the bound regions of clusters scales
+with mass.  Thus, in order to make physically meaningful comparisons of the LF
+of different mass clusters, an aperture scaled scaled to the bound region is
+preferable to a fixed metric aperture.  Additionally, the LF depends on galaxy
+color, as shown by the differences in red and blue galaxy LFs presented in {\it
+e.g.,} \citet{PopessoLF} and others.  Furthermore, while the traditional
+fitting function to the LF of \citet{Schechter76} provides a good fit to the
+distribution of satellite galaxy luminosities, BCGs follow a different
+distribution, causing the so-called ``bright end bump''.  This result has been
+seen observationally \citep[e.g.,][]{Hansen05}, is expected within the HOD
+framework \citep[e.g.,][]{Kravtsov04,Zheng05} \textcolor{red}{I wouldn't say
+the HOD predicts anything; you get out what you put in}, and is one of several
+signals that the BCG population is somehow special.
+
+Most clusters host a noticeably dominant BCG galaxy. In addition to being
+extraordinarily luminous, BCGs different in a number of ways from other cluster
+members and from other galaxies of similar mass, but not located at the bottom
+of a cluster potential well \textcolor{red}{Are there such things? Fossil
+groups would still have the potential well in place.}.  BCGs tend to have
+extended light profiles, and contain a larger fraction of dark matter than
+other galaxies \citep[e.g.,][]{Anja07, VO07}.  
+
+Recent observational work has focused on the correlation between BCG luminosity
+and cluster mass, and the dependence of the BGC luminosity fraction on cluster
+mass {\it e.g.,} \citet{LinMohr04} and \citet{ZCZ07}. Quantifying these mean
+relations is important for placing constraints on models of BCG and structure
+formation \textcolor{red}{Presumably you are referring to merging, etc.  Maybe
+fill this out}.
+
+A challenge to theories of galaxy formation and evolution is to explicate the
+observed dependence of galaxies properties on environment.  Some physical
+processes are expected to be most effective in rich clusters, such as
+ram-pressure stripping \citep{GunnGott72}, interaction with the cluster
+potential \citep{ByrdValtonen90}, and high-velocity close encounters
+\citep[``harassment;''][]{Moore96} \textcolor{red}{I thought these were
+irrelevant?}. However, studies of very poor systems have shown that the
+environmental dependence of galaxy properties is not limited to the richest
+objects \citep[e.g.,][]{Zabludoff98,Weinmann06a,Gerke07}. Processes that
+operate most efficiently in low velocity dispersion systems must also play a
+role: galaxy mergers \citep{TT72} and ``strangulation'', a cutoff to gas
+accretion onto galaxy disks by stripping or AGN feedback
+\citep{Larson80,BNM00,Croton06}. Some combination of these effects results in
+the specific galaxy population achieved, and it is thus clearly necessary to
+quantify precisely the characteristics of the cluster galaxies over a wide
+range of masses. 
+
+It is expected that the galaxy population of a cluster is closely tied to the
+formation history of its parent dark matter halo, and that the accretion
+history of the system influences the associated galaxy population.  The HOD
+models of \citet{} and other semi-analytic models such as those of \citet{} are
+examples of this kind of formation-history-based predictive analysis.
+\textcolor{red}{\bf Need to say more here!} 
+
+\textcolor{red}{Risa needs to fix this paragraph.} While it is expected that
+most BCGs are built through galaxy mergers, there is still debate regarding the
+details of the merging history and possible feedback mechanisms required to
+produce the observed BCG colors and luminosities.  Describing the BCG
+population has been approached both by examining the results of simulations
+\citep{AS98,Dubinski98,Gao04a,BK06,DeLucia07} and with models employing
+statistical descriptions of the subhalo population, linking subhalo and galaxy
+properties via the halo occupation distribution (HOD)
+\citep[e.g.][]{Scoccimarro01,Berlind03,Zheng05}, conditional luminosity
+function (CLF)\citep[e.g.][]{vdB03,Cooray05}, or with models matching galaxy
+luminosity to subhalo maximum circular velocity,
+$V_{max}$\citep[e.g.][]{KK99,Tasitsiomi04,Conroy06,VO06}. In each case,
+selecting the first ranked galaxies (whether by position, luminosity, or
+$V_{max}$) results in a population that has different properties from the rest
+of the cluster members.
+
+\textcolor{red}{This needs to be merged with the discussion above about
+apertures, etc.} There is consensus that the satellite LF and galaxy type
+fraction, and the BCG characteristics depend on cluster and galaxy properties,
+but there some disagreement in detail. As mentioned above, comparison is
+complicated by the interdepencency between all the relevant variables: for
+example, if a parameter depends upon cluster mass, cluster-centric distance, or
+galaxy magnitude, then imprecision in the mass--observable relationship,
+different choices of radial range about the cluster center, or differing
+limiting magnitudes can result in apparent disagreement. With recent extensive,
+homogeneous surveys providing well-calibrated cluster catalogs spanning a wide
+range in mass, however, it becomes possible to examine in detail the dependence
+of the cluster galaxy population on several cluster and galaxy properties
+simultaneously. \textcolor{red}{This is a bit confused; from what you have
+said, this could be achieved from previous results by just adopting the
+same conventions for all studies.}
+
+Currently, the largest sample of clusters available is the \maxbcg\ catalog from
+the Sloan Digital Sky Survey \citep{Koester07a}.  The selection effects of the
+algorithm are well understood \citep{Koester07b, Rozo07a}, and there are a
+number of studies exploring the mass--richness relationship for these objects
+\citep{Rozo07b,Becker07,Sheldon07a, Johnston07b,Rykoff07,Rozo08}.  Although
+this sample of clusters extends only to redshift 0.3, these objects provide a
+valuable low-redshift baseline to which higher redshift samples may be
+compared. The quality and quantity of these data allow for unprecedented detail
+in the measurement of a variety of cluster galaxy properties as a function of
+cluster mass.
+
+\textcolor{red}{Is this first sentence a certainty? Maybe remove. The rest of
+this could also be embedded into later paragraphs.} Ultimately, understanding
+the physics responsible for producing the observed galaxy content of clusters
+will require detailed comparison between the data and ultra high resolution
+cosmological hydrodynamical simulations.  However, in lieu of having such
+simulations at hand, it is useful to examine large N-body simulations populated
+to match the statistical properties of galaxies, such as that of
+\citet{Wechsler}. In addition to providing insights about the underlying
+correlations among galaxy and halo properties, comparison with such simulations
+offers an avenue for understanding the selection function of any cluster finder
+and a way to validate algorithms used to quantify the galaxy populations in
+these systems.
+
+In this paper we explore the luminosity and color distribution of galaxies in
+clusters as a function of cluster mass \textcolor{red}{Really richness}; we
+wish to present observational constraints that may prove useful for
+discriminating among various models of galaxy evolution and for characterizing
+the cluster galaxy population as a function of cluster mass
+\textcolor{red}{Previous sentence mixes what you did with what you want to learn}.
+Using the \maxbcg\ catalog of clusters in the SDSS, we investigate the population
+of galaxies associated with stacked sets of these clusters via a
+correlation-function-based statistical background correction. We test the
+background correction algorithm by running the full analysis on the mock
+catalogs of \citet{Wechsler}. For satellite galaxies we measure the conditional
+luminosity function of all, red, and blue satellites and investigate the
+dependence of the red fraction of satellites on cluster mass, redshift, galaxy
+luminosity and distance from cluster center; for BCGs we quantify the
+dependence on cluster mass of both the BCG luminosity and the relationship
+between the BCG luminosity and satellite galaxy luminosities.
+
+\textcolor{red}{Stopped Here}
+
+The paper is organized as follows: in \S \ref{sec:data} we describe the SDSS
+and simulation data used; we present the stacking and background correction
+method in \S \ref{sec:methods}. Our primary results are given in \S
+\ref{sec:results}: \S \ref{sec:sats} presents the luminosity and color
+characteristics of the satellite population, while \S \ref{sec:BCGs} discusses
+the BCG population. A summary and discussion of the implications of the results
+is given in \S \ref{sec:conclusion}.  
+
+The notation convention for cluster-related variables in previous MaxBGC work
+includes defining \Ntwo and $L_{200}$ as the counts and $i$-band luminosity of
+red-sequence galaxies within the measurement aperture of the cluster finder and
+with L $> 0.4L_*$. We note that as the aperture for cluster finding was
+determined with a previous definfition of richness, it is not strictly the true
+value of \rtwo\ for these systems (in fact, it is larger), and only red
+galaxies are included in these definitions. In this work we will refer to the
+total excess luminosity associated with light from all colors of galaxies above
+a luminosity threshhold and within the measured \rtwo\ of these systems as
+\deltalvir.
+
+Where necessary, we assume a flat, LCDM cosmology with H$_{0} = 100h$ km
+s$^{-1}$ Mpc$^{-1}$, $h = 0.7$, and matter density $\Omega_m = 0.3$.
+
+\section{Data} \label{sec:data}
+
+We use the photometric data of the $\sim 10^4$ deg$^2$ Sloan Digital
+Sky Survey (SDSS). The SDSS data were obtained using a
+specially-designed 2.5-m telescope \citep{Gunn06}, operated in
+drift-scan mode in five bandpasses (\ugriz) to a limiting magnitude of
+$r<22.5$ \citep{Fukugita96, Gunn98, Lupton10, Hogg01, Smith02}. The
+survey covers much of the North Galactic Cap and a small,
+repeatedly-scanned region in the South. Apparent magnitudes are
+corrected for Galactic extinction using the maps of
+\citet{Schlegel98}. Photometric errors at bright magnitudes are $\le
+3\%$, limited by systematic uncertainty \citep{Ivezic04}; astrometric
+errors are typically smaller than 50 mas per coordinate
+\citep{Pier03}. Further details of the SDSS data may be found in the
+most recent data release paper of \citet{dr5}.
+
+With these data, we define a catalog of galaxies, then run our
+cluster-finding algorithm on this list to produce a catalog of galaxy
+clusters. The set of clusters and galaxies are then jointly analyzed
+to determine the binned correlation function measurements used in this
+work to describe the galaxy population associated in clusters. In this
+section, we describe the galaxy and cluster catalogs.
+
+\subsection{Galaxy Sample}
+Our photometric galaxy catalog is generated by applying the Bayesian
+star-galaxy separation method developed in \citet{Scranton02} to the
+full set of SDSS data. As the primary source of confusion in
+star-galaxy separation at faint magnitudes is shot noise, which causes
+stars to scatter out of the stellar locus and galaxies to scatter into
+the stellar locus, being able to constrain the intrinsic distribution
+of sizes and magnitudes of observed objects is essential to successful
+star-galaxy separation. The \citet{Scranton02} method uses knowledge
+about the underlying size distribution of objects as a function of
+apparent magnitude to assign a probability of being a galaxy to each
+object under consideration. The SDSS's repeatedly scanned, and thus
+deeper, southern region of data is used to constrain the distribution
+of star and galaxy sizes, and this information is then used to
+determine the probability of being a galaxy for each object in the
+rest of the survey area.
+
+To characterize the southern strip data, we add the flux of objects in
+these repeat scans at the catalog level to increase the S/N. We use only regions of sky which have at least 20 repeat scans, and choose the 20 observations with the best seeing for each object. This
+region of data is thus comparable to the single-scan region but with
+better measured magnitudes and sizes for all objects.  In this coadded
+data, the S/N at any given magnitude is higher than in the single-scan
+data, and the distribution of measured sizes is closer to the
+underlying distribution.  This distribution of object sizes is used to
+assign each object in the rest of the survey area a galaxy
+probability.  The resulting distribution is highly peaked at
+probabilities 0 and 1, such that $prob >$ 0.8 results in a highly pure
+sample of galaxies. {\bf what mag limit to which s-g sep is good?} We
+then search the resultant catalog of galaxies for systems that are
+likely to be clusters of galaxies using the \maxbcg\ algorithm described
+briefly below and in detail in \citet{Koester07a}.
+
+For the purpose of this work, characterizing the galaxy population in
+clusters, we restrict the galaxy sample to be volume and magnitude
+limited by including only those galaxies with $^{0.25}L_i > 10^{9.5}
+h^{-2}$L$_{\odot}$, associated with systems limited to $z < 0.3$.
+This luminosity limit corresponds to \Mi\ $< -19.08$, which in
+turn corresponds to an apparent magnitude limit of $i < 21.3$, and
+color limits of \gmr\ $< 2$ and $^{0.25}(r-i) < 1$. All magnitudes are SDSS model magnitudes.
+
+
+\begin{figure*}
+\plotone{example_col_lum.eps}
+\figcaption[example_col_lum.eps]{Joint distribution of \gmr\ and $^{0.25}i$-band luminosity density as a function of projected separation from
+cluster centers for an example richness bin, 12 $\le$ \Ntwo\ $\le$ 17.  Each panel corresponds to a different
+radial bin; the radius is indicated in the legend.  The one dimensional
+distributions for color and luminosity are also shown along the $y$ and $x$ axes respectively. The luminosity
+distribution is expressed as log of the number density as a function of log
+luminosity; the color distribution is linear density as a function of color.
+At small separations red galaxies dominate while on large scales there is a
+bivariate color distribution similar to the global field distribution.  A smaller fraction of
+galaxies is highly luminous at small separations as compared to large
+separations.  \label{fig:lumcolor_vs_rad} } \end{figure*}
+
+\subsection{Cluster Sample} 
+\label{sec:clustersamp} 
+Clusters are identified with the \maxbcg\ cluster finder of
+\citet{Koester07a}. This algorithm identifies clusters by the presence
+of a BCG and a red sequence, and provides an excellent photometric
+redshift ($\Delta z \sim 0.02$ over the entire richness range of clusters identified) for each system. The center of the cluster is defined to be
+at the position of the BCG. The cluster richness, \Ntwo, is defined as
+the number of red galaxies with rest frame $i$-band luminosity L $>$ 0.4\Lstar\ in an aperture that scales with \rtwo, and
+is an excellent mass proxy, as discussed below. The catalog of systems
+with \Ntwo\ $\ge$ 10 is presented in \citet{Koester07b}; in this work
+we use systems with \Ntwo\ $\ge$ 2.
+
+The selection function of the \maxbcg\ algorithm has been extensively
+investigated, as reported in \citet{Koester07a} and \citet{Rozo07a},
+who show that this sample of clusters is over 90\% complete and pure
+for \Ntwo\ $>$ 10. Although the strong selection function for lower
+richnesses systems means that these objects, with just a few red
+galaxies in close proximity, are not necessarily representative of all systems in the
+equivalent mass range, such objects are nonetheless interesting for
+study, and we thus include data from this lower richness regime as
+well. However, for the purpose of fitting relationships of galaxy
+properties as a function of cluster richness or mass, we restrict the
+sample \Ntwo\ $>$ 10, where the sample is both highly complete and
+pure.
+
+
+
+We use clusters in the redshift range 0.1 $\le z \le$ 0.3; there are
+{\bf xxx,xxx} objects identified with \Ntwo\ $\ge$ 2, of which 10,901 have
+\Ntwo $>$ 10.
+
+\subsection{Field Values}
+Describe using Blanton's stuff for z=0.25 luminosity, color, red frac estimates here. 
+
+
+\section{Method} \label{sec:methods} In this section, we describe how
+we characterize the radial, luminosity, and color distribution of
+galaxies that are associated with clusters. In \S\
+\ref{sec:estimator} we review the estimator used to determine the
+distribution of cluster galaxies; \S\S\ \ref{sec:randoms} through
+\ref{sec:mass-obs} discuss the technical details of characterizing the
+survey geometry and redshift distributions, performing
+K-corrections, and determing \rtwo. We check the background correction with a mock galaxy catalog in \S \ref{secc:bkgtest}.
+
+In lieu of being able to spectroscopically confirm the membership of
+every galaxy, it is necessary to make a statistical correction for the
+foreground and background galaxies that happen to projected along the
+line of sight to a cluster. We assume the presence
+of a cluster at some redshift does not affect field galaxies found
+along the same line of sight at different redshifts. That is, the distribution of galaxies
+projected around a cluster center has two independent components: the
+distribution of real cluster-associated galaxies, and the distribution of random
+background and foreground galaxies. In a homogenous and isotropic universe, this assumption is valid for our stacked samples of clusters unless the cluster-finding algorithm preferentially finds systems that are elongated along our line of sight, which there is no evidence to suggest is happening. Although we cannot identify exactly which galaxies
+make up a particular cluster, we can very accurately describe the mean
+properties of galaxies associated with a given set of clusters. We note that not all cluster-associated galaxies are `members' in the sense of being bound to the system: we find an excess density of galaxies compared to random even at radii many times greater than \rtwo.
+
+It is important to make this background correction in a manner
+dependent on luminosity and color, and not too close to the cluster
+center --- there is mass and light correlated with clusters out to
+many times the virial radius, so a too-local background subtraction
+will cause an underestimate of the galaxy population in clusters. In
+\citet{Hansen05} we used the full SDSS data set to estimate the
+background as a function of luminosity and cluster-centric distance; \citet{Masjedi06a} implemented the use of a
+correlation-function based estimator to describe the cluster
+population. This estimator is a powerful tool, but requires a
+significant amount of computation for the large number (
+  of order $10^9$) of pairs that must be considered.
+
+
+
+\subsection{Distribution of Cluster-Associated Galaxies} \label{sec:estimator}
+We follow the method of \citet{Masjedi06a} to estimate the mean number density
+and luminosity density of galaxies associated with clusters.  This method essentially
+calculates a correlation function with units of density; it includes corrections for random
+pairs along the line of sight as well as pairs missed due to edges and holes.
+
+To apply this estimator to the data, we define two samples: the
+primary sample, denoted $p$, and the secondary sample, denoted $s$,
+that are either in the real data $D$ or random locations $R$.  For
+example, the counts of real data secondaries around real data
+primaries is denoted $D_p D_s$, while the counts of real data
+secondaries around random primaries is $R_p D_s$.  In our case, the
+real data primaries are galaxy clusters with redshift estimates and
+the secondaries are the imaging sample of galaxies with no redshift
+information. For the sample of random locations used to correct for
+the distribution of non-cluster-correlated objects along lines of
+sight to clusters, we use randomly chosen positions for primaries and
+secondaries with redshift distributions chosen to match that of the
+clusters; details of random catalog generation are discussed in \S
+\ref{sec:randoms}.
+
+
+The mean luminosity density of secondaries around primaries is 
+\begin{equation} \label{eq:estimator}
+\bar{l}~ w = \frac{D_p D_s}{D_p R_s} - \frac{R_p D_s}{R_p R_s},
+\end{equation}
+where $\bar{l}$ is the mean luminosity density of the secondary sample,
+averaged over the redshift distribution of the primaries, and $w$ is the
+projected correlation function. This is the estimator from \citet{Masjedi06a}
+where the weight of each primary-secondary pair is the luminosity of the
+secondary.  We have written the measurement as $\bar{l} w$ to illustrate that
+the estimator gives the mean density of the secondaries times the projected
+correlation function $w$. Using a weight of unity gives the number density rather than luminosity density. Only the excess luminosity density with respect to
+the mean can be measured, but this excess is exactly the cluster-correlated distribution in which we are interested.
+
+
+The first term in equation \ref{eq:estimator} estimates the total luminosity
+density around clusters, including everything from the secondary imaging
+sample that is projected along the line of sight. The second term quantifies the contribution to the total signal from
+random objects along the line of sight, and thus the difference in terms gives the density of objects actually associated with the clusters.
+
+
+The numerator of the first term, $D_p D_s$, is calculated as:
+\begin{equation}
+D_p D_s = \frac{\sum_{p,s}{L_s}}{N_p} 
+  = \langle L_{pair} \rangle + \langle L^R_{pair} \rangle 
+  = f A~\bar{l}~(w + 1),
+\end{equation}
+where the sum is over all pairs of primaries and secondaries, weighted by the
+luminosity of the secondary.  The secondary luminosity is calculated by
+K-correcting each secondary galaxy's flux assuming it is at the same redshift
+as the primary (see \S \ref{sec:kcorr} for details). The total luminosity is
+the sum over correlated pairs ($L_{pair}$) as well as random pairs along the
+line of sight ($L^R_{pair}$). By the definition of $w$, this number is the total
+luminosity per primary times $w+1$. This term can be rewritten in terms of the
+luminosity density of the secondaries $\bar{l}$ times the area probed $A$.
+Some fraction of the area searched around the primaries is empty of secondary
+galaxies due to survey edges and holes. The geometry factor $f$ represents the mean
+fraction of area around each primary actually covered by the secondary catalog. The geometry factor
+is a function of pair separation, with a mean value close to 1 on small scales
+but then dropping rapidly at large scales. Measurement of the survey geometry is discussed in \S \ref{sec:geom}.
+
+
+The denominator of the first term calculates the factor $f A$, the actual area
+probed around the primaries.  This term in the denominator corrects for the
+effects of edges and holes. Also, because the denominator has units of area, we recover a
+density rather than just the usual correlation function. This term is calculated as:
+\begin{equation}
+D_p R_s = \frac{ N^{DR}_{pair} }{ \sum_{p} \left( \frac{d\Omega}{dA} \right)_p \frac{dN}{d\Omega}  }
+  = f A
+\end{equation}
+where the numerator is the pair counts between primaries and random secondaries, and
+the denominator is the expected density of pairs averaged over the redshift
+distribution of the primaries, times the number of primaries.  The ratio is the
+actual mean area used around each primary $f A$.
+
+The second term in equation \ref{eq:estimator} accounts for the
+random pairs along the line of sight.  The numerator and denominator of this term
+are calculated in the same way as the first term in equation \ref{eq:estimator},
+but with randomly chosen locations as primaries distributed over the survey geometry.
+The redshifts of these random primaries are chosen such that the distribution of redshifts
+smoothed in bins of $\Delta z = 0.01$ match that of the clusters. We see that
+\begin{eqnarray}
+R_p D_s = \frac{\sum_{pr,s}{L_s}}{N_p} 
+  = \langle L^R_{pair} \rangle 
+  = f^R A^R~\bar{l}
+\end{eqnarray}
+and
+\begin{eqnarray}
+R_p R_s = \frac{ N^{RR}_{pair} }{ \sum_{pr} \left( \frac{d\Omega}{dA} \right)_{pr} \frac{dN}{d\Omega}  }
+  = f^R A^R;
+\end{eqnarray}
+the ratio of these two terms, $R_p D_s / R_p R_s$, calculates the mean 
+density of the secondaries around random primaries after correcting for the survey geometry.
+
+By replacing the luminosity of the secondaries with a weight of unity we recover
+the mean density of pairs, rather than their luminosity density.  The ratio
+of these two measurements gives the mean luminosity per secondary.
+
+
+\begin{figure}
+\plotone{example_usedarea.eps}
+\figcaption[example_usedarea.eps]{Mean fractional area searched relative to the area in the radial
+bin for one bin in cluster richness.  Edges and holes dilute the true galaxy counts, biasing the measured
+density.  This effect is negligible on small scales, but becomes important for
+large separations when a higher fraction of clusters are closet to the edge
+than the search radius.  Due to small area at small separations, the value is
+not well determined, but must approach unity smoothly.  We model this with a
+polynomial constrained to unity on small scales.  For larger scales no model
+is needed. \label{fig:usedarea}} \end{figure}
+
+
+The density measured with this technique may be tabulated in various ways,
+typically as a function of projected radial separation $R$.  We tabulate in a
+cube which represents bins of separation $R$, luminosity $^{0.25}L_i$, and color \gmr.
+This choice facilitates the study of the radial dependence of the luminosity function
+and the color-density relation. We make measurements for objects in the ranges $0.02 <
+R < 11.5 h^{-1}$ Mpc (in 18 bins), $0 <$ \gmr\ $< 2$ (in 20 bins) and $9.5 < $ log$_{10}(^{0.25}L_i/L_{\odot}) <
+11.7$ (in 20 bins), where $g-r$ and $L_i$ were K-corrected to the median redshift of the cluster sample, $z = 0.25$.  An example of the resulting distribution is shown in Figure \ref{fig:lumcolor_vs_rad}: each panel shows the joint color-luminosity distribution in the richness bin 12 $\le$ \Ntwo\ $\le$ 17 for a different radial range. We save the cubes of luminosity density and number density data for every cluster, then bin the clusters into samples of different richness. We bin the clusters by richness to have the S/N to quantify the various richness-luminosity-color relationships discussed in this work.
+
+The projected radial profiles as function of luminosity and color are inverted using the standard Abel type integral to recover the three-dimensional profiles of excess density following the method discussed in \citet{Johnston07a,Sheldon07b}. {\bf Need a short summary, inc noting that we lose the last radial data point as a result and the (small) unceratinly level introduced.} This deprojection is necessary so as not to bias the results with excess galaxies; as the mean color of galaxies changes with cluster-centric distance, it is especially necessary to perform this deprojection for accurate recovery of red fraction and luminosity functions. Failure to properly deproject will result in artificially high faint-end LF slopes and artificially low red fractions. We translate the bins of physical radial separation into bins of \rad\ using the measured \rtwo-\Ntwo\ relationship (see \S \ref{sec:mass-obs}).
+
+We evaluate the uncertainties for every value using jackknife estimation. We divide the survey area into 12 roughly contiguous, roughly equal area sections, then recalculate our results 12 times, each time leaving out one section. The jackknife estimate of the standard deviation about the mean is the square root of the second moment of this set of results around the original result (Lupton 1993): 
+
+\begin{equation}
+{\rm Var}(x) = \frac{N-1}{N} \sum_{i=1}^N (x - (\bar x))^2
+\end{equation} 
+
+where N is the number of subsamples.
+
+These measurements allow investigation of the distribution of
+excess-over-random galaxies around identified cluster centers. If a significant
+fraction of BCGs are miscecnterred relative to the center of the dark matter
+profiles (whether because the true BCG does not lie at the deepest part of the
+potential well or because the wrong galaxy was identified as the BCG during
+cluster detection), the resulting weak-lensing profiles can be affected
+\citet{Johnston07a}, as should the light profiles. In the work we make no
+adjustment for a miscenterring correction, but note that is is the distribution
+of galaxies around \maxbcg\ cluster centers, not necessarily halo centers, that
+we recover.
+
+\subsection{Random Catalogs} \label{sec:randoms} To correct for the
+contribution of random interlopers along the lines of sight to
+clusters, we generate a set of 15 million random points. These points
+are used in the RD, DR and RR terms from the estimator described in
+Equation \ref{eq:estimator}. The random positions are distributed
+uniformly over the survey area using the window function described in
+\S \ref{sec:geom}. The redshifts used for random points must
+statistically match that of each cluster sample in order for the
+interloper subtraction to be accurate. To achieve the proper
+distribution, we initially set the redshift distribution of the random
+points to be that of constant density in comoving volumes over the
+redshift range of the clusters. Then for any given subsample of
+clusters examined, we draw random subsets of these redshifts such that
+the resulting redshift distribution of random points matches that of
+each cluster subsample when smoothed with a $\Delta z$ = 0.01 window.
+
+
+
+
+\subsection{Survey Geometry} \label{sec:geom}
+
+We characterize the survey geometry using the SDSSPix code
+\footnote{http://lahmu.phyast.pitt.edu/$\sim$scranton/SDSSPix/}. This code
+represents the survey using nearly equal area pixels, including edges and holes
+from missing fields and ``bad'' areas near bright stars.  We remove areas with
+extinction greater than 0.2 magnitudes in the dust maps of \citet{Schlegel98}.
+This window function was used in the cluster finding and in defining the galaxy
+catalog for the cross correlations.  By including objects only from within the
+window, and generating random catalogs in the same regions, we control and
+correct for edges and holes in the observed counts as described in \S
+\ref{sec:estimator}. 
+
+The denominator terms DR and RR in Equation \ref{eq:estimator} correct
+for the survey edges and holes by measuring the actual area searched.
+An example DR is shown in Figure \ref{fig:usedarea}, generated for one
+richness bin. This quantity is expressed as the mean fractional area
+searched relative to the area in the bin. For small separations, edges
+and holes make little difference, so the fractional area searched is
+close to unity, but on larger scales edges become important.
+
+On very small scales the area probed in each bin is relatively small
+and the correction factor is not well constrained.  However, we know
+that it must be close to unity, a fact that is clear from visual
+inspection.  To smooth the result, we fit a fifth order polynomial,
+constrained to be unity on small scales, to the fractional area as a
+function of the logarithmic separation.  Due to the weighting, this
+approach results in a curve that approaches unity smoothly on small
+scales, yet matches intermediate separation points exactly.  Points on
+larger scales are well-constrained and do not need smoothing.
+
+
+
+\subsection{K-corrections} \label{sec:kcorr}
+
+We calculated K-corrections using the template code \texttt{kcorrect} from
+\citet{BlantonKcorr03}.  This code is accurate but too slow to calculate the
+K-corrections for the billions of pairs found in the cross-correlations. To
+make the computation tractable, we computed the K-correction on a grid of colors in advance using
+galaxies from the SDSS Main sample as representative of all galaxy types. We
+computed the K-corrections for these {\bf X,XXX,XXX} galaxies on a grid of redshifts between 0 and 0.3,
+the largest redshift considered for clusters in this study.  The mean
+K-correction in a 21x21x80 grid of observed $g-r, r-i$, and $z$ was saved.  We
+interpolated in this cube when calculating the K-correction for a given
+galaxy. This interpolation makes the calculation computationally feasible for
+this study, but is still the bottleneck.
+
+%Note there may be some evolution in the colors of galaxies over this redshift
+%range. For this study we only require that the range of colors changes little
+%over the redshift range 0.0 to 0.3.
+
+To minimize uncertainties in the K-correction, we K-correct to the
+median redshift of the cluster sample, $z = 0.25$. All reported
+magnitudes are adjusted to this redshift, and are noted as {\it e.g.,} $^{0.25}M_i$. \citet{Blanton03} give a complete discussion of this bandpass shifting procedure.
+
+\subsection{M$_{200}$ and r$_{200}$} \label{sec:mass-obs}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  r200 figure
+
+\begin{figure}
+  \plotone{r200_alsobecker.eps}
+  \figcaption[r200_alsobecker.eps]{Cluster radius \rtwo\ as a function of cluster
+    richness, measured with three different methods: the distribution of galaxies (points
+    with error bars);  velocity dispersion profiles (hashed region); and weak lensing (shaded region). The error bars on the galaxy data points are
+    determined from jackknife resampling of the data. The width of 
+    velocity-dispersion-based estimate corresponds to a 20\% scatter in mass, the minimum reported in \citet{Becker07}; the width of the lensing region results from the reported 13\% scatter with mass in the mass-observable relationship \citep{Johnston07b}. {\bf remake with width for vel disp from error on mean}
+\label{fig:r200ngals}}
+\end{figure}
+
+There has been much recent work to quantify the mass--observable
+relation for stacked samples of these clusters, using mass estimates
+from cluster abundance \citep{Rozo07b}, velocity dispersion
+\citep{Becker07}, weak lensing \citep{Sheldon07a, Johnston07b}, and
+X-ray measurements \citep{Rykoff07}. These various methods all result
+in a consistent mass--richness scaling; a detailed comparison of the
+different mass estimators will be discussed in \citet{Rozo08}. Here,
+we present our results as a function of the direct observable, \Ntwo,
+but use the relationship from the weak lensing analysis to translate this
+observable into a mass estimate. We adopt
+\begin{equation}
+M_{200} = 1.75 \times 10^{12} M_{\odot} N_{200}^{1.25}, 
+\end{equation}
+the best fit value from \citet{Johnston07b}.
+
+
+
+To compare equivalent regions of clusters of various masses and thus
+various sizes, we scale all physical radii to \rtwo, where \rtwo\ is
+the threshold radius interior to which the mean mass density of a
+cluster is 200 times the critical mass density of the universe. With a given
+mass--observable relationship, \rtwo\ for the mass distribution may be
+derived. Using the weak-lensing derived mass--\Ntwo\ relationship above yields
+\begin{equation}
+r_{200} = 0.182 h^{-1} {\rm Mpc} N_{200}^{0.42}.
+\end{equation}
+We adopt this \rtwo-\Ntwo\ scaling from the \citet{Johnston07b} lensing mass estimates for this work. Note that the radial range used in the background correction process allows us to examine the region within 5 $\times$ \rtwo\ for even the most massive systems in our catalog. {\bf reword - sounds like maybe we use a local bkg subtraction}
+
+
+
+\begin{figure}
+  \plotone{bkgtest.eps}
+  \figcaption[bkgtest.eps]{Testing the background correction algorithm with the ADDGALS mock catalog. Each panel shows the ratio of galaxy density as a function of luminosity determined with the background correction algorithm to that measured in 3D around identified \maxbcg\ cluster centers in the simulation. The top panels are using galaxies within 0.3\rtwo and the bottom panels are for galaxies in the radial range 3\rtwo $\le r \le$ 5\rtwo. {\bf left, right?}. This ratio is shown for all galaxies (black, open points), red galaxies (red, open points), and red fraction (purple closed points), and shows that the background correction algorithm recovers the underlying distribution. \label{fig:bkgtest}}
+\end{figure}
+
+For comparison, we also derive \rtwo\ using the approach presented in
+\citet{Hansen05} for estimating \rtwo\ as a function of \Ntwo\ using
+the space density of galaxies in clusters. In that work, the mean
+space density of cluster-correlated galaxies was compared with the
+global mean space density as determined from the global SDSS
+luminosity function measured by \citet{Blanton03}. If galaxies were
+completely unbiased with respect to dark matter on all scales, \rtwo\
+measured with galaxies should exactly match \rtwo\ measured from the
+true mass distribution. As the average bias for the galaxies used is
+close to unity, using the space density of galaxies brighter than \Mi\
+$> -19$ as a tracer of the total matter distribution should in
+principle provide a reasonable estimate of \rtwo.
+
+
+
+\begin{figure}
+  \plotone{example_lfs.eps} \figcaption[example_lfs.eps]{Example luminosity
+    functions of galaxies within \rtwo\ for four bins in cluster
+    richness, showing the contribution from BCGs (red diamonds) and
+    satellite galaxies (purple circles with dot-dashed line) to the
+    total LF (black solid line) illustrating one way in which the BCG
+    population tends to be different from the satellite
+    distribution. Error bars are from jackknife resampling, and are
+    omitted on the total distribution (BCG+satellites) for
+    clarity.\label{fig:LFwithBCG}}
+\end{figure}
+
+
+\begin{figure*}
+  \plottwo{cm_inner.eps}{cm_outer.eps}
+  \figcaption[cm_inner.eps]{Example color-luminosity diagrams for satellite galaxies in clusters in different richness and radial ranges. The richness ranges indicated in the legend. {\bf Left:} galaxies with $r/$\rtwo\ $ \le 0.3$; {\bf right:} galaxies in the range $3 \le r/$\rtwo\ $ \le 5$. The dotted line indicates the (fixed) split used to separate galaxies into red and blue samples.\label{fig:cmsplit}}
+\end{figure*}
+
+
+If we assume that the mass-to-light ratio as a function of both cluster mass and cluster radius is constant, then we may make the following simple scaling arguments. We take that the radius and mass of a cluster scale as \rtwo\ $\sim M_{200}^{1/3}$, and that the number of galaxies within \rtwo\ scales as a power law
+with cluster mass as \Ntwo\ $\sim M_{200}^{\alpha}$, with $\alpha$ close to unity \citep[e.g.,][]{Kravtsov04a,
+  LinMohr04, Zehavi04, Wechsler}. Thus, we would expect that \rtwo\ measured with the galaxy distribution, $R_{200, gals}$, would scale as
+\begin{equation}
+R_{200, gals} \sim
+M_{200}^{1/3} \sim
+N_{200}^{1/(3\alpha)} \sim
+N_{200}^{0.33}.
+\end{equation}
+Of course, it is an over-simplification to assume a constant mass-to-light ratio, as shown by the investigation into the mass-to-light profiles of clusters as a function of cluster mass presented in \citet{Sheldon07b}.
+
+
+
+Using this galaxy-distribution-based method with the current data set, we find, for \Ntwo\ $>$ 10, that \rtwo\ $= (0.224 \pm 0.004) h^{-1}$ Mpc \Ntwo$^{0.37 \pm 0.01}$. Figure \ref{fig:r200ngals} shows \rtwo\ as estimated from the galaxy distribution (points with error bars as estimated from jackknife resampling), the relationship from the velocity dispersion-based mass estimate (hashed region), and the lensing estimate (shaded region). The width of the hashed region corresponds to a 20\% uncertainty in mass, the minimum scatter reported in \citet{Becker07}; the width of the shaded region corresponds to a 9\% scatter {\bf what is the right percentage?} in mass as reported for the lensing analysis in \citet{Johnston07b}. The \rtwo\ derived from the galaxy distribution is remarkably consistent. The discrepancy in scaling gives hints about the way that galaxies populate halos of dark matter, but further investigation of this interesting problem is beyond the intended scope of this work. {\bf commennt about using z=0.25 bkg lum density from blanton.}
+
+
+%Weak lensing shear profiles around stacked sets of clusters are well described by an NFW profile (which gives \rtwo), combined with a 2-halo term and a term for the central galaxy profile.  Figure \ref{fig:r200ngals} shows \rtwo\ as a function of \Ntwo, determined from the galaxy distribution (points with error bars) and from weak lensing shear profiles (hashed region). 
+
+
+
+
+\subsection{Testing with Simulation Data} \label{sec:bkgtest}
+To check that our method of interloper removal is reliable, we compare the SDSS data to the galaxy-populated N-body simulation of \citet{Wechsler} that comprises the ADDGALS mock catalog. 
+
+
+This catalog is derived from the N-body Hubble Volume light-cone
+simulation \citep{Evrard02}. Particles in the simulation are assigned luminosities to
+match the luminosity-dependent two-point correlation function as measured
+in the SDSS by \citet{Zehavi04} and the global SDSS luminosity
+function \citep{Blanton03}. Colors are assigned depending on local
+environment as defined by the distance to the 5th {\bf 10th?} nearest
+neighbor, again matching the observed properties of the SDSS. The luminosity limit of the mock catalog is L $>$ 0.4\Lstar\ and the mass resolution results in a limiting richness of \Ntwo\ $>$ 10.  
+
+
+We run the \maxbcg\ cluster finder on this simulation, then implement
+the same background correction algorithm as used on the SDSS data to characterize the galaxy
+population statistically associated the \maxbcg-identified cluster
+centers.
+
+We use this simulation to test the algorithms presented for
+quantifying the galaxy population. To do so, we compare the properties of subhalos located in
+three dimensions around maxBGC-identified cluster centers with the statistical distribution
+of subhalos as determined by the background correction algorithm run
+on the simulation.
+
+
+
+
+ We find that the
+background correction algorithm does well at reproducing the
+underlying distribution. For example, Figure \ref{fig:bkgtest} shows
+the ratio between the background-corrected and underlying 3D value
+for the luminosity function of all galaxies (open, black points) and red galaxies (open, red points). The left column is for a low richness bin (25 $\le$ \Ntwo\ $\le$ 35), while the
+right column is a high richness bin (60 $\le$ \Ntwo\ $\le$ 120); the top panels are for
+galaxies within 0.3\rtwo, and the bottom panels are for galaxies in
+the range $0.3 <$ \rad\ $< 0.5$. The filled points show the ratio of
+the recovered red fraction to the underlying red fraction in each
+luminosity bin. Within the uncertainties, the 3D and background-corrected distributions are
+the same; as there is a larger volume of data in the SDSS than in the
+simulation, the statistical uncertainties will be smaller there.
+
+
+
+\section{Results}\label{sec:results}
+In this section we present our results regarding the luminosity and
+color distributions of cluster galaxies as a function of cluster
+richness, distance from the cluster center, and redshift.
+
+In addition to the theoretical and observational reasons discussed in
+\S \ref{sec:intro}, it is clear in our data as well that the BCG
+population is special: as an example, Figure \ref{fig:LFwithBCG} gives
+luminosity functions for galaxies within \rtwo\ of clusters, including
+the BCG of each, in four different bins in richness. Shown is the
+contribution from BCGs (red diamonds) and satellite galaxies (purple
+circles with dot-dashed line) to the total LF (black, solid line). In
+each case the satellite population is statistically well described by
+a Schechter function, although the total LF, including the BCG, is
+not. The BCGs of any richness bin are well fit by a Gaussian. We note that in
+lower-richness clusters, BCGs dominate the LF more but are
+systematically fainter and have greater spread in magnitude than BCGs
+in higher-richness systems. These luminosity distributions of BCGs and
+satellites are discussed in further detail in the following sections.
+
+Given the observational and theoretical motivation to consider the
+central galaxies as a distinct population from the rest of the cluster
+galaxies, we present results for BCGs and satellites separately. We
+first examine the properties of satellites: in \S\ \ref{sec:sats} we investigate the luminosities and colors of
+satellites. In \S \ref{sec:BCGs} we turn to the BCGs, examining in
+detail how the luminosities of BCGs compare to the light from the rest
+of the cluster members, and how these relations vary with cluster
+richness. 
+
+
+\subsection{Satellite Cluster Galaxies}\label{sec:sats}
+We measure the conditional luminosity function and its dependence on galaxy color and cluster-centric radius. We also investigate the color distribution of cluster galaxies and show that the radial trend of mean galaxy color can be explained by the changing fraction of red and blue galaxies. Quantifying this trend by \fred, the fraction of satellites that are red, we examine how \fred\ depends redshift, cluster mass, cluster-centric distance, and galaxy luminosity, finding that much of the change is driven by the changing population of sub-\Lstar\ galaxies.
+
+%\begin{figure}
+  %\epsscale{0.6}
+%  \plotone{sim_lstar_ngals.eps}
+%  \figcaption[sim_lstar_ngals.eps]{Like before, but in the sim. Alpha is held fixed to the sdss value!! Parameters of the best-fitting Schechter function for all, red, and blue satellites as a function of cluster richness. {\it Top:} Characteristic galaxy luminosity, \lstar; {\it middle:} faint end slope, $\alpha$; {\it bottom:} normalization of the LF, $\phi$. A power law characterizing the the parameter values as a function of cluster richness for all satellites is over-plotted in each case. \label{fig:simlstarngals}}
+%\end{figure}
+
+We split the galaxies into red and blue subsamples with a cut in
+color--luminosity space. Figure \ref{fig:cmsplit} shows the bivariate
+distribution of color and luminosity for four example richness and
+radial ranges: $2 \le $\Ntwo\ $\le 5$; $10 \le $\Ntwo\ $\le 15$; $30
+\le $\Ntwo\ $\le 40$; $80 \le $\Ntwo\ $\le 180$ and $0 \le r/$\rtwo\
+$\le 0.3$; $3.0 \le r/$\rtwo\ $\le 5.0$ respectively.  The red
+sequence is clearly in place at all richnesses. Even at large radii,
+there are an excess over random of galaxies associated with clusters,
+and many of them are blue. The dashed line shows our adopted cut
+between red and blue galaxies, \gmr\ $= 0.17 \log (^{0.25}L_i/(L_{\odot} h^2)) -
+0.6$. As there are few galaxies that do not fall into either the red
+sequence or so-called ``blue cloud,'' our results do not depend
+sensitively on the exact placement of the red-blue boundary.
+
+
+%lfr200_colsplit.eps
+
+%use lfr200_colsplit_bfix.eps for the comparison to the richest bin instead
+\begin{figure*}
+  \plotone{lfr200_colsplit.eps} 
+\figcaption[lfr200_colsplit.eps]{The luminosity function of all, red, and
+    blue satellite galaxies in clusters (within \rtwo\ and with \Mi\
+    $> -19$), as a function of cluster richness. Each panel is a bin
+    in cluster richness. The black data points are for all satellites,
+    with the best-fit Schechter function to those data shown as the solid
+    black line. The red and blue galaxy samples are in red and blue
+    respectively.  While the majority of satellites are red, there is a
+    population of blue galaxies in clusters of all richnesses. Also shown is the Schechter function with fixed faint-end slope ($\alpha = 1.2$ that is fit to the blue galaxy distribution (solid green line). For
+    reference, the best-fitting Schechter function for the mean LF of all satellite
+    galaxies in clusters where the catalog is complete and pure (\Ntwo $> 10$) is reproduced in each
+    panel for all satellites (dashed black line) and blue satellites (blue dot-dashed
+    line). \label{fig:clf_colsplit}}
+\end{figure*} 
+
+
+\subsubsection{Conditional Luminosity Functions}\label{sec:CLF}
+Figure \ref{fig:clf_colsplit} shows the luminosity function of
+satellite galaxies within \rtwo\ for clusters in different bins of
+richness. The LF of all satellites is shown by the black data points;
+the LFs of the blue and red subsamples are shown as well, in blue and
+red data points respectively.  The shape of the overal satelllite LF is fairly uniform for satellites in clusters where
+the catalog is complete and pure (top two rows), although there is a trend for a lower number density of sub-\Lstar\ satellites and slightly higher density of bright galaxies in more massive systems.  This trend has been also been noted by \citet{LMS04} for their comparison of the high- and low-mass halves of their cluster sample, although \citep{depropris03} did not see significant differences between LFs in clusters of different masses. Here we can see that sub-\Lstar\ changes in the LF are driven by the increasing number of faint blue galaxies in lower-mass systems, while the number of red galaxies is declining at faint magnitudes. The changing contribution of red and blue galaxies to the total LF as a
+function of galaxy magnitude is further investigated in \S \ref{sec:BF}. 
+
+The LF of all satellites is well fit by
+a Schechter function except for the very lowest richness bin; the solid
+black line is the best-fitting Schechter function for the total LF in
+each richness bin. For reference, the best-fit Schechter function to the mean LF of all satellites in
+clusters where the catalog is complete and pure is repeated in all panels (dashed line). We also fit a Schechter function to the blue galaxy population, but as the functional form is not well constrained in many bins, we fix the value of the faint end slope for the blue galaxies to $\alpha_{blue} = 1.0$, the best-fit value where the fit is well constrained. The resulting fits are a reasonable description of the data. As with all satellites, in eahc panel the fitted Schechter function to the blue galaxies is shown (solid green line), and the function for the mean LF of blue satellites in systems with \Ntwo\ $> 10$ is repeated in all panels (dot-dashed line).
+
+\begin{figure}
+  %\epsscale{1.2}
+  \plotone{lstar_ngals.eps} \figcaption[lstar_ngals.eps]{Parameters of
+    the best-fitting Schechter function for all satellites ({\bf left}) and red and blue
+    satellites ({\bf right}) as a function of cluster richness. {\bf Top:}
+    Characteristic galaxy luminosity, \lstar; {\bf middle:} faint end
+    slope, $\alpha$; {\bf bottom:} normalization of the LF, $\phi$. {\bf [Comment on fits]} \label{fig:lstarngals}}
+\end{figure}
+
+\begin{figure}
+  \plotone{lf_radial_ngals.eps} \figcaption[lf_radial_ngals.eps]{The
+    luminosity function of all, red, and blue galaxies as a function
+    of distance from cluster center (increasing across rows) and of
+    cluster richness (decreasing down columns). The relative number of
+    blue to red galaxies steadily increases with increasing distance
+    from the center, and most noticeably for sub-\lstar\
+    galaxies. \label{fig:lfrad}}
+\end{figure}
+
+\begin{figure}
+  \plotone{meanlum_rad.eps} \figcaption[meanlum_rad.eps]{The mean
+    luminosity of satellite galaxies (\Mi\ $> -19$) as a function of
+    r/\rtwo\ for clusters of different richness.  \label{fig:meanlum}}
+\end{figure}
+
+The best-fitting Schechter parameters as a function of cluster
+richness for all, red, and blue galaxies are shown in Figure
+\ref{fig:lstarngals}.  For all systems with \Ntwo $\ge$ 20, $^{0.25}$\lstar\ is consistent with $1.4 \times 10^{10}
+L_{\odot}$. These relationships are
+over-plotted on the Figure, with a solid line in the region where the
+fit was performed and a dashed line showing the extrapolation to lower
+richness. We note that the magnitude limit of our sample does not probe to the regime of dwarf galaxies; while we are able to constrain $\alpha$ for galaxies with \Mi\ $> -19$, we cannot comment on the faint-end turnup seen in deeper studies such as \citet{PopessoLF06}. In fact, our results for are in good agreement with the \citet{PopessoLF06} results in the magnitude range where we overlap.
+{\bf [Need discussion of LF param trends.]}
+
+\begin{figure*}
+  \plotone{col_radial.eps}
+  \figcaption[col_radial.eps]{Mean \gmr\ color as a function
+    of \rad\ changes due to the changing red and blue fractions.  {\bf Left:} the sample
+    split into red and blue galaxies; {\bf Right:} all galaxies.  The
+    mean color overall changes, but as the mean color of the red and
+    blue samples does not change, the overall shift must be due to the
+    changing numbers of red and blue galaxies. The trend is very
+    slightly stronger for more massive clusters, but this difference
+    is not statistically significant. The estimated global field value is shown by the dashed line. \label{fig:col_radial_red_blue}}
+\end{figure*}
+
+\begin{figure}
+  \plotone{bfrac_r200_zbins.eps}
+  \figcaption[bfrac_r200_zbins.eps]{Red fraction  within \rtwo\ (\Mi\ $> -19$)
+    as a function of richness for two redshift bins:
+    $0.1 < z < 0.25$ (black filled circles, median $z = 0.2$) and $0.25 < z < 0.3$ (brown
+    open diamonds, median $z = 0.28$) . \label{fig:bfrac_r200}}
+\end{figure}
+
+The relationship between characteristic satellite luminosity and
+cluster richness has been discussed recently in \citet{Skibba07}, who
+examine the HOD prediction of non-central galaxies having a mean
+luminosity that is almost independent of halo mass
+\citep{Skibba06}. In particular, they show that in the group catalogs
+of \citet{Yang05,Berlind06} are consistent with this prediction for
+the mean non-central luminosity as a function of the number of
+galaxies brighter than $M_r < -19.9$. Our data are in agreement with
+these group-scale results, and show that the HOD
+prediction continues to hold for greater mass systems as well.
+
+The changing ratio of red and blue galaxies as a function of galaxy
+magnitude becomes even more evident upon investigation of the radial
+dependence of the LF. Figure \ref{fig:lfrad} shows the luminosity
+function of all, red and blue galaxies for several bins in richness
+(rows) as a function of distance from cluster center (columns). We
+note that there are still galaxies correlated with clusters well
+beyond \rtwo: while these galaxies are not necessarily bound to the
+cluster, they are statistically associated with the systems in
+question. 
+%% In each row of constant richness, the black dashed line is the best-fitting Schechter function for the innermost radial bin, repeated in each panel of the row. Likewise, the red dotted line and the blue dot-dashed line are for the best-fitting Schechter function for the red and blue galaxies of the inner most bin for that richness.
+The change in the LF as a function of radius is most noticeable at the
+faint end: with increasing distance from the cluster center there are
+fewer galaxies of all luminosities, but for sub-\lstar\ galaxies the
+mix of red and blue galaxies changes dramatically. While the LF of
+blue galaxies does not particularly change shape, only normalization,
+the LF of red galaxies changes noticeably at the faint end,
+causing the red fraction to decrease both for fainter galaxies and at
+larger distances from the cluster center.
+
+In \citet{Hansen05} we explored the LFs of galaxies in clusters as a
+function of richness, and it was not clear that all LFs within \rtwo\
+were well described by a Schechter function, especially for the
+low-richness systems. However, the cluster finder used in that
+previous work used a fixed $1 h^{-1}$ Mpc aperture for estimating
+richness, resulting in much greater scatter in richness than in the
+present version of the cluster-finding algorithm. A greater scatter in
+richness means that there was a greater mixing of clusters from
+different intrinsic mass bins and with different assumed \rtwo s into
+the same bin of richness. In addition, the previous catalog was not as
+complete and pure as the current sample. As the LF
+changes shape as a function of cluster-centric distance, the greater
+scatter and lower purity would lead to the combination of clusters of
+different intrinsic sizes in the same sample, meaning that different
+fractions of \rtwo\ were being sampled within one bin. While there
+will always be scatter present in any catalog, the current cluster
+catalog, with an improved richness measure, should not be as affected
+by this difficulty.
+
+Despite the shift in population among red and blue galaxies as a
+function of distance to the cluster center, the mean luminosity of
+cluster satellite galaxies changes very little, as
+demonstrated in Figure \ref{fig:meanlum}. {\bf[Expand this paragraph, and include connection between fainter mean lum in lower richness systems with excess faint gals seen in LFs.]}
+
+\begin{figure*}
+  \plotone{bfrac_vsboth.eps}  
+  \figcaption[bfrac_vsboth.eps]{The red fraction depends on both cluster-centric distance and galaxy luminosity. {\bf Left:}  Red fraction (\Mi\ $> -19$) as a function of \rad\ for different richness bins. {\bf Right:} Red fraction ($\le$ \rtwo) as a function of absolute magnitude for different richness bins. The estimated global field value is shown by the dashed line.\label{fig:bfrac_rad_rich_mag}}
+\end{figure*}
+
+
+\subsubsection{The Red Fraction \& Other Color Distributions}\label{sec:BF}
+The ratio of red to blue galaxies is clearly changing as a function of a variety of parameters. In this section we quantify these trends by examining the dependence of the fraction of red galaxies on cluster richness, redshift, distance from cluster center, and galaxy luminosity.
+
+We first examine the color gradient as a function of distance from the BCG. Figure \ref{fig:col_radial_red_blue} shows the (number weighted) mean  \gmr\ color of satellite galaxies with \Mi\ $> -19$ as a function of distance from the cluster center out to 5 $\times$ \rtwo\ for several bins in cluster richness. The left panel shows the mean color for the red and blue samples of galaxies, while the right-hand panel shows the trend for all galaxies. The dashed line shows the mean color of the field population. Regardless of richness, on average the total satellite population is redder in the inner regions and trends bluer as a function of radius, but farther than approximately 2\rtwo\ from the cluster center the mean color of galaxies associated with clusters no longer varies with radius and is the same as the field value. The red and blue samples remain the same color regardless of cluster-centric distance or cluster richness. As the red and blue galaxies are not on average shifting color, the changes in the total satellite population must simply reflect the changing factions of red and blue galaxies as a function of richness and distance from the cluster center. Therefore, we take the red fraction \fred\ (the ratio of the number of red galaxies to the total number of galaxies) as a sufficient statistic for quantifying the change in galaxy population.
+
+In Figure \ref{fig:bfrac_r200} we present the red fraction of satellite galaxies within \rtwo\ and with \Mi\ $< -19$ as a function of cluster richness for two different redshift slices, $0.1 < z < 0.25$ (purple filled circles, median $z = 0.2$) and $0.25 < z < 0.3$ (brown open diamonds, median $z = 0.28$). The red fraction increases, weakly but statistically significantly, with cluster mass, but it is systematically lower byt $\sim$ 5\% for higher redshift systems regardless of cluster mass. In both redshift ranges, the general shape of the red fraction as a function of richness is similar.
+
+However, the red fraction does not depend on cluster mass alone, as is evident from the LFs shown previously. In Figure \ref{fig:bfrac_rad_rich_mag} we examine the luminosity and radial dependence of the red
+fraction. In the left panel of the Figure is \fred $(\le$\rtwo ) as a function of absolute
+magnitude for multiple richness bins. For satellites brighter than
+\lstar\ the red fraction value changes little except in the very
+lowest richness bin probed, but for sub-\lstar galaxies the red
+fraction steadily decreases toward fainter magnitudes. This trend of
+increasing red fraction for fainter galaxies is systematically more
+pronounced with decreasing cluster richness. The right panel of Figure \ref{fig:bfrac_rad_rich_mag} shows the radial trend \fred $(r)$ with \Mi\ $< -19$  for several bins in richness. Out to approximately 2\rtwo, the red fraction decreases with greater radii, and in esstentially the same way for \Ntwo\ $>$ 10 systems.  Beyond 2\rtwo, the fraction of red galaxies statistically correlated with clusters flattens, becoming independent of environment. {\bf Need field value on this figure...}
+
+Taken together, we see that for any mass bin, the red fraction of galaxies generally decreases with cluster-centric distance, fainter magnitudes, and higher redshift, and overall is correlated with cluster mass. The changing mix of faint galaxies seems to be what that drives the \fred\ trend with cluster-centric distance as the relative populations of bright galaxies remains essentially unchanged. These results are generally in agreement with previous work, despite differences in sample definitions, both for cluster selection and sample splitting. Several works \citep{Margoniner01,Weinmann06a,Poggianti06,Martinez06,Weinmann06b,Gerke07,Desai07} have reported that the galaxy type fraction is a function of cluster mass. However, others \citep{Balogh04b,depropris04, Tanaka04} found that the type fraction does not depend on cluster velocity dispersion, although \citet{Weinmann06a} argues that this result may be due to the large scatter in using velocity dispersion as a mass proxy. Possibly our \fred-richness scaling is weaker than the \citet{Weinmann06a} result because our mass proxy, \Ntwo, has a greater scatter than their total-luminosity-based proxy.However, at the mass range where our samples overlap {\bf masses?} our results are actually in reasonable agreement. The luminosity dependence of the galaxy type fraction is similar to previous results \citep{depropris04, Wilman05, Weinmann06a, Martinez06, Gerke07}. \citet{depropris04,Weinmann06a} find qualitatively similar behavior for the type fraction as a function of radius; however, this trend is only very weak in both the \citet{Wilman05} and \citet{Gerke07} data, although the uncertainties in both these data sets are large enough to mask a possible trend.
+
+The redshift dependence of the galaxy type fraction has been discussed by many authors since \citet{ButcherOemler}; with the advent of large galaxy surveys it has been possible to see that redshift dependence is similar over a wide range of masses as well \citep{Margoniner01,Wilman05,Martinez06,Gerke07,Desai07}. Overall, we find that the fraction of red galaxies declines by $\sim$ 5\% between the our higher (median $z=0.28$) and lower (median $z=0.2$) redshift samples over the full mass range.
+
+
+
+%Comparison with others
+%\citet{Weinmann06b} - qualitatively the same trend with magnitude - that is, it increases toward faint and with lower mass systems but they have generally higher bf than we do (though they are 0.1 r-band) but we have more mass resolution (Weinmann06a shows late type, early type, and intermed type fractions with same qual results) and their results above $10^14$ could also be consistent with flat often.
+
+%wilman05 looks at passive fraction (EW[OII] criteria) in 2dF (loz) CNOC2 (hiz) and and sees the trend with mag (weak) and z
+
+%poggianti06 looks at f[OII] vs vel disp in 0.4 < z < 0.8 and sees trend, though v noisy
+
+%depropris04 sees no dep on cluster prop (eg vel disp) but sees trend with $M_{lim} - M_*$: bfrac is higher when go to fainter faint limit
+
+%desai07 looks at Sp+Irr fraction: goes down with higher vel disp and up with z
+
+%martinez06 looks at SDSS groups and sees red frac up with mass and down with z and generally higher for brighter gals
+
+%margoninier00 finds fb goes down with richness and up with z, but *fixed aperture*
+
+%the luminosity dependence is weak in the middle range - only at the bright and faint ends is the luminosity dependence at fixed mass stronger - like late type fraction results in \citet{Weinmann06a} 
+
+%gerke07 sees weak dependence on luminosity, but only probing the flat part since at higher z; only weak trend with r/r200 and richness, but uncertainties make it hard to distinguish.
+
+%tanaka04 and balogh04b do not see trend with velocity dispersion ,but that adds big scatter as mass proxy so can wash out effect
+
+\begin{figure}
+  \plotone{bcglum_ngals.eps} 
+  \figcaption[bcglum_ngals.eps]{{\bf Top:} Median BCG $^{0.25}i$-band luminosity, \lbcg, as a function of richness. Error bars show the statistical uncertainty on the luminosity; the dashed lines show the 68\% scatter in \lbcg\ in each richness bin. The solid line shows the best-fit power law, \Lbcg\ $\sim$ \Mtwo $^{0.3}$, fit for \Ntwo\ $>$ 10. The dot-dashed line shows the best-fitting \citet{VO06} model. {\bf Bottom:} The width of the 68\% scatter of \lbcg\ as a function of richness. For massive systems this width is $\sim$ 0.17.\label{fig:lbcg_ngals}}
+\end{figure} 
+
+
+%\begin{figure}
+%  \plotone{bcglum_halos.eps}
+%  \figcaption[bcglum_halos.eps]{Same as Figure \ref{fig:lbcg_ngals} but for the BCG\_bright simulation. \label{fig:lbcg_sims}}
+%\end{figure}
+
+
+\subsection{Brightest Cluster Galaxies}\label{sec:BCGs}
+We now turn to Brightest Cluster Galaxy population in the \maxbcg\ 
+clusters.  As the cluster finder uses the BCG color as a redshift
+proxy, the allowed color range is inherently quite narrow; however,
+there is not a similar restriction placed on allowed magnitude, except
+that BCGS be brighter than 0.4\Lstar. In this section we investigate the
+distribution of BCG luminosities, and how that luminosity relates to
+light from the general cluster galaxy population.
+
+
+
+
+The top panel of Figure \ref{fig:lbcg_ngals} shows the median
+luminosity of BCGs, \Lbcg, as a function of cluster richness. The
+(small) error bars on the data points indicate the statistical
+uncertainty on the median BCG luminosity in each bin, determined from jackknife resampling; the dashed lines
+show the region where 68\% of the BCG luminosities lie. It is clear
+that systems with a greater number of satellies tend to host brighter
+BCGs. For \Ntwo$ > 10$, the $i$-band light from BCGs scales with
+cluster richness as
+\begin{equation}
+L_{BCG} = (2.16 \pm 0.08) \times 10^{10} L_{\odot} N_{200}^{0.38 \pm 0.01}. 
+\end{equation}
+This fit is the solid line over-plotted on the Figure. Using our adopted mass--observable scaling, this relationship is 
+\begin{equation}
+L_{BCG} = (4 \pm 1) \times 10^6  L_{\odot} \frac{M_{200}}{M_{\odot}}^{0.30 \pm 0.01}. 
+\end{equation}
+
+% fitting above ngals>10
+% lum_BCG = (2.16 +/- 0.08) x 10^10 x N200 ^ (0.38 +/- 0.01)
+% lum_BCG = (0.4 +/- 0.1) x 10^7 x mass(lensing) ^ (0.30 +/- 0.01)
+
+The recommended model of \citet{VO06},
+\begin{equation}
+\langle L_c \rangle = L_0 \frac{(M/M_c)^a}{[1+(M/M_c)^{bk}]^{1/k}},
+\end{equation}
+with $M_c = 3.7 \times 10^9 h^{-1}M_{\odot}$, a = 29.78, b = 29.5, and k = 0.0255,
+also is an acceptable fit with an adopted $L_0 = 4 \times 10^9 h^{-2} L_{\odot}$, the mean galaxy luminosity in halos of $3.46 \times 10^{11}h^{-1}M_{\odot}$, for this $^{0.25}i$-band data, and is overplotted on the Figure with the dot-dashed line.
+
+There have been many investigations into the correlation of BCG
+properties with those of host clusters. The trend of increasing
+central galaxy luminosity with cluster richness has been noted in many
+other observational studies, such as \citet{Sandage73,Sandage76,Hoe80,Sch83};
+as cluster catalogs have become bigger and masses better determined,
+such studies have been able to focus on the scaling of BCG luminosity
+with cluster mass. Using a sample of 93 clusters with both X-ray and
+K-band data, \citet{LinMohr04} found that BCG light scales with \Mtwo\
+as $L_{BCG,K-band} \sim M_{200}^{0.26}$ for clusters with $M_{200} >
+3 \times 10^{13} h^{-1} M_{\odot}$, though with large scatter.
+\citet{Yang05}, using groups found in the 2dFGRS, find that in
+$b_J$-band, $\langle L_{cen} \rangle \sim M^{0.25}$ for halos of M $>
+10^{13}h^{-1}M_{\odot}$. \citet{ZCZ07}, in their investigation of the
+luminosity-dependent projected two-point correlation function of DEEP2
+and SDSS, also find that there is a tight correlation between halo
+mass and central galaxy luminosity. They find that the \citet{VO06}
+model is a reasonable fit using $L_0=2.8 \times 10^9 h^{-2} L_{\odot}$ for the SDSS $r$-band
+(with halo masses up to $3 \times 10^{13} h^{-1} M_{\odot}$) and $L_0=4.3 \times 10^9 h^{-2} L_{\odot}$
+for the DEEP $B$-band data (with halo masses up to $4 10^{12} h^{-1}
+M_{\odot}$). Using a different catalog of clusters in the SDSS,
+\citet{PopessoMLHOD} find $L_{BCG} \sim M_{200}^{0.33}$ for these
+217 systems. Our results are in agreement with these findings within their and our uncertainties, but the
+\maxbcg\ catalog offers unprecedented sample size in addition to a
+well-studied selection function and mass estimator, and thus we can
+probe the BCG luminosity distribution in further detail.
+
+
+\begin{figure}
+  \plotone{bcgcontrib_ngals.eps} \figcaption[bcgcontrib_ngals.eps]{BCG
+    luminosity compared to the luminosity of the rest of the cluster
+    galaxies (\Mi\ $< -19$. {\bf Top:} Mean BCG luminosity fraction
+    (\lbcg/\deltalvir) as a function of richness. {\bf Bottom:} The ratio
+    of BCG luminosity to \lstar\ of the satellite galaxies,
+    \lbcg/\lstar (satellites), as a function of richness. In each case the best-fitting power law is shown with a solid line where the fit was performed and a dashed line to extend the relation to lower richness. \label{fig:bcgcontrib_ngals}}
+\end{figure}
+
+
+At all richnesses, the set of \Lbcg\ is well-described by a
+Gaussian. In addition to the mean value being dependent on cluster
+richness as previously discussed, the {\it width} of the BCG
+luminosity Gaussian is a function of cluster mass as well. The bottom
+panel of Figure \ref{fig:lbcg_ngals} shows the width of the
+distribution of BCG luminosities, $\sigma_{log L}$, as a function of
+richness, with error bars from jackknife resampling. There is an
+overall negative correlation between $\sigma_{log L}$ and \Ntwo,
+although for \Ntwo\ \gae 35 $\sigma_{log L}$ is consistent with a
+constant value of $\sim 0.17$. {\bf fix this section} This value is consistent with that reported by Cooray 2005 (divided universe) and Yang 2003b, and while somewhat higher than that
+found by \citet{ZCZ07}, is still consistent within the uncertainties
+where their mass range overlaps with the regime where the
+\maxbcg\ cluster catalog is essentially complete and pure. {\bf (What can I say about the difference being due to mass--observable scatter? Simulation result here if possible)}
+
+In Figure \ref{fig:bcgcontrib_ngals} we consider how the BCG light
+compares with light from the rest of the cluster members by examining
+both how \Lbcg\ compares to the total cluster light, \deltalvir, and to the
+characteristic luminosity \Lstarsat\ of the satellites. As in the
+previous figures, the error bars represent the statistical error. The top panel shows \Lbcg/\deltalvir, the fraction of light
+contributed by the BCG relative to the total light from all cluster
+galaxies within \rtwo\ and with \Mi\ $> -19.0$ as a function of
+cluster richness. There is a clear trend for a
+decreasing contribution from the BCG to the total cluster light as a
+function of richness. For the most massive ($10^{15} h^{-1}
+M_{\odot}$) clusters, the BCGs supply only $\sim 5\%$ of the
+luminosity budget, but for $10^{14} h^{-1} M_{\odot}$ systems the BCG
+provides $\sim 20\%$ of the light, and for even smaller systems the
+BCG contributes significantly more. In particular, we find that for clusters
+with \Ntwo\ $> 10$, the BCG light fraction scales with cluster
+richness (mass) as
+\begin{eqnarray}
+L_{BCG}/L_{200} = (1.58 \pm 0.06) N_{200}^{-0.67 \pm 0.01}\\
+L_{BCG}/L_{200} = (5 \pm 2 \times 10^6) \frac{M_{200}}{M_{\odot}}^{-0.53 \pm 0.01}.
+\end{eqnarray}
+%these are the new results foir ng > 10
+%   LBCG/L200 = (1.58 +/- 0.06) x N200 ^ (-0.67 +/- 0.01)
+%   LBCG/L200 = (0.5 +/- 0.2) x 10^7 x mass ^ (-0.53 +/- 0.01)
+
+
+This negative correlation is in good agreement with the data presented
+by \citet{LinMohr04} for their X-ray selected sample. For a different
+catalog of X-ray selected clusters, \citet{PopessoMLHOD} measured the
+observed scaling between total optical luminosity and cluster mass and
+between BCG luminosity and cluster mass; the combination of these
+relationships yields a best fit scaling of \Lbcg/\deltalvir\ $\alpha
+M_{200} ^{-0.59}$ which, within uncertainties, is consistent with our
+results.
+
+{\bf Reference Iro re: LBCG/Ltot (ie similar scaling in r-band at z=0.1)}
+
+Another way of investigating the relationship between BCG and
+satellite galaxies' luminosities is by examining how \Lbcg\ changes
+relative to the typical satellite luminosity. As the satellite
+luminosity distribution is well-fit by a Schechter function, we chose
+to take \Lstarsat\ as the typical satellite luminosity since this
+choice should be insensitive to the magnitude limit used. The bottom
+panel of the Figure shows \Lbcg/\Lstarsat, the ratio between the BCG
+luminosity and the characteristic luminosity of satellite galaxies
+within \rtwo\ and brighter than \Mi\ $= -19.0$. For clusters with
+\Ntwo\ $\> 10$, BCGs are increasingly brighter compared to the
+characteristic luminosity of satellite galaxies as a function of
+cluster richness, but this trend reverses for the lower-richness
+systems (for which the catalog likely has a strong selection function. These trends are not unexpected given the results
+of Figure \ref{fig:lbcg_ngals} and \ref{fig:lstarngals}: \Lbcg\
+monotonically increases over the whole range of \Ntwo, but \Lstarsat\
+is essentially flat with richness only above \Ntwo $\ge 10$ and
+correlated with richness for lower-\Ntwo\ systems. We caution that the
+\Ntwo\ $< 10$ systems should not be taken as representative of {\it
+  all} low-mass systems, as the selection function imposed by the
+cluster finder (demanding only a few red galaxies in close proximity)
+is strong in this regime.
+
+
+More quantitatively, for the range where the cluster catalog is complete and pure, \Ntwo\ $>$ 10, the ratio \Lbcg/\Lstarsat\ as a function of cluster richness (mass) follows
+\begin{eqnarray}
+L_{BCG}/L_*(sat) = (2.8 \pm 0.2) N_{200}^{0.22 \pm 0.05}\\
+L_{BCG}/L_*(sat) = (2 \pm 1 \times 10^{-2}) \frac{M_{200}}{M_{\odot}}^{0.18 \pm 0.02}.
+\end{eqnarray}
+
+%these are the new results foir ng > 10
+%   LBCG/L_*  = (2.8 +/- 0.2) x N200 ^ (0.22 +/- 0.03)
+%   LBCG/L_* = (1.9 +/- 1.3) x 10^-2 x mass ^ (0.18 +/- 0.02)
+
+
+
+
+\section{Summary \& Conclusions}\label{sec:conclusion}
+In this study, we have examined the properties of cluster-associated galaxies, separating BCGs from satellites and focusing on trends in galaxy color and luminosity as a function of cluster mass, distance from cluster center, and redshift. We used clusters in the SDSS \maxbcg\ sample, the largest set of clusters to date. 
+
+Using photometric data only, we use cross-correlation techniques to characterize the cluster-associated galaxy population in 5\rtwo\ around systems spanning more than two decades in mass.
+These methods will have wide applicability to the next generation of
+photometric surveys, and these results show the power of such surveys
+to constrain galaxy evolution.
+
+Our principle results are:
+\begin{enumerate}
+\item the luminosity function of satellites within \rtwo\ as a function of cluster mass shows that...
+
+\item the luminosity function of satellites as a function of \rad\ and cluster mass shows that the mix of sub-\Lstar\ red and blue galaxies changes dramatically as a function of radius, but that the bright galaxy population remains relatively unscathed.
+
+\item the mean color of satellies gets bluer with increasing \rad, but does not depend on cluster mass, and is a reflection of the radially changing ratio of red and blue galaxies.
+
+\item the red fraction of galaxies increases, though weakly, as a function of cluster mass over the full mass range considered, and is inversely correlated with both cluster-centric distance to $\sim$ 2\rtwo\ and with sub-\Lstar\ magnitudes. The red fraction is flat for distances greater than 2\rtwo\ and magnitudes brighter than \Lstar.
+
+\item the fraction of red galaxies declines by $\sim$ 5\% from a median redshift of $z=0.28$ to $z=0.2$ for any given mass bin.
+
+\item the luminosity of BCGs, and the luminosity of BCGs relative to \deltalvir\ and \Lstar, are correlated well with cluster mass, with a scatter of $\sim$ 0.17 in $\sigma(logL_{BCG})$ for the regime where the cluster catalog is complete and pure.
+\end{enumerate}
+
+There are several processes that can operate to cause changes to the cluster galaxy environment, including scenarios where the galaxy population is closely linked to the formation history of the dark matter halo, and processes such as ram pressure stripping, harassment, and strangulation that affect galaxies as they enter the cluster enviroment.
+
+
+If the galaxy population depends only on the formation history of the dark matter halos in which they are embedded, then the galaxy type fraction is expected to be a very weak function of halo mass ({\it e.g.,} the young fraction of \citet{Zheng05} or comparison of the young and old population of \citet{Berlind03}). And, Cooray 2005 (divided universe paper). And, reasonably consistent with the {Weinmann07} results: although they report a strong dendence on mass of the type fraction, where our samples overlap well (M $> 10^{14} M_{\odot}$) their trend is weak and non inconsistent with the results presented here.   Also, the mean color is not expected to change significantly as a function of halo mass for the mass range we investigate here \citep{Diaferio01}, in agreement with the our observations. Although we cannot directly identify the ''young'' or ''old'' galaxies in these models with our blue and red samples, the basic implication for only weak evolution of the type fraction with cluster mass does seem in reasonable agreement with our results. 
+
+The tight(weak) correlation between \Lbcg(\Lstar(sat)) and cluster mass and the increase of \Lbcg/\Lstar(sat) as a function of clsuter mass is also in qualitative agreement with the HOD predictions \citep{Berlind03}.
+
+{\bf Discuss implication of amount of change in \fred\ over z range and comparison with others eg Gerke2007}
+
+{\bf Need to get this section in shape}
+Process the focus on physical changes to the galaxies as a result of interacting with the clsuter environment (whether with the clsuter potential, ICM, or other galaxies) do not seem to be sufficient to explain the observed observational trends. Ram pressure stripping predicts that \fred\ will be inversely correlated with cluster-centric distance, and larger for brighter galaxies and for more massive halos. However, our results indicate that \fred\ is essentially flat within fixed M bins for galaxies brighter than \Lstar\ and that the radial trend in \fred\ is not any more pronounced for greater mass clusters than for lower mass systems, results which cannot be explained by the ram pressure stripping model alone.
+
+Harassment: LSB galaxies are more suceptible to be turned from blue to red \citep{Moore99} and tend to be less luminous, so should have a late type fraction that increases with luminosity, \citep{Weinmann06a} but what we see is that it is the {\it red} fraction that increases (at faint magnitudes) and then is flat for brighter galaxies, so the data suggest that harassment is not a sufficient explanation.
+
+
+- Upcoming surveys to find clusters via the SZ effect (eg SPT) offer a
+promising way to establish a large sample of clusters to high
+redshift; complimentary optical surveys will be required to determine
+redshifts of these systems and to help quantify the selection function
+of such surveys. In addition, the correlation of optical and SZ data
+will be an exciting avenue for connecting the properties of stellar
+and gas phase baryons in these systems, and the optical data will of
+course be valuable for investigating numerous questions in galaxy
+evolution. We can do these things with photometric surveys.
+
+
+\acknowledgments
+RHW was supported in part by the U.S. Department
+of Energy under contract number DE-AC02-76SF00515. This project was supported by the Kavli Institute for Cosmological Physics (KICP) at the University of Chicago.
+
+Funding for the SDSS and SDSS-II has been provided by the Alfred
+P. Sloan Foundation, the Participating Institutions, the National
+Science Foundation, the U.S. Department of Energy, the National
+Aeronautics and Space Administration, the Japanese Monbukagakusho, the
+Max Planck Society, and the Higher Education Funding Council for
+England. The SDSS Web Site is http://www.sdss.org/.  The SDSS is
+managed by the Astrophysical Research Consortium for the Participating
+Institutions. The Participating Institutions are the American Museum
+of Natural History, Astrophysical Institute Potsdam, University of
+Basel, University of Cambridge, Case Western Reserve University,
+University of Chicago, Drexel University, Fermilab, the Institute for
+Advanced Study, the Japan Participation Group, Johns Hopkins
+University, the Joint Institute for Nuclear Astrophysics, the Kavli
+Institute for Particle Astrophysics and Cosmology, the Korean
+Scientist Group, the Chinese Academy of Sciences (LAMOST), Los Alamos
+National Laboratory, the Max-Planck-Institute for Astronomy (MPIA),
+the Max-Planck-Institute for Astrophysics (MPA), New Mexico State
+University, Ohio State University, University of Pittsburgh,
+University of Portsmouth, Princeton University, the United States
+Naval Observatory, and the University of Washington.  This work made
+extensive use of the NASA Astrophysics Data System at {\tt arXiv.org} and of the {\tt
+  astro-ph} preprint archive.
+
+\newpage
+
+\bibliographystyle{apj}
+% Bib database
+\bibliography{apj-jour,astroref}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Tables
+
+%\begin{deluxetable}{ccc}
+%\tabletypesize{\small}
+%\tablecaption{Some statistics for 16 bins in cluster luminosity \label{tab:lum16stats}} 
+%\tablewidth{0pt}
+%\tablehead{
+%  \colhead{Number}    &
+%  \colhead{Lum Range} &
+%  \colhead{Mean Lum.} 
+%}
+%\
+%\startdata
+%24918 & $[5.00, 6.24]$ & 5.60 \\
+%23770 & $[6.24, 7.80]$ & 6.97 \\
+%20303 & $[7.80, 9.74]$ & 8.70 \\
+%15540 & $[9.74, 12.2]$ & 10.8 \\
+%11457 & $[12.2, 15.2]$ & 13.5 \\
+%7756  & $[15.2, 19.0]$ & 16.9 \\
+%5248  & $[19.0, 23.7]$ & 21.0 \\
+%3411  & $[23.7, 29.6]$ & 26.3 \\
+%2186  & $[29.6, 36.9]$ & 32.9 \\
+%1331  & $[36.9, 46.1]$ & 41.0 \\
+%820   & $[46.1, 57.6]$ & 51.2 \\
+%460   & $[57.6, 71.9]$ & 64.0 \\
+%276   & $[71.9, 89.8]$ & 79.7 \\
+%140   & $[89.8, 112]$  & 98.7 \\
+%59    & $[112, 140]$   & 124 \\
+%57    & $[140, 450]$   & 182 
+%\enddata
+%\end{deluxetable}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  Algorithm Figures
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Figures about splits
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% CLF Figures
+
+
+
+
+%\begin{figure}
+%  \plotone{}
+%  \figcaption[]{Characteristic galaxy luminosity, \lstar, as a function of cluster richness for all, red, and blue samples but in for the ADDGALS mock catalog. \label{fig:lstarhalos}}
+%\end{figure}
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Color Distrib Figures
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  BCG Figures
+
+
+
+
+\end{document}

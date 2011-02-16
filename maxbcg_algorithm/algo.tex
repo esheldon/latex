@@ -1,0 +1,71 @@
+\documentclass[preprint]{aastex}
+
+\begin{document}
+
+\title{maxBCG}
+\author{Erin Sheldon, based on Jim Annis' and Ben Koester's algorithms}
+
+\section{Bayes Theorem}
+
+We assume that clusters of galaxies have a special galaxy with a known
+distribution of colors as a function of redshift, and ``member'' galaxies on
+the ES0 ridgeline, nearby in space.  We will denote the special galaxy as a
+Brightest Cluster Galaxy (BCG), although the utility of demanding it is the
+brightest may be a matter of debate. 
+
+We go to each galaxy in the survey and, for a given redshift and metric
+aperture, count the neighboring galaxies within the aperture and ridgeline. We
+then wish to find the most likely redshift and member population.  Using Bayes'
+theorem:
+
+\begin{equation} \label{eq:posterior}
+P(z, n_{gals} | m_{BCG}, N_{ap}) = \frac{ P(m_{BCG}, N_{ap} | z, n_{gals}) P(z, n_{gals}) }{P(m_{BCG}, N_{ap})},
+\end{equation}
+where $n_{gals}$ is the number of member galaxies for the cluster, $z$ is the
+cluster redshift, $m_{BCG}$ is the measured magnitudes for the BCG candidate,
+and $N_{ap}$ is the measured number of galaxies in the metric aperture, which
+is a function redshift in angular space.
+
+We will take flat priors on $z$ and $n_{gals}$, so all we need to do is
+maximize the likelihood function.  We will assume that the BCG likelihood
+separates from the member likelihood
+\begin{equation} \label{eq:likelihood}
+P(m_{BCG}, N_{ap} | z, n_{gals}) = P(m_{BCG}|z)P(N_{ap} | z, n_{gals})
+\end{equation}
+The first term is measured from known BCG's by examining their magnitudes
+as a function of redshift.  The second term involves the number of galaxies
+in the aperture
+\begin{equation} \label{eq:nap_like}
+N_{ap} = n_{gals} + N_{ap}^{random},
+\end{equation}
+where $n_{gals}$ is the quantity of interest, and $N_{ap}^{random}$ is the
+contribution from some uniform component of galaxies not associated with the
+cluster.  This is measureable using random points for a given redshift, and
+should be a poisson random variable with distribution $P(N_{ap}^{random})$ and
+mean $\langle N_{ap}^{random} \rangle$.  The most likely $n_{gals}$ is given by
+$N_{ap} - \langle N_{ap}^{random} \rangle$.  Of course, the full
+two-dimensional likelihood should be explored.
+
+This differs from Jim's likelihood function:
+\begin{equation}
+P(m_{BCG}, N_{ap} | z, n_{gals}) = N_{ap}(z)P(m_{BCG}|z) = 
+        n_{gals}(z)P(m_{BCG}|z)
+\end{equation}
+I don't think that maximizing this function gives the most likely $n_{gals}$
+and $z$ in general.  For high enough $n_{gals}$ and high $z$, however, it may
+in fact recover the best values because the random component is negligible.  It
+may also bias the redshift higher since larger apertures will increase
+$n_{gals}$, but comparisons with spectroscopic redshifts do not reveal any such
+bias.
+
+\section{Discussion}
+
+Maximizing the above likelihood gives the best $z$ and $n_{gals}$ for the 
+BCG candidate.  This does not, however, find the best cluster candidates.
+We need some kind of ranking system for this.  Probably some combination
+of $n_{gals}$, the likelihood from equation \ref{eq:likelihood}, and a 
+measure of the spatial distribution of members would be useful.  The difficulty
+is picking the right way to combine these, both functionally and in terms
+of relative weight.  More on this later.
+
+\end{document}

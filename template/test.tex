@@ -1,0 +1,97 @@
+
+%\documentclass{aastex}
+
+% This is what phil used
+%\documentclass[manuscript]{aastex}
+%\usepackage{aastexug}
+
+%% preprint produces a one-column, single-spaced document:
+
+%\documentclass[preprint]{aastex}
+
+%% preprint2 produces a double-column, single-spaced document:
+
+ \documentclass[preprint2]{aastex}
+
+%%
+%% Some definitions
+%%
+
+
+\slugcomment{Not yet submitted to \apjl}
+
+\begin{document}
+
+\title{}
+
+\author{Erin Scott Sheldon}
+\affil{Department of Physics, University of Michigan, 500 East University, Ann
+Arbor, Mi 48109}
+\email{esheldon@umich.edu}
+
+
+\begin{abstract}
+Hello there. I'm referencing.
+\end{abstract}
+
+\keywords{}
+
+\section{Introduction}\label{intro}
+this is the intro citing.  See the  \S \ref{intro}  Here is
+a cool citation for \citep{SR} or I could write it like this: see \cite{SR}
+
+I'm writing an inline equation: $a = \Sigma_{v0}$.  See also Eq. \ref{ellipeqn1}
+
+Now look at cool figure \ref{figurename}.
+
+\begin{equation} \label{ellipeqn1}
+a = \Sigma_{v0}
+\end{equation}
+
+\begin{eqnarray}
+(a^{T}a)_{k,l} & = & {\sum_{i=1}^{N_{source}}{S_{k,i}S_{l,i} \over
+\sigma_{i}^{2} } } \nonumber \\
+S_{k,i} & = & {\sum_{q_k=1}^{N_{lens}}\cos(2\vartheta_{q,i})}  \\
+b_k & = & \sum_{i=1}^{N_{source}}{(e_{1})_{i}S_{k,i} \over \sigma_{i}^{2}} \nonumber
+\end{eqnarray}
+
+%\begin{figure}[t]
+%\plotone{name.eps}
+%\caption{some text here} \label{figurename}
+%\end{figure}
+
+\section{section two}
+
+Yesterday I figured out the "expected" Lx-T and M-Lx relations based on
+assumptions of 1)pure bremsstrahlung 2)virial equilibrium
+3)self-similarity (same density profile), within a characteristic radius, 
+like $r_{500}$. It is straightforward; I think the muscle relaxers       
+were relaxing my brain on friday :)
+
+$L_X ~ f_{gas}^2 T^2$
+
+$M ~ f_{gas}^{-2} L_X^{3/4}$
+
+Which is in disagreement with the "expected" relations stated in Reiprich
+\& Bohringer: 
+
+$L_X ~ f_{gas}^2 T^{3/2}$
+
+$M ~ f_{gas}^{-2} M$
+
+I believe they are wrong, because today I found my formulas
+indirectly stated in Kaiser 1986 and directly stated in Arnaud \& Evrard
+1999.
+
+
+
+\subsection{sub of section two}
+
+\acknowledgments
+
+
+\begin{thebibliography}{}
+\bibitem[Schneider \& Rix(1997)]{SR} Schneider, P., Rix, H., 1997, ApJ, 474, 25
+\end{thebibliography}
+
+\end{document}

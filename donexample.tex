@@ -1,0 +1,1334 @@
+\documentclass{aastex}
+\usepackage{emulateapj5}
+
+\def\sax{{\it BeppoSAX\,}}
+\def\asca{{\it ASCA\,}}
+\def\rosat{{\it ROSAT\,}}
+\def\rxte{{\it RXTE\,}}
+\def\uly{{\it Ulysses\,}}
+
+\newcommand{\ave}[1]{\langle{#1}\rangle}
+\newcommand{\PSbox}[3]{\mbox{\special{psfile=#1}\hspace{#2}\rule{0pt}{#3}}}
+\newcommand{\pfg}{\vspace{0.3cm}}
+
+\shorttitle{ASM GRB Light Curves}
+\shortauthors{Smith et al.}
+
+\slugcomment{Draft: \today}
+
+\begin{document}
+ 
+\title{X-Ray Light Curves of Gamma-ray Bursts Detected with the All-Sky
+Monitor on \rxte}
+
+\author{D. A. Smith\altaffilmark{1}, A. Levine\altaffilmark{2}, H. Bradt\altaffilmark{2}, K. Hurley\altaffilmark{3}, M. Feroci\altaffilmark{4}, P. Butterworth\altaffilmark{5}, T. Cline\altaffilmark{5}, G. Pendleton\altaffilmark{6}, \& S. Phengchamnan\altaffilmark{6,7}}
+\altaffiltext{1}{The University of Michigan}
+\altaffiltext{2}{Massachusetts Institute of Technology}
+\altaffiltext{3}{The University of California, Berkeley}
+\altaffiltext{4}{Istituto de Astrofisica Spaziale}
+\altaffiltext{5}{NASA/Goddard Space Flight Center}
+\altaffiltext{6}{NASA/Marshall Space Flight Center}
+\altaffiltext{7}{University of Alabama at Huntsville}
+
+
+\email{dasmith@space.mit.edu}
+
+\begin{abstract}
+
+We present X-ray light curves (2--12~keV) for sixteen gamma-ray bursts
+(GRBs) detected by the All-Sky Monitor on the {\it Rossi X-ray Timing
+Explorer}.  We discuss these light curves within the context of a
+simple relativistic fireball and synchrotron shock paradigm, and we
+address the possibility of observing the transition between a GRB and
+its afterglow.  We compare these soft X-ray light curves with count
+rate histories of the GRBs obtained by the high-energy experiments
+($>~12$~keV) BATSE, the \sax~Gamma-Ray Burst Monitor, the burst
+monitor on \uly, and Konus/WIND.  The sixteen light curves show a
+diverse range of morphologies, with striking differences between
+energy bands.  In several bursts, intervals of significant emission
+are evident in the ASM energy range with little or no corresponding
+emission apparent in the high-energy light curves.  For example, the
+final peak of GRB~970815 is only detected in the softest BATSE energy
+bands and may represent the beginning of the afterglow.  We also study
+the duration of bursts as a function of energy.  Simple, singly-peaked
+bursts seem consistent with the $E^{-0.5}$ power law expected from an
+origin in synchrotron radiation, but durations of bursts that exhibit
+complex temporal structure are not consistent with this prediction.
+Bursts such as GRB~970828 that show many short spikes of emission at
+high energies last significantly longer at low energies than the
+synchrotron cooling law would predict, and this may be the result of
+an emission region being shocked by internal shocks before the
+electrons radiating in X-rays can cool, rather than the onset of an
+X-ray afterglow.
+
+\end{abstract}
+
+\keywords{gamma rays: bursts}
+
+\section{INTRODUCTION\label{sec:intro}}
+
+\subsection{X-Rays from Gamma-Ray Bursts}
+
+The first detection of a gamma-ray burst (GRB) at X-ray energies
+($\sim$1--15~keV) was made in 1972 with two proportional counters on
+the {\it OSO-7} satellite~\citep{wubde73}.  For the next 15 years,
+there were few X-ray observations of GRBs, but they revealed many
+interesting GRB properties.  Instruments on {\it Apollo-16} were used
+to detect a GRB, also in 1972, and light curves in several energy
+bands showed that the spectrum evolved 
+over the burst's single peak~\citep{mpgpt74,tesam74}.  Four bursts
+were detected with the Air Force satellite {\it P78-1} in 1979, and
+the peak X-ray emission was found to lag the peak gamma-ray
+emission~\citep{lefks84}.  
+
+Efforts to identify X-ray counterparts to GRBs intensified in the late
+1980s.  The {\it Ginga} satellite was equipped with co-aligned
+wide-field detectors to cover the energy range from
+2--400~keV~\citep{mfhin89}.  These instruments were used to detect
+$\sim$120 bursts between 1987 and 1991~\citep{omnyf91}.  Analysis of
+twenty-two of these observations confirmed that spectral softening is
+common in the tails of bursts and showed that the X-ray band can
+contain a large fraction of the energy emitted from a
+GRB~\citep{sfmy98}.  X-ray precursors were observed in a few
+cases~\citep{minpf91}.  Between 1989 and 1994, 95 bursts were detected
+by the GRANAT/WATCH all-sky monitor in two energy bands, 8--20~keV and
+20--60~keV, and thirteen of them were found to exhibit significant
+emission in the lower energy band before and/or after the activity in
+the higher energy band~\citep{sstlb98}.
+
+The Wide Field Camera on \sax~was used to detect 34 GRBs in the
+1.5--26.1~keV band between July 1996 and February 2000\footnote{See
+also J. Greiner's archive at {\tt
+http://www.aip.de:8080/$\sim$jcg/grbgen.html}}.  In addition to
+providing broadband light curves for these GRBs~\citep{facmp00}, the
+\sax~effort has proven fruitful for the study of GRB ``afterglows'',
+the fading emission sometimes seen after a GRB, associated with
+cooling radiation in the aftermath of the GRB explosion.  Only one of
+those 34 bursts (GRB~980519) exhibited significant soft X-ray activity
+before the onset of the GRB in gamma-rays~\citep{zhpf99}.
+
+The general picture that has emerged is that X-ray light curves for
+GRBs tend to track their gamma-ray counterparts.  Spectral evolution
+may or may not be present.  Sometimes both forms of evolution are
+present.  Most often the times of X-ray peak emission tend to lag
+behind the peaks at higher energies.  Bursts tend to last longer in
+X-rays, but this is not true of every burst.  A small fraction of
+bursts exhibit X-ray activity with no detectable emission at gamma-ray
+energies.  This activity sometimes precedes the GRB and sometimes
+follows it.  In very rare cases, it does both.
+
+\subsection{A Simplified Conventional Model\label{sec:grbmod}}
+
+\citet{piran99} has reviewed the standard ``fireball'' model for GRBs
+in great detail.  Here we present of brief summary of this model, to
+which we shall refer when interpreting features of the GRB light
+curves observed with the ASM.  In this model a large amount of energy
+($\sim10^{51}$~ergs) is dumped into a small volume to create a very
+hot, optically thick fireball~\citep{goodm86}.  The fireball expands
+rapidly, and since it contains only a very small amount of baryonic
+matter~\citep{shpi90,kps99}, the expansion becomes highly
+relativistic~\citep{blmck76}.  By the end of the acceleration phase,
+all the available energy has been transferred to the bulk kinetic
+flow~\citep{cavree78}.  
+
+The optical depth of an expanding fireball, $\tau$, can be related to
+the bulk Lorentz factor of the expansion, $\Gamma$, and the minimum
+observed timescale for variability during the burst, $\delta T$
+(e.g.~\citet{piran99}).  This relation hinges on the observation that
+high-energy GRB spectra are non-thermal, with a photon index
+$\alpha$. In order for the observed spectrum to be non-thermal, the
+optical depth must be less than unity.  The derived relation is
+\begin{equation}
+\label{eq:tauyy}
+\tau \sim \frac{2\times10^{15}}{\Gamma^{4+2\alpha}}\ E_{52}\ 
+\left( \frac{\delta T}{10\ {\rm ms}} \right)^{-2} \lesssim 1,
+\end{equation}
+where $E_{52}$ is the total energy in the fireball in units of
+$10^{52}$~erg. This constraint demands a lower limit on the bulk
+Lorentz factor, dependant on $\alpha$.  Early work found that the high
+energy spectral index can vary from $\sim1.6$ to higher than 5, with
+no particular preferred value~\citep{bmfsp93}.  A recent analysis of
+bright bursts from the Fourth BATSE Catalog reports an asymmetric
+distribution of high-energy spectral indices that peaks around 2.25
+and extends beyond 4~\citep{pbmpp00}.  If $\alpha$ is 2.25, then
+$\Gamma$ must be greater than $\sim60$, if the other terms in
+Equation~\ref{eq:tauyy} are of order unity.
+
+Once such a highly relativistic speed is reached, the ejecta coast
+quietly until a shock forms.  If the ejecta sweep up enough mass from
+the surrounding medium to decelerate and convert the bulk kinetic
+energy to random motion and radiation~\citep{mr92,rm92}, the shock is
+referred to as ``external''.  If the central engine of the GRB source
+is erratic and emits multiple shells of ejecta at different speeds,
+``internal'' shocks may form as these shells overtake each other, and
+radiation will be emitted~\citep{kps97}.  The fading afterglow
+observed after many GRBs is believed to originate in the cooling of
+the ejecta behind the external shock front~\citep{mr97}, while the
+complex temporal structure of the GRBs themselves has been attributed
+to multiple internal shocks~\citep{npp92}.  In both internal and
+external shocks, the dominant form of radiation is expected to be
+synchrotron emission~\citep{snp96,piran99}.
+
+In a model of post-shock synchrotron radiation, the frequency of peak
+emission ($\nu_m$) increases as the bulk Lorentz factor of the shock
+to the fourth power~\citep{snp96,spn98,wg99}.  The inverse of this
+relationship is given by
+\begin{equation}
+\label{eq:peaklimgam}
+\Gamma_{\rm sh} = 14\ \epsilon_B^{-1/8} \epsilon_e^{-1/2} n_1^{-1/8} 
+\left( \frac{p-1}{p-2} \right)^{1/4}
+\left( \frac{h \nu_m}{1\ {\rm keV}} \right)^{1/4}
+\end{equation}
+(See, e.g.,~\citet{piran99}, Equation~105), where $n_1$ is the density
+of the external medium, $\epsilon_B$ and $\epsilon_e$ define the
+fractional energy transferred to the post-shock magnetic field and
+electron distribution, respectively, and $p$ is the index of the
+number spectrum of the Lorentz factor distribution of the shocked
+electrons ($N \propto \Gamma_{\rm sh}^{-p}$). 
+
+In this paper we present X-ray light curves for the GRBs detected with
+the All-Sky Monitor (ASM) on the {\it Rossi X-ray Timing Explorer}
+({\it \rxte}) and interpret them in the context of this synchrotron
+shock model.  We include light curves for each of the thirteen GRBs
+described in~\citet{sblr99}, as well as GRB~990308 and GRB~000301C.
+We also present a light curve for GRB~961216, which was detected but
+could not be localized accurately.  All these events have been
+confirmed as GRBs via their detection at higher energies by other
+instruments (Table~\ref{flutab})\footnote{The IPN master list of burst
+detections is maintained by K. Hurley at {\tt
+http://ssl.berkeley.edu/ipn3/}}.  Section~\ref{sec:lcdat} describes
+the data and our analysis techniques.  Section~\ref{sec:lcs} presents
+the observations and the GRB light curves.  We compare the ASM light
+curves with the equivalent high-energy light curves as recorded by
+devices on other satellites.  Section~\ref{sec:lcsum} summarizes both
+the common features and the striking differences among these light
+curves and discusses them in the context of the model.
+
+\section{INSTRUMENTATION AND ANALYSIS}\label{sec:lcdat}
+
+The ASM consists of three Scanning Shadow Cameras (SSCs) mounted on a
+motorized rotation drive~\citep{lbcjm96}.  The assembly holding the
+three SSCs is generally held stationary for a 90-s ``dwell''.  The
+drive then rotates the SSCs through $6\arcdeg$ between dwells, except
+when it is necessary to rewind the assembly.  Each SSC contains a
+proportional counter with eight resistive anodes.  Each event detected
+on exactly one resistive anode is characterized by SSC and anode
+numbers, total pulse height, and a one-dimensional position in the
+coordinate parallel to the anode, determined via the charge-division
+technique.  Each SSC views a $12\arcdeg \times 110\arcdeg$ (FWZI)
+field through a mask perforated with pseudo-randomly spaced slits.
+The long axes of the slits run perpendicular to the anodes.
+
+During each dwell, the positions of incident photons are accumulated
+in histograms for each anode for each of three pulse height channels.
+These channels, denoted A, B, and C, nominally span the energy ranges
+1.5--3, 3--5, and 5--12~keV, respectively.  The sum of the counts in
+these three bands is referred to as the ``sum band'', or ``S''.  In
+this position histogram mode, the arrival time of each photon is not
+preserved.  The histogram contains the result of the illumination of
+the anodes through the slit mask from each discrete X-ray source in
+the field of view (FOV), as well as contributions from the diffuse
+X-ray background and local particle events.  For each of the 3 energy
+channels, we fit these data for the intensity of each known X-ray
+source by constructing a collection of vectors that we treat as a
+matrix.  Each vector corresponds to a source in the FOV, according to
+a catalog with positions for known X-ray sources.  Each component of
+that vector represents the fractional exposure of a particular anode
+bin to the corresponding source, as determined by a detailed model of
+the geometry of the SSC.  A reduced $\chi^2$ fit through a matrix
+inversion technique determines the amplitude of each vector.
+
+Once an amplitude for each source in the FOV is determined, it is
+converted into a measurement of the source's intensity in ``ASM
+units'' through division by the exposure time and the application of a
+multiplicative correction factor.  This time-dependent factor ($\equiv
+a$) is empirically-determined such that the corrected intensity of the
+Crab Nebula is constant.  The corrected intensity derived from
+observations of any of the three SSCs is expressed as the count rate
+that would be obtained for the source, had it been at the center of
+the FOV of SSC~1 at a fiducial time near the start of the mission.
+This defines ``ASM units'' for any energy channel.  The corrected ASM
+units for 1.0 Crab are 26.8, 23.3, 25.4, and 75.5 for the A, B, C, and
+Sum channels respectively.
+
+In addition to the position histogram data mode, the ASM records the
+total number of good events detected from all sources in the FOV of
+each SSC in 1/8-s bins in each of the same three energy channels.  In
+this ``multiple time series'' (MTS) data mode, the physical location
+of each incident photon is not preserved.
+
+In combination, these two data modes can provide a light curve for a
+highly variable source like a GRB.  We take advantage of the fact that
+no known variable X-ray sources were in the FOV during the
+observations of any of the GRBs presented here and assume that the
+count rate from all sources other than the GRB does not vary during
+each dwell. Should the FOV contain variable sources other than the GRB
+or should the background rate vary, the method described here would be
+invalid (see, e.g., the description of GRB~000301C, below).  The total
+number of counts from the GRB source detected during one dwell of one
+SSC is obtained from the standard fit to the position histogram data.
+We then define the effective background level (for the GRB) in the MTS
+count rate data such that the total number of counts above that level
+for the appropriate 90-s interval is equal to the number of counts
+inferred from the position histogram data to come from the GRB source.
+The number of counts from the GRB recorded in a given time bin can be
+estimated as:
+\begin{equation}
+c_j = n_j - t_j\ \left(\frac{N}{T} - \frac{fR}{a}\right),
+\label{eq:bgcounts}
+\end{equation}
+where $N$ is the total number of counts detected in a given SSC energy
+band during an observation with total exposure time $T$, $R$ is the
+time-averaged source intensity in ASM units derived from the fit to
+the position-histogram data, $f$ is the transmission fraction for the
+location of the GRB in the FOV, $t_j$ is the time bin size in seconds,
+and $n_j$ is the number of counts in the $j$th time bin.  One can then
+convert $c_j$ into ASM units through multiplication by $a/f$.  For
+additional details see~\citet{smithe99}.
+
+The ASM count rates are compared with available contemporaneous BATSE,
+\uly, Konus, or \sax~GRBM count rates.  The BATSE count rates 
+
+\end{multicols}
+\begin{deluxetable}{lccrcc}
+\tablecaption{Properties of 16 ASM-detected GRBs \label{flutab}}
+\tablehead{
+Date of GRB &
+Time of GRB &
+Confirming &
+2-12 keV Fluence & 
+R.A. &
+Decl. \\
+(yymmdd) & 
+(hh:mm:ss) &
+Satellite\tablenotemark{a}  &
+($10^{-7}$ ergs cm$^{-2}$) & 
+(J2000) &
+(J2000) 
+} 
+
+\startdata
+960416 & 04:09:00 & ubk  & $  6.0\pm0.3$ & 04h15m27s & $+77\arcdeg10\arcmin$ \\
+960529 & 05:34:34 &  k   & $>17.5\pm0.6$ & 02h21m50s & $+83\arcdeg24\arcmin$ \\
+960727 & 11:57:36 & uk   & $  9.5\pm0.5$ & 03h36m36s & $+27\arcdeg26\arcmin$ \\
+961002 & 20:53:55 & uk   & $  9.2\pm0.5$ & 05h34m46s & $-16\arcdeg44\arcmin$ \\
+961019 & 21:08:11 & ubk  & $  4.6\pm0.6$ & 22h49m00s & $-80\arcdeg08\arcmin$ \\
+961029 & 19:05:10 & k    & $  3.3\pm0.4$ & 06h29m27s & $-41\arcdeg32\arcmin$ \\
+961216 & 16:29:02 & bk   & \nodata & \nodata & \nodata \\
+961230 & 02:04:52 & u    & $  1.5\pm0.3$ & 20h36m45s & $-69\arcdeg06\arcmin$ \\
+970815 & 12:07:04 & ubks & $>33.3\pm0.8$ & 16h08m33s & $+81\arcdeg30\arcmin$ \\
+970828 & 17:44:37 & ubk  & $>14.9\pm0.6$ & 18h08m23s & $+59\arcdeg19\arcmin$ \\
+971024 & 11:33:32 & bk   & $  1.1\pm0.3$ & 18h25m00s & $+49\arcdeg27\arcmin$ \\
+971214 & 23:20:41 & ubks & $  3.4\pm0.3$ & 12h04m56s & $+64\arcdeg43\arcmin$ \\
+980703 & 04:22:45 & ubk  & $>18.3\pm0.8$ & 23h59m04s & $+08\arcdeg33\arcmin$ \\
+981220 & 21:52:21 & uks  & $ 12.6\pm0.5$ & 03h43m38s & $+17\arcdeg13\arcmin$ \\
+990308 & 05:15:07 & ubk  & $ 5.8\pm0.4$ & 12h23m11s & $+06\arcdeg44\arcmin$ \\
+000301C & 06:51:39 & unk  & $ 3.8\pm0.5$ & 16h20m19s & $+29\arcdeg26\arcmin$ \\
+\enddata
+\tablenotetext{a}{u - \uly; b - BATSE; k - KONUS; s - \sax; n - {\it NEAR}}
+\end{deluxetable}
+\begin{multicols}{2}
+
+\setcounter{figure}{0} 
+\refstepcounter{figure} 
+\PSbox{lc960416.eps hoffset=-15 voffset=0
+hscale=56 vscale=56}{8.8cm}{11.7cm}{\\\\\small Fig. 1 -- The
+time-series data for GRB~960416 in six energy channels
+as recorded by both the ASM (2-s bins; 1.5--12~keV) and BATSE (1-s
+bins; 25--320~keV).  The ASM light curve is the weighted average of
+measurements by both SSC~1 and SSC~2.  Where possible, the ASM light
+curves presented in these figures have been converted into Crab flux
+units by the method described in Section~\protect{\ref{sec:lcdat}}.
+\label{fig:lc960416_bat}}
+
+\pfg
+\noindent
+shown here are extracted from the {\tt discsc} mode FITS files,
+available through the public data {\tt ftp} archive at the Compton
+Gamma-ray Observatory Science Support Center\footnote{{\tt
+http://cossc.gsfc.nasa.gov/}}.  These data are recorded in four energy
+channels with nominal energy ranges of 25--60, 60--110, 110--320, and
+$>320$~keV.  In one case (GRB~970828), the event occurred during a
+telemetry gap, so no {\tt discsc} data were available.  In this case,
+we used the 16-channel {\tt MER} data mode, and combined channels to
+approximately the same ranges as the {\tt discsc} mode.  BATSE records
+counts in 64, 256, and 1024~ms bins until the on-board software
+recognizes a trigger event (when the number of counts in a single bin
+is a significant excess above the running average).  Then the bin size
+is reduced to 16~ms for 242~s, and an alert with a rough position is
+telemetered to Earth immediately.  The counts recorded with the high
+time resolution are saved on-board the spacecraft and sent down at the
+next convenient time.  The hard X-ray detectors for the solar
+X-ray/cosmic gamma-ray burst experiment on \uly~record 25--150~keV
+photons with a temporal bin size of 0.25-s~\citep{hsabc92}.
+The high energy light 
+
+\refstepcounter{figure} 
+\PSbox{lc960529_kon.eps hoffset=-15 voffset=0
+hscale=56 vscale=56}{8.8cm}{11.7cm}{\\\\\small Fig. 2 -- The
+time-series data for ASM and Konus observations of GRB~960529.  The
+ASM light curve is the weighted average of measurements by both SSC~1
+and SSC~2, in 5-s bins.  A gap indicates the 6~s interval between
+dwells when the ASM assembly was in motion.  The Konus count rates are
+from the ``waiting-mode'' data in 3-s bins, as this event did not
+cause a trigger.\label{fig:lc960529}}
+
+\pfg
+\noindent
+curve for GRB~000301C presented here has been rebinned to 0.5-s bins
+and shifted by $+35446$ s, to match the Earth-crossing time (which is
+within $\sim0.02$~s of the time at \rxte~-- much less than the bin
+size on these light curves).  KONUS records data continuously in a
+``waiting mode'', with bins of 2.9 s, but when a trigger is activated,
+counts are recorded in higher resolution for a certain amount of time
+after the trigger, such that higher resolution data are preserved for
+less time~\citep{afgim95}.  The triggered data presented in this paper
+have been binned up to 256~ms.  When the \sax~GRBM registers a burst,
+the 40--700~keV count rate is stored in 0.48~ms bins from 8 s before
+to 98 s after the trigger time; all on-board data is sent down once
+every $\sim90$-m orbit for operators to
+examine~\citep{fcffn97,ffcda97}.
+
+\section{OBSERVATIONS}\label{sec:lcs}
+
+\citet{sblr99} describe a search through 1.5 years of archived ASM
+time series data, as well as a ongoing program to scrutinize the ASM
+data recorded in real time, for evidence of X-ray counterparts to
+GRBs.  This section 
+
+\refstepcounter{figure} 
+\PSbox{lc960727kon.eps 
+hoffset=-15 voffset=-15 hscale=56 vscale=56}{8.8cm}{11.7cm}{\\\\\small
+Fig. 3 -- The ASM time-series data from SSC~2 for GRB~960727 (2-s bins) in
+three energy bands, as well as the corresponding count rate histories
+from Konus (0.25-s bins after the trigger) in three energy bands.
+\label{fig:lc960727}}
+
+\pfg
+\noindent
+presents the ASM light curves for the sixteen GRBs discovered as part
+of those searches.  We will identify the major features of the light
+curves and describe relevant details of the observations that will
+clarify the results.  We will discuss possible interpretations of
+these features in Section~\ref{sec:lcsum}.
+
+The multiply-peaked structure of GRB~960416
+(Fig.~\ref{fig:lc960416_bat}) was observed in both SSCs~1 and~2 during
+a single dwell.  The BATSE light curve shows a double-peaked structure
+lasting some 50~s.  The two BATSE peaks are also seen in the ASM data,
+but the ASM reveals further activity.  A peak in the X-ray light curve
+between the two main peaks is absent in the gamma-ray light curve.
+This peak is detected in both ASM SSCs, but its spectrum is remarkably
+soft.  There is no significant emission detected above 5~keV during
+this intervening peak.  The ASM light curve shows an extended tail for
+the final peak beyond the end of the BATSE event.
+
+GRB 960529 (Fig.~\ref{fig:lc960529}) began around 05:34~UT.  Three
+hard peaks were observed in the ASM time-series data from two SSCs
+over the course of two successive dwells.  Although no Konus trigger
+was explicity activated, the waiting-mode data clearly show the
+multi-peak structure of this burst out to over 200~keV.  However, the
+KONUS light curve contains four major peaks, such that the extended
+tail of the first peak in the ASM light curve is 
+
+\refstepcounter{figure} 
+\PSbox{lc961002kon.eps 
+hoffset=-15 voffset=-15 hscale=56 vscale=56}{8.8cm}{11.7cm}{\\\\\small
+Fig. 4 -- The ASM time-series data from SSC~2 for GRB~961002 (2-s bins) in
+three energy bands, as well as the corresponding count rate histories
+from Konus (0.25-s bins after the trigger) in three energy bands.
+\label{fig:lc961002}}
+
+\pfg
+\noindent
+resolved into two distinct peaks at higher energies.
+
+GRB~960727 and GRB~961002 (Figs.~\ref{fig:lc960727}
+and~\ref{fig:lc961002}) were each detected only in SSC~2, each lasted
+about 30~s, and each showed a singly-peaked soft X-ray light curve
+without strongly significant structure on smaller time scales.
+Neither burst was detected by BATSE, but each was detected by KONUS
+and the GRB detector on \uly.  The high-energy light curves reveal
+rich temporal structure with no corresponding X-ray variability.  Each
+event seems to conclude with a weak, extended X-ray tail, absent at
+high energies, that lasts for 10 or 20~s.  The accuracy of the
+background estimation before the burst supports the existence of a
+post-burst excess, but the extended tail is too weak in the three
+sub-bands to make a useful measurement of the energy-dependence of the
+decay rates.
+
+GRB~961019 (Fig.~\ref{fig:lc961019_bat}) was detected in a single
+observation of SSC~2 and was also observed with BATSE.  The BATSE
+light curve shows three sub-peaks.  The GRB was only
+$0.5\pm0.2\arcdeg$ from the edge of the SSC FOV, implying that only
+24\% of the detector surface was exposed to the source.  The X-ray
+peak emission is delayed relative to the gamma-ray maximum by 5--10~s.
+
+GRB~961029 (not shown) was detected as a dramatic 
+
+
+\refstepcounter{figure} 
+\PSbox{lc961019.eps 
+hoffset=-20 voffset=-10 hscale=54 vscale=54}{8.8cm}{8.1cm}{\\\\\small
+Fig. 5 -- The time-series data from SSC~2 for GRB~961019 in both the
+ASM (5-s bins; 1.5--12~keV) and BATSE (0.64-s bins; 25--320~keV).
+\label{fig:lc961019_bat}}
+
+\pfg
+
+\refstepcounter{figure} 
+\PSbox{lc961216.eps
+hoffset=-20 voffset=-10 hscale=54 vscale=54}{8.8cm}{8cm}{\\\\\small
+Fig. 6 -- The time-series data from SSC~2 for GRB~961216 in both the
+ASM (5-s bins; 1.5--12~keV) and BATSE (1-s bins; $>25$~keV).  No
+background subtraction has been performed on these data.
+\label{fig:lc961216_bat}}
+
+\pfg
+
+\noindent
+rise in count rate only a few seconds from the end of a dwell.  During
+this dwell, the source was located only
+$2\arcdeg.0\pm0.2$~\citep{sblr99} from the edge of the FOV of SSC~2.
+As SSC~2 was rotated after the end of the dwell, the field of view
+moved off the direction to the GRB source and the signal was lost.
+KONUS reported a burst detection at 19:05:10 (UTC), which is during
+the rise of the ASM event.  No other high-energy GRB detector observed
+this event.
+
+GRB~961216 (Fig.~\ref{fig:lc961216_bat}) was detected by a single SSC.
+The 
+
+
+\refstepcounter{figure} 
+\PSbox{lc1230com.eps
+hoffset=-20 voffset=-15 hscale=59 vscale=59}{8.8cm}{5.1cm}{\\\\\small
+Fig. 7 -- The time-series data for GRB~961230 (9-s bins; 1.5--12~keV),
+displaying the weighted average of measurements by both SSC~1 and
+SSC~2.\label{fig:lc1230com}}
+
+\pfg
+
+
+\noindent
+location of GRB~961216 lay only $\sim1\arcdeg$ from the edge of the
+FOV, which is outside the region for which our position-determining
+ability is well-calibrated~\citep{sblr99}.  Without an accurate
+position, it is impossible to accurately estimate the number of counts
+in the position histogram mode data that can be attributed to the
+source and to thereby estimate the effective background count rate.
+The 1.5--12~keV count rate as measured by the entire SSC, without
+background subtraction, is shown in Figure~\ref{fig:lc961216_bat}.
+The light curve suggests that there was detectable X-ray flux from the
+GRB that both led and trailed the gamma-ray activity as measured by
+BATSE.
+
+GRB~961230 (Fig.~\ref{fig:lc1230com}) was a weak burst that was
+nonetheless detected in both SSC~1 and SSC~2 during the same dwell.
+The X-ray flux lasted about 25~s and reached a peak of
+$0.23\pm0.03$~Crab.  This burst was detected by the GRB detector on
+\uly~at 02:04:52 (UTC), but it was not observed by any other
+instrument.
+
+GRB~970815 (Fig.~\ref{fig:lc970815_all}) exhibited multiple peaks over
+an interval of several minutes.  SSC~2 scanned onto the source during
+the decay from an initial peak.  The decay timescale from this peak is
+clearly longer at lower energies, across all six available energy
+channels, indicative of the spectral softening common to the early
+phases of GRB decay curves, but neither the onset nor the peak was
+observed by the ASM.  A second peak began 70~s into the dwell, and a
+third peak $\sim50$~s after that, during the following dwell.  The
+third 90-s dwell, in which the burst source was $\sim0.75\arcdeg$ from
+the edge of the FOV of SSC~1, yielded a $2\sigma$ upper limit of
+40~mCrab (2--12~keV).
+
+It is striking that the third peak, the strongest in the ASM light
+curve, barely registers in BATSE's two lowest energy channels
+(25--110~keV).  The X-ray spectrum of the burst evolves rapidly during
+this peak.  It shows a distinct soft lag of $\sim12$~s between the
+times of peak burst flux between the high and low energy channels of
+the ASM.  The ASM spectra for the two maxima clearly differ.  Assume a
+simple power law spectrum ($N\propto E^{-s}$) without absorption in
+the 2--12~keV band, to find the index $s$ for the third peak is
+$1.8\pm0.1$ while only $1.2\pm0.3$ for the second peak.  These fits
+were achieved from a 5-s bin beginning 99~s after the BATSE trigger
+time and a 2-s bin beginning at 154~s, respectively, via a comparison
+with the Crab count rates in each ASM energy band.
+
+\refstepcounter{figure} 
+\PSbox{lc970815.eps
+hoffset=-20 voffset=-20 hscale=54 vscale=54}{8.8cm}{11.65cm}{\\\\\small
+Fig. 8 -- Light curves for GRB~970815 as measured by both the ASM and
+BATSE.  The ASM scanned SSC~2 onto the GRB location during the decay
+of the first peak.  Gaps in the ASM light curve indicate the 6~s
+intervals between dwells when the ASM assembly was in motion.  The
+first two dwells are graphed in 2-s bins.  The second dwell is
+represented here by the weighted average of SSCs~1 and~2.  The GRB is
+very dim during the third dwell, and although the data from SSC~1 have
+been binned into 9-s bins, the flux in each bin is consistent with
+zero.  The 90-s averaged flux from the GRB in this dwell is
+$30\pm20$~mCrab (1.5--12~keV).  The BATSE light curve is presented in
+1-s bins (25--320~keV).\label{fig:lc970815_all}}
+
+\pfg
+
+GRB~970828 (Fig.~\ref{fig:lc970828_4}) was a bright burst detected in
+both SSC~1 and 2~\citep{rwsl97}.  The burst onset was observed midway
+through a 90-s dwell.  Its FOV location was such that it was only
+observed by SSC~1.  The ASM drive assembly rotated the SSCs between
+dwells while the burst was still active, and the new aspect placed the
+burst's FOV location just $0\arcdeg.5$ inside the edge of the 
+
+FOV of SSC~2.  Despite the reduction in effective area, the counting
+rate during the second dwell yields a clear detection of the GRB in at
+least two of the three energy channels.  A second rotation brought the
+source to the center of the FOV of SSC~2, in time to witness the final
+decay of the event.  Spectral softening during this decay is apparent.
+
+At the onset, the X-ray flux climbs more slowly than the gamma-ray
+flux, but the 5-12 keV structure appears to echo the gamma rays.  The
+time of peak emission may lag at lower X-ray energies.  After 40-s of
+this initial, bright event, the burst morphology as seen by BATSE
+diverges
+
+\refstepcounter{figure} 
+\PSbox{lc970828_all.eps
+hoffset=-30 voffset=-15 hscale=58 vscale=58}{8.8cm}{13.9cm}{\\\\\small
+Fig. 9 -- The ASM time-series data in 2-s and 9-s bins for GRB~970828,
+compared with data from BATSE.  The burst was first observed with
+SSC~1, and with SSC~2 during the second and third dwells.
+\label{fig:lc970828_4}}
+
+\pfg
+\noindent
+rapidly from that recorded by the ASM.  The high-energy flux drops to
+zero, then flashes through at least five further peaks of emission.
+The burst is completely finished by 150~s after the trigger.
+
+GRB~971024 (Fig.~\ref{fig:lc971024_bat}) was an extremely weak burst
+in all energy bands.  It was detected in both SSCs~1 and 2.  Large
+systematic uncertainties in the estimation of the source flux stem
+from relatively large uncertainties in the source
+position~\citep{sblr99}.  The detection with SSC~2 is so weak that
+only an average flux over the full 90~s can be derived from this
+observation.  The BATSE light curves show obvious spectral softening
+over the $\sim110$~s of the decay, but the ASM light curve is too
+short and too weak for fruitful comparison.
+
+GRB~971214 (Fig.~\ref{fig:lc971214_bat}) was a fairly bright,
+singly-peaked event, lasting $\sim40$~s, observed with SSC~3 during a
+single dwell.  Limited statistics do not allow us to probe the soft
+X-ray light curve for counterparts to the complex structures in the
+BATSE hard X-ray data, e.g. the sharp spike at $\sim32$~s.  As with
+GRB~970828, the duration of the X-ray event is longer than its
+gamma-ray counterpart.
+
+\refstepcounter{figure} 
+\PSbox{lc971024.eps
+hoffset=-25 voffset=-15 hscale=55 vscale=55}{8.8cm}{8.2cm}{\\\\\small
+Fig. 10 -- The time-series data for GRB~971024 in both the ASM SSC~1
+(9-s bins; 1.5--12~keV) and three BATSE energy bands (3.8-s bins;
+25--320~keV).\label{fig:lc971024_bat}}
+
+\pfg
+
+\refstepcounter{figure} 
+\PSbox{lc971214.eps
+hoffset=-25 voffset=-15 hscale=55 vscale=55}{8.8cm}{8.2cm}{\\\\\small
+Fig. 11 -- The time-series data for GRB~971214 in both the ASM SSC~3
+(5-s bins; 1.5--12~keV) and a single BATSE energy band (0.64-s bins;
+60--110~keV).
+\label{fig:lc971214_bat}}
+
+\pfg
+
+GRB~980703 (Fig.~\ref{fig:lc980703_all}) was detected in the FOVs of
+both SSCs~1 and 2 simultaneously.  The flux rose over $\sim30$~s to
+reach a maximum measured value at the end of a 90-s dwell.  The hard
+X-ray maximum, as measured by BATSE, leads the the soft X-ray maximum
+by at least 6--8~s.  The onset of the burst at $t \sim -20$~s,
+relative to the BATSE trigger time, seems the same in all energy
+bands, although the variability in the rise seems to decrease with
+energy.  During the second dwell, the GRB source is only $0\arcdeg.6$
+from the edge of the FOV of SSC~1 and out of the FOV of SSC~2.  
+
+\refstepcounter{figure} 
+\PSbox{lc980703.eps
+hoffset=-25 voffset=-10 hscale=55 vscale=55}{8.8cm}{14.5cm}{\\\\\small
+Fig. 12 -- The time-series data for GRB~980703 in both the ASM SSC~1
+(2-s and 9-s bins; 1.5--12~keV) and four BATSE energy channels (0.64-s
+bins after the trigger, 1-s bins before the trigger; $>25$~keV).
+\label{fig:lc980703_all}}
+
+
+\pfg
+
+\noindent
+Both BATSE and the ASM detect a lengthy tail.  Since the transition
+from burst to tail in BATSE occured while the ASM was in motion, we
+have no information on the X-ray properties of this transition.
+
+GRB~981220 (Fig.~\ref{fig:lc981220_both}) was observed in SSC~2 near
+the end of a 90-s dwell.  This is the brightest GRB yet observed in
+the ASM data, reaching a flux of over 5~Crab in the Sum band
+(1.5--12~keV).  Although this event was not observed by BATSE, it was
+observed in the GRBM on board \sax.  The X-ray flux rises earlier than
+and declines after the gamma-ray event, and the spectrum softens
+during the decay.
+
+GRB~990308 (Fig.~\ref{fig:990308}) was observed in SSC~3 alone. An
+optical transient is associated with this burst~\citep{schaf99}, so
+the source position is accurately known.  BATSE also detected this
+burst, and its count rate reveals a multiply-peaked light curve, some
+35~s in duration.  The soft X-ray light curve does not appear to last
+significantly longer than the hard X-ray light curve.
+
+\refstepcounter{figure} 
+\PSbox{lc981220_4ch.eps
+hoffset=-25 voffset=-10 hscale=55 vscale=55}{8.8cm}{8.2cm}{\\\\\small
+Fig. 13 -- The bottom panel shows the time-series data (1.5--12~keV) for
+the ASM SSC~2 observation of GRB~981220 in 2~s bins, while the top
+panel shows the count rate in the \sax~GRB Monitor.  The spike at 20~s
+is an artifact.\label{fig:lc981220_both}}
+
+\pfg
+
+\refstepcounter{figure} 
+\PSbox{lc990308.eps hoffset=-18 voffset=-10
+hscale=51 vscale=51}{8.8cm}{11.8cm}{\\\\\small
+Fig. 14 -- The time-series data for GRB~990308 in both the ASM SSC~3
+(5-s bins; 1.5--12~keV) and BATSE (1-s bins; 25--300~keV).
+\label{fig:990308}}
+ 
+\pfg
+
+\refstepcounter{figure} 
+\PSbox{lc000301c_u.eps
+hoffset=-30 voffset=-7 hscale=55 vscale=55}{8.8cm}{8cm}{\\\\\small
+Fig. 15 -- GRB 000301C as observed by the ASM SSC~2 (1-s bins;
+1.5--12~keV) and the GRB detector on \uly~(0.5-s bins; 22--150~keV).
+The rising count rate in the 1.5-3~keV channel indicates that the
+\rxte~may be moving into a region of high activity in the Earth's
+magnetosphere, or there may be interference from scattered Solar
+X-rays.\label{fig:000301c}}
+
+\pfg
+
+
+GRB~000301C (Fig.~\ref{fig:000301c}) was observed in SSC~2.  It
+consisted of a single peak that reached over 3~Crab in the 5--12~keV
+band.  No emission was detected in the 1.5--3~keV band, with a
+normalized $2\sigma$ upper limit of 90~mCrab (integrated over 90-s).
+This burst was also detected by \uly~and {\it NEAR}~\citep{shc00}.
+The Earth lay between BATSE and the GRB at the time of the event
+(M. Kippen, private communication), and the \sax~GRBM was powered down
+(M. Feroci, private communication).
+
+The bottom panel of Figure~\ref{fig:000301c} illustrates the
+limitations of the background-subtraction method described above in
+section~\ref{sec:lcdat}.  Scattered solar X-rays can cause a response
+in the A~channel (1.5--3~keV) such as the rising count rate evident in
+the figure.  Thus we cannot derive a 1.5--3~keV light curve for this
+burst.  The rising count rate is only evident in the A~channel, and we
+conclude that the light curves shown for the B~and C~channels are
+accurate.
+
+\section{DISCUSSION}\label{sec:lcsum}
+
+The external shock model has proven popular for explaining the major
+features of most GRB afterglow behavior, and the internal shock model
+has become the favored explanation for multiple peaks and temporal
+structure of the GRB itself.  A clear observational distinction
+between GRB event and afterglow remains elusive, although several
+candidates have been proposed~\citep{ch98,gpkcw99,zhpf99}.  In this
+section, we discuss the implications of these light curves for burst
+origins in the context of the simple model outlined in
+section~\ref{sec:grbmod}.  We discuss whether or not the observations
+are consistent with an origin in synchrotron radiation, and in three
+cases, we address the question of whether or not the ASM has observed
+the onset of the X-ray afterglow.  We 
+
+\end{multicols}
+
+\refstepcounter{figure} 
+\PSbox{ag970828.eps 
+hoffset=25 voffset=-15 hscale=100 vscale=100}{16cm}{9cm}{\\\\\small 
+Fig. 16 -- The 2--10~keV flux history of GRB~970828, as measured by
+the ASM, the PCA~\protect{\citep{mcc97}},
+\asca~\protect{\citep{muykm97}}, and \rosat~\protect{\citep{gsgg97}}.
+The dashed line shows the best-fit power-law decay curve for the ASM
+data, $F\propto t^{-5}$.  The dotted line shows the best-fit power-law
+for the three late-time flux measurements, $F\propto t^{-0.5}$.  The
+ROSAT flux is derived by extrapolating the reported 0.5--2.4~keV
+spectrum out to 10~keV.  If this extrapolation is excluded from
+consideration, the PCA and \asca~data are consistent with a power law
+decay of index 1.4~\protect{\citep{ynokm98}}, shown here as a broken
+line.\label{fig:decay}}
+
+\begin{multicols}{2}
+
+\noindent
+close by summarizing some general properties of this data set and
+noting the absence of short GRBs.
+
+The sixteen GRB light curves presented here are diverse in form.  Very
+few of these bursts appear as simple fast-rise, exponential-decay
+shapes that one might expect from impulsive events.  Several bursts
+show a near-symmetric single-peak (e.g. Fig.~\ref{fig:lc960727}
+and~\ref{fig:000301c}), with and without significant structure on
+smaller time scales (Fig.~\ref{fig:lc981220_both}).  Two bursts
+(Fig.~\ref{fig:lc961002} and~\ref{fig:lc961216_bat}) even seem to have
+a slow-rise, fast-decay structure!  About half the bursts show
+multiple, distinct peaks, while three (Figs.~\ref{fig:lc970828_4},
+\ref{fig:lc971214_bat}, and~\ref{fig:990308}) have a veritable forest
+of peaks within their gamma-ray light curves.
+
+
+Although each of these bursts shares some characteristics across the
+entire observed energy range, there are other features that are only
+detected in a few, or even one, energy channels.  The second peak of
+GRB~960529 is harder than the peak immediately preceding it, such that
+at low energies, it is smeared out and difficult to recognize as a
+distinct event.  This smearing at low energies is common, and can be
+seen in the first peak of GRB~980703 as well as GRB~960727,
+GRB~961002, and GRB~981220.  In contrast, GRB~960416 shows an
+intermediate peak unique to the softest ASM energy channel.  According
+to Equation~\ref{eq:peaklimgam}, if a burst's peak energy lies below
+5~keV, the maximum Lorenz factor of the expanding shock wave would be
+only of order 20, assuming that the other factors are of order unity.
+This would be considered rather small for a GRB, albiet still highly
+relatvistic.
+
+GRB~970815 (Fig.~\ref{fig:lc970815_all}) also shows multiple peaks,
+but in this case only the last peak is unusually soft.  An intriguing
+possibility is that the third peak is due to an external shock, and
+hence represents the beginning of the afterglow, while the first two
+peaks originate in internal shocks that occur before the outermost
+ejecta sweep up enough matter to instigate the external shock.  It has
+been predicted that the afterglow could begin tens of seconds after
+the burst~\citep{sari97,sp99}.  We will therefore address this
+possibility here.
+
+If the third peak in GRB~970815 does represent the onset of the
+afterglow due to an external shock, the soft lag would be the result
+of the decay of $\nu_m$ (see Eq.~\ref{eq:peaklimgam}), which is
+predicted by the external shock model of~\citet{mr97} to fall as
+$t^{-2/3}$, where $t$ is measured by a distant observer at rest with
+respect to the blast center.  There is a $\sim8$~s difference between
+the times when the third peak reached its maximum in the C band
+($E\sim7$~keV) and the A band ($E\sim2.25$~keV) at $t \sim 154$~s and
+162~s, respectively.  If this delay is due to the evolution of
+$\nu_m$, the shock that generated the third peak must have begun
+cooling at $t_0 \sim 152$~s after the BATSE trigger time.  
+
+The decay curve of the third peak can be fit with a power-law model,
+such that $F(t) \propto (t-t_0)^{-\alpha}$.  All three ASM energy
+bands show a decay from the third peak consistent with $\alpha =
+1.3\pm0.1$.  This achromatic decay is in marked contrast to the decay
+from GRB~970828, as described below, but it is consistent with the
+afterglow observations from other GRBs and the predictions of the
+external shock model~\citep{mr97}.  X-ray afterglow curves have been
+measured from twenty-three GRBs prior to 1999 August, and the
+power-law indices for the decay range from 1.1 for
+GRB~970508~\citep{paabc98} to 1.57 for GRB~970402~\citep{naabc98}.
+The decay from GRB~970815 is thus fully consistent with an
+afterglow-type decay.  If one extrapolates 
+
+
+\end{multicols}
+\refstepcounter{figure} 
+\PSbox{ag980703.eps
+hoffset=30 voffset=-15 hscale=95 vscale=95}{16cm}{9.2cm}{\\\\\small
+Fig. 16 -- The 2--10~keV flux history of GRB~980703, as measured by the ASM and
+the \sax~NFI~\protect{\citep{vgoog99}}.  The ``T'' shape indicates an
+upper limit.  The dashed line shows the best-fit power-law decay curve
+combining both instruments, $F\propto t^{-1.3}$.\label{fig:ag0703}}
+\begin{multicols}{2}
+
+\noindent
+this decay to the time of the \asca~follow-up observation,
+$\sim3.5\times10^5$~s after $t_0$, the predicted 2--10~keV flux of
+about $8\times10^{-15}$~ergs~cm$^{-2}$~s$^{-1}$ lies below the
+\asca~upper limit of
+$10^{-13}$~ergs~cm$^{-2}$~s$^{-1}$~\citep{muify97}.  The lack of an
+\asca~detection does not rule out the possibility that the third peak
+is the start of an afterglow decay.
+
+An alternative scenario is that both the second and third peaks result
+from shells catching up with the decelerating shell that produced the
+first shock.  By 150~s, the shell that produced the first peak would
+have decelerated significantly, for reasonable values of the ambient
+density.  The two later shells would shock this decelerating fluid and
+produce emission enhancements.  In this scenario, emission from any
+external shock caused by the deceleration of the shell that produced
+the first peak would have been too dim to be detected with the ASM.
+The second and third peaks would then be early versions of the
+enhancements seen late in the afterglow of other bursts, such as
+GRB~970508~\citep{paabc98}, indicating that whatever processes produce
+bursts continue to operate throughout the entire event.  If this
+scenario is true, the afterglow and the burst cannot always be
+considered distinct events.  It is possible, however, that the late
+pulses in the afterglow are not due to collisions from behind, as
+interpreted by~\citet{paabc98}, but instead are isolated instances of
+the remnant colliding with a dense patch of external medium.
+
+GRB~970828 (Fig.~\ref{fig:lc970828_4}) displays an extended interval
+of X-ray emission beyond the cessation of gamma-ray activity.  As in
+the case of GRB~970815, we can ask if the ASM X-ray light curve
+reveals the onset of the X-ray afterglow.  In this interpretation, the
+short bursts in the BATSE data would originate in internal shocks
+superimposed on the longer process of an external shock.  The final
+X-ray decay should then share temporal and spectral properties with
+X-ray afterglow observed at later times.  A power law decay curve,
+with the origin set at the BATSE trigger time, when fit to the
+1.5--12~keV band data in the last ASM dwell, indicates that the flux
+decays as roughly $t^{-5}$.  All observed afterglow decay curves have
+indices around between 1.1~and 1.5, and the X-ray decay from this GRB
+was measured by the PCA and \asca~over the following two days to decay
+as $t^{-1.4}$~\citep{muykm97}, as shown in Figure~\ref{fig:decay}.
+There is nothing in the theory of external shocks to explain a decay
+index around 5 that later changes to 1.4.  We therefore find this
+scenario unlikely.  It is more likely that the electrons that generate
+the soft X-ray flux from the initial shock did not have time to cool
+before they were shocked by collisions from behind by additional
+shells of ejecta; collisions revealed by the sharp peaks in the
+high-energy light curve.  The afterglow emission would then be from a
+separate, external shock, too weak to be detected with the ASM.
+
+A fading X-ray afterglow was associated with GRB~980703 through
+observations with the \sax~Narrow Field Instruments (NFI) 22~h after
+the event~\citep{vgoog99}, and in contrast to GRB~970828, the tail of
+the ASM decay curve is consistent with an extrapolation back from the
+\sax~flux measurements~(Fig.~\ref{fig:ag0703}).  The best-fit
+power-law decay curve derived using both the ASM decay and the later
+\sax~measurements has a time index of 1.3, a typical value for GRB
+afterglows.  This value is consistent with the lower limit of 0.9
+measured using only the NFI observations~\citep{vgoog99}.  The tail of
+the burst emission may therefore represent a transition to the
+afterglow.  It is worth noting that the BATSE count rates reveal a
+second interval of emission from this burst, roughly 300~s after the
+onset of the event, at which time the burst was outside the ASM FOV.
+The apparent connection between the decay from the first peak and the
+\sax~afterglow may be a coincidence.  It could also be an artifact of
+the large error bars in the ASM decay curve.  If the ASM decay is the
+start of the afterglow, the shock front that created the second BATSE
+outburst must not have disrupted the cooling external shock enough to
+distort the measured X-ray decay curve away from a single power law.
+
+Even beyond these three examples, the X-ray flux from GRB events tends
+to be less variable and in almost all cases lasts longer than the
+associated gamma-ray flux.  The degree to which variability can be
+measured is often limited by counting statistics, but the general
+result is often understood within the context of synchrotron
+radiation theory.  The cooling timescale for an electron emitting
+synchrotron radiation is inversely proportional to the electron's
+Lorentz factor ($t_c \propto 1/\Gamma$).  The synchrotron frequency of
+an emitting electron (and the characteristic photon energy $E$ of the
+emitted radiation) goes as the square of its Lorentz factor ($E
+\propto \Gamma^2$).  Hence, if a population of electrons is cooling
+through synchrotron radiation, one would expect to find the cooling
+time scales to vary as $E^{-1/2}$~\citep{rl79,piran99,wg99}.
+
+Although geometric effects can extend the time over which a burst is
+visible to a distant observer, the relationship between the cooling
+time scale and the width of observed peaks in a GRB light curve is
+expected to be preserved~\citep{piran99}.  If GRBs are produced by
+synchrotron radiation, then, one would expect individual peaks to be
+wider in lower energy bands, in accordance with $E^{-1/2}$.  The fact
+that the bursts presented here were observed serendipitously by
+different instruments renders the width of the GRB peaks difficult to
+measure in many cases.  Nevertheless, we have measured peak widths as
+a function of energy band for seven bursts, and we display the results
+in Figure~\ref{fig:widvse}.  These widths are defined as the $2\sigma$
+confidence interval for the width of a best-fit Gaussian function.  We
+also measured an exponential decay timescale with equivalent results.
+For bursts with complex temporal structure (e.g. GRB~970828 above
+25~keV), a Gaussian function is an extremely poor match to the shape
+of the light curve, but we cite the best-fit Gaussian in order to
+compare duration consistently with the simpler bursts.
+
+Figure~\ref{fig:widvse} shows that only the simplest bursts are
+consistent with the prediction of synchrotron cooling.  GRB~000301C
+was a single-peaked Gaussian shape in both the ASM and \uly~data
+(Fig.~\ref{fig:widvse}f).  A possible power-law solution with index of
+$-0.5$ is shown as a dashed line.  While GRB~960416
+(Fig.~\ref{fig:lc960416_bat}) displayed multiple peaks, these peaks
+were widely separated, and the width of each peak individually is
+consistent with a $E^{-1/2}$ scaling law (Fig.~\ref{fig:widvse}a \&
+b).  Again, the dashed line in the figure shows a representative power
+law with index $-0.5$.
+
+Such a simple model, however, does not fit any of the other bursts.
+GRB~960727 (Fig.~\ref{fig:lc960727}) and GRB~961002
+(Fig.~\ref{fig:lc961002}) seem simple as recorded by the ASM, but the
+KONUS light curves reveal complex temporal structure with multiple
+peaks.  The total duration of both these bursts has a much flatter
+dependence on energy than synchrotron cooling would predict; the
+best-fit power law indices are inconsistent with a slope of $-0.5$
+(Compare the broken and dashed lines in Figures~\ref{fig:widvse}c
+and~d).  GRB~981220 also displayed a simple, single-peaked structure
+in the ASM time-series data, but the \sax~count rates reveal three
+smaller peaks at high energies (Fig~\ref{fig:lc981220_both}).  The ASM
+data alone are consistent with a power law index of $-0.5\pm0.1$, but
+the extrapolation of this scaling law to the energy range of the
+\sax~GRBM is inconsistent with the measured width of the peak as
+modeled by a single Gaussian (the solid box spanning the 40--700~keV
+range in Figure~\ref{fig:widvse}e).  However, if the GRBM light curve
+is modeled by the superposition of three Gaussian events, then their
+widths are (in chronological order) $0.35\pm0.1$~s, $0.6\pm0.1$~s, and
+$1.2\pm0.2$~s (shown as the dotted, dashed, and broken boxes in
+Figure~\ref{fig:widvse}e, respectively).  The two latter short peaks
+are consistent with the extrapolated power-law, and perhaps the
+emission seen in soft X-rays is dominated by the cooling of a single
+shock that produced one of these high-energy peaks.
+
+The widths of the ASM light curves for GRB~970828
+(Fig.~\ref{fig:widvse}g) and GRB~971214 (Fig.~\ref{fig:widvse}h) do
+not match well with an extrapolation of the primary peak width as
+observed by BATSE.  In both cases, the BATSE light curves showed
+multiple peaks of emission, and a Gaussian model of the primary peak
+widens much more slowly than a $E^{-0.5}$ power law would predict.  In
+neither of these cases is any evidence for the smaller peaks apparent
+in the ASM data, although in both cases, small fluctuations in the ASM
+count rate are difficult to identify.  Within the context of the
+internal shock model, the extended length of the ASM light curve for
+GRBs~970828 and 971214 can be interpreted as the reheating of the
+matter heated by the initial shock, which does not have time to cool
+in the X-ray regime before it is shocked again.  This scenario,
+however, would not explain the smaller indices for GRBs~960727 and
+961002.
+
+In short, only the simplest bursts display the $E^{-0.5}$ dependence
+of width on energy predicted by synchrotron cooling.  I would also
+point out that the only other burst for which this hypothesis has been
+tested across X-ray and gamma-ray bands, GRB~960720, was also a
+singly-peaked burst~\citep{phjcf98}.  A likely explanation of this
+discrepancy is that multiple peaks are indicative of complex
+interactions that violate the assumption of a single infusion of
+energy followed by cooling through radiation.  It is unclear why some
+complex bursts lead to abnormally long soft X-ray light curves (such
+as GRB~970828), while others (like GRB~960727) show a much weaker
+dependence on energy.  It is possible that individual peaks in these
+complex bursts do behave consistently with the predictions of
+synchrotron cooling, as the well-separated peaks in GRB~960416 do, and
+the short peaks in GRB~981220 might, but most often, the statistics
+and time resolution of the ASM data do not allow us to track the
+behavior of individual short peaks.
+
+When study of indivdual peaks is possible, however, several show a
+soft lag in their times of maximum count rate.  It is worth noting
+that several do not, at least within the limitations of the effective
+time resolution.  In at least two cases, the X-rays can be seen to
+rise before the onset of the GRB in the higher-energy regime.  The
+first peak of GRB~960416 seems to begin earlier at $\sim5$~keV than
+above 25~keV, and GRB~981220 may be active in the ASM before the count
+rate in the \sax~GRBM begins to rise.  It's possible that the X-ray
+count rates precede the 
+
+
+\end{multicols}
+\refstepcounter{figure} 
+\PSbox{eightwid.eps
+hoffset=60 voffset=-75 hscale=98 vscale=98}{16cm}{22.5cm}{\\\\\small
+Fig. 17 -- Peak width vs. Energy for seven GRBs.  The width of the GRB
+is modeled with a simple Gaussian function, and the $2\sigma$
+confidence interval for $\sigma$ is plotted here on the $y$-axis,
+against the appropriate energy channel on the $x$-axis (using data
+from BATSE, the \sax~GRBM, \uly, Konus, and the ASM).  Details are
+explained in the text.\label{fig:widvse}}
+
+\begin{multicols}{2}
+
+\noindent
+gamma-rays in GRB~961216.  GRB~980703 is ambiguous.  The onset of
+X-ray emission is concurrent with the pre-trigger emission in the
+BATSE count rate, but continues smoothly past the time of maximum
+gamma-ray flux.  In no case, however, did we observe any candidate for
+a distinct X-ray precursor, such as that associated with
+GRB~980519~\citep{zhpf99} or perhaps GRB~900126~\citep{minpf91}.
+Precursor events are very rare, so their absence in the ASM sample is
+unsurprising.
+
+What is perhaps more surprising is the absence of GRBs shorter than
+10~s in duration.  The GRBs in the BATSE catalog have a well-known
+bimodal duration distribution with peaks at 0.1~s and
+10~s~\citep{kmfbb93,fmwbh94,kpkpp96}.  All the GRBs presented here are
+drawn from the longer sub-population, although GRB~000301C is a
+borderline case~\citep{jfghh00}.  If the typical peak intensities of
+the short bursts are of the same magnitude or less as those of the
+long bursts, the ASM is less likely to detect the short bursts,
+although a short burst should still stand out in the time-series data.
+Our variability search was conducted on time-scales of 1/8-s, 1-s, and
+9-s, and the short bursts from SGR~1627--41~\citep{sbl99} were
+detected.  The population of short bursts represents roughly 25\% of
+the first BATSE GRB catalog~\citep{kmfbb93}, so perhaps the absence of
+short GRB events in the ASM sample is simply a statistical
+fluctuation, but it is noteworthy that all of the bursts localized to
+date by the \sax~WFC have also been from the population of longer
+bursts~\citep{gsccd00,facmp00}.  The BATSE data suggest that the
+shorter bursts also have harder spectra, so perhaps they are not
+bright enough in the 1.5--12~keV range for ASM detection.
+
+\acknowledgements
+
+This project combined results from several instruments, and hence
+could not have been completed without the help of many individuals.
+Of crucial help were Scott Barthelmy's work in creating and
+maintaining the GCN, and Kevin Hurley's coordination of the IPN.  We
+would also like to acknowledge the support of the \rxte~team at MIT
+and NASA/GSFC.  Support for this work was provided in part by NASA
+Contract NAS5--30612.
+
+\newcommand{\noopsort}[1]{} \newcommand{\printfirst}[2]{#1}
+  \newcommand{\singleletter}[1]{#1} \newcommand{\switchargs}[2]{#2#1}
+\begin{thebibliography}{}
+
+\bibitem[\protect\astroncite{{Aptekar} {\rm et~al.\/}}{1995}]{afgim95}
+ {Aptekar}, R., et~al.
+\newblock 1995, Space Science Reviews, 71, 265
+
+\bibitem[\protect\astroncite{{Band} {\rm et~al.\/}}{1993}]{bmfsp93}
+ {Band}, D., et~al.
+\newblock 1993, \apj, 413, 281
+
+\bibitem[\protect\astroncite{Blandford \& McKee}{1976}]{blmck76}
+Blandford, R. \& McKee, C.
+\newblock 1976, Phys. Fluids, 19, 1130
+
+\bibitem[\protect\astroncite{{Cavallo} \& {Rees}}{1978}]{cavree78}
+{Cavallo}, G. \& {Rees}, M.~J.
+\newblock 1978, \mnras, 183, 359
+
+\bibitem[\protect\astroncite{{Connors} \& {Hueter}}{1998}]{ch98}
+{Connors}, A. \& {Hueter}, G.~J.
+\newblock 1998, \apj, 501, 307
+
+\bibitem[\protect\astroncite{{Feroci} {\rm et~al.\/}}{1997}]{ffcda97}
+ {Feroci}, M., et~al. 1997, in {SPIE Conference Proceedings},  eds. , Siegmund
+  \& Gummin, Vol. 3114, 186.
+\newblock (astro-ph/9708168)
+
+\bibitem[\protect\astroncite{{Fishman} {\rm et~al.\/}}{1994}]{fmwbh94}
+ {Fishman}, G.~J., et~al.
+\newblock 1994, \apjs, 92, 229
+
+\bibitem[\protect\astroncite{Frontera {\rm et~al.\/}}{1997}]{fcffn97}
+Frontera, F., Costa, E., Fiume, D.~D., Feroci, M., Nicastro, L., Orlandini, M.,
+  Palazzi, E., \& Zavattini, G.
+\newblock 1997, \aaps, 122
+
+\bibitem[\protect\astroncite{Frontera {\rm et~al.\/}}{2000}]{facmp00}
+Frontera, F. et~al.
+\newblock 2000, \apjs, submitted, astro-ph/9911228
+
+\bibitem[\protect\astroncite{Gandolfi {\rm et~al.\/}}{2000}]{gsccd00}
+Gandolfi, G. et~al. 2000, in Proc. of the Fifth Huntsville GRB Symposium,  eds.
+  , R.~M. Kippen, R.~S. Mallozzi, \& G.~J. Fishman, .
+\newblock in press (astro-ph/0001011)
+
+\bibitem[\protect\astroncite{{Giblin} {\rm et~al.\/}}{1999}]{gpkcw99}
+{Giblin}, T.~W., {van Paradijs}, J., {Kouveliotou}, C., {Connaughton}, V.,
+  {Wijers}, R. A. M.~J., {Briggs}, M.~S., {Preece}, R.~D., \& {Fishman}, G.~J.
+\newblock 1999, \apjl, 524, L47
+
+\bibitem[\protect\astroncite{{Goodman}}{1986}]{goodm86}
+{Goodman}, J.
+\newblock 1986, \apjl, 308, L47
+
+\bibitem[\protect\astroncite{Greiner {\rm et~al.\/}}{1997}]{gsgg97}
+Greiner, J., Schwarz, R., Groot, P., \& Galama, T.
+\newblock 1997, IAU Circ. No. 6757
+
+\bibitem[\protect\astroncite{{Hurley} {\rm et~al.\/}}{1992}]{hsabc92}
+ {Hurley}, K., et~al.
+\newblock 1992, \aaps, 92, 401
+
+\bibitem[\protect\astroncite{{In 't Zand} {\rm et~al.\/}}{1999}]{zhpf99}
+{In 't Zand}, J. J.~M., {Heise}, J., {Van Paradijs}, J., \& {Fenimore}, E.~E.
+\newblock 1999, \apjl, 516, L57
+
+\bibitem[\protect\astroncite{Jensen {\rm et~al.\/}}{2000}]{jfghh00}
+Jensen, B. et~al.
+\newblock 2000, \aap, in press (astro-ph/0005609)
+
+\bibitem[\protect\astroncite{Kobayashi {\rm et~al.\/}}{1997}]{kps97}
+Kobayashi, S., Piran, T., \& Sari, R.
+\newblock 1997, \apj, 490, 92
+
+\bibitem[\protect\astroncite{Kobayashi {\rm et~al.\/}}{1999}]{kps99}
+Kobayashi, S., Piran, T., \& Sari, R.
+\newblock 1999, \apj, 513, 669
+
+\bibitem[\protect\astroncite{{Koshut} {\rm et~al.\/}}{1996}]{kpkpp96}
+{Koshut}, T.~M., {Paciesas}, W.~S., {Kouveliotou}, C., {Van Paradijs}, J.,
+  {Pendleton}, G.~N., {Fishman}, G.~J., \& {Meegan}, C.~A.
+\newblock 1996, \apj, 463, 570
+
+\bibitem[\protect\astroncite{{Kouveliotou} {\rm et~al.\/}}{1993}]{kmfbb93}
+{Kouveliotou}, C., {Meegan}, C.~A., {Fishman}, G.~J., {Bhat}, N.~P., {Briggs},
+  M.~S., {Koshut}, T.~M., {Paciesas}, W.~S., \& {Pendleton}, G.~N.
+\newblock 1993, \apjl, 413, L101
+
+\bibitem[\protect\astroncite{{Laros} {\rm et~al.\/}}{1984}]{lefks84}
+{Laros}, J.~G., {Evans}, W.~D., {Fenimore}, E.~E., {Klebesadel}, R.~W.,
+  {Shulman}, S., \& {Fritz}, G.
+\newblock 1984, \apj, 286, 681
+
+\bibitem[\protect\astroncite{{Levine} {\rm et~al.\/}}{1996}]{lbcjm96}
+{Levine}, A.~M., {Bradt}, H., {Cui}, W., {Jernigan}, J.~G., {Morgan}, E.~H.,
+  {Remillard}, R., {Shirey}, R.~E., \& {Smith}, D.~A.
+\newblock 1996, \apjl, 469, L33
+
+\bibitem[\protect\astroncite{Marshall {\rm et~al.\/}}{1997}]{mcc97}
+Marshall, F., Cannizzo, J., \& Corbet, R.
+\newblock 1997, IAU Circ. No. 6727
+
+\bibitem[\protect\astroncite{M\'{e}sz\'{a}ros \& Rees}{1992}]{mr92}
+M\'{e}sz\'{a}ros, P. \& Rees, M.
+\newblock 1992, \apj, 397, 570
+
+\bibitem[\protect\astroncite{M\'{e}sz\'{a}ros \& Rees}{1997}]{mr97}
+M\'{e}sz\'{a}ros, P. \& Rees, M.
+\newblock 1997, \apj, 476, 232
+
+\bibitem[\protect\astroncite{{Metzger} {\rm et~al.\/}}{1974}]{mpgpt74}
+{Metzger}, A.~E., {Parker}, R.~H., {Gilman}, D., {Peterson}, L.~E., \&
+  {Trombka}, J.~I.
+\newblock 1974, \apjl, 194, L19
+
+\bibitem[\protect\astroncite{{Murakami} {\rm et~al.\/}}{1989}]{mfhin89}
+ {Murakami}, T., et~al.
+\newblock 1989, \pasj, 41, 405
+
+\bibitem[\protect\astroncite{{Murakami} {\rm et~al.\/}}{1991}]{minpf91}
+{Murakami}, T., {Inoue}, H., {Nishimura}, J., {Van Paradijs}, J., \&
+  {Fenimore}, E.~E.
+\newblock 1991, \nat, 350, 592
+
+\bibitem[\protect\astroncite{Murakami {\rm et~al.\/}}{1997a}]{muify97}
+Murakami, T., Ueda, Y., Ishida, M., Fujimoto, R., Yoshida, A., \& Kawai, N.
+\newblock 1997, IAU Circ. No. 6722
+
+\bibitem[\protect\astroncite{Murakami {\rm et~al.\/}}{1997b}]{muykm97}
+Murakami, T., Ueda, Y., Yoshida, A., Kawai, N., Marshall, F., Corbet, R., \&
+  Takeshima, T.
+\newblock 1997, IAU Circ. No. 6732
+
+\bibitem[\protect\astroncite{Narayan {\rm et~al.\/}}{1992}]{npp92}
+Narayan, R., Paczy\'{n}ski, B., \& Piran, T.
+\newblock 1992, \apjl, 395, L83
+
+\bibitem[\protect\astroncite{Nicastro {\rm et~al.\/}}{1998}]{naabc98}
+Nicastro, L. et~al.
+\newblock 1998, \aap, 338, L17
+
+\bibitem[\protect\astroncite{{Ogasaka} {\rm et~al.\/}}{1991}]{omnyf91}
+{Ogasaka}, Y., {Murakami}, T., {Nishimura}, J., {Yoshida}, A., \& {Fenimore},
+  E.~E.
+\newblock 1991, \apjl, 383, L61
+
+\bibitem[\protect\astroncite{Piran}{1999}]{piran99}
+Piran, T.
+\newblock 1999, \physrep, 314(6), 575, (astro-ph/9810256)
+
+\bibitem[\protect\astroncite{Piro {\rm et~al.\/}}{1998}]{paabc98}
+Piro, L. et~al.
+\newblock 1998, \aap, 331, L41
+
+\bibitem[\protect\astroncite{{Piro} {\rm et~al.\/}}{1998}]{phjcf98}
+ {Piro}, L., et~al.
+\newblock 1998, \aap, 329, 906
+
+\bibitem[\protect\astroncite{{Preece} {\rm et~al.\/}}{2000}]{pbmpp00}
+{Preece}, R.~D., {Briggs}, M.~S., {Mallozzi}, R.~S., {Pendleton}, G.~N.,
+  {Paciesas}, W.~S., \& {Band}, D.~L.
+\newblock 2000, \apjs, 126, 19
+
+\bibitem[\protect\astroncite{Rees \& M\'{e}sz\'{a}ros}{1992}]{rm92}
+Rees, M. \& M\'{e}sz\'{a}ros, P.
+\newblock 1992, \mnras, 258, 41
+
+\bibitem[\protect\astroncite{Remillard {\rm et~al.\/}}{1997}]{rwsl97}
+Remillard, R., Wood, A., Smith, D., \& Levine, A.
+\newblock 1997, IAU Circ. No. 6726
+
+\bibitem[\protect\astroncite{Rybicki \& Lightman}{1979}]{rl79}
+Rybicki, G. \& Lightman, A. 1979.
+\newblock Radiative {Processes in Astrophysics}.
+\newblock John Wiley \& Sons, New York
+
+\bibitem[\protect\astroncite{{Sari}}{1997}]{sari97}
+{Sari}, R.
+\newblock 1997, \apjl, 489, L37
+
+\bibitem[\protect\astroncite{Sari {\rm et~al.\/}}{1996}]{snp96}
+Sari, R., Narayan, R., \& Piran, T.
+\newblock 1996, \apj, 473, 204
+
+\bibitem[\protect\astroncite{{Sari} \& {Piran}}{1999}]{sp99}
+{Sari}, R. \& {Piran}, T.
+\newblock 1999, \apj, 520, 641
+
+\bibitem[\protect\astroncite{Sari {\rm et~al.\/}}{1998}]{spn98}
+Sari, R., Piran, T., \& Narayan, R.
+\newblock 1998, \apjl, 497, L17
+
+\bibitem[\protect\astroncite{{Sazonov} {\rm et~al.\/}}{1998}]{sstlb98}
+{Sazonov}, S.~Y., {Sunyaev}, R.~A., {Terekhov}, O.~V., {Lund}, N., {Brandt},
+  S., \& {Castro-Tirado}, A.~J.
+\newblock 1998, \aaps, 129, 1
+
+\bibitem[\protect\astroncite{Schaefer {\rm et~al.\/}}{1999}]{schaf99}
+Schaefer, B. et~al.
+\newblock 1999, \apjl, 524
+
+\bibitem[\protect\astroncite{{Shemi} \& {Piran}}{1990}]{shpi90}
+{Shemi}, A. \& {Piran}, T.
+\newblock 1990, \apjl, 365, L55
+
+\bibitem[\protect\astroncite{Smith}{1999}]{smithe99}
+Smith, D.
+\newblock 1999, {PhD} dissertation, Massachusetts Institute of Technology
+
+\bibitem[\protect\astroncite{Smith {\rm et~al.\/}}{1999}]{sblr99}
+ Smith, D.~A., et~al.
+\newblock 1999, \apj, 526, 683
+
+\bibitem[\protect\astroncite{{Smith}, {Bradt}, \& {Levine}}{1999}]{sbl99}
+Smith, D.~A., Bradt, H.~V., \& Levine, A.~M.
+\newblock 1999, \apjl, 519, L147
+
+\bibitem[\protect\astroncite{{Smith}, {Hurley}, \& {Cline}}{2000}]{shc00}
+Smith, D.~A., Hurley, K., \& Cline, T.
+\newblock 2000, GCN Circ. No. 568
+
+\bibitem[\protect\astroncite{{Strohmayer} {\rm et~al.\/}}{1998}]{sfmy98}
+{Strohmayer}, T.~E., {Fenimore}, E.~E., {Murakami}, T., \& {Yoshida}, A.
+\newblock 1998, \apj, 500, 873
+
+\bibitem[\protect\astroncite{{Trombka} {\rm et~al.\/}}{1974}]{tesam74}
+{Trombka}, J.~I., {Eller}, E.~L., {Schmadebeck}, R.~L., {Adler}, I., {Metzger},
+  A.~E., {Gilman}, D., {Gorenstein}, P., \& {Bjorkholm}, P.
+\newblock 1974, \apjl, 194, L27
+
+\bibitem[\protect\astroncite{Vreeswijk {\rm et~al.\/}}{1999}]{vgoog99}
+Vreeswijk, P. et~al.
+\newblock 1999, \apjl, 523, 171
+
+\bibitem[\protect\astroncite{{Wheaton} {\rm et~al.\/}}{1973}]{wubde73}
+ {Wheaton}, W.~A., et~al.
+\newblock 1973, \apjl, 185, L57
+
+\bibitem[\protect\astroncite{{Wijers} \& {Galama}}{1999}]{wg99}
+{Wijers}, R. \& {Galama}, T.
+\newblock 1999, \apj, 523, 177
+
+\bibitem[\protect\astroncite{{Yoshida} {\rm et~al.\/}}{1998}]{ynokm98}
+{Yoshida}, A., {Namiki}, M., {Otani}, C., {Kawai}, N., {Murakami}, T., {Ueda},
+  Y., {Shibata}, R., \& {Uno}, S. 1998, , in Fourth Huntsville Gamma-Ray Burst
+  Symposium, 441
+
+\end{thebibliography}
+
+
+\end{document}

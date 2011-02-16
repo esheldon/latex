@@ -1,0 +1,79 @@
+AuthorTeX package
+Gordon Richards
+October 2000
+April 2002 -- updated authors and institutions
+
+This package facilitates the construction of author lists for the
+Sloan Digital Sky Survey.  The following files are included:
+
+authortex.pl -- A PERL script that actually creates the author list
+sdssauthors -- An ascii database file with all SDSS people (builders, 
+	       participants, external collaborators, etc.) and their
+	       institutions
+sdssinstitutions -- An ascii database file listing all the
+                    institutions and their addresses according to ApJ style 
+		    (in the words of Greg Hajek):
+			
+  "The general formula breaks the affiliation into two parts:  that which
+  is of interest to the post office, and that which is purely
+  institutional.  Both should go from specific to general, so
+
+   [department/division], [faculty/school], [local mail code],
+     [institution], [suite], [post box/street address], [district],
+     [city], [state/province], [country]
+
+  The position of postal codes usually is in accord with the instructions
+  of the Universal Postal Union (www.upu.int).  Either a post office box
+  or a street address should be used, not both, and ZIP+4 should not be
+  used if it obviously just restates the number of a post office box."
+
+authortex.tar -- the above files in a single tar file
+
+
+USAGE: ./authortex.pl authorlist [startindex 1] [sdssauthors] [sdssinstitutions]
+
+OUTPUT: {authorlist}.tex
+
+where "authorlist" is a file containing the desired author names in
+the following format
+
+quasar:authortex>more authorlist
+FIRST TIER
+Richards
+Fan
+Schneider
+VandenBerk
+Strauss
+York
+
+SECOND TIER
+Gunn
+Lupton
+Pier
+Rockosi
+Uomoto
+Yanny
+Fukugita
+
+
+First tier authors should be in the desired order.  Second tier
+authors can be in any order, since the names are sorted.  The "FIRST
+TIER" and "SECOND TIER" lines must appear exactly as shown.  The names
+must match the names in the "sdssauthors" database file.
+
+[startindex] is an optional argument that allows the author footnotes
+to start at a number other than one.  For example if there is a
+footnote to the title.
+
+[sdssauthors] is the database file with author names and institutions.
+Updates will be posted to
+ftp://ftp.astro.psu.edu/pub/gtr/sdss/sdssauthors
+Please update your local file for every new paper.
+
+[sdssinstitutions] is the database file with addresses of the
+institutions.  Updates will be posted to
+ftp://ftp.astro.psu.edu/pub/gtr/sdss/sdssinstitutions
+Please update your local file for every new paper.
+
+
+

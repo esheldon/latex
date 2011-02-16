@@ -1,0 +1,14 @@
+\section{tsObj Table}
+
+This table contains info from the tsObj files 
+\footnote{http://www-sdss.fnal.gov:8000/edoc/dm/flatFiles/tsObj.html}. All
+columns were kept other than the matching information (e.g. ROSAT, USNO) and
+the profile columns \texttt{PROFMEAN} and \texttt{PROFERR}.  The number of
+matches is relatively small, and it makes more sense to use the skyserver for
+this sort of analysis.  The profile info is rarely used (by me anyway) and
+takes up a lot of space (15X5 array). The columns which exist for each of the
+five SDSS bandpasses are broken up into separate columns (MySQL does not
+support arrays) with the bandpass appended, e.g. \texttt{PETROCOUNTS\_G}.  When
+read from IDL, these can be read as a set of 5, e.g. \texttt{PETROCOUNTS[5]}.
+This formatting is supported by the general reader \texttt{mysql\_query.pro}
+when /sdss is set, and also by \texttt{sdss\_mysql\_readbyid.pro}.

@@ -1,0 +1,189 @@
+
+\documentclass[preprint]{aastex}
+
+\begin{document}
+
+\title{Fits to Weak Lensing Shear Profiles}
+\author{Erin Scott Sheldon}
+\affil{Department of Physics, University of Michigan, 500 East University, Ann
+Arbor, Mi 48109}
+\email{esheldon@umich.edu}
+
+\begin{abstract}
+\end{abstract}
+
+\keywords{}
+
+\section{Introduction}
+
+One of the ultimate goals of weak lensing analyses is to infer the masses of
+objects, such as galaxies or clusters of galaxies. This can be accomplished
+directly by producing a mass map of the regions surrounding the object.  
+However, this map is extremely noisy unless it is smoothed \citep{KS93}.  The
+introduction of a smoothing function complicates the inferred density profile.
+
+Due to these limitations, masses are often inferred from the shear profile
+induced in background galaxies.  Because the shear measures a density contrast
+(see \S \ref{shearmeas}), these masses can only be inferred by fitting a 
+model to the shear.  The fitting of such models is the topic of this paper.
+
+\section{Shear Measurements} \label{shearmeas}
+
+The shear due to a mass distribution with projected surface density
+$\Sigma$ is given by:
+\begin{equation} \label{sheareq1}
+\gamma_T(r) = \overline{\kappa}(\leqslant r) - \overline{\kappa}(r),
+\end{equation}
+where $\gamma_T(r)$ is the tangential shear at radius $r$ relative 
+to the position of the lens \citep{Escude91}.  This tangential shear is 
+related to the 
+distortion of an image by the lens.  $\kappa = \Sigma/\Sigma_{crit}$ is the 
+scaled surface density, where the scale factor $\Sigma_{crit}$ is the critical
+density for multiple lensing.  The critical density 
+depends only on the geometry of the source-lens-observer system:
+\begin{equation} \label{sigcriteq}
+\Sigma_{crit} = { c^2 \over {4\pi G} } {D_S \over {D_L D_{LS}} } \approx
+0.35\ \left( {D \over {1 \textrm{Gpc}}}\right)^{-1}\textrm{g\ cm$^{-2}$}
+ = 1660 \ \left( {D \over {1 Gpc}}\right)^{-1} \textrm{M$_{\sun}$ \ pc$^{-2}$}
+\end{equation}
+where $D_S$ and $D_L$ are the angular diameter distances to the source and 
+lens respectively, and $D_{LS}$ is the angular diameter distance between 
+source and lens.  D is known as the effective distance 
+and $D = D_L D_{LS}/D_S$.  Multiple images typically occur when 
+$\kappa=\Sigma/\Sigma_{crit}$ approaches unity.  The production of multiple
+images takes either very special alignment of the source with the center of 
+the mass distribution (where $\kappa$ is large) or extremely high densities.
+We will only discuss the weak regime here, when $\kappa << 1$ and the 
+shear $\gamma_T(r) \approx e_T/2.$ where $e_T$ is the induce ellipticity.
+
+One can multiply both sides of Eq. \ref{sheareq1} by $\Sigma_{crit}$ and get
+the following relationship:
+\begin{equation} \label{densecont}
+\overline{\Sigma}(\leqslant r) - \overline{\Sigma}(r) = \Sigma_{crit} \gamma_T(r)
+\end{equation}
+Thus, if one knows the redshift of the lens and the redshift distribution of
+the background galaxies, a density contrast can be inferred from the shear.
+One can then choose an appropriate model for $\Sigma$ and infer the mass.
+
+\section{Models}
+\subsection{Singular Isothermal Sphere} \label{SIS}
+This is a bit hand wavy, but here goes.  We model the stars in a galaxy
+or the galaxies in a cluster of galaxies as ``particles'' in an ideal gas.
+This gas has the equation of state
+\begin{equation}\label{siseqofstate}
+P = {{\rho kT} \over m }
+\end{equation}
+If the gas is in equilibrium, then the temperature T is related to the velocity
+dispersion by
+\begin{equation}
+m\sigma_v^2 = kT
+\end{equation}
+where the velocity dispersion could depend on radius, but we will assume that
+the gas is isothermal implying that T and $\sigma_v$ are constant.
+For hydrostatic equilibrium we have
+\begin{eqnarray}
+{ {\partial P} \over {\partial r} } & = & -{ {G M(r)\rho } \over r^2 } \\
+{ {\partial M} \over {\partial r} } & = & 4 \pi r^2 \rho
+\end{eqnarray}
+A simple solution to these equations is 
+\begin{equation}
+\rho(r) = { \sigma_v^2 \over {2 \pi G} } {1 \over r^2}
+\end{equation}
+which is known as the \it{singular isothermal sphere} \normalfont(SIS).  In
+lensing all we can see is the projected mass density:
+\begin{equation}
+\Sigma(R)_{SIS} = { \sigma_v^2 \over 2 G } {1 \over R} = 1.16\times10^{14}\left( \sigma_v
+\over 1000 \textrm{km/s} \right)^2 \left(R \over 1\textrm{Mpc}\right)^{-1}
+\textrm{M$_{\sun}$ Mpc$^{-2}$} 
+\end{equation}
+where R will now represent the two dimensional radius. Note this also implies a
+temperature:
+\begin{equation}
+T = 1.14\times10^8 \left( \sigma_v \over 1000 \textrm{km/s} \right)^2 K
+= 9.82 \left( \sigma_v \over 1000 \textrm{km/s} \right)^2 \textrm{kev}
+\end{equation} 
+
+What we measure with Eq. \ref{densecont} is a density contrast; the average
+density within a radius $r$ minus the azimuthally averaged density at that
+radius. For this model we get:
+
+\begin{eqnarray}
+\overline{\Sigma}(\leqslant R) - \overline{\Sigma}(R) & = & 
+  { { \intop_0^R \Sigma(r) 2 \pi r dr } \over 
+  { \intop_0^R 2 \pi r dr} } - \Sigma(R) \\ \nonumber
+ & = & { \sigma_v^2 \over {2 G} } \left( {1 \over \pi R^2 } \intop_0^R 
+          2 \pi dr - {1 \over R} \right)  \\ \nonumber
+ & = & {\sigma_v^2 \over {2 G}} {1 \over R} \\ \nonumber
+    \\
+ & = & \Sigma(R)_{SIS} \nonumber
+\end{eqnarray}
+
+Thus, for a true isothermal we can directly measure the density profile with weak
+lensing.  This is usually done by fitting for the velocity dispersion
+$\sigma_v$.  The mass can then be inferred from integrating the surface 
+density:
+\begin{equation}
+M(\leqslant R)_{SIS} = 7.31 \times 10^{14}\left( \sigma_v \over 1000 \textrm{km/s} \right)^2 
+\left(R \over 1\textrm{Mpc} \right) \textrm{M$_{\sun}$}
+\end{equation}
+ 
+\subsection{Truncated Isothermal Sphere} \label{SIStrunc}
+Perhaps we can measure the shear to large enough radii that we can consider
+seeing a possible ``edge'' to our mass distribution. We can write a truncated form of the SIS:
+\begin{equation}
+\Sigma(R) = { \sigma_v^2 \over {2 G} } 
+\left( {1 \over R} - {1 \over \sqrt{ R^2 + s^2 }} \right)
+\end{equation}
+This density profile is isothermal when $R << s$ but goes more rapidly to zero in
+the regime $R >> s$.  Thus we can think of s as the truncation radius of the
+density profile.
+
+Following the same analysis as we used in \S \ref{SIS} we get
+\begin{equation}
+\overline{\Sigma}(\leqslant R) - \overline{\Sigma}(R) = \Sigma(R)_{SIS}
+ \left( 1 + 2 X - { {1 + 2 X^2}  \over \sqrt{1+ X^2}  } \right)
+\end{equation}
+where $X = s/R$ and
+\begin{equation}
+M(\leqslant R) = M(\leqslant R)_{SIS} \left(1 + X - \sqrt{1 + X^2}\right)
+\end{equation}
+One then fits for the velocity dispersion and cutoff radius.  Note that, unlike
+the SIS, this model has a finite mass at $R = \infty$.
+\begin{equation}
+M = 7.31\times10^{14}\left( \sigma_v \over 1000 \textrm{km/s} \right)^2 
+\left(s \over 1\textrm{Mpc} \right) \textrm{M$_{\sun}$}
+\end{equation}
+
+\subsection{Power Laws}
+
+What if your data doesn't fit well to an isothermal?  You could try an power
+law, for example I have tried fitting this function to our RASS clusters:
+\begin{equation}
+\Sigma(R) = \Sigma_0 \left( R \over {1 \textrm{Mpc} } \right)^{-\alpha}
+\textrm{M$_{\sun}$ Mpc$^{-2}$}
+\end{equation}
+One can then fit Eq. \ref{densecont} to a power law:
+\begin{equation}
+\overline{\Sigma}(\leqslant R) - \overline{\Sigma}(R) = 
+A \left( R \over {1 \textrm{Mpc} } \right)^{-\alpha} \textrm{M$_{\sun}$ Mpc$^{-2}$}
+\end{equation}
+And it can be shown that
+\begin{eqnarray}
+\Sigma_0 & = & \left( {2-\alpha} \over \alpha \right) A \\
+M(\leqslant R) & = & {2 \over {2-\alpha}} \Sigma(R) 
+\pi \left(R \over \textrm{1 Mpc} \right)^2 \textrm{M$_{\sun}$}
+\end{eqnarray}
+
+These models have the undesirable property of negative density for power law
+indices greater than 2. For an isothermal, $\alpha$ = 1 and we
+have $M \propto R$ and $\Sigma_0 = {\sigma_v^2 \over {2 G}}$.
+
+\begin{thebibliography}{}
+
+\bibitem[Kaiser \& Squires (1993)]{KS93} Kaiser, N.. Squires, G., 1993, \apj,
+404, 441
+\bibitem[Miralda-Escud\'{e} (1991)]{Escude91} Miralda-Escud\'{e}, J. 1991, 
+ApJ, 370, 1.
+
+\end{thebibliography}{}
+\end{document}

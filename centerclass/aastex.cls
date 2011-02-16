@@ -1,0 +1,1 @@
+../aastex52/aastex.cls

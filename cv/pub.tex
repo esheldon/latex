@@ -1,0 +1,20 @@
+%\documentclass[12pt]{article}
+\documentclass[12pt]{report}
+
+\usepackage{natbib}
+
+% this will make it *not* put pubs on a new page and it will be named
+% publications instead of references or bibliography
+
+\renewcommand\bibsection%
+{
+    \section*{PUBLICATIONS}
+}
+
+\input{aasdef.tex}
+
+\begin{document}
+
+\footnotesize
+\input{pubsource.bbl}
+\end{document}

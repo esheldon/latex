@@ -1,0 +1,73 @@
+
+\documentclass{aastex}
+
+% This is what phil used
+%\documentclass[manuscript]{aastex}
+%\usepackage{aastexug}
+
+%% preprint produces a one-column, single-spaced document:
+
+%\documentclass[preprint]{aastex}
+
+%% preprint2 produces a double-column, single-spaced document:
+
+% \documentclass[preprint2]{aastex}
+
+%%
+%% Some definitions
+%%
+
+
+\slugcomment{Not yet submitted to \apjl}
+
+\begin{document}
+
+\title{}
+
+\author{Erin Scott Sheldon}
+\affil{Department of Physics, University of Michigan, 500 East University, Ann
+Arbor, Mi 48109}
+\email{esheldon@umich.edu}
+
+
+\begin{abstract}
+Hello there. I'm referencing.
+\end{abstract}
+
+\keywords{}
+
+\section{Introduction}\label{intro}
+this is the intro citing.  See the  \S \ref{intro}  Here is
+a cool citation for \citep{SR} or I could write it like this: see \cite{SR}
+
+I'm writing an inline equation: $a = \Sigma_{v0}$.  See also Eq. \ref{ellipeqn1}
+
+Now look at cool figure \ref{figurename}.
+
+\begin{equation} \label{ellipeqn1}
+a = \Sigma_{v0}
+\end{equation}
+
+\begin{eqnarray}
+(a^{T}a)_{k,l} & = & {\sum_{i=1}^{N_{source}}{S_{k,i}S_{l,i} \over
+\sigma_{i}^{2} } } \nonumber \\
+S_{k,i} & = & {\sum_{q_k=1}^{N_{lens}}\cos(2\vartheta_{q,i})}  \\
+b_k & = & \sum_{i=1}^{N_{source}}{(e_{1})_{i}S_{k,i} \over \sigma_{i}^{2}} \nonumber
+\end{eqnarray}
+
+\begin{figure}[t]
+\plotone{name.eps}
+\caption{some text here} \label{figurename}
+\end{figure}
+
+\section{section two}
+\subsection{sub of section two}
+
+\acknowledgments
+
+
+\begin{thebibliography}{}
+\bibitem[Schneider \& Rix(1997)]{SR} Schneider, P., Rix, H., 1997, ApJ, 474, 25
+\end{thebibliography}
+
+\end{document}

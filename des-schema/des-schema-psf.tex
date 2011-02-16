@@ -1,0 +1,83 @@
+\documentclass[12pt]{article}
+
+\newcommand{\orderfp}{2}
+\newcommand{\ordersp}{4}
+\newcommand{\ncoefffp}{6}
+\newcommand{\ncoeffsp}{15}
+
+\newcommand{\fpt}{\texttt{firstpass}}
+\newcommand{\spt}{\texttt{secondpass}}
+\newcommand{\ncoeff}{\texttt{ncoeff}}
+
+\newcommand{\msconf}{\texttt{MeasureStars.conf}}
+
+
+\title{PSF Shapelet Table Schema}
+\author{Erin Sheldon}
+
+\begin{document}
+
+\maketitle
+
+There are two sets of outputs, the \fpt\ and \spt\ outputs.  The \fpt\
+measures low order shapelets in order to get a robust size for each object.
+This is used for star galaxy separation.  The \spt\ fits shapelets
+to higher order for the chosen PSF stars.
+
+The schema for both files and tables is the same, except that the number of
+coefficients in the shapelet expansion is different due to the different orders
+used.  The number of coefficients \ncoeff\ can be derived from the expansion
+order $n$:
+\begin{equation}
+   n*(n+3)/2 + 1
+\end{equation}
+This order $n$ for both passes is set in the \msconf\ config file as
+\texttt{firstpass\_order} and \texttt{secondpass\_order}.  Currently we are
+using
+
+\begin{table}[p]
+    \begin{center}
+    \small
+    \begin{tabular}{ccc}
+    pass & $n$ & \ncoeff \\
+    \hline
+    \fpt\ & \orderfp & \ncoefffp \\
+    \spt\ & \ordersp & \ncoeffsp \\
+    \hline
+    \end{tabular}
+    \end{center}
+
+    \caption{Order $n$ and number of coefficients \ncoeff\ for \fpt\ (``all'')
+    and \spt\ ``star'' tables}
+
+    \normalsize
+\end{table}
+
+In the outputs, the id column is currently set to the id in the SExtractor
+input file but we should replace this with the unique survey id somehow.
+
+\begin{table}[p]
+    \begin{center}
+    \small
+    \begin{tabular}{clll}
+    column & name & datatype & description\\
+    \hline
+    1 & id       & 64-bit integer &  Unique DES id number \\
+    2 & mag\_auto & 32-bit float   & SExtractor mag\_auto \\
+    3 & flags   & 32-bit integer & Information flags about processing \\
+    4 & sigma    & 32-bit float   & Equivalent gaussian width output by \\
+      & & &                              the shapelet code \\
+    5-(\ncoeff+4) & coeff & 32-bit float & \ncoeff\ shapelet coefficients \\
+    \hline
+    \end{tabular}
+    \end{center}
+
+    \caption{Table structure. Total bytes 44/80 for \fpt/\spt.
+    \label{tab:psfstruct}}
+
+    \normalsize
+\end{table}
+
+
+
+\end{document}

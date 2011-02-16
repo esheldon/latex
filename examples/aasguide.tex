@@ -1,0 +1,1532 @@
+% AASGUIDE.TEX -- AASTeX user manual. 
+% v5.0.2 03 Nov 99
+ 
+\documentclass[preprint2]{aastex} 
+ 
+\usepackage{aastexug}   % User guide style customizations 
+ 
+\begin{document} 
+ 
+\title{The \aastex\ Package\\for Manuscript Preparation} 
+ 
+\tableofcontents 
+ 
+\section{Introduction} 
+ 
+The American Astronomical Society (AAS) has developed an author 
+markup package called \aastex\ that assists authors in preparing 
+manuscripts that are intended for submission to the AAS-affiliated 
+journals.  \aastex\ can be used for other journals as well, 
+some of which accept \aastex\ manuscripts. 
+ 
+The most important aspect of the \aastex\ 
+package is that it defines the set of commands (called \emph{markup}) 
+that can be used to identify the structural elements of a paper. 
+When articles are marked up using this set of standard commands, 
+the papers may then be submitted electronically to the editorial 
+offices and fed into electronic production of the journals. 
+ 
+This guide contains basic instructions for creating 
+manuscripts using the \aastex\ markup package. 
+Authors are expected to be familiar with the editorial 
+requirements of the journals so that they can make 
+appropriate submissions; they should also have at least 
+a rudimentary knowledge of \LaTeX\ (for instance, knowing 
+how to set up equations using \LaTeX\ commands). 
+A number of useful publications about \LaTeX\ (and \TeX) are listed in 
+the reference section of this guide. 
+ 
+{\em Authors who wish to submit papers electronically to the ApJ, AJ, or 
+PASP are strongly encouraged to use the 
+\aastex\ markup package as described in this guide.} 
+ 
+\section{\aastex\ article markup} 
+ 
+This section describes the commands in the \aastex\ 
+package that an author might enter in a manuscript that is being 
+prepared for 
+electronic submission to one of the journals. 
+The commands are described in roughly the same order as they 
+would appear in a manuscript. 
+The reader will also find it helpful to examine the 
+sample file (\verb"sample.tex") that is 
+distributed with the package. 
+Authors are reminded to check the electronic submission procedures and 
+the instructions to authors for the journals to which they submit their 
+papers. 
+ 
+\subsection{Preamble}\label{sec-preamble} 
+ 
+In \LaTeX\ manuscripts, the preamble is that portion of the file before 
+the \verb"\begin{document}"\  command. 
+ 
+\subsubsection{Getting started} 
+ 
+The first piece of markup in the manuscript declares the 
+overall style of the document.  Any commands that appear before this 
+markup will be ignored. 
+\begin{quote} 
+\begin{verbatim} 
+\documentclass{aastex} 
+\end{verbatim} 
+\end{quote} 
+The above example specifies the document class as 
+\texttt{aastex}, 
+with the 
+default style, |manuscript|, 
+in eff\-ect. 
+The paper copy produced by this style file will be double-spaced. 
+Any tables included in the main body of the manuscript will also be 
+double-spaced. 
+ 
+Other styles are available; 
+they are discussed in Section~\ref{styles}. 
+ 
+\subsubsection{Defining new commands} 
+ 
+\aastex\ allows authors to define their own commands with 
+\LaTeX's \verb"\newcommand". 
+(Do not use the plain \TeX\ \verb"\def" command.) 
+Authors' \verb"\newcommand" definitions must be placed in the 
+document preamble. 
+ 
+In general, author-defined commands that are 
+abbreviations or shorthands are acceptable and can be translated, e.g., 
+\begin{quote} 
+\begin{verbatim} 
+\newcommand{\lte}{local thermodynamic 
+	equilibrium} 
+\end{verbatim} 
+\end{quote} 
+However, abbreviations that attempt to define new symbols by using 
+\LaTeX\ commands for repositioning text or symbols tend to 
+cause problems during the production of the article. 
+ 
+Specifically, author-defined commands that use any of the commands 
+listed below are apt to be problematic in the conversion 
+procedures after the manuscript is submitted. 
+\begin{quote} 
+\verb"\hskip", \verb"\vskip", 
+\verb"\raise", \verb"\raisebox", 
+\verb"\lower", \verb"\rlap", 
+\verb"\kern", \verb"\lineskip", 
+\verb"\char", \verb"\mathchar", 
+\verb"\mathcode", \verb"\buildref", 
+\verb"\mathrel", \verb"\baselineskip" 
+\end{quote} 
+Consequently, authors are strongly discouraged from 
+employing them. 
+ 
+Extra symbols are defined for \aastex, 
+some specifically for an astronomical context, and others more 
+broadly used in math and physics. 
+In particular, the AMS has additional symbol fonts that are 
+available in a standard \LaTeX\ package (\verb"amssymb"). 
+All of these symbols are depicted in the additional tables 
+supplied with this manual. 
+ 
+Authors are advised to consult these tables to see whether a 
+symbol already exists.  If it does, you should just use the 
+corresponding markup command; these commands are reserved. 
+You should \emph{not} redefine an existing command name. 
+When one of these commands is encountered in an electronic 
+manuscript, authors' redefinitions are ignored when the 
+manuscript is translated. 
+ 
+\subsubsection{Editorial information} 
+ 
+A number of markup commands are available for the 
+editorial offices to record the publication history and slug-line data 
+for each manuscript. 
+These commands are for use in the editorial and production offices only. 
+\begin{quote} 
+\begin{verbatim} 
+\received{<receipt date>} 
+\revised{<revision date>} 
+\accepted{<acceptance date>} 
+ 
+\ccc{<code>} 
+\cpright{<type>}{<year>} 
+\end{verbatim} 
+\end{quote} 
+ 
+Copyright information is specified through the commands \verb"\cpright"\ 
+and \verb"\ccc".  The ``type'' of copyright and the corresponding year 
+are given in \verb"\cpright"; valid copyright types are as follows. 
+\begin{quote} 
+\begin{tabular}{l@{\quad}p{2.8in}} 
+\tt AAS & Copyright has been assigned to the AAS\\[.5ex] 
+\tt ASP & Copyright has been assigned to the ASP\\[.5ex] 
+\tt PD & The article is in the public domain\\[.5ex] 
+\tt none & No copyright is claimed for the article 
+\end{tabular} 
+\end{quote} 
+The copyright type is case sensitive, so the type string must be 
+entered exactly as given above. 
+The Copyright Clearing Center code may be given in the \verb"\ccc"\ 
+command; the code is taken as regular text, so any special characters, 
+notably `\$', must be properly specified. 
+ 
+\subsubsection{Short comment on title page} 
+ 
+Authors who wish to include a short remark on the title page, 
+such as the name and date of the journal in which an article 
+has been scheduled, may do so with the following command. 
+\begin{quote} 
+\begin{verbatim} 
+\slugcomment{<text>} 
+\end{verbatim} 
+\end{quote} 
+In the 
+\texttt{manuscript} style, 
+such comments appear on the title page after the title and authors; 
+in the 
+\texttt{preprint} style, 
+they are placed at the upper right corner 
+of the title page. 
+ 
+\subsubsection{Running heads}\label{shorthead} 
+ 
+Authors are invited to supply running head information. 
+There are generally two different kinds of data in running heads; 
+the left head contains an author list (last 
+names, possibly truncated as ``et al.''), while the right head 
+is an abbreviated form of the paper title.  This running head 
+information will not appear on the \LaTeX-printed page but will be 
+transmitted to the copy editor for inclusion in the published version. 
+\begin{quote} 
+\begin{verbatim} 
+\shorttitle{<text>} 
+\shortauthors{<text>} 
+\end{verbatim} 
+\end{quote} 
+Editors and publishers impose varying requirements 
+on the brevity of these data.  A good rule of thumb is to limit the list 
+of authors to three, or use ``et al.'', and to limit the 
+short form of the title to 40--45 characters. 
+The editors may choose to modify the author-supplied 
+running heads. 
+ 
+\subsection{Starting the main body} 
+ 
+None of the markup that appears in the preamble actually typesets 
+anything; it is only a control section. 
+The author must include a 
+\begin{quote} 
+\begin{verbatim} 
+\begin{document} 
+\end{verbatim} 
+\end{quote} 
+command to identify the beginning of the main textual 
+portion of the manuscript. 
+ 
+\subsection{Title and author information} \label{titlepage} 
+ 
+Use the 
+\verb"\title"\ 
+ and \verb"\author"\  commands to specify title 
+and author information. 
+Specify the author's principle affiliation with 
+the command \verb"\affil". 
+Each \verb"\author"\ 
+ command 
+should be followed by a corresponding \verb"\affil"\ 
+and optional \verb"\email"\  command. 
+\begin{quote} 
+\begin{verbatim} 
+\title{<text>} 
+\author{<name(s)>} 
+\affil{<affiliation>} 
+\affil{<address>} 
+\email{<email address>} 
+\and 
+\end{verbatim} 
+\end{quote} 
+ 
+Line breaks are permitted in the title if the author wishes 
+to specify them with the \verb"\\" command.  Long titles will 
+be broken automatically, so the \verb"\\" markup is not required. 
+If the title is explicitly broken over several lines, the 
+preferred style for titles in AAS and ASP journals is the so-called 
+``inverted pyramid'' style.  In this style, the longest line 
+is the first (or top) line, and each succeeding line is shorter. 
+The text of the title should be entered in mixed case; 
+it will be published in upper case or mixed case according to 
+the style of the publication to which the paper is submitted. 
+Footnotes are permissible in titles; be careful to ensure that 
+alternate affiliations (see below) are properly numbered if a 
+footnote to the title is specified. 
+ 
+Authors' names are given in \verb"\author"\ 
+ commands, 
+and should be entered in mixed case. 
+Names that appear together in the author list for authors who 
+have the same primary affiliation should be specified in a single 
+\verb"\author"\  command. 
+Each author group (\verb"\author"\  command) 
+should be followed by an \verb"\affil"\  command, giving the principle 
+affiliation of that author.  Physical and postal address information 
+for the specified institution  may be included with the \verb"\affil". 
+The address can be broken over several lines using the 
+\verb"\\" command to indicate 
+the line breaks. 
+Usually, however, postal information will fit on one line. 
+When there is more than one \verb"\author"\  command, the last 
+one should be preceded by the \verb"\and"\  command. 
+ 
+When there is a lengthy author list, all authors' names may be 
+specified in a single \verb"\author"\ 
+ command, with affiliations 
+specified using the \verb"\altaffilmark"\   me\-chan\-ism described below. 
+In this case, no \verb"\affil"\ 
+ commands would be used, and in print the 
+affiliations would all be listed in a footnote block at the bottom 
+of the title page. 
+ 
+Authors often have affiliations in addition to their principle employer. 
+These alternate affiliations are specified with the \verb"\altaffilmark"\ 
+ and \verb"\altaffiltext"\ 
+ commands. 
+These behave like the \verb"\footnotemark"\ 
+and |\footnotetext|  commands of \LaTeX, except there are no 
+optional arguments in \aastex. 
+\verb"\altaffilmark"\ 
+ is appended to authors' names in the \verb"\author"\ 
+ list and generates superscript identification numbers. 
+The text for the individual alternate affiliations is generated by the 
+\verb"\altaffiltext"\ 
+ command. 
+\begin{quote} 
+\begin{verbatim} 
+\altaffilmark{<key number(s)>} 
+\altaffiltext{<numerical key>}{<text>} 
+\end{verbatim} 
+\end{quote} 
+It is up to the author to make sure that 
+ each \m{key number}  in his or her \verb"\altaffilmark"\ 
+ matches the \m{numerical key} for 
+the corresponding \verb"\altaffiltext". 
+ 
+\subsection{Abstract} 
+ 
+The paper abstract should be enclosed in the 
+\texttt{abstract} environment. 
+\begin{quote} 
+\begin{verbatim} 
+\begin{abstract} 
+<abstract text> 
+\end{abstract} 
+\end{verbatim} 
+\end{quote} 
+ 
+\subsection{Keywords} 
+ 
+Keywords, subject headings, etc., are accommodated 
+as a single piece of text. 
+\begin{quote} 
+\begin{verbatim} 
+\keywords{<text>} 
+\end{verbatim} 
+\end{quote} 
+If authors supply keywords, they must be delimited by whatever 
+punctuation is required by the journal. 
+They should be specified in alphabetical order. 
+The \verb"\keywords"\ 
+ command 
+supplies the proper leading text (``Keywords:'', ``Subject headings:'', 
+etc.), according to journal style. 
+ 
+\subsection{Comments to editors} 
+ 
+Authors may make notes or comments to the copy editor with the 
+\verb"\notetoeditor" command. 
+\begin{quote} 
+\begin{verbatim} 
+\notetoeditor{<text>} 
+\end{verbatim} 
+\end{quote} 
+This command behaves like a 
+footnote and appears on the bottom of the page. 
+\notetoeditor{Notes to the editor only appear 
+in the \texttt{manuscript} style.} 
+Output to the printed page is produced only in the 
+\texttt{manuscript} style. 
+ 
+\subsection{Sections} 
+ 
+The \texttt{manuscript} style for \aastex\ manuscripts supports four levels 
+of section headings. 
+\begin{quote} 
+\begin{verbatim} 
+\section{<heading>} 
+\subsection{<heading>} 
+\subsubsection{<heading>} 
+\paragraph{<heading>} 
+\end{verbatim} 
+\end{quote} 
+Section headings should be given in upper case or mixed case depending 
+on the style of the journal. 
+Note that these commands delimit sections by marking the 
+\emph{beginning} of each section; 
+there are not separate commands to identify the ends. 
+ 
+\subsection{Figure and table placement}   \label{place} 
+ 
+Generally figures and tables are not ``placed'' in the text of the 
+document where an author would like them to appear physically. 
+However, authors may indicate to the editors the preferred placement of 
+these items using  the \verb"\place*"\  commands. 
+\begin{quote} 
+\begin{verbatim} 
+\placetable{<key>} 
+\placefigure{<key>} 
+\end{verbatim} 
+\end{quote} 
+The \verb"\place*{"\m{key}\verb"}" commands are similar to the 
+\verb"\ref" 
+ command in La\TeX\ 
+and require corresponding \verb"\label"\ 
+ commands to link them to the 
+proper elements. 
+ 
+When used in the 
+\texttt{manuscript} style, the \verb"\place*"\  commands will print a short 
+message to the editor about figure and table placements. 
+In the other styles, nothing is printed. 
+ 
+\subsection{Acknowledgments} 
+ 
+\aastex\ manuscript styles support an acknowledgments section. 
+\begin{quote} 
+\begin{verbatim} 
+\acknowledgments 
+\end{verbatim} 
+\end{quote} 
+In the \aastex\ styles, acknowledgments are set off from the 
+concluding main body text by extra vertical space, 
+with no heading or type size change. 
+ 
+\subsection{Appendices} 
+ 
+When one or more appendices are needed in a paper, the point where the 
+main body text ends and the appendix begins must be marked 
+with the \verb"\appendix"\ 
+ command. 
+\begin{quote} 
+\begin{verbatim} 
+\section{<body section>} 
+\appendix 
+\section{<appendix section>} 
+\end{verbatim} 
+\end{quote} 
+The \verb"\appendix"\ 
+ command takes care of a number of internal 
+housekeeping concerns, such as identifying sections with letters 
+instead of numerals, resetting the equation counter, etc. 
+Note that the \verb"\appendix"\ 
+ command takes no arguments. 
+Sections in the appendix must be headed with \verb"\section"\ 
+ commands, as described earlier. 
+ 
+\subsection{Equations} 
+ 
+Display equations can be typeset in \LaTeX\ in many ways; 
+the following three are probably of greatest use in AASTeX. 
+\begin{quote} 
+\begin{verbatim} 
+\begin{displaymath} 
+\end{displaymath} 
+ 
+\begin{equation} 
+\end{equation} 
+ 
+\begin{eqnarray} 
+\end{eqnarray} 
+\end{verbatim} 
+\end{quote} 
+The 
+\texttt{displaymath}  environment 
+will break out a single, 
+unnumbered formula.  The \texttt{equation} environment does the same 
+thing, except that the equation is 
+autonumbered by \LaTeX. 
+To set several formul\ae\ in which vertical alignment 
+is required or to display a long equation across multiple lines, use the 
+\texttt{eqnarray} environment. Each line of the \texttt{eqnarray} 
+will be numbered 
+unless a \verb"\nonumber"\ 
+ command is inserted 
+before the equation delimiter 
+(\verb"\\"). 
+\LaTeX's equation counter is \emph{not} incremented when 
+\verb"\nonumber"\ 
+ is used. 
+ 
+Authors may occasionally wish to group related equations together and 
+identify them with letters appended to the same equation number. 
+When this is desired, such related equations should still be set 
+in \texttt{equation} or \texttt{eqnarray} environments, whichever is 
+appropriate, and the grouping should then be placed within 
+the \texttt{mathletters} environment. 
+\begin{quote} 
+\begin{verbatim} 
+\begin{mathletters} 
+<equation> or <eqnarray> 
+\end{mathletters} 
+\end{verbatim} 
+\end{quote} 
+ 
+It is possible to override \LaTeX's automatic numbering within the 
+\texttt{equation} or \texttt{eqnarray} environments using 
+\begin{quote} 
+\begin{verbatim} 
+\eqnum{<text>} 
+\end{verbatim} 
+\end{quote} 
+When \verb"\eqnum"\ 
+ is specified inside an \texttt{equation} environment, 
+or on a particular equation within an \texttt{eqnarray}, the text 
+supplied as an argument to \verb"\eqnum"\ 
+ is used as the equation 
+identifier. 
+\LaTeX's equation counter is \emph{not} incremented when \verb"\eqnum"\ 
+ is used. 
+\verb"\eqnum"\ 
+ must be used \emph{inside} the environment. 
+ 
+If, as a consequence of the use of \verb"\eqnum"\ 
+ or \verb"\nonumber", 
+\LaTeX's equation counter gets out of synch with the author's 
+intended sequence, 
+the counter may be reset to a particular value. 
+\begin{quote} 
+\begin{verbatim} 
+\setcounter{equation}{<number>} 
+\end{verbatim} 
+\end{quote} 
+The equation counter should be set to the number corresponding to the 
+last equation that was formatted; therefore, it is most appropriate for this 
+command to appear immediately after an \texttt{equation} or 
+\texttt{eqnarray} environment 
+ends. 
+The command must be used 
+\emph{outside} the math environments. 
+ 
+The \texttt{eqsecnum} style file can also be used to modify the way equations 
+are numbered. See Section~\ref{styles} for details. 
+ 
+ 
+\subsection{Citations and bibliography}   \label{bibliography} 
+ 
+Two options are available for symbolically marking citations 
+and formatting reference lists: the standard \LaTeX\ \verb"thebibliography"\ 
+environment, and the \aastex\ \verb"references"\  environment. 
+Authors are strongly encouraged to use \verb"thebibliography"\ 
+in electronic submissions. 
+ 
+Please note that the bibliographic data supplied by the author in 
+the reference list must conform to the standards of the journal. 
+We have elected not to burden authors with tedious markup commands 
+to delimit the bibliographic fields --- many of the journals that 
+accept \aastex\ agreed to reduce typographic overhead 
+(bold, italic, etc.) in reference lists \citep{Abt90}. 
+It is the responsibility of the author to arrange these fields in the 
+proper order with the correct punctuation; the information will be 
+typeset in roman with no size or style changes. 
+ 
+ 
+\subsubsection{The {\tt thebibliography} environment}   \label{bib} 
+ 
+The preferred method for reference management is to use \LaTeX's 
+\texttt{thebibliography} environment, marking citations in the body 
+of the paper with 
+\verb"\citep"\ or \verb"\citet"\ 
+and associating references with them via \verb"\bibitem". 
+The \verb"\cite"-\verb"\bibitem"\ 
+mechanism associates citations and references symbolically 
+while maintaining proper citation syntax within the paper. 
+In the \verb"\bibitem"\ 
+command, the author specifies citation data inside 
+square brackets and a citation key in curly braces 
+for each reference. 
+\begin{quote} 
+\begin{verbatim} 
+\begin{thebibliography}{<dummy>} 
+\bibitem[<cite data>]{<key>} <bibliographic data> 
+   . 
+   . 
+\end{thebibliography} 
+\end{verbatim} 
+\end{quote} 
+ 
+Note that the argument \m{dummy} to the environment is not 
+used in the \aastex\ package, but is consistent with the 
+syntax of standard \LaTeX. It is acceptable to simply insert an 
+empty pair of curly braces after the \verb"\begin{thebibliography}"\ 
+command. 
+The |\bibitem| command is described in detail in the next section. 
+ 
+ 
+\subsubsection{Specifying bibliographic and citation information}\label{spec-bib-data} 
+ 
+The scheme used in \aastex\ for marking citations and for specifying 
+bibliographic data allow us to utilize the features of the |natbib| 
+package \citep{Daly98}. 
+The |natbib| package re-implements \LaTeX's |\cite| command, 
+and offers greater flexibility for managing citations in the 
+author-year form. 
+ 
+All of the bibliographic data are defined in |\bibitem| commands. 
+\begin{quote} 
+\begin{verbatim} 
+\bibitem[<author>(<year>)]{<key>} <bibliographic data> 
+\end{verbatim} 
+\end{quote} 
+The square-bracketed argument of |\bibitem| 
+contains the \m{author} portion of the citation, 
+followed by the \m{year} set off in parentheses. 
+The parentheses are important --- please don't forget them. 
+The curly-bracketed argument \m{key} is the code name 
+by which the reference is known. 
+ 
+When placing citations in the text, the author should use 
+either a |\citep| or a |\citet| command. 
+\begin{quote} 
+\begin{verbatim} 
+\citep[<extra>]{<key(s)>}\\ 
+\citet[<extra>]{<key(s)>} 
+\end{verbatim} 
+\end{quote} 
+The |\citep| command produces a citation that is entirely 
+set off by parentheses, e.g.\ (Cox 1995), while |\citet| permits 
+the author's name to form part of your text, e.g.\ Cox (1995). 
+The classic \LaTeX\ |\cite| command behaves like |\citet|. 
+ 
+The citation \m{key} corresponds to a \m{key} in a |\bibitem| command. 
+During processing, information from the \m{cite data} is inserted in 
+the text at the location of the \verb"\cite"\ command. 
+Multiple citation \m{keys} are separated by commas, e.g., 
+|\citep|\allowbreak 
+|{knuth84,|\allowbreak 
+|cox95,|\allowbreak 
+|lamport94}|. 
+|\citep| and |\citet| each take optional arguments that specify 
+\m{extra} text that is appended to the citation label, 
+per standard \LaTeX\ behavior. 
+ 
+\aastex\ uses a full |natbib| implementation. 
+There are more syntax options than we have described here, 
+and these support the whole range of arcane possibilities 
+for composing citations; the price is complexity. 
+Authors who need more flexibility should become familiar 
+with the |natbib| documentation. 
+The syntax discussed above should be sufficient for the 
+vast majority of cases. 
+ 
+It is not possible to use \verb"\bibitem" 
+within \aastex's \texttt{references} environment 
+(section~\ref{refenv}), 
+nor will \verb"\cite"\ commands work properly in the main body 
+if \verb"\bibitem" commands are absent. 
+ 
+ 
+\subsubsection{The {\tt references} environment}\label{refenv} 
+ 
+Some authors might prefer to enter citations directly 
+into the body of an article. If so, the |references| environment may be 
+used to format the reference list. The 
+\texttt{references}  environment 
+simply sets off 
+the list of references and adjusts spacing parameters. 
+\begin{quote} 
+\begin{verbatim} 
+\begin{references} 
+\reference{<key>}<bibliographic data> 
+   . 
+   . 
+\end{references} 
+\end{verbatim} 
+\end{quote} 
+ 
+While the 
+\texttt{references}  environment 
+remains supported in v5.0, 
+we anticipate that authors will prefer the stronger capabilities of 
+the standard \LaTeX\ |thebibliography| commands as extended by |natbib|. 
+ 
+\subsubsection{Abbreviations for journal names} 
+ 
+There are markup commands for many of the most frequently-referenced journals so  that authors may use the markup  rather than having 
+to look up a particular journal's abbreviation. 
+In principle, all the journals should be using the 
+same abbreviations, but it is fair to anticipate some changes in 
+the specific abbreviations before a system is finally settled on.  As 
+long as these commands are kept up to date, authors need not be 
+concerned about such editorial preferences and changes. 
+A listing of the current abbreviations appears in Table~\ref{journame}. 
+\begin{table} 
+\begin{center} 
+\caption{Abbreviations for Journal Names}\label{journame} 
+\begin{tabular}{ll} 
+\verb"\araa" & Annual Review of Astronomy\\ 
+  & \hspace*{1em} and Astrophysics\\ 
+\verb"\ao" & Applied Optics\\ 
+\verb"\aj" & Astronomical Journal\\ 
+\verb"\azh" & Astronomicheskii Zhurnal\\ 
+\verb"\aap" & Astronomy and Astrophysics\\ 
+\verb"\aapr" & Astronomy and Astrophysics Reviews\\ 
+\verb"\apj" & Astrophysical Journal\\ 
+\verb"\apjl" & \rule[.5ex]{2em}{.4pt}, Letters to the Editor\\ 
+\verb"\apjs" & \rule[.5ex]{2em}{.4pt}, Supplement Series\\ 
+\verb"\aplett" & Astrophysics Letters\\ 
+\verb"\apspr" & Astrophysics Space Physics Research\\ 
+\verb"\apss" & Astrophysics and Space Science\\ 
+\verb"\aaps" & \rule[.5ex]{2em}{.4pt}, Supplement Series\\ 
+\verb"\baas" & Bulletin of the AAS\\ 
+\verb"\bain" & Bulletin Astronomical Inst. Netherlands\\ 
+\verb"\gca" & Geochimica Cosmochimica Acta\\ 
+\verb"\grl" & Geophysics Research Letters\\ 
+\verb"\iaucirc" & IAU Circular\\ 
+\verb"\jcp" & Journal of Chemical Physics\\ 
+\verb"\jgr" & Journal of Geophysics Research\\ 
+\verb"\jrasc" & Journal of the RAS of Canada\\ 
+\verb"\memras" & Memoirs of the RAS\\ 
+\verb"\mnras" & Monthly Notices of the RAS\\ 
+\verb"\nat" & Nature\\ 
+\verb"\nphysa" & Nuclear Physics A\\ 
+\verb"\physscr" & Physica Scripta\\ 
+\verb"\pra" & Physical Review A\\ 
+\verb"\prb" & Physical Review B\\ 
+\verb"\prc" & Physical Review C\\ 
+\verb"\prd" & Physical Review D\\ 
+\verb"\pre" & Physical Review E\\ 
+\verb"\prl" & Physical Review Letters\\ 
+\verb"\physrep" & Physics Reports\\ 
+\verb"\planss" & Planetary Space Science\\ 
+\verb"\procspie" & Proceedings of the SPIE\\ 
+\verb"\pasj" & Publications of the ASJ\\ 
+\verb"\pasp" & Publications of the ASP\\ 
+\verb"\qjras" & Quarterly Journal of the RAS\\ 
+\verb"\skytel" & Sky and Telescope\\ 
+\verb"\solphys" & Solar Physics\\ 
+\end{tabular} 
+\end{center} 
+\end{table} 
+ 
+\subsection{Figures} 
+ 
+\subsubsection{Electronic art} 
+ 
+For manuscripts that are submitted electronically, the electronic figures 
+themselves are generally sent as individual files to the editors 
+and are not included as part of the main text, although the 
+legends or captions for these files are included using the markup described 
+in Section~\ref{legends}. 
+Detailed information on preparing and submitting electronic art is 
+available in the submissions instructions for the various journals. 
+ 
+At this time, the most widely used means of including figures or other 
+types of nontextual data in electronic manuscripts is to generate such 
+files as Encapsulated PostScript files.\footnote{% 
+ PostScript is a registered trademark of Adobe Systems Incorporated.% 
+}% 
+ 
+If an author wishes PostScript figures to be included in the 
+pages being produced, it is necessary that 
+the graphics files being included conform 
+to the Encapsulated PostScript standard \citep{PLRM}. The 
+author must also have an appropriate DVI translator, 
+one that targets PostScript output devices. 
+ 
+There are several commands to use when including EPS files 
+in \aastex\ manuscripts. They should be placed within  the 
+ \texttt{figure} environment. 
+\begin{quote} 
+\begin{verbatim} 
+\begin{figure} 
+\figurenum{<text>} 
+\epsscale{<num>} 
+\plotone{<epsfile>} 
+\plottwo{<epsfile>}{<epsfile>} 
+\caption{<text>} 
+\end{figure} 
+\end{verbatim} 
+\end{quote} 
+When \verb"\figurenum" is specified inside a {\tt figure} environment, 
+the text supplied as an argument to \verb"\figurenum" is used as the 
+figure identifier. 
+\LaTeX's figure counter is \emph{not} incremented when \verb"\figurenum" 
+is used. 
+\verb"\figurenum" must be used \emph{inside} the {\tt figure} environment. 
+ 
+\verb"\plotone" inserts the graphic in the named EPS file, 
+scaled (in both dimensions) so that the horizontal 
+dimension fits in the body text width; 
+the vertical dimension is scaled to maintain the aspect ratio. 
+\verb"\plottwo" inserts two plots next to each other. 
+Scale factors are determined automatically from information in the 
+EPS file. 
+ 
+The automatic scaling may be overridden with the command 
+\verb"\epsscale{<num>}", where \m{num} 
+is in decimal units, i.e., 0.80. 
+ 
+%See  ``Using Encapsulated PostScript with AAS\TeX'' on 
+%the AAS\TeX\ V5.0 home page, \url{|http://\allowbreak 
+%www.aas.\allowbreak 
+%org/\allowbreak 
+%publications/\allowbreak 
+%aastex|}, 
+%for information on use of the commands, 
+%as well as where to obtain the DVI package. 
+ 
+\subsubsection{Figure captions} \label{legends} 
+ 
+Figure captions, or legends, should be included as a group at the end 
+of the manuscript using either the \verb"\figcaption"\  command 
+or a \texttt{figure} environment for each figure in 
+the paper, whether or not electronic art is included. 
+For electronic submissions, use of \verb"\figcaption"\ is preferred. 
+ 
+\begin{quote} 
+\begin{verbatim} 
+\figcaption[<filename>]{<text>\label{<key>}} 
+\end{verbatim} 
+\end{quote} 
+ 
+The optional argument, \m{filename}, can be used to iden\-ti\-fy 
+the file for the corresponding figure; 
+\m{text} refers to the caption for that figure.  The author 
+may provide a \verb"\label"\ with a unique \m{key} for cross-referencing 
+purposes. 
+ 
+When the \verb"\figcaption"\  command is used, the figure 
+identification, 
+e.g., ``Figure 1,'' is generated automatically by the command itself, so 
+there is no need to key this information. 
+ There is an upper limit of seven figure captions per page. 
+Footnotes are \emph{not} supported for figures. 
+ 
+\subsection{Tables}  \label{tables} 
+ 
+There is support in the \aastex\ package for tables via two mechanisms: 
+\LaTeX's standard \texttt{table} environment 
+and the 
+\texttt{deluxetable} environment, which facilitates the formatting 
+of lengthy tabular material.  Tables may be 
+marked up using either mechanism, although use of 
+\texttt{deluxetable} is preferred. 
+Authors should \emph{not} use the \LaTeX\ 
+\texttt{tabbing} environment 
+or the \verb"\hline"\ 
+ command when preparing electronic 
+submissions. 
+ 
+\LaTeX\ permits the preparation of fairly complex tables with 
+arbitrary spacing, straddle heads, rules, and the like. 
+Authors who need to specify complicated column headings and 
+so forth are advised to consult the \LaTeX\ manual \citep{Lamport}. 
+Most of the capabilities outlined there are applicable to  the \aastex\ 
+ table preparation environments. 
+ 
+\subsubsection{The {\tt deluxetable} environment}  \label{dte} 
+ 
+Authors are encouraged to use the 
+\texttt{deluxetable} environment to format their tables since it automatically 
+handles many formatting tasks, including table numbering and insertion 
+of horizontal rules. It also provides mechanisms for breaking tables and 
+controlling width and vertical spacing that are unavailable in the \LaTeX\ 
+\texttt{tabular} environment. 
+ 
+The \texttt{deluxetable} environment 
+is delimited by \LaTeX's familiar 
+\verb"\begin"\  and \verb"\end"\  constructs. 
+The content consists of \m{preamble} commands and \m{table data}, 
+the latter delimited by \verb"\startdata"\ 
+ and \verb"\enddata". 
+\begin{quote} 
+\begin{verbatim} 
+\begin{deluxetable}{<cols>} 
+<preamble commands> 
+\startdata 
+<table data> 
+\enddata 
+\end{deluxetable} 
+\end{verbatim} 
+\end{quote} 
+where \m{cols} specifies the justification for each col\-umn. 
+One of the letters `l', `c', `r', or `p' is given for each column, 
+indicating flush left, centered, flush right, or justified text. 
+Authors are 
+referred to the \LaTeX\ manual \citep{Lamport} for further information. 
+ 
+\subsubsection{Preamble to the {\tt deluxetable}} 
+ 
+There are several items in the 
+\texttt{deluxetable} environment 
+that 
+must be given before the data for the table; 
+they constitute the \m{preamble} to the environment. 
+\begin{quote} 
+\begin{verbatim} 
+\tabletypesize{<font size command>}
+\rotate 
+\tablewidth{<dimen>} 
+\tablenum{<text>} 
+\tablecolumns{<num>} 
+\tableheadfrac{<num>} 
+\tablecaption{<text>\label{<key>}} 
+\tablehead{<text>} 
+\end{verbatim} 
+\end{quote} 
+ 
+If a table is too wide for the printed page, it is permissible to change 
+the font size within the 
+\texttt{deluxetable} environment 
+using the \verb"\tabletypesize" command with the font size change commands
+\verb"\small"\ 
+ (11pt), \verb"\footnotesize"\ 
+ (10pt), or  
+\verb"\scriptsize"\ 
+ (8pt). 
+ 
+You can force a table to be set in landscape orientation 
+using the \verb"\rotate"\ 
+\label{cmd-rotate} command. 
+The default is for \aastex\ itself to determine if landscape orientation is required. 
+ 
+The width of a deluxetable is defined by \verb"\tablewidth"; 
+the default width, if this command is omitted, is the width of the body 
+text. 
+The table can be set to its natural width by specifying 
+a \m{dimen} of \verb"0pt". 
+Long tables may have a natural width that is 
+different for each page.  The natural width for each page will be 
+printed to the log file during processing; 
+authors may then define a fixed table width based 
+on this information, giving the 
+tables a more uniform appearance across the pages. 
+ 
+It is possible to override \LaTeX's automatic numbering within the 
+\texttt{deluxetable} environment. 
+When \verb"\tablenum"\ 
+ is specified inside a \texttt{deluxetable} 
+preamble, 
+the text supplied as an argument to \verb"\tablenum"\ 
+ is used as the 
+table identifier. 
+\LaTeX's equation counter is \emph{not} incremented when 
+\verb"\tablenum"\ 
+ is used. 
+ 
+The caption (actually, the title) of the table is specified 
+in \verb"\tablecaption". 
+The text of \verb"\tablecaption"\ 
+ should be brief; 
+explanatory notes should be specified in the end notes to the table 
+(see \verb"\tablecomments"\ 
+ below).  If the caption 
+does not appear 
+centered above the table after processing, then specify the width of 
+the table explicitly in the \verb"\tablewidth"\ 
+ command and rerun 
+\LaTeX\ on the file.   The author 
+may provide a \verb"\label"\ in the caption with a unique \m{key} 
+for cross-referencing 
+purposes. 
+ 
+  Column headings are specified with \verb"\tablehead". 
+Within \verb"\tablehead", each column heading can be given 
+in a \verb"\colhead", which will ensure that the heading 
+is centered 
+on the natural width of the column; this is the typical disposition 
+of column headings, and the use of \verb"\colhead"\ 
+ is encouraged. 
+There should be a heading for each column, so that there are as 
+many \verb"\colhead"\ 
+ commands in the \verb"\tablehead"\ 
+ as there 
+are data columns. 
+ 
+\begin{quote} 
+\begin{verbatim} 
+\tablehead{ 
+\colhead{<heading>} & \colhead{<heading>}} 
+\end{verbatim} 
+\end{quote} 
+ 
+If more complicated column headings are required, 
+any valid \texttt{tabular} command that constitutes a proper 
+head line in a \LaTeX\ table may be used. 
+Consult the \LaTeX\ manual \citep{Lamport} for details. 
+ 
+The \verb"\tablecolumns{"\m{num}\verb"}" command 
+is necessary if the author has 
+multi-line column headings produced by \verb"\tablehead"\ 
+ or other \LaTeX\ 
+commands and is using either the \verb"\cutinhead"\ 
+ or \verb"\sidehead"\ 
+markup (see below).  The \m{num} is 
+set to the true number of columns in the 
+table.  The command must come before the \verb"\startdata"\ 
+ command. 
+ 
+It is possible that a complicated table heading will overflow 
+the vertical space allotted for the table heading. 
+The fraction of the page allocated 
+for the table heading may be changed with \verb"\tableheadfrac". 
+The \m{num} argument to \verb"\tableheadfrac"\ 
+ should be the 
+decimal fraction of the page used for heading information. 
+The default value is 0.1, meaning that 10\% of the page height 
+is reserved for the table heading.  It should rarely be necessary 
+to change this value. 
+ 
+\subsubsection{Content of the {\tt deluxetable}} 
+ 
+After the table title and column headings are specified, 
+data rows can be entered. 
+Data rows are delimited with the \verb"\startdata"\ 
+ and \verb"\enddata"\ 
+ commands. 
+The end of each row is indicated with the standard \LaTeX\ \verb"\\" command. 
+Data cells within a row of the table are separated with \& (ampersand) characters. 
+\begin{quote} 
+\begin{verbatim} 
+\startdata 
+<data line>\\ 
+<cell>&<cell>&<cell>\\ 
+<more data lines> 
+\enddata 
+\end{verbatim} 
+\end{quote} 
+ 
+Column alignment within the data columns can be adjusted with the \TeX\ 
+\verb"\phantom{"\m{string}\verb"}" command, 
+where \m{string} can be any character, e.g., \verb"\phantom{$\arcmin$}". 
+A blank character of width \m{string} is then inserted in the table. 
+Four commands have been predefined for this purpose. 
+\begin{quote} 
+\begin{tabular}{l@{\quad}p{2in}} 
+{\verb"\phn"% 
+} & {phantom numeral 0-9}\\ 
+{\verb"\phd"% 
+} & {phantom decimal point}\\ 
+{\verb"\phs"% 
+} & {phantom $\pm$ sign}\\ 
+{\verb"\phm{"\m{string}\verb"}"} & {generic phantom}\\ 
+\end{tabular} 
+\end{quote} 
+ 
+Extra vertical space can be inserted between rows with an optional argument to the 
+\verb"\\" command; the argument is a dimension 
+and may be specified in any units that are legitimate in \LaTeX. 
+\begin{quote} 
+\begin{verbatim} 
+\\[<dimen>] 
+\end{verbatim} 
+\end{quote} 
+ 
+In a table, it may happen that several rows of data are 
+associated with a single object or item; 
+such logical groupings should not be broken across pages. 
+In such cases, the *-form of the |\\| command can be used to 
+keep the current line with the next line (``Keep with Next''). 
+\begin{quote} 
+\begin{verbatim} 
+<table row>\\* 
+<next table row> 
+\end{verbatim} 
+\end{quote} 
+An unlimited number of table rows can be held together in a block in this way. 
+ 
+The journals often require that table cells that contain  no data 
+be explicitly marked.  This is to differentiate such cells from 
+blank cells, which are frequently interpreted as implicitly 
+repeating the entry in the corresponding cell in the row preceding. 
+Data elements for which there are no data should contain 
+a \verb"\nodata"\ 
+ command; an appropriate symbol will be placed in 
+that data element. 
+\begin{quote} 
+\begin{verbatim} 
+\nodata 
+\end{verbatim} 
+\end{quote} 
+ 
+Within the deluxetable body, two kinds of ``specialty'' heads are 
+recognized.  A cut-in head is a piece of text that is centered on the 
+table width; 
+it is spaced above and below from the data rows that precede and 
+follow it; there may be rules associated with it, depending on the 
+journal or manuscript style.  All of these formatting particulars 
+are managed by the style files.  The author need only specify that the 
+text be centered with a \verb"\cutinhead"\ 
+ command. 
+Similarly, a side head is a piece of text that is left-justified. 
+ 
+\begin{quote} 
+\begin{verbatim} 
+\cutinhead{<text>} 
+\sidehead{<text>} 
+\end{verbatim} 
+\end{quote} 
+ 
+Table footnotes (more properly, table \emph{endnotes}) 
+may be used in the \texttt{deluxetable} environment; 
+their use is described in detail in the Section 
+ \ref{tabfoot} below. 
+ 
+\subsubsection{The {\tt table} environment} 
+ 
+Tables may also be marked and composed using the \texttt{table} environment. 
+\begin{quote} 
+\begin{verbatim} 
+\begin{table} 
+\end{table} 
+\end{verbatim} 
+\end{quote} 
+The 
+\texttt{table}\ environment 
+encloses not only the tabular 
+material but also any title (caption) or footnote information 
+associated with the table. 
+ 
+Titles or captions for tables are indicated with 
+\begin{quote} 
+\begin{verbatim} 
+\caption{<text>\label{<key>}} 
+\end{verbatim} 
+\end{quote} 
+Tables will be identified with arabic numerals, e.g., ``Table 2''; 
+the identifying text, including the number, is generated automatically 
+by \verb"\caption". 
+ The author 
+may provide a \verb"\label"\ in the caption with a unique \m{key} 
+for cross-referencing 
+purposes. 
+ 
+Tabular information is typeset within the 
+\texttt{tabular} environment: 
+\begin{quote} 
+\begin{verbatim} 
+\begin{tabular}{<cols>} 
+\end{tabular} 
+\end{verbatim} 
+\end{quote} 
+where \m{cols} specifies the justification for each column. 
+One of the letters `l', `c', or `r' is given for each column, 
+indicating left, center, or right justification. 
+Consult the \LaTeX\ manual \citep{Lamport} for details about using 
+the 
+\texttt{tabular} environment 
+to prepare tables. 
+Each \texttt{tabular} table must appear within a \texttt{table} 
+environment. There should be only one \texttt{tabular} table per 
+\texttt{table} 
+environment. 
+If the journal requests manuscripts with only one table per page, 
+the author may need to insert a \verb"\clearpage"\ 
+ command after 
+especially short tables. 
+ 
+There is a table line command for use in \texttt{tabular} 
+environments. 
+\begin{quote} 
+\verb"\tableline" 
+ \end{quote} 
+This command produces the horizontal rule(s) between the column headings 
+and the body of the table. 
+Authors are discouraged from using \verb"\hline". 
+In addition, the use of vertical rules should be avoided. 
+ 
+As with the \texttt{deluxetable} environment, it 
+ is possible to override \LaTeX's automatic numbering within the 
+\texttt{table} environment using \verb"\tablenum". 
+\verb"\tablenum"\ 
+ must be used \emph{inside} the \texttt{table} 
+environment. 
+ 
+ 
+ 
+\subsubsection{Table footnotes} \label{tabfoot} 
+ 
+\aastex\ supports footnotes (endnotes) that are associated with tables; 
+this support applies to both the 
+\texttt{deluxetable}  environment 
+and the standard \LaTeX\ \texttt{table} environment. 
+Footnotes for tables are usually identified by lowercase letters 
+rather than num\-bers. 
+Marking and assigning associated text is achieved with 
+the \verb"\tablenotemark"\ 
+ and \verb"\tablenotetext"\ 
+ commands, which function like the  \verb"\altaffilmark"\ 
+ and \verb"\altaffiltext"\ 
+ (see Section~\ref{titlepage} above). 
+The \verb"\tablenote"\-|text| 
+ must be specified 
+\emph{after} the \verb"\end{tabular}"\  or \verb"\enddata"\  and before 
+the enclosing \verb"\end{table}"\  or \verb"\end{deluxetable}". 
+\begin{quote} 
+\begin{verbatim} 
+\tablenotemark{<alpha key>} 
+\tablenotetext{<alpha key>}{<text>} 
+\end{verbatim} 
+\end{quote} 
+Note that the \m{alpha key} in the \verb"\tablenotemark"\ 
+should be the same as the 
+\m{alpha key} for the corresponding \m{text}. 
+It is the responsibility of the author to make the correspondence 
+correct. 
+ 
+Sometimes authors tabulate materials which have corresponding 
+references, 
+and it may be desirable to associate these references with the table 
+rather than (or in addition to) the formal reference list. 
+Also, authors may occasionally wish to append a 
+short paragraph of explanatory 
+notes that pertain to the entire table, but which are different than 
+the caption. \aastex\ offers two special kinds of endnotes for these 
+purposes. 
+\begin{quote} 
+\begin{verbatim} 
+\tablerefs{<reference list>} 
+\tablecomments{<text>} 
+\end{verbatim} 
+\end{quote} 
+ 
+Like the \verb"\tablenotetext" command, these commands should be 
+ specified after the \verb"\end{tabular}" or \verb"\enddata" and before 
+the enclosing \verb"\end{table}" or \verb"\end{deluxetable}". 
+ 
+\subsection{Miscellaneous} 
+ 
+\subsubsection{Ionic species and chemical bonds} 
+ 
+When discussing atomic species, ionization levels can be indicated 
+with the following command. 
+\begin{quote} 
+\begin{verbatim} 
+\ion{<element>}{<level>} 
+\end{verbatim} 
+\end{quote} 
+The ionization state is specified as the second argument, 
+and should be given as a numeral. 
+For example, \ion{Ca}{3} is specified by typing \verb"\ion{Ca}{3}". 
+ 
+For single, double, and triple chemical bonds, use the following macros. 
+\begin{quote} 
+\begin{verbatim} 
+\sbond 
+\dbond 
+\tbond 
+\end{verbatim} 
+\end{quote} 
+ 
+ 
+ 
+ 
+\subsubsection{Fractions} 
+ 
+\aastex\ contains commands that permit authors to specify alternate 
+forms for fractions. 
+\LaTeX\ will set fractions in displayed math as built-up fractions; 
+however, it is sometimes desirable to use case fractions in 
+displayed equations. 
+In such instances, one should use \verb"\case"\ 
+rather than \verb"\frac", although authors submitting 
+manuscripts electronically 
+will generally find it unnecessary to use any markup other than the 
+standard \LaTeX\ \verb"\frac". 
+ 
+\begin{center} 
+\renewcommand{\arraystretch}{1.4} 
+\begin{tabular}{@{}llc@{}} 
+Built-up & \verb"\frac{1}{2}" & $\displaystyle\frac{1}{2}$ \\[.5ex] 
+Case     & \verb"\case{1}{2}" & $\case{1}{2}$ \\ 
+Shilled  & \verb"1/2" & $1/2$ \\ 
+\end{tabular} 
+\end{center} 
+ 
+The \aastex\ package also contains a collection of assorted macros 
+for symbols and abbreviations specific to an astronomical context. 
+These are commonly useful and also somewhat difficult for authors 
+to produce themselves because fussy kerning is required. 
+See the \anchor{symbolapp.pdf}{symbols pages} provided as 
+a separate attachment with this manual. 
+Most of these commands can be used in both running text and math. 
+\verb"\lesssim"\  and \verb"\gtrsim"\  can only be used in math mode. 
+ 
+\subsubsection{Celestial objects} 
+ 
+Celestial objects should be marked by the author to facilitate 
+post-processing of articles for the astronomical catalog databases. 
+\begin{quote} 
+\begin{verbatim} 
+\objectname[<catalog ID>]{<text>} 
+\end{verbatim} 
+\end{quote} 
+This command has no effect in printed manuscripts. 
+When your article contains |\objectname| commands, 
+the publisher can pass along a list of ``objects in article'' 
+to database personnel, and software can construct queries 
+to those databases in the online editions. 
+ 
+In the future, it may be useful for the author to specify a 
+particular catalog with an identifier. 
+At this time, however, the optional \verb"<catalog ID>" 
+argument is ignored, and need not be supplied. 
+ 
+\subsubsection{Hypertext constructs} 
+ 
+The \verb"\anchor"\ \label{cmd-anchor} command is a general-purpose 
+hypertext link tag, associating \verb"<text>" in the manuscript with 
+the specified resource (\verb"<href>"). 
+\begin{quote} 
+\begin{verbatim} 
+\anchor{<href>}{<text>} 
+\end{verbatim} 
+\end{quote} 
+\verb"<href>"\ is specified as a \emph{full} URI, including the 
+\verb"scheme:"\  designator (|http:|, |ftp:|, etc.). 
+ 
+The \verb"\url" command supports the special case where an author 
+wishes to express a URL in the text. 
+\begin{quote} 
+\begin{verbatim} 
+\url{<text>} 
+\end{verbatim} 
+\end{quote} 
+ 
+The \verb"\email"\  command is used to identify email addresses 
+anywhere in the manuscript. 
+The argument is the pertinent email address; 
+please do \emph{not} prepend the \verb|mailto:| part. 
+\begin{quote} 
+\begin{verbatim} 
+\email{<address>} 
+\end{verbatim} 
+\end{quote} 
+This command should be used to indicate authors' email addresses 
+in author lists at the beginning of manuscripts. 
+The \aastex\ v4.0 command, \verb"\authoremail", is superseded 
+by \verb"\email". 
+ 
+\subsection{Concluding the file} 
+ 
+The last command in the electronic manuscript file should be the 
+\begin{quote} 
+\begin{verbatim} 
+\end{document} 
+\end{verbatim} 
+\end{quote} 
+command, which appears after all the material in the paper. 
+This command directs the formatter to perform assorted termination 
+activities and finish processing. 
+ 
+\section{Style options}   \label{styles} 
+ 
+The default style option is the |manuscript| style. This style will 
+produce double-spaced pages printed in a single column at the width 
+of the page. 
+ 
+Two preprint styles are also available. 
+The \texttt{preprint} style offers a single-spaced alternative for 
+manuscripts. 
+This style is similar to the |manuscript| style, 
+but it is single-spaced, and it is possible to use a smaller typeface. 
+Sometimes, it is desirable for preprints 
+to be set in two columns with running heads. 
+The \texttt{preprint2} style option achieves this. 
+These two style options are discussed further below. 
+ 
+The \texttt{eqsecnum} style file can be used to modify the way equations 
+are numbered. 
+Normally, equations are numbered sequentially through the 
+entire paper, starting over at ``(A1)'' if there is an appendix. 
+If \texttt{eqsecnum} appears in the \texttt{documentclass} command, 
+equation num\-bers will be sequential through each section and will be 
+formatted ``(sec-eqn),'' where ``sec'' is the current section number and 
+``eqn'' is the number of the equation within that section. 
+\begin{quote} 
+\begin{verbatim} 
+\documentclass[eqsecnum]{aastex} 
+\end{verbatim} 
+\end{quote} 
+ 
+A \verb"flushrt.sty"\  file option is available for authors that prefer to 
+have their margins left and right justified. 
+The 
+\texttt{preprint2} style 
+is flush right by default, 
+but the 
+\texttt{manuscript} and 
+\texttt{preprint} styles are ragged right by default. 
+\begin{quote} 
+\begin{verbatim} 
+\documentclass[eqsecnum,flushrt]{aastex} 
+\end{verbatim} 
+\end{quote} 
+ 
+\subsection{Preprint format} 
+ 
+A single-column preprint format can be specified with the 
+\texttt{preprint} style option: 
+\begin{quote} 
+\begin{verbatim} 
+\documentclass[preprint]{aastex} 
+\end{verbatim} 
+\end{quote} 
+The size of the typeface used is under author control by way of 
+\LaTeX's \m{nn}\texttt{pt} class options 
+(where \m{nn} is 10, 11, or 12). 
+Use of 10 point type is not recommended with the 
+\texttt{preprint} style. 
+ 
+Authors may wish to adjust vertical spacing within a preprint, 
+for instance, double-spacing text while single-spacing tables. 
+Authors who want to alternate between single and double 
+spacing in the manuscript may use the following commands. 
+\begin{quote} 
+\begin{verbatim} 
+\singlespace 
+\doublespace 
+\end{verbatim} 
+\end{quote} 
+\verb"\singlespace"\  sets the vertical spacing to a smaller value, 
+while \verb"\doublespace"\  invokes double-spacing. 
+ 
+\subsection{Two-column format} 
+ 
+The 
+\texttt{preprint2} style 
+has the principle function of providing two-column formatting. 
+\begin{quote} 
+\begin{verbatim} 
+\documentclass[preprint2]{aastex} 
+\end{verbatim} 
+\end{quote} 
+It is important to remember 
+that text lines are considerably shorter when two of them are typeset 
+side by side on a page.  Long equations, wide tables and figures, and 
+the like, may not typeset in this format without some adjustments. 
+The expenditure of great effort to adapt copy and markup for 
+two-column pages is counterproductive. 
+Remember that the main 
+goal of this package is to produce draft 
+(or referee) format pages; 
+it is the responsibility of the editors and publishers to 
+produce publication-format papers for the journals. 
+ 
+The 
+\texttt{preprint2} style 
+sets the article's front matter---the title, author, abstract, 
+and keyword material---on a separate page at full text width. 
+The body of the article is set in a two-column page grid, 
+the appendices in a one-column page grid, 
+and the bibliography in a two-column page grid. 
+This manual was prepared using the \texttt{preprint2} style. 
+ 
+The author may supply \LaTeX's \verb"\twocolumn"\  or |\onecolumn| 
+commands whenever desired. 
+Be aware, however, that using explicit column-switching commands can 
+cause formatting problems. 
+ 
+\section{Additional documentation}  \label{docs} 
+ 
+The preceding explanation of the markup commands in the 
+\aastex\ package has merit for defining syntax, but many 
+authors will prefer to examine the sample papers that are 
+included with the style files. 
+The files of interest are described below. 
+ 
+A comprehensive example employing nearly all of the capabilities 
+of the package (in terms of markup as well as formatting) 
+is in \verb"sample.tex". 
+This file is annotated with comments that describe 
+the purpose of most of the markup. 
+\verb"sample.tex"\ has three tables: two marked up using the 
+\texttt{deluxetable} environment 
+and another table using the \LaTeX\ \texttt{table} 
+environment. 
+ 
+In \verb"table.tex", a complex but short example of the 
+\texttt{deluxetable} environment 
+demonstrates some of the techniques 
+that can be used to generate complex column headings and to align 
+variable-width columns. 
+Here the \LaTeX\ \verb"\multicolumn" command is used to span a heading 
+over several columns.  When \verb"\multicolumn" is used along with the 
+\verb"\cutinhead" command, the \verb"\tablecolumns" command must be used to specify 
+the number of columns in the table---otherwise the \verb"\cutinhead" command 
+will not work properly. 
+This table also makes use of the \verb"\phn" command to better align some of the 
+columns. 
+ 
+This user guide (\verb"aasguide.tex") 
+is also marked up with the \aastex\ package, 
+although it is not exemplary as a scientific paper. 
+ 
+Many of the markup commands described in the preceding 
+sections are standard \LaTeX\ commands. The reader who is 
+unfamiliar with their syntax is referred to the \LaTeX\ 
+manual \citep{Lamport}, or any of several other guides 
+by \citet{Kopka99}, \citet{Goossens94}, and \citet{Hahn93}. 
+ 
+Authors who wish to know the ins and outs of \TeX\ itself 
+should read the \emph{\TeX book} \citep{Knuth}, probably more than once. 
+There is a good deal of information about typography in general 
+in this resource.  Many details of mathematical typography are 
+discussed in \emph{Mathematics into Type} by \citet{Swanson}. 
+ 
+\section{Acknowledgments} 
+ 
+\aastex\ was designed and written by Chris Biemesderfer in 1988. 
+Substantial revisions were made by Lee Brotzman and Pierre 
+Landau when the package was updated to v4.0. 
+\aastex\ was rewritten as a \LaTeXe\ class by Arthur Ogawa 
+when v5.0 was created. 
+The documentation has benefited from revisions by 
+Jeannette Barnes and Sara Zimmerman. 
+ 
+\begin{thebibliography}{} 
+ 
+\bibitem[Abt(1990)]{Abt90} 
+  Abt, H.  1990, \apj, 357, 1 (editorial) 
+ 
+\bibitem[Adobe(1999)]{PLRM} 
+  Adobe Systems, Inc.  1999, 
+  \anchor{http://www.adobe.com/prodindex/postscript/} 
+  {PostScript Language Reference Manual} (Reading, MA: Addison-Wesley) 
+ 
+\bibitem[Daly(1998)]{Daly98} 
+  Daly, P. 1998, \emph{Natural Sciences Citations and References} 
+  (\texttt{natbib} package documentation) 
+ 
+\bibitem[Goossens, Mittelbach, and Samarin(1994)]{Goossens94} 
+  Goossens, M., Mittelbach, F., and Samarin, A. 1994, 
+  \emph{The \LaTeX\ Companion} (Reading, MA: Addison-Wesley) 
+ 
+\bibitem[Hahn(1993)]{Hahn93} 
+  Hahn, J. 1993,  \emph{\LaTeX\ for Everyone} 
+  (Englewood Cliffs, NJ: Prentice-Hall) 
+ 
+\bibitem[Knuth(1984)]{Knuth} 
+  Knuth, D. 1984, \emph{The \TeX book} (Reading, MA: Addison-Wesley). 
+  \newblock Revised to cover \TeX3, 1991. 
+ 
+\bibitem[Kopka and Daly(1999)]{Kopka99} 
+  Kopka, H. and Daly, P. 1999,  \emph{A Guide to \LaTeX}, 
+  3rd edition, (Reading, MA: Addison-Wesley) 
+ 
+\bibitem[Lamport(1994)]{Lamport} 
+  Lamport, L. 1994, \emph{\LaTeX: A Document Preparation System\/}, 
+  2nd edition, (Reading, MA: Addison-Wesley) 
+ 
+\bibitem[Swanson(1979)]{Swanson} 
+  Swanson, E. 1979, \emph{Mathematics into Type} 
+  (Providence, RI: American Mathematical Society) 
+ 
+\end{thebibliography} 
+ 
+\end{document} 

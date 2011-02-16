@@ -1,0 +1,148 @@
+%\documentclass[11pt,preprint]{emulateapj}
+%\documentclass[oneside,letterpaper,12pt]{article}
+%\documentclass[letterpaper,12pt]{article}
+\documentclass[11pt]{article}
+
+\usepackage{graphicx,amssymb}
+\usepackage{graphicx,natbib}
+\usepackage{url}
+\usepackage{color}
+\usepackage{setspace}
+\doublespace
+ 
+\citestyle{aa}
+
+\renewcommand{\baselinestretch}{2}
+\setlength{\topmargin}{-0.6in}
+\setlength{\oddsidemargin}{0.pt}
+\setlength{\evensidemargin}{0.0pt}
+\setlength{\textheight}{9.1in}
+\setlength{\textwidth}{6.52in}
+
+\newcommand{\zphot}{$z_{phot}$}
+\newcommand{\zspec}{$z_{spec}$}
+\newcommand{\apj}{ApJ}
+\newcommand{\aj}{AJ}
+\newcommand{\aap}{A\&A}
+\newcommand{\mnras}{MNRAS}
+\newcommand{\pasp}{PASP}
+\newcommand{\prd}{Phys. Rev. D}
+
+
+\begin{document}   
+\begin{singlespace}      
+%\maketitle
+%\title{Statement of Research Interests}
+\begin{center}
+\textbf{\large{External Collaborator Request for Carlos Cunha}}\\
+\end{center}
+
+%\section*{Introduction}
+
+We request External Collabortor status for Carlos Cunha, University
+of Michigan. Cunha will participate in a project to estimate redshift
+distributions for galaxies in the SDSS III imaging. This project
+has already been announced as ``SDSS-III Project 51: A Photometric
+Redshift Catalog for SDSS DR8''. Cunha will participate in this {\bf one
+project only}. 
+
+The purpose of this request is to include Cunha in the author list,
+not to gain him access to proprietary data. Cunha will not handle
+any proprietary data for this project. He has assembled a number of
+spectroscopic training sets, which are all public. He has provided 
+code, which Erin Sheldon has modified and is running on the imaging
+data, and he has and will contribute text to the paper. The new BOSS
+redshifts may be included in the training set at some point, but in that
+case the data will be handled by Erin Sheldon not Cunha.
+
+While there are other projects involving photometric redshifts in
+the SDSS III, the techniques Cunha has developed are unique and
+complimentary. The ``weighting'' method can robustly derive redshift
+distributions for diverse galaxy populations \citep{lim08,cun09a},
+whereas other projects focus on particular types of galaxies or
+estimation of a single ``best redshift''. The generation of full
+redshift distributions is particularly useful for studies such as
+gravitational lensing that inherently involve expectation values of
+physical quantities over a redshift distribution (note Cunha will not
+work on those projects).
+
+Cunha already has experience working with SDSS data (see below). While
+this project could in principle be performed after DR8 is released,
+generating these redshift distributions on a shorter timescale will
+facilitate other studies that can begin well before the data release,
+such as galaxy cluster lensing or interpretation of correlation
+functions using photometrically selected galaxies (although note Cunha
+will not work on said projects). 
+
+Furthermore, we plan to release these catalogs to the public
+through the SDSS website along with DR8. This would be a catalog
+release, not part of the database. This follows the form of
+previous photoz releases as ``value added catalogs''\citep{dr7vac}.
+\newline
+\newline
+\textbf{Previous Experience}
+\newline
+
+Cunha has extensive experience in photometric redshift estimates, and
+has applied these techniques to SDSS data. Cunha and collaborators
+have developed, tested, and improved a number of photo-z estimators
+\citep[e.g.][]{oya06}. In \cite{oya08b} he and collaborators tested
+error estimates derived from both template-fitting and training-set
+techniques. He developed a new photo-z error estimation technique, the
+nearest neighbor error estimate (NNE), which uses the error distribution
+of the nearest spectroscopic training-set objects (in magnitude space)
+to associate a photo-z error to objects for which no spectroscopic
+redshift is available (hereafter the photometric sample). He found that
+whenever a reasonable training set is available, the NNE is superior
+to other photo-z error estimators. As a concrete application of the
+above photo-z techniques, he produced a photo-z catalog for 77 million
+galaxies in the SDSS \citep{oya08a}. He and collaborators applied the
+neural network technique to galaxy magnitudes, colors, and concentration
+parameters.
+
+The estimation of photo-z's relies on using multi-band photometry to
+determine the location of galaxy spectral features in wavelength space.
+The accuracy and reliability of photo-z estimates therefore depend on
+the number, wavelength range, and relative positions of the filters,
+as well as the signal-to-noise achieved in each. Cunha developed a
+Markov Chain Monte Carlo code to optimize the choice and exposure times
+of filters for photo-z estimation and applied it to study the filter
+choices for DES. The results of this study have been incorporated into
+the specifications of the DES filters \citep{dep08}.
+
+More recently, Cunha studied the estimation of galaxy redshift
+distributions from photometric data. Applications such as weak lensing
+and baryon acoustic oscillations only require estimates of the galaxy
+redshift distribution, $N(z)$, not individual photo-z estimates. Since
+photo-z estimates can be biased it is important to develop techniques
+for optimal estimation of $N(z)$ on its own right, perhaps independently
+of photo-z's. He and collaborators developed an estimator for
+$N(z)$ which involves weighting galaxies in a spectroscopic training set
+so that the weighted distributions of colors and magnitudes match those
+of the photometric sample. This technique bypasses photo-z estimation to
+directly and more accurately estimate $N(z)$ \citep{lim08,cun09a}.
+
+Finally, Cunha has found the weighting technique can be extended
+to yield estimates of the redshift probability distributions, $p(z)$'s,
+for each galaxy in the photometric sample \citep{cun09a}. Many of the
+biases seen in photo-z estimates arise because the photo-z estimator
+selects a single number to represent the full probability distribution.
+Working with the full $p(z)$ for each object one can get a much
+better estimate of the redshift distribution of the entire sample. 
+\cite{man08} demonstrated that the use of this $p(z)$ estimate
+yields a smaller lensing calibration bias than using individual galaxy
+photo-z estimates. Cunha made public a catalog of p(z)'s for about 88
+million galaxies of the SDSS Data Release 7 \citep{cun09a}.
+\newline
+\newline
+\noindent
+Erin Sheldon
+\newline
+Rachel Mandelbaum
+\newline
+Carlos Cunha
+
+\bibliographystyle{apj}
+\bibliography{past2010}
+\end{singlespace}
+\end{document}

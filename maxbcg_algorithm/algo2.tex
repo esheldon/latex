@@ -1,0 +1,92 @@
+\documentclass[preprint]{aastex}
+
+\begin{document}
+
+\title{maxBCG}
+\author{Erin Sheldon, based on discussions with Jim Annis}
+
+\section{Cluster Likelihood}
+
+We assume that clusters of galaxies have a special galaxy with a known
+distribution of colors as a function of redshift, and ``member'' galaxies on
+the ES0 ridgeline, nearby in space.  We denote the special galaxy as a
+Brightest Cluster Galaxy (BCG). 
+
+We go to each galaxy in the survey and, for a given redshift and metric
+aperture, ask how likely the galaxy is to be a BCG and how likely the 
+neighbors in the aperture are to be in the ES0 ridgeline. Using Bayes'
+theorem:
+
+\begin{equation} \label{eq:posterior}
+P(z | m_{BCG}, m_i) = \frac{ P(m_{BCG}, m_i | z) P(z) }{P(m_{BCG}, m_i)},
+\end{equation}
+where $z$ is the
+cluster redshift, $m_{BCG}$ is the measured magnitudes for the BCG candidate,
+and $m_i$ is the set of magnitudes for the neighbors in the aperture.
+
+We will take a flat prior on $z$, so all we need to do is maximize the
+likelihood function.  We will assume that the BCG likelihood separates from the
+member likelihood
+\begin{equation} \label{eq:likelihood}
+P(m_{BCG}, m_i | z) = P(m_{BCG}|z)P(m_i | z)
+\end{equation}
+The first term is measured from known BCG's by examining their magnitudes
+as a function of redshift.
+
+The second term in equation \ref{eq:likelihood} is the probability that the
+collection of galaxies in the aperture are cluster members at that redshift.
+Similarly to $P(m_{BCG} | z)$, we can define the likelihood that a given
+neighbor galaxy is in the ridgeline, $P(m_{neigh} | z)$.  If there were only
+one neighbor, we could define the overall likelihood as $P(m_{BCG} |
+z)P(m_{neigh} | z)$.  If there are many neighbors, we define the total neighbor
+likelihood as the sum of the individual neighbor likelihoods, normalized such
+that the total likelihood is unity if all the neighbors in the aperture are
+right on the ridgeline:
+\begin{equation} \label{eq:sumlike}
+P(m_{BCG}, m_i | z) = P(m_{BCG}|z)\frac{1}{Norm}\sum_i P(m_i | z)
+\end{equation}
+where $Norm$ is the sum of probabilities evaluated at the peak of the 
+ridgeline likelihood.  This is essentially the mean likelihood of the 
+neighbors.  
+
+If we define the ridgeline likelihood as simply a box in color-color-magnitude
+space, such that $P(m_i | z) = 0$ outside the box and 1 inside, then equation
+\ref{eq:sumlike} reduces to
+\begin{equation} \label{eq:fraclike}
+P(m_{BCG}, m_i | z) = \frac{n_{gals}}{N_{tot}}P(m_{BCG}|z)
+\end{equation}
+where $N_{tot}$ is the total number of galaxies in the aperture, and $n_{gals}$
+is the total within the aperture and also within the box.  Thus, the $n_{gals}$
+is not actually fit for, but is a byproduct of maximizing the likelihood. Note
+that there will be, in general, a random component to this $n_{gals}$ which is
+measurable and should be subtracted out.
+
+If there are a large fraction of galaxies in the aperture randomly, but are not
+associated with the cluster, then this could bias the redshift low, since
+enlarging the angular aperture will increase this fraction.
+
+This differs only slightly from Jim's likelihood function:
+\begin{equation}
+P(m_{BCG}, N_{ap} | z, n_{gals}) = n_{gals}(z)P(m_{BCG}|z)
+\end{equation}
+I don't think that maximizing this function gives the most likely $z$ in
+general. This is because, effectively, the normalization of the neighbor
+likelihood changes with redshift.  Choosing a lower $z$ results in larger
+$n_{gals}$ just because the aperture, in angular space, has grown.  Comparisons
+with spectroscopic redshifts do not reveal this bias, perhaps because the BCG
+likelihood function is very narrow and because any biases are dominated by
+biases in the BCG photoz.  However, its a simple enough change to convert the
+likelihood to that in equation \ref{eq:fraclike}.
+
+\section{Discussion}
+
+Maximizing the likelihood in equation \ref{eq:fraclike} should give the best
+$z$ for the BCG candidate.  However, $n_{gals} = 2$ objects, even if they are
+very likely, must be distinguished from larger clusters, especially because
+they may often lie near, or inside, the larger systems.  We need some kind of
+ranking system for this.  Probably some combination of $n_{gals}$, the
+likelihood from equation \ref{eq:likelihood}, and a measure of the spatial
+distribution of members would be useful.  The difficulty is picking the right
+way to combine these, both functionally and in terms of relative weight.  
+
+\end{document}

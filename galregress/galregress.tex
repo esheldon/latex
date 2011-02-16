@@ -1,0 +1,175 @@
+%%
+%% Beginning of file 'sample.tex'
+%%
+%% Modified March, 3 2000
+%%
+
+% \documentclass{aastex}
+
+% This is what phil used
+%\documentclass[manuscript]{aastex}
+%\usepackage{aastexug}
+
+%% preprint produces a one-column, single-spaced document:
+
+%\documentclass[preprint]{aastex}
+
+%% preprint2 produces a double-column, single-spaced document:
+
+\documentclass[preprint2]{aastex}
+
+%%
+%% Some definitions
+%%
+
+\def\rmax{$R_{max}$ }
+
+\slugcomment{Not yet submitted to \apjl}
+
+\begin{document}
+
+\title{A New Method for Estimating Gravitational Shear}
+
+\author{Erin Scott Sheldon}
+\affil{Department of Physics, University of Michigan, 500 East University, Ann
+Arbor, Mi 48109}
+\email{esheldon@umich.edu}
+
+\and
+
+\author{David Johnston}
+\affil{University of Chicago}
+\email{davej@cubist.uchicago.edu}
+
+\begin{abstract}
+We present a new method for estimating gravitational shear which is tuned to
+the problem of galaxy-galaxy lensing.  This method uses a simple linear
+regression method for estimating the shear of distant source galaxies as a
+function of their angular or projected physical separation from foreground 
+lenses. An advantage over traditional techniques is that it accounts 
+for the clustering of the foreground sample in a natural way without reference
+to a measurement of the angular correletion function of the foreground sample.
+In this sense, the technique is similar to the method of \cite{SR}
+(SR), except that it is not parametric and makes no reference to galaxy 
+parameters.
+
+This idea was Dave's.  Here I have extended the discussions to a 
+weighted least squares treatment and I have discussed possible advantages and
+disadvantages of this technique.
+\end{abstract}
+
+\keywords{Galaxies: halos---Gravitational Lensing}
+
+\section{Introduction}
+
+\section{Method}
+We will make the usual weak lensing assumptions.  First of all, we assume that 
+the ellipticity parameter
+averages to zero over many galaxies in the absence of lensing. Furthermore,
+we assume we can write the shear as
+\begin{equation} \label{shapprox}
+2\gamma_T \approx \varepsilon
+\end{equation}
+where $\varepsilon$ is the ellipticity induced by the effects of lensing and
+$\gamma_T$ is the tangential shear relative to the position of the lens.  The
+usual approach to measuring the shear is to find foreground lens candidates,
+such as low redshift galaxies or clusters, and measure the shapes of background
+galaxies in the tangential frame of reference, which yields the shear from Eq.
+\ref{shapprox}.
+
+We can approach this measurement in another way.  Consider the case of
+galaxy-galaxy lensing, where one seeks the average shear due to an ensemble of
+foreground lens galaxies.  Because we assume that the average shape of galaxies
+in the absence of lensing is round (the ellipticity vector is zero), then any
+residual average ellipticity can be ascribed to lensing.  Due to the linearity 
+of the lensing equations in the limit of Eq. \ref{shapprox}, we can write 
+the complex ellipticity vector for each background galaxy as a sum of shears 
+from each foreground galaxy:
+\begin{equation} \label{ellipeqn1}
+(e)_k = \sum_{j=1}^{N_{bins}}\sum_{q_j=1}^{N_{fgal}}2\gamma_{q_j}\exp(2i\vartheta_{q,k})
+\end{equation}
+where k refers to the $k_{th}$ source galaxy, j the $j_{th}$ radial bin, while
+$q_j$ loops over all foreground galaxies found in the $j_{th}$ radial bin.  The
+angle between foreground and background galaxies is denoted by $\vartheta$.  In
+principle, the radial bins must extend to $R=\infty$, but for galaxy surveys
+with large sky coverage we can assume that the contribution from foreground
+galaxies beyond some \rmax is small, as long as we only examine the shear
+profile within some $R_2(R_{max})$.
+
+If we further assume that all foreground galaxies have the same physical
+parameters (i.e. we are averaging over them) then Eq. \ref{ellipeqn1} reduces
+to
+\begin{equation} \label{ellipeqn2}
+(e)_k = \sum_{j=1}^{N_{bins}}2\gamma_j\sum_{q_j=1}^{N_{fgal}}\exp(2i\vartheta_{q,k})
+\end{equation}
+Note that there are really two equations here, one for each element of the
+ellipticity parameter.  
+The actual shear will be the sum of the shear estimated from $e_1$ and
+$e_2$.
+
+The problem has been reduced to finding the average
+shear in a finite number of radial bins.  This can be accomplished using
+chi-squared minimization. The equation for the $e_1$ component of the ellipticity
+vector is:
+\begin{equation} \label{e1chisq}
+\chi^{2} = \sum_{k=1}^{N_{source}}{(e_{1})_k - \sum_j2\gamma_j\sum_{q_j}\cos(2\vartheta_{q,k}) \over \sigma_k^{2}}
+\end{equation}
+Eq. \ref{e1chisq} can be minimized with respect to the coefficients
+$\gamma_j$, yeilding the usual solution in terms of normal equations:
+\begin{equation}
+2(\gamma) = (a^{T}a)^{-1}a^{T}(e_{1}) = Cb
+\end{equation}
+where $C_{k,l}^{-1} = (a^{T}a)_{k,l}$ is the inverse covariance matrix and 
+\begin{eqnarray}
+(a^{T}a)_{k,l} & = & {\sum_{i=1}^{N_{source}}{S_{k,i}S_{l,i} \over
+\sigma_{i}^{2} } } \nonumber \\
+S_{k,i} & = & {\sum_{q_k=1}^{N_{lens}}\cos(2\vartheta_{q,i})}  \\
+b_k & = & \sum_{i=1}^{N_{source}}{(e_{1})_{i}S_{k,i} \over \sigma_{i}^{2}} \nonumber
+\end{eqnarray}
+The weights $\sigma_{i}^{2}$ can be chosen to be the quadratic sum of the 
+intrinsic ``shape noise'' of the galaxies and the measurement error in the 
+shape of each background galaxy: 
+$\sigma_{i}^{2} = \sigma_{shape}^{2} + \sigma_{err}^{2}$.
+Thus a formal uncertainty can be found from the diagonal elements of
+$C_{k,l}$.  However, the uncertainties should really be calculated with
+bootstrap resampling of the actual data.
+
+\section{Comparison with Standard Methods}
+\subsection{Advantages}
+1) The shear due to all foreground galaxies within \rmax is accounted for,
+   at least to the degree that the sample is complete (e.g. faint foreground
+   objects may not be included in the foreground sample).  Thus, there should 
+   be no need to deconvolve the profile from $w(\theta)$
+
+2) $w(\theta)$ deconvolution is correct on average because it uses the average
+   radial distribution of neighboring lens galaxies.  However, the regression
+   method uses the full two dimensional information for each foreground
+   background pair.  It can be shown that, if this angular information averages
+   out, the covariance matrix $C_{k,l}$ will be diagonal.  However, this is not
+   expected and tests have shown that the terms adjacent to diagonal elements
+   of the covariance are 8-10\% in the outer radial bins and cannot be
+   neglected.
+
+3) Once the matrices $a^{T}$, $(e)$,  and $a^{T}a$ have been constructed, 
+   bootstapping of the data can be performed efficiently.
+
+\subsection{Disadvantages}
+
+1) In principle the radial bins must reach to $R_{max}=\infty$ in order to properly
+   account for the shear at large radii.  It is not yet clear how significant
+   the resultant boundary terms are when the sum in Eq. \ref{ellipeqn2} is 
+   truncated at some \rmax, but, through simulations, one should be able to
+   find a radius $R_2(R_{max})$ within which the reconstructed profile is
+   correct.
+
+2) All source galaxies must be chosen such that they are \rmax away from the
+   image boundary.  For a typical SDSS stripe, this amounts to cutting 
+   $\gtrsim 10-12\%$.
+
+\acknowledgments
+
+\begin{thebibliography}{}
+\bibitem[Schneider \& Rix(1997)]{SR} Schneider, P., Rix, H., 1997, ApJ, 474, 25
+\end{thebibliography}
+
+\end{document}

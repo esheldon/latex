@@ -1,0 +1,206 @@
+% Stripped some defs out of aastex
+% plotting
+\def\eps@scaling{1.0}% 
+\newcommand\epsscale[1]{\gdef\eps@scaling{#1}}% 
+
+\newcommand\plotone[1]{% 
+ \centering 
+ \leavevmode 
+ \includegraphics[width={\eps@scaling\columnwidth}]{#1}% 
+}% 
+\newcommand\plottwo[2]{% 
+ \centering 
+ \leavevmode 
+ \columnwidth=.45\columnwidth 
+ \includegraphics[width={\eps@scaling\columnwidth}]{#1}% 
+ \hfil 
+ \includegraphics[width={\eps@scaling\columnwidth}]{#2}% 
+}% 
+\newcommand\plotfiddle[7]{% 
+ \centering 
+ \leavevmode 
+ \vbox\@to#2{\rule{\z@}{#2}}% 
+ \includegraphics[% 
+  scale=#4, 
+  angle=#3, 
+  origin=c 
+ ]{#1}% 
+}% 
+
+
+%% journal definitions
+\newcommand\aj{\rmfamily{AJ}}% 
+          % Astronomical Journal 
+\newcommand\araa{\rmfamily{ARA\&A}}% 
+          % Annual Review of Astron and Astrophys 
+\newcommand\apj{\rmfamily{ApJ}}% 
+          % Astrophysical Journal 
+\newcommand\apjl{\rmfamily{ApJ}}% 
+          % Astrophysical Journal, Letters 
+\newcommand\apjs{\rmfamily{ApJS}}% 
+          % Astrophysical Journal, Supplement 
+\newcommand\ao{\rmfamily{Appl.~Opt.}}% 
+          % Applied Optics 
+\newcommand\apss{\rmfamily{Ap\&SS}}% 
+          % Astrophysics and Space Science 
+\newcommand\aap{\rmfamily{A\&A}}% 
+          % Astronomy and Astrophysics 
+\newcommand\aapr{\rmfamily{A\&A~Rev.}}% 
+          % Astronomy and Astrophysics Reviews 
+\newcommand\aaps{\rmfamily{A\&AS}}% 
+          % Astronomy and Astrophysics, Supplement 
+\newcommand\azh{\rmfamily{AZh}}% 
+          % Astronomicheskii Zhurnal 
+\newcommand\baas{\rmfamily{BAAS}}% 
+          % Bulletin of the AAS 
+\newcommand\jrasc{\rmfamily{JRASC}}% 
+          % Journal of the RAS of Canada 
+\newcommand\memras{\rmfamily{MmRAS}}% 
+          % Memoirs of the RAS 
+\newcommand\mnras{\rmfamily{MNRAS}}% 
+          % Monthly Notices of the RAS 
+\newcommand\pra{\rmfamily{Phys.~Rev.~A}}% 
+          % Physical Review A: General Physics 
+\newcommand\prb{\rmfamily{Phys.~Rev.~B}}% 
+          % Physical Review B: Solid State 
+\newcommand\prc{\rmfamily{Phys.~Rev.~C}}% 
+          % Physical Review C 
+\newcommand\prd{\rmfamily{Phys.~Rev.~D}}% 
+          % Physical Review D 
+\newcommand\pre{\rmfamily{Phys.~Rev.~E}}% 
+          % Physical Review E 
+\newcommand\prl{\rmfamily{Phys.~Rev.~Lett.}}% 
+          % Physical Review Letters 
+\newcommand\pasp{\rmfamily{PASP}}% 
+          % Publications of the ASP 
+\newcommand\pasj{\rmfamily{PASJ}}% 
+          % Publications of the ASJ 
+\newcommand\qjras{\rmfamily{QJRAS}}% 
+          % Quarterly Journal of the RAS 
+\newcommand\skytel{\rmfamily{S\&T}}% 
+          % Sky and Telescope 
+\newcommand\solphys{\rmfamily{Sol.~Phys.}}% 
+          % Solar Physics 
+\newcommand\sovast{\rmfamily{Soviet~Ast.}}% 
+          % Soviet Astronomy 
+\newcommand\ssr{\rmfamily{Space~Sci.~Rev.}}% 
+          % Space Science Reviews 
+\newcommand\zap{\rmfamily{ZAp}}% 
+          % Zeitschrift fuer Astrophysik 
+\newcommand\nat{\rmfamily{Nature}}% 
+          % Nature 
+\newcommand\iaucirc{\rmfamily{IAU~Circ.}}% 
+          % IAU Cirulars 
+\newcommand\aplett{\rmfamily{Astrophys.~Lett.}}% 
+          % Astrophysics Letters 
+\newcommand\apspr{\rmfamily{Astrophys.~Space~Phys.~Res.}}% 
+          % Astrophysics Space Physics Research 
+\newcommand\bain{\rmfamily{Bull.~Astron.~Inst.~Netherlands}}% 
+          % Bulletin Astronomical Institute of the Netherlands 
+\newcommand\fcp{\rmfamily{Fund.~Cosmic~Phys.}}% 
+          % Fundamental Cosmic Physics 
+\newcommand\gca{\rmfamily{Geochim.~Cosmochim.~Acta}}% 
+          % Geochimica Cosmochimica Acta 
+\newcommand\grl{\rmfamily{Geophys.~Res.~Lett.}}% 
+          % Geophysics Research Letters 
+\newcommand\jcp{\rmfamily{J.~Chem.~Phys.}}% 
+          % Journal of Chemical Physics 
+\newcommand\jgr{\rmfamily{J.~Geophys.~Res.}}% 
+          % Journal of Geophysics Research 
+\newcommand\jqsrt{\rmfamily{J.~Quant.~Spec.~Radiat.~Transf.}}% 
+          % Journal of Quantitiative Spectroscopy and Radiative Trasfer 
+\newcommand\memsai{\rmfamily{Mem.~Soc.~Astron.~Italiana}}% 
+          % Mem. Societa Astronomica Italiana 
+\newcommand\nphysa{\rmfamily{Nucl.~Phys.~A}}% 
+          % Nuclear Physics A 
+\newcommand\physrep{\rmfamily{Phys.~Rep.}}% 
+          % Physics Reports 
+\newcommand\physscr{\rmfamily{Phys.~Scr}}% 
+          % Physica Scripta 
+\newcommand\planss{\rmfamily{Planet.~Space~Sci.}}% 
+          % Planetary Space Science 
+\newcommand\procspie{\rmfamily{Proc.~SPIE}}% 
+          % Proceedings of the SPIE 
+
+
+\let\astap=\aap 
+\let\apjlett=\apjl 
+\let\apjsupp=\apjs 
+\let\applopt=\ao 
+\newcommand\phn{\phantom{0}}% 
+\newcommand\phd{\phantom{.}}% 
+\newcommand\phs{\phantom{$-$}}% 
+\newcommand\phm[1]{\phantom{#1}}% 
+\let\la=\lesssim            % For Springer A&A compliance... 
+\let\ga=\gtrsim 
+\newcommand\sq{\mbox{\rlap{$\sqcap$}$\sqcup$}}% 
+\newcommand\arcdeg{\mbox{$^\circ$}}% 
+\newcommand\arcmin{\mbox{$^\prime$}}% 
+\newcommand\arcsec{\mbox{$^{\prime\prime}$}}% 
+\newcommand\fd{\mbox{$.\!\!^{\mathrm d}$}}% 
+\newcommand\fh{\mbox{$.\!\!^{\mathrm h}$}}% 
+\newcommand\fm{\mbox{$.\!\!^{\mathrm m}$}}% 
+\newcommand\fs{\mbox{$.\!\!^{\mathrm s}$}}% 
+\newcommand\fdg{\mbox{$.\!\!^\circ$}}% 
+%\newcommand\farcm@mss{\mbox{$.\mkern-4mu^\prime$}}% 
+%\let\farcm\farcm@mss 
+%\newcommand\farcs@mss{\mbox{$.\!\!^{\prime\prime}$}}% 
+%\let\farcs\farcs@mss 
+\newcommand\fp{\mbox{$.\!\!^{\scriptscriptstyle\mathrm p}$}}% 
+\newcommand\micron{\mbox{$\mu$m}}% 
+\def\farcm@apj{% 
+ \mbox{.\kern -0.7ex\raisebox{.9ex}{\scriptsize$\prime$}}% 
+}% 
+\def\farcs@apj{% 
+ \mbox{% 
+  \kern  0.13ex.% 
+  \kern -0.95ex\raisebox{.9ex}{\scriptsize$\prime\prime$}% 
+  \kern -0.1ex% 
+ }% 
+}% 
+\newcommand\case[2]{\mbox{$\frac{#1}{#2}$}}% 
+\newcommand\slantfrac{\case}% 
+\newcommand\onehalf{\slantfrac{1}{2}}% 
+\newcommand\onethird{\slantfrac{1}{3}}% 
+\newcommand\twothirds{\slantfrac{2}{3}}% 
+\newcommand\onequarter{\slantfrac{1}{4}}% 
+\newcommand\threequarters{\slantfrac{3}{4}}% 
+\newcommand\ubvr{\mbox{$U\!BV\!R$}}%% UBVR system 
+\newcommand\ub{\mbox{$U\!-\!B$}}%   % U-B 
+\newcommand\bv{\mbox{$B\!-\!V$}}%   % B-V 
+\newcommand\vr{\mbox{$V\!-\!R$}}%   % V-R 
+\newcommand\ur{\mbox{$U\!-\!R$}}%   % U-R 
+\newcommand\ion[2]{#1$\;${\small\rmfamily\@Roman{#2}}\relax}% 
+\newcommand\nodata{ ~$\cdots$~ }% 
+\newcommand\diameter{\ooalign{\hfil/\hfil\crcr\mathhexbox20D}}% 
+\newcommand\degr{\arcdeg}% 
+\newcommand\Sun{\sun}% 
+\newcommand\Sol{\sun}% 
+\newcommand\sun{\odot}% 
+\newcommand\Mercury{\astro{\char1}}% Mercury symbol, "1" 
+\newcommand\Venus{\astro{\char2}}% Venus symbol, "2" 
+\newcommand\Earth{\earth}% 
+\newcommand\Terra{\earth}% 
+\newcommand\earth{\oplus}% 
+\newcommand\Mars{\astro{\char4}}% Mars symbol, "4" 
+\newcommand\Jupiter{\astro{\char5}}% Jupiter symbol, "5" 
+\newcommand\Saturn{\astro{\char6}}% Saturn symbol, "6" 
+\newcommand\Uranus{\astro{\char7}}% Uranus symbol, "7" 
+\newcommand\Neptune{\astro{\char8}}% Neptune symbol, "8" 
+\newcommand\Pluto{\astro{\char9}}% Pluo symbol, "9" 
+\newcommand\Moon{\astro{\char10}}% Moon symbol, "M" 
+\newcommand\Luna{\Moon}% 
+\newcommand\Aries{\astro{\char11}}% 
+\newcommand\VEq{\Aries}% vernal equinox (Aries) 
+\newcommand\Taurus{\astro{\char12}}% 
+\newcommand\Gemini{\astro{\char13}}% 
+\newcommand\Cancer{\astro{\char14}}% 
+\newcommand\Leo{\astro{\char15}}% 
+\newcommand\Virgo{\astro{\char16}}% 
+\newcommand\Libra{\astro{\char17}}% 
+\newcommand\AEq{\Libra}% autumnal equinox (Libra) 
+\newcommand\Scorpius{\astro{\char18}}% 
+\newcommand\Sagittarius{\astro{\char19}}% 
+\newcommand\Capricornus{\astro{\char20}}% 
+\newcommand\Aquarius{\astro{\char21}}% 
+\newcommand\Pisces{\astro{\char22}}% 

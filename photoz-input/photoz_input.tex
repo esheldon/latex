@@ -1,0 +1,62 @@
+%\documentclass{emulateapj}
+
+\documentclass[preprint]{aastex}
+%\documentclass{aastex}
+
+\usepackage{verbatim}
+
+\slugcomment{Last revision \today}
+
+\def \epssmall{0.7}
+
+\shortauthors{Sheldon}
+\shorttitle{Photoz Input Catalogs}
+
+
+
+
+\begin{document}
+
+\title{Inputs to the UChicago Photoz Pipeline}
+
+\author{
+Erin S. Sheldon\altaffilmark{1}}
+
+\altaffiltext{1}{Center for Cosmology and Particle Physics,
+New York University, New York, NY 10003, USA; erin.sheldon@gmail.com}
+
+\begin{abstract}
+
+\end{abstract}
+The catalog was drawn from the object catalogs produced at FNAL with a few
+additional quantities calculated to improve the star galaxy separation.  
+These include the PSF probability \texttt{objc\_prob\_psf} and the lensing 
+smear polarizability \texttt{m\_r\_h}.  The probabilities were cut
+at a galaxy probability greater than 0.8 which is very stringent, and
+smear polarizability less than 0.8. Further cuts on magnitude were made.
+For the list of runs and reruns see 
+\newline
+http://cheops1.uchicago.edu/weaklens/photoz/photoz\_input\_runlist.dat
+
+\begin{verbatim}
+The cuts:
+
+  counts_model[2] != -9999    &&
+  objc_prob_psf   >=  0.0     &&
+  objc_prob_psf   <   0.2     &&
+  (
+    (m_r[1] > 0.0 && m_r[1] < 0.8) || 
+    (m_r[2] > 0.0 && m_r[2] < 0.8) || 
+    (m_r[3] > 0.0 && m_r[3] < 0.8) || 
+  )                           &&
+  cmodel_counts[2] < 22.0     &&
+  cmodel_counts[2] > 14.0     &&
+  counts_model[2]  < 22.5     &&
+  counts_model[2]  > 13.0
+
+The tags in the input catalogs:
+  taglist = ['run','rerun','camcol','field','id','ra','dec', 'primtarget', 'objc_type', 
+             'counts_model', 'counts_modelerr', 'reddening', 'objc_prob_psf']
+\end{verbatim}
+
+\end{document}

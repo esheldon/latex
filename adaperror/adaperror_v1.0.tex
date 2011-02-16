@@ -1,0 +1,124 @@
+
+%\documentclass{aastex}
+
+%% -- This is what phil used
+%\documentclass[manuscript]{aastex}
+%\usepackage{aastexug}
+
+%% -- preprint produces a one-column, single-spaced document:
+\documentclass[preprint]{aastex}
+
+%% -- preprint2 produces a double-column, single-spaced document:
+% \documentclass[preprint2]{aastex}
+
+%% -- EMULATE APJ
+%\documentclass{aastex}
+%\usepackage{emulateapj5}
+
+\newcommand{\PSbox}[3]{\mbox{\special{psfile=#1}\hspace{#2}\rule{0pt}{#3}}}
+\newcommand{\pfg}{\vspace{0.3cm}}
+
+%%
+%% Some definitions
+%%
+
+\def\rp{$r^\prime$}
+\def\gp{$g^\prime$}
+\def\ip{$i^\prime$}
+\def\up{$u^\prime$}
+\def\zp{$z^\prime$}
+
+%\slugcomment{To appear in \apj. Last revision 22-FEB-2001.}
+
+%\shorttitle{SDSS/RASS Cluster Lensing}
+%\shortauthors{Sheldon, et al.}
+
+\begin{document}
+
+\title{Uncertainties in Moments}
+
+\author{ Erin Scott Sheldon }
+\affil{Department of Physics, University of Michigan, 500 East University, Ann
+Arbor, Mi 48109}
+\email{esheldon@umich.edu}
+
+\keywords{}
+
+\section{Introduction}\label{intro}
+
+Basically our error estimates for the moments seem to be too small.  I've
+written out the the derivation of formulas that are being used. I don't claim
+to know much about statistics, so I hope you will look these over and see
+what might be wrong. I've also included a comparison of these formulas with
+simulation a in order to demonstrate the problem.
+
+\section{Uncertainties in Weighted Moments}
+
+Weighted moments:
+\begin{eqnarray}
+\langle x^2-y^2 \rangle & = & { 1 \over N } \sum w(x,y) I(x,y) (x^2-y^2) \label{eq1} \\
+\langle 2xy \rangle & = & { 1 \over N } \sum w(x,y) I(x,y) 2xy  \label{eq2} \\
+\langle x^2+y^2 \rangle & = & { 1 \over N } \sum w(x,y) I(x,y) (x^2+y^2) \label{eq3}  \\
+                      N & = & \sum w(x,y) I(x,y)
+\end{eqnarray}
+
+Now the uncertainties. The uncertainty in equation \ref{eq1} will be
+$Var(x^2)+Var(y^2) + 2Cov(x,y)$. As an example, lets find the variance in the average
+of $x^2$. Let $a_i = w_i I_i x_i^2/N$. Assuming we are sky noise limited:
+\begin{eqnarray}
+Var(\langle x^2 \rangle) & = & Var( \sum a_i ) = \sum Var(a_i) \\
+                Var(a_i) & \approx & \left({ {\partial a_i} \over {\partial I_i}
+                }\right)^2 \sigma_{sky}^2 \\
+\left({ {\partial a_i} \over {\partial I_i}}\right)^2 & = & {1 \over N^2 } w_i^2(x_i^2 -
+                { {x_i^2I_i} \over N})^2 \\
+Var(\langle x^2 \rangle) & = & {\sigma_{sky}^2 \over N^2 } \sum w_i^2(x_i^2 -
+                { {x_i^2I_i} \over N})^2 = {\sigma_{sky}^2 \over N^2 } \sum
+                w_i^2 x_i^4 (1 - { {I_i} \over N})^2 \label{eq4}
+\end{eqnarray}
+The equations will be similar for $y^2$ and $2xy$. For error in the output
+moments, we must add an additional factor of 2 because we save the moments of
+the adaptive weight which is 2 times as big as the moment of the object. 
+In the PHOTO code, Phil approximated equation \ref{eq4} as:
+\begin{equation}
+Var(\langle x^2 \rangle) = {\sigma_{sky}^2 \over N^2 } \sum w_i^2(x_i^2 -
+                \langle x^2 \rangle)^2
+\end{equation}
+I'm not sure why he did so, but it certainly looks more like a standard error
+estimator than my formula. The two formulas agree pretty
+well, with his formula giving somewhat smaller errors.
+%The formula for the covariance will be:
+%\begin{equation}
+%Cov(x,y) = {\sigma_{sky}^2 \over N^2 } \sum w_i^2 x_i^2 y_i^2 (1 - { {I_i} \over N})^2
+%\end{equation}
+%or maybe this instead:
+%\begin{equation}
+%Cov(x,y) = {\sigma_{sky}^2 \over N^2 } \sum w_i^2 (x_i y_i - \langle xy \rangle)^2
+%\end{equation}
+%The $2Cov(x,y)$ part will be about a fourth as big as $Var(x^2) +
+%Var(y^2)$. Because we don't want to save this covariance in the outputs, I
+%propose we save equations \ref{eq1}, \ref{eq2}, \ref{eq3} and their errors.
+
+\section{Comparison with Simulation}
+
+A simple simulation with gaussian objects was run. Objects were created with
+various ellipticities, orientations and signal to noise. Figure
+\ref{testerror1} shows one realization of ellipticity and position angle. Each
+signal to noise bin has 150 realizations. Clearly the formal error is smaller
+than the measured error, by as much as a factor of 2.  The slope is most likely
+because the assumption of sky noise limited is becoming less correct. Results
+are similar for different orientations and ellipticities. The formal errors
+do not include the covariance, but I've tested it with them and it doesn't
+seem to make much difference, about 10\%.
+
+
+\begin{figure}
+\plotone{test_error_form_theta15_one.ps}
+\figcaption{Measured scatter divided by formal error in e1 and e2 as a function of
+object signal to noise. Objects had ellipticity of .3, oriented with
+15 degrees relative to the column direction. The slope is most likely
+because the assumption of sky noise limited is becoming less correct.
+The formal error clearly underestimates the error.} \label{testerror1}
+\end{figure}
+
+
+\end{document}

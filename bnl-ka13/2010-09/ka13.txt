@@ -1,0 +1,183 @@
+\section{Dark Energy Survey}
+
+DES will use measurements of gravitational lensing effects and a number of
+other probes to constrain the properties of Dark Energy.  Erin Sheldon is a DES
+participant with data rights for himself, a postdoc and students.  He is
+developing the basic software infrastructure to enable measurement of these
+lensing effects. 
+
+Lensing measurements are critical to the DES mission. The primary Dark Energy
+probes used by DES are the power spectrum of mass density fluctuations in our
+universe measured from gravitational lensing (cosmic shear) and the number
+density of galaxy clusters as a function of their mass and cosmic time. The
+masses of these clusters are also measured using gravitational lensing. Using
+the combined probes, DES will constrain the equation of state parameter
+w=pressure/density for Dark Energy to ~3\%.  
+
+The measurement of lensing effects requires working directly with the most
+basic data product of the survey, the CCD images.  This work is considered a
+core infrastructure contribution to DES.
+
+Erin Sheldon is co-leading the development of software pipelines to measure
+weak lensing effects in DES in collaboration with Mike Jarvis of U. Penn.   BNL
+Postdoc Zhaoming Ma is leading the effort to characterize the Point Spread
+Function of the DES telescope, which is the primary source of systematic errors
+in lensing measurements.
+
+Erin Sheldon is also leading the analysis effort to measure the masses of
+galaxy clusters in the DES, which is central to constraining Dark Energy from
+DES data.  This cluster lensing work is a natural continuation of earlier
+measurements by Erin Sheldon in the Sloan Digital Sky Survey (SDSS), which are
+the most sensitive of this type to date. The processing pipelines for DES are
+an extension of those used in the SDSS, as are the analysis tools used to
+extract cosmological parameters. The volume and depth of DES is sufficiently
+large to allow these measurements to be made as a function of cosmic lookback
+time, with which the cosmological analysis will be extended to constrain the
+properties of Dark Energy.
+
+DES will see first light in 2011. In the interim, data processing pipelines and
+analysis codes to measure gravitational lensing are being written and tested at
+BNL.  Because the data management team of DES will only produce a limited
+number of processings of the data, development and testing must occur
+externally.  This testing must use all available data in order to probe low
+level systematics, and is thus computationally intensive.  BNL is providing
+computing resources for this effort, which will need to ramp up when the survey
+data begins to flow.
+
+The infrastructure developed for DES can be applied naturally to images from
+the Large Scale Synoptic Telescope (LSST), of which BNL is a member.
+
+\subsection{Progress over the Last Three Years}
+
+In FY 2008-2009 software pipelines were developed to measure gravitational
+shear effects in astronomical images.  A framework was created to process the
+large amounts of DES in parallel.  These codes were tested on simulated DES
+data designed to accurately represent real DES survey data.  This code can
+process individual images from DES as well as combine multi-epoch data into a
+single best measurement for each detected astronomical object.  
+
+Development of the multi-epoch measurement code was a major milestone in DES
+lensing pipeline development.  The DES will visit each place on the sky
+multiple times producing separate images at different epochs.  This multi-epoch
+analysis is required to optimally process the data because each image is taken
+under different observing conditions, which results in a different Point Spread
+Function (PSF).  As this is the dominant source of systematic error in lensing
+measurements, it must be treated with care.  The multi epoch shear measurement
+code properly accounts for this effect when combining observations.
+
+Using computers at BNL, all of the available simulated images were processed a
+large number of times; this quick turnaround of processing and code
+improvements has been important to efficient development.  This processing
+includes the single-epoch exposures as well as the full multi-epoch simulated
+data.  Versions of this code have been delivered regularly to the DES data
+management team to be used in the yearly DES ``Data Challenges''.
+
+In FY 2010 further DES simulations were created and tested.  These simulations
+are a more realistic realization of DES observations and data, and have
+realistic gravitational lensing effects that can be used to extract the input
+cosmology.  Significant progress was made in testing and stabilizing the code
+base.
+
+In 2010 Zhaoming Ma began developing an improved framework to determine and
+correct for the (PSF) of the DES telescope system.  The PSF is the primary
+source of systematic errors in lensing measurements.  This project is in the
+early stages, but progress has been rapid and a usable code should be available
+in the fall.  See the FY 2011 section for more details.
+
+\subsection{Plans for the Next Three Years}
+
+\subsubsection{FY 2011}
+
+At the beginning of FY 2011, the group  will focus on simulating actual survey
+operations, where data flows continuously and must be processed in near real
+time.  During survey operations, a large number of exposures of the sky are
+taken each night.  This data is transferred to NCSA for basic processing by the
+DES Data Management (DESDM) team.  The resulting ``reduced'' images and catalogs
+of stars and galaxies will then be downloaded to BNL and processed through the
+latest versions of the lensing measurement codes.
+
+The lensing measurement codes are integrated into the DESDM, and are considered
+a key piece of survey infrastructure.  However, the version of the code used to
+by DESDM for data releases will lag significantly behind the development
+version, typically by 6 months to a year.  We must process the data through our
+pipelines externally in order to proper QA, which will find bugs and lead to
+improvements.  This requires significant computing resources.
+
+Further, the efficacy of development and testing of the codes will depend on
+the data we use as input.  The simulations are a key component of this testing,
+but real images will provide a much richer set of conditions and sources of
+systematic effects.  We must process all available data in a quick feedback
+loop with processing in order to make efficient progress in developing these
+codes.
+
+As part of this testing, the group will soon go into a simulated ``production
+mode''.  Images will be downloaded and processed in real time in order to
+smooth that process.  Quality assurance will be performed automatically and
+this will feed back into development.  This will in turn inform what checks
+should be performed by the QA.
+
+The DES simulation group will also be producing new simulations in FY 2011
+which will provide additional realism and challenges.  These will be processed
+as they become available.
+
+A key piece of infrastructure is the characterization of the Point Spread
+Function (PSF) of the sky and instrument, which alters the shapes of galaxies
+and confuses the determination of lensing effects.  The PSF is normally
+determined on an image-by-image basis from the properties of stars, which are
+point-like.  However, there are too few stars in an image to determine the PSF
+to the accuracy needed to meet DES science goals.  Many of the PSF patterns are
+related to the configuration of the instrument such as focus, and these
+patterns repeat during the survey.  Thus we are developing a global solution
+that finds the principle components of these patterns and uses them as a basis
+for understanding individual images.  This global solution should provide the
+needed accuracy.
+
+The global PSF code must be stable enough to work in survey mode as well,
+incorporating new data into its solution in near real time.  Postdoc Zhaoming
+Ma is developing this code, which should be ready for serious testing in
+the early part of FY 2011.
+
+Additionally, we must be able to recover the input cosmology from our
+simulations at the expected accuracy.  We will not have enough simulation data
+to test the accuracy for the full survey during FY 2011, but there are plans to
+produce such large simulations during the survey.  We will analyze the
+simulations for cosmology in the mean time with the goal of producing
+cosmological results at the expected accuracy and precision given the
+simulation size.
+
+The primary challenge for 2011-2012, however, is the processing of real DES
+data as it arrives in the fall.  This will undoubtedly provide unexpected
+challenges.   We must adapt the work flow of getting images, processing, and
+feedback into development to this real situation.  Also it will become
+imperative to keep in as close contact as possible with DESDM in order to
+get important bug and stability fixes ``downstream''.
+
+As stated above, it is important to have enough computing to keep a tight
+development-test cycle.  This is because the processing is computing intensive,
+and we must process all available data in order to probe low level systematics.
+A stable version of this code, improved using many processings at BNL will be
+delivered to data management in time for the re-processing to be performed
+before the public data release.  Meeting these deadlines will be a top priority
+for the BNL group.
+
+\subsubsection{FY 2012-2013}
+
+For FY 2012-2013, the BNL group will continue as 2011, processing data as it
+arrives and improving codes and calibrations.  The first technical and
+analysis papers for lensing and cosmology will also appear at this time.  
+
+Sheldon and Ma will author technical papers based on their infrastructure work.
+These will become references to the community concerning how the basic
+processing occurs in DES.  Since all data in DES are public, we must have such
+references so the community can use the DES data properly.
+
+The first analysis papers presenting cosmological results will focus on the
+first year of DES data.  Although this is significantly less than the final
+data set, and final calibrations will not be in place, the results will more
+than compete with any previous cosmological analyses and will demonstrate
+survey progress.
+
+ES will author a paper on calibrating the masses of galaxy clusters.  As stated
+above, this is a key measurement for extracting cosmological parameters from
+the DES.  He will also participate in the other key lensing measurements and
+will co-author papers on galaxy lensing and cosmic shear.

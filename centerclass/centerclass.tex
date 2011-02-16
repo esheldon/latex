@@ -1,0 +1,187 @@
+%\documentclass{emulateapj}
+\documentclass[12pt,preprint]{aastex}
+
+\slugcomment{Last revision \today.}
+
+\shortauthors{Sheldon et al.}
+\shorttitle{Centering Tests}
+
+\input{newcommands.tex}
+
+
+\newcommand{\cbcg}{$c_{bcg}$}
+\newcommand{\ckde}{$c_{kde}$}
+\newcommand{\clkde}{$c_{lkde}$}
+
+\newcommand{\cclass}{\texttt{cclass}}
+
+\begin{document}
+
+
+\title{Testing Center Classes}
+
+
+
+\author{
+Erin S. Sheldon,\altaffilmark{1}
+}
+
+\altaffiltext{1}{Center for Cosmology and Particle Physics, Department of
+Physics, New York University, 4 Washington Place, New York, NY 10003.}
+
+
+\section{Introduction} \label{sec:intro}
+
+Ben's original catalog uses the BCG as the center.  Using the same clusters new
+centers were calculated taking the peak in a Gaussian smoothed density map,
+also known as a ``kernel density estimate''.  The scale length of the Gaussian
+is roughly 200 kpc, although it varies with richness.  This peak was found with
+luminosity weighting and without.  We will call these three centers \cbcg,
+\ckde, and \clkde.  We will call the distance between centers $d$, e.g.  the
+distance between \cbcg\ and \ckde\ is denoted $d(bcg,kde)$.
+
+Eli looked at the distribution of offsets from \cbcg\ and fit a Rayleigh 
+distribution to each.  He found a sigma for of 40 kpc for $d(bcg,lkde)$
+and for $d(bcg,kde)$ it is 50-60 kpc.  
+
+Based on the new peaks the following center classes were defined.  In all cases
+the clusters have $N_{200} \geq 5$.  
+
+\begin{itemize}
+    \item \cclass\ 0: ``Good'' centers.  $d(bcg,kde) < 3 \sigma$ and $d(bcg,lkde) < 3 \sigma$.
+    \item \cclass\ 1: ``Bad'' centers.  $d(bcg,kde) > 8 \sigma$ and $d(bcg,lkde) > 8 \sigma$.
+    \item \cclass\ 2: $d(bcg,kde) > 8 \sigma$ and $d(bcg,lkde) < 3 \sigma$.
+    \item \cclass\ 3: $d(bcg,kde) < 3 \sigma$ and $d(bcg,lkde) > 8 \sigma$.
+    \item \cclass\ 4: $3 < d(bcg,kde)/\sigma < 8$ or $ 3 < d(bcg,lkde)/\sigma < 8$.
+
+    \item \cclass\ -1: Unclassified.  no \ckde\ or \clkde\ calculated, $z >
+    0.3$ or $z < 0.1$.
+
+\end{itemize}
+
+\newpage
+Here are some statistics for the samples:
+\begin{verbatim}
+  class  nlens      N200 err(N200)      L200 err(L200)      Lbcg err(Lbcg)
+     -1   3183     10.51      0.24     20.01      0.45      5.67      0.08
+      0  23441      8.82      0.06     16.10      0.11      4.97      0.02
+      1   2037     10.88      0.25     18.30      0.46      3.57      0.05
+      2   5739      9.06      0.12     16.64      0.23      5.09      0.05
+      3     86     14.80      1.60     26.19      3.09      3.91      0.26
+      4  14805      8.21      0.06     14.63      0.12      4.45      0.03
+\end{verbatim}
+
+Note the difference in mean \nvir\ between the various samples.   First let us
+compare \cclass\ 0 to \cclass\ 1, ``good'' centers versus ``bad'' centers.  The
+mean \nvir\ is larger for \cclass\ 1 than for \cclass\ 0, as is the \lvir.  The 
+BCG luminosity is lower however.  This same pattern holds when comparing
+\cclass\ 0 to \cclass\ 3.  But \cclass\ 2 is very similar to \cclass\ 0, 
+as is \cclass\ 4.
+
+This comparison is shown in Figure \ref{fig:compstat} as a ratio between
+each class and \cclass\ 0.
+
+\begin{figure}[h]
+\plotone{plots/maxbcg_sample21-22_centerclass6_corr_stats.eps}
+
+\caption{Comparison between some statistics of the \cclass\ 0 clusters
+(``good'' centers) and other classifications, expressed as a ratio
+compared to \cclass\ 0.  The trends in \nvir\ and \lvir\ tend
+to be reversed in BCG luminosity.} \label{fig:compstat}
+
+\end{figure}
+
+\begin{figure}[h]
+\plotone{plots/maxbcg_sample21-22_centerclass6_corr_color_compare.eps}
+
+\caption{Comparison between \cclass\ 0 clusters (``good'' centers) and other
+classifications.} \label{fig:comp}
+
+\end{figure}
+
+
+
+
+
+
+\section{Comparison of Lensing Signals for Center Classes}
+
+Figures \ref{fig:comp} and \ref{fig:comprescale} show comparisons of the
+lensing signal between the different classes.  For Figure \ref{fig:comp}, the
+differences in mean richness between each \cclass\ make the comparison difficult. 
+
+In order to remove the confusion from different richnesses, and focus more on
+shape,  I rescaled the \cclass\ 0 results so that the mean of the
+points beyond 2 Mpc equals that of the comparison class. These results are shown
+in figure \ref{fig:comprescale}.  This is especially helpful for comparing
+\cclass\ 0 and \cclass\ 1.
+
+In each case the \cclass\ 0 objects have a steeper slope and higher amplitude
+relative to the large scales in comparison to the other classes. 
+
+Note on small scales the comparison is complicated by the presence of the
+BCG.
+
+
+
+With this current analysis it is somewhat difficult to interpret the results in
+terms of centering.  First of all, there is a BCG at the center in all cases
+and this dominates the shape of the profile on small scales, independent of the
+centering.  Furthermore, the objects in each class do not have similar
+richnesses, and the BCGs are not of comparable luminosity.
+
+Despite this we can say something:  the one-halo term is generally stronger for
+the \cclass\ 0 clusters.  For example, \cclass\ 0 has a stronger one-halo
+term than \cclass\ 1 even though \cclass\ 1 objects have a higher mean
+richness.  In the next section we will define samples that are better
+matches.
+
+
+\begin{figure}[h]
+\plotone{plots/maxbcg_sample21-22_centerclass6_corr_color_compare_rescaled.eps}
+
+\caption{Comparison between a rescaled \cclass\ 0 (``good'' centers) and other
+classifications.  In each panel the \cclass\ 0 curve has been rescaled so that
+the mean of the points greater than 2 Mpc is equal to that of the comparison
+data.  This helps to account for differences in the mean richness between the
+different classes.  After the rescaling the differences at intermediate radii,
+which should be in the halo and thus more sensitive to centering, are more
+apparent.}  \label{fig:comprescale}
+
+\end{figure}
+
+
+
+\section{Comparison of Luminosity-matched Samples}
+
+I removed objects from the \cclass\ 0 such that the $i$-band luminosity
+histogram was proportional to that of the \cclass\ 1 sample, with the further
+restriction that $0.45 < \mathrm{log}(L/L_\odot) < 2.0$ to prevent noise in the
+histogram from being important.  Here are statistics for these new samples:
+\begin{verbatim}
+  class  nlens      N200 err(N200)      L200 err(L200)      Lbcg err(Lbcg)
+      0  12887      9.30      0.07     17.24      0.13      5.25      0.03
+      1   2019     10.18      0.16     17.01      0.29      3.50      0.04
+\end{verbatim}
+
+Figure \ref{fig:compmatch} shows the comparison between these samples.  
+There remains a clear change in shape after matching luminosities, with
+a stronger one-halo term, although the effect is somewhat suppressed 
+compared to the unmatched tests.  Note a ``rescaled'' test, matching
+large scale amplitudes, does not change the result significantly as the
+large scale amplitudes are already very similar.
+
+\begin{figure}[h]
+\epsscale{0.6}
+\plotone{plots/maxbcg_sample21-22_centerclass_alt2_corr_color_compare.eps}
+
+\caption{Comparison between \cclass\ 0 clusters (``good'' centers) and \cclass\
+1 (``bad'').  For these measurements the samples have been matched to have the
+same distribution of $i$-band luminosity.} \label{fig:compmatch}
+\epsscale{1}
+
+\end{figure}
+
+
+\end{document}
+

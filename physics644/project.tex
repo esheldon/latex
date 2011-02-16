@@ -1,0 +1,216 @@
+
+%\documentclass{article}
+\documentclass[12pt]{article}
+
+
+\usepackage{vmargin}
+% can use \begin{singlespace} \begin{doublespace} \begin{onehalfspace} (1.5 spacing)
+
+\setpapersize{USletter}
+%\setmargrb{leftmargin}{topmargin}{rightmargin}{bottommargin}
+\setmargrb{1.4in}{.5in}{1.4in}{1in}
+
+\newcommand{\tsp}{\vspace{0.1cm}}
+\newcommand{\isp}{\vspace{0.3cm}}
+\newcommand{\ssp}{\vspace{0.4cm}}
+\newcommand{\As}{A$_s$}
+\newcommand{\Ap}{A$_p$}
+\newcommand{\Ma}{M$_a$}
+\newcommand{\Mb}{M$_b$}
+\newcommand{\micros}{$\mu$s}
+\newcommand{\es}{{\it e}}
+\newcommand{\gs}{{\it g}}
+\newcommand{\kettt}[3]{$|${#1},{#2},{#3}$\rangle$}
+\newcommand{\kett}[2]{$|${#1},{#2}$\rangle$}
+\newcommand{\ket}[1]{$|${#1}$\rangle$}
+
+\begin{document}
+
+
+\footnotesize
+\noindent
+{Rauschenbeutel, et al., ``Controlled Entanglement of Two Field } \hfill {Erin Sheldon}
+
+{Modes in a Cavity Quantum Electrodynamics Experiment'',} \hfill {Final Project}
+
+{Phys. Rev. A {\bf64}, 050301(R) (2001)} \hfill {Physics 644}
+
+\normalsize
+
+\section*{Summary}
+The authors present the first measurement of entanglement of two field modes
+in a cavity. They accomplish this by interacting a Rydberg atom with the two
+modes in succession, producing a maximally entangled state. The state is copied
+onto a second probe atom after an adjustable delay, the state of which is then
+measured to reveal the entanglement.
+
+As the authors point out, the experimental setup is very similar to that of 
+earlier papers, \cite{rausch00,brune96,nogues99} to name a few. 
+In these other works the demonstrated 
+entanglement was between a cavity mode and the atoms, and between atoms. In this
+work the entanglement is between two different field modes. The implications of this
+new type of entanglement will be discussed later. This paper is very brief so 
+some of the information I present here was gathered from other sources
+
+Themal Rubidium atoms are relased from an oven and are then velociy selected
+using laser pumping (v=503 $\pm$ 2 m/s). These atoms are then prepared in a 
+Rydberg state in a time resolved way. 
+The atoms are prepared in pairs, with each 
+successive pair separated in time
+by about 1.7 ms. 
+The individual atoms in each pair 
+are separated by an adjustable time T in the range 50-700 \micros.
+They claim a spatial resolution of 1mm, corresponding to
+a temporal resolution of about 0.2 \micros. 
+The first atom, \As, is prepared in the Rydberg state \es\ (``excited'') and the 
+second, \Ap,  in the lower state \gs\ (``ground''), 
+corresponding to n=51 and 50 respectively. The atoms cross a cavity made
+from two niobium superconducting mirrors. This cavity supports two orthogonally
+polarized transverse
+modes \Ma\ and \Mb\, with frequency 
+separation \Ma$-$\Mb$\equiv \delta$. For this experiment
+$\delta/2\pi$ = 128.3 $\pm$ 0.1 kHz as measured previously.
+Initially each mode is in the
+zero photon state. The energy difference between $e-g$ can be 
+tuned to resonance with \Ma\ or \Mb\ via the Stark effect: i.e. the 
+detuning $\Delta = (E_e-E_g)/\hbar - $
+\Ma\ is set to 0 or $-\delta$. 
+The atom-field interaction can also be frozen out by shifting
+ the atomic line well below \Mb.
+
+The first atom, \As, is initially in state \es\ and when it enters the cavity
+the detuning $\Delta$ is zero, in resonance with mode \Ma. 
+%In Brune et al.(1996) the point was to demonstrate the Rabi flopping. 
+The atom
+is allowed to interact for a $\pi/2$ pulse.  Note the tuning can be done in a
+\micros\ as compared to the $\pi/2$ pulse which lasts $\pi/2\Omega$, or 
+about 6 \micros\ for $\Omega/2\pi$ = 47 kHz. Thus the detuning takes a
+non-negligible 
+fraction of the $\pi/2$ pulse time; I assume this isn't a problem, but couldn't find
+any documentation on the matter.
+After the $\pi/2$ pulse the state has evolved
+from \kettt{$e_s$}{$0_a$}{$0_b$} to an entangled state
+%\ket{$\Psi_1$}  = 
+%( \kett{$e_s$}{$0_a$} + \kett{$g_s$}{$1_a$} ) \ket{$0_b$}$/\sqrt{2}$.
+\begin{equation}
+\textrm{\ket{$\Psi_1$}}  = 
+\frac{( \textrm{\kett{$e_s$}{$0_a$} + \kett{$g_s$}{$1_a$}} ) \textrm{\ket{$0_b$}}}{\sqrt{2}}.
+\end{equation}
+Where here the zero of energy is taken to be the \kettt{$g_s$}{$1_a$}{$0_b$} state.
+Then the detuning is set to resonance with \Mb, $\Delta = -\delta$, and the
+atom is allowed to interact for a $\pi$ pulse. The \kett{$g_s$}{$0_b$} 
+remains unchanged, but
+the \kett{$e_s$}{$0_b$} $\rightarrow$ $e^{i \phi}$ \kett{$g_s$}{$1_b$}.
+The phase is $\phi = \pi/2 + \delta\pi/\Omega$. The $\pi/2$ phase comes from
+the orthogonal polarization of 
+\Ma\ relative to \Mb. The second comes from the 
+energy difference $-\hbar \delta$, which accumulates phase over the
+flopping time $\pi/\Omega$.
+The atom ket factors out and we see that the two field modes are 
+entangled. After time t, 
+\begin{equation}
+\textrm{\ket{$\Psi_2(t)$}} = 
+\frac{ e^{i \phi + i \delta t} \textrm{\kett{$0_a$}{$1_b$} + 
+\kett{$1_a$}{$0_b$}} }{\sqrt{2}}.
+\end{equation}
+The interaction is then frozen out and \As\ leaves the cavity.
+
+After an adjustable time t=T the probe atom \Ap\ is sent through the cavity. The 
+idea is to copy the cavity mode entanglement onto the probe atom. It is
+initially in state \gs\ and is in resonance with \Ma.  \Ap\ undergoes a $\pi$
+pulse, induced by the photon in \Ma\ after which \ket{$0_a$} factors out and
+we have a superposition  i exp($i\delta\pi/2\Omega$)exp($i\delta T$)\kett{$g_p$}{$1_b$} $-$ \kett{$e_p$}{$0_b$}. Then, 
+after setting $\Delta = -\delta$, \Ap\ 
+undergoes a $\pi/2$ pulse in resonance with \Mb. 
+\begin{equation}
+\textrm{ \ket{$\Psi_4$} } = \frac{1}{2}[i\textrm{\kett{$g_p$}{$1_b$}}
+             (1 - e^{i \delta T}e^{i \delta \pi/2 \Omega})
+                        + \textrm{\kett{$e_p$}{$0_b$}} 
+             (1 + e^{i \delta T}e^{i \delta \pi/2 \Omega}) ]
+\end{equation}
+The atom then has a probability
+of being in \es\ or \gs\ that depends on the time interval T: 
+\begin{equation}
+P_e(T) = \frac{1}{2}[ 1 + \textrm{cos} (\delta T + \Phi) ]
+\end{equation}
+Thus P$_e$ oscillates with frequency $\delta$, the mode frequency difference.
+This is a direct reflection of the beating between the modes.
+
+The authors show a plot of this measurement in four different
+time windows. These plots indicate an oscillation at the correct frequency 
+$\delta$ (from the plot I calculated about 132 kHz,  the best fit value
+is not given in the paper). 
+The amplitude of the oscillation damps over time as the cavity comes
+into thermal equilibrium and the atom absorbs these fields
+(this thermal noise was ``erased'' by pulses of atoms in the \gs\ state 
+before \As\ entered the cavity \cite{nogues99}).
+
+The new feature of this measurement is the entanglement of two cavity
+modes. Previous work using the same apparatus demonstrated other types
+of entanglement. The first step
+here, the Rabi flopping of a Rydberg atom in resonance with
+a field mode, was the
+basis of many of the papers cited in this work:
+e.g. a quantum phase gate was demonstrated using that technique
+\cite{rauch99}.
+The difference here is the extra detuning step to bring the atom in resonance
+with another cavity mode. The resulting Rabi oscillation for a $\pi$ pulse
+entangles the two cavity modes. 
+
+The authors mention a couple of uses for this entangled state. The state
+of \Mb\ could be copied onto a second atom, which is then detuned
+and interacts non resonantly with \Ma, after which the new 
+state can be copied back onto \Mb. This can be used to realize the ``conditional
+dynamics of a quantum phase gate.''
+I think this could be done since the basic pieces of that measurement have
+already been demonstrated.
+They also mention that teleportation
+could be achieved by entangling the modes from two different cavities. 
+I'm not in a position to judge whether or not that is feasible.
+
+I recommend this paper for publication
+after the authors address the comments which follow.
+
+\section*{Comments}
+Because the experimental techniques and the theoretical concepts here 
+are not novel, but the result is of immediate interest, this paper is well
+suited for rapid communications. The authors still have plenty of
+room for more text, however, and I think that there are issues that 
+should be addressed in the remaining space.
+
+The authors
+should use a few sentences to address scalability in this system.
+Coupling many atoms is difficult with
+this setup because of the relatively fast photon decay and
+thermalization timescales ($\sim$ 1ms), and higher
+atom fluxes are not the answer because it becomes more difficult
+to control the exact number of atoms in the cavity. 
+Also, the atoms are high speed (500 m/s in this work, as low as 300 m/s in others) 
+and cover a few millimeters during the interaction, 
+so the suggestion
+the authors made of coupling multiple cavities can only be scaled so far because of
+space restrictions, at least with the current setup. 
+
+When the techniques are listed the authors usually include a reference. 
+This is good, but this reference is more often than not just a pointer to
+one of their own papers, which itself does not explain the technique but also
+references more of their papers. In this way the reader is led through a
+series of references to the authors' 
+PRL, Science, and Nature papers, none of which explains the technique
+in any detail. Please include a few definitive references for the 
+newcomer to this field.
+
+
+\bibliographystyle{plain}
+
+\begin{thebibliography}{}
+
+\bibitem{rausch00} A. Rauschenbeutel, et al., Science {\bf 288}, 2024 (2000)
+\bibitem{brune96} M. Brune et al., Phys. Rev. Lett. {\bf 76}, 1800 (1996)
+\bibitem{nogues99} G. Nogues et al., Nature (London) {\bf 400}, 239 (1999)
+\bibitem{rauch99} A. Rauschenbeutel, et al., Phys. Rev. Lett. {\bf 83}, 5166 (1999)
+
+\end{thebibliography}
+
+
+\end{document}
