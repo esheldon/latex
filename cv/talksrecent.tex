@@ -1,0 +1,30 @@
+%\documentclass[12pt]{article}
+\documentclass[12pt]{report}
+\usepackage{nopageno}
+
+\usepackage{natbib}
+
+% this will make it *not* put pubs on a new page and it will be named
+% publications instead of references or bibliography
+
+\renewcommand\bibsection%
+{
+    \section*{PRESENTATIONS}
+}
+
+
+\input{aasdef.tex}
+
+\begin{document}
+
+% these are 2010-2011
+
+junk: \citet{MichiganTalk10,SnowclusterTalk10,BOSSTSTalk10}
+
+\newpage
+
+\bibliography{astroref}
+\bibliographystyle{unsrtnat}
+
+
+\end{document}
