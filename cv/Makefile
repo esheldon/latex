@@ -12,6 +12,28 @@ pub:
 	dvipdfm -o pub.pdf pub.dvi 
 	@ echo "made pub.pdf"
 
+pubrecent: 
+	latex pubrecent
+	latex pubrecent
+	bibtex pubrecent
+	latex pubrecent
+	latex pubrecent
+
+	dvipdfm -o pubrecent.pdf pubrecent.dvi 
+	@ echo "made pubrecent.pdf"
+
+talksrecent: 
+	latex talksrecent
+	latex talksrecent
+	bibtex talksrecent
+	latex talksrecent
+	latex talksrecent
+
+	dvipdfm -o talksrecent.pdf talksrecent.dvi 
+	@ echo "made talksrecent.pdf"
+
+
+
 pub8: 
 	latex pubsource8.tex
 	latex pubsource8.tex
