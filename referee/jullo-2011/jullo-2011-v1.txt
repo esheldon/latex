@@ -1,0 +1,98 @@
+Overall Comments
+
+    This is an interesting topic, worthy of study with the current sample in
+    extension of earlier works.
+
+    Parts of the text are very poorly written, for example the introduction.
+    Other parts are much better, perhaps due to different authors.  Even
+    without regard to the results, the paper does not, as a whole, meet the
+    standards for writing that I would expect of a journal publication.  I'm
+    not going to detail the writing problems as that is not my responsibility.
+    I will instead say that a significant reworking of the entire text should
+    be undertaken to bring all parts of the document to an acceptable quality.
+
+Abstract
+
+    You claim *exhaustive* in redshift, stellar mass, and scale but this is
+    obviously not the case.  You are only 80% complete in stellar mass, you are
+    using a magnitude limited sample of galaxies, you are using a limited and
+    not precisely understood redshift range, and of course you are working on
+    very limited and mixes physical scales.  This is precisely not exhaustive.
+
+Introduction
+
+    weight function in equation 1, you say sigma_i s the width of the ellipticity
+    distribution but you mean the error distribution.
+
+2.3 
+
+    This section mixes up the idea of catalog selection and photoz methodology.
+    These should be separated for clarity.
+
+
+    For your "redshift bins" it seems you are essentially demanding that
+    objects hava zmin < z < zmax with some probability, and the you sum the
+    p(z) of those objects.  What you actually have is p(z|m) where m are the
+    independent variables (magnitudes).  So what you essentially demand is:
+
+        integral(p(z|m), zmin, zmax) > p0. 
+
+    (not exactly since your p(z) are not gaussian and you are using "sigma")
+    This seems to be a reasonable approach; I restate it here in order to
+    clarify my question below about the foreground galaxy sample.
+
+
+
+    You say it is the redshift distribution of the foreground material, but
+    this isn't exactly correct. It is the effective weight.  The *effective*
+    redshift distribution of the material would be the actual redshift
+    distribution multiplied by this weight in redshift space.  Your statement
+    is only accurate if the distribution of material is uniform in redshift
+    space.
+
+    How did you choose the objects in the foreground lens sample?  You say you
+    "obtain" them and then give exact ranges, whereas you only have probability
+    distributions; did you do straight redshift cuts or do you apply the
+    probabilistic cuts as for the source bins? 
+
+    "redshift of the lensing efficiency" has no meaning, it is a function.
+    What are you trying to say?  Are you talking about bias in the photozs?
+
+    paragraph 5: what S/N cut is I814 < 26.5?  If that is the completeness
+    limit, why are you choosing foreground objects at the completeness limit?
+    I could understand choosing source ("background") galaxies near the limit
+    but not foreground.
+
+    You refer to bundy et al as "he", should say "they" or something indicating
+    plurality, as it is bunday *et al.*
+
+
+3
+
+    "The second order derivatives are the convergence" you mean the sum of
+    phixx and phiyy is kappa, etc.  Please be careful and accurate with your
+    language for the sake of those readers who are not experts. If you are
+    going to talk about it, you should probably just give the equations.
+    Otherwise eq 4 and 5 are sufficient.
+
+3.1
+
+    "almost work in Fourier space" is not a meaningful statement.  There is a
+    lot of information *behind* your statement, such as independence of modes
+    in Fourier space for certain kinds of measurements under certain
+    conditions.  Better to just say exactly what you mean.
+
+3.2
+
+    The text of this section if very poorly written.  Please rework this
+    section carefully.
+
+    Please explain in the main text how the f1 and f2 are measured, and how
+    this measurement is different from the similar terms in equations 15 and
+    16.  The only details I found were in figure 2.
+
+4.
+
+    Your error bars seem to be monotonically increasing with scale.  This
+    means you need state explicitly in the text and figures at what
+    scale you measure b.  For example in figure 13.
