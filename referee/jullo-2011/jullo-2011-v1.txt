@@ -1,37 +1,48 @@
 Overall Comments
 
     This is an interesting topic, worthy of study with the current sample in
-    extension of earlier works.
+    extension of earlier works.  But this paper is not ready for acceptance.
 
     Parts of the text are very poorly written, for example the introduction.
-    Other parts are much better, perhaps due to different authors.  Even
-    without regard to the results, the paper does not, as a whole, meet the
-    standards for writing that I would expect of a journal publication.  I'm
-    not going to detail the writing problems as that is not my responsibility.
-    I will instead say that a significant reworking of the entire text should
-    be undertaken to bring all parts of the document to an acceptable quality.
+    Other parts are much better, perhaps due to multiple authors working on
+    different sections.  Even without regard to the scientific results, the
+    paper does not, as a whole, meet the standards for writing that I would
+    expect of a journal publication.  I'm not going to detail the writing
+    problems as that is not my responsibility.  I will instead say that a
+    significant reworking of the entire text should be undertaken to bring all
+    parts of the document to an acceptable quality.
+
+    Also, the presentation and analysis is sloppy.  Often the authors use
+    off-the-cuff remarks about physical interpretation of the results that are
+    not backed up by statistical analysis.  The authors in a number of places
+    use of phrases like "significant deviation" with no accompanying
+    statistical analysis. In many of these cases such a statement would require
+    careful analysis, and indeed in some cases significant original research,
+    to prove.
+
+    Please see the following comments and questions by section.
 
 Abstract
 
-    You claim *exhaustive* in redshift, stellar mass, and scale but this is
-    obviously not the case.  You are only 80% complete in stellar mass, you are
-    using a magnitude limited sample of galaxies, you are using a limited and
-    not precisely understood redshift range, and of course you are working on
-    very limited and mixes physical scales.  This is precisely not exhaustive.
+    You claim *exhaustive* in redshift, stellar mass, and scale but this is not
+    the case.  You are only 80% complete in stellar mass, you are using a
+    magnitude limited sample of galaxies, you are using a limited and not
+    precisely understood redshift range, and you are working on limited and
+    mixed physical scales.  This is precisely not exhaustive.
 
 Introduction
 
-    weight function in equation 1, you say sigma_i s the width of the ellipticity
-    distribution but you mean the error distribution.
+    weight function in equation 1, you say sigma_i is the width of the
+    ellipticity distribution but you mean the error distribution.
 
 2.3 
 
     This section mixes up the idea of catalog selection and photoz methodology.
-    These should be separated for clarity.
+    I think separating these could improve clarity.
 
 
     For your "redshift bins" it seems you are essentially demanding that
-    objects hava zmin < z < zmax with some probability, and the you sum the
+    objects have zmin < z < zmax with some probability, and then you sum the
     p(z) of those objects.  What you actually have is p(z|m) where m are the
     independent variables (magnitudes).  So what you essentially demand is:
 
@@ -52,19 +63,17 @@ Introduction
 
     How did you choose the objects in the foreground lens sample?  You say you
     "obtain" them and then give exact ranges, whereas you only have probability
-    distributions; did you do straight redshift cuts or do you apply the
-    probabilistic cuts as for the source bins? 
+    distributions; did you perform straight cuts on the some reduced statistics
+    of the p(z), or do you apply the probabilistic cuts as for the source bins? 
 
-    "redshift of the lensing efficiency" has no meaning, it is a function.
-    What are you trying to say?  Are you talking about bias in the photozs?
+    "redshift of the lensing efficiency" has no clear meaning to me. It is a
+    function.  What are you trying to say?  Are you talking about bias in the
+    photozs?
 
     paragraph 5: what S/N cut is I814 < 26.5?  If that is the completeness
     limit, why are you choosing foreground objects at the completeness limit?
-    I could understand choosing source ("background") galaxies near the limit
-    but not foreground.
-
-    You refer to bundy et al as "he", should say "they" or something indicating
-    plurality, as it is bunday *et al.*
+    This will result in near perfect overlap between the lens and source
+    samples.  Have I misunderstood?
 
 
 3
@@ -95,4 +104,189 @@ Introduction
 
     Your error bars seem to be monotonically increasing with scale.  This
     means you need state explicitly in the text and figures at what
-    scale you measure b.  For example in figure 13.
+    effective scale you measure b.  For example in figure 13.
+
+
+    You can also use these mocks to test your treatment of photozs.  Have you
+    tested that you can recover the true lensing quantities given photozs with
+    realistic expected statistical properties?
+
+5.1
+
+    - General
+
+        About the plots in this section: the x axis says "aperture scale" but
+        correlation functions are measured in radial bins not apertures.
+        Aperture implies the statistic is measured using all the data interior
+        to the aperture scale. The axis label should reflect this.
+
+        It concerns me that you use the median statistic.  In general the mean is
+        preferred because that is what is *predicted* by the theory.  E.g. you say
+        it will *bias* the b and r, but the theory, in predicting b and r, must
+        average over the same distributions.  The theory does not have shape noise
+        but the other sources of variance are included.
+
+        It would be good to know how this choice impacts comparison with the
+        predictions.
+
+    - galaxy-clustering
+
+        Figure 5: please describe more clearly which line is which in the caption.
+        It is ambiguous.
+
+        Please explain to those who may not know why deviation from Smith et
+        al. implies scale dependent bias.
+
+    - galaxy-galaxy lensing
+        
+        You may also have additive systematics; this will affect the signal
+        more at large scales.
+
+    - shear autocorrelation
+
+        I think it's unwise to suggest B1 is high relative to smith et al, as
+        it appears to be consistent with zero.  If this is not the case, I
+        suggest increasing the range of the y axis to show detection and to
+        perform a statistical analysis instead of saying it "seems to be
+        larger".
+
+5.2
+
+    - galaxy-aperture variance
+
+        Galaxies are expected to be more clustered, meaning higher amplitude in
+        3D, at low redshifts. But the slope averaged over small to intermediate
+        scales depends *strongly* on other factors, such as galaxy type.
+        Please be careful with your wording here.
+
+        The paragraph beginning with "On the other hand.." is very poorly
+        written.
+
+    - galaxy-mass aperture
+
+        B modes are *expected* to affect N*M differently than M^2, and the
+        measurements have very different S/N.
+
+        second paragraph: I think you have a mistake in your wording or have a
+        misconception about how the filter works.  Please clarify what you mean
+        by "cleaner".  
+
+        "We also note a clear change of slope in .." I think you are trying to
+        say you see a different slope at large and small scales.  Also, please
+        don't use weasel words like "clear".  If you want to tell the reader
+        that something is unambiguously in the data, you should do it my making
+        a measurement of the slopes, or fitting a single power law and showing
+        that it does not describe the data. The covariance in your data makes
+        chi-by-eye tricky.  Otherwise just say that you see it by eye, which is
+        I think enough to indicate that it is merely your judgement and not the
+        result of analysis.  (see http://en.wikipedia.org/wiki/Weasel_word).
+   
+    - mass aperture 
+
+        You again make non-statistical claims: "In spite of large errors for B1
+        and B2, we note that mean values closely follow the predicted signal."
+        The only meaningful thing you can do is to form a hypothesis, test it
+        against the data, and report the results.  Your statement does not add
+        any information for the reader, but speaks with authority of your
+        *opinion* of what you see.
+
+5.3
+
+    it is fine to say "we observe" a down turn if you also clarify that this is
+    your opinion, but it is not fine to say it is *significant* without
+    performing a statistical analysis.    There is a strong convention that
+    "significant" means some number of "standard deviations" of the data from a
+    null hypothesis, typically more than 3.  I am aware that "standard
+    deviation" must also be defined, but once it is, then the convention is to
+    require a number of such deviations before claiming significance.
+
+    The following topic of discussion in this section is an interesting one,
+    but it is of little utility if you don't perform any analysis.
+
+5.4
+
+    - paragraph 2
+    
+        When you say you average the points taking into account the
+        correlations, do you mean me fit a constant over that range of scales,
+        using the full covariance matrix in the fit?  Please explain.
+
+        By "matches" Sheth et al., I think you mean "is similar to".  You
+        would need to test a continuous range of masses to find the match.
+
+   - paragraph 3
+        
+        You expect two sigma results in 5% of such measurements.  You would
+        need many more independent samples with such deviation before this
+        become a concern.  This is the reason behind the convention that
+        "significant" means 3 or more standard deviations.
+
+5.5
+
+    - paragraph 1
+
+        You should probably say you "show" in the figure.  Also, the statement
+        that this method is known to produce significant deviations from 1 is
+        misleading.   In applying this method to a particular data set certain
+        investigators found r different from 1.
+
+    - paragraph 2
+
+        Again you say that the data in F1 and F2, figure 14, "show a small dip"
+        but you have not quantified that statement.  Please do so.  I can't do
+        an analysis based on the plot, but in my opinion such a statement
+        requires statistical exploration.  This is especially true given the
+        correlations between points.
+
+        "galaxies start to correlate with their halo density".  I find this
+        statement confusing, and not in accordance with my reading of Neyrinck
+        et al. paper.  Please clarify.
+
+5.6
+    - paragraph 1
+
+        "variance of the .. becomes negative".  Variances are positive
+        definite by definition.   Please clarify.
+
+    - paragraph 2
+
+        This paragraph is in direct contradiction to your earlier discussion of
+        figure 11, where you say the deviations are significant, although
+        without any actual statistical analysis to back it up.
+
+        Also, correlation between points does not mean what you imply.  It does
+        not mean that the measurements can not deviate.  It means that their
+        errors are correlated, and this effectively smooths the curve but does
+        not mean that it must be flat.
+
+6.1
+
+    - paragraph 3
+
+        I don't understand the argument.  A source is in fact used many times,
+        this is not unexpected.  It is just the nature of correlation
+        functions.  Please clarify.
+
+
+6.2
+
+    It seems to me that this comes down to how accurate are your estimated
+    redshift distributions.   
+    
+    If these are known perfectly then you will have no bias; all the equations
+    are correct and integrating over the right distributions should not cause a
+    problem.  Are you just trying to understand how an incorrect estimate of
+    N(z) produces an incorrect estimate of f1,f2?  This may be a genuine
+    misunderstanding on my part.
+    
+ 
+
+7 Conclusion
+
+    Much of you discussion here I have addressed earlier on.  But I want to
+    point out that you again say "significant scale-dependence" but this has
+    not been quantified.
+
+    Your discussion of the inefficacy of future surveys, while plausible, is
+    not backed up by any numbers or calculations.  Please quantify such
+    statements.
