@@ -1,1 +1,1 @@
-../../astroref/apj.bst
+../astroref/apj.bst
