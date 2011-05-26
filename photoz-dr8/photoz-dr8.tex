@@ -1,7 +1,7 @@
 \documentclass[preprint]{aastex}
 
 \usepackage{verbatim}
-
+\usepackage{color}
 \input{newcommands.tex}
 
 \newcommand{\modelrmin}{15.0}
@@ -13,7 +13,7 @@
 \newcommand{\nphoto}{unknown}
 \newcommand{\ntrain}{unknown}
 \newcommand{\matchrad}{2 arcsec}
-
+\newcommand{\cc}[1]{\textcolor{red}{[{\bf Carlos}: #1]}}
 \def\eps@scaling{1.0}% 
 
 \slugcomment{Last revision \today}
@@ -48,7 +48,7 @@ galaxies such that the distribution of relevant quantities, such as magnitudes
 or colors, matches that of a secondary set of galaxies without known redshifts.
 Assuming these quantities correlate with redshift, and are the only relevant
 quantities for redshift determination, the resulting weighted redshift
-histogram is proportional the redshift probability distribution \pofz\ of the
+histogram is proportional \cc{to} the redshift probability distribution \pofz\ of the
 secondary sample. 
 
 
@@ -187,41 +187,46 @@ corrected \modelmag\ are shown in \ref{fig:varhist}.
 
 We use a spectroscopic trining set drawn from a number of sources. These
 sources contain mostly galaxies and a small number of stars in order
-to help put stellar contaminants from the photometric sample at low
+to help \cc{characterize} stellar contaminants from the photometric sample at low
 redshift. In the following sections we give short details on each sample
 and describe our process for matching to the photometric sample.
 
 \subsection{Samples Used in this Study} \label{sec:train:def}
 
+\cc{I'm updating all these numbers based on what you put on the web. Some numbers went down from what was here before. Don't know why. For PRIMUS only you know the selection.}
 \begin{itemize} 
 
-    \item 435,897 redshifts from the SDSS spectroscopic sample,
+    \item 435,878 redshifts from the SDSS spectroscopic sample,
 principally from the \texttt{MAIN} and Luminous Red Galaxy \texttt{(LRG)}
 samples, with confidence level \texttt{zconf}$ > 0.9$, and r-band
 \cmodelmag\ $ <19.5$.
 
 
-    \item 478 objects from the Canadian Network for Observational
+    \item 412 objects from the Canadian Network for Observational
 Cosmology (CNOC) Field Galaxy Survey \cite[CNOC2;][]{yee00}\footnote{\tt
 http://www.astro.toronto.edu/~cnoc/cnoc2.html} with \texttt{Rval} $>4$
 for \texttt{Sc}$=2$ or \texttt{Rval} $> 5$ for \texttt{Sc}$=5$
 
-    \item 184 from the Canada-France Redshift
+    \item 122 from the Canada-France Redshift
 Survey \cite[CFRS;][]{lilly95}\footnote{\tt
 http://www.oamp.fr/people/tresse/cfrs/cfrs.html} with \texttt{Class} $\geq 3$.
 
-    \item 2,199 from the Deep Extragalact Evolutionary Probe 2 survey
+    \item 1,376 from the Deep Extragalact Evolutionary Probe 2 survey
 \citep[DEEP2;][]{weiner05}\footnote{\tt http://deep.berkeley.edu/DR3}
-with \texttt{zqual} $\geq 3$
+with \texttt{zqual} $\geq 3$. 
+Of these,1,075 are an approximately magnitude-limited sample from the Extended Groth Strip (EGS).
+The remainder is BRI? color-selected to target $z>0.7$ galaxies(hereafter the non-EGS sample). 
 
-    \item 234 from the Team Keck Redshift Survey \cite[TKRS;][]{wirth04}\footnote{\tt http://tkserver.keck.hawaii.edu/tksurvey/}.
+    \item 151 from the Team Keck Redshift Survey \cite[TKRS;][]{wirth04}\footnote{\tt http://tkserver.keck.hawaii.edu/tksurvey/}.
 
-    \item 8,660 LRGs from the 2dF-SDSS LRG and QSO Survey \cite[2SLAQ;][]{cannon06}\footnote{\tt http://www.2slaq.info/} with \texttt{qop} $\geq$ 3.
+    \item 8,577 LRGs from the 2dF-SDSS LRG and QSO Survey \cite[2SLAQ;][]{cannon06}\footnote{\tt http://www.2slaq.info/} with \texttt{qop} $\geq$ 3.
 
-    \item  2,252 from zCOSMOS redshift survey \cite{lilly07}, with  \texttt{cc=3.4 || 3.5 || 4.4.  || 4.5 || 9.5}
+    \item  1,247 from zCOSMOS redshift survey \cite{lilly07}, with  \texttt{cc=3.4 || 3.5 || 4.4.  || 4.5 || 9.5}
     
     \item 1,771 from the VIMOS VLT-Deep survey \cite[VVDS;][]{garilli08}\footnote{\tt http://www.oamp.fr/virmos/vvds.htm} with \texttt{zqual} $\geq 3$.
 
+    \item 14,196 from four fields of the PRIMUS survey \cite[PRIMUS;][]{coil10}\footnote{\tt http://cmb.as.arizona.edu/~eisenste/primus/Home.html} \cc{only you know the exact selection for PRIMUS}.
+      
 \end{itemize}
 
 
@@ -258,6 +263,113 @@ distributions.  There are deviations at \gmr\ $\sim 1.5$ and \rmi\ $\sim 0.6$,
 but otherwise the distributions are quite close. TODO Include sub-plots of
 the residuals?  Statistical analysis?
 
+\cc{As detailed in \cite{CunhaPhotoz09}, the weights and P(z) are susceptible to 
+four kinds of training-set selection effects: spectroscopic failures, large-scale structure 
+bias (sample variance + shot noise in the training set), selection in non-photometric observables.
+In addition, the fact that the weights uses a non-infinitesimal volume to re-weight the photometric
+set can yield a small Eddington bias to the recovered distribution. 
+And, as mentioned previously incorrect star-galaxy separation can result in incompleteness and contamination 
+of the sample. 
+Our training set 
+Because our training set consists of many different surveys with different 
+characteristics, it is important to quantify the contribution of each to the 
+overall result.
+Table \ref{tbl:weistats} lists, for each of the surveys comprising the training 
+set, the number of objects, the approximate area, and the percentage the survey 
+contributes to the weighted estimate of the overall redshift distribution. 
+This percentage is calculated by summing up the weights assigned to objects in 
+each survey and dividing by the sum of the weight of the entire training set.}
+
+
+\cc{From Table \ref{tbl:weistats}, we see that PRIMUS is by far the most important survey.
+Overall, the magnitude limited surveys to our selection of depth of $r<21.5$ - PRIMUS, TKRS, CNOC2, DEEP2-EGS, CFRS, VVDS, and zCOSMOS -
+represent about 81$\%$ of the total weight.
+This is desirable, because it minimizes the risk of bias due to   
+Our assessment of the expected impact of each source of error is as follows:}
+
+\cc{EVERYTHING FROM HERE TO THE DIVIDING LINE (SEARCH FOR =============)}
+
+\begin{itemize}
+\item {\it Large-scale structure:} We expect this to be the main source of error.
+We use galaxy+n-body simulations (courtesy of Risa Wechsler and Michael Busha) to 
+estimate the sample variance plus shot noise uncertainties of the spectroscopic redshift 
+distributions of the training set.
+For simplicity, we only simulate the magnitude limited surveys of the training set.
+In addition, because of the overlap between zCOSMOS and one of the PRIMUS fields, 
+we neglect the zCOSMOS sample in the error estimation to simplify the calculation.
+This results in a small ($\sim 10$) increase in the error bars relative to including 
+zCOSMOS as an independent sample.
+The predicted error bars are overlayed on the simulated overall redshift distribution in Fig. \ref{fig:ebars}.
+The uncertainty in the training set redshift distributions is not identical to that of 
+the uncertainties in the estimated redshift distributions derived using the weights, hence 
+the error bars should be used only for a rough reference.
+A more detailed estimation of the error bars would require SDSS specific photometry+n-body simulations.
+Relative to the error bars in the training set, the error bars in the weights estimate 
+should be somewhat smaller (of order 20-30\%- best guess), but with significant anti-correlations 
+between neighboring bins.
+For a detailed study on the impact of large-scale structure in photometric redshift estimation see 
+Cunha, Huterer, Busha \& Wechsler, in preparation.
+\item {\it Selection in non-observables:} Two of the surveys comprising our training set have selections, 
+besides a magnitude limit, in observables different from the SDSS photometry that we use to 
+calculate the p(z)'s. 
+As mentioned previously, the DEEP2-nonEGS sample is selected using BRI photometry to 
+target galaxies above $z>0.7$.
+As shown in \citet{CunhaPhotoz09}, the use of DEEP2 in earlier versions of this catalog would cause
+a bump in the overall estimated redshift distribution around $z\sim 0.8$.
+The addition of new catalogs for this data release in combination with the brighter magnitude cut,
+have largely eliminated the bias due to DEEP2-nonEGS, which carries only about 2.7\% of the total weight. 
+The 2SLAQ sample targets LRG's. 
+Besides SDSS magnitudes, it also uses morphological information in the selection.
+Because shape correlates poorly with redshift, biases due to the 2SLAQ sample are expected to be small.
+2SLAQ is an important part of our sample because it improves the photo-z's of LRG's.
+\item {\it Spectroscopic failures} The impact of spectroscopic failures is the most difficult to quantify.
+We chose a bright r-magnitude cut, and relatively stringent cuts on spectroscopic quality to minimize 
+effects of failures, but it is possible that some features seen in the redshift distribution - such as the 
+dip around $z=0.4$ are due partly to spectroscopic failures.
+\item {\it Star-galaxy separation? Discuss it here or somewhere else?}
+
+\end{itemize}
+
+\begin{figure}[t]\centering
+    \includegraphics[{angle = -90,scale=0.4}]{figures/nz.sim.error.ps}
+    \caption{\textcolor{blue}{I'm not sure if you want to put the error bars on the estimated N(z) of the real data or the on the simulation N(z).}}
+    \label{fig:ebars}
+
+    \vspace{2em}
+\end{figure}
+
+%}
+
+\begin{table}[!ht]
+%\caption{}
+\label{tbl:weistats}
+\begin{center}
+\begin{tabular}{ l r r r }\hline \hline
+Survey & Number of objects & Area$deg^2$ & Weight fraction \\ \hline 
+PRIMUS$^*$ &14,196 &5.2 & 62\% \\
+2SLAQ  &8,577 & 180 & 7.0\%\\
+TKRS$^*$  &151  & 0.07& 0.50\%\\
+CNOC2$^*$ &412  &0.4 & 1.8\%\\
+DEEP2-EGS$^{*!}$ &1,075  & 0.4 & 3.5\%\\
+DEEP2-nonEGS$^{*!}$ &301  & 2.8 & 2.7\%\\
+SDSS &435,878  & & 9.1\%\\
+CFRS$^*$ &122  & $<$0.1 & 0.67\%\\
+VVDS$^*$ &1,771  &4.0  & 5.5\%\\
+zCOSMOS$^*$ &1,247 &1.7  & 7.4\% \\ \hline \hline
+ %\multicolumn{2}{c |}{Survey} & \multicolumn{2}{| c}{Parameter Uncertainty} \\ \hline
+%Original Parameters & New Parameters & $\sigma(\DE)$ & $\sigma(w)$ \\ \hline
+%free & free & 0.8662 & 0.4206 \\
+%\multicolumn{2}{l}{add Planck priors} & 0.0331 & 0.1078 \\
+%\multicolumn{2}{l}{Planck priors} & 0.0331 & 0.1078 \\
+%free & sharp & 0.0142 & 0.0456 \\
+%sharp & sharp & 0.0024 & 0.0110 \\ \hline
+\end{tabular}
+\end{center} 
+\end{table}
+
+
+\cc{=============================} 
+
 \begin{figure}[t] \centering
     \includegraphics{figures/zweight-09-varhist.eps}
 
@@ -268,7 +380,7 @@ the residuals?  Statistical analysis?
     the weights are derived to produced distributions approximately 
     proportional to the photometric sample.
     The following four panels show extinction corrected colors based on
-    \modelmag.  The bottom right panel shows the distribution of the
+    \modelmag.  The bottom right panel shows the distribution of of the
     derived weights for the training sample.}
     \label{fig:varhist}
 
@@ -310,6 +422,26 @@ as a function of true redshift for training set objects?
     \vspace{2em}
 \end{figure}
 
+\cc{The uncertainty in individual p(z)'s is typically, dominated by shot-noise error.
+The scale of both statistical and systematic uncertainties in the individual $p(z)$'s 
+are strongly correlated with the width of the $p(z)$.
+Fig. \ref{fig:pzwidth} shows the distribution of objects in the photometric sample as
+a function of r-band magnitude and $1-\sigma$ width of the $p(z)$.
+The contours indicate factor of 2 changes in density.
+We recommend using the $1-sigma$ or other width measures of the $p(z)$ as the most efficient 
+way to trim the sample for improved accuracy.
+The $p(z)$ width should also be a reasonable error estimator for use with other photo-z methods.
+However, we discourage using the peak or some other single number statistic derived from the $p(z)$
+as a proxy for redshift. 
+If a single-number photo-z estimate is needed we recommend using a neural network or nearest-neighbor
+polynomial based approach  \cite[e.g.][]{Oyaizu08}.} 
+\begin{figure}[!t]\centering
+    \includegraphics[scale=0.25]{figures/pzwidth.ps}
+    \caption{\textcolor{blue}{This is just a placeholder plot. It needs many improvements.}}
+    \label{fig:pzwidth}
+
+    \vspace{2em}
+\end{figure}
 
 \bibliographystyle{apj}
 % Bib database
