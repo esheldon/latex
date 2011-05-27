@@ -478,7 +478,7 @@ using a neural network or nearest-neighbor polynomial based approach
 
 \section{Proper Usage} \label{sec:usage}
 
-If one desires to use the $P(z)$ to evaluate any lin-linear function $F(z)$,
+If one desires to use the $P(z)$ to evaluate any non-linear function $F(z)$,
 one must integrate over the entire distribution; i.e. one must take the
 expectation value.  The reason is quite simple. In general the following
 relation holds:
@@ -495,12 +495,19 @@ a function.
 This is true in most interesting science cases.  An excellent example is in
 gravitational lensing, where one must estimate the ``critical density for
 lensing'' $\Sigma_{crit}$.  The function $\Sigma_{crit}$ depends in a highly
-non-linear way on the angular diameters to lens, source and between lens and
-source.  The proper estimator for a lens at redshift $z_{l}$ and source with
-$P(z_s)$ is
+non-linear way on the angular diameters distance to lens, source and between
+lens and source.  The proper estimator for a lens at redshift $z_{l}$ and
+source with $P(z_s)$ is
 \begin{equation}
 \Sigma_{crit}(z_l) = \int_{0}^{\infty} \Sigma_{crit}(z_l, z_s) P(z_s) dz_s.
 \end{equation}
+
+\section{Acquiring the Data}
+
+Give the data model and location on DR8 website of files.
+
+\section{Summary}
+Summarize what we did.
 
 \bibliographystyle{apj}
 % Bib database
