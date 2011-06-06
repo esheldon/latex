@@ -73,6 +73,19 @@ pub-2008-2010:
 	ps2pdf pub-2008-2010.ps
 	@ echo "made pub-2008-2010.pdf"
 
+pub-2008-2011:
+	latex pubsource-2008-2011.tex
+	latex pubsource-2008-2011.tex
+	bibtex pubsource-2008-2011
+	latex pubsource-2008-2011.tex
+	latex pubsource-2008-2011.tex
+	latex pub-2008-2011.tex
+	latex pub-2008-2011.tex
+	dvips -t letter pub-2008-2011 -o pub-2008-2011.ps
+	ps2pdf pub-2008-2011.ps
+	@ echo "made pub-2008-2011.pdf"
+
+
 
 
 cv: 
