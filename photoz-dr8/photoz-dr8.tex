@@ -1,4 +1,5 @@
-\documentclass[preprint]{aastex}
+%\documentclass[preprint]{aastex}
+\documentclass{emulateapj}
 
 \usepackage{verbatim}
 \usepackage{color}
@@ -186,15 +187,15 @@ where $B_T$ is the Tycho magnitude and $r$ is in degrees.  Finally, we remove
 all objects from images taken where the \umag\ amplifiers were not working
 {\color{red}TODO: ref amplifier}.
 
-\begin{figure}[t] \centering
+\begin{figure*}[t] \centering
  \centering 
- \includegraphics[scale=0.5]{figures/boss-poly-coverage.eps}
+ \includegraphics[scale=0.75]{figures/boss-poly-coverage.eps}
  \caption{BOSS footprint for the north galactic cap on the left
  and the south galactic cap on the right.  The differently shaded
  regions represent contiguous rectangular regions in SDSS survey coordinates.
  Note points with RA $>$ 300 have been wrapped below zero for clarity.}
  \label{fig:footprint}
-\end{figure}
+\end{figure*}
 
 The final photometric catalog contains \nphoto\ objects.  The distribution of
 extinction corrected \rmag-band \cmodelmag\ and colors derived from extinction
@@ -356,8 +357,9 @@ pile up at zero redshift!}}
 \end{itemize}
 
 \begin{figure}[t]\centering
-    \includegraphics[{angle = -90,scale=0.4}]{figures/nz.sim.error.ps}
-    \caption{\color{red}{This seems fine; we need a caption}}
+    \includegraphics[{angle = -90,scale=0.35}]{figures/nz.sim.error.ps}
+    \caption{\color{red}{This seems fine except the green error bars are hard to 
+    see.  Maybe blue? We need a caption}}
     \label{fig:ebars}
 
     \vspace{2em}
@@ -365,6 +367,32 @@ pile up at zero redshift!}}
 
 %}
 
+\begin{deluxetable}{lrrr}
+\tablecaption{Statistics for Each Training Set \label{tbl:weistats}}
+\tablewidth{0pt}
+\tablehead{
+    \colhead{Survey} &
+    \colhead{Number of Objects} &
+    \colhead{Area} &
+    \colhead{Weight Fraction}
+}
+\
+\startdata
+PRIMUS$^*$          & 14,196  & 5.2    & 62\% \\
+2SLAQ               & 8,577   & 180    & 7.0\%\\
+TKRS$^*$            & 151     & 0.07   & 0.50\%\\
+CNOC2$^*$           & 412     & 0.4    & 1.8\%\\
+DEEP2-EGS$^{*!}$    & 1,075   & 0.4    & 3.5\%\\
+DEEP2-nonEGS$^{*!}$ & 301     & 2.8    & 2.7\%\\
+SDSS                & 435,878 &        & 9.1\%\\
+CFRS$^*$            & 122     & $<$0.1 & 0.67\%\\
+VVDS$^*$            & 1,771   & 4.0    & 5.5\%\\
+zCOSMOS$^*$         & 1,247   & 1.7    & 7.4\%
+\enddata
+\tablecomments{need some comments}
+\end{deluxetable}
+
+\begin{comment}
 \begin{table}[!ht]
 \caption{{\color{red}We should use deluxetable and add a caption}}
 \label{tbl:weistats}
@@ -391,11 +419,9 @@ zCOSMOS$^*$ &1,247 &1.7  & 7.4\% \\ \hline \hline
 \end{tabular}
 \end{center} 
 \end{table}
+\end{comment}
 
-
-\cc{=============================} 
-
-\begin{figure}[t] \centering
+\begin{figure*}[p] \centering
     \includegraphics{figures/zweight-10-varhist.eps}
 
     \caption{Distributions of photometric quantities for the photometric sample
@@ -410,7 +436,7 @@ zCOSMOS$^*$ &1,247 &1.7  & 7.4\% \\ \hline \hline
     \label{fig:varhist}
 
     \vspace{2em}
-\end{figure}
+\end{figure*}
 
 Figure \ref{fig:pofz} shows the recovered redshift distribution for the entire
 \rmag\ $<$ \rmax\ sample.  Also shown is the redshift distribution of the
@@ -430,8 +456,8 @@ these individual \pofz\ can be used meaningfully on their own. {\color{red}
 we need some estimates of the bias for both approaches here.  If we are
 skipping rachel's stuff then we need an alternative.}
 
-\begin{figure}[t] \centering
-    \includegraphics[scale=0.9]{figures/zweight-10-zhist-withorig-withsum-12.eps}
+\begin{figure*}[t] \centering
+    \includegraphics[scale=0.6]{figures/zweight-10-zhist-withorig-withsum-12.eps}
 
     \caption{Reconstructed redshift distribution for SDSS galaxies with \rmag\
     $ < $ \rmax.  The overall reconstructed distribution, shown in red, is
@@ -447,7 +473,7 @@ skipping rachel's stuff then we need an alternative.}
     \label{fig:pofz}}
 
     \vspace{2em}
-\end{figure}
+\end{figure*}
 
 The uncertainty in individual p(z)'s is typically dominated by shot-noise
 error.  The scale of both statistical and systematic uncertainties in the
@@ -467,24 +493,29 @@ number statistic derived from the $p(z)$ as a proxy for redshift. See
 using a neural network or nearest-neighbor polynomial based approach
 \cite[e.g.][]{Oyaizu08}.  \end{comment}
 
-\begin{figure}[!t]\centering
+\begin{figure*}[p]\centering
     \includegraphics[scale=0.25]{figures/pzwidth.ps}
     \caption{\textcolor{blue}{This is just a placeholder plot. It needs many improvements.}}
     \label{fig:pzwidth}
 
     \vspace{2em}
-\end{figure}
+\end{figure*}
 
 \section{Proper Usage} \label{sec:usage}
 
+In this section we describe the proper usage of these redshift distributions.
+We risk an overly pedantic discussion here in order to ensure that past
+mistakes are not repeated by the uninitiated.
+
 If one desires to use the $P(z)$ to evaluate any non-linear function $F(z)$,
 one must integrate over the entire distribution; i.e. one must take the
-expectation value.  The reason is quite simple. In general the following
-relation holds:
+expectation value.  The reason is quite simple. In general a function evaluated
+at the expectation value of z does not equal the expectation value of the
+function:
 \begin{equation}
 \langle F(z) \rangle \ne F(\langle z \rangle).
 \end{equation}
-The expectation value is computed as follows:
+The expectation value of the function should be computed as follows:
 \begin{equation}
 \langle F \rangle = \int_{0}^{\infty} F(z) P(z) dz.
 \end{equation}
@@ -492,18 +523,18 @@ It is {\bf not} correct to simply take the mean of $P(z)$ and use it to evaluate
 a function.
 
 This is true in most interesting science cases.  An excellent example is in
-gravitational lensing, where one must estimate the ``critical density for
-lensing'' $\Sigma_{crit}$.  The function $\Sigma_{crit}$ depends in a highly
-non-linear way on the angular diameters distance to lens, source and between
-lens and source.  The proper estimator for a lens at redshift $z_{l}$ and
-source with $P(z_s)$ is
+gravitational lensing, where one must estimate the ``critical density''
+$\Sigma_{crit}$, which determines the strength of a given lens-source pair or
+population.  The function $\Sigma_{crit}$ depends on the angular diameters
+distance to lens, source and between lens and source in a non-linear way.  The
+proper estimator for a lens at redshift $z_{l}$ and source with $P(z_s)$ is
 \begin{equation}
 \Sigma_{crit}(z_l) = \int_{0}^{\infty} \Sigma_{crit}(z_l, z_s) P(z_s) dz_s.
 \end{equation}
 
 \section{Acquiring the Data}
 
-Give the data model and location on DR8 website of files.
+{\color{red} Give the data model and location on DR8 website of files. }
 
 \section{Summary}
 

@@ -1,0 +1,1 @@
+../emulateapj.cls
