@@ -43,7 +43,7 @@ should be used with care, and we describe their proper use in detail.
 
 \end{abstract}
 
-\section{Introduction} \label{sec:method}
+\section{Introduction} \label{sec:intro}
 
 Photometric redshift are approximate estimates of redshift derived using broad-band photometric 
 observables such as magnitudes and colors.
@@ -617,20 +617,36 @@ identical to that of the weights estimate.}
     derived by creating a weighted histogram of the training set redshifts as
     described in the text.  Also shown in magenta is the sum of all \pofz\
     derived for individual galaxies.  The unweighted training set redshift
-    distribution is shown in blue.  The excess at $z \sim 0$ is due to stars in
-    training set having signifcant weight; more detail at low redshift is shown
-    in the inset.  This excess is at least partly due to the presence of real
-    stars in our photometric sample resulting from imperfect star-galaxy
-    separation.  The fraction of the distribution at $z < 0.002$ is 0.4\%,
-    which is probably a lower bound on the stellar contamination.
-    \label{fig:pofz}}
+    distribution is shown in blue.  The expected errors on these distributions
+    from cosmic variance in the training set is shown in Figure
+    \ref{fig:ebars}. The excess at $z \sim 0$ is due to stars in training set
+    having signifcant weight; more detail at low redshift is shown in the
+    inset.  This excess is at least partly due to the presence of real stars in
+    our photometric sample resulting from imperfect star-galaxy separation.
+    The fraction of the distribution at $z < 0.002$ is 0.4\%, which is probably
+    a lower bound on the stellar contamination.  \label{fig:pofz}}
 
     \vspace{2em}
 \end{figure*}
 
+In figure \ref{fig:rand6pofz} we show 6 randomly chosen $P(z)$.  Each panel
+contains a random $P(z)$ drawn from a particular magnitude range in extinction
+corrected $r$-band \cmodelmag; these ranges are given in the figure caption.
+This figure captures the general trend that the $P(z)$ are broader at
+fainter magnitudes.
+
+\begin{figure*} [p]\centering
+    \includegraphics{figures/18-6pofz.eps}
+    \caption{Randomly chosen $P(z)$.  In each panel, a random object was
+    chosen from a particular magnitude range.  Columwise from top the
+    left these ranges are $[r < 18], [18 < r < 19], [19 < r < 20], 
+    [20 < r < 21], [21 < r < 21.5], [21.5, < r < 21.8]$.  
+    \label{fig:rand6pofz}}
+\end{figure*}
+
 The uncertainty in individual p(z)'s is typically dominated by shot-noise
 error.  The scale of both statistical and systematic uncertainties in the
-individual $p(z)$'s are strongly correlated with the width of the $p(z)$ \cite{CunhaPhotoz09}.
+individual $p(z)$'s are strongly correlated with the width of the $p(z)$ \citep{CunhaPhotoz09}.
 Broader $p(z)$ reflects larger degeneracy in observable space, and require more training-set
 objects to characterize. 
 Fig.  \ref{fig:pzwidth} shows the distribution of objects in the
@@ -647,14 +663,14 @@ number statistic derived from the $p(z)$ as a proxy for redshift. See
 using a neural network or nearest-neighbor polynomial based approach
 \cite[e.g.][]{Oyaizu08}.  \end{comment}
 
-\begin{figure}[p]\centering
+\begin{figure*}[p]\centering
     \includegraphics{figures/pzwidth25bins.eps}
     \caption{Density contours of the mean $p(z)$ width as a function of {\it r} magnitude. 
 The width of each $p(z)$ is the defined as the standard deviation about the mean. 
 The contours represent factors of 2 changes in density.}
     \label{fig:pzwidth}
     \vspace{2em}
-\end{figure}
+\end{figure*}
 
 
 
