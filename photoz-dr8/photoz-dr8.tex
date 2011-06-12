@@ -10,6 +10,8 @@
 \newcommand{\rmin}{15.0}
 \newcommand{\rmax}{21.8}
 \newcommand{\pofz}{P$(z$)}
+\newcommand{\nwei}{N(z)_{\rm wei}}
+\newcommand{\npz}{N(z)_{\rm p(z)}}
 \newcommand{\contam}{{\color{red} UNKNOWN}}
 \newcommand{\nphoto}{{\color{red} UNKNOWN}}
 \newcommand{\ntrain}{{\color{red} UNKNOWN}}
@@ -41,6 +43,32 @@ should be used with care, and we describe their proper use in detail.
 
 \end{abstract}
 
+\section{Introduction} \label{sec:method}
+
+Photometric redshift are approximate estimates of redshift derived using broad-band photometric 
+observables such as magnitudes and colors.
+Typically, the set of observables for a given galaxy are not sufficient to uniquely specify its
+redshift, but only a (often broad) probability distribution, the $p(z)$. 
+For simplicity of use and interpretation, one commonly uses a single-number, the photometric redshift
+as the best estimate of a galaxy's redshift.
+As several recent works have shown \citep{man08,CunhaPhotoz09,wit09,bor10,abr11}, the use of single-number 
+photo-zs is a biased approach to redshift estimation. 
+Working with the full $p(z)$ for each galaxy yields better estimates of the overall redshift distribution, $N(z)$,
+and can decrease biases in cosmological analysis.
+We note that several public photo-z codes exist that can output $p(z)$s, e.g. 
+{\it Le Phare} \citep{...}, {\it ZEBRA} \citep{}, {\it BPz} \citep{}, {\it ArborZ} 
+\citep{...}, and our own nameless method \citep{CunhaPhotoz09}.
+
+
+In this paper, we describe a $p(z)$ catalog for the SDSS DR8. 
+We use the same method of \citep{CunhaPhotoz09}, which was applied to SDSS DR7, 
+with improvements in the training set, and  photometry. 
+The DR7 catalog of \cite{CunhaPhotoz09} has been succesfully used in cosmological analysis, allowing, for example, 
+for the first direct detection of the angular BAO signal \citep{car11} and for the measurement of the 
+growth of structure using photometric LRGs \citep{cro11}. %\citep[see e.g.][]{}and astrophysical analysis.
+
+This paper is organized as follows ...
+
 \section{Method} \label{sec:method}
 
 The algorithm is detailed in \citet{LimaPhotoz08} and \citet{CunhaPhotoz09}.
@@ -51,6 +79,64 @@ Assuming these quantities correlate with redshift, and are the only relevant
 quantities for redshift determination, the resulting weighted redshift
 histogram is proportional to the redshift probability distribution \pofz\ of the
 secondary sample. 
+
+
+\subsection{Nearest-neighbor p(z) redshift estimators}\label{sec:nnpz}
+
+\textcolor{blue}{I had this from the paper I'm writing with Dragan. I think it goes well here too. What do you think?}
+
+\subsubsection{Weights}
+
+In this section, we briefly review the weighting method \footnote{The weights and $p(z)$ 
+codes are available at \tt http://kobayashi.physics.lsa.umich.edu/~ccunha/nearest/} of \cite{LimaPhotoz08}, which
+is required for computing $p(z)$.  We define the weight, $w$, of a galaxy in
+the spectroscopic training set as the normalized ratio of the density of
+galaxies in the photometric sample to the density of training-set galaxies
+around the given galaxy.  These densities are calculated in a local
+neighborhood in the space of photometric observables, e.g., multi-band
+magnitudes.  In this case, the DES {\it griz} magnitudes are our observables.
+The hypervolume used to estimate the density is set here to be the Euclidean
+distance of the galaxy to its $100^{th}$ nearest-neighbor in the training set.
+
+The weights can be used to estimate the redshift distribution of the photometric sample:
+
+\begin{equation}  
+\nwei   = \sum_{\beta=1}^{N_{\rm T,tot}} w_\beta N(z_1<z_\beta<z_2)_{\rm T},
+\label{eqn:Nzest}
+\end{equation}
+\noindent where the weighted sum is over all galaxies in the training
+set. Ref.~\cite{LimaPhotoz08,CunhaPhotoz09} show that this indeed provides a nearly unbiased estimate of
+the redshift distribution of the photometric sample, $N(z)_{\rm P}$, provided
+the differences in the selection of the training and photometric samples are
+solely done in the observable quantities used to calculate the weights.
+
+
+\subsubsection{p(z)}
+
+To estimate the redshift error distribution for each galaxy, $p(z)$,
+we adopt the method of \cite{CunhaPhotoz09}. The $p(z)$ for a given object in the
+photometric sample is simply the redshift distribution of the N (in this case
+100) nearest-neighbors in the {\bf training} set.
+
+\begin{equation}
+\hat{p}(z) = \sum_{\beta=1}^{N_{\rm nei}} w_\beta \delta(z-z_\beta)~,
+\label{eqn:pzest}
+\end{equation}
+\noindent 
+We estimate $p(z)$ in 20 redshift bins between $z=0$ and $1.35$. 
+We can also construct a new estimator for $N(z)_{\rm P}$ by summing the 
+$\hat{p}(z)$ distributions for all galaxies in the photometric sample,
+
+
+\begin{equation}
+\npz = \sum_{i=1}^{N_{\rm P,tot}}\hat{p}_i(z)~.
+\label{eqn:Nhat2}
+\end{equation}
+\noindent This estimator becomes identical to that of Eqn. (\ref{eqn:Nzest})
+in the limit of very large training sets.  For training sets smaller than tens
+of thousands of galaxies, one can improve the $p(z)'s$ by multiplying each $p(z)$ by the
+ratio of $\nwei$ to $\npz$.
+ 
 
 
 \section{Photometric Data}
@@ -346,7 +432,7 @@ training set.  In addition, because of the overlap between zCOSMOS and one of
 the PRIMUS fields, we neglect the zCOSMOS sample in the error estimation to
 simplify the calculation.  This results in a $\sim$10\% increase in the error
 bars relative to including zCOSMOS as an independent sample.  The predicted
-error bars are overlayed on the simulated overall redshift distribution\footnote{Simulations provided courtesy of Risa Wechsler and Michael Busha. See Busha el al 2011, in prep. for details.} in Fig.
+error bars are overlayed on the simulated overall redshift distribution\footnote{Simulations provided courtesy of Risa Wechsler and Michael Busha. See \cite{bushasimulations} for details.} in Fig.
 \ref{fig:ebars}.  The uncertainty in the training set redshift distributions is
 not identical to that of the uncertainties in the estimated redshift
 distributions N(z) derived using the weights, hence the error bars should be
@@ -642,7 +728,35 @@ The resulting lensing calibration bias is shown in Fig. blah.
 
 \section{Summary}
 
-Summarize what we did.  Compare to other estimators?
+In this paper we presented a catalog of redshift probability distributions for the SDSS DR8. 
+This catalog uses the same method as the $p(z)$ catalog for SDSS DR7 presented in \cite{CunhaPhotoz09} with
+some modifications.
+For this catalog, we use the ubercal photometry.
+We also add the PRIMUS galaxy sample, which more than doubles the number of galaxies in our training set that are flux-limited.
+The addition of PRIMUS provides a significant increase in the total area of the training set, which helps to reduce sample variance.
+We examined several potential sources of error, including shot noise, sample variance, seeing, star-galaxy separation, and 
+spectroscopic failures.
+We expect that sample variance is the main source of uncertainty in our overall redshift distribution.
+For individual $p(z)$s, shot-noise is the limiting uncertainty.
+Differently from the DR7 catalog, we did not use repeat observations of our training set galaxies.
+The use of repeats can provide more localized and smoother $p(z)$ estimates, and are often useful.
+However, because only part of our sample had repeat observations, the use of repeats would effectively increase the sample
+variance of our results. 
+The use of repeats may be beneficial for LRGs because the training set is not sample variance limited in this case. 
+We may release a catalog trained on repeat observations at a future date.
+
+
+%Summarize what we did.  Compare to other estimators?
+
+%- Compare to DR7 p(z)'s: Added PRIMUS, no repeats-> focus on decreasing sample variance, UBERCAL, Payed attention to the seeing.
+
+%- Previous usage in the literature. Mandelbaum et al, Carnero et al, Crocce et al (, Liu et al, 
+
+%- Abrahamse: mathematical proof that P(z)'s are unbiased if N(z) is correct.
+
+
+
+
 
 \bibliographystyle{apj}
 % Bib database
