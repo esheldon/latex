@@ -389,26 +389,31 @@ is possible that errors due to spectroscopic failures are not negligible.
 looking into the expected contamination.  It's OK of course if there are stars as long as they
 pile up at zero redshift!}}
 
-\item {\it Seeing} Nakajima et al (2011, in prep), point out that differences between the seeing distribution of 
-the galaxies in the photometric and the training set can lead to biases in the photo-z error calibration.
-%Our training sample is not always matched to the best run in the Stripe82 samples, so that 
-We check the sensitivity of our results to seeing-induced biases by including seeing as a variable in the weights
-estimation.
-We find only negligible change in the recovered redshift distribution. \textcolor{blue}{CHECK! I'm saying this based on some plots you sent out on May 10 at 3:07PM}.
-%If we include seeing as a variable in the weights estimation, the weighted seeing distribution of our training sample
-%closely matches that of the photometric sample.
-%This comes at the price of degrading the matching between the weighted and photometric r-mag distribution.
-%In the end, the mean of $N(z_{wei}$ shifts by 
+\item {\it Seeing} Nakajima et al (2011, in prep), point out that differences
+between the seeing distribution of the galaxies in the photometric and the
+training set can lead to biases in the photo-z error calibration.
+%Our training sample is not always matched to the best run in the Stripe82
+%samples, so that 
+We check the sensitivity of our results to seeing-induced biases by including
+seeing as a variable in the weights estimation.  We find only negligible change
+in the recovered redshift distribution. \textcolor{blue}{CHECK! I'm saying this
+based on some plots you sent out on May 10 at 3:07PM}.
+%If we include seeing as a variable in the weights estimation, the weighted
+%seeing distribution of our training sample closely matches that of the
+%photometric sample.  This comes at the price of degrading the matching between
+%the weighted and photometric r-mag distribution.  In the end, the mean of
+%$N(z_{wei}$ shifts by 
 \textcolor{blue}{Should we show the plot of seeing distributions?}
 
 \end{itemize}
 
 \begin{figure}[t]\centering
     \includegraphics[{angle = -90,scale=0.35}]{figures/nz.sim.error.ps}
-    \caption{\color{red}{Simulated redshift distribution of an $r<21.8$ sample.
-The error bars are the $1-\sigma$ simulated estimates of the variability of the 
-uncertainty in the redshift distribution due to sample variance in the catalogs 
-comprising the training set.}}
+
+    \caption{Simulated redshift distribution of an $r<21.8$ sample.  The error
+    bars are the $1-\sigma$ simulated variability due to sample variance in the
+    catalogs comprising the training set.}
+
     \label{fig:ebars}
     \vspace{2em}
 \end{figure}
@@ -542,9 +547,6 @@ error.  The scale of both statistical and systematic uncertainties in the
 individual $p(z)$'s are strongly correlated with the width of the $p(z)$ \cite{CunhaPhotoz09}.
 Broader $p(z)$ reflects larger degeneracy in observable space, and require more training-set
 objects to characterize. 
-{\color{red} can we show this here or will we just reference your other
-paper?} 
-\textcolor{blue}{I added a sentence and a reference}.  
 Fig.  \ref{fig:pzwidth} shows the distribution of objects in the
 photometric sample as a function of r-band magnitude and $1-\sigma$ width of
 the $p(z)$.  The contours indicate factor of 2 changes in density.  
@@ -559,14 +561,14 @@ number statistic derived from the $p(z)$ as a proxy for redshift. See
 using a neural network or nearest-neighbor polynomial based approach
 \cite[e.g.][]{Oyaizu08}.  \end{comment}
 
-\begin{figure*}[p]\centering
-    \includegraphics[scale=1.25]{figures/pzwidth25bins.eps}
+\begin{figure}[p]\centering
+    \includegraphics{figures/pzwidth25bins.eps}
     \caption{Density contours of the mean $p(z)$ width as a function of {\it r} magnitude. 
 The width of each $p(z)$ is the defined as the standard deviation about the mean. 
 The contours represent factors of 2 changes in density.}
     \label{fig:pzwidth}
     \vspace{2em}
-\end{figure*}
+\end{figure}
 
 
 
