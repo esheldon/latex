@@ -11,8 +11,10 @@
 \newcommand{\rmin}{15.0}
 \newcommand{\rmax}{21.8}
 \newcommand{\pofz}{$P(z$)}
+\newcommand{\Nofz}{$P(z$)}
 \newcommand{\nwei}{N(z)_{\rm wei}}
 \newcommand{\npz}{N(z)_{\rm p(z)}}
+\newcommand{\nphot}{N(z)_{\rm phot}}
 \newcommand{\contam}{{\color{red} UNKNOWN}}
 \newcommand{\nphoto}{{\color{red} UNKNOWN}}
 \newcommand{\ntrain}{{\color{red} UNKNOWN}}
@@ -58,8 +60,8 @@ photo-zs is a biased approach to redshift estimation.  Working with the full
 \pofz\ for each galaxy yields better estimates of the overall redshift
 distribution, $N(z)$, and can decrease biases in cosmological analysis.  We
 note that several public photo-z codes exist that can output \pofz s, e.g.
-{\it Le Phare} \citep{...}, {\it ZEBRA} \citep{}, {\it BPz} \citep{}, {\it
-ArborZ} \citep{...}, and our own nameless method \citep{CunhaPhotoz09}.
+{\it Le Phare} \citep{arn99,ilb06}, {\it ZEBRA} \citep{fel06}, {\it BPZ} \citep{coe06}, {\it
+ArborZ} \citep{ger10}, and our own nameless method \citep{CunhaPhotoz09}.
 
 
 In this paper, we describe a \pofz\ catalog for the SDSS DR8.  We use the
@@ -67,7 +69,7 @@ method of \citet{CunhaPhotoz09}, which was also applied to SDSS DR7, with
 improvements in the training set and  photometry.  The DR7 catalog of
 \cite{CunhaPhotoz09} has been succesfully used in cosmological analysis,
 allowing, for example, for the first direct detection of the angular BAO signal
-\citep{car11} {\color{red} what about Padmanabhan?} and for the measurement of
+\citep{car11} {\color{red} what about Padmanabhan?} {\color{blue} (I copied this statement from the abstract. I emailed Carnero to check.)} and for the measurement of
 the growth of structure using photometric LRGs \citep{cro11}. 
 \begin{comment}
 \citep[see e.g.][]{}and astrophysical analysis.
@@ -80,11 +82,12 @@ This paper is organized as follows ...
 The algorithm is detailed in \citet{LimaPhotoz08} and \citet{CunhaPhotoz09}.
 The method derives weights for a training set of spectroscopically confirmed
 galaxies such that the distribution of relevant quantities, such as magnitudes
-or colors, matches that of a secondary set of galaxies without known redshifts.
+or colors, matches that of a %secondary 
+set of galaxies without known redshifts, henceforth the photometric sample.
 Assuming these quantities correlate with redshift, and are the only relevant
 quantities for redshift determination, the resulting weighted redshift
-histogram is proportional to the redshift probability distribution \pofz\ of the
-secondary sample. 
+histogram is proportional to the redshift %probability 
+distribution \Nofz\ of the photometric sample. 
 
 \subsection{Nearest-neighbor \pofz\ redshift estimators}\label{sec:nnpz}
 
@@ -115,16 +118,15 @@ photometric sample:
 \end{comment}
 
 \noindent For a bin $z_1 < z < z_2$, we sum the weights of all training
-set galaxies that fall within that bin.  {\color{red} What do you think of my
-version of the equation?  I think it is a better parallel with the p(z)
-equation} Ref.~\cite{LimaPhotoz08,CunhaPhotoz09} show that this indeed provides
+set galaxies that fall within that bin.  
+Ref.~\cite{LimaPhotoz08,CunhaPhotoz09} show that this indeed provides
 a nearly unbiased estimate of the redshift distribution of the photometric
 sample, $N(z)_{\rm P}$, provided the differences in the selection of the
 training and photometric samples are solely in the observable quantities used
-to calculate the weights.  {\color{blue}For example, if the photometric sample
-has some sort of size dependent cut, the same cut should be applied to the
-training sample or size should be one of the observables used to measure
-weights.}
+to calculate the weights.  For example, if the photometric sample
+has some sort of shape dependent cut, the same cut should be applied to the
+training sample or shape should be one of the observables used to measure
+weights.
 
 
 \subsubsection{\pofz}
@@ -139,9 +141,9 @@ photometric sample is simply the redshift distribution of the N (in this case
 \label{eqn:pzest}
 \end{equation}
 
-\noindent This is the same as equation \ref{eqn:Nzest} but limited to the
-nearest neighbors to the galaxy of interest. We estimate \pofz\ in {\color{red}
-\sout{20}} 35 redshift bins between $z=0$ and {\color{red}\sout{$1.35$}} 1.1.
+\noindent This is the same as Eqn. \ref{eqn:Nzest} but limited to the
+nearest neighbors to the galaxy of interest. We estimate \pofz\ in 35 
+redshift bins between $z=0$ and 1.1.
 We can also construct a new estimator for $N(z)_{\rm P}$ by summing the
 $\hat{p}(z)$ distributions for all galaxies in the photometric sample,
 
@@ -154,15 +156,20 @@ $\hat{p}(z)$ distributions for all galaxies in the photometric sample,
 in the limit of very large training sets.  For training sets smaller than tens
 of thousands of galaxies, one can improve the \pofz s by multiplying each \pofz\ by the
 ratio of $\nwei$ to $\npz$.
- 
+That is,
+\begin{equation}
+P(z) \rightarrow P(z)\frac{\nwei}{\npz} \label{eqn:pzcorrect}
+\end{equation}
+This correction essentially corresponds to using the weights estimate as a prior on the \pofz s.
+
 
 
 \section{Photometric Data}
 
 The photometric data were drawn from data release 8 (DR8) of the Sloan Digitial
 Sky Survey III.  Full details are given in the data release paper \citet{dr8}.
-As compared to the earlier DR7 release, these data include an additional 2500
-deg$^2$ of new imaging in the Southern Galactic Cap (SGC). These data were
+As compared to the earlier DR7 release, DR8 includes an additional 2500
+deg$^2$ of new imaging in the Southern Galactic Cap (SGC), %. These data were
 taken to facilitate spectroscopic target selection for the \boss\ experiment,
 which is part of SDSS III.
 
@@ -170,7 +177,7 @@ which is part of SDSS III.
 SDSS data are gathered using the 2.5 meter at Apache Point \citep{Gunn06} with
 the camera \citep{Gunn98} in time-delay-and-integrate mode.  Observations are
 taken in each of the SDSS bandpasses {\it ugriz} nearly simultaneously as the
-sky drifts across the camera.  These data were taken during photometric nights
+sky drifts across the camera.  The data were taken during photometric nights
 under relatively good seeing conditions \citep{Hogg01}.  A series of pipelines
 are run to calibrate the data \citep{Nikhil08,Smith02,Tucker06}, derive
 astrometry \citep{Pier03}, and calculate fluxes, shapes and other interesting
@@ -434,7 +441,7 @@ dividing by the sum of weights from the entire training set.
 
 From Table \ref{tbl:weistats}, we see that PRIMUS carries the most weight by a
 large margin at 62\%.  Overall, the magnitude limited surveys that reach our
-our selection depth of \rmax\ - PRIMUS, TKRS, CNOC2, DEEP2-EGS, CFRS, VVDS, and
+selection depth of \rmax\ - PRIMUS, TKRS, CNOC2, DEEP2-EGS, CFRS, VVDS, and
 zCOSMOS - represent about 81$\%$ of the total weight.  This is desirable,
 because it minimizes the risk of bias in our assessment errors in what follows.
 
@@ -468,9 +475,9 @@ magnitude limited sample.  As mentioned previously, the DEEP2-nonEGS sample is
 selected using BRI photometry to target galaxies above $z>0.7$.  As shown in
 \citet{CunhaPhotoz09}, the use of DEEP2 in earlier versions of this catalog
 would cause a bump in the overall estimated redshift distribution around $z\sim
-0.8$.  The more recent data release has a brighter magnitude cut and additional
-data, and these issues have largely been eliminated this bias.  Note
-DEEP2-nonEGS carries about 2.7\% of the total weight.  The 2SLAQ sample targets
+0.8$.  The present data release has a brighter magnitude cut and additional
+training data, which has eliminated this bias.  
+Now, DEEP2-nonEGS carries about 1.4\% of the total weight.  The 2SLAQ sample targets
 LRG's.  Besides SDSS magnitudes, it also uses morphological information in the
 selection.  Because shape correlates poorly with redshift, biases due to the
 2SLAQ sample are expected to be small.  2SLAQ is an important part of our
@@ -616,15 +623,18 @@ the photometric sample, but this is probably a lower limit on the stellar
 contamination {\color{red}beef this up}.
 
 Also shown in \ref{fig:pofz} is the summed \pofz\ derived for individual
-galaxies.  The summed \pofz\ favors lower redshift than the overall weighted
-redshift histogram, although the expectation value of the redshift is within a
-percent {\color{red} Carlos what was the number?}.  This is suggestive that
-these individual \pofz\ can be used meaningfully on their own. {\color{red} 
-we need some estimates of the bias for both approaches here.  If we are
-skipping rachel's stuff then we need an alternative.}
-\textcolor{blue}{I think I only compared means of different weights estimates. 
-Also, aren't you applying the correction to the \pofz s? This would make their sum
-identical to that of the weights estimate.}
+galaxies.  The(uncorrected) $\npz$\ is, characteristically, slightly more peaked than
+than $\nwei$.
+We apply Eq. \ref{eqn:pzcorrect} to correct the \pofz s. 
+%favors lower redshift than the overall weighted
+%redshift histogram, although the expectation value of the redshift is within a
+%percent {\color{red} Carlos what was the number?}.  This is suggestive that
+%these individual \pofz\ can be used meaningfully on their own.{\color{blue} I don't know that similarity between the redshift distributions is that big a deal. I think it's more a statement about the size of the training set. Plus, we are applying the correction, anyway.}% {\color{red} 
+%we need some estimates of the bias for both approaches here.  If we are
+%skipping rachel's stuff then we need an alternative.}
+%\textcolor{blue}{I think I only compared means of different weights estimates. 
+%Also, aren't you applying the correction to the \pofz s? This would make their sum
+%identical to that of the weights estimate.}
 
 \begin{figure*}[t] \centering
     \includegraphics[scale=0.6]{figures/zweight-10-zhist-withorig-withsum-12.eps}
@@ -737,29 +747,26 @@ In this section we use the calibration analysis of Mandelbaum et al 2009 to
 demonstrate that if the sum of the \pofz s recovers the overall redshift distribution
 accurately, then no lensing calibration bias is produced.
 In addition, we show that the use of the \pofz s results in near optimal weighting.
-\textcolor{blue}{add plot of variance ratios} 
-in this test case, even though the \pofz s are quite broad (because the training set is so small).
+
+
 
 
 Here, we take the DEEP2-EGS sample to be both the training and photometric samples. 
-Then, by construction, the weights yield a virtually perfect estimate, $N(z_{wei})$, of the 
-redshift distribution of the photometric sample, $N(z)^{phot}$.
-However, because the training set is so small, the $N(p(z))$ differs significantly from the $N(z_{wei})$.
+Then, by construction, the weights yield a virtually perfect estimate, $\nwei$, of the 
+redshift distribution of the photometric sample, $\nphot$.
+However, because the training set is so small, the $\npz$ differs significantly from the $\nwei$.
 %Because the training set is so small, the $N(p(z))$ differed significantly from the $N(z_{wei}$, which 
 %was, by construction, a near perfect estimate of the overall redshift distribution. 
-We therefore apply the correction 
-\begin{equation}
-P(z) \rightarrow P(z)\frac{N(z_{wei})}{N(P(z))}
-\end{equation}
-discussed in Cunha et al 2011, in prep. to the \pofz s.
-The resulting lensing calibration bias is shown in Fig. blah.
+an we apply Eq. \ref{eqn:pzcorrect} to correct the \pofz s. 
+The resulting lensing calibration bias is shown in Fig. blah...
+\textcolor{blue}{add plot of variance ratios} 
 
-
+ - Calculate mean \pofz width for this sample?
 
 
 \section{Acquiring the Data}
 
-{\color{red} Give the data model and location on DR8 website of files. }
+{\color{red} Give the data model and location  of files on DR8 website. }
 
 \section{Summary}
 
