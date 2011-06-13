@@ -3,13 +3,14 @@
 
 \usepackage{verbatim}
 \usepackage{color}
+\usepackage[normalem]{ulem} % for striking out with \sout
 \input{newcommands.tex}
 
 \newcommand{\modelrmin}{15.0}
 \newcommand{\modelrmax}{29.0}
 \newcommand{\rmin}{15.0}
 \newcommand{\rmax}{21.8}
-\newcommand{\pofz}{P$(z$)}
+\newcommand{\pofz}{$P(z$)}
 \newcommand{\nwei}{N(z)_{\rm wei}}
 \newcommand{\npz}{N(z)_{\rm p(z)}}
 \newcommand{\contam}{{\color{red} UNKNOWN}}
@@ -43,36 +44,41 @@ should be used with care, and we describe their proper use in detail.
 
 \end{abstract}
 
-\section{Introduction} \label{sec:method}
+\section{Introduction} \label{sec:intro}
 
-Photometric redshift are approximate estimates of redshift derived using broad-band photometric 
-observables such as magnitudes and colors.
-Typically, the set of observables for a given galaxy are not sufficient to uniquely specify its
-redshift, but only a (often broad) probability distribution, the $p(z)$. 
-For simplicity of use and interpretation, one commonly uses a single-number, the photometric redshift
-as the best estimate of a galaxy's redshift.
-As several recent works have shown \citep{man08,CunhaPhotoz09,wit09,bor10,abr11}, the use of single-number 
-photo-zs is a biased approach to redshift estimation. 
-Working with the full $p(z)$ for each galaxy yields better estimates of the overall redshift distribution, $N(z)$,
-and can decrease biases in cosmological analysis.
-We note that several public photo-z codes exist that can output $p(z)$s, e.g. 
-{\it Le Phare} \citep{...}, {\it ZEBRA} \citep{}, {\it BPz} \citep{}, {\it ArborZ} 
-\citep{...}, and our own nameless method \citep{CunhaPhotoz09}.
+Photometric redshifts are estimates of redshift derived using broad-band
+photometric observables such as magnitudes and colors.  Typically, the set of
+observables for a given galaxy are not sufficient to uniquely specify its
+redshift, but only a probability distribution, the \pofz.  These \pofz\ are
+often relatively broad. For simplicity of use and interpretation, one commonly
+uses a single-number, the photometric redshift as the best estimate of a
+galaxy's redshift.  As several recent works have shown
+\citep{man08,CunhaPhotoz09,wit09,bor10,abr11}, the use of single-number
+photo-zs is a biased approach to redshift estimation.  Working with the full
+\pofz\ for each galaxy yields better estimates of the overall redshift
+distribution, $N(z)$, and can decrease biases in cosmological analysis.  We
+note that several public photo-z codes exist that can output \pofz s, e.g.
+{\it Le Phare} \citep{...}, {\it ZEBRA} \citep{}, {\it BPz} \citep{}, {\it
+ArborZ} \citep{...}, and our own nameless method \citep{CunhaPhotoz09}.
 
 
-In this paper, we describe a $p(z)$ catalog for the SDSS DR8. 
-We use the same method of \citep{CunhaPhotoz09}, which was applied to SDSS DR7, 
-with improvements in the training set, and  photometry. 
-The DR7 catalog of \cite{CunhaPhotoz09} has been succesfully used in cosmological analysis, allowing, for example, 
-for the first direct detection of the angular BAO signal \citep{car11} and for the measurement of the 
-growth of structure using photometric LRGs \citep{cro11}. %\citep[see e.g.][]{}and astrophysical analysis.
+In this paper, we describe a \pofz\ catalog for the SDSS DR8.  We use the
+method of \citet{CunhaPhotoz09}, which was also applied to SDSS DR7, with
+improvements in the training set and  photometry.  The DR7 catalog of
+\cite{CunhaPhotoz09} has been succesfully used in cosmological analysis,
+allowing, for example, for the first direct detection of the angular BAO signal
+\citep{car11} {\color{red} what about Padmanabhan?} and for the measurement of
+the growth of structure using photometric LRGs \citep{cro11}. 
+\begin{comment}
+\citep[see e.g.][]{}and astrophysical analysis.
+\end{comment}
 
 This paper is organized as follows ...
 
 \section{Method} \label{sec:method}
 
 The algorithm is detailed in \citet{LimaPhotoz08} and \citet{CunhaPhotoz09}.
-This method derives weights for a training set of spectroscopically confirmed
+The method derives weights for a training set of spectroscopically confirmed
 galaxies such that the distribution of relevant quantities, such as magnitudes
 or colors, matches that of a secondary set of galaxies without known redshifts.
 Assuming these quantities correlate with redshift, and are the only relevant
@@ -80,16 +86,13 @@ quantities for redshift determination, the resulting weighted redshift
 histogram is proportional to the redshift probability distribution \pofz\ of the
 secondary sample. 
 
-
-\subsection{Nearest-neighbor p(z) redshift estimators}\label{sec:nnpz}
-
-\textcolor{blue}{I had this from the paper I'm writing with Dragan. I think it goes well here too. What do you think?}
+\subsection{Nearest-neighbor \pofz\ redshift estimators}\label{sec:nnpz}
 
 \subsubsection{Weights}
 
-In this section, we briefly review the weighting method \footnote{The weights and $p(z)$ 
+In this section, we briefly review the weighting method\footnote{The weights and \pofz\
 codes are available at \tt http://kobayashi.physics.lsa.umich.edu/~ccunha/nearest/} of \cite{LimaPhotoz08}, which
-is required for computing $p(z)$.  We define the weight, $w$, of a galaxy in
+is required for computing \pofz.  We define the weight, $w$, of a galaxy in
 the spectroscopic training set as the normalized ratio of the density of
 galaxies in the photometric sample to the density of training-set galaxies
 around the given galaxy.  These densities are calculated in a local
@@ -98,33 +101,48 @@ magnitudes.  In this case, the DES {\it griz} magnitudes are our observables.
 The hypervolume used to estimate the density is set here to be the Euclidean
 distance of the galaxy to its $100^{th}$ nearest-neighbor in the training set.
 
-The weights can be used to estimate the redshift distribution of the photometric sample:
-
+The weights can be used to estimate the redshift distribution of the
+photometric sample:
 \begin{equation}  
-\nwei   = \sum_{\beta=1}^{N_{\rm T,tot}} w_\beta N(z_1<z_\beta<z_2)_{\rm T},
+\nwei = \sum_{\beta=1}^{N_{\rm T}} w_\beta \delta(z-z_\beta)~.
 \label{eqn:Nzest}
 \end{equation}
-\noindent where the weighted sum is over all galaxies in the training
-set. Ref.~\cite{LimaPhotoz08,CunhaPhotoz09} show that this indeed provides a nearly unbiased estimate of
-the redshift distribution of the photometric sample, $N(z)_{\rm P}$, provided
-the differences in the selection of the training and photometric samples are
-solely done in the observable quantities used to calculate the weights.
+\begin{comment}
+\begin{equation}  
+\nwei = \sum_{\beta=1}^{N_{\rm T,tot}} w_\beta N(z_1<z_\beta<z_2)_{\rm T},
+\label{eqn:Nzest}
+\end{equation}
+\end{comment}
+
+\noindent For a bin $z_1 < z < z_2$, we sum the weights of all training
+set galaxies that fall within that bin.  {\color{red} What do you think of my
+version of the equation?  I think it is a better parallel with the p(z)
+equation} Ref.~\cite{LimaPhotoz08,CunhaPhotoz09} show that this indeed provides
+a nearly unbiased estimate of the redshift distribution of the photometric
+sample, $N(z)_{\rm P}$, provided the differences in the selection of the
+training and photometric samples are solely in the observable quantities used
+to calculate the weights.  {\color{blue}For example, if the photometric sample
+has some sort of size dependent cut, the same cut should be applied to the
+training sample or size should be one of the observables used to measure
+weights.}
 
 
-\subsubsection{p(z)}
+\subsubsection{\pofz}
 
-To estimate the redshift error distribution for each galaxy, $p(z)$,
-we adopt the method of \cite{CunhaPhotoz09}. The $p(z)$ for a given object in the
+To estimate the redshift error distribution for each galaxy, \pofz,
+we adopt the method of \cite{CunhaPhotoz09}. The \pofz\ for a given object in the
 photometric sample is simply the redshift distribution of the N (in this case
-100) nearest-neighbors in the {\bf training} set.
+100) nearest-neighbors in the {\bf training} set:
 
 \begin{equation}
-\hat{p}(z) = \sum_{\beta=1}^{N_{\rm nei}} w_\beta \delta(z-z_\beta)~,
+\hat{p}(z) = \sum_{\beta=1}^{N_{\rm nei}} w_\beta \delta(z-z_\beta)~.
 \label{eqn:pzest}
 \end{equation}
-\noindent 
-We estimate $p(z)$ in 20 redshift bins between $z=0$ and $1.35$. 
-We can also construct a new estimator for $N(z)_{\rm P}$ by summing the 
+
+\noindent This is the same as equation \ref{eqn:Nzest} but limited to the
+nearest neighbors to the galaxy of interest. We estimate \pofz\ in {\color{red}
+\sout{20}} 35 redshift bins between $z=0$ and {\color{red}\sout{$1.35$}} 1.1.
+We can also construct a new estimator for $N(z)_{\rm P}$ by summing the
 $\hat{p}(z)$ distributions for all galaxies in the photometric sample,
 
 
@@ -134,7 +152,7 @@ $\hat{p}(z)$ distributions for all galaxies in the photometric sample,
 \end{equation}
 \noindent This estimator becomes identical to that of Eqn. (\ref{eqn:Nzest})
 in the limit of very large training sets.  For training sets smaller than tens
-of thousands of galaxies, one can improve the $p(z)'s$ by multiplying each $p(z)$ by the
+of thousands of galaxies, one can improve the \pofz s by multiplying each \pofz\ by the
 ratio of $\nwei$ to $\npz$.
  
 
@@ -270,8 +288,7 @@ that depends on the magnitude of the star:
 r = (0.0802\times B_T^2 - 1.860\times B_T + 11.625)/60.0
 \end{equation}
 where $B_T$ is the Tycho magnitude and $r$ is in degrees.  Finally, we remove
-all objects from images taken where the \umag\ amplifiers were not working
-{\color{red}TODO: ref amplifier}.
+all objects from images taken where a \umag\ amplifier was not working.
 
 \begin{figure*}[t] \centering
  \centering 
@@ -398,7 +415,7 @@ but otherwise the distributions are quite close.  It may be possible to learn
 something by comparing these distributions directly, but we will instead focus
 on the accuracy of the recovered redshift distributions.
 
-As detailed in \cite{CunhaPhotoz09}, the weights and P(z) are susceptible to
+As detailed in \cite{CunhaPhotoz09}, the weights and \pofz\ are susceptible to
 four kinds of training-set selection effects: spectroscopic failures,
 large-scale structure bias (sample variance + shot noise in the training set),
 and selection in non-photometric observables.  In addition, the fact that the
@@ -475,26 +492,31 @@ is possible that errors due to spectroscopic failures are not negligible.
 looking into the expected contamination.  It's OK of course if there are stars as long as they
 pile up at zero redshift!}}
 
-\item {\it Seeing} Nakajima et al (2011, in prep), point out that differences between the seeing distribution of 
-the galaxies in the photometric and the training set can lead to biases in the photo-z error calibration.
-%Our training sample is not always matched to the best run in the Stripe82 samples, so that 
-We check the sensitivity of our results to seeing-induced biases by including seeing as a variable in the weights
-estimation.
-We find only negligible change in the recovered redshift distribution. \textcolor{blue}{CHECK! I'm saying this based on some plots you sent out on May 10 at 3:07PM}.
-%If we include seeing as a variable in the weights estimation, the weighted seeing distribution of our training sample
-%closely matches that of the photometric sample.
-%This comes at the price of degrading the matching between the weighted and photometric r-mag distribution.
-%In the end, the mean of $N(z_{wei}$ shifts by 
+\item {\it Seeing} Nakajima et al (2011, in prep), point out that differences
+between the seeing distribution of the galaxies in the photometric and the
+training set can lead to biases in the photo-z error calibration.
+%Our training sample is not always matched to the best run in the Stripe82
+%samples, so that 
+We check the sensitivity of our results to seeing-induced biases by including
+seeing as a variable in the weights estimation.  We find only negligible change
+in the recovered redshift distribution. \textcolor{blue}{CHECK! I'm saying this
+based on some plots you sent out on May 10 at 3:07PM}.
+%If we include seeing as a variable in the weights estimation, the weighted
+%seeing distribution of our training sample closely matches that of the
+%photometric sample.  This comes at the price of degrading the matching between
+%the weighted and photometric r-mag distribution.  In the end, the mean of
+%$N(z_{wei}$ shifts by 
 \textcolor{blue}{Should we show the plot of seeing distributions?}
 
 \end{itemize}
 
 \begin{figure}[t]\centering
     \includegraphics[{angle = -90,scale=0.35}]{figures/nz.sim.error.ps}
-    \caption{\color{red}{Simulated redshift distribution of an $r<21.8$ sample.
-The error bars are the $1-\sigma$ simulated estimates of the variability of the 
-uncertainty in the redshift distribution due to sample variance in the catalogs 
-comprising the training set.}}
+
+    \caption{Simulated redshift distribution of an $r<21.8$ sample.  The error
+    bars are the $1-\sigma$ simulated variability due to sample variance in the
+    catalogs comprising the training set.}
+
     \label{fig:ebars}
     \vspace{2em}
 \end{figure}
@@ -601,7 +623,7 @@ these individual \pofz\ can be used meaningfully on their own. {\color{red}
 we need some estimates of the bias for both approaches here.  If we are
 skipping rachel's stuff then we need an alternative.}
 \textcolor{blue}{I think I only compared means of different weights estimates. 
-Also, aren't you applying the correction to the p(z)s? This would make their sum
+Also, aren't you applying the correction to the \pofz s? This would make their sum
 identical to that of the weights estimate.}
 
 \begin{figure*}[t] \centering
@@ -612,43 +634,58 @@ identical to that of the weights estimate.}
     derived by creating a weighted histogram of the training set redshifts as
     described in the text.  Also shown in magenta is the sum of all \pofz\
     derived for individual galaxies.  The unweighted training set redshift
-    distribution is shown in blue.  The excess at $z \sim 0$ is due to stars in
-    training set having signifcant weight; more detail at low redshift is shown
-    in the inset.  This excess is at least partly due to the presence of real
-    stars in our photometric sample resulting from imperfect star-galaxy
-    separation.  The fraction of the distribution at $z < 0.002$ is 0.4\%,
-    which is probably a lower bound on the stellar contamination.
-    \label{fig:pofz}}
+    distribution is shown in blue.  The expected errors on these distributions
+    from cosmic variance in the training set is shown in Figure
+    \ref{fig:ebars}. The excess at $z \sim 0$ is due to stars in training set
+    having signifcant weight; more detail at low redshift is shown in the
+    inset.  This excess is at least partly due to the presence of real stars in
+    our photometric sample resulting from imperfect star-galaxy separation.
+    The fraction of the distribution at $z < 0.002$ is 0.4\%, which is probably
+    a lower bound on the stellar contamination.  \label{fig:pofz}}
 
     \vspace{2em}
 \end{figure*}
 
-The uncertainty in individual p(z)'s is typically dominated by shot-noise
+In figure \ref{fig:rand6pofz} we show 6 randomly chosen \pofz.  Each panel
+contains a random \pofz\ drawn from a particular magnitude range in extinction
+corrected $r$-band \cmodelmag; these ranges are given in the figure caption.
+This figure captures the general trend that the \pofz\ are broader at
+fainter magnitudes.
+
+\begin{figure*} [t]\centering
+    \includegraphics{figures/11-6pofz.eps}
+    \caption{Randomly chosen \pofz.  In each panel, a random object was
+    chosen from a particular magnitude range.  Column-wise from top the
+    left these ranges are $[r < 18], [18 < r < 19], [19 < r < 20], 
+    [20 < r < 21], [21 < r < 21.5], [21.5, < r < 21.8]$.  
+    The extinction corrected $r$-band \cmodelmag\ of each object
+    is indicated in the upper right of each panel. 
+    \label{fig:rand6pofz}}
+\end{figure*}
+
+The uncertainty in individual \pofz s is typically dominated by shot-noise
 error.  The scale of both statistical and systematic uncertainties in the
-individual $p(z)$'s are strongly correlated with the width of the $p(z)$ \cite{CunhaPhotoz09}.
-Broader $p(z)$ reflects larger degeneracy in observable space, and require more training-set
+individual \pofz s are strongly correlated with the width of the \pofz\ \citep{CunhaPhotoz09}.
+Broader \pofz\ reflects larger degeneracy in observable space, and require more training-set
 objects to characterize. 
-{\color{red} can we show this here or will we just reference your other
-paper?} 
-\textcolor{blue}{I added a sentence and a reference}.  
 Fig.  \ref{fig:pzwidth} shows the distribution of objects in the
 photometric sample as a function of r-band magnitude and $1-\sigma$ width of
-the $p(z)$.  The contours indicate factor of 2 changes in density.  
+the \pofz.  The contours indicate factor of 2 changes in density.  
 
-We recommend using the $1-\sigma$ or other width measures of the $p(z)$ as the
+We recommend using the $1-\sigma$ or other width measures of the \pofz\ as the
 most efficient way to trim the sample for improved precision and accuracy.  The
-$p(z)$ width should also be a reasonable error estimator for use with other
+\pofz\ width should also be a reasonable error estimator for use with other
 photo-z methods.  However, we discourage using the peak or some other single
-number statistic derived from the $p(z)$ as a proxy for redshift. See 
+number statistic derived from the \pofz\ as a proxy for redshift. See 
 \S \ref{sec:usage} for more details.
 \begin{comment} If a single-number photo-z estimate is needed we recommend
 using a neural network or nearest-neighbor polynomial based approach
 \cite[e.g.][]{Oyaizu08}.  \end{comment}
 
-\begin{figure*}[p]\centering
-    \includegraphics[scale=1.25]{figures/pzwidth25bins.eps}
-    \caption{Density contours of the mean $p(z)$ width as a function of {\it r} magnitude. 
-The width of each $p(z)$ is the defined as the standard deviation about the mean. 
+\begin{figure*}[t]\centering
+    \includegraphics{figures/pzwidth25bins.eps}
+    \caption{Density contours of the mean \pofz\ width as a function of {\it r} magnitude. 
+The width of each \pofz\ is the defined as the standard deviation about the mean. 
 The contours represent factors of 2 changes in density.}
     \label{fig:pzwidth}
     \vspace{2em}
@@ -662,7 +699,7 @@ In this section we describe the proper usage of these redshift distributions.
 We risk an overly pedantic discussion here in order to ensure that past
 mistakes are not repeated by the uninitiated.
 
-If one desires to use the $P(z)$ to evaluate any non-linear function $F(z)$,
+If one desires to use the \pofz\ to evaluate any non-linear function $F(z)$,
 one must integrate over the entire distribution; i.e. one must take the
 expectation value.  The reason is quite simple. In general a function evaluated
 at the expectation value of z does not equal the expectation value of the
@@ -674,7 +711,7 @@ The expectation value of the function should be computed as follows:
 \begin{equation}
 \langle F \rangle = \int_{0}^{\infty} F(z) P(z) dz.
 \end{equation}
-It is {\bf not} correct to simply take the mean of $P(z)$ and use it to evaluate
+It is {\bf not} correct to simply take the mean of \pofz\ and use it to evaluate
 a function.
 
 This is true in most interesting science cases.  An excellent example is in
@@ -689,7 +726,7 @@ proper estimator for a lens at redshift $z_{l}$ and source with $P(z_s)$ is
 
 
 
-\subsection{P(z) and galaxy-galaxy lensing: proof-of-principle} \label{sec:pofp}
+\subsection{\pofz\ and galaxy-galaxy lensing: proof-of-principle} \label{sec:pofp}
 
 \textcolor{blue}{RACHEL's section}
 
@@ -697,11 +734,11 @@ proper estimator for a lens at redshift $z_{l}$ and source with $P(z_s)$ is
 
 
 In this section we use the calibration analysis of Mandelbaum et al 2009 to 
-demonstrate that if the sum of the $p(z)$s recovers the overall redshift distribution
+demonstrate that if the sum of the \pofz s recovers the overall redshift distribution
 accurately, then no lensing calibration bias is produced.
-In addition, we show that the use of the $p(z)$s results in near optimal weighting.
+In addition, we show that the use of the \pofz s results in near optimal weighting.
 \textcolor{blue}{add plot of variance ratios} 
-in this test case, even though the $p(z)$s are quite broad (because the training set is so small).
+in this test case, even though the \pofz s are quite broad (because the training set is so small).
 
 
 Here, we take the DEEP2-EGS sample to be both the training and photometric samples. 
@@ -712,9 +749,9 @@ However, because the training set is so small, the $N(p(z))$ differs significant
 %was, by construction, a near perfect estimate of the overall redshift distribution. 
 We therefore apply the correction 
 \begin{equation}
-p(z) \rightarrow p(z)\frac{N(z_{wei})}{N(p(z))}
+P(z) \rightarrow P(z)\frac{N(z_{wei})}{N(P(z))}
 \end{equation}
-discussed in Cunha et al 2011, in prep. to the $p(z)$s.
+discussed in Cunha et al 2011, in prep. to the \pofz s.
 The resulting lensing calibration bias is shown in Fig. blah.
 
 
@@ -726,23 +763,25 @@ The resulting lensing calibration bias is shown in Fig. blah.
 
 \section{Summary}
 
-In this paper we presented a catalog of redshift probability distributions for the SDSS DR8. 
-This catalog uses the same method as the $p(z)$ catalog for SDSS DR7 presented in \cite{CunhaPhotoz09} with
-some modifications.
-For this catalog, we use the ubercal photometry.
-We also add the PRIMUS galaxy sample, which more than doubles the number of galaxies in our training set that are flux-limited.
-The addition of PRIMUS provides a significant increase in the total area of the training set, which helps to reduce sample variance.
-We examined several potential sources of error, including shot noise, sample variance, seeing, star-galaxy separation, and 
-spectroscopic failures.
-We expect that sample variance is the main source of uncertainty in our overall redshift distribution.
-For individual $p(z)$s, shot-noise is the limiting uncertainty.
-Differently from the DR7 catalog, we did not use repeat observations of our training set galaxies.
-The use of repeats can provide more localized and smoother $p(z)$ estimates, and are often useful.
-However, because only part of our sample had repeat observations, the use of repeats would effectively increase the sample
-variance of our results. 
-The use of repeats may be beneficial for LRGs because the training set is not sample variance limited in this case. 
-We may release a catalog trained on repeat observations at a future date.
-
+In this paper we presented a catalog of redshift probability distributions for
+the SDSS DR8.  This catalog uses the same method as the \pofz\ catalog for SDSS
+DR7 presented in \cite{CunhaPhotoz09} with some modifications.  For this
+catalog, we use the ubercal photometry.  We also add the PRIMUS galaxy sample,
+which more than doubles the number of galaxies in our training set that are
+drawn from a flux-limited sample other than SDSS.  The addition of PRIMUS
+provides a significant increase in the total area of the training set, which
+helps to reduce sample variance.  We examined several potential sources of
+error, including shot noise, sample variance, seeing, star-galaxy separation,
+and spectroscopic failures.  We expect that sample variance is the main source
+of uncertainty in our overall redshift distribution.  For individual \pofz s,
+shot-noise is the limiting uncertainty.  Differently from the DR7 catalog, we
+did not use repeat observations of our training set galaxies.  The use of
+repeats can provide more localized and smoother \pofz\ estimates, and are often
+useful.  However, because only part of our sample had repeat observations, the
+use of repeats would effectively increase the sample variance of our results.
+The use of repeats may be beneficial for LRGs because the training set is not
+sample variance limited in this case.  We may release a catalog trained on
+repeat observations at a future date.  \newpage
 
 %Summarize what we did.  Compare to other estimators?
 
