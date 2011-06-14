@@ -305,7 +305,8 @@ all objects from images taken where a \umag\ amplifier was not working.
  \caption{BOSS footprint for the north galactic cap on the left
  and the south galactic cap on the right.  The differently shaded
  regions represent contiguous rectangular regions in SDSS survey coordinates.
- Note points with RA $>$ 300 have been wrapped below zero for clarity.}
+ Note points with RA $>$ 300 have been wrapped below zero 
+ to avoid the 360 crossing point.}
  \label{fig:footprint}
 \end{figure}
 
@@ -419,7 +420,7 @@ distributions \pofz\ for each photometric galaxy.
 The \rmag-band \cmodelmag\ and colors based on \modelmag\ for the photometric
 and training sets are shown in figure \ref{fig:varhist}.  Also shown are the
 derived weights for the training set and the resulting weighted histograms.
-These are the fundamental new measurements we present in this work.
+These are the fundamentally new calculations we present in this work.
 
 The weighted training set distributions should be approximately proportional to
 the photometric set distributions in order to derive good redshift
@@ -464,7 +465,7 @@ on this distribution in \S \ref{sec:errors}
 Also shown in \ref{fig:pofz} is the summed \pofz\ derived for individual
 galaxies.  The(uncorrected) $\npz$\ is, characteristically, slightly more peaked than
 than $\nwei$.
-We apply Eq. \ref{eqn:pzcorrect} to correct the \pofz s. 
+In \S \ref{sec:pzcorr} we apply Eq. \ref{eqn:pzcorrect} to correct the \pofz s.
 %favors lower redshift than the overall weighted
 %redshift histogram, although the expectation value of the redshift is within a
 %percent {\color{red} Carlos what was the number?}.  This is suggestive that
@@ -517,12 +518,12 @@ fainter magnitudes.
 
 The uncertainty in individual \pofz s is typically dominated by shot-noise
 error.  The scale of both statistical and systematic uncertainties in the
-individual \pofz s are strongly correlated with the width of the \pofz\ \citep{CunhaPhotoz09}.
-Broader \pofz\ reflects larger degeneracy in observable space, and require more training-set
-objects to characterize. 
-Fig.  \ref{fig:pzwidth} shows the distribution of objects in the
-photometric sample as a function of r-band magnitude and $1-\sigma$ width of
-the \pofz.  The contours indicate factor of 2 changes in density.  
+individual \pofz s are strongly correlated with the width of the \pofz\
+\citep{CunhaPhotoz09}.  A broader \pofz\ reflects a larger degeneracy in
+observable space, and require more training-set objects to characterize.  Fig.
+\ref{fig:pzwidth} shows the distribution of objects in the photometric sample
+as a function of r-band magnitude and $1-\sigma$ width of the \pofz.  The
+contours indicate factor of 2 changes in density.  
 
 We recommend using the $1-\sigma$ or other width measures of the \pofz\ as the
 most efficient way to trim the sample for improved precision and accuracy.  The
@@ -544,18 +545,22 @@ The contours represent factors of 2 changes in density.}
     \vspace{2em}
 \end{figure}
 
-\subsubsection{Correction to \pofz}
+\subsubsection{Correction to \pofz} \label{sec:pzcorr}
 
 As we will demonstrate in \S \ref{sec:pofp}, the individual \pofz\ appear to be
 somewhat less accurate than the overall \Nofz.  We can correct the individual
 \pofz\ to agree, in the mean, with the overall \Nofz\ using equation
-\ref{eqn:pzcorrect}.  This correction factor is shown in Figure \ref{fig:pzcorr}.
+\ref{eqn:pzcorrect}.  This correction factor is shown in Figure
+\ref{fig:pzcorr}.  Note at high z $z > 0.9$ neither the \Nofz\ or the summed
+\pofz\ are well constrained, and the correction factor is noisy.  We average
+the correction factor for $z > 0.9$ and apply it to all points. 
 
 \begin{figure}[t]\centering
     \includegraphics[scale=0.7]{figures/pofz-correct-12.eps}
     %\plotone{figures/pofz-correct-12.eps}
     \caption{Correction factor from Eq. \ref{eqn:pzcorrect}.  We apply this
-    correction to each of the \pofz\ in the release catalog.}
+    correction to each of the \pofz\ in the release catalog.  Note
+    for $z > 0.9$ the correction is averaged and applied to all points.}
     \label{fig:pzcorr}
     \vspace{2em}
 \end{figure}
