@@ -653,21 +653,27 @@ pile up at zero redshift!}}
 
 \item {\it Seeing} Nakajima et al (2011, in prep), point out that differences
 between the seeing distribution of the galaxies in the photometric and the
-training set can lead to biases in the photo-z error calibration.
-%Our training sample is not always matched to the best run in the Stripe82
-%samples, so that 
-We check the sensitivity of our results to seeing-induced biases by including
+training set can lead to biases in the photo-z error calibration.  In figure
+\ref{fig:seeing} we show the seeing distributions for all of our photometric
+sample compared to the four highest weight training samples other than SDSS.
+The distributions are qualitatively similar.  More quantitatively, we also
+checked the sensitivity of our results to seeing-induced biases by including
 seeing as a variable in the weights estimation.  We find only negligible change
-in the recovered redshift distribution. \textcolor{blue}{CHECK! I'm saying this
-based on some plots you sent out on May 10 at 3:07PM}.
-%If we include seeing as a variable in the weights estimation, the weighted
-%seeing distribution of our training sample closely matches that of the
-%photometric sample.  This comes at the price of degrading the matching between
-%the weighted and photometric r-mag distribution.  In the end, the mean of
-%$N(z_{wei}$ shifts by 
-\textcolor{blue}{Should we show the plot of seeing distributions?}
+in the recovered redshift distribution. 
 
 \end{itemize}
+
+\begin{figure}[h]\centering
+    \includegraphics[scale=0.7]{figures/primus-vvds-zcosmos-deep2-match-seeing-10.eps}
+
+    \caption{Distribution of seeing for the photometric sample (All BOSS) and
+    the four most important training samples.  Also shown is the sum of the
+    training samples.  The curves for each sample are normalized relative to
+    the summed curve.  The summed and photometric curves are normalized to
+    unity.}
+
+    \label{fig:seeing}
+\end{figure}
 
 \begin{figure}[t]\centering
     \includegraphics[{angle = -90,scale=0.5}]{figures/nz.sim.error.eps}
