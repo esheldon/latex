@@ -16,7 +16,7 @@
 \newcommand{\npz}{N(z)_{\rm p(z)}}
 \newcommand{\nphot}{N(z)_{\rm phot}}
 \newcommand{\contam}{{\color{red} UNKNOWN}}
-\newcommand{\nphoto}{{\color{red} UNKNOWN}}
+\newcommand{\nphoto}{58,533,603}
 \newcommand{\ntrain}{{\color{red} UNKNOWN}}
 \newcommand{\matchrad}{2 arcsec}
 \newcommand{\cc}[1]{\textcolor{red}{[{\bf Carlos}: #1]}}
@@ -137,15 +137,15 @@ photometric sample is simply the redshift distribution of the N (in this case
 100) nearest-neighbors in the {\bf training} set:
 
 \begin{equation}
-\hat{p}(z) = \sum_{\beta=1}^{N_{\rm nei}} w_\beta \delta(z-z_\beta)~.
+\hat{P}(z) = \sum_{\beta=1}^{N_{\rm nei}} w_\beta \delta(z-z_\beta)~.
 \label{eqn:pzest}
 \end{equation}
 
-\noindent This is the same as Eqn. \ref{eqn:Nzest} but limited to the
-nearest neighbors to the galaxy of interest. We estimate \pofz\ in 35 
-redshift bins between $z=0$ and 1.1.
-We can also construct a new estimator for $N(z)_{\rm P}$ by summing the
-$\hat{p}(z)$ distributions for all galaxies in the photometric sample,
+\noindent This is the same as Eqn. \ref{eqn:Nzest} but limited to the nearest
+neighbors of a given object. We estimate \pofz\ in 35 redshift bins between
+$z=0$ and 1.1.  We can also construct a new estimator for $N(z)_{\rm P}$ by
+summing the $\hat{P}(z)$ distributions for all galaxies in the photometric
+sample,
 
 
 \begin{equation}
@@ -556,11 +556,16 @@ somewhat less accurate than the overall \Nofz.  We can correct the individual
 the correction factor for $z > 0.9$ and apply it to all points. 
 
 \begin{figure}[t]\centering
-    \includegraphics[scale=0.7]{figures/pofz-correct-12.eps}
+    \includegraphics[scale=0.6]{figures/pofz-correct-12.eps}
     %\plotone{figures/pofz-correct-12.eps}
-    \caption{Correction factor from Eq. \ref{eqn:pzcorrect}.  We apply this
-    correction to each of the \pofz\ in the release catalog.  Note
-    for $z > 0.9$ the correction is averaged and applied to all points.}
+
+    \caption{Correction factor from Eq. \ref{eqn:pzcorrect}.  This correction
+    factor is the ratio of the \Nofz, which we find to be unbiased, to the summed
+    \pofz\ from individual objects. The top panel shows both \Nofz\ and \pofz\
+    and the bottom panel is the ratio.  We apply this correction to each of the
+    \pofz\ in the release catalog.  Note for $z > 0.9$ the correction is
+    averaged and applied to all points.}
+
     \label{fig:pzcorr}
     \vspace{2em}
 \end{figure}
