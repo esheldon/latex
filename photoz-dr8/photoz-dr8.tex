@@ -504,15 +504,14 @@ This figure captures the general trend that the \pofz\ are broader at
 fainter magnitudes.
 
 \begin{figure} [t]\centering
-    \includegraphics[scale=0.7]{figures/11-6pofz.eps}
+    \includegraphics[scale=0.7]{figures/seed25-5-6pofz.eps}
     %\plotone{figures/11-6pofz.eps}
     \caption{Randomly chosen \pofz.  In each panel, a random object was
     chosen from a particular magnitude range.  Column-wise from top the
     left these ranges are $[r < 18], [18 < r < 19], [19 < r < 20], 
     [20 < r < 21], [21 < r < 21.5], [21.5, < r < 21.8]$.  
     The extinction corrected $r$-band \cmodelmag\ of each object
-    is indicated in the upper right of each panel.  Note the
-    vertical scale changes between the first and second row.
+    is indicated in the upper right of each panel.
     \label{fig:rand6pofz}}
 \end{figure}
 
@@ -599,7 +598,7 @@ because it minimizes the risk of bias in our assessment errors in what follows.
 
 \begin{itemize}
 
-\item {\it Large-scale structure:} We expect this to be the main source of
+\item {\it Large-scale structure: } We expect this to be the main source of
 error.  We use galaxy+n-body simulations\footnote{courtesy of Risa Wechsler and
 Michael Busha, private communication} to estimate the sample variance plus shot
 noise uncertainties of the spectroscopic redshift distributions of the training
@@ -621,7 +620,7 @@ but to be certain would require more detailed investigation.  %There are also
 %distribution.  
 We explore these issues in more detail for a different data set in \citet{CunhaPhotozLSS11}.
 
-\item {\it Selection in non-observables:} Two of the surveys comprising our
+\item {\it Selection in non-observables: } Two of the surveys comprising our
 training set have selections in observables that are not included in the SDSS
 magnitude limited sample.  As mentioned previously, the DEEP2-nonEGS sample is
 selected using BRI photometry to target galaxies above $z>0.7$.  As shown in
@@ -636,7 +635,7 @@ selection.  Because shape correlates poorly with redshift, biases due to the
 sample because it provides a good training set for LRG's at higher redshift
 than the SDSS sample.
 
-\item {\it Spectroscopic failures} The impact of spectroscopic failures is the
+\item {\it Spectroscopic failures: } The impact of spectroscopic failures is the
 most difficult to quantify.  We chose a bright r-magnitude cut, and relatively
 stringent cuts on spectroscopic quality to minimize effects of failures, but it
 is possible that errors due to spectroscopic failures are not negligible.
@@ -651,30 +650,39 @@ is possible that errors due to spectroscopic failures are not negligible.
 looking into the expected contamination.  It's OK of course if there are stars as long as they
 pile up at zero redshift!}}
 
-\item {\it Seeing} Nakajima et al (2011, in prep), point out that differences
+\item {\it Seeing: } Nakajima et al (2011, in prep), point out that differences
 between the seeing distribution of the galaxies in the photometric and the
-training set can lead to biases in the photo-z error calibration.
-%Our training sample is not always matched to the best run in the Stripe82
-%samples, so that 
-We check the sensitivity of our results to seeing-induced biases by including
-seeing as a variable in the weights estimation.  We find only negligible change
-in the recovered redshift distribution. \textcolor{blue}{CHECK! I'm saying this
-based on some plots you sent out on May 10 at 3:07PM}.
-%If we include seeing as a variable in the weights estimation, the weighted
-%seeing distribution of our training sample closely matches that of the
-%photometric sample.  This comes at the price of degrading the matching between
-%the weighted and photometric r-mag distribution.  In the end, the mean of
-%$N(z_{wei}$ shifts by 
-\textcolor{blue}{Should we show the plot of seeing distributions?}
+training set can lead to biases in the photo-z error calibration.  In figure
+\ref{fig:seeing} we show the seeing distributions for all of our photometric
+sample compared to the four highest weight training samples other than SDSS.
+The distributions are qualitatively similar, but with a trend to better seeing
+for the training set matches.  More quantitatively, we checked the sensitivity
+of our results to seeing-induced biases by including seeing as a variable in
+the weights estimation.  We find only negligible change in the recovered
+redshift distribution.  So, although differences in seeing are in general a
+concern, we find little effect in our data.
 
 \end{itemize}
 
-\begin{figure}[t]\centering
-    \includegraphics[{angle = -90,scale=0.5}]{figures/nz.sim.error.eps}
+\begin{figure}[h]\centering
+    \includegraphics[scale=0.7]{figures/primus-vvds-zcosmos-deep2-match-seeing-10.eps}
 
-    \caption{Simulated redshift distribution of an $r<21.8$ sample.  The error
-    bars are the $1-\sigma$ simulated variability due to sample variance in the
-    catalogs comprising the training set.}
+    \caption{Distribution of seeing for the photometric sample (All BOSS) and
+    the four most important training samples.  Also shown is the sum of the
+    training samples.  The curves for each sample are normalized relative to
+    the summed curve.  The summed and photometric curves are normalized to
+    unity.}
+
+    \label{fig:seeing}
+\end{figure}
+
+\begin{figure}[t]\centering
+    %\includegraphics[{angle = -90,scale=0.5}]{figures/nz.sim.error.eps}
+    \includegraphics[scale=0.7]{figures/nzsigf-edges-errblue.eps}
+
+    \caption{Simulated redshift distribution with errors for an $r$-band $<$ \rmax\
+    sample.  The error bars are the $1-\sigma$ simulated variability due to
+    sample variance in the catalogs comprising the training set.}
 
     \label{fig:ebars}
     \vspace{2em}
@@ -836,7 +844,6 @@ The use of repeats may be beneficial for LRGs because the training set is not
 sample variance limited in this case.  We may release a catalog trained on
 repeat observations at a future date.  
 
-\newpage
 
 %Summarize what we did.  Compare to other estimators?
 
