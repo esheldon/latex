@@ -457,8 +457,10 @@ limit at 22.0.  Note the sub-plot showing the region near $z=0$.  As expected
 there is some fraction of the overall distribution near z=0.  The fraction of
 at $z < 0.002$ is about 0.4\%.  It is not known exactly how many stars are in
 the photometric sample, but this is probably a lower limit on the stellar
-contamination {\color{red}beef this up}.  We will estimate the errors
-on this distribution in \S \ref{sec:errors}
+contamination {\color{red}beef this up}.  We will estimate the errors on this
+distribution in \S \ref{sec:errors}. These \Nofz\ data are presented in Table
+\ref{tab:nofz}.
+
 
 \subsection{Derived \pofz}
 
@@ -607,18 +609,21 @@ training set.  In addition, because of the overlap between zCOSMOS and one of
 the PRIMUS fields, we neglect the zCOSMOS sample in the error estimation to
 simplify the calculation.  This results in a $\sim$10\% increase in the error
 bars relative to including zCOSMOS as an independent sample.  The predicted
-error bars are overlayed on the simulated overall redshift distribution\footnote{Simulations provided courtesy of Risa Wechsler and Michael Busha. See \cite{bushasimulations} for details.} in Fig.
-\ref{fig:ebars}.  The uncertainty in the training set redshift distributions is
-not identical to that of the uncertainties in the estimated redshift
-distributions N(z) derived using the weights, hence the error bars should be
-used only for a reasonable reference.  A more detailed estimation of the errors
-would require SDSS specific photometry+n-body simulations.  Relative to the
-error bars in the training set, the error bars in the weighted N(z) should be (very roughly) about
-20-30\% smaller, with increased anti-correlations between neighboring bins, 
-but to be certain would require more detailed investigation.  %There are also
-%significant anti-correlations between neighboring bins in the weighted redshift
-%distribution.  
-We explore these issues in more detail for a different data set in \citet{CunhaPhotozLSS11}.
+error bars are overlayed on the simulated overall redshift
+distribution\footnote{Simulations provided courtesy of Risa Wechsler and
+Michael Busha. See \cite{bushasimulations} for details.} in Fig.
+\ref{fig:ebars}.  The errors are also given in Table \ref{tab:nofz}. The
+uncertainty in the training set redshift distributions is not identical to that
+of the uncertainties in the estimated redshift distributions N(z) derived using
+the weights, hence the error bars should be used only for a reasonable
+reference.  A more detailed estimation of the errors would require SDSS
+specific photometry+n-body simulations.  Relative to the error bars in the
+training set, the error bars in the weighted N(z) should be (very roughly)
+about 20-30\% smaller, with increased anti-correlations between neighboring
+bins, but to be certain would require more detailed investigation.
+%There are also We explore these issues in more detail for a different data set
+in \citet{CunhaPhotozLSS11}.
+
 
 \item {\it Selection in non-observables: } Two of the surveys comprising our
 training set have selections in observables that are not included in the SDSS
@@ -668,10 +673,11 @@ concern, we find little effect in our data.
     \includegraphics[scale=0.7]{figures/primus-vvds-zcosmos-deep2-match-seeing-10.eps}
 
     \caption{Distribution of seeing for the photometric sample (All BOSS) and
-    the four most important training samples.  Also shown is the sum of the
-    training samples.  The curves for each sample are normalized relative to
-    the summed curve.  The summed and photometric curves are normalized to
-    unity.}
+    the four most important training samples.  These samples are important
+    because they are magnitude limited and give relatively high weight in the
+    analysis.  Also shown is the sum of the training samples.  The curves for
+    each sample are normalized relative to the summed curve.  The summed and
+    photometric curves are normalized to unity.}
 
     \label{fig:seeing}
 \end{figure}
@@ -843,6 +849,60 @@ use of repeats would effectively increase the sample variance of our results.
 The use of repeats may be beneficial for LRGs because the training set is not
 sample variance limited in this case.  We may release a catalog trained on
 repeat observations at a future date.  
+
+\begin{deluxetable}{cccc}
+\tablecaption{Estimated \Nofz\ and Sample Variance Errors \label{tab:nofz}}
+\tablewidth{0pt}
+\tablehead{
+    \colhead{zmin} &
+    \colhead{zmax} &
+    \colhead{\Nofz} &
+    \colhead{Sample Variance Error}
+}
+\
+\startdata
+0.000000 & 0.031428 & 0.007881 & 0.000449 \\
+0.031429 & 0.062857 & 0.012669 & 0.001953 \\
+0.062857 & 0.094285 & 0.028415 & 0.003462 \\
+0.094286 & 0.125714 & 0.029208 & 0.003958 \\
+0.125715 & 0.157143 & 0.044956 & 0.004287 \\
+0.157143 & 0.188571 & 0.044070 & 0.006356 \\
+0.188572 & 0.220000 & 0.059196 & 0.007557 \\
+0.220000 & 0.251428 & 0.052931 & 0.006892 \\
+0.251429 & 0.282857 & 0.060654 & 0.007913 \\
+0.282857 & 0.314285 & 0.064638 & 0.008631 \\
+0.314286 & 0.345714 & 0.059264 & 0.006961 \\
+0.345715 & 0.377143 & 0.074072 & 0.008895 \\
+0.377143 & 0.408571 & 0.048450 & 0.007447 \\
+0.408572 & 0.440000 & 0.061471 & 0.008265 \\
+0.440000 & 0.471428 & 0.058448 & 0.008265 \\
+0.471429 & 0.502857 & 0.048904 & 0.007633 \\
+0.502857 & 0.534285 & 0.047974 & 0.005717 \\
+0.534286 & 0.565714 & 0.034663 & 0.005862 \\
+0.565715 & 0.597143 & 0.030663 & 0.005484 \\
+0.597143 & 0.628571 & 0.031781 & 0.003876 \\
+0.628572 & 0.660000 & 0.022291 & 0.002934 \\
+0.660000 & 0.691428 & 0.020855 & 0.002284 \\
+0.691429 & 0.722857 & 0.014056 & 0.001832 \\
+0.722857 & 0.754285 & 0.011847 & 0.001407 \\
+0.754286 & 0.785714 & 0.007948 & 0.000930 \\
+0.785715 & 0.817143 & 0.005635 & 0.000698 \\
+0.817143 & 0.848571 & 0.004771 & 0.000544 \\
+0.848572 & 0.880000 & 0.003537 & 0.000392 \\
+0.880000 & 0.911428 & 0.002684 & 0.000288 \\
+0.911429 & 0.942857 & 0.001806 & 0.000236 \\
+0.942857 & 0.974285 & 0.001517 & 0.000204 \\
+0.974286 & 1.005710 & 0.001030 & 0.000156 \\
+1.005710 & 1.037140 & 0.001150 & 0.000126 \\
+1.037140 & 1.068570 & 0.000423 & 0.000106 \\
+1.068570 & 1.100000 & 0.000146 & 0.000104
+\enddata
+\tablecomments{Reconstructed redshift distribution \Nofz\
+for SDSS galaxies with \rmag\ $ < $ \rmax.  The first two
+columns specify the redshift range of the bin, the third is the
+reconstructed \Nofz, and the fourth is the
+sample variance errors derived from simulations.}
+\end{deluxetable}
 
 
 %Summarize what we did.  Compare to other estimators?
