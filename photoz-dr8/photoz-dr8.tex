@@ -68,8 +68,10 @@ In this paper, we describe a \pofz\ catalog for the SDSS DR8.  We use the
 method of \citet{CunhaPhotoz09}, which was also applied to SDSS DR7, with
 improvements in the training set and  photometry.  The DR7 catalog of
 \cite{CunhaPhotoz09} has been succesfully used in cosmological analysis,
-allowing, for example, for the first direct detection of the angular BAO signal
-\citep{car11} {\color{red} what about Padmanabhan?} {\color{blue} (I copied this statement from the abstract. I emailed Carnero to check.)} and for the measurement of
+allowing, for example, for the  first measurement of the angular BAO scale
+derived purely from angular information, i.e. without using the 3D power-spectrum
+\citep{car11}% {\color{red} what about Padmanabhan?} {\color{blue} (I copied this statement from the abstract. I emailed Carnero to check.)} and for the measurement of
+{\color{blue}I think this is better explained now, but maybe we should send this statement to an LSS person to see if they agree. Maybe I can ask Will Percival in Portsmouth.}
 the growth of structure using photometric LRGs \citep{cro11}. 
 \begin{comment}
 \citep[see e.g.][]{}and astrophysical analysis.
@@ -94,7 +96,7 @@ distribution \Nofz\ of the photometric sample.
 \subsubsection{Weights}
 
 In this section, we briefly review the weighting method\footnote{The weights and \pofz\
-codes are available at \tt http://kobayashi.physics.lsa.umich.edu/~ccunha/nearest/} of \cite{LimaPhotoz08}, which
+codes are available at {\url http://kobayashi.physics.lsa.umich.edu/~ ccunha/nearest/}} of \cite{LimaPhotoz08}, which
 is required for computing \pofz.  We define the weight, $w$, of a galaxy in
 the spectroscopic training set as the normalized ratio of the density of
 galaxies in the photometric sample to the density of training-set galaxies
@@ -595,14 +597,21 @@ each survey and dividing by the sum of weights from the entire training set.
 From Table \ref{tbl:weistats}, we see that PRIMUS carries the most weight by a
 large margin at 62\%.  Overall, the magnitude limited surveys that reach our
 selection depth of \rmax\ - PRIMUS, TKRS, CNOC2, DEEP2-EGS, CFRS, VVDS, and
-zCOSMOS - represent about 81$\%$ of the total weight.  This is desirable,
+zCOSMOS - represent about 81$\%$ of the total weight.  
+This is desirable,
 because it minimizes the risk of bias in our assessment errors in what follows.
+The Table also shows that the SDSS MAIN sample ($r<17.8$) contributes only $1.7\%$ of the weights, which
+is consistent with the fraction expected from simulations for a flux-limited sample 
+to $r<21.8$.
+The remainder of the SDSS spectra are LRGs to $r<19.4$, and their contribution to the weights is quite 
+reasonable.
 
 \begin{itemize}
 
 \item {\it Large-scale structure: } We expect this to be the main source of
-error.  We use galaxy+n-body simulations\footnote{courtesy of Risa Wechsler and
-Michael Busha, private communication} to estimate the sample variance plus shot
+error.  We use galaxy+n-body simulations\footnote{Simulations provided courtesy of Risa Wechsler and
+Michael Busha. See \cite{bushasimulations} for details.}
+ to estimate the sample variance plus shot
 noise uncertainties of the spectroscopic redshift distributions of the training
 set.  For simplicity, we only simulate the magnitude limited surveys of the
 training set.  In addition, because of the overlap between zCOSMOS and one of
@@ -610,8 +619,7 @@ the PRIMUS fields, we neglect the zCOSMOS sample in the error estimation to
 simplify the calculation.  This results in a $\sim$10\% increase in the error
 bars relative to including zCOSMOS as an independent sample.  The predicted
 error bars are overlayed on the simulated overall redshift
-distribution\footnote{Simulations provided courtesy of Risa Wechsler and
-Michael Busha. See \cite{bushasimulations} for details.} in Fig.
+distribution in Fig.
 \ref{fig:ebars}.  The errors are also given in Table \ref{tab:nofz}. The
 uncertainty in the training set redshift distributions is not identical to that
 of the uncertainties in the estimated redshift distributions N(z) derived using
@@ -621,7 +629,8 @@ specific photometry+n-body simulations.  Relative to the error bars in the
 training set, the error bars in the weighted N(z) should be (very roughly)
 about 20-30\% smaller, with increased anti-correlations between neighboring
 bins, but to be certain would require more detailed investigation.
-%There are also We explore these issues in more detail for a different data set
+%There are also 
+We explore these issues in more detail for a different data set
 in \citet{CunhaPhotozLSS11}.
 
 
@@ -728,12 +737,14 @@ CNOC2$^*$           &445      &0.4     & 1.6\%\\
 DEEP2-EGS$^{*!}$    &1,499    & 0.4    & 5.8\%\\
 DEEP2-nonEGS$^{*!}$ &369      & 2.8    & 1.4\%\\
 SDSS                &435,875 &DR5      & 7.4\%\\
+SDSS ($r < 17.8$)       &376,625 &DR5      & 1.7\%\\
 CFRS$^*$            &151     & $<$0.1  & 0.76\%\\
 VVDS$^*$            &1,587   &4.0      & 6.0\%\\
 zCOSMOS$^*$         &2,080   &1.7      & 7.5\% 
 \enddata
 \tablecomments{Number of galaxies, area, and fractional contribution to the 
-weights estimate of $N(z)$. }
+weights estimate of $N(z)$. The ``*'' indicates samples approximately flux-limited to our
+selection depth. }
 \end{deluxetable}
 
 \begin{comment}
