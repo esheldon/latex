@@ -6,6 +6,8 @@
 \usepackage[normalem]{ulem} % for striking out with \sout
 \input{newcommands.tex}
 
+\newcommand{\absbias}{XXX\%}
+\newcommand{\worstlensbias}{XXX\%}
 \newcommand{\modelrmin}{15.0}
 \newcommand{\modelrmax}{29.0}
 \newcommand{\rmin}{15.0}
@@ -36,13 +38,27 @@
 
 We present a catalog of photometric redshifts for galaxies in the SDSS DR8
 imaging data.  We use the algorithm presented in \citet{LimaPhotoz08} and
-\citet{CunhaPhotoz09} to derive the overall redshift distribution for galaxies
-with \rmag$ < $\rmax.  We also use this same method to derive estimated
-redshift probability distributions \pofz\ for individual galaxies.  The \pofz\
-summed over all galaxies is very similar to that of the overall sample,
-suggesting that these individual \pofz\ can be used meaningfully in analyses.
-The catalogs are available for download through the SDSS website.  These \pofz\
-should be used with care, and we describe their proper use in detail.
+\citet{CunhaPhotoz09} to derive the overall redshift distribution \Nofz\ for
+galaxies with \rmag$ < $\rmax.  In this technique, weights are derived for the
+training set galaxies such that their density distribution in color-magnitude
+space is proportional to that of the photometry-only sample. The \Nofz\ of the
+photometric sample is then estimated by constructing a weighted histogram of
+the training set redshifts.  We also use this same method to derive redshift
+probability distributions \pofz\ for individual galaxies.  The \pofz\ summed
+over all galaxies is similar but not identical to the redshift distribution of
+the overall sample. We apply a correction to the \pofz\ so that the summed
+\pofz\ equals the estimated \Nofz.  The bias of \Nofz\ is relatively small in
+an aboslute sense ($<$ \absbias), but it's effect depends on the type of
+analysis performed.  As proof of principle, we use a simplified simulation
+where only DEEP2-EGS is used as the training set, and estimate the expected
+bias for a weak lensing study.  If the training set weights are derived
+correctly, we would expect $<$ \worstlensbias\ in such a study for lens
+redshifts $<$ 0.3.  The results would improve with the additional training sets
+we have used, and proper error based weighting of the galaxies.  The catalogs
+are available for download through the SDSS website.  
+
+%The \pofz\ should be used with care, and we describe their
+%proper use in detail.
 
 \end{abstract}
 
@@ -833,10 +849,18 @@ However, because the training set is so small, the $\npz$ differs significantly 
 %Because the training set is so small, the $N(p(z))$ differed significantly from the $N(z_{wei}$, which 
 %was, by construction, a near perfect estimate of the overall redshift distribution. 
 an we apply Eq. \ref{eqn:pzcorrect} to correct the \pofz s. 
-The resulting lensing calibration bias is shown in Fig. blah...
-\textcolor{blue}{add plot of variance ratios} 
+The resulting lensing calibration bias is shown in Fig. \ref{fig:simplebias}.
 
  - Calculate mean \pofz width for this sample?
+
+\begin{figure} [h]\centering
+    \includegraphics[scale=0.5]{figures/pz.egs.c3.paper.ps}
+    \caption{No description yet. X label is a bit hard to read.  I
+    think it would be clearer to limit the y range to $\pm 0.1$
+    and forget about zebra.
+    \label{fig:simplebias}}
+\end{figure}
+
 
 
 \section{Acquiring the Data}
