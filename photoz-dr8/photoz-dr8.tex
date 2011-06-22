@@ -256,7 +256,7 @@ galaxies.  The concentration is the difference between magnitude determined
 from the best fitting PSF model \psfmag\ and the best overall fitting model 
 \modelmag\ which may or may not be the PSF model.
 \begin{equation}
-c \equiv \textrm{psfmag} - \textrm{modelmag}
+c \equiv \textrm{psfmag} - \textrm{modelmag}~.
 \end{equation}
 Because the exponential and \devauc\ models are convolved with the PSF, the
 concentration should be $\ge 0$ within the noise, with stars close to zero and
@@ -264,19 +264,24 @@ galaxies greater than zero.  The pipeline defines galaxies as objects with $c >
 0.145$ \citep{dr7classify} where $c$ is derived from the summed fluxes from all
 bandpasses.  
 
-At our magnitude limit $r = $\rmax, the contamination is may be relatively
-large.  Using a small spaced based data set, the stellar contamination is a few
-percent at \rmag\ = 21 but increases to approximately \contamworst\ at \rmag\ =
-22\footnote{http://www.sdss.org/DR7/products/general/stargalsep.html}.  In
-practice the end user should perform more strict cuts on the data to choose a
-subset that suits their needs.
+At our magnitude limit $r = $\rmax, the stellar contamination may be relatively
+large.  Using a small spaced based data set matched to SDSS data as a truth
+table, the approximate stellar contamination can be determined.  At \rmag\ = 21
+the contamination is a few percent, but the contamination increases to
+approximately \contamworst\ at \rmag\ = 22
+\footnote{http://www.sdss.org/DR7/products/general/stargalsep.html}.  
+
 
 For studies where completeness and purity must be known precisely,
 \citet{ScrantonMag05} recommend using probabilistic star galaxy separation at
-fainter mags (\rmag\ $ > $ 21); i.e.  attempt to determine the {\it probability}
-that an object is a galaxy and either use that as a weight or make appropriate
-cuts. We provide a catalog here that should be a superset of objects that can
-be further trimmed.
+fainter mags (\rmag\ $ > $ 21); i.e.  attempt to determine the {\it
+probability} that an object is a galaxy and either use that as a weight or make
+appropriate cuts. 
+
+
+In practice the end user should perform more strict cuts on the data to choose
+a subset that suits their needs.  We provide a catalog here that should be a
+superset of objects that can be further trimmed.
 
 \subsection{Other Cuts}
 
