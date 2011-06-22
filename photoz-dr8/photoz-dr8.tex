@@ -6,7 +6,7 @@
 \usepackage[normalem]{ulem} % for striking out with \sout
 \input{newcommands.tex}
 
-\newcommand{\absbias}{XXX\%}
+\newcommand{\localbias}{10-15\%}
 \newcommand{\worstlensbias}{XXX\%}
 \newcommand{\modelrmin}{15.0}
 \newcommand{\modelrmax}{29.0}
@@ -17,7 +17,7 @@
 \newcommand{\nwei}{N(z)_{\rm wei}}
 \newcommand{\npz}{N(z)_{\rm p(z)}}
 \newcommand{\nphot}{N(z)_{\rm phot}}
-\newcommand{\contam}{{\color{red} UNKNOWN}}
+\newcommand{\contamworst}{10\%}
 \newcommand{\nphoto}{58,533,603}
 \newcommand{\ntrain}{{\color{red} UNKNOWN}}
 \newcommand{\matchrad}{2 arcsec}
@@ -46,16 +46,14 @@ photometric sample is then estimated by constructing a weighted histogram of
 the training set redshifts.  We also use this same method to derive redshift
 probability distributions \pofz\ for individual galaxies.  The \pofz\ summed
 over all galaxies is similar but not identical to the redshift distribution of
-the overall sample. We apply a correction to the \pofz\ so that the summed
-\pofz\ equals the estimated \Nofz.  The bias of \Nofz\ is relatively small in
-an aboslute sense ($<$ \absbias), but it's effect depends on the type of
-analysis performed.  As proof of principle, we use a simplified simulation
-where only DEEP2-EGS is used as the training set, and estimate the expected
-bias for a weak lensing study.  If the training set weights are derived
-correctly, we would expect $<$ \worstlensbias\ in such a study for lens
-redshifts $<$ 0.3.  The results would improve with the additional training sets
-we have used, and proper error based weighting of the galaxies.  The catalogs
-are available for download through the SDSS website.  
+the overall sample. We apply a correction to the individual \pofz\ so that the
+summed \pofz\ equals the estimated \Nofz.  We expect the primary source of
+error is sample variance: the training sets are drawn from relatively small
+volumes of space.  Using simulations we calculate the uncertainty in \Nofz\ at
+a given redshift is $\sim$ \localbias.  The uncertainty on calculations using
+\Nofz\ or \pofz\ depend on the details; we discuss the case of weak lensing
+measurements.  The \pofz\ catalog is available for download through the SDSS
+website.  
 
 %The \pofz\ should be used with care, and we describe their
 %proper use in detail.
@@ -266,13 +264,19 @@ galaxies greater than zero.  The pipeline defines galaxies as objects with $c >
 0.145$ \citep{dr7classify} where $c$ is derived from the summed fluxes from all
 bandpasses.  
 
-At our magnitude limit \rmax\ it is estimated that \contam\% of these objects
-are actually stars (TODO determine how conservative the algorithm is here?).
-Note that for studies where completeness and purity must be known precisely,
-\citet{ScrantonMag05} recommend limiting the catalog to \cmodelmag\ less than
-21.0 in the \rmag\ band and using more sophisticated star galaxy separation. We
-provide a catalog here that should be a superset of objects that can be further
-trimmed.
+At our magnitude limit $r = $\rmax, the contamination is may be relatively
+large.  Using a small spaced based data set, the stellar contamination is a few
+percent at \rmag\ = 21 but increases to approximately \contamworst\ at \rmag\ =
+22\footnote{http://www.sdss.org/DR7/products/general/stargalsep.html}.  In
+practice the end user should perform more strict cuts on the data to choose a
+subset that suits their needs.
+
+For studies where completeness and purity must be known precisely,
+\citet{ScrantonMag05} recommend using probabilistic star galaxy separation at
+fainter mags (\rmag\ $ > $ 21); i.e.  attempt to determine the {\it probability}
+that an object is a galaxy and either use that as a weight or make appropriate
+cuts. We provide a catalog here that should be a superset of objects that can
+be further trimmed.
 
 \subsection{Other Cuts}
 
@@ -794,9 +798,9 @@ zCOSMOS$^*$ &1,247 &1.7  & 7.4\% \\ \hline \hline
 
 
 
-\section{Proper Usage} \label{sec:usage}
+\section{Proper Use} \label{sec:usage}
 
-In this section we describe the proper usage of these redshift distributions.
+In this section we describe the proper use of these redshift distributions.
 We risk an overly pedantic discussion here in order to ensure that past
 mistakes are not repeated by the uninitiated.
 
@@ -829,36 +833,42 @@ proper estimator for a lens at redshift $z_{l}$ and source with $P(z_s)$ is
 
 \subsection{\pofz\ and galaxy-galaxy lensing: proof-of-principle} \label{sec:pofp}
 
-\textcolor{blue}{RACHEL's section}
+Particular analysis techniques may be more sensitive to the width of \pofz\ or
+other properties of \pofz\ or \Nofz.  As an example we use the calibration
+analysis of \citet{man08}, which is designed to estimate how much possible
+bias in a lensing measurement may occur when using these types of \pofz.
 
-\textcolor{blue}{I'm putting in some placeholder text.}
+We took the DEEP2-EGS sample to be both the training and photometric samples,
+so the sample variance in this case is much higher than our data, and the
+\pofz\ much broader.  But by construction the weights yield a virtually perfect
+estimate, $\nwei$, of the redshift distribution of the photometric sample,
+$\nphot$; thus errors are due to details of individual \pofz\ and the analysis
+method. The calculated bias is shown in \ref{fig:simplebias}. In this case,
+because the training set is so small, the $\npz$ differs significantly from the
+$\nwei$ and this produces a small non-zero bias in the plot.  Note, we do apply
+Eq. \ref{eqn:pzcorrect} to correct the \pofz s, so any resulting bias is
+addition to that.  
 
+Additionally, the bottom panel of Fig. \ref{fig:simplebias} shows the variance
+of the measurement relative to that using perfect redshifts.  This demonstrates
+the degradation in the errors when using data with finite width \pofz.
 
-In this section we use the calibration analysis of Mandelbaum et al 2009 to 
-demonstrate that if the sum of the \pofz s recovers the overall redshift distribution
-accurately, then no lensing calibration bias is produced.
-In addition, we show that the use of the \pofz s results in near optimal weighting.
-
-
-
-
-Here, we take the DEEP2-EGS sample to be both the training and photometric samples. 
-Then, by construction, the weights yield a virtually perfect estimate, $\nwei$, of the 
-redshift distribution of the photometric sample, $\nphot$.
-However, because the training set is so small, the $\npz$ differs significantly from the $\nwei$.
-%Because the training set is so small, the $N(p(z))$ differed significantly from the $N(z_{wei}$, which 
-%was, by construction, a near perfect estimate of the overall redshift distribution. 
-an we apply Eq. \ref{eqn:pzcorrect} to correct the \pofz s. 
-The resulting lensing calibration bias is shown in Fig. \ref{fig:simplebias}.
-
- - Calculate mean \pofz width for this sample?
+Although this analysis is simplified, it demonstrates the type of checks
+that should be performed when using these data.
 
 \begin{figure} [h]\centering
     \includegraphics[scale=0.5]{figures/pz.egs.c3.paper.ps}
-    \caption{No description yet. X label is a bit hard to read.  I
-    think it would be clearer to limit the y range to $\pm 0.1$
-    and forget about zebra.
+
+    \caption{Top panel: Proof of concept analysis of errors in a fictitious
+    lensing analysis.  For this example we used only DEEP2-EGS galaxies but
+    perfect weights estimate; the sample variance, and width of individual
+    \pofz, are much larger than our sample, so this is a worse case scenario.
+    Even with perfect weights and \Nofz\ recovery, lensing can be sensitive to
+    the details of the individual \pofz.  Bottom panel: Noise in the lensing
+    measurement relative to an analysis using the true redshifts.  A similar
+    analysis could be performed for any measurement using the \pofz.
     \label{fig:simplebias}}
+
 \end{figure}
 
 
@@ -936,14 +946,15 @@ repeat observations at a future date.
 1.037140 & 1.068570 & 0.000423 & 0.000106 \\
 1.068570 & 1.100000 & 0.000146 & 0.000104
 \enddata
-\tablecomments{Reconstructed redshift distribution \Nofz\
-for SDSS galaxies with \rmag\ $ < $ \rmax.  The first two
-columns specify the redshift range of the bin, the third is the
-reconstructed \Nofz, and the fourth is the
-sample variance errors derived from simulations.  These
-sample variance errors should be thought of as a rough
-estimate.  A more perfect match would require a simulation
-more specifically tuned to the SDSS data.}
+
+\tablecomments{Reconstructed redshift distribution \Nofz\ for SDSS galaxies
+with \rmag\ $ < $ \rmax.  The first two columns specify the redshift range of
+the bin and the third is the reconstructed \Nofz. The fourth is the sample
+variance errors derived from simulations, which we expect to be the dominant
+uncertainty.  These sample variance errors should be thought of as a somewhat
+rough estimate.  A more perfect match would require a simulation more
+specifically tuned to the SDSS data.}
+
 \end{deluxetable}
 
 
