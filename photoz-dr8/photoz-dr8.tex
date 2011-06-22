@@ -17,7 +17,7 @@
 \newcommand{\nwei}{N(z)_{\rm wei}}
 \newcommand{\npz}{N(z)_{\rm p(z)}}
 \newcommand{\nphot}{N(z)_{\rm phot}}
-\newcommand{\contam}{{\color{red} UNKNOWN}}
+\newcommand{\contamworst}{10\%}
 \newcommand{\nphoto}{58,533,603}
 \newcommand{\ntrain}{{\color{red} UNKNOWN}}
 \newcommand{\matchrad}{2 arcsec}
@@ -264,13 +264,19 @@ galaxies greater than zero.  The pipeline defines galaxies as objects with $c >
 0.145$ \citep{dr7classify} where $c$ is derived from the summed fluxes from all
 bandpasses.  
 
-At our magnitude limit \rmax\ it is estimated that \contam\% of these objects
-are actually stars (TODO determine how conservative the algorithm is here?).
-Note that for studies where completeness and purity must be known precisely,
-\citet{ScrantonMag05} recommend limiting the catalog to \cmodelmag\ less than
-21.0 in the \rmag\ band and using more sophisticated star galaxy separation. We
-provide a catalog here that should be a superset of objects that can be further
-trimmed.
+At our magnitude limit $r = $\rmax, the contamination is may be relatively
+large.  Using a small spaced based data set, the stellar contamination is a few
+percent at \rmag\ = 21 but increases to approximately \contamworst\ at \rmag\ =
+22\footnote{http://www.sdss.org/DR7/products/general/stargalsep.html}.  In
+practice the end user should perform more strict cuts on the data to choose a
+subset that suits their needs.
+
+For studies where completeness and purity must be known precisely,
+\citet{ScrantonMag05} recommend using probabilistic star galaxy separation at
+fainter mags (\rmag\ $ > $ 21); i.e.  attempt to determine the {\it probability}
+that an object is a galaxy and either use that as a weight or make appropriate
+cuts. We provide a catalog here that should be a superset of objects that can
+be further trimmed.
 
 \subsection{Other Cuts}
 
