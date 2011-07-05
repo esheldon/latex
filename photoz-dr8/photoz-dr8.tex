@@ -173,7 +173,7 @@ in the limit of very large training sets.  For training sets smaller than tens
 of thousands of galaxies, one can improve the \pofz s by multiplying each \pofz\ by the
 ratio of $\nwei$ to $\npz$.
 That is,
-\begin{equation}
+\begin{equation} \label{eq:pzcorrect}
 P(z) \rightarrow P(z)\frac{\nwei}{\npz} \label{eqn:pzcorrect}
 \end{equation}
 This correction essentially corresponds to using the weights estimate as a
@@ -506,8 +506,8 @@ In \S \ref{sec:pzcorr} we apply Eq. \ref{eqn:pzcorrect} to correct the \pofz s.
 %identical to that of the weights estimate.}
 
 \begin{figure}[p] \centering
-    %\includegraphics[scale=0.5]{figures/zweight-10-zhist-withorig-withsum-12.eps}
-    \plotone{figures/zweight-10-zhist-withorig-withsum-12.eps}
+    \includegraphics[scale=0.9]{figures/zweight-10-zhist-withorig-withsum-12.eps}
+    %\plotone{figures/zweight-10-zhist-withorig-withsum-12.eps}
 
     \caption{Reconstructed redshift distribution for SDSS galaxies with \rmag\
     $ < $ \rmax.  The overall reconstructed distribution, shown in red, is
@@ -535,7 +535,7 @@ fainter magnitudes.
 \begin{figure} [t]\centering
     \includegraphics[scale=0.7]{figures/seed25-5-6pofz.eps}
     %\plotone{figures/11-6pofz.eps}
-    \caption{Randomly chosen \pofz.  In each panel, a random object was
+    \caption{Randomly chosen \pofz.  For each panel, a random object was
     chosen from a particular magnitude range.  Column-wise from top the
     left these ranges are $[r < 18], [18 < r < 19], [19 < r < 20], 
     [20 < r < 21], [21 < r < 21.5], [21.5, < r < 21.8]$.  
@@ -830,49 +830,109 @@ $\Sigma_{crit}$, which determines the strength of a given lens-source pair or
 population.  The function $\Sigma_{crit}$ depends on the angular diameters
 distance to lens, source and between lens and source in a non-linear way.  The
 proper estimator for a lens at redshift $z_{l}$ and source with $P(z_s)$ is
-\begin{equation}
-\Sigma_{crit}(z_l) = \int_{0}^{\infty} \Sigma_{crit}(z_l, z_s) P(z_s) dz_s.
+\begin{equation} \label{eq:calcscrit}
+\Sigma^{-1}_{crit}(z_l) = \int_{0}^{\infty} \Sigma_{crit}^{-1}(z_l, z_s) P(z_s) dz_s.
 \end{equation}
-
 
 
 \subsection{\pofz\ and galaxy-galaxy lensing: proof-of-principle} \label{sec:pofp}
 
-Particular analysis techniques may be more sensitive to the width of \pofz\ or
-other properties of \pofz\ or \Nofz.  As an example we use the calibration
-analysis of \citet{man08}, which is designed to estimate how much possible
-bias in a lensing measurement may occur when using these types of \pofz.
+Particular analysis techniques may be more or less sensitive to the width of
+\pofz\ or other properties of \pofz\ or \Nofz.  In this section, we use the
+galaxy-galaxy lensing calibration method from \cite{man08} and {\color{red}put
+citation to Reiko's paper that will be on the arXiv on Tues} as a proof of
+concept for determining this sensitivity.  This methodology requires the use of
+a fair subsample of source galaxies with spectroscopic redshifts.  For the
+purpose of this paper, we use the DEEP2 EGS region, in which there are 730
+galaxies that (a) pass all cuts to be included in the SDSS source catalog from
+\citet{MandelbaumSystematics05}, (b) have secure redshifts from DEEP2, and (c)
+pass the additional cut  $r<21.5$.
 
-We took the DEEP2-EGS sample to be both the training and photometric samples,
-so the sample variance in this case is much higher than our data, and the
-\pofz\ much broader.  But by construction the weights yield a virtually perfect
-estimate, $\nwei$, of the redshift distribution of the photometric sample,
-$\nphot$; thus errors are due to details of individual \pofz\ and the analysis
-method. The calculated bias is shown in \ref{fig:simplebias}. In this case,
-because the training set is so small, the $\npz$ differs significantly from the
-$\nwei$ and this produces a small non-zero bias in the plot.  Note, we do apply
-Eq. \ref{eqn:pzcorrect} to correct the \pofz s, so any resulting bias is
-addition to that.  
+In brief, the quantities that we have measured are the expected calibration
+bias $b_z$ in the galaxy-galaxy lensing signal due to the method of estimating
+the source redshift (i.e. a multiplicative systematic error), and the degree to
+which the variance in the lensing signal deviates from the ideal variance we
+would achieve with optimal weighting by the true source redshift (large
+deviation results in increased statistical error).  The increase in statistical
+error when we have degraded redshift information comes both from source
+misidentification, and also from deviations of the weights from the
+optimal\footnote{Optimal weighting would also include a factor that downweights
+galaxies with noisier shape measurements, $\propto (e_\mathrm{rms}^2 +
+\sigma_e^2)^{-1}$.  For simplicity, we neglect this factor in the tests that
+follow; however, in order to use this weighting, which modifies the effective
+$N(z)$, the shape measurement error weighting must also be used in the
+derivation of the $P(z)$ from the training sample.} $1/\Sigma_\mathrm{crit}^2$.
+Schematically, these two quantities can be determined via weighted sums over
+lens-source pairs $j$ (with weight $\tilde{w}_j$; in what follows, estimated
+quantities using approximate redshift information have a tilde, and ones that
+use the true redshift do not):
 
-Additionally, the bottom panel of Fig. \ref{fig:simplebias} shows the variance
-of the measurement relative to that using perfect redshifts.  This demonstrates
-the degradation in the errors when using data with finite width \pofz.
+\noindent
+\begin{equation} \label{eq:lensbias}
+b_z + 1 = \frac{\sum_j \tilde{w}_j (\tilde{\Sigma}_{\mathrm{crit},j}
+   / \Sigma_{\mathrm{crit},j})}{\sum_j \tilde{w}_j}
+\end{equation}
+and
+\begin{equation} \label{eq:lensweight}
+\textrm{Variance ratio}  \equiv \frac{\textrm{Ideal variance}}{\textrm{Real
+     variance}} = \frac{(\sum_j \sqrt{\tilde{w}_j w_j})^2}{(\sum_j
+     w_j)(\sum_j \tilde{w}_j)}.
+\end{equation}
+For more detail, see the aforementioned papers.
 
-Although this analysis is simplified, it demonstrates the type of checks
-that should be performed when using these data.
+In Figure \ref{fig:simplebias} we show the results of these calculations for
+several test cases.  First, the red short-dashed curve gives, as a baseline,
+the calibration bias (top) and variance ratio (bottom) when using the ZEBRA
+photo-$z$ studied in {\color{red} cite Reiko's paper}.  As shown, there is a
+significant calibration bias in the lensing signal that must be calibrated out.
+Next, the green long-dashed line shows what happens if we use the
+$N(z)_\mathrm{wei}$ as an estimate of the redshift distribution, rather than
+using any individual galaxy photo-$z$ or $P(z)$ information.  Crucially, the
+lensing signal is unbiased in this case; however, we do find an increased
+statistical error due to lack of redshift information on a per-galaxy basis.
+
+Third, the solid black line shows what happens when we use the individual
+$P(z)$ to estimate $\Sigma_\mathrm{crit}$ using Eq. \ref{eq:calcscrit}.  These
+$P(z)$ are derived from a very specific, idealized case, using {\em only} EGS
+both as the training sample and the photometric sample {\color{red} Carlos:
+please correct this description if wrong}.  In this case, the individual $P(z)$
+are unrealistically broad compared to the DR8 $P(z)$ {\color{red}quantify?}
+because of the use of 100 neighbors to construct the $P(z)$ when the training
+sample itself is only $7$ times as large.  However, we have imposed a
+multiplicative correction factor to the $P(z)$ such that $\sum P(z) =
+N(z)_\mathrm{wei}$ (using Eq.\ref{eq:pzcorrect}).  Nonetheless, there is a
+calibration bias due to the very significant width of the $P(z)$ (which can be
+removed using a calibration sample); but the weighting is still far closer to
+optimal than when we did not use weighting information, and even slightly
+closer than when we used ZEBRA photo-$z$.  Finally, the light blue dot-dashed
+line shows the results when only 3 neighbors (not the galaxy itself) are used
+to estimate the $P(z)$.  This helps ameliorate the problem we saw with
+abnormally broad $P(z)$ when using such a small training sample and 100
+neighbors {\color{red} quantify new width?}; now, the calibration bias is quite
+close to the ideal case with $N(z)_\mathrm{wei}$, and the weighting is also as
+close to optimal as possible for this sample.
+
+To summarize, we have demonstrated that for the purpose of lensing, we
+achieve a perfect signal calibration when using $N(z)_\mathrm{wei}$
+(no individual galaxy redshift information), but the weighting is
+suboptimal.  When we use individual $P(z)$, the lensing signal can be
+biased due to their finite width even if $\sum P(z) =
+N(z)_\mathrm{wei}$, but this bias can be calibrated out, and the
+statistical errors on the lensing signal are reduced significantly via
+the inclusion of individual redshift information.
 
 \begin{figure} [h]\centering
-    \includegraphics[scale=0.5]{figures/pz.egs.c3.paper.ps}
+    \includegraphics[scale=0.5]{figures/pz.egs.c3.paper.final.ps}
 
-    \caption{Top panel: Proof of concept analysis of errors in a fictitious
-    lensing analysis.  For this example we used only DEEP2-EGS galaxies but
-    perfect weights estimate; the sample variance, and width of individual
-    \pofz, are much larger than our sample, so this is a worse case scenario.
-    Even with perfect weights and \Nofz\ recovery, lensing can be sensitive to
-    the details of the individual \pofz.  Bottom panel: Noise in the lensing
-    measurement relative to an analysis using the true redshifts.  A similar
-    analysis could be performed for any measurement using the \pofz.
-    \label{fig:simplebias}}
+    \caption{ Proof of concept analysis of errors in a fictitious lensing
+    analysis.  For this example we used only DEEP2-EGS galaxies but perfect
+    weights estimate; the sample variance, and width of individual \pofz, are
+    much larger than for the DR8 analysis.  {\em Top:} Lensing signal
+    calibration bias (Eq.  \ref{eq:lensbias}) as a function of lens redshift,
+    for four  cases labeled on the plot and discussed in the text.  {\em
+    Bottom:}  Ratio of the ideal to the real signal variance when using
+    different  methods of redshift determination; the goal is to stay as close
+    to $1$  as possible.  \label{fig:simplebias}}
 
 \end{figure}
 
