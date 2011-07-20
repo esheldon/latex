@@ -328,12 +328,14 @@ that are (\texttt{BLENDED} \&\& \texttt{NODEBLEND}); in other words, detected
 to be blended but not successfully deblended into components. 
 
 We only use objects marked as \texttt{SURVEY\_PRIMARY} in their
-\texttt{RESOLVE\_STATUS} flags field. Different scans on the
-sky image the same objects due to the small overlap regions between adjacent
-scans, overlaps at the end of the scan lines where the great circles converge,
-and re-observed scan lines.  This results in duplicate observations for many
-objects.  These duplicates are ``resolved'' and only a single observation is
-kept.
+\texttt{RESOLVE\_STATUS} flags field. Different scans on the sky image the same
+objects due to the small overlap regions between adjacent scans, overlaps at
+the end of the scan lines where the great circles converge, and re-observed
+scan lines.  This results in duplicate observations for many objects.  These
+duplicates are ``resolved'' and only a single observation is kept.  Note this
+primary also implies that, if the object is blended, it is either a child or
+not deblended further.  This cut is made in the \texttt{OBJECT} flags as
+\texttt{!BRIGHT \&\& (!BLENDED || NODEBLEND || nchild == 0)}.
 
 We require the extinction corrected \citep{Schlegel98} \cmodelmag\ in the \rmag\
 band to be in the range [\rmin, \rmax].  We also restrict the extinction corrected
