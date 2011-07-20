@@ -38,24 +38,27 @@
 \begin{abstract}
 
 We present redshift probability distributions for galaxies in the SDSS DR8
-imaging data.  We used the ``weighting'' algorithm presented in
+imaging data.  We used the weighting algorithm presented in
 \citet{LimaPhotoz08} and \citet{CunhaPhotoz09} to derive the overall redshift
 distribution \Nofz\ for galaxies with \rmag$ < $\rmax.  The training sample
 with redshifts is substantially larger than used in the DR7 release; of
 particular note is addition of the PRIMUS catalog, which is the the most
 important training set used in this analysis. With this technique, weights are
 calculated for a set of training galaxies with known redshifts such that their
-density distribution in color-magnitude space is proportional to that of the
-photometry-only sample, producing a nearly ``fair sample'' in that space.  The
-\Nofz\ of the photometric sample is then estimated by constructing a weighted
-histogram of the training set redshifts.  We also used this same method to
-derive redshift probability distributions \pofz\ for individual galaxies.
-\textcolor{blue}{  The \pofz\ summed over all galaxies is similar but not identical to the redshift distribution of the overall sample. We applied a correction to the individual
-\pofz\ so that the summed \pofz\ equals the estimated \Nofz }
-\textcolor{red}{I think the area I marked in blue is too much detail for the abstract}.  We expect the
-primary source of error is sample variance: the training sets are drawn from
-relatively small volumes of space.  Using simulations we calculated the
-uncertainty in \Nofz\ at a given redshift is $\sim$ \localbias.  The
+density distribution in five dimensional color-magnitude space is proportional
+to that of the photometry-only sample, producing a nearly fair sample in that
+space.  The \Nofz\ of the photometric sample is then estimated by constructing
+a weighted histogram of the training set redshifts.  We also used this same
+method to derive redshift probability distributions \pofz\ for individual
+galaxies.
+%\textcolor{blue}{  The \pofz\ summed over all galaxies is similar but not
+%identical to the redshift distribution of the overall sample. We applied a
+%correction to the individual \pofz\ so that the summed \pofz\ equals the
+%estimated \Nofz } \textcolor{red}{I think the area I marked in blue is too
+%much detail for the abstract}.  
+We expect the primary source of error is sample variance: the training sets are
+drawn from relatively small volumes of space.  Using simulations we calculated
+the uncertainty in \Nofz\ at a given redshift is $\sim$ \localbias.  The
 uncertainty on calculations using \Nofz\ or \pofz\ depends on the details; we
 discuss the case of weak lensing measurements.  The \pofz\ catalog is available
 for download through the SDSS website.  
@@ -115,12 +118,12 @@ determination, the resulting weighted redshift histogram is proportional to the
 redshift %probability distribution \Nofz\ of the photometric sample. 
 
 The weighting provides a key advantage over other training sample methods such
-as neural nets.  Forcing the \textcolor{red}{distributions of observables of } the two samples to be
-proportional essentially creates a ``fair sample'' from the training set.  This
-helps avoid the biases that can arise when the training and photometric samples
-have different properties.  However, this does require that areas of \sout{parameter} \textcolor{red}{observable}
-space populated by the photometric sample are also populated by the training
-set, at least at some low level. 
+as neural nets.  Forcing the distributions of observables of the two samples to
+be proportional essentially creates a ``fair sample'' from the training set.
+This helps avoid the biases that can arise when the training and photometric
+samples have different properties.  However, this does require that areas of
+observable space populated by the photometric sample are also populated by the
+training set, at least at some low level. 
 
 
 
@@ -614,7 +617,8 @@ to $r<21.8$.
 The remainder of the SDSS spectra are LRGs to $r<19.4$, and their contribution to the weights is quite 
 larger at 7.4\%.
 
-\textcolor{red}{In what follows, we identify potential sources of systematics and detail our tests to constrain them:}
+In what follows, we identify potential sources of systematics and detail our
+tests to constrain them:
 
 \begin{itemize}
 
@@ -684,18 +688,18 @@ distribution.  Hence, although differences in seeing are in general a concern, w
 find little effect in our data.
 \end{itemize}
 
-\textcolor{red}{For individual $P(z)$, the main source of uncertainty is shot-noise, because only
-100 galaxies were used to estimate each $P(z)$.
-The choice of fixing the number of neighbors keeps the shot-noise equal for all galaxies,
-but can also yield biases or an artificial broadening of the $P(z)$ if the training set
-is too sparse near the galaxy of interest.
-However, we do not find that the volume spanned by the 100 nearest neighbors to be a good 
-indicator of the $P(z)$ quality because other properties of the redshift-observable 
-hypersurface affect the local density of galaxies and redshift correlations to the observables.
-A potentially more interesting indicator of bias in individual $P(z)$ is the spatial distribution
-of the training set nearest neighbors relative to the galaxy for which a $P(z)$ is needed.
-We leave these explorations for a future work.
-}
+For individual $P(z)$, the main source of uncertainty is shot-noise, because
+only 100 galaxies were used to estimate each $P(z)$.  The choice to fix the
+number of neighbors keeps the shot-noise equal for all galaxies, but can also
+yield biases or an artificial broadening of the $P(z)$ if the training set is
+too sparse near the galaxy of interest.  However, we do not find the volume
+spanned by the 100 nearest neighbors to be a good indicator of the $P(z)$
+quality. This is because other properties of the redshift-observable
+hypersurface affect the local density of galaxies.  A potentially more
+interesting indicator of bias in individual $P(z)$ is the spatial distribution
+of the training set nearest neighbors relative to the galaxy for which a $P(z)$
+is needed.  We leave these explorations for a future work.
+
 %The bias due to sparse training set manifests itself as a difference between 
 %the summed $P(z)$ and the weights estimate of the $N(z)$. 
 %We fin
@@ -887,37 +891,40 @@ statistical error due to lack of redshift information on a per-galaxy basis.
 Third, the solid black line shows what happens when we use the individual
 $P(z)$ to estimate $\Sigma_\mathrm{crit}$ using Eq. \ref{eq:calcscrit}.  These
 $P(z)$ are derived from a very specific, idealized case, using {\em only} EGS
-both as the training sample and the photometric sample.% {\color{red} Carlos:
-%please correct this description if wrong}.  
-In this case, the individual $P(z)$
-are on average $40\%$ broader than the DR8 $P(z)$ %{\color{red}quantify?}
-because of the use of 100 neighbors to construct the $P(z)$ when the training
-sample itself is only $7$ times as large.  
-To compensate for the bias introduced by the small size of the training sample, 
-we have imposed a multiplicative correction factor to the $P(z)$ such that $\sum P(z) =
-N(z)_\mathrm{wei}$ (using Eq. \ref{eq:pzcorrect}).  Nonetheless, there is a
-calibration bias due to the very significant width of the $P(z)$ (which can be
-removed using a calibration sample); but the \sout{weighting} \textcolor{red}{variance ratio} 
-is still far closer to optimal than when we did not use weighting information, and even slightly
-closer than when we used ZEBRA \photoz.  Finally, the light blue dot-dashed
-line shows the results when only 3 neighbors (not the galaxy itself) are used
-to estimate the $P(z)$.  This helps ameliorate the problem we saw with
-abnormally broad $P(z)$ when using such a small training sample and 100
-neighbors.
-The mean $P(z)$ for the 3 neighbors case is 0.078, to be compared to the mean width of the 
-DR8 $P(z)$s of 0.098.
-%{\color{red} quantify new width?}
-; now, the calibration bias is quite close to the ideal case with $N(z)_\mathrm{wei}$, and 
-the weighting is also as close to optimal as possible for this sample.
+both as the training sample and the photometric sample.  In this case, the
+individual $P(z)$ are on average $40\%$ broader than the DR8 $P(z)$ because of
+the use of 100 neighbors to construct the $P(z)$ when the training sample
+itself is only $7$ times as large.  To compensate for the bias introduced by
+the small size of the training sample, we have imposed a multiplicative
+correction factor to the $P(z)$ such that $\sum P(z) = N(z)_\mathrm{wei}$ using
+Eq. \ref{eq:pzcorrect}.  Nonetheless, there is a calibration bias due to the
+very significant width of the $P(z)$ (which can be removed using a calibration
+sample); but the variance ratio is still far closer to optimal than when we did
+not use weighting information, and slightly closer than when we used ZEBRA
+\photoz.  
+
+Finally, the light blue dot-dashed line shows the results when 3 neighbors are
+used to estimate the \pofz, not including the galaxy itself.  This helps
+ameliorate the problem we saw with abnormally broad $P(z)$ when using such a
+small training sample and 100 neighbors.  The mean $P(z)$ for the 3 neighbors
+case is 0.078, to be compared to the mean width of the DR8 $P(z)$s of 0.098. ;
+now, the calibration bias is quite close to the ideal case with
+$N(z)_\mathrm{wei}$, and the weighting is also as close to optimal as possible
+for this sample {\color{red} how do you know that?}.
+
+{\color{red} need to add discussion of n=7}.
 
 To summarize, we have demonstrated for this simplified training set that, for
 the purpose of lensing, we achieve a perfect signal calibration when using
-$N(z)_\mathrm{wei}$ (no individual galaxy redshift information), but the
-weighting is suboptimal.  When we use individual $P(z)$, the lensing signal can
-be biased due to their finite width even if $\sum P(z) = N(z)_\mathrm{wei}$,
-but this bias can be calibrated out, and the statistical errors on the lensing
-signal are reduced significantly via the inclusion of individual redshift
-information.
+$N(z)_\mathrm{wei}$; i.e. no individual galaxy redshift information.  However,
+the weighting is suboptimal.  When we use individual $P(z)$, the lensing signal
+can be biased due to their finite width even if $\sum P(z) =
+N(z)_\mathrm{wei}$, but this bias can be calibrated out.  The advantage of
+using individual \pofz\ information is that statistical errors on the lensing
+signal are reduced due to more optimal weighting.  This is because a
+signal-to-noise ratio weighting goes as $\langle \Sigma_{\mathrm{crit}}^{-2}
+\rangle$, so sources expected to be behind the lens are given higher weight
+than those expected to be close to or in front of the lens.
 
 Again, we emphasize that this analysis used only DEEP2 EGS, and should be used
 as a proof-of-principle to gain intuition.  Users of these data should perform
@@ -925,7 +932,7 @@ similar analyses to these but matched to their exact analysis and selection
 criteria.
 
 \begin{figure} [h]\centering
-    \includegraphics[scale=0.5]{figures/pz.egs.c3.paper.final.ps}
+    \includegraphics[scale=0.5]{figures/pz.egs.c3n7.paper.ps}
 
     \caption{ Proof of concept analysis of errors in a fictitious lensing
     analysis.  For this example we used only DEEP2-EGS galaxies but perfect
@@ -935,7 +942,8 @@ criteria.
     for four  cases labeled on the plot and discussed in the text.  {\em
     Bottom:}  Ratio of the ideal to the real signal variance when using
     different  methods of redshift determination; the goal is to stay as close
-    to $1$  as possible.  \label{fig:simplebias}}
+    to $1$  as possible.  {\color{red} need to label all curves in 
+    the figure} \label{fig:simplebias}}
 
 \end{figure}
 
