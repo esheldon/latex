@@ -13,6 +13,7 @@
 \newcommand{\rmin}{15.0}
 \newcommand{\rmax}{21.8}
 \newcommand{\pofz}{$P(z$)}
+\newcommand{\pofzw}{$P(z)_w$\ }
 \newcommand{\Nofz}{$N(z$)}
 \newcommand{\nwei}{N(z)_{\rm wei}}
 \newcommand{\npz}{N(z)_{\rm p(z)}}
@@ -48,7 +49,7 @@ calculated for a set of training galaxies with known redshifts such that their
 density distribution in five dimensional color-magnitude space is proportional
 to that of the photometry-only sample, producing a nearly fair sample in that
 space.  The \Nofz\ of the photometric sample is then estimated by constructing
-a weighted histogram of the training set redshifts.  We also used this same
+a weighted histogram of the training set redshifts.  We use this same
 method to derive redshift probability distributions \pofz\ for individual
 galaxies.
 %\textcolor{blue}{  The \pofz\ summed over all galaxies is similar but not
@@ -83,7 +84,9 @@ galaxy yields better estimates of the overall redshift distribution, $N(z)$,
 and can decrease biases in cosmological analysis.  We note that several public
 \photoz\ codes exist that can output a \pofz\ per galaxy, e.g.  {\it Le Phare}
 \citep{arn99,ilb06}, {\it ZEBRA} \citep{fel06}, {\it BPZ} \citep{coe06}, {\it
-ArborZ} \citep{ger10}, and our own nameless method \citep{CunhaPhotoz09}.
+ArborZ} \citep{ger10}, and our own method \citep{CunhaPhotoz09}, henceforth 
+referred to as PROB-WTS.
+We use \pofzw when referring to the \pofz\  derived from PROB-WTS.  .
 
 
 In this paper, we describe a \pofz\ catalog for objects detected in the Data
@@ -226,17 +229,17 @@ Note the calibrations used for these data are derived using the ``ubercalibratio
 technique presented in \citet{Nikhil08}.  
 \section{Photometric Quantities} \label{sec:photo}
 
-In this section we describe the photometric quantities used in creation of the
+In this section we describe the photometric quantities used in the creation of the
 input catalog.  Most of these quantities are measured by the SDSS photometric
 pipeline \photo. An early version of the pipeline is described in
 \citet{LuptonADASS01}.  Other details can be found in the SDSS Data Release
 papers, e.g. \citet{dr4} and at the SDSS III website\footnote{\sdssweb}.  We
-will give a few additional details below.  Note, in comparison to DR7, the DR8
+\sout{will} give a few additional details below.  In comparison to DR7, the DR8
 makes use of an updated version of the \photo\ software reduction pipeline,
 v5\_6 rather than v5\_4, including some updates to sky subtraction that can
 change galaxy photometry and, potentially, the $P(z)$.
 
-For colors we use the SDSS ``model magnitudes'', which we will refer to as
+For colors we use the SDSS ``model magnitudes'', which we \sout{will} refer to as
 \modelmag \footnote{\DRatemags}.  Each object is fit to an elliptical
 exponential disk and an elliptical \devauc\ profile convolved with a double
 Gaussian approximation to the PSF model interpolated to the location of the
@@ -247,7 +250,7 @@ effective aperture is the same for all bands, which is appropriate for
 extraction of color information.
 
 We use ``composite model magnitudes'' as an approximate total magnitude for
-each object, which we will refer to as \cmodelmag.  For each bandpass
+each object, which we \sout{will} refer to as \cmodelmag.  For each bandpass
 separately, the flux from the best-fitting exponential and \devauc\ models are
 combined:
 \begin{equation}
@@ -399,7 +402,7 @@ http://www.oamp.fr/people/tresse/cfrs/cfrs.html} with \texttt{Class} $\geq 3$.
 \citep[DEEP2;][]{weiner05}\footnote{\tt http://deep.berkeley.edu/DR3}
 with \texttt{zqual} $\geq 3$. 
 Of these, 1,499 are an approximately magnitude-limited sample from the Extended Groth Strip (EGS).
-The remainder is $BRI$ color-selected to target $z>0.7$ galaxies, hereafter called the non-EGS sample. 
+The remainder is $BRI$ color-selected to target $z>0.7$ galaxies, hereafter denoted the non-EGS sample. 
 
     \item 197 from the Team Keck Redshift Survey \cite[TKRS;][]{wirth04}\footnote{\tt http://tkserver.keck.hawaii.edu/tksurvey/}.
 
@@ -643,7 +646,7 @@ the weights, hence the error bars should be used only for a reasonable
 reference.  A more detailed estimation of the errors would require SDSS-specific
 photometry+$N$-body simulations.  Relative to the error bars in the
 training set, the error bars in the weighted N(z) should be (very roughly)
-about 20-30\% smaller, with increased anti-correlations between neighboring
+about 10-30\% smaller, with increased anti-correlations between neighboring
 bins, but to be certain would require more detailed investigation.
 %There are also 
 We explore these issues in more detail for a different data set
@@ -936,9 +939,9 @@ criteria.
 \begin{figure} [h]\centering
     \includegraphics[scale=0.5]{figures/pz.egs.c3n7.paper.ps}
 
-    \caption{ Proof of concept analysis of errors in a fictitious lensing
+    \caption{ Proof-of-concept analysis of errors in a fictitious lensing
     analysis.  For this example we used only DEEP2-EGS galaxies but perfect
-    weights estimate; the sample variance, and width of individual \pofz, are
+    weights estimate; the sample variance and width of individual \pofz are
     much larger than for the DR8 analysis.  {\em Top:} Lensing signal
     calibration bias (Eq.  \ref{eq:lensbias}) as a function of lens redshift,
     for four  cases labeled on the plot and discussed in the text.  {\em
