@@ -14,7 +14,7 @@
 \newcommand{\rmax}{21.8}
 \newcommand{\pofz}{$P(z$)}
 \newcommand{\pofzw}{$P(z)_w$\ }
-\newcommand{\Nofz}{$N(z$)}
+\newcommand{\nofz}{$N(z$)}
 \newcommand{\nwei}{N(z)_{\rm wei}}
 \newcommand{\npz}{N(z)_{\rm p(z)}}
 \newcommand{\nphot}{N(z)_{\rm phot}}
@@ -24,6 +24,10 @@
 \newcommand{\matchrad}{2 arcsec}
 \newcommand{\cc}[1]{\textcolor{red}{[{\bf Carlos}: #1]}}
 \newcommand{\rachel}[1]{\textcolor{green}{#1}}
+
+\newcommand{\downloadURL}{{\tt http://www.sdss3.org/dr8/data\_access.php\#VAC}}
+\newcommand{\datamodelURL}{{\tt http://data.sdss3.org/datamodel/files/BOSS\_PHOTOOBJ/photoz-weight/pofz.html}}
+\newcommand{\acronym}{ProbWTS}
 \def\eps@scaling{1.0}% 
 
 \slugcomment{Last revision \today}
@@ -38,34 +42,29 @@
 
 \begin{abstract}
 
+
 We present redshift probability distributions for galaxies in the SDSS DR8
 imaging data.  We used the weighting algorithm presented in
-\citet{LimaPhotoz08} and \citet{CunhaPhotoz09} to derive the overall redshift
-distribution \Nofz\ for galaxies with \rmag$ < $\rmax.  The training sample
-with redshifts is substantially larger than that used in the DR7 release; of
-particular note is addition of the PRIMUS catalog, which is the the most
-important training set used in this analysis. With this technique, weights are
-calculated for a set of training galaxies with known redshifts such that their
-density distribution in five dimensional color-magnitude space is proportional
+\citet{LimaPhotoz08} and \citet{CunhaPhotoz09} to derive the ensemble redshift
+distribution \nofz, and individual redshift probability distributions \pofz\
+for galaxies with \rmag$ < $\rmax.  As part of this technique, we calculated
+weights for a set of training galaxies with known redshifts such that their
+density distribution in five dimensional color-magnitude space was proportional
 to that of the photometry-only sample, producing a nearly fair sample in that
-space.  The \Nofz\ of the photometric sample is then estimated by constructing
-a weighted histogram of the training set redshifts.  We use this same
-method to derive redshift probability distributions \pofz\ for individual
-galaxies.
-%\textcolor{blue}{  The \pofz\ summed over all galaxies is similar but not
-%identical to the redshift distribution of the overall sample. We applied a
-%correction to the individual \pofz\ so that the summed \pofz\ equals the
-%estimated \Nofz } \textcolor{red}{I think the area I marked in blue is too
-%much detail for the abstract}.  
-We expect the primary source of error is sample variance: the training sets are
-drawn from relatively small volumes of space.  Using simulations we estimated
-the uncertainty in \Nofz\ at a given redshift is $\sim$ \localbias.  The
-uncertainty on calculations using \Nofz\ or \pofz\ depends on the details; we
-discuss the case of weak lensing measurements.  The \pofz\ catalog is available
-for download through the SDSS website.  
-
-%The \pofz\ should be used with care, and we describe their
-%proper use in detail.
+space.  The ensemble \nofz\ of the photometric sample was then estimated by
+constructing a weighted histogram of the training set redshifts.  The
+individual \pofz\ were derived using the same weights by limiting to only the
+local color-magnitude space around each object.  Using these individual \pofz\
+can reduce the scatter in measurements that depend on the redshift distribution
+of individual objects.  The spectroscopic training sample is substantially
+larger than that used for the DR7 release; of particular note is addition of
+the PRIMUS catalog, which is the most important training set used in this
+analysis.  Nevertheless, we expect the primary source of error is sample
+variance: the training sets are drawn from relatively small volumes of space.
+Using simulations we estimated the uncertainty in \nofz\ at a given redshift is
+$\sim$ \localbias.  The uncertainty on calculations using \nofz\ or \pofz\
+depends on how they are used; we discuss the case of weak lensing measurements.
+The \pofz\ catalog is publicly available from the SDSS website.  
 
 \end{abstract}
 
@@ -84,9 +83,10 @@ galaxy yields better estimates of the overall redshift distribution, $N(z)$,
 and can decrease biases in cosmological analysis.  We note that several public
 \photoz\ codes exist that can output a \pofz\ per galaxy, e.g.  {\it Le Phare}
 \citep{arn99,ilb06}, {\it ZEBRA} \citep{fel06}, {\it BPZ} \citep{coe06}, {\it
-ArborZ} \citep{ger10}, and our own method \citep{CunhaPhotoz09}, henceforth 
-referred to as PROB-WTS.
-We use \pofzw when referring to the \pofz\  derived from PROB-WTS.  .
+ArborZ} \citep{ger10}, and our own method \citep{CunhaPhotoz09}, henceforth
+referred to as \acronym, which is an acronym for Probability Distributions from
+Weight Training Sets.  We use \pofzw when referring to the \pofz\  derived from
+\acronym.
 
 
 In this paper, we describe a \pofz\ catalog for objects detected in the Data
@@ -118,7 +118,7 @@ magnitudes or colors, matches that of a set of galaxies without known
 redshifts, henceforth the photometric sample.  Assuming these quantities
 correlate with redshift, and are the only relevant quantities for redshift
 determination, the resulting weighted redshift histogram is proportional to the
-redshift probability distribution \Nofz\ of the photometric sample. 
+redshift probability distribution \nofz\ of the photometric sample. 
 
 The weighting provides a key advantage over other training sample methods such
 as neural nets.  Forcing the distributions of observables of the two samples to
@@ -331,12 +331,14 @@ that are (\texttt{BLENDED} \&\& \texttt{NODEBLEND}); in other words, detected
 to be blended but not successfully deblended into components. 
 
 We only use objects marked as \texttt{SURVEY\_PRIMARY} in their
-\texttt{RESOLVE\_STATUS} flags field. Different scans on the
-sky image the same objects due to the small overlap regions between adjacent
-scans, overlaps at the end of the scan lines where the great circles converge,
-and re-observed scan lines.  This results in duplicate observations for many
-objects.  These duplicates are ``resolved'' and only a single observation is
-kept.
+\texttt{RESOLVE\_STATUS} flags field. Different scans on the sky image the same
+objects due to the small overlap regions between adjacent scans, overlaps at
+the end of the scan lines where the great circles converge, and re-observed
+scan lines.  This results in duplicate observations for many objects.  These
+duplicates are ``resolved'' and only a single observation is kept.  Note this
+primary also implies that, if the object is blended, it is either a child or
+not deblended further.  This cut is made in the \texttt{OBJECT} flags as
+\texttt{!BRIGHT \&\& (!BLENDED || NODEBLEND || nchild == 0)}.
 
 We require the extinction corrected \citep{Schlegel98} \cmodelmag\ in the \rmag\
 band to be in the range [\rmin, \rmax].  We also restrict the extinction corrected
@@ -471,7 +473,7 @@ on the accuracy of the recovered redshift distributions.
     \vspace{2em}
 \end{figure}
 
-\subsection{Derived \Nofz}
+\subsection{Derived \nofz}
 
 Figure \ref{fig:pofz} shows the recovered redshift distribution for the entire
 \rmag\ $<$ \rmax\ sample.  Also shown is the redshift distribution of the
@@ -482,7 +484,7 @@ expected there is some fraction of the overall distribution near z=0.  The
 fraction of the probability at $z < 0.002$ is about 0.4\%.  It is not known exactly how many
 stars are in the photometric sample, but this is probably a lower limit on the
 stellar contamination (see \S \ref{sec:sg}).  We will estimate the errors on
-this distribution in \S \ref{sec:errors}. These \Nofz\ data are presented in
+this distribution in \S \ref{sec:errors}. These \nofz\ data are presented in
 Table \ref{tab:nofz}.
 
 
@@ -564,10 +566,10 @@ The contours represent factors of 2 changes in density.}
 \subsubsection{Correction to \pofz} \label{sec:pzcorr}
 
 As we will demonstrate in \S \ref{sec:pofp}, the individual \pofz\ appear to be
-somewhat less accurate than the overall \Nofz.  We can correct the individual
-\pofz\ to agree, in the mean, with the overall \Nofz\ using Eqn.
+somewhat less accurate than the overall \nofz.  We can correct the individual
+\pofz\ to agree, in the mean, with the overall \nofz\ using Eqn.
 \ref{eqn:pzcorrect}.  This correction factor is shown in Figure
-\ref{fig:pzcorr}.  Note at $z \gtrsim 0.9$ neither the \Nofz\ or the summed
+\ref{fig:pzcorr}.  Note at $z \gtrsim 0.9$ neither the \nofz\ or the summed
 \pofz\ are well constrained, and the correction factor is noisy.  For $z > 0.9$
 we use the average correction from that range.
 
@@ -576,8 +578,8 @@ we use the average correction from that range.
     %\plotone{figures/pofz-correct-12.eps}
 
     \caption{Correction factor from Eq. \ref{eqn:pzcorrect}.  This correction
-    factor is the ratio of the \Nofz, which we find to be unbiased, to the summed
-    \pofz\ from individual objects. The top panel shows both \Nofz\ and \pofz\
+    factor is the ratio of the \nofz, which we find to be unbiased, to the summed
+    \pofz\ from individual objects. The top panel shows both \nofz\ and \pofz\
     and the bottom panel is the ratio.  We apply this correction to each of the
     \pofz\ in the release catalog.  Note for $z > 0.9$ we use the average
     correction from that range.}
@@ -590,7 +592,7 @@ we use the average correction from that range.
 
 \section{Sources of Error} \label{sec:errors}
 
-As detailed in \cite{CunhaPhotoz09}, the derived weights, and inferred \Nofz,
+As detailed in \cite{CunhaPhotoz09}, the derived weights, and inferred \nofz,
 are susceptible to at least four kinds of training-set selection effects:
 spectroscopic failures, large-scale structure bias (sample variance + shot
 noise in the training set), and selection in non-photometric observables.  In
@@ -639,7 +641,7 @@ error bars are overlayed on the simulated overall redshift
 distribution in Fig.
 \ref{fig:ebars}.  The errors are also given in Table \ref{tab:nofz}. The
 uncertainty in the training set redshift distributions is not identical to that
-of the uncertainties in the estimated redshift distributions \Nofz\ derived using
+of the uncertainties in the estimated redshift distributions \nofz\ derived using
 the weights, hence the error bars should be used only for a reasonable
 reference.  A more detailed estimation of the errors would require SDSS-specific
 photometry+$N$-body simulations.  Relative to the error bars in the
@@ -670,12 +672,6 @@ than the SDSS sample.
 most difficult to quantify.  We chose a bright $r$-magnitude cut, and relatively
 stringent cuts on spectroscopic quality to minimize effects of failures, but it
 is possible that errors due to spectroscopic failures are not negligible.
-% but it
-%is possible that some features seen in the redshift distribution - such as the
-%dip around $z=0.4$ are due partly to spectroscopic failures.
-%{\color{red} this seems speculative, can we say anything quantitative?  If not
-%perhaps simplify the comment to ``it is possible that there are significant
-%errors due to spectroscopic failures''.}
 
 \item {\it Seeing: } \citet{Nakajima11} point out that differences
 between the seeing distribution of the galaxies in the photometric and the
@@ -703,11 +699,6 @@ interesting indicator of bias in individual $P(z)$ is the spatial distribution
 of the training set nearest neighbors relative to the galaxy for which a $P(z)$
 is needed.  We leave these explorations for a future work.
 
-%The bias due to sparse training set manifests itself as a difference between 
-%the summed $P(z)$ and the weights estimate of the $N(z)$. 
-%We fin
-
-
 \begin{figure}[h]\centering
     \includegraphics[scale=0.7]{figures/primus-vvds-zcosmos-deep2-match-seeing-10.eps}
 
@@ -729,8 +720,8 @@ is needed.  We leave these explorations for a future work.
     \caption{Top panel: Simulated redshift distribution with errors for an
     $r$-band $<$ \rmax\ sample.  The error bars are the $1-\sigma$ simulated
     variability due to sample variance in the catalogs comprising the training
-    set.  Also shown is the estimated \Nofz\ for our sample.  Lower panel:
-    estimated \Nofz\ combined with the predicted sample variance errors from
+    set.  Also shown is the estimated \nofz\ for our sample.  Lower panel:
+    estimated \nofz\ combined with the predicted sample variance errors from
     the simulation.}
 
     \label{fig:ebars}
@@ -766,35 +757,6 @@ zCOSMOS$^*$         &2,080   &1.7      & 7.5\%
 weights estimate of $N(z)$. The ``*'' indicates samples that are approximately flux-limited to our
 selection depth. }
 \end{deluxetable}
-
-\begin{comment}
-\begin{table}[!ht]
-\caption{{\color{red}We should use deluxetable and add a caption}}
-\label{tbl:weistats}
-\begin{center}
-\begin{tabular}{ l r r r }\hline \hline
-Survey & Number of objects & Area$deg^2$ & Weight fraction \\ \hline 
-PRIMUS$^*$ &14,196 &5.2 & 62\% \\
-2SLAQ  &8,577 & 180 & 7.0\%\\
-TKRS$^*$  &151  & 0.07& 0.50\%\\
-CNOC2$^*$ &412  &0.4 & 1.8\%\\
-DEEP2-EGS$^{*!}$ &1,075  & 0.4 & 3.5\%\\
-DEEP2-nonEGS$^{*!}$ &301  & 2.8 & 2.7\%\\
-SDSS &435,878  & & 9.1\%\\
-CFRS$^*$ &122  & $<$0.1 & 0.67\%\\
-VVDS$^*$ &1,771  &4.0  & 5.5\%\\
-zCOSMOS$^*$ &1,247 &1.7  & 7.4\% \\ \hline \hline
- %\multicolumn{2}{c |}{Survey} & \multicolumn{2}{| c}{Parameter Uncertainty} \\ \hline
-%Original Parameters & New Parameters & $\sigma(\DE)$ & $\sigma(w)$ \\ \hline
-%free & free & 0.8662 & 0.4206 \\
-%\multicolumn{2}{l}{add Planck priors} & 0.0331 & 0.1078 \\
-%\multicolumn{2}{l}{Planck priors} & 0.0331 & 0.1078 \\
-%free & sharp & 0.0142 & 0.0456 \\
-%sharp & sharp & 0.0024 & 0.0110 \\ \hline
-\end{tabular}
-\end{center} 
-\end{table}
-\end{comment}
 
 
 
@@ -836,7 +798,7 @@ at redshift $z_{l}$ and source with $P(z_s)$ is
 \subsection{\pofz\ and galaxy-galaxy lensing: proof-of-principle} \label{sec:pofp}
 
 Particular analysis techniques may be more or less sensitive to the width of
-\pofz\ or other properties of \pofz\ or \Nofz.  In this section, we use the
+\pofz\ or other properties of \pofz\ or \nofz.  In this section, we use the
 galaxy-galaxy lensing calibration method from \cite{man08} and
 \citet{Nakajima11} as an example of determining this sensitivity.
 This methodology requires the use of a fair subsample of source galaxies with
@@ -953,7 +915,10 @@ criteria.
 
 \section{Acquiring the Data} \label{sec:get}
 
-{\color{red} Give the data model and location  of files on DR8 website. }
+The \pofz\ for all galaxies are permanently and publicly stored on the SDSS III
+website\footnote{\downloadURL}.  The data are available in both FITS format and
+ASCII.  The objects are split into different files according to their SDSS run
+id, with each row in the file representing the data for a single SDSS object.  
 
 \section{Summary} \label{sec:summary}
 
@@ -979,12 +944,12 @@ sample variance limited in this case.  We may release a catalog trained on
 repeat observations at a future date.  
 
 \begin{deluxetable}{cccc}
-\tablecaption{Estimated \Nofz\ and Sample Variance Errors \label{tab:nofz}}
+\tablecaption{Estimated \nofz\ and Sample Variance Errors \label{tab:nofz}}
 \tablewidth{0pt}
 \tablehead{
     \colhead{zmin} &
     \colhead{zmax} &
-    \colhead{\Nofz} &
+    \colhead{\nofz} &
     \colhead{Sample Variance Error}
 }
 \
@@ -1026,9 +991,9 @@ repeat observations at a future date.
 1.068570 & 1.100000 & 0.000146 & 0.000104
 \enddata
 
-\tablecomments{Reconstructed redshift distribution \Nofz\ for SDSS galaxies
+\tablecomments{Reconstructed redshift distribution \nofz\ for SDSS galaxies
 with \rmag\ $ < $ \rmax.  The first two columns specify the redshift range of
-the bin and the third is the reconstructed \Nofz. The fourth is the sample
+the bin and the third is the reconstructed \nofz. The fourth is the sample
 variance errors derived from simulations, which we expect to be the dominant
 uncertainty.  These sample variance errors should be thought of as a somewhat
 rough estimate.  A more perfect match would require a simulation more
