@@ -54,17 +54,18 @@ to that of the photometry-only sample, producing a nearly fair sample in that
 space.  The ensemble \nofz\ of the photometric sample was then estimated by
 constructing a weighted histogram of the training set redshifts.  The
 individual \pofz\ were derived using the same weights by limiting to only the
-local color-magnitude space around each object.  Using these individual \pofz\
-can reduce the scatter in measurements that depend on the redshift distribution
-of individual objects.  The spectroscopic training sample is substantially
-larger than that used for the DR7 release; of particular note is addition of
-the PRIMUS catalog, which is the most important training set used in this
-analysis.  Nevertheless, we expect the primary source of error is sample
-variance: the training sets are drawn from relatively small volumes of space.
-Using simulations we estimated the uncertainty in \nofz\ at a given redshift is
-$\sim$ \localbias.  The uncertainty on calculations using \nofz\ or \pofz\
-depends on how they are used; we discuss the case of weak lensing measurements.
-The \pofz\ catalog is publicly available from the SDSS website.  
+local color-magnitude space around each object.  Using the \pofz\ for each
+galaxy, rather than an ensemble \nofz, can reduce the statistical error in
+measurements that depend on the redshifts of individual galaxies. The
+spectroscopic training sample is substantially larger than that used for the
+DR7 release, and the newly added PRIMUS catalog is now the most important
+training set used in this analysis by a wide margin.  Nevertheless, we expect
+the primary source of error is sample variance: the training sets are drawn
+from relatively small volumes of space.  Using simulations we estimated the
+uncertainty in \nofz\ at a given redshift is $\sim$\localbias.  The uncertainty
+on calculations incorporating \nofz\ or \pofz\ depends on how they are used; we
+discuss the case of weak lensing measurements.  The \pofz\ catalog is publicly
+available from the SDSS website.  
 
 \end{abstract}
 
@@ -80,7 +81,7 @@ galaxy's redshift.  As several recent works have shown
 \citep{man08,CunhaPhotoz09,wit09,bor10,abr11}, the use of a single number to
 represent the \photoz\ leads to biases.  Working with the full \pofz\ for each
 galaxy yields better estimates of the overall redshift distribution, $N(z)$,
-and can decrease biases in cosmological analysis.  We note that several public
+and can decrease biases in cosmological analyses.  We note that several public
 \photoz\ codes exist that can output a \pofz\ per galaxy, e.g.  {\it Le Phare}
 \citep{arn99,ilb06}, {\it ZEBRA} \citep{fel06}, {\it BPZ} \citep{coe06}, {\it
 ArborZ} \citep{ger10}, and our own method \citep{CunhaPhotoz09}, henceforth
@@ -94,7 +95,7 @@ In this paper, we describe a \pofz\ catalog for objects detected in the Data
 Release 8 of the Sloan Digital Sky Survey III (SDSS DR8).  We use the method of
 \citet{CunhaPhotoz09}, which was also applied to SDSS DR7, with improvements in
 the training set and photometry.  The DR7 catalog of \cite{CunhaPhotoz09} has
-been successfully used in cosmological analysis, allowing, for example, for the
+been successfully used in cosmological analyses, allowing, for example, for the
 first measurement of the transverse BAO scale derived purely from angular
 information, i.e. without using the 3D power-spectrum \citep{car11}  and for
 the measurement of the growth of structure using photometric LRGs
@@ -919,7 +920,10 @@ criteria.
 The \pofz\ for all galaxies are permanently and publicly stored on the SDSS III
 website\footnote{\downloadURL}.  The data are available in both FITS format and
 ASCII.  The objects are split into different files according to their SDSS run
-id, with each row in the file representing the data for a single SDSS object.  
+id, with each row in the file representing the data for a single SDSS object.
+The data for each object are SDSS id, the input colors and magnitude for each
+object, equatorial latitude and longitude, and the estimated \pofz.
+
 
 \section{Summary} \label{sec:summary}
 
