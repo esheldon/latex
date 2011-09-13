@@ -16,7 +16,7 @@
 \newcommand{\pofzw}{$P(z)_w$\ }
 \newcommand{\nofz}{$N(z$)}
 \newcommand{\nwei}{N(z)_{\rm wei}}
-\newcommand{\npz}{N(z)_{\rm p(z)}}
+\newcommand{\npz}{N(z)_{\rm P}}
 \newcommand{\nphot}{N(z)_{\rm phot}}
 \newcommand{\contamworst}{10\%}
 \newcommand{\nphoto}{58,533,603}
@@ -44,26 +44,27 @@
 
 
 We present redshift probability distributions for galaxies in the SDSS DR8
-imaging data.  We used the weighting algorithm presented in
+imaging data.  We used the nearest-neighbor weighting algorithm presented in
 \citet{LimaPhotoz08} and \citet{CunhaPhotoz09} to derive the ensemble redshift
 distribution \nofz, and individual redshift probability distributions \pofz\
 for galaxies with \rmag$ < $\rmax.  As part of this technique, we calculated
 weights for a set of training galaxies with known redshifts such that their
 density distribution in five dimensional color-magnitude space was proportional
 to that of the photometry-only sample, producing a nearly fair sample in that
-space.  The ensemble \nofz\ of the photometric sample was then estimated by
-constructing a weighted histogram of the training set redshifts.  The
-individual \pofz\ were derived using the same weights by limiting to only the
-local color-magnitude space around each object.  Using the \pofz\ for each
-galaxy, rather than an ensemble \nofz, can reduce the statistical error in
-measurements that depend on the redshifts of individual galaxies. The
-spectroscopic training sample is substantially larger than that used for the
-DR7 release, and the newly added PRIMUS catalog is now the most important
-training set used in this analysis by a wide margin.  Nevertheless, we expect
-the primary source of error is sample variance: the training sets are drawn
-from relatively small volumes of space.  Using simulations we estimated the
-uncertainty in \nofz\ at a given redshift is $\sim$\localbias.  The uncertainty
-on calculations incorporating \nofz\ or \pofz\ depends on how they are used; we
+space.  We then estimated the ensemble \nofz\ of the photometric sample by
+constructing a weighted histogram of the training set redshifts.  We derived
+\pofz s for individual objects using the same technique, but limiting to
+training set objects from the local color-magnitude space around each
+photometric object.  Using the \pofz\ for each galaxy, rather than an ensemble
+\nofz, can reduce the statistical error in measurements that depend on the
+redshifts of individual galaxies. The spectroscopic training sample is
+substantially larger than that used for the DR7 release, and the newly added
+PRIMUS catalog is now the most important training set used in this analysis by
+a wide margin.  We expect the primary source of error in the \nofz\
+reconstruction is sample variance: the training sets are drawn from relatively
+small volumes of space.  Using simulations we estimated the uncertainty in
+\nofz\ at a given redshift is $\sim$\localbias.  The uncertainty on
+calculations incorporating \nofz\ or \pofz\ depends on how they are used; we
 discuss the case of weak lensing measurements.  The \pofz\ catalog is publicly
 available from the SDSS website.  
 
@@ -74,7 +75,7 @@ available from the SDSS website.
 Photometric redshifts are estimates of redshift derived using broad-band
 photometric observables such as magnitudes and colors.  Typically, the set of
 observables for a given galaxy are not sufficient to uniquely specify its
-redshift, but only a probability distribution, the \pofz.  These \pofz\ are
+redshift, but only a probability distribution, the \pofz.  These \pofz s are
 often relatively broad. For simplicity of use and interpretation, one commonly
 uses a single number, the photometric redshift, as the best estimate of a
 galaxy's redshift.  As several recent works have shown
@@ -82,7 +83,7 @@ galaxy's redshift.  As several recent works have shown
 represent the \photoz\ leads to biases.  Working with the full \pofz\ for each
 galaxy yields better estimates of the overall redshift distribution, $N(z)$,
 and can decrease biases in cosmological analyses.  We note that several public
-\photoz\ codes exist that can output a \pofz\ per galaxy, e.g.  {\it Le Phare}
+\photoz\ codes exist that can produce a \pofz\ per galaxy, e.g.  {\it Le Phare}
 \citep{arn99,ilb06}, {\it ZEBRA} \citep{fel06}, {\it BPZ} \citep{coe06}, {\it
 ArborZ} \citep{ger10}, and our own method \citep{CunhaPhotoz09}, henceforth
 referred to as \acronym, which is an acronym for Probability Distributions from
@@ -92,14 +93,15 @@ Weight Training Sets.  We use \pofzw when referring to the \pofz\  derived from
 
 
 In this paper, we describe a \pofz\ catalog for objects detected in the Data
-Release 8 of the Sloan Digital Sky Survey III (SDSS DR8).  We use the method of
-\citet{CunhaPhotoz09}, which was also applied to SDSS DR7, with improvements in
-the training set and photometry.  The DR7 catalog of \cite{CunhaPhotoz09} has
-been successfully used in cosmological analyses, allowing, for example, for the
-first measurement of the transverse BAO scale derived purely from angular
-information, i.e. without using the 3D power-spectrum \citep{car11}  and for
-the measurement of the growth of structure using photometric LRGs
-\citep{cro11}. 
+Release 8 \citep[SDSS DR8;][]{dr8} of the Sloan Digital Sky Survey III
+\citep[SDSS III;][]{Eisenstein2011}.  We use the method of
+\citet{CunhaPhotoz09}, which was also applied to SDSS DR7 \citep{dr7}, with
+improvements in the training set and photometry.  The DR7 catalog of
+\cite{CunhaPhotoz09} has been successfully used in cosmological analyses,
+allowing, for example, for the first measurement of the transverse BAO scale
+derived purely from angular information, i.e. without using the 3D
+power-spectrum \citep{car11}  and for the measurement of the growth of
+structure using photometric LRGs \citep{cro11}. 
 
 This paper is organized as follows.  In \S \ref{sec:method} we discuss the
 method and in \S \ref{sec:data},\ref{sec:photo},\ref{sec:select} we describe
@@ -125,11 +127,11 @@ redshift probability distribution \nofz\ of the photometric sample.
 
 The weighting provides a key advantage over other training sample methods such
 as neural nets.  Forcing the distributions of observables of the two samples to
-be proportional essentially creates a ``fair sample'' from the training set.
-This helps avoid the biases that can arise when the training and photometric
-samples have different properties.  However, this does require that all areas of
-observable space populated by the photometric sample are also populated by the
-training set, at least at some low level. 
+be proportional essentially creates a ``fair sample'' from the training set;
+this approach helps avoid the biases that can arise when the training and
+photometric samples have different properties.  However, this technique does
+require that all areas of observable space populated by the photometric sample
+are also populated by the training set, at least at some low level. 
 
 
 
@@ -146,11 +148,11 @@ ratio of the density of galaxies in the photometric sample to the density of
 training-set galaxies around the given galaxy.  These densities are calculated
 in a local neighborhood in the space of photometric observables, e.g.,
 multi-band magnitudes.  In this case, the SDSS {\it ugriz} magnitudes are our
-observables; in particular we use four colors and the \rmag--band magnitude.
-The hypervolume used to estimate the density is set here to be the Euclidean
-distance of the galaxy to its $100^{th}$ nearest-neighbor in the training set.
+observables; in practice we use four colors and the \rmag--band magnitude.  The
+hypervolume used to estimate the density is set to be the Euclidean distance of
+the galaxy to its $100^{th}$ nearest-neighbor in the training set.
 
-The weights can be used to estimate the redshift distribution of the
+The weights can be used to estimate the redshift distribution $\nwei$ of the
 photometric sample:
 \begin{equation}  
 \nwei = \sum_{\beta=1}^{N_{\rm T}} w_\beta \delta(z-z_\beta)~.
@@ -163,16 +165,15 @@ photometric sample:
 \end{equation}
 \end{comment}
 
-\noindent For a bin $z_1 < z < z_2$, we sum the weights of all training
-set galaxies that fall within that bin.  
-Ref.~\cite{LimaPhotoz08,CunhaPhotoz09} show that this indeed provides
-a nearly unbiased estimate of the redshift distribution of the photometric
-sample, $N(z)_{\rm P}$, provided the differences in the selection of the
-training and photometric samples are solely in the observable quantities used
-to calculate the weights.  For example, if the photometric sample
-has some sort of shape dependent cut, the same cut should be applied to the
-training sample or shape should be one of the observables used to measure
-weights.
+\noindent For a bin $z_1 < z < z_2$, we sum the weights of all training set
+galaxies that fall within that bin.  \cite{LimaPhotoz08} and
+\cite{CunhaPhotoz09} show that this indeed provides a nearly unbiased estimate
+of the redshift distribution of the photometric sample, $N(z)_{\rm P}$,
+provided the differences in the selection of the training and photometric
+samples are solely in the observable quantities used to calculate the weights.
+For example, if the photometric sample has a morphology dependent cut,
+the same cut should be applied to the training sample or morphology should be one of
+the observables used to measure weights.
 
 
 \subsubsection{\pofz}
@@ -187,13 +188,13 @@ nearest neighbors in the {\bf training} set.
 \label{eqn:pzest}
 \end{equation}
 
-\noindent This is the same as Eqn. \ref{eqn:Nzest} but limited to the nearest
-neighbors of a given object.  We choose $N=100$ for this study, and estimate
-\pofz\ in 35 redshift bins between $z=0$ and 1.1.  We can also construct a new
-estimator for $N(z)_{\rm P}$ by summing the $\hat{P}(z)$ distributions for all
-galaxies in the photometric sample,
+\noindent This expression is the same as Eqn. \ref{eqn:Nzest} but is limited to
+the nearest neighbors of a given object.  We choose $N=100$ for this study, and
+estimate \pofz\ in 35 redshift bins between $z=0$ and 1.1.  We can also
+construct a new estimator for $N(z)_{\rm P}$ by summing the $\hat{P}(z)$
+distributions for all galaxies in the photometric sample,
 \begin{equation}
-\npz = \sum_{i=1}^{N_{\rm P,tot}}\hat{p}_i(z)~.
+\npz = \sum_{i=1}^{N_{\rm P,tot}}\hat{P}_i(z)~.
 \label{eqn:Nhat2}
 \end{equation}
 \noindent This estimator becomes identical to that of Eqn. (\ref{eqn:Nzest})
@@ -213,36 +214,36 @@ prior on the \pofz s.
 
 The photometric data were drawn from data release 8 (DR8) of the Sloan Digital
 Sky Survey III.  Full details are given in the data release paper \citet{dr8}.
-As compared to the earlier DR7 release, DR8 includes an additional 2500 deg$^2$
-of new imaging in the Southern Galactic Cap (SGC), acquired to facilitate
-spectroscopic target selection for the \bossfull\ (\boss), which is part of
-SDSS III.
+As compared to the earlier DR7 release \citep{dr7}, DR8 includes an additional
+2500 deg$^2$ of new imaging in the Southern Galactic Cap (SGC), acquired to
+facilitate spectroscopic target selection for the \bossfull\ (\boss), which is
+part of SDSS III.
 
 
-SDSS imaging are gathered using the 2.5 meter at Apache Point \citep{Gunn06}
-with the camera \citep{Gunn98} running in time-delay-and-integrate mode.
-Observations are taken in each of the SDSS bandpasses {\it ugriz} nearly
-simultaneously as sky moves across bands in the order $riuzg$.  The data were taken
-during photometric nights under relatively good seeing conditions
-\citep{Hogg01}.  A series of pipelines are run to calibrate the data
+SDSS \citep{York00} images are gathered using the 2.5 meter at Apache Point
+\citep{Gunn06} with the camera \citep{Gunn98} running in
+time-delay-and-integrate mode.  Observations are taken in each of the SDSS
+bandpasses \citep[{\it ugriz};][]{Fukugita96} nearly simultaneously as sky
+moves across bands in the order $riuzg$.  The data were taken during
+photometric nights under relatively good seeing conditions \citep{Hogg01}.  A
+series of pipelines are run to calibrate the data
 \citep{Nikhil08,Smith02,Tucker06}, derive astrometry \citep{Pier03}, and
 calculate fluxes, shapes and other interesting quantities
-\citep{LuptonADASS01}.  
-Note the calibrations used for these data are derived using the ``ubercalibration''
-technique presented in \citet{Nikhil08}.  
+\citep{LuptonADASS01}.  Note the calibrations used for these data are derived
+using the ``ubercalibration'' technique presented in \citet{Nikhil08}.
 \section{Photometric Quantities} \label{sec:photo}
 
 In this section we describe the photometric quantities used in the creation of the
 input catalog.  Most of these quantities are measured by the SDSS photometric
 pipeline \photo. An early version of the pipeline is described in
-\citet{LuptonADASS01}.  Other details can be found in the SDSS Data Release
+\citet{LuptonADASS01};  other details can be found in the SDSS Data Release
 papers, e.g. \citet{dr4} and at the SDSS III website\footnote{\sdssweb}.  We
-\sout{will} give a few additional details below.  In comparison to DR7, the DR8
+ give a few additional details below.  In comparison to DR7, the DR8
 makes use of an updated version of the \photo\ software reduction pipeline,
 v5\_6 rather than v5\_4, including some updates to sky subtraction that can
-change galaxy photometry and, potentially, the $P(z)$.
+change galaxy photometry and, potentially, the \pofz s.
 
-For colors we use the SDSS ``model magnitudes'', which we \sout{will} refer to as
+For colors we use the SDSS ``model magnitudes'', which we refer to as
 \modelmag \footnote{\DRatemags}.  Each object is fit to an elliptical
 exponential disk and an elliptical \devauc\ profile convolved with a double
 Gaussian approximation to the PSF model interpolated to the location of the
@@ -253,7 +254,7 @@ effective aperture is the same for all bands, which is appropriate for
 extraction of color information.
 
 We use ``composite model magnitudes'' as an approximate total magnitude for
-each object, which we \sout{will} refer to as \cmodelmag.  For each bandpass
+each object, which we refer to as \cmodelmag.  For each bandpass
 separately, \photo\ does an additional joint fit to a non-negative
 linear combination of the  best-fitting exponential and \devauc\
 models. This fit determines an additional parameter {\sc frac\_deV}
@@ -298,11 +299,12 @@ $\ge 0$ within the noise, with stars close to zero and galaxies greater than
 zero.  The pipeline defines galaxies as objects with $c > 0.145$ where $c$ is
 derived from the summed fluxes from all bandpasses\footnote{\DRateclass}.  
 
-At our magnitude limit $r = $\rmax, the stellar contamination may be relatively
-large.  Using a small space-based data set matched to SDSS data as a truth
-table, the approximate stellar contamination can be determined.  At \rmag\ = 21
-the contamination is a few percent, but the contamination increases to
-approximately \contamworst\ at \rmag\ = 22\footnote{\DRsevsg}.  
+At our magnitude limit $r = $\rmax, the stellar contamination is relatively
+large.  Using a small, space-based, high angular resolution data set matched to
+SDSS data as a truth table, the approximate stellar contamination can be
+determined.  At \rmag\ = 21 the contamination is a few percent, but the
+contamination increases to approximately \contamworst\ at \rmag\ =
+22\footnote{\DRsevsg}.  
 
 For studies where completeness and purity must be known precisely,
 \citet{ScrantonMag05} recommend using probabilistic star galaxy separation at
@@ -311,26 +313,26 @@ probability} that an object is a galaxy and either use that as a weight or make
 appropriate cuts. 
 
 
-In practice the end user should perform more strict cuts on the data to choose
-a subset that suits their needs.  We provide a catalog here that should be a
-superset of objects that can be further trimmed.
+In practice the end user should choose a subset of the data that suits their
+needs.  We provide a catalog here that should be a superset of objects that can
+be further trimmed.
 
 \subsection{Other Cuts}
 
-We remove objects for which the extinction-corrected model flux is not well
-determined in at least one of the bands.  The magnitude limits are [21, 22, 22,
-20.5, 20.1] for \allmag\ respectively.
+We remove objects for which the extinction-corrected \citep{Schlegel98} model
+flux is not well determined in at least one of the photometric bands.  The
+adopted magnitude limits are [21, 22, 22, 20.5, 20.1] for \allmag\
+respectively.
 
 In addition to the magnitude limits described above, which ensures a reasonable
-detection in at least one band, we additionally demand that we have some
-detection in both the \rmag\ and \imag\ bands.  Rather than applying a
-magnitude cut, we instead use the \texttt{OBJECT} processing flags
-\texttt{BINNED}\{1,2,4\}, which indicate the object was detected in the
-original image (binned by 1), the $\times$2 binned image, or the $\times$4
-binned image respectively.
+detection in at least one band, we additionally demand a detection in both the
+\rmag\ and \imag\ bands.  Rather than applying a magnitude cut, we instead use
+the \texttt{OBJECT} processing flags \texttt{BINNED}\{1,2,4\}, which indicate
+the object was detected in the original image (binned by 1), the $\times$2
+binned image, or the $\times$4 binned image, respectively\citep{Stough02}.
 
-We remove all objects that are found to have the following \texttt{OBJECT}
-flags set: \texttt{SATUR}, \texttt{BRIGHT}, \texttt{DEBLEND\_TOO\_MANY\_PEAKS},
+We remove all objects that have the following \texttt{OBJECT} flags set:
+\texttt{SATUR}, \texttt{BRIGHT}, \texttt{DEBLEND\_TOO\_MANY\_PEAKS},
 \texttt{PEAKCENTER}, \texttt{NOTCHECKED}, \texttt{NOPROFILE} as well as objects
 that are (\texttt{BLENDED} \&\& \texttt{NODEBLEND}); in other words, detected
 to be blended but not successfully deblended into components. 
@@ -340,10 +342,11 @@ We only use objects marked as \texttt{SURVEY\_PRIMARY} in their
 objects due to the small overlap regions between adjacent scans, overlaps at
 the end of the scan lines where the great circles converge, and re-observed
 scan lines.  This results in duplicate observations for many objects.  These
-duplicates are ``resolved'' and only a single observation is kept.  Note this
-primary also implies that, if the object is blended, it is either a child or
-not deblended further.  This cut is made in the \texttt{OBJECT} flags as
-\texttt{!BRIGHT \&\& (!BLENDED || NODEBLEND || nchild == 0)}.
+duplicates are ``resolved'' and only a single observation is assigned
+\texttt{SURVEY\_PRIMARY}.  Note this primary also implies that, if the object
+is blended, it is either a child or not deblended further.  This cut is made in
+the \texttt{OBJECT} flags as \texttt{!BRIGHT \&\& (!BLENDED || NODEBLEND ||
+nchild == 0)}.
 
 We require the extinction corrected \citep{Schlegel98} \cmodelmag\ in the \rmag\
 band to be in the range [\rmin, \rmax].  We also restrict the extinction corrected
@@ -363,13 +366,14 @@ all objects from images taken where a \umag\ amplifier was not working\footnote{
 \begin{figure}[t] \centering
  \centering 
  \includegraphics[scale=0.75]{figures/boss-poly-coverage.eps}
- %\plotone{figures/boss-poly-coverage.eps}
- \caption{BOSS footprint for the north galactic cap on the left
- and the south galactic cap on the right.  The differently shaded
- regions represent contiguous rectangular regions in SDSS survey coordinates.
- Note points with RA $>$ 300 have been wrapped below zero 
- to avoid the 360 crossing point.}
+
+ \caption{BOSS window function for the south galactic cap on the left and the
+ north galactic cap on the right.  The differently shaded regions represent
+ contiguous rectangular regions in SDSS survey coordinates, used for
+ construction of the window function.  Note points with RA $>$ 300\arcdeg\ have
+ been wrapped below zero to avoid the 360\arcdeg\ crossing point.}
  \label{fig:footprint}
+
 \end{figure}
 
 The final photometric catalog contains \nphoto\ objects.  The distributions of
@@ -388,38 +392,47 @@ process for matching to the photometric sample.
 
 \begin{itemize} 
 
-    \item 435,878 redshifts from the SDSS spectroscopic samples,
-principally from the \texttt{MAIN} and Luminous Red Galaxy \texttt{(LRG)}
-samples, with confidence level \texttt{zconf}$ > 0.9$, and r-band
-\cmodelmag\ $ <19.5$.
+    \item 435,878 redshifts from the SDSS spectroscopic samples, principally
+    from the \texttt{MAIN} \citep{Strauss02} and Luminous Red Galaxy
+    \citep[\texttt{LRG};][]{Eisenstein01} samples, with confidence level
+    \texttt{zconf}$ > 0.9$, and r-band \cmodelmag\ $ <19.5$.
 
 
-    \item 445 objects from the Canadian Network for Observational
-Cosmology (CNOC) Field Galaxy Survey \cite[CNOC2;][]{yee00}\footnote{\tt
-http://www.astro.toronto.edu/$\sim$cnoc/cnoc2.html} with \texttt{Rval} $>4$
-for \texttt{Sc}$=2$ or \texttt{Rval} $> 5$ for \texttt{Sc}$=5$
+    \item 445 objects from the Canadian Network for Observational Cosmology
+    (CNOC) Field Galaxy Survey \cite[CNOC2;][]{yee00}\footnote{\tt
+    http://www.astro.toronto.edu/$\sim$cnoc/cnoc2.html} with \texttt{Rval} $>4$
+    for \texttt{Sc}$=2$ or \texttt{Rval} $> 5$ for \texttt{Sc}$=5$
 
-    \item 151 from the Canada-France Redshift
-Survey \cite[CFRS;][]{lilly95}\footnote{\tt
-http://www.oamp.fr/people/tresse/cfrs/cfrs.html} with \texttt{Class} $\geq 3$.
+    \item 151 from the Canada-France Redshift Survey
+    \cite[CFRS;][]{lilly95}\footnote{\tt
+    http://www.oamp.fr/people/tresse/cfrs/cfrs.html} with \texttt{Class} $\geq
+    3$.
 
     \item 1,868 from the Deep Extragalactic Evolutionary Probe 2 survey
-\citep[DEEP2;][]{weiner05}\footnote{\tt http://deep.berkeley.edu/DR3}
-with \texttt{zqual} $\geq 3$. 
-Of these, 1,499 are an approximately magnitude-limited sample from the Extended Groth Strip (EGS).
-The remainder is $BRI$ color-selected to target $z>0.7$ galaxies, hereafter denoted the non-EGS sample. 
+    \citep[DEEP2;][]{weiner05}\footnote{\tt http://deep.berkeley.edu/DR3} with
+    \texttt{zqual} $\geq 3$.  Of these, 1,499 are an approximately
+    magnitude-limited sample from the Extended Groth Strip (EGS).  The
+    remainder is $BRI$ color-selected to target $z>0.7$ galaxies, hereafter
+    denoted the non-EGS sample. 
 
-    \item 197 from the Team Keck Redshift Survey \cite[TKRS;][]{wirth04}\footnote{\tt http://tkserver.keck.hawaii.edu/tksurvey/}.
+    \item 197 from the Team Keck Redshift Survey
+    \cite[TKRS;][]{wirth04}\footnote{\tt
+    http://tkserver.keck.hawaii.edu/tksurvey/}.
 
-    \item 8,633 LRGs from the 2dF-SDSS LRG and QSO Survey \cite[2SLAQ;][]{cannon06}\footnote{\tt http://www.2slaq.info/} with \texttt{qop} $\geq$ 3.
+    \item 8,633 LRGs from the 2dF-SDSS LRG and QSO Survey
+    \cite[2SLAQ;][]{cannon06}\footnote{\tt http://www.2slaq.info/} with
+    \texttt{qop} $\geq$ 3.
 
-    \item  2,080 from zCOSMOS redshift survey \cite{lilly07}, with  \texttt{cc=3.4 || 3.5 || 4.4.  || 4.5 || 9.5}.
+    \item  2,080 from zCOSMOS redshift survey \cite{lilly07}, with
+    \texttt{cc=3.4 || 3.5 || 4.4.  || 4.5 || 9.5}.
     
-    \item 1,587 from the VIMOS VLT-Deep survey \cite[VVDS;][]{garilli08}\footnote{\tt http://www.oamp.fr/virmos/vvds.htm} with \texttt{zqual} $\geq 3$.
+    \item 1,587 from the VIMOS VLT-Deep survey
+    \cite[VVDS;][]{garilli08}\footnote{\tt http://www.oamp.fr/virmos/vvds.htm}
+    with \texttt{zqual} $\geq 3$.
 
     \item 16,874 from four fields of the PRIMUS survey
     \cite[PRIMUS;][]{coil10,cool12}\footnote{\tt
-    http://cass.ucsd.edu/$\sim$acoil/primus/}.  Only PRIMUS objects with $Q$ ==
+    http://cass.ucsd.edu/$\sim$acoil/primus/}.  Only PRIMUS objects with $Q$ =
     4 were used.      \end{itemize}
 
 \subsection{Matching to SDSS Imaging Data} \label{sec:train:match}
