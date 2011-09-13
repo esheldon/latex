@@ -104,11 +104,12 @@ the measurement of the growth of structure using photometric LRGs
 This paper is organized as follows.  In \S \ref{sec:method} we discuss the
 method and in \S \ref{sec:data},\ref{sec:photo},\ref{sec:select} we describe
 the data and sample selection. In \S \ref{sec:train} we discuss the training
-set and in \S \ref{sec:results},\ref{sec:errors} we show our results and
+set and in \S \ref{sec:results},\ref{sec:errors} we show our results, including
+information about their public release, and
 estimate errors.  In \S \ref{sec:usage}, we discuss the proper usage of these
 results. As an example, we discuss the particular case of weak gravitational
-lensing calculations.  In section \S \ref{sec:get} we describe the fomat of the
-data to be released, and their permanent archival on the SDSS website.
+lensing calculations.  %In section \S \ref{sec:get} we describe the fomat of the
+%data to be released, and their permanent archival on the SDSS website.
 Finally, in \S \ref{sec:summary} we summarize our results.
 
 \section{Method} \label{sec:method}
@@ -253,13 +254,15 @@ extraction of color information.
 
 We use ``composite model magnitudes'' as an approximate total magnitude for
 each object, which we \sout{will} refer to as \cmodelmag.  For each bandpass
-separately, the flux from the best-fitting exponential and \devauc\ models are
-combined:
+separately, \photo\ does an additional joint fit to a non-negative
+linear combination of the  best-fitting exponential and \devauc\
+models. This fit determines an additional parameter {\sc frac\_deV}
+($f_{deV}$), which is the fraction of the total flux estimated to come
+from a \devauc\ profile.  The composite model flux in each band is then 
 \begin{equation}
-\textrm{Flux}_{cmodel} \equiv (1-f_{dev})\times \textrm{Flux}_{exp} + f_{dev} \times \textrm{Flux}_{dev}
+\textrm{Flux}_{cmodel} \equiv (1-f_{dev})\times \textrm{Flux}_{exp} + f_{dev} \times \textrm{Flux}_{dev},
 \end{equation}
-where $f_{dev}$ is the fraction of the total flux estimated to come from a
-\devauc\ profile.  Note the effective aperture for each band is
+Because this procedure is carried out separately per band, the effective aperture for each band is
 different, so these magnitudes are not appropriate for estimating colors.
 
 For quality assurance, we use bits from the \texttt{OBJECT} bitmask output by
@@ -590,6 +593,26 @@ we use the average correction from that range.
     \vspace{2em}
 \end{figure}
 
+\subsection{Differences from previous $P(z)$ using this method}
+
+Unlike for the DR7 catalog, we
+did not use repeat observations of our training set galaxies.  The use of
+repeats can provide more localized and smoother \pofz\ estimates, and are often
+useful.  However, because only part of our sample had repeat observations, the
+use of repeats would effectively increase the sample variance of our results.
+The use of repeats may be beneficial for LRGs because the training set is not
+sample variance limited in this case.  We may release a catalog trained on
+repeat observations at a future date.  
+
+\subsection{Acquiring the Data} \label{sec:get}
+
+The \pofz\ for all galaxies are stored on the SDSS III
+website\footnote{\downloadURL}.  The data are available in both FITS format and
+ASCII.  The objects are split into different files according to their SDSS run
+id, with each row in the file representing the data for a single SDSS object.
+The data for each object are SDSS id, the input colors and magnitude for each
+object, equatorial latitude and longitude, and the estimated \pofz.
+
 
 
 \section{Sources of Error} \label{sec:errors}
@@ -765,8 +788,8 @@ selection depth. }
 \section{Proper Use} \label{sec:usage}
 
 In this section we describe the proper use of these redshift distributions.
-We risk an overly pedantic discussion here in order to ensure that past
-mistakes are not repeated by the uninitiated.
+We risk an overly pedantic discussion in order to ensure that past
+mistakes in these types of analyses are not repeated.
 
 If one desires to use the \pofz\ to evaluate any non-linear function $F(z)$,
 one must integrate the function times the \pofz\ over the entire distribution;
@@ -784,12 +807,12 @@ It is {\bf not} correct to simply take the effective redshift $\int
 z\,P(z)\,\mathrm{d}z$ and evaluate
 the function at that redshift.
 
-This is true in most interesting science cases.  An excellent example is in
+This statement is true in most interesting science cases.  An excellent example is in
 gravitational lensing, where one must estimate the ``critical surface density''
 \sigmacrit, which determines the lensing strength of a given lens-source pair; the
 lensing deflection angle is proportional to \scinv.  The function
 \sigmacrit\ depends on the angular diameter distances to the lens, source and
-between lens and source in a non-linear way.  The proper estimator for a lens
+between lens and source in a non-linear manner.  The proper estimator for a lens
 at redshift $z_{l}$ and source with $P(z_s)$ is
 \begin{equation} \label{eq:calcscrit}
 \Sigma^{-1}_{\mathrm{crit}}(z_l) = 
@@ -799,18 +822,20 @@ at redshift $z_{l}$ and source with $P(z_s)$ is
 
 \subsection{\pofz\ and galaxy-galaxy lensing: proof-of-principle} \label{sec:pofp}
 
-Particular analysis techniques may be more or less sensitive to the width of
-\pofz\ or other properties of \pofz\ or \nofz.  In this section, we use the
-galaxy-galaxy lensing calibration method from \cite{man08} and
-\citet{Nakajima11} as an example of determining this sensitivity.
-This methodology requires the use of a fair subsample of source galaxies with
-spectroscopic redshifts.  For the purpose of this paper, we use the DEEP2 EGS
-region, in which there are 730 galaxies that (a) pass all cuts to be included
-in the SDSS source catalog from \citet{MandelbaumSystematics05}, (b) have
-secure redshifts from DEEP2, and (c) pass the additional cut $r<21.5$.
-
-Note, DEEP2 EGS is only one of the many training samples used in our analysis.
-So this should be thought of as a proof-of-principle.
+The sensitivity of observational methods to the properties of the
+$P(z)$ or $N(z)$ depends on the details of how the observation is
+carried out.  In
+this section, we use the galaxy-galaxy lensing calibration method from
+\cite{man08} and \citet{Nakajima11} as an example of determining this
+sensitivity.  This methodology requires the use of a fair subsample of
+source galaxies with spectroscopic redshifts.  For the purpose of this
+paper, we use the DEEP2 EGS region, in which there are 730 galaxies
+that (a) pass all cuts to be included in the SDSS source catalog from
+\citet{MandelbaumSystematics05}, (b) have secure redshifts from DEEP2,
+and (c) pass the additional cut $r<21.5$. 
+DEEP2 EGS is only one of the many training samples used in our
+analysis, 
+so this exercise should be thought of as a proof-of-principle.
 
 In brief, the quantities that we have measured are the expected calibration
 bias $b_z$ in the galaxy-galaxy lensing signal due to the method of estimating
@@ -818,7 +843,7 @@ the source redshift (i.e., a multiplicative systematic error), and the degree to
 which the variance in the lensing signal deviates from the ideal variance we
 would achieve with optimal weighting by the true source redshift (large
 deviation results in increased statistical error).  The increase in statistical
-error when we have degraded redshift information comes both from source
+error when we have degraded redshift information arises both from source
 misidentification, and also from deviations of the weights from the
 optimal\footnote{Optimal weighting would also include a factor that downweights
 galaxies with noisier shape measurements, $\propto (e_\mathrm{rms}^2 +
@@ -845,10 +870,10 @@ and
 For more detail, see the aforementioned papers.
 
 In Figure \ref{fig:simplebias} we show the results of these calculations for
-several test cases.  First, the red short-dashed curve gives, as a baseline,
+several test cases.  First, the red short-dashed curve provides, as a baseline,
 the calibration bias (top) and variance ratio (bottom) when using the ZEBRA
 \photoz\ studied in \citet{Nakajima11}.  As shown, there is a
-significant bias in the lensing signal that must be calibrated out.
+significant bias in the lensing signal that must be calibrated.
 Next, the green long-dashed line shows what happens if we use the
 $N(z)_\mathrm{wei}$ as an estimate of the redshift distribution, rather than
 using any individual galaxy \photoz\ or $P(z)$ information.  Crucially, the
@@ -856,7 +881,7 @@ lensing signal is unbiased in this case. However, as shown in the bottom
 panel, we do find an increased
 statistical error due to lack of redshift information on a per-galaxy basis.
 
-Third, the solid black line shows what happens when we use the individual
+Third, the solid black line demonstrates what happens when we use the individual
 $P(z)$ to estimate $\Sigma_\mathrm{crit}$ using Eq. \ref{eq:calcscrit}.  These
 $P(z)$ are derived from a very specific, idealized case, using {\em only} EGS
 both as the training sample and the photometric sample.  In this case, the
@@ -883,13 +908,13 @@ all the cases considered in this paper.
 
 To summarize, we have demonstrated for this simplified training set that, for
 the purpose of lensing, we achieve a perfect signal calibration when using
-$N(z)_\mathrm{wei}$; i.e. no individual galaxy redshift information.  However,
+$N(z)_\mathrm{wei}$; i.e., no individual galaxy redshift information.  However,
 the weighting is suboptimal.  When we use individual $P(z)$, the lensing signal
 can be biased due to their finite width even if $\sum P(z) =
-N(z)_\mathrm{wei}$, but this bias can be calibrated out.  The advantage of
+N(z)_\mathrm{wei}$, but this bias can be calibrated.  The advantage of
 using individual \pofz\ information is that statistical errors on the lensing
 signal are reduced due to more optimal weighting.  This is because a
-signal-to-noise ratio weighting goes as $\langle \Sigma_{\mathrm{crit}}^{-2}
+signal-to-noise ratio weighting is proportional to $\langle \Sigma_{\mathrm{crit}}^{-2}
 \rangle$, so sources expected to be behind the lens are given higher weight
 than those expected to be close to or in front of the lens.
 
@@ -909,44 +934,33 @@ criteria.
     for four  cases labeled on the plot and discussed in the text.  {\em
     Bottom:}  Ratio of the ideal to the real signal variance when using
     different  methods of redshift determination; the goal is to stay as close
-    to $1$  as possible. \label{fig:simplebias}}
+    to unity as possible. \label{fig:simplebias}}
 
 \end{figure}
 
 
 
-\section{Acquiring the Data} \label{sec:get}
-
-The \pofz\ for all galaxies are permanently and publicly stored on the SDSS III
-website\footnote{\downloadURL}.  The data are available in both FITS format and
-ASCII.  The objects are split into different files according to their SDSS run
-id, with each row in the file representing the data for a single SDSS object.
-The data for each object are SDSS id, the input colors and magnitude for each
-object, equatorial latitude and longitude, and the estimated \pofz.
-
 
 \section{Summary} \label{sec:summary}
 
-In this paper we presented a catalog of photometric redshift probability distributions for
-the SDSS DR8.  This catalog uses the same method as the \pofz\ catalog for SDSS
-DR7 presented in \cite{CunhaPhotoz09}, with some modifications.  For this
-catalog, we use the ubercal photometry.  We also add the PRIMUS galaxy sample,
-which more than doubles the number of galaxies in our training set that are
-drawn from a flux-limited sample other than SDSS.  The addition of PRIMUS
-provides a significant increase in the total area of the non-SDSS training set, which
-helps to reduce sample variance.  We examined several potential sources of
-error, including shot noise, sample variance, seeing, star-galaxy separation,
-and spectroscopic failures.  We expect that sample variance is the main source
-of uncertainty in our overall redshift distribution.  For individual \pofz s,
-shot-noise is the limiting uncertainty, since each \pofz\ is based on 100 training set galaxies.  
-Differently from the DR7 catalog, we
-did not use repeat observations of our training set galaxies.  The use of
-repeats can provide more localized and smoother \pofz\ estimates, and are often
-useful.  However, because only part of our sample had repeat observations, the
-use of repeats would effectively increase the sample variance of our results.
-The use of repeats may be beneficial for LRGs because the training set is not
-sample variance limited in this case.  We may release a catalog trained on
-repeat observations at a future date.  
+In this paper we presented a catalog of photometric redshift probability
+distributions for the SDSS DR8.  With some modifications, our method is the
+same as that used to generate the \pofz\ catalog for SDSS DR7, presented in
+\cite{CunhaPhotoz09}.  For this catalog, we used the ubercal photometry
+\citep{Nikhil08}.  We also included the PRIMUS galaxy sample, which more than
+doubles the number of galaxies in our training set that are drawn from a
+flux-limited sample other than SDSS.  The addition of PRIMUS provided a
+significant increase in the total area of the non-SDSS training set, which
+reduced the sample variance.  We examined several potential sources of error,
+including shot noise, sample variance, seeing, star-galaxy separation, and
+spectroscopic failures.  We expect that sample variance is the main source of
+uncertainty in our overall redshift distribution.  For individual \pofz s,
+shot-noise is the limiting uncertainty, since each \pofz\ is based on 100
+training set galaxies.  These \pofz, and the ensemble \nofz\ derived in this
+work (Table~\ref{tab:nofz}), should be useful for a variety of science
+applications, such as galaxy angular two-point correlation functions, galaxy
+cluster detection and weak gravitational lensing.
+
 
 \begin{deluxetable}{cccc}
 \tablecaption{Estimated \nofz\ and Sample Variance Errors \label{tab:nofz}}
