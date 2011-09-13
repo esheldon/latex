@@ -1,0 +1,120 @@
+\documentclass[12pt]{letter}
+
+\begin{document}
+
+
+\hfill August 23,  2011
+\newline
+
+Dear Committee -
+
+I am writing in support of Zhaomin Ma's application for personal DES data
+rights.  
+
+Zhaoming joined me as a postdoc at Brookhaven National Laboratory in the Fall
+of 2009.  Prior to arriving at BNL, Zhaoming worked on DES forecasts, amounting
+to about two months full time work.  He has spent the last fourteen months,
+since June 2010, working exclusively on DES infrastructure.  This work has been
+focused on two major areas, the first is optimization of the DES observing
+strategy, and the second is development of a nearly optimal method to
+interpolate the point spread function of the sky+optical system.  Zhaoming has
+already detailed his work in his proposal.  Here I will try to address the
+importance of his contributions, and how the DES collaboration will benefit
+from Zhaoming's continued involvement.
+
+Zhaoming's work on cosmological parameter forecasts were included in the DES
+science proposal.  Although part of a large effort, the parameter forecasts are
+an important focus of that document.  Indeed the forecasts are essential to
+making the science case and justifying the effort as a whole.
+
+Zhaoming's work on survey strategy focuses on finding a set of observing
+strategies that maximize the dark energy figure of merit.  Zhaoming has worked
+primarily with Jim Annis and Carlos Cunha on this.  Jim has developed
+monte-carlo simulations of the survey that account for weather, moon
+brightness, seeing, etc. as they vary throughout the year, essentially all the
+external conditions.  An ansats is chosen for dealing with various choices that
+arise, such as when to change filters, when to slew the telescope, how long to
+expose etc.  Zhaoming's contribution is to calculate the impact these decisions
+have on the weak lensing and BAO figure of merit.  For example, he questions if
+it is better to expose all filters equally to improve photometric redshift
+accuracy, or if it is better to favor the i-band in hopes to increase the
+sensitivity of shear measurements from that band.   This work is essential to
+optimizing the DES survey for dark energy constraints.  Zhaoming will continue
+to work on this problem through commissioning, but I anticipate more work will
+be needed after the survey proper starts, as we take data and discover the most
+efficient modes of operation.  Zhaoming has spent approximately 2 months full
+time work on this.
+
+Zhoaming has spent about a year full time working on a near-optimal method to
+interpolate the point spread function (PSF).  This is quite a technical
+subject, but is of great importance to DES science, so I will give some
+detailed description here.
+
+The effect of the atmosphere, optics, ccd, etc. can be mathematically expresses
+as a convolution of the image with a kernel, the PSF.  This convolution alters
+galaxy shapes causing spurious signals in measurements such as gravitational
+lensing.  This effect must be removed with high accuracy if we are to meet our
+science goals.  In order to remove the effect we must estimate the PSF at the
+location of all galaxies.
+
+The PSF can only be measured by using true point sources, the most abundant of
+which are stars.  The stars chosen must be high signal-to-noise ratio (S/N);
+this is because, in the convolution, high order moments in the PSF affect low
+order moments in the galaxy.  High S/N is needed to extract this information.
+Furthermore, the PSF varies with position in the focal plane.  But these
+sources are fairly low density in comparison to the galaxies.   There is not an
+abundance of good reference PSF stars near every galaxy that could be used for
+determining a correction.  Instead the PSF must be interpolated to the location
+of the galaxy.  But even so, the density of stars is so low that the PSF cannot
+be interpolated accurately on the small scales, or high frequencies, at which the
+PSF varies. 
+
+But many of the PSF patterns repeat throughout the survey.  For example, PSF
+patterns due to defocus or mirror flexure will repeat, and stars will most
+likely be located at different points in the focal plane each time.  As
+proposed by Jarvis \& Jain, the repeats can be used to essentially provide a
+higher density stellar sample.  The ensemble of exposures, sampling each
+physical configuration many times, can be used to extract the principle
+components of these PSF patterns.  The required number of these components is
+not large, of order 20.  There are easily enough stars on each exposure to
+determine these coefficients.  
+
+Zhaoming has developed a novel, model independent method for performing this
+PCA analysis.  Rather than fitting a model such as a polynomial the PSF as a
+function of position in the focal plane, he grids the focal plane and uses data
+from stars in each grid cell as his data vector.  He then finds the
+eigen-vectors in this space.  This allows for any form of spatial variation,
+and is limited only by the grid spacing, the scale of which is only limited by
+the number of exposures available for PCA determination.  This is facilitated
+by Zhaoming's algorithm, which deals robustly with missing data (empty cells),
+and so quite small cells, and thus high spatial frequencies, can be recovered.
+Using simulations, Zhaoming has shown this method is an order of magnitude more
+accurate that the existing polynomial-based interpolation scheme, and should be
+accurate enough to meet our survey goals.  Furthermore, the code is fully
+parallelized, and can scale to the large data set of DES.
+
+Zhaoming's work on PCA PSF interpolation directly facilitates the overall
+lensing pipeline.  Without the PCA the pipeline could not achieve the desired
+accuracy. As work on the lensing pipeline is itself infrastructure, I think
+this should translate directly to the PCA work.  
+
+If Zhaoming receives data rights, he will continue developing and perfecting
+this PCA code throughout the survey.  He will be responsible for running this
+code as data arrives to update his PCA solution to be used in the lensing
+analysis.  In other words, Zhaoming is committed to continuing his
+infrastructure contribution for the next five years.
+
+Zhaoming's own scientific interests, which he has explained in detail, are
+primarily lensing and cosmological parameter estimation.  A successful pursuit
+of these interests depends directly on the accuracy of the shear estimates and
+thus on his PSF interpolations.  So so he has a strong motivation to continue
+this infrastructure work as he moves on in his career.
+
+Thank you for your consideration,
+
+{\noindent Erin Sheldon}
+\newline
+{\noindent Brookhaven National Laboratory}
+
+
+\end{document}
