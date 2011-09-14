@@ -73,8 +73,8 @@ available from the SDSS website.
 \section{Introduction} \label{sec:intro}
 
 Photometric redshifts are estimates of redshift derived using broad-band
-photometric observables such as magnitudes and colors.  Typically, the set of
-observables for a given galaxy are not sufficient to uniquely specify its
+photometric observables such as magnitudes and colors \citep{bau62,pus82,koo85,loh86,con95}. 
+Typically, the set of observables for a given galaxy are not sufficient to uniquely specify its
 redshift, but only a probability distribution, the \pofz.  These \pofz s are
 often relatively broad. For simplicity of use and interpretation, one commonly
 uses a single number, the photometric redshift, as the best estimate of a
@@ -87,7 +87,7 @@ and can decrease biases in cosmological analyses.  We note that several public
 \citep{arn99,ilb06}, {\it ZEBRA} \citep{fel06}, {\it BPZ} \citep{coe06}, {\it
 ArborZ} \citep{ger10}, and our own method \citep{CunhaPhotoz09}, henceforth
 referred to as \acronym, which is an acronym for Probability Distributions from
-Weight Training Sets.  We use \pofzw when referring to the \pofz\  derived from
+Weighted Training Sets.  We use \pofzw when referring to the \pofz\  derived from
 \acronym.
 
 
@@ -141,7 +141,8 @@ are also populated by the training set, at least at some low level.
 
 In this section, we briefly review the weighting method\footnote{The weights
 and \pofz\ codes are available at {\url
-http://kobayashi.physics.lsa.umich.edu/$\sim$ccunha/nearest/}} of
+http://kobayashi.physics.lsa.umich.edu/$\sim$ccunha/nearest/}. Alternatively,
+the code can be accessed as the git repository probwts in \url{http://github.com}} of
 \cite{LimaPhotoz08}, which is required for computing \pofz.  We define the
 weight, $w$, of a galaxy in the spectroscopic training set as the normalized
 ratio of the density of galaxies in the photometric sample to the density of
@@ -710,7 +711,13 @@ than the SDSS sample.
 \item {\it Spectroscopic redshift failures: } The impact of spectroscopic failures is the
 most difficult to quantify.  We chose a bright $r$-magnitude cut, and relatively
 stringent cuts on spectroscopic quality to minimize effects of failures, but it
-is possible that errors due to spectroscopic failures are not negligible.
+is possible that, for some applications, errors due to spectroscopic failures are not negligible.
+Based on the descriptions of the surveys comprising our training set, we expect the average
+completeness of our training sample to be well above $90\%$.
+
+%The characteristic of the redshift failures vary from survey to survey
+%The requirements on spectroscopic success rate depend on the applications.
+%The 
 
 \item {\it Seeing: } \citet{Nakajima11} report that differences
 between the seeing distribution of the galaxies in the photometric and the
@@ -946,6 +953,17 @@ work (Table~\ref{tab:nofz}), should be useful for a variety of science
 applications, such as galaxy angular two-point correlation functions, galaxy
 cluster detection and weak gravitational lensing.
 
+
+\section*{Acknowledgments}
+
+C.C was supported by DOE OJI grant under contract DEFG02-95ER40899 and the Kavli Fellowship at Stanford.
+
+Funding for the DEEP2 survey has been provided by NSF grants AST95-09298, AST-0071048, AST-0071198, AST-0507428, and AST-0507483 as well as NASA LTSA grant NNG04GC89G. 
+
+(Some of) The data presented herein were obtained at the W. M. Keck Observatory, which is operated as a scientific partnership among the California Institute of Technology, the University of California and the National Aeronautics and Space Administration. The Observatory was made possible by the generous financial support of the W. M. Keck Foundation. The DEEP2 team and Keck Observatory acknowledge the very significant cultural role and reverence that the summit of Mauna Kea has always had within the indigenous Hawaiian community and appreciate the opportunity to conduct observations from this mountain.
+Funding for the SDSS and SDSS-II has been provided by the Alfred P. Sloan Foundation, the Participating Institutions, the National Science Foundation, the U.S. Department of Energy, the National Aeronautics and Space Administration, the Japanese Monbukagakusho, the Max Planck Society, and the Higher Education Funding Council for England. The SDSS Web Site is http://www.sdss.org/.
+
+The SDSS is managed by the Astrophysical Research Consortium for the Participating Institutions. The Participating Institutions are the American Museum of Natural History, Astrophysical Institute Potsdam, University of Basel, University of Cambridge, Case Western Reserve University, University of Chicago, Drexel University, Fermilab, the Institute for Advanced Study, the Japan Participation Group, Johns Hopkins University, the Joint Institute for Nuclear Astrophysics, the Kavli Institute for Particle Astrophysics and Cosmology, the Korean Scientist Group, the Chinese Academy of Sciences (LAMOST), Los Alamos National Laboratory, the Max-Planck-Institute for Astronomy (MPIA), the Max-Planck-Institute for Astrophysics (MPA), New Mexico State University, Ohio State University, University of Pittsburgh, University of Portsmouth, Princeton University, the United States Naval Observatory, and the University of Washington.
 
 
 
