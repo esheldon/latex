@@ -1,17 +1,33 @@
 \documentclass[12pt]{letter}
 
-\addtolength{\textwidth}{0.5in}
+%\usepackage[absolute,showboxes]{textpos}
+\usepackage[absolute]{textpos}
+\usepackage{graphicx}
+
+%\addtolength{\textwidth}{0.5in}
+\addtolength{\textwidth}{1.0in}
 \addtolength{\hoffset}{-0.5in}
-\addtolength{\textheight}{0.5in}
+%\addtolength{\textheight}{0.5in}
+\addtolength{\textheight}{1.0in}
+%\addtolength{\voffset}{-0.5in}
 \addtolength{\voffset}{-0.5in}
 
+\signature{Erin Sheldon\\Brookhaven National Laboratory}
+\address{{\bf Erin Sheldon} \\ 
+Bldg 510 \\ 
+Brookhaven National Laboratory \\ 
+Upton, NY 11973-5000 \\ 
+esheldon@bnl.gov (631) 344-3117}
 \begin{document}
 
+\begin{textblock}{2}(2.8,1.7)
+\textblocklabel{block two}
+\includegraphics[scale=2.0]{bnl-logo}
+\end{textblock}
 
-\hfill September 22,  2011
-\newline
+\begin{letter}{}
 
-To Whom It May Concern-
+\opening{To Whom It May Concern:}
 
 I am writing to give my full support to Dr. Zhaoming Ma's application for
 permanent residency in the United States of America.
@@ -113,12 +129,8 @@ to guarantee we get the most out of this and other experiments.     I think Dr.
 Ma will greatly enrich the future of US science, and I strongly support his
 application for permanent residency. 
 
-{\noindent Thank you for your consideration,}
-\newline
-\newline
-{\noindent Erin Sheldon}
-\newline
-{\noindent Brookhaven National Laboratory}
+\closing{Thank you for your consideration,}
 
+\end{letter}
 
 \end{document}
