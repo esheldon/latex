@@ -1,0 +1,559 @@
+ 
+Dear Erin, 
+ 
+Title: "COSMOS: Stochastic Bias from Measurements of Weak Lensing and Galaxy
+Clustering", Ms #ApJ83338R1
+    
+You kindly reviewed for us the above manuscript in May 2011. The authors have
+now revised it in ways explained in their reply, which I have appended.  I
+would appreciate your evaluation of this revised version by October 5 2011.  An
+additional figure from the authors' response will be sent in the next email
+
+To access the manuscript, review form, and instructions please click on the
+link below, which will work one time only. 
+
+<http://apj.msubmit.net/cgi-bin/main.plex?el=A6Ew2DNn1B2VdD4F5A9Wc7BCpTqFfO7xEzpAjsnAZ>
+
+
+
+When it is time for you to upload the report or retrieve the manuscript, please
+log into your account on the EJ Press web site, http://apj.msubmit.net.  Please
+use your user's login name: ersheldon.  You can then ask for a new password via
+the Unknown/Forgotten Password link, if you do not remember the password.
+ 
+Sincerely,
+
+Chung-Pei Ma
+Scientific Editor, The Astrophysical Journal
+Professor of Astronomy, UC Berkeley
+apj@astro.berkeley.edu 
+
+******Author Reply******
+
+Dear referee,
+
+First of all, thank you very much for your numerous and detailed comments. We
+have tried to address them as well as possible, and we hope you'll find that
+the manuscript has improved.  
+
+Following your advice, we reworked our data analysis. In particular, we now fit
+a set of models to our measurements - and derive some physical quantities, such
+as the halo mass and scale at which bias starts to decrease. We also fit the
+bias slope at small scales, but do not measure any significant evolution with
+redshift.
+
+We have rewritten large portions of the text, either to reflect this new
+analysis, or to improve the quality of the English.  
+
+You'll also find an attached figure that compares the galaxy redshift
+distribution (in a foreground and a background bin) obtained from a histogram
+of the best fit photozs, with the sum of full posterior probabilities output by
+the photo-z code. This figure comes along with an answer to one of your
+comments below.
+
+Please find below the detailed answers to your comments.
+
+
+Best regards
+
+
+
+>
+>    Please see the following comments and questions by section.
+>
+>Abstract
+>
+>    You claim "exhaustive" in redshift, stellar mass, and scale but this is not
+>    the case.  You are only 80% complete in stellar mass, you are using a
+>    magnitude limited sample of galaxies, you are using a limited and not
+>    precisely understood redshift range, and you are working on limited and
+>    mixed physical scales.  This is precisely not exhaustive.  
+
+We have rewritten the abstract to reflect this; we have also added the results
+of our more quantitative data analysis.  
+
+>
+>Introduction
+>
+>    weight function in equation 1, you say sigma_i is the width of the
+>    ellipticity distribution but I think you mean the error distribution
+
+sigma_i is the (per component) standard deviation of galaxies' intrinsic
+ellipticities. This is indeed a component of the error, and the denominator in
+equation (1) is approximately the total error. To avoid confusion, we don't
+really want to say the word error - it's not exactly right - so we have just
+reworded the phrase more precisely as "the standard deviation of the galaxy
+ellipticity distribution".
+
+>2.3
+>
+>    This section mixes up the idea of catalog selection and photoz methodology.
+>    I think separating these could improve clarity.
+
+We rearranged this subsection. We split it into 2 subsections as suggested:
+2.3.1 for the binning in redshift, and 2.3.2 for the stellar-mass and flux
+selection.
+
+>
+>
+>    For your "redshift bins" it seems you are essentially demanding that
+>    objects have zmin < z < zmax with some probability, and then you sum the
+>    p(z) of those objects.  What you actually have is p(z|m) where m are the
+>    independent variables (magnitudes).  So what you essentially demand is:
+>
+>        integral(p(z|m), zmin, zmax) > p0.
+>
+>    (not exactly since your p(z) are not gaussian and you are using "sigma")
+>    This seems to be a reasonable approach; I restate it here in order to
+>    clarify my question below about the foreground galaxy sample.
+>
+>    You say it is the redshift distribution of the foreground material, but
+>    this isn't exactly correct. It is the effective weight.  The *effective*
+>    redshift distribution of the material would be the actual redshift
+>    distribution multiplied by this weight in redshift space.  Your statement
+>    is only accurate if the distribution of material is perfectly uniform in
+>    redshift space.
+
+Indeed, we do not know the actual redshift distribution of the material, so we
+can only compute the effective weight. We now discuss this distinction in
+section 2.3.1 ("We must emphasize that the redshift distribution we
+obtain...").
+
+>
+>    How did you choose the objects in the foreground lens sample?  You say you
+>    "obtain" them and then give exact ranges, whereas you only have probability
+>    distributions; did you perform straight cuts on the some reduced statistics
+
+We applied the same straight cuts to the foreground sample that we used for the
+background sample. We have now clarified this in section 2.3.1 ("Foreground
+galaxies are assigned to their respective bins...").
+
+>
+>    "redshift of the lensing efficiency" has no clear meaning to me. The
+>    efficiency is a function of redshift.  What are you trying to say?  Are you
+>    talking about bias in the photozs?  
+
+Sorry - we just meant the peak of the lensing efficiency in redshift space. We
+have now spelled this out in section 2.3.1 ("we discuss how a mismatch between
+the center of the redshift bins...")
+
+We are not explicitly talking about bias in the photozs at this point in the
+paper. Indeed, our technique of summing photo-z likelihoods helps to minimize
+errors that would have been introduced if we had only considered the best fit
+photo-zs. Such errors can be especially important as the likelihoods typically
+do not have a Gaussian shape. We return to this discussion later in this reply.
+
+>
+>    paragraph 5: what S/N cut is I814 < 26.5?  If that is the completeness
+>    limit, why are you choosing foreground objects at the completeness limit?
+>    This will result in near perfect overlap between the lens and source
+>    samples.  Have I misunderstood?
+
+
+Our catalog is complete up to I814 = 26.5. We found the S/N of galaxy
+photometry at I814=26.5 to be 5.5+-1.1. We also measured the photozs accuracy
+dz / 1 + z for our foreground redshift bins. We found the photozs error for bin
+F1 to be the largest with dz / 1 +z = 0.03. This good accuracy of the photozs
+is largely due to the extra cuts we apply (K < 24, ZP2=-99, MU_CLASS==1).
+Without those extra cuts, we obtain dz/1+z = 0.24 for bin F1. In our study, we
+also apply those same cuts to the background catalogs, and consequently we
+think that the overlap between lens and source samples must be limited. Note
+that to measure stellar-mass, galaxies must be brighter. In our catalogs, we
+have found that stellar-mass selected galaxies have I814 < 22.5.
+
+>
+>3
+>
+>    "The second order derivatives are the convergence" you mean the sum of
+>    phixx and phiyy is kappa, etc.  Please be careful and accurate with your
+>    language for the sake of those readers who are not experts. If you are
+>    going to talk about it, you should probably just give the equations.
+>    Otherwise eq 4 and 5 are sufficient.  
+
+The paragraph has been simplified, and the equations left as suggested.
+
+>
+>3.1
+>
+>    "almost work in Fourier space" is not a meaningful statement to me.  There
+>    is a lot of information *behind* your statement, such as independence of
+>    modes in Fourier space for certain kinds of measurements under certain
+>    conditions.  Better to just say exactly what you mean.
+
+We have spelled out what we meant - that aperture statistics are powerful
+because all the power spectra are filtered by the same narrow band filter,
+whereas the correlation functions xsi+, xsi-, w(theta), and <gamma_t> involve
+different filters. Combining them directly would lead to a mixing of modes in
+Fourier space, and would hamper the interpretation
+
+>3.2
+>
+>    The text of this section if very poorly written.  Please rework this
+>    section carefully.
+>
+>    Please explain in the main text how the f1 and f2 are measured.  The only
+>    details I found were in figure 2.
+
+We have rewritten this section, and split it into two parts (3.2 and 3.3).
+Section 3.2 now exclusively explain how we calculated f1 and f2.
+
+>
+>4.
+>
+>    Your error bars seem to be monotonically increasing with scale.  This
+>    means you need state explicitly in the text and figures at what
+>    effective scale you measure b.  For example in figure 13
+
+It is the average of the bias measured on all scales R > 2 h^{-1}Mpc, where R
+is defined in the new equations (24) and (25). We have now spelled this out in
+the caption of Figure 13.
+
+>
+>    You can also use these mocks to test your treatment of photozs.  Have you
+>    tested that you can recover the true lensing quantities for realistic
+>    p(z) distributions?  
+
+Our two options for constructing a redshift distribution were to stack the full
+photo-z likelihoods or just the best-fit photo-zs. We enclose a the results of
+a toy model showing how much better the likelihoods are than the best-fit
+values, for both foreground and background bins. The figure compares a
+histogram of true redshifts from a mock realization of galaxies, with a
+histogram of the best-fit photo-zs and the sum of their photo-z likelihoods
+(the overall normalizations are only approximately matched). To simulate
+photo-zs, we added noise to their redshifts, drawn from a Gaussian
+distribution; to simulate the likelihoods, we assigned that same Gaussian. We
+then binned the galaxies or summed the likelihoods in the same way we did with
+the real data (ie z_low < z^i +/- \sigma^i < z_high). The sum of likelihoods is
+by far the best match of the true redshift distribution, and this most
+accurately reproduces the true lensing sensitivity.  
+
+In our analysis, we therefore chose the sum of likelihoods approach. We also
+now investigate what happens if we shift the background bin (section 6.2,
+figure 18). With the available real data, there are no other options for the
+foreground bins, and we can do no better. The propagation of subtle photo-z
+errors into lensing sensitivities depends on the exact nature of those photo-z
+errors (hence the SEDs of the galaxies and the models), so investigating that
+is beyond the scope of this single paper. However, we have tried to be clear
+and explicit about these caveats throughout.
+
+>
+>5.1
+>
+>    - General
+>
+>        About the plots in this section: the x axis says "aperture scale" but
+>        correlation functions are measured in radial bins not apertures.  
+>        Aperture implies the statistic is measured using all the data interior
+>        to the aperture scale. The axis label should reflect this.
+
+We replaced the x labels of these figures with 'Radial bin'.
+
+>
+>        It concerns me that you use the median statistic.  In general the mean is
+>        preferred because that is what is *predicted* by the theory.  E.g. you say
+>        it will *bias* the b and r, but the theory, in predicting b and r, must
+>        average over the same distributions.  The theory does not have shape noise
+>        but the other sources of variance are included.  
+>
+>        It would be good to know how this choice impacts comparison with the
+>        Predictions.  
+
+We have recalculated the statistics using means instead of medians, to match
+theoretical predictions as suggested. The resulting parameter b (Figure 12) has
+changed by less than 3%. We initially preferred the median because of the
+Cauchy distribution of the bootstrapped samples of the bias parameter b^2 =
+\nap2 / \map2. However, for the other estimators \omega, \xip, \xim, \gamma_t,
+\nap2, \map2 and \nmap, the bootstrapped samples have a Gaussian distribution,
+so mean or median makes negligible difference.
+
+>    - galaxy-clustering
+>
+>        Figure 5: please describe more clearly which line is which in the caption.
+>        The text is ambiguous, although it could be inferred.
+
+Done.
+
+>
+>        Please explain to those who may not know why deviation from Smith et
+>        al. implies scale dependent bias.  
+
+We now explain this in section 5.1 ("The deviation between the predicted signal
+is computed with a Smith et al. PS and **unbiased galaxies**." and "We observe
+significant deviations between the measured signal and...").
+
+>
+>    - galaxy-galaxy lensing
+>
+>        You may also have additive systematics; this will affect the signal
+>        more at large scales.  
+
+We rephrased the last sentence of the paragraph to make it clear that we are
+talking about systematic errors.
+
+>
+>    - shear autocorrelation
+>
+>        I think it's unwise to suggest B1 is high relative to smith et al, as
+>        it appears to be consistent with zero.  If this is not the case, I
+>        suggest increasing the range of the y axis to show that, and to perform
+>        a statistical analysis instead of saying it "seems to be larger".  
+
+We made this claim in light of the other measurements (\nap2, \map2 and \nmap),
+where we can see more signal than predicted at small scale. But you are right,
+this interpretation is beyond what we can say given the error bars, and we
+removed this sentence.  
+
+>
+>5.2
+>
+>    - galaxy-aperture variance
+>
+>        Galaxies are expected to be more clustered, meaning higher amplitude in
+>        the 3D correlation function, at low redshifts. But the slope averaged
+>        over small to intermediate scales depends *strongly* on other factors,
+>        such as galaxy type.  Please be careful with your wording here.  
+
+We added your comment in the text as a warning.
+
+>
+>        The paragraph beginning with "On the other hand.." is very poorly
+>        written.
+
+This paragraph was confusing so we removed it.
+
+>
+>    - galaxy-mass aperture
+>
+>        B modes are *expected* to affect N*M differently than M^2, and the
+>        measurements have very different S/N.  
+
+Mandelbaum 2006 also performed the 45deg test. They found deviation from zero
+at 68% confidence level, but no deviation at 95% confidence level. We performed
+a $chi^2$ test, and found no deviation at 95% confidence level. Does that fully
+answers your comment?
+
+>
+>        second paragraph: I think you have a mistake in your wording or have a
+>        misconception about how the filter works.  Please clarify what you mean
+>        by "cleaner".
+
+By "cleaner", we meant that the correlation between different scales is smaller
+for aperture statistics than for the correlation functions (see Schneider et
+al. 2002, Fig 3). However, this sentence was misplaced in the middle of the
+discussion about the shape of the signal, so we removed it.
+
+>
+>        "We also note a clear change of slope in .." I think you are trying to
+>        say you see a different slope at large and small scales.  Also, please
+>        avoid words like "clear" or "It is well known".  If you want to tell
+>        the reader that something is unambiguously in the data, you should do
+>        it my making a measurement of the slopes, or fitting a single power law
+>        and demonstrating that it does not describe the data under certain
+>        statistical criteria, or something of that nature. The covariance in
+>        your data makes chi-by-eye tricky.  If you don't want to perform
+>        analysis of your data, then just say that you see it by eye, which is I
+>        think enough to indicate that it is merely your judgement and not the
+>        result of analysis.  
+
+We followed your suggestion, and replaced "clear" by "see by eye". We have also
+added a quantitative statistical analysis in section 5.3.
+
+>
+>    - mass aperture
+>
+>        You again make non-statistical claims: "In spite of large errors for B1
+>        and B2, we note that mean values closely follow the predicted signal."
+>        The only meaningful thing you can do is to form a hypothesis, test it
+>        against the data, and report the results.  Your statement does not add
+>        any information for the reader, but speaks with authority of your
+>        *opinion* of what you see.
+>
+
+We have performed a new statistical analysis of our data. We found that the
+predicted signal is consistent with the data points at 68% confidence level. We
+also found that the deviation of the data points from the predicted signal in
+B1 is not significant. We therefore removed the corresponding sentence from
+this paragraph.
+
+We also removed the discussion about intrinsic alignment, which is now
+redundant since the discrepancy between the predicted and the measured signal
+is not significant.
+
+>5.3
+>
+>    it is fine to say "we observe" a down turn if you also clarify that this is
+>    only your opinion or judgement, but it is not fine to say it is
+>    *significant* without performing a statistical analysis.    There is a
+>    strong convention that "significant" means some number of "standard
+>    deviations" of the data from the hypothesis, typically more than 3.  I am
+>    aware that "standard deviation" must also be defined, but once it is
+>    defined the convention is to require a number of such deviations before
+>    claiming significance.  
+>
+>    The following topic of discussion in this section is an interesting one,
+>    but it is of little utility if you don't perform any analysis.  
+>
+
+We have entirely rewritten section 5.3. We have performed a statistical
+analysis of the data, and interpreted the data in light of this.
+
+
+>5.4
+>
+>    - paragraph 2
+>
+>        When you say you average the points taking into account the
+>        correlations, do you mean you find the best fit constant over that
+>        range of scales, using the full covariance matrix in the fit?  Please
+>        explain.  
+
+Indeed, we used the full covariance matrix in the fit. We have rewritten the
+paragraph to make it more explicit.
+
+>
+>        By "matches" Sheth et al., I think you mean "is similar to".  You
+>        would need to test a continuous range of masses to find the match.  
+
+We completely reorganized this section. We added quantitative statistics and
+estimated the halo mass of the galaxies in our mass-selected samples.
+
+We have also now fitted the bias model proposed by Tinker et al. 2010.
+
+>
+>   - paragraph 3
+>
+>        You expect two sigma results in 5% of such measurements.  You need many
+>        more independent samples with such deviation before this becomes a
+>        concern.  This is the reason behind the convention that "significant"
+>        means 3 or more standard deviations.  
+
+We rephrased the paragraph, and now state that the deviation is not
+significant. However, we kept some of the discussion as an illustration of how
+bias is computed, and also because we found it puzzling that no large groups or
+clusters are found at this redshift, but the galaxy bias is so large.  
+
+>
+>5.5
+>
+>    - paragraph 1
+>
+>        You should probably say you "show" in the figure.  Also, the statement
+>        that this method is known to produce significant deviations from 1 is
+>        misleading.   More accurate is "In applying this method to a particular
+>        data set, these investigators found r different from 1."  
+
+Done.
+
+>
+>    - paragraph 2
+>
+>        Again you say that the data in F1 and F2, figure 14, "show a small dip"
+>        but you have not quantified that statement.  Please do so.  I can't do
+>        an analysis based on the plot, but in my opinion such a statement
+>        requires statistical exploration.  This is especially true given the
+>        correlated errors between points.  
+
+We computed a chi2-test between our measurements and a constant r=1, and found
+that the dip is not significant. We updated the text accordingly.
+
+>
+>        "galaxies start to correlate with their halo density".  I find this
+>        statement confusing, and not in accordance with my reading of Neyrinck
+>        et al. paper.  Please clarify.  
+
+Neyrinck et al. say "The profile of galaxy halos of different masses are more
+similar to each other at small scales than at intermediate scales." (5.2.1
+paragraph 6). We replaced our confusing sentence and cited Neyrinck's verbatim.
+We also rearranged the rest of the paragraph for clarity.  
+
+>
+>5.6
+>    - paragraph 1
+>
+>        "variance of the .. becomes negative".  Variances are positive or zero
+>        by definition.   Please clarify.  
+
+This issue has been investigated in Kilbinger et al. 2006. In theory to compute
+<Map2>, the \xi_p and \xi_m correlation functions must be integrated from zero
+to infinity, whereas in practice we integrate from a non zero lower limit, and
+over noisy quantities. We now cite this paper ("Kilbinger et al. 2006 found
+that the signal is underestimated ...")  
+
+>
+>    - paragraph 2
+>
+>        This paragraph is in direct contradiction to your earlier discussion of
+>        figure 11, where you say the deviations are "significant".  
+>
+>        Also, correlated errors between points does not mean what you imply.
+>        It does not mean that the measurements can not deviate.  If the errors
+>        are correlated, this means the curve is expected to be smoother than
+>        otherwise.  
+
+We have removed that sentence because we have now performed a quantitative
+analysis of the data, and could now state the significance of the
+redshift-dependence of bias instead.
+
+>
+>6.1
+>
+>    - paragraph 3
+>
+>        I don't understand the argument.  A source is in fact used many times,
+>        this is not unexpected.  It is just the nature of correlation
+>        functions.  Please clarify.
+
+We were trying to understand why <NM> decreases at large scales, and
+hypothesized that it could be due to the repeat use of source galaxies. We
+looked into this issue further and agree with you. We have found other possible
+explanations in the literature, and have decided to replace our hypothesis with
+those we found. ("Mandelbaum et al. 2005 identify this as an edge effect...")
+
+>
+>
+>6.2
+>
+>    It seems to me that this comes down to how accurate are your estimated
+>    redshift distributions.
+>
+>    If these are known perfectly then you will have no bias; all the equations
+>    are correct and integrating over the right distributions should not cause a
+>    problem.  Are you just trying to understand how an incorrect estimate of
+>    N(z) produces an incorrect estimate of f1,f2?  This may be a genuine
+>    misunderstanding on my part.
+
+We reformulated the section. Our conclusion for this section is that it is
+important to match the mean redshift of the foreground galaxies, with the peak
+of the lensing efficiencies because of cosmic variance. Indeed, the true power
+spectrum might not grow linearly at the scale we are looking at, and the
+lensing efficiency might not represent the true p(z) of the matter. This is
+especially true for a limited size survey such as COSMOS, and at small scales.
+
+>
+>7 Conclusion
+>
+>    Much of your discussion here I have addressed earlier on.  But I want to
+>    point out that you again say "significant scale-dependence" but this has
+>    not been quantified.  
+
+We have updated this paragraph, recalling our quantitative results with the
+model fitting.  
+
+>
+>    Your discussion of the inefficacy of future surveys, while plausible to me,
+>    is not backed up by any numbers or calculations.  Please quantify such
+>    statements.  
+
+This number just comes from the result in Hoekstra et al. 2002 and Simon et al.
+2007. They both had wide field survey, and Hoekstra et al. with 50deg2 already
+had a detection of the scale-dependence of bias at 8 sigma.  
+
+We rewrote this paragraph following another approach based on signal to noise.
+We now base our estimate for a future field size on the fact that errors in our
+measurements are mostly due to shape noise. Since the errors on mass aperture
+are proportional to the number of galaxies, we can roughly say that a field 10
+times larger will produce errors almost 10 times smaller for b=1 and r=1.
+
+
+
+
