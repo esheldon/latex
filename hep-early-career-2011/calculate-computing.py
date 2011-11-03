@@ -14,6 +14,8 @@ per year.  Not optimal.
  2014 175 1250
  ---------------
  2015 131 948
+ 2016 87 646
+
  
   if we want fixed cost, we need a constant for
   the number times the rate, which means Ni = c/ri
@@ -60,10 +62,10 @@ def print_table(years,
 
         print fmt % l
 
-        d['diskTB'] += TB_eachyear[i]
+        d['diskTB'] += int(TB_eachyear[i])
         d['diskcost'] += diskcost
 
-        d['nCPU'] += CPUs_eachyear[i]
+        d['nCPU'] += int(CPUs_eachyear[i])
         d['CPUcost'] += CPUcost
 
     d['diskcost'] = round(d['diskcost'],-2)
@@ -96,9 +98,10 @@ def get_const_cost(ntot, rates):
     return ntot/rates_inv_sum
 
 def main():
-    years=numpy.array([2012,2013,2014,2015])
-    cost_perTB_eachyear = numpy.array([280.,218.75,175.,131.25],dtype='f8')
-    cost_perCPU_eachyear = numpy.array([1956.5217,1551.724,1250., 948.2758],dtype='f8')
+
+    years=numpy.array([2012,2013,2014,2015,2016])
+    cost_perTB_eachyear = numpy.array([280.,218.75,175.,131.25,87],dtype='f8')
+    cost_perCPU_eachyear = numpy.array([1956.5217,1551.724,1250., 948.2758,646.],dtype='f8')
 
     want_TB=133
     want_CPUs=122
