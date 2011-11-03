@@ -96,7 +96,7 @@ fake budget page 7 (12)
 
 \vspace{3mm}
 \noindent
-{\bf Position Title of Principal Investigator:} Assistant Physicist
+{\bf Position Title of Principal Investigator:} Associate Physicist
 
 \vspace{3mm}
 \noindent
@@ -109,7 +109,7 @@ fake budget page 7 (12)
 
 \vspace{3mm}
 \noindent
-{\bf Email of PI:} esheldon@bnl.gov
+{\bf Email of PI:} erin.sheldon@gmail.com
 
 \vspace{3mm}
 \noindent
@@ -157,7 +157,7 @@ eli.rosenberg@science.doe.gov
 \title{Early Career: Measuring Dark Energy with Gravitational Lensing in 
 the Dark Energy Survey}
 \author{Erin Sheldon\\
-{\normalsize Assistant Scientist}\\
+{\normalsize Associate Scientist}\\
 \normalsize{Brookhaven National Laboratory}}
 \date{}
 \maketitle
@@ -558,36 +558,31 @@ this work, I am contributing a total of 25\% of my time to these two projects.
 
 \subsection{Requested Resources}
 
-The simulated DES data we have in hand is currently only a few terabytes, but
-over the next year a larger simulation will be produced in order to more
-stringently test the data pipelines.  The details of the simulation are not
-set, but should be of order 50 terabytes.  The DES survey proper will begin in
-2011 and run for five years, generating about a petabyte of data in total.  For
-lensing we will process all the reduced single-epoch images and multi-epoch
-images, which amount to about 130 terabytes.  Our existing infrastructure is
-large enough to hold the simulated data, but we must assemble more storage in
-preparation for the survey data.
+The DES survey proper will begin in 2011 and run for five years, generating
+about a petabyte of data in total.  For lensing we will process all the reduced
+single-epoch images and multi-epoch images, which amount to about 130
+terabytes.  We must assemble more storage in preparation for the survey data.
 
-In order to process the simulated data and real data as it arrives we will also
-require significant manpower and computing resources.  The NSF funded DES data
-management (DESDM) is committed to produce a single processing of the data per
-year.  Thus, although our lensing pipelines will be incorporated into DESDM,
-all development and testing must occur outside of DESDM.  
+In order to process the data as it arrives we will also require significant
+manpower and computing resources.  The NSF funded DES data management (DESDM)
+is committed to produce a single processing of the data per year.  Thus,
+although our lensing pipelines will be incorporated into DESDM, all development
+and testing must occur outside of DESDM.  
 
 In order to test our pipelines and analysis codes we must process the full data
-set multiple times.  This is because many systematics tests require essentially
+set many times.  This is because many systematics tests require essentially
 the full data set to explore.  And only from analyzing the full data set to
 extract the lensing signal will we be able to feed back what we have learned
 into the pipelines.  Working with a single processing would be highly
 restrictive.  Thus we must have our own separate computing resources to
 facilitate these tests and analyses.  
 
-Based on current hardware and codes, it would take about 2.5 weeks to process
-the final DES data on a moderate 70 node cluster with 8 cores per node.  This
-is approximately the desired processing time given that we want to reprocess
-the data with several iterations on two or more independent shape algorithms in
-order to obtain a robust result.
-
+We projected our current running times, and expect it would take about 2.5
+weeks to process the final DES data on a moderate 70 node cluster with 8 cores
+per node.  These  numbers assume 2015 computer speeds. This is approximately
+the desired processing time given that we want to reprocess the data with
+several iterations on two or more independent shape algorithms in order to
+obtain a robust result.
 
 We will also require significant resources for the science analysis, which is
 computationally intensive.  As a reference point, the SDSS analysis presented
@@ -599,7 +594,7 @@ data set will be 50 times larger.
 
 Because of Moore's law, it makes sense to buy the computing over a period of
 time.  To store and process the DES images, we propose to spend about
-\$52,000/year for five years, accruing about 130Tb of storage per year plus
+\$73,000/year for three years, accruing about 130TB of storage per year plus
 processing nodes.  The first year we will acquire around 16Tb of storage and 15
 8-core nodes with 32Gb of memory each (26kSI2k, 104 HEP-SPEC 2006).  In
 following years we will purchase more disk for the same price, and keep a
@@ -612,45 +607,11 @@ Note these prices include bulk discounts from purchasing along with other
 experiments through the RHIC Computing Facility at BNL.  
 
 
-\begin{deluxetable}{lcccc}
-\tablecaption{Projected Computing Purchases\label{table:computing}}
-\tablewidth{0pt}
-\tablehead{
-	\multicolumn{1}{l}{Fiscal Year} &
-	\colhead{Disk Storage [TB]}       & 
-	\colhead{\$ for Storage}          & 
-	\colhead{Compute Servers}         & 
-	\colhead{\$ for CPU} 
-}
-\startdata
-2010 & 16 & 7,000 & 15 & 45,000 \\
-2011 & 20 & 7,000 & 19 & 45,000 \\
-2012 & 25 & 7,000 & 23 & 45,000 \\
-2013 & 32 & 7,000 & 29 & 45,000 \\
-2014 & 40 & 7,000 & 36 & 45,000 \\[0.7ex]
-\hline
-\relax\\[-1.7ex]
-Total in 5 years & 1067 & 275,000 & 122 & 225,000 \\[0.1ex]
-\enddata
+\input{cost.tex}
 
-\tablecomments{The number of compute nodes purchased from 2011 on is based on
-the assumption that each node (26kSI2k, 104 HEP-SPEC 2006) would stay at the
-performance level of a node purchased in 2010. As the performance per node will
-increase over time the actual number of compute nodes after 5 years will be
-significantly smaller (probably O(70)), providing a combined performance of
-O(122) times the performance of a node purchased in 2010.   Also, we list
-storage purchases per year but in practice storage may be bought in two or
-three larger chunks.  Prices include bulk discounts from purchasing through the
-RHIC Computing Facility at BNL, and storage, cooling, and maintenence
-at no additional cost.   }
 
-\end{deluxetable}
-
-We also ask for 75\%  of Erin Sheldon's salary and overhead for five years
-({\bf increase to make up for hardware decreases?}),  and 100\% for Zhaoming Ma
-for two years.  It is anticipated that another postdoc will be hired after
-Zhaoming leaves BNL, with 100\% support for three years.  Additionally we
-anticipate a student will join us at BNL and will be covered at 100\%.  
+We also ask for 100\%  of Erin Sheldon's salary and overhead for five years ,
+and 100\% for a research associate for five years.  
 
 The remaining funds are primarily for travel expenses.   The DES collaboration
 is multi-national and Erin Sheldon and a postdoc will most likely travel abroad
