@@ -85,9 +85,7 @@ def print_table(years,
     significantly smaller (probably O(70)), providing a combined performance of
     O(120) 2010 equivalent nodes. Prices include 40\% bulk discounts from
     purchasing through the RHIC ATLAS Computing Facility at BNL. {\\bf Power,
-    cooling and maintence will be provided at no extra cost.} Although we list
-    storage purchases per year, storage most likely be bought in two or
-    three larger chunks.  }
+    cooling and maintence will be provided at no extra cost to this experiment.}}
 
     \\end{deluxetable}
     """
