@@ -1,4 +1,4 @@
-\documentclass[12,preprint]{aastex}
+\documentclass[12pt,preprint]{aastex}
 %\documentclass[preprint]{aastex}
 %\documentclass[iop]{emulateapj}
 
@@ -45,29 +45,27 @@
 
 
 We present redshift probability distributions for galaxies in the SDSS DR8
-imaging data.  We used the nearest-neighbor weighting algorithm presented in
-\citet{LimaPhotoz08} and \citet{CunhaPhotoz09} to derive the ensemble redshift
-distribution \nofz, and individual redshift probability distributions \pofz\
-for galaxies with \rmag$ < $\rmax.  As part of this technique, we calculated
-weights for a set of training galaxies with known redshifts such that their
-density distribution in five dimensional color-magnitude space was proportional
-to that of the photometry-only sample, producing a nearly fair sample in that
-space.  We then estimated the ensemble \nofz\ of the photometric sample by
-constructing a weighted histogram of the training set redshifts.  We derived
-\pofz s for individual objects using the same technique, but limiting to
-training set objects from the local color-magnitude space around each
-photometric object.  Using the \pofz\ for each galaxy, rather than an ensemble
-\nofz, can reduce the statistical error in measurements that depend on the
-redshifts of individual galaxies. The spectroscopic training sample is
-substantially larger than that used for the DR7 release, and the newly added
-PRIMUS catalog is now the most important training set used in this analysis by
-a wide margin.  We expect the primary source of error in the \nofz\
-reconstruction is sample variance: the training sets are drawn from relatively
-small volumes of space.  Using simulations we estimated the uncertainty in
-\nofz\ at a given redshift is $\sim$\localbias.  The uncertainty on
-calculations incorporating \nofz\ or \pofz\ depends on how they are used; we
-discuss the case of weak lensing measurements.  The \pofz\ catalog is publicly
-available from the SDSS website.  
+imaging data.  We used the nearest-neighbor weighting algorithm
+\citep{LimaPhotoz08,CunhaPhotoz09} to derive the ensemble redshift distribution
+\nofz, and individual redshift probability distributions \pofz\ for galaxies
+with \rmag$ < $\rmax.  As part of this technique, we calculated weights for a
+set of training galaxies with known redshifts such that their density
+distribution in five dimensional color-magnitude space was proportional to that
+of the photometry-only sample, producing a nearly fair sample in that space.
+We estimated the ensemble \nofz\ of the photometric sample by constructing a
+weighted histogram of the training set redshifts.  We derived \pofz s for
+individual objects by using training set objects from the local color-magnitude
+space around each photometric object.  Using the \pofz\ for each galaxy can
+reduce the statistical error in measurements that depend on the redshifts of
+individual galaxies. The spectroscopic training sample is substantially larger
+than that used for the DR7 release. The newly added PRIMUS catalog is now the
+most important training set used in this analysis by a wide margin.  We expect
+the primary source of error in the \nofz\ reconstruction is sample variance:
+the training sets are drawn from relatively small volumes of space.  Using
+simulations we estimated the uncertainty in \nofz\ at a given redshift is
+$\sim$\localbias.  The uncertainty on calculations incorporating \nofz\ or
+\pofz\ depends on how they are used; we discuss the case of weak lensing
+measurements.  The \pofz\ catalog is publicly available from the SDSS website.  
 
 \end{abstract}
 
@@ -914,7 +912,7 @@ similar analyses to these but matched to their exact analysis and selection
 criteria.
 
 \begin{figure} [h]\centering
-    \includegraphics[scale=0.5]{figures/pz.egs.c3n7.paper.ps}
+    \includegraphics[scale=0.5]{figures/pz.egs.c3n7.paper.eps}
 
     \caption{ Proof-of-concept analysis of errors in a fictitious lensing
     analysis.  For this example we used only DEEP2-EGS galaxies but perfect
