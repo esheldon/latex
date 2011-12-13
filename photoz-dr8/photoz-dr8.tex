@@ -331,11 +331,26 @@ the \texttt{OBJECT} processing flags \texttt{BINNED}\{1,2,4\}, which indicate
 the object was detected in the original image (binned by 1), the $\times$2
 binned image, or the $\times$4 binned image, respectively\citep{Stough02}.
 
+\begin{sloppypar}
 We remove all objects that have the following \texttt{OBJECT} flags set:
 \texttt{SATUR}, \texttt{BRIGHT}, \texttt{DEBLEND\_TOO\_MANY\_PEAKS},
 \texttt{PEAKCENTER}, \texttt{NOTCHECKED}, \texttt{NOPROFILE} as well as objects
 that are (\texttt{BLENDED} \&\& \texttt{NODEBLEND}); in other words, detected
 to be blended but not successfully deblended into components. 
+\end{sloppypar}
+
+\begin{comment}
+\begin{itemize}
+    \item \texttt{SATUR}
+    \item \texttt{BRIGHT}
+    \item \texttt{DEBLEND\_TOO\_MANY\_PEAKS}
+    \item \texttt{PEAKCENTER}
+    \item \texttt{NOTCHECKED}
+    \item \texttt{NOPROFILE}
+    \item \texttt{BLENDED} \&\& \texttt{NODEBLEND} (detected
+            to be blended but not successfully deblended into components)
+\end{itemize}
+\end{comment}
 
 We only use objects marked as \texttt{SURVEY\_PRIMARY} in their
 \texttt{RESOLVE\_STATUS} flags field. Different scans on the sky image the same
