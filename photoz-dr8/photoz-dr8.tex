@@ -13,7 +13,6 @@
 \newcommand{\modelrmax}{29.0}
 \newcommand{\rmin}{15.0}
 \newcommand{\rmax}{21.8}
-\newcommand{\umax}{21.0}
 \newcommand{\pofz}{$P(z$)}
 \newcommand{\pofzw}{$P(z)_w$\ }
 \newcommand{\nofz}{$N(z$)}
@@ -284,7 +283,7 @@ flags are used in section \S \ref{sec:select}.
 
 \section{Photometric Sample Selection} \label{sec:select}
 
-\subsection{Star Galaxy Separation} \label{sec:sg}
+\subsection{Star-Galaxy Separation} \label{sec:sg}
 
 The \photo\ pipeline uses the concentration $c$ to separate stars from
 galaxies.  The concentration is the difference between magnitude determined
@@ -320,12 +319,12 @@ be further trimmed.
 \subsection{Other Cuts}
 
 We remove objects for which the extinction-corrected \citep{Schlegel98} model
-flux is not well determined in {\bf at least one} of the photometric bands.  The
-adopted magnitude limits are [21, 22, 22, 20.5, 20.1] for \allmag\
-respectively. Note this does {\bf not} mean we make a magnitude cut in each
-of these bands, we simply demand one of these criteria is met in order
-to remove spurious entries in the catalog.  As such, this cut is relatively
-unimportant compared to the \rmag\ cut given below.
+flux is not well determined in {\bf at least one} of the photometric bands.  We
+do this by demanding \umag$ < $21 $||$ \gmag$ < $22 $||$ \rmag$ < $22 $||$
+\imag$ < $20.5 $||$ \zmag$ < $20.1, where $||$ is a C-style ``or'' meaning any
+one of the criteria should be true. This cut removes spurious entries in the
+catalog.  As such, this cut is relatively unimportant compared to the \rmag\
+cut given below.
 
 We additionally demand a detection in {\bf both} the \rmag\ and \imag\ bands.
 Rather than applying a magnitude cut, we instead use the \texttt{OBJECT}
@@ -338,7 +337,8 @@ We remove all objects that have the following \texttt{OBJECT} flags set:
 \texttt{SATUR}, \texttt{BRIGHT}, \texttt{DEBLEND\_TOO\_MANY\_PEAKS},
 \texttt{PEAKCENTER}, \texttt{NOTCHECKED}, \texttt{NOPROFILE} as well as objects
 that are (\texttt{BLENDED} \&\& \texttt{NODEBLEND}); in other words, detected
-to be blended but not successfully deblended into components. 
+to be blended but not successfully deblended into components (where \&\& is
+a C style ``and'', meaning both criteria are required to be true). 
 \end{sloppypar}
 
 \begin{comment}
@@ -363,18 +363,16 @@ objects due to the small overlap regions between adjacent scans, overlaps at
 the end of the scan lines where the great circles converge, and re-observed
 scan lines.  This results in duplicate observations for many objects.  These
 duplicates are ``resolved'' and only a single observation is assigned
-\texttt{SURVEY\_PRIMARY}.  Note this primary also implies that, if the object
-is blended, it is either a child or not deblended further.  This cut is made in
-the \texttt{OBJECT} flags as \texttt{!BRIGHT \&\& (!BLENDED || NODEBLEND ||
-nchild == 0)}.
+\texttt{SURVEY\_PRIMARY}.  Note the \texttt{SURVEY\_PRIMARY} flag also implies
+that, if the object is blended, it is either a child or not deblended further.
+This cut is made in the \texttt{OBJECT} flags as \texttt{!BRIGHT \&\& (!BLENDED
+|| NODEBLEND || nchild == 0)}.
 
 We also require the extinction corrected \citep{Schlegel98} \cmodelmag\ in the
 \rmag\ band to be in the range [\rmin, \rmax].   We also restrict the
 extinction corrected \modelmag\ to be within the range [\modelrmin, \modelrmax]
 in order to ensure reasonable colors for the galaxies.
 
-%Note the cut in \umag\ is the most stringent of the magnitude cuts; only $\sim$
-%30\% of objects with \rmag$ < $\rmax\ also pass the cut \umag$ < $\umax.
 
 We make broad geometrical cuts on the catalog.  We trim the objects to the
 \boss\ footprint, shown in Fig. \ref{fig:footprint}. We also remove any
@@ -383,16 +381,17 @@ that depends on the magnitude of the star:
 \begin{equation}
 r = (0.0802\times B_T^2 - 1.860\times B_T + 11.625)/60.0
 \end{equation}
-where $B_T$ is the Tycho magnitude and $r$ is in degrees.  Finally, we remove
-all objects from images taken where a \umag\ amplifier was not working\footnote{\DRsevcaveat}.
+where $B_T$ is the Tycho magnitude and $r$ is in degrees\citep{blanton05a}.
+Finally, we remove all objects from images taken where a \umag\ amplifier was
+not working\footnote{\DRsevcaveat}.
 
 \begin{figure}[t] \centering
  \centering 
  \includegraphics[scale=0.6]{figures/boss-poly-coverage.eps}
 
- \caption{BOSS window function for the south galactic cap on the left and the
- north galactic cap on the right.  The differently shaded regions represent
- contiguous rectangular regions in SDSS survey coordinates, used for
+ \caption{BOSS angular window function for the south galactic cap on the left
+ and the north galactic cap on the right.  The differently shaded regions
+ represent contiguous rectangular regions in SDSS survey coordinates, used for
  construction of the window function.  Note points with RA $>$ 300\arcdeg\ have
  been wrapped below zero to avoid the 360\arcdeg\ crossing point.}
  \label{fig:footprint}
@@ -639,7 +638,8 @@ we use the average correction from that range.
     \pofz\ from individual objects. The top panel shows both \nofz\ and \pofz,
     and the bottom panel is the ratio.  We apply this correction to each of the
     \pofz s in the release catalog.  Note for $z > 0.9$ we use the average
-    correction from that range.}
+    correction from that range; the blue points show the actual
+    values used.}
 
     \label{fig:pzcorr}
     \vspace{2em}
@@ -658,7 +658,7 @@ repeat observations at a future date.
 
 \subsection{Acquiring the Data} \label{sec:get}
 
-The \pofz\ for all galaxies are stored on the SDSS III
+The \pofz\ for all galaxies are available from the SDSS III
 website\footnote{\downloadURL}.  The data are available in both FITS format and
 ASCII.  The objects are split into different files according to their SDSS run
 id, with each row in the file representing the data for a single SDSS object.
@@ -783,18 +783,6 @@ interesting indicator of bias in individual \pofz\ s is the spatial distribution
 of the training set nearest neighbors relative to the galaxy for which a \pofz\
 is needed.  We leave these explorations for a future work.
 
-\begin{figure}[h]\centering
-    \includegraphics[scale=0.7]{figures/primus-vvds-zcosmos-deep2-match-seeing-10.eps}
-
-    \caption{Distribution of seeing for the photometric sample (All BOSS) and
-    the four most important training samples.  These samples are important
-    because they are magnitude limited and give relatively high weight in the
-    analysis.  Also shown is the sum of the training samples.  The curves for
-    each sample are normalized relative to the summed curve,  and both the
-    summed and photometric curves are normalized to unity.}
-
-    \label{fig:seeing}
-\end{figure}
 
 \begin{figure}[t]\centering
     \includegraphics[scale=0.6]{figures/nzsigf-edges-12-nofz-sim-errors-2panel.eps}
@@ -808,6 +796,19 @@ is needed.  We leave these explorations for a future work.
 
     \label{fig:ebars}
     \vspace{2em}
+\end{figure}
+
+\begin{figure}[h]\centering
+    \includegraphics[scale=0.7]{figures/primus-vvds-zcosmos-deep2-match-seeing-10.eps}
+
+    \caption{Distribution of seeing for the photometric sample (All BOSS) and
+    the four most important training samples.  These samples are important
+    because they are magnitude limited and give relatively high weight in the
+    analysis.  Also shown is the sum of the training samples.  The curves for
+    each sample are normalized relative to the summed curve,  and both the
+    summed and photometric curves are normalized to unity.}
+
+    \label{fig:seeing}
 \end{figure}
 
 %}
