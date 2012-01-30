@@ -12,6 +12,7 @@
 \newcommand{\modelrmax}{29.0}
 \newcommand{\rmin}{15.0}
 \newcommand{\rmax}{21.8}
+\newcommand{\umax}{21.0}
 \newcommand{\pofz}{$P(z$)}
 \newcommand{\pofzw}{$P(z)_w$\ }
 \newcommand{\nofz}{$N(z$)}
@@ -300,12 +301,11 @@ $\ge 0$ within the noise, with stars close to zero and galaxies greater than
 zero.  The pipeline defines galaxies as objects with $c > 0.145$ where $c$ is
 derived from the summed fluxes from all bandpasses\footnote{\DRateclass}.  
 
-At our magnitude limit $r = $\rmax, the stellar contamination is relatively
-large.  Using a small, space-based, high angular resolution data set matched to
-SDSS data as a truth table, the approximate stellar contamination can be
-determined.  At \rmag\ = 21 the contamination is a few percent, but the
-contamination increases to approximately \contamworst\ at \rmag\ =
-22\footnote{\DRsevsg}.  
+At our magnitude limits, the stellar contamination is relatively large.  Using
+a small, space-based, high angular resolution data set matched to SDSS data as
+a truth table, the approximate stellar contamination can be determined.  At
+\rmag\ = 21 the contamination is a few percent, but the contamination increases
+to approximately \contamworst\ at \rmag\ = 22\footnote{\DRsevsg}.  
 
 For studies where completeness and purity must be known precisely,
 \citet{ScrantonMag05} recommend using probabilistic star galaxy separation at
@@ -321,22 +321,27 @@ be further trimmed.
 \subsection{Other Cuts}
 
 We remove objects for which the extinction-corrected \citep{Schlegel98} model
-flux is not well determined in at least one of the photometric bands.  The
+flux is not well determined in {\bf at least one} of the photometric bands.  The
 adopted magnitude limits are [21, 22, 22, 20.5, 20.1] for \allmag\
-respectively.
+respectively. Note this does {\bf not} mean we make a magnitude cut in each
+of these bands, we simply demand one of these criteria is met in order
+to remove spurious entries in the catalog.  As such, this cut is relatively
+unimportant compared to the \rmag\ cut given below.
 
-In addition to the magnitude limits described above, which ensures a reasonable
-detection in at least one band, we additionally demand a detection in both the
-\rmag\ and \imag\ bands.  Rather than applying a magnitude cut, we instead use
-the \texttt{OBJECT} processing flags \texttt{BINNED}\{1,2,4\}, which indicate
-the object was detected in the original image (binned by 1), the $\times$2
-binned image, or the $\times$4 binned image, respectively\citep{Stough02}.
+We additionally demand a detection in {\bf both} the \rmag\ and \imag\ bands.
+Rather than applying a magnitude cut, we instead use the \texttt{OBJECT}
+processing flags \texttt{BINNED}\{1,2,4\}, which indicate the object was
+detected in the original image (binned by 1), the $\times$2 binned image, or
+the $\times$4 binned image, respectively\citep{Stough02}.
 
 We remove all objects that have the following \texttt{OBJECT} flags set:
 \texttt{SATUR}, \texttt{BRIGHT}, \texttt{DEBLEND\_TOO\_MANY\_PEAKS},
 \texttt{PEAKCENTER}, \texttt{NOTCHECKED}, \texttt{NOPROFILE} as well as objects
 that are (\texttt{BLENDED} \&\& \texttt{NODEBLEND}); in other words, detected
 to be blended but not successfully deblended into components. 
+
+We demand that the data are photometric in each band, as indicated by
+the \texttt{CALIB\_STATUS} flag \texttt{PHOTOMETRIC}.
 
 We only use objects marked as \texttt{SURVEY\_PRIMARY} in their
 \texttt{RESOLVE\_STATUS} flags field. Different scans on the sky image the same
@@ -349,10 +354,13 @@ is blended, it is either a child or not deblended further.  This cut is made in
 the \texttt{OBJECT} flags as \texttt{!BRIGHT \&\& (!BLENDED || NODEBLEND ||
 nchild == 0)}.
 
-We require the extinction corrected \citep{Schlegel98} \cmodelmag\ in the \rmag\
-band to be in the range [\rmin, \rmax].  We also restrict the extinction corrected
-\modelmag\ to be within the range [\modelrmin, \modelrmax] in order to ensure
-reasonable colors for the galaxies.
+We also require the extinction corrected \citep{Schlegel98} \cmodelmag\ in the
+\rmag\ band to be in the range [\rmin, \rmax].   We also restrict the
+extinction corrected \modelmag\ to be within the range [\modelrmin, \modelrmax]
+in order to ensure reasonable colors for the galaxies.
+
+%Note the cut in \umag\ is the most stringent of the magnitude cuts; only $\sim$
+%30\% of objects with \rmag$ < $\rmax\ also pass the cut \umag$ < $\umax.
 
 We make broad geometrical cuts on the catalog.  We trim the objects to the
 \boss\ footprint, shown in Fig. \ref{fig:footprint}. We also remove any
@@ -380,6 +388,19 @@ all objects from images taken where a \umag\ amplifier was not working\footnote{
 The final photometric catalog contains \nphoto\ objects.  The distributions of
 extinction-corrected \rmag-band \cmodelmag\ and colors derived from
 extinction-corrected \modelmag\ are shown in Fig. \ref{fig:varhist}.
+
+The following list shows a breakdown of the fraction of objects lost
+to a given cut {\it after} applying \rmag$ < $\rmax\ and geometrical
+cuts, and when only that cut is applied
+
+\begin{itemize}
+    \item \texttt{BINNED} flag cuts: 0.92
+    \item \texttt{CALIB\_STATUS} flag cuts: 0.99
+    \item \texttt{OBJECT} flag cuts: 0.98
+    \item Cutting all model mags to [15.0,29.0]: 0.80. Independently by band:
+    \umag: 0.82 \gmag: 0.99 \rmag: 1.00 \imag: 0.99 \zmag: 0.98
+
+\end{itemize}
 
 \section{Training Samples} \label{sec:train}
 
@@ -451,8 +472,11 @@ the same quality cuts applied, as the photometric set.
 As noted in \S \ref{sec:train:def}, the training sets contain some stars.
 There are also stars in the photometric set, since the star galaxy separation
 is not perfect.  Thus, through this matching between photometric set and
-training set it should be possible to place fraction of the stars in the
+training set it should be possible to place a fraction of the stars in the
 photometric set at redshift zero; or at least some part of their derived \pofz.
+This is not a complete substitute for better star galaxy separation; as we
+have noted above, our sample should be considered a superset, to be
+trimmed by the end user to suit their needs.
 
 \section{Results} \label{sec:results}
 
@@ -494,17 +518,18 @@ distributions.
 
 \subsection{Derived \nofz}
 
-In figure \ref{fig:pofz} we present the recovered redshift distribution for the entire
-\rmag\ $<$ \rmax\ sample.  Also shown is the redshift distribution of the
-original training set.  These distributions are in qualitative agreement with
-those shown in \citet{CunhaPhotoz09}, although that sample had a fainter
-\rmag-mag limit at 22.0.  Note the sub-plot showing the region near $z=0$.  As
-expected, there is a non-zero fraction of the overall distribution near redshift zero.  The
-fraction of the probability at $z < 0.002$ is about 0.4\%.  It is not known exactly how many
-stars are in the photometric sample, but this is probably a lower limit on the
-stellar contamination (see \S \ref{sec:sg}).  We will estimate the errors on
-this distribution in \S \ref{sec:errors}. These \nofz\ data are presented in
-Table \ref{tab:nofz}.
+In figure \ref{fig:pofz} we present the recovered redshift distribution for the
+entire sample as described in \S \ref{sec:select}.  Also shown is the redshift
+distribution of the original training set.  These distributions are in
+qualitative agreement with those shown in \citet{CunhaPhotoz09}, although that
+sample had a fainter \rmag-mag limit at 22.0.  Note the sub-plot showing the
+region near $z=0$.  As expected, there is a non-zero fraction of the overall
+distribution near redshift zero.  The fraction of the probability at $z <
+0.002$ is about 0.4\%.  It is not known exactly how many stars are in the
+photometric sample, but this is probably a lower limit on the stellar
+contamination (see \S \ref{sec:sg}).  We will estimate the errors on this
+distribution in \S \ref{sec:errors}. These \nofz\ data are presented in Table
+\ref{tab:nofz}.
 
 
 \subsection{Derived \pofz}
@@ -524,13 +549,13 @@ In \S \ref{sec:pzcorr} we apply Eq. \ref{eqn:pzcorrect} to correct the \pofz s.
     described in the text.  Also shown in magenta is the sum of all \pofz\
     derived for individual galaxies.  The unweighted training set redshift
     distribution is shown in blue.  The expected errors on these distributions
-    from cosmic variance in the training set is shown in Fig.
-    \ref{fig:ebars}. The excess at $z \sim 0$ is due to stars in training set
-    having significant weight; more detail at low redshift is shown in the
-    inset.  This excess is at least partly due to the presence of real stars in
-    our photometric sample resulting from imperfect star-galaxy separation.
-    The fraction of the distribution at $z < 0.002$ is 0.4\%, which is probably
-    a lower bound on the stellar contamination.  \label{fig:pofz}}
+    from cosmic variance in the training set is shown in Fig.  \ref{fig:ebars}.
+    The excess at $z \sim 0$ is due to stars in training set having significant
+    weight; more detail at low redshift is shown in the inset.  This excess is
+    at least partly due to the presence of real stars in our photometric sample
+    resulting from imperfect star-galaxy separation.  The fraction of the
+    distribution at $z < 0.002$ is 0.4\%, which is probably a lower bound on
+    the stellar contamination.  \label{fig:pofz}}
 
     \vspace{2em}
 \end{figure}
