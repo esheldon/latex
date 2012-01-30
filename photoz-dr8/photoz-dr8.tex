@@ -1,4 +1,5 @@
-\documentclass[preprint]{aastex}
+\documentclass[12pt,preprint]{aastex}
+%\documentclass[preprint]{aastex}
 %\documentclass[iop]{emulateapj}
 
 \usepackage{verbatim}
@@ -45,29 +46,27 @@
 
 
 We present redshift probability distributions for galaxies in the SDSS DR8
-imaging data.  We used the nearest-neighbor weighting algorithm presented in
-\citet{LimaPhotoz08} and \citet{CunhaPhotoz09} to derive the ensemble redshift
-distribution \nofz, and individual redshift probability distributions \pofz\
-for galaxies with \rmag$ < $\rmax.  As part of this technique, we calculated
-weights for a set of training galaxies with known redshifts such that their
-density distribution in five dimensional color-magnitude space was proportional
-to that of the photometry-only sample, producing a nearly fair sample in that
-space.  We then estimated the ensemble \nofz\ of the photometric sample by
-constructing a weighted histogram of the training set redshifts.  We derived
-\pofz s for individual objects using the same technique, but limiting to
-training set objects from the local color-magnitude space around each
-photometric object.  Using the \pofz\ for each galaxy, rather than an ensemble
-\nofz, can reduce the statistical error in measurements that depend on the
-redshifts of individual galaxies. The spectroscopic training sample is
-substantially larger than that used for the DR7 release, and the newly added
-PRIMUS catalog is now the most important training set used in this analysis by
-a wide margin.  We expect the primary source of error in the \nofz\
-reconstruction is sample variance: the training sets are drawn from relatively
-small volumes of space.  Using simulations we estimated the uncertainty in
-\nofz\ at a given redshift is $\sim$\localbias.  The uncertainty on
-calculations incorporating \nofz\ or \pofz\ depends on how they are used; we
-discuss the case of weak lensing measurements.  The \pofz\ catalog is publicly
-available from the SDSS website.  
+imaging data.  We used the nearest-neighbor weighting algorithm
+\citep{LimaPhotoz08,CunhaPhotoz09} to derive the ensemble redshift distribution
+\nofz, and individual redshift probability distributions \pofz\ for galaxies
+with \rmag$ < $\rmax.  As part of this technique, we calculated weights for a
+set of training galaxies with known redshifts such that their density
+distribution in five dimensional color-magnitude space was proportional to that
+of the photometry-only sample, producing a nearly fair sample in that space.
+We estimated the ensemble \nofz\ of the photometric sample by constructing a
+weighted histogram of the training set redshifts.  We derived \pofz s for
+individual objects by using training set objects from the local color-magnitude
+space around each photometric object.  Using the \pofz\ for each galaxy can
+reduce the statistical error in measurements that depend on the redshifts of
+individual galaxies. The spectroscopic training sample is substantially larger
+than that used for the DR7 release. The newly added PRIMUS catalog is now the
+most important training set used in this analysis by a wide margin.  We expect
+the primary source of error in the \nofz\ reconstruction is sample variance:
+the training sets are drawn from relatively small volumes of space.  Using
+simulations we estimated the uncertainty in \nofz\ at a given redshift is
+$\sim$\localbias.  The uncertainty on calculations incorporating \nofz\ or
+\pofz\ depends on how they are used; we discuss the case of weak lensing
+measurements.  The \pofz\ catalog is publicly available from the SDSS website.  
 
 \end{abstract}
 
@@ -334,11 +333,26 @@ processing flags \texttt{BINNED}\{1,2,4\}, which indicate the object was
 detected in the original image (binned by 1), the $\times$2 binned image, or
 the $\times$4 binned image, respectively\citep{Stough02}.
 
+\begin{sloppypar}
 We remove all objects that have the following \texttt{OBJECT} flags set:
 \texttt{SATUR}, \texttt{BRIGHT}, \texttt{DEBLEND\_TOO\_MANY\_PEAKS},
 \texttt{PEAKCENTER}, \texttt{NOTCHECKED}, \texttt{NOPROFILE} as well as objects
 that are (\texttt{BLENDED} \&\& \texttt{NODEBLEND}); in other words, detected
 to be blended but not successfully deblended into components. 
+\end{sloppypar}
+
+\begin{comment}
+\begin{itemize}
+    \item \texttt{SATUR}
+    \item \texttt{BRIGHT}
+    \item \texttt{DEBLEND\_TOO\_MANY\_PEAKS}
+    \item \texttt{PEAKCENTER}
+    \item \texttt{NOTCHECKED}
+    \item \texttt{NOPROFILE}
+    \item \texttt{BLENDED} \&\& \texttt{NODEBLEND} (detected
+            to be blended but not successfully deblended into components)
+\end{itemize}
+\end{comment}
 
 We demand that the data are photometric in each band, as indicated by
 the \texttt{CALIB\_STATUS} flag \texttt{PHOTOMETRIC}.
@@ -938,7 +952,7 @@ similar analyses to these but matched to their exact analysis and selection
 criteria.
 
 \begin{figure} [h]\centering
-    \includegraphics[scale=0.5]{figures/pz.egs.c3n7.paper.ps}
+    \includegraphics[scale=0.5]{figures/pz.egs.c3n7.paper.eps}
 
     \caption{ Proof-of-concept analysis of errors in a fictitious lensing
     analysis.  For this example we used only DEEP2-EGS galaxies but perfect
@@ -987,6 +1001,11 @@ helpful suggestions.
 Funding for the DEEP2 survey has been provided by NSF grants AST95-09298,
 AST-0071048, AST-0071198, AST-0507428, and AST-0507483 as well as NASA LTSA
 grant NNG04GC89G. 
+
+We thank the PRIMUS team for sharing their redshift catalog. Funding for PRIMUS
+has been provided by NSF grants AST-0607701, 0908246, 0908442, 0908354, and
+NASA grant 08-ADP08-0019. This paper includes data gathered with the 6.5 meter
+Magellan Telescopes located at Las Campanas Observatory, Chile.
 
 A portion of the data presented herein were obtained at the W. M. Keck
 Observatory, which is operated as a scientific partnership among the California
