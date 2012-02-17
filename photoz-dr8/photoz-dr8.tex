@@ -127,20 +127,12 @@ redshift probability distribution \nofz\ of the photometric sample.
 
 The weighting provides a key advantage over other training sample methods such
 as neural nets.  Forcing the distributions of observables of the two samples to
-be proportional essentially creates a ``fair sample'' from the training set;
-\cc{this approach helps avoid the biases that can arise when one utilizes standard
-photometric redshift algorithms to infer redshift distributions.}
-%the training and
-%photometric samples have different properties.  
-\cc{An additional advantage is that
-the technique naturally identifies the regions of overlap between training and 
-photometric samples, which is the only regions where one can safely use the training
-sample to make inferences about the photometric sample}.
-
-%However, this technique does
-%require that all areas of observable space populated by the photometric sample
-%are also populated by the training set, at least at some low level. 
-
+be proportional essentially creates a ``fair sample'' from the training set,
+avoiding errors due to population differences.  An additional advantage is that
+the technique naturally identifies the regions of intersection in the
+observable space between training and photometric samples. Only in the
+intersection can one safely use the training sample to make inferences about
+the photometric sample.
 
 
 \subsection{Nearest-neighbor \pofz\ redshift estimators}\label{sec:nnpz}
@@ -174,9 +166,9 @@ photometric sample:
 \end{equation}
 \end{comment}
 
-\noindent \cc{For a bin $z_1 < z < z_2$, we sum the weights, $w_{\beta}$, of all 
+\noindent For a bin $z_1 < z < z_2$, we sum the weights, $w_{\beta}$, of all 
 ($N_{\rm T}=100$ in our case) training set galaxies that have redshift $z_{\beta}$ 
-fall within that bin}. \cite{LimaPhotoz08} and
+fall within that bin. \cite{LimaPhotoz08} and
 \cite{CunhaPhotoz09} show that this indeed provides a nearly unbiased estimate
 of the redshift distribution of the photometric sample, $N(z)_{\rm P}$,
 provided the differences in the selection of the training and photometric
@@ -199,24 +191,24 @@ nearest neighbors in the {\bf training} set.
 \end{equation}
 
 \noindent This expression is the same as Eqn. \ref{eqn:Nzest} but is limited to
-the nearest neighbors of a given object.\cc{  We choose $N_{\rm T}=100$ for this study}, and
-estimate \pofz\ in 35 redshift bins between $z=0$ and 1.1.  We can also
-construct a new estimator for $N(z)_{\rm P}$ by summing the $\hat{P}(z)$
-distributions for all \cc{($N_{\rm P,tot}$)} galaxies in the photometric sample,
+the nearest neighbors of a given object.  We choose $N_{\rm T}=100$ for this
+study, and estimate \pofz\ in 35 redshift bins between $z=0$ and 1.1.  We can
+also construct a new estimator for $N(z)_{\rm P}$ by summing the $\hat{P}(z)$
+distributions for all $N_{\rm P,tot}$ galaxies in the photometric
+sample,
 \begin{equation}
 \npz = \sum_{i=1}^{N_{\rm P,tot}}\hat{P}_i(z)~.
 \label{eqn:Nhat2}
 \end{equation}
-\noindent \cc{A key difference between the estimators in Eqn. (\ref{eqn:Nzest}) and 
-Eqn. (\ref{eqn:Nhat2}) is that the hyperball used to select the nearest neighbors is centered 
-on a training set object in the weights estimator, but centered on a photometric set object for 
-the \pofz\ estimator. 
-The estimators of Eqn. (\ref{eqn:Nzest}) and  Eqn. (\ref{eqn:Nhat2}) agree
-in the limit of very large training sets, but Eqn (\ref{eqn:Nhat2}) is subject to 
-biases otherwise}.  For training sets smaller than tens
-of thousands of galaxies, one can improve the \pofz s by multiplying each \pofz\ by the
-ratio of $\nwei$ to $\npz$.
-That is,
+\noindent A key difference between the estimators in Eqn. (\ref{eqn:Nzest})
+and Eqn. (\ref{eqn:Nhat2}) is that the hyperball used to select the nearest
+neighbors is centered on a training set object in the weights estimator, but
+centered on a photometric set object for the \pofz\ estimator.  The estimators
+of Eqn. (\ref{eqn:Nzest}) and  Eqn. (\ref{eqn:Nhat2}) agree in the limit of
+very large training sets, but Eqn (\ref{eqn:Nhat2}) is subject to biases
+otherwise.  For training sets smaller than tens of thousands of galaxies, one
+can improve the \pofz s by multiplying each \pofz\ by the ratio of $\nwei$ to
+$\npz$.  That is,
 \begin{equation} \label{eq:pzcorrect}
 P(z) \rightarrow P(z)\frac{\nwei}{\npz} \label{eqn:pzcorrect}
 \end{equation}
@@ -761,23 +753,28 @@ selection.  Because shape correlates poorly with redshift, biases due to inclusi
 sample because it provides a better training set for LRG's at higher redshift
 than the SDSS sample.
 
-\item {\it Spectroscopic redshift failures: } The impact of spectroscopic failures is the
-most difficult to quantify.  We chose a bright $r$-magnitude cut, and relatively
-stringent cuts on spectroscopic quality to minimize effects of \cc{wrong redshifts,
-at the cost of increasing the incompleteness of the sample. 
-We estimate a completeness rate of roughly $70\%$ for the main training sets comprising our sample. 
-The incompleteness in the training sample is problematic if it is not purely random and if it 
-is not well described by the observables.
- \cite{Nakajima11} conducted extensive tests on the selection of the main samples comprising our training set, namely PRIMUS, VVDS, DEEP2 and zCOSMOS, and found that, with the exception of VVDS, none of the samples showed signs of incompleteness in color/magnitude space. In addition, incompleteness that is well localized in the observable space is, at least partly, corrected by the weighting procedure. The risk remains that, part of the incompleteness is caused by galaxies that are localized in redshift but not in color, or are localized in color, but only comprise a very biased sample of the redshift distribution of galaxies with the same color. A proper assesment of the exact nature of the incompleteness in the training sets would require detailed simulations of the spectroscopic surveys. It is encouraging that, comparing the redshift distributions of the different training samples \citep[Fig. 7 of][]{Nakajima11}, we see the samples are roughly consistent with each other despite having been obtained from surveys with significantly different instruments and redshift success rates. }
-
-%failures, but it
-%is possible that, for some applications, errors due to spectroscopic failures are not negligible.
-%Based on the descriptions of the surveys comprising our training set, we expect the average
-%completeness of our training sample to be well above $90\%$.
-
-%The characteristic of the redshift failures vary from survey to survey
-%The requirements on spectroscopic success rate depend on the applications.
-%The 
+\item {\it Spectroscopic redshift failures: } The impact of spectroscopic
+failures is the most difficult to quantify.  We chose a bright $r$-magnitude
+cut and relatively stringent cuts on spectroscopic quality in order to minimize
+the effect of incorrect redshifts. However, this does increase the
+incompleteness of the sample.  We estimate a completeness rate of roughly
+$70\%$ for the main training sets comprising our sample.  The incompleteness in
+the training sample is problematic if it is not purely random and if it is not
+well described by the observables.  \cite{Nakajima11} conducted extensive tests
+on the selection of the main samples comprising our training set, namely
+PRIMUS, VVDS, DEEP2 and zCOSMOS, and found that, with the exception of VVDS,
+none of the samples showed signs of incompleteness in color/magnitude space. In
+addition, incompleteness that is well localized in the observable space is
+partly corrected by the weighting procedure. The risk remains that the
+incompleteness is partly associated with galaxies that are localized in
+redshift but not in color, or are localized in color, but only comprise a very
+biased sample of the redshift distribution of galaxies with the same color. A
+proper assessment of the exact nature of the incompleteness in the training
+sets would require detailed simulations of the spectroscopic surveys.  It is
+encouraging that the redshift distributions of the different training samples
+are roughly consistent with each other, despite being obtained from surveys
+with significantly different instruments and redshift success rates \citep[Fig.
+7 of][]{Nakajima11}.
 
 \item {\it Seeing: } \citet{Nakajima11} report that differences
 between the seeing distribution of the galaxies in the photometric and the
