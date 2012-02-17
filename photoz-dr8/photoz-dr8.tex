@@ -63,7 +63,8 @@ most important training set used in this analysis by a wide margin.  We expect
 the primary source of error in the \nofz\ reconstruction is sample variance:
 the training sets are drawn from relatively small volumes of space.  Using
 simulations we estimated the uncertainty in \nofz\ at a given redshift is
-$\sim$\localbias.  The uncertainty on calculations incorporating \nofz\ or
+$\sim$\localbias. \cc{Add comment about potential hazards of spectroscopic failures}.
+ The uncertainty on calculations incorporating \nofz\ or
 \pofz\ depends on how they are used; we discuss the case of weak lensing
 measurements.  The \pofz\ catalog is publicly available from the SDSS website.  
 
@@ -127,10 +128,18 @@ redshift probability distribution \nofz\ of the photometric sample.
 The weighting provides a key advantage over other training sample methods such
 as neural nets.  Forcing the distributions of observables of the two samples to
 be proportional essentially creates a ``fair sample'' from the training set;
-this approach helps avoid the biases that can arise when the training and
-photometric samples have different properties.  However, this technique does
-require that all areas of observable space populated by the photometric sample
-are also populated by the training set, at least at some low level. 
+\cc{this approach helps avoid the biases that can arise when one utilizes standard
+photometric redshift algorithms to infer redshift distributions.}
+%the training and
+%photometric samples have different properties.  
+\cc{An additional advantage is that
+the technique naturally identifies the regions of overlap between training and 
+photometric samples, which is the only regions where one can safely use the training
+sample to make inferences about the photometric sample}.
+
+%However, this technique does
+%require that all areas of observable space populated by the photometric sample
+%are also populated by the training set, at least at some low level. 
 
 
 
@@ -150,7 +159,7 @@ in a local neighborhood in the space of photometric observables, e.g.,
 multi-band magnitudes.  In this case, the SDSS {\it ugriz} magnitudes are our
 observables; in practice we use four colors and the \rmag--band magnitude.  The
 hypervolume used to estimate the density is set to be the Euclidean distance of
-the galaxy to its $100^{th}$ nearest-neighbor in the training set.
+the galaxy to its $100^{th}$ nearest-neighbor in the training set. 
 
 The weights can be used to estimate the redshift distribution $\nwei$ of the
 photometric sample:
@@ -165,15 +174,16 @@ photometric sample:
 \end{equation}
 \end{comment}
 
-\noindent For a bin $z_1 < z < z_2$, we sum the weights of all training set
-galaxies that fall within that bin.  \cite{LimaPhotoz08} and
+\noindent \cc{For a bin $z_1 < z < z_2$, we sum the weights, $w_{\beta}$, of all 
+($N_{\rm T}=100$ in our case) training set galaxies that have redshift $z_{\beta}$ 
+fall within that bin}. \cite{LimaPhotoz08} and
 \cite{CunhaPhotoz09} show that this indeed provides a nearly unbiased estimate
 of the redshift distribution of the photometric sample, $N(z)_{\rm P}$,
 provided the differences in the selection of the training and photometric
 samples are solely in the observable quantities used to calculate the weights.
 For example, if the photometric sample has a morphology dependent cut,
-the same cut should be applied to the training sample or morphology should be one of
-the observables used to measure weights.
+the same cut should be applied to the training sample or morphology should be 
+one of the observables used to measure weights.
 
 
 \subsubsection{\pofz}
@@ -184,21 +194,26 @@ photometric sample is simply the redshift distribution of the $N$
 nearest neighbors in the {\bf training} set.
 
 \begin{equation}
-\hat{P}(z) = \sum_{\beta=1}^{N_{\rm nei}} w_\beta \delta(z-z_\beta)~.
+\hat{P}(z) = \sum_{\beta=1}^{N_{\rm T}} w_\beta \delta(z-z_\beta)~.
 \label{eqn:pzest}
 \end{equation}
 
 \noindent This expression is the same as Eqn. \ref{eqn:Nzest} but is limited to
-the nearest neighbors of a given object.  We choose $N=100$ for this study, and
+the nearest neighbors of a given object.\cc{  We choose $N_{\rm T}=100$ for this study}, and
 estimate \pofz\ in 35 redshift bins between $z=0$ and 1.1.  We can also
 construct a new estimator for $N(z)_{\rm P}$ by summing the $\hat{P}(z)$
-distributions for all galaxies in the photometric sample,
+distributions for all \cc{($N_{\rm P,tot}$)} galaxies in the photometric sample,
 \begin{equation}
 \npz = \sum_{i=1}^{N_{\rm P,tot}}\hat{P}_i(z)~.
 \label{eqn:Nhat2}
 \end{equation}
-\noindent This estimator becomes identical to that of Eqn. (\ref{eqn:Nzest})
-in the limit of very large training sets.  For training sets smaller than tens
+\noindent \cc{A key difference between the estimators in Eqn. (\ref{eqn:Nzest}) and 
+Eqn. (\ref{eqn:Nhat2}) is that the hyperball used to select the nearest neighbors is centered 
+on a training set object in the weights estimator, but centered on a photometric set object for 
+the \pofz\ estimator. 
+The estimators of Eqn. (\ref{eqn:Nzest}) and  Eqn. (\ref{eqn:Nhat2}) agree
+in the limit of very large training sets, but Eqn (\ref{eqn:Nhat2}) is subject to 
+biases otherwise}.  For training sets smaller than tens
 of thousands of galaxies, one can improve the \pofz s by multiplying each \pofz\ by the
 ratio of $\nwei$ to $\npz$.
 That is,
@@ -748,10 +763,17 @@ than the SDSS sample.
 
 \item {\it Spectroscopic redshift failures: } The impact of spectroscopic failures is the
 most difficult to quantify.  We chose a bright $r$-magnitude cut, and relatively
-stringent cuts on spectroscopic quality to minimize effects of failures, but it
-is possible that, for some applications, errors due to spectroscopic failures are not negligible.
-Based on the descriptions of the surveys comprising our training set, we expect the average
-completeness of our training sample to be well above $90\%$.
+stringent cuts on spectroscopic quality to minimize effects of \cc{wrong redshifts,
+at the cost of increasing the incompleteness of the sample. 
+We estimate a completeness rate of roughly $70\%$ for the main training sets comprising our sample. 
+The incompleteness in the training sample is problematic if it is not purely random and if it 
+is not well described by the observables.
+ \cite{Nakajima11} conducted extensive tests on the selection of the main samples comprising our training set, namely PRIMUS, VVDS, DEEP2 and zCOSMOS, and found that, with the exception of VVDS, none of the samples showed signs of incompleteness in color/magnitude space. In addition, incompleteness that is well localized in the observable space is, at least partly, corrected by the weighting procedure. The risk remains that, part of the incompleteness is caused by galaxies that are localized in redshift but not in color, or are localized in color, but only comprise a very biased sample of the redshift distribution of galaxies with the same color. A proper assesment of the exact nature of the incompleteness in the training sets would require detailed simulations of the spectroscopic surveys. It is encouraging that, comparing the redshift distributions of the different training samples \citep[Fig. 7 of][]{Nakajima11}, we see the samples are roughly consistent with each other despite having been obtained from surveys with significantly different instruments and redshift success rates. }
+
+%failures, but it
+%is possible that, for some applications, errors due to spectroscopic failures are not negligible.
+%Based on the descriptions of the surveys comprising our training set, we expect the average
+%completeness of our training sample to be well above $90\%$.
 
 %The characteristic of the redshift failures vary from survey to survey
 %The requirements on spectroscopic success rate depend on the applications.
