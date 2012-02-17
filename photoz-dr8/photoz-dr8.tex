@@ -866,14 +866,17 @@ DEEP2 EGS is only one of the many training samples used in our
 analysis, 
 so this exercise should be thought of as a proof-of-principle.
 
-In brief, the quantities that we have measured are the expected calibration
-bias $b_z$ in the galaxy-galaxy lensing signal due to the method of estimating
-the source redshift (i.e., a multiplicative systematic error), and the degree to
-which the variance in the lensing signal deviates from the ideal variance we
-would achieve with optimal weighting by the true source redshift (large
-deviation results in increased statistical error).  The increase in statistical
-error when we have degraded redshift information arises both from source
-misidentification, and also from deviations of the weights from the
+In brief, we have measured the expected calibration bias $b_z$ in the
+galaxy-galaxy lensing signal due to the method of estimating the source
+redshift (i.e., a multiplicative systematic error).  This $b_z$ tells us about
+systematic errors in our conversion from the observed weak lensing shear (or
+shape distortion) to surface mass density.  Quantitatively, the ratio of the
+true to the estimated surface mass density is $1+b_z$.  We also estimate the
+degree to which the variance in the lensing signal deviates from the ideal
+variance we would achieve with optimal weighting by the true source redshift
+(large deviation results in increased statistical error).  The increase in
+statistical error when we have degraded redshift information arises both from
+source misidentification, and also from deviations of the weights from the
 optimal\footnote{Optimal weighting would also include a factor that downweights
 galaxies with noisier shape measurements, $\propto (e_\mathrm{rms}^2 +
 \sigma_e^2)^{-1}$.  For simplicity, we neglect this factor in the tests that
@@ -955,15 +958,17 @@ criteria.
 \begin{figure} [h]\centering
     \includegraphics[scale=0.5]{figures/pz.egs.c3n7.paper.eps}
 
-    \caption{ Proof-of-concept analysis of errors in a fictitious lensing
-    analysis.  For this example we used only DEEP2-EGS galaxies but perfect
-    weights estimate; the sample variance and width of individual \pofz s are
-    much larger than for the DR8 analysis.  {\em Top:} Lensing signal
-    calibration bias (Eq.  \ref{eq:lensbias}) as a function of lens redshift,
-    for four  cases labeled on the plot and discussed in the text.  {\em
-    Bottom:}  Ratio of the ideal to the real signal variance when using
-    different  methods of redshift determination; the goal is to stay as close
-    to unity as possible. \label{fig:simplebias}}
+    \caption{ Proof-of-concept analysis of calibration bias in a fictitious
+    lensing analysis.  For this example we used only DEEP2-EGS galaxies but
+    perfect weights estimate (the same galaxies were used for the training and
+    testing sample -- see text for complete description). The sample variance
+    and width of individual \pofz s for this simple test case are much larger
+    than for the full DR8 \pofz\ sample.  {\em Top:} Lensing signal calibration
+    bias (Eq.  \ref{eq:lensbias}) as a function of lens redshift, for four
+    cases labeled on the plot and discussed in the text.  {\em Bottom:} Ratio
+    of the ideal to the real signal variance when using different methods of
+    redshift determination; the goal is to stay as close to unity as possible.
+    \label{fig:simplebias}}
 
 \end{figure}
 
