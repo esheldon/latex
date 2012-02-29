@@ -60,10 +60,12 @@ reduce the statistical error in measurements that depend on the redshifts of
 individual galaxies. The spectroscopic training sample is substantially larger
 than that used for the DR7 release. The newly added PRIMUS catalog is now the
 most important training set used in this analysis by a wide margin.  We expect
-the primary source of error in the \nofz\ reconstruction is sample variance:
-the training sets are drawn from relatively small volumes of space.  Using
-simulations we estimated the uncertainty in \nofz\ at a given redshift is
-$\sim$\localbias. \cc{Add comment about potential hazards of spectroscopic failures}.
+the primary sources of error in the \nofz\ reconstruction to be sample variance
+and spectroscopic failures: the training sets are drawn from relatively small 
+volumes of space, and some samples have large incompleteness.  Using
+simulations we estimated the uncertainty in \nofz\ due to sample variance at a given redshift to
+be $\sim$\localbias. 
+%\cc{Add comment about potential hazards of spectroscopic failures}.
  The uncertainty on calculations incorporating \nofz\ or
 \pofz\ depends on how they are used; we discuss the case of weak lensing
 measurements.  The \pofz\ catalog is publicly available from the SDSS website.  
@@ -470,7 +472,7 @@ process for matching to the photometric sample.
     
     \item 1,587 from the VIMOS VLT-Deep survey
     \cite[VVDS;][]{garilli08}\footnote{\tt http://www.oamp.fr/virmos/vvds.htm}
-    with \texttt{zqual} $\geq 3$.
+    with \texttt{zqual = 3 || 4}.
 
     \item 16,874 from four fields of the PRIMUS survey
     \cite[PRIMUS;][]{coil10,cool12}\footnote{\tt
@@ -538,7 +540,7 @@ distributions.
 
 \subsection{Derived \nofz}
 
-In figure \ref{fig:pofz} we present the recovered redshift distribution for the
+In Fig. \ref{fig:pofz} we present the recovered redshift distribution for the
 entire sample as described in \S \ref{sec:select}.  Also shown is the redshift
 distribution of the original training set.  These distributions are in
 qualitative agreement with those shown in \citet{CunhaPhotoz09}, although that
@@ -711,12 +713,17 @@ tests to constrain them:
 
 \begin{itemize}
 
-\item {\it Large-scale structure: } We expect this item to be the main source of
-error.  We use galaxy+$N$-body simulations\footnote{Simulations provided courtesy of Risa Wechsler and
+\item {\it Large-scale structure: } We expect this item to be one of the main sources of
+error.
+We use galaxy+$N$-body simulations\footnote{Simulations provided courtesy of Risa Wechsler and
 Michael Busha. See \cite{bushasimulations} for details.}
- to estimate the sample variance plus shot
 noise uncertainties of the spectroscopic redshift distributions of the training
-set.  For simplicity, we only simulate the magnitude-limited surveys of the
+set. 
+The photometry of the simulation assumed substantially deeper observations, hence
+our selection is only roughly appropriate.
+We first made a cut on $r<21.8$ followed by a cut on $u<24.7$ to match the fraction
+of objects removed by the u-band selection on the real data.
+For simplicity, we only simulate the magnitude-limited surveys of the
 training set.  In addition, because of the overlap between zCOSMOS and one of
 the PRIMUS fields, we neglect the zCOSMOS sample in the error estimation to
 simplify the calculation.  This approach results in a $\sim$10\% increase in the error
@@ -774,7 +781,9 @@ sets would require detailed simulations of the spectroscopic surveys.  It is
 encouraging that the redshift distributions of the different training samples
 are roughly consistent with each other, despite being obtained from surveys
 with significantly different instruments and redshift success rates \citep[Fig.
-7 of][]{Nakajima11}.
+7 of][]{Nakajima11}. 
+
+
 
 \item {\it Seeing: } \citet{Nakajima11} report that differences
 between the seeing distribution of the galaxies in the photometric and the
@@ -798,9 +807,10 @@ too sparse near the galaxy of interest.  However, we do not find the volume
 spanned by the 100 nearest neighbors to be a good indicator of the \pofz\
 quality, because other properties of the redshift-observable
 hyper-surface affect the local density of galaxies.  A potentially more
-interesting indicator of bias in individual \pofz\ s is the spatial distribution
+interesting indicator of bias in individual \pofz s is the spatial distribution
 of the training set nearest neighbors relative to the galaxy for which a \pofz\
-is needed.  We leave these explorations for a future work.
+is needed - i.e there could be a bias if the galaxy is very offset from the center of the distribution
+of neighbors. We leave these explorations for a future work.
 
 
 \begin{figure}[t]\centering
