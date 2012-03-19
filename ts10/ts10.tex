@@ -104,18 +104,17 @@ marks these unique objects.
 \section{Initial Star-Galaxy Separation} \label{sec:sgsep}
 
 Inital star galaxy separation is performed in the photometric pipeline \photo.
-This initial selection is a pure morphology based algorithm.  We first define
-the concentration $c$ as the difference between the magnitude as determined
-from the best fitting PSF model (\psfmag) and the magnitude determined
-from the \modelmag:
+The algorithm uses only morphological information.  We first define
+the concentration $c$ as the difference between the 
+\psfmag\ and \modelmag:
 \begin{equation}
 c \equiv \textrm{psfmag} - \textrm{modelmag}~.
 \end{equation}
 The fluxes are summed for all bands.  Because the exponential and
 \devauc\ models are convolved with the local PSF, the model scale radius
 approaches a delta function for stars, and $c$ approaches zero.  The measured
-concentration for galaxies should be larger.  We define a simple cut $c >
-0.145$ for galaxies.
+concentration for galaxies should be greater than zero.  We define a simple cut
+$c > 0.145$ for galaxies.
 
 We tried to implement an alternative star galaxy separation scheme for the
 galaxy target selection, relying on the fact that the galaxy targets
@@ -126,7 +125,8 @@ Note the star sample is used as a starting point for quasar target selection.
 This simple concentration cut is not adequate at the faint magnitudes
 (\gmag$\sim 22$) used for quasar selection \footnote{see, e.g., \DRsevsg}.
 However, the color based selection reduces the contamination by galaxies and in
-practice stars are by far the largest contaminant in the quasar target sample.
+fact stars are by far the largest contaminant in the quasar target sample
+\citep{RossQTS}.
 
 
 \section{Galaxy and Star Pre-selection}
@@ -634,9 +634,5 @@ research fellow of the Alexander von Humboldt Foundation of Germany.
   \apj, 654, 731
 \end{thebibliography}
 \end{comment}
-
-\section*{Acknowledgments}
-
-ES is supported by DOE grant DE-AC02-98CH10886.
 
 \end{document}
