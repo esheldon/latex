@@ -3,11 +3,11 @@
 \usepackage{amssymb,amsmath}
 
 \usepackage{verbatim}
+\usepackage{color}
 \slugcomment{Last revision \today.}
 
 \input{newcommands.tex}
 
-\newcommand{\boss}{\texttt{BOSS}}
 \newcommand{\Lya}{Ly$\alpha$}
 \newcommand{\Lyaf}{Ly$\alpha$~Forest}
 \newcommand{\core}{\texttt{CORE}}
@@ -48,15 +48,100 @@ and many others to be added
 \section{SDSS Imaging Catalogs} \label{sec:sdssdata}
 
 The input catalogs are derived from the imaging released as SDSS III Data
-Release Eight \citep[SDSS DR8;][]{dr8}.  
+Release Eight \citep[SDSS DR8;][]{dr8}.   DR8 includes 2500 deg$^2$ of
+additional imaging over data release seven, specifically acquired to aid in
+spectroscopic target selection for \boss.
+
+The creation of the imaging catalogs is mostly well described elsewhere,
+including the derivation of photometric \citep{Nikhil08,Smith02,Tucker06}
+and astrometric \citep{Pier03} calibrations, and calculation of basic
+quantities such as fluxes and shapes \citep{LuptonADASS01}.  \citet{dr8}
+also describe some new features in the DR8 dataset.
+
+In the following sub-sections we will add some additional details about the
+DR8 imaging dataset.
 
 \subsection{Ubercal}
 
+The catalogs are placed on the same relative photometric system using the
+``ubercal'' technique described in \citet{Nikhil08}.  The relative calibration
+is found to be good to the $\sim$1\% level.
+
+There were small portions of the data used for target selection that were not
+photometric.  We targeted these regions anyway because the tiling algorithm
+(XXX) cannot find an efficient solution in the presence of holes that are
+comparable to the tile size.  This effectively means that the target selection
+is not uniform over the entire survey, even in the cases where a uniform
+algorithm was applied.  
+
+We have developed a \mangle\ \citep{SwansonMangle08} mask to mark these and
+other regions of sky we wish to ignore in science analyses that depend on a
+good understanding of the underlying selection function, such as angular
+correlations.  It is recommended that users make use of these masks when
+performing statistical studies using the \boss\ spectroscopic samples.  See \S
+\ref{sec:masks} for details of these masks and how to obtain them. 
+
 \subsection{AB Zero Points}
 
-\subsection{Resolve}
+{\color{red} Do we have any knowledge of this?  David suggests we know it only
+vicariously through matching to dr7 and demanding consistency.}
 
-\subsection{Masks and Survey Boundaries}
+\subsection{Cataloged Quantities}
+
+In this section we describe the quantities from the imaging catalogs used in
+target selection.    These are all described in the above references in this
+section, but we will give a few more details here.
+
+\subsection{Unique Object Selection}
+
+The selection of unique objects from the imaging data, which we call the
+\texttt{resolve}, is described in detail in \citet{dr8} as well as the SDSS3
+website \footnote{\DRateresolve}.  In the following sections, we refer to the
+use of the \texttt{SURVEY\_PRIMARY} bit in the \texttt{RESOLVE\_STATUS}, which
+marks these unique objects.
+
+
+\section{Initial Star-Galaxy Separation} \label{sec:sgsep}
+
+Inital star galaxy separation is performed in the photometric pipeline \photo.
+This initial selection is a pure morphology based algorithm.  We first define
+the concentration $c$ as the difference between the magnitude as determined
+from the best fitting PSF model (\psfmag) and the magnitude determined
+from the \modelmag:
+\begin{equation}
+c \equiv \textrm{psfmag} - \textrm{modelmag}~.
+\end{equation}
+The fluxes are summed for all bands.  Because the exponential and
+\devauc\ models are convolved with the local PSF, the model scale radius
+approaches a delta function for stars, and $c$ approaches zero.  The measured
+concentration for galaxies should be larger.  We define a simple cut $c >
+0.145$ for galaxies.
+
+We tried to implement an alternative star galaxy separation scheme for the
+galaxy target selection, relying on the fact that the galaxy targets
+should be better measured in \imag\ than other bands, but did not
+see significant improvement.
+
+Note the star sample is used as a starting point for quasar target selection.
+This simple concentration cut is not adequate at the faint magnitudes
+(\gmag$\sim 22$) used for quasar selection \footnote{see, e.g., \DRsevsg}.
+However, the color based selection reduces the contamination by galaxies and in
+practice stars are by far the largest contaminant in the quasar target sample.
+
+
+\section{Galaxy and Star Pre-selection}
+
+\subsection{Basic Quality Cuts}
+
+We use as the starting point for our selection the \calibObj\ or ``datasweep''
+files.   These files contain only objects that meet certain basic criteria.
+First, basic star-galaxy separation is performed.  For objects marked as stars,
+we only retain those objects with extinction-corrected \psfmag\ less than
+[22.5, 22.5, 22.5, 22, 21.5] in the \allmag\ bands, respectively.  For
+galaxies, we retain objects with extinction-corrected \modelmag\ less than [21,
+22, 22, 20.5, 20.1].
+
+\subsection{Masks and Survey Boundaries} \label{sec:masks}
 
 Describe use of mangle (cite XXX).
 
@@ -88,8 +173,6 @@ in figure XXX.
 
 \subsection{Datasweeps} \label{sec:sweeps}
 
-Describe the datasweeps. Other input catalogs should be described in the
-respective sections.
 
 \subsection{Coadds}
 
