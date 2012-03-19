@@ -47,7 +47,8 @@ and many others to be added
 
 \section{SDSS Imaging Catalogs} \label{sec:sdssdata}
 
-The primary input catalogs are derived from the SDSS III imaging \citep{dr8}.
+The input catalogs are derived from the imaging released as SDSS III Data
+Release Eight \citep[SDSS DR8;][]{dr8}.  
 
 \subsection{Ubercal}
 
@@ -62,8 +63,23 @@ Describe use of mangle (cite XXX).
 Describe corrected survey coordinates, the system used for defining masks.
 
 Objects outside the \boss\ survey boundaries are not considered for
-spectroscopic followup. Figure XXX shows the outline of this boundary separately
-for the NGC and SGC.
+spectroscopic followup. Figure XXX shows the outline of this boundary
+separately for the NGC and SGC.
+
+\begin{figure}[t] \centering
+ \centering 
+ \includegraphics[scale=0.6]{fig/boss-poly-coverage.eps}
+
+ \caption{BOSS angular window function for the south galactic cap on the left
+ and the north galactic cap on the right.  The differently shaded regions
+ represent contiguous rectangular regions in SDSS survey coordinates, used for
+ construction of the window function.  Note points with RA $>$ 300\arcdeg\ have
+ been wrapped below zero to avoid the 360\arcdeg\ crossing point.}
+ \label{fig:footprint}
+
+\end{figure}
+
+
 
 In addition to this overall boundary cut, we masked regions where the certain
 amplifiers on chips behind \umag\ filters were not functioning (XXX need more
@@ -536,7 +552,8 @@ research fellow of the Alexander von Humboldt Foundation of Germany.
 \end{thebibliography}
 \end{comment}
 
+\section*{Acknowledgments}
 
-\end{document}
+ES is supported by DOE grant DE-AC02-98CH10886.
 
 \end{document}
