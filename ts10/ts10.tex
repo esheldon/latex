@@ -15,6 +15,8 @@
 \newcommand{\primary}{\texttt{SURVEY\_PRIMARY}}
 \newcommand{\known}{\texttt{KNOWN}}
 \newcommand{\first}{\texttt{FIRST}}
+\newcommand{\loz}{\texttt{LOZ}}
+\newcommand{\cmass}{\texttt{CMASS}}
 
 \shortauthors{Sheldon et al.}
 \shorttitle{BOSS Target Selection}
@@ -65,7 +67,7 @@ DR8 imaging dataset.
 
 The catalogs are placed on the same relative photometric system using the
 ``ubercal'' technique described in \citet{Nikhil08}.  The relative calibration
-is found to be good to the $\sim$1\% level.
+is precise at the $\sim$1\% level.
 
 There were small portions of the data used for target selection that were not
 photometric.  We targeted these regions anyway because the tiling algorithm
@@ -86,17 +88,87 @@ performing statistical studies using the \boss\ spectroscopic samples.  See \S
 {\color{red} Do we have any knowledge of this?  David suggests we know it only
 vicariously through matching to dr7 and demanding consistency.}
 
+Daniel 1152
+
+\begin{verbatim}
+u(AB) = u(SDSS) - 0.036 - 0.009
+g(AB) = g(SDSS) + 0.012 - 0.004
+r(AB) = r(SDSS) + 0.01 by assumption
+i(AB) = i(SDSS) + 0.028 + 0.002
+z(AB) = z(SDSS) + 0.04ish + 0.004
+\end{verbatim}
+
+Marriner 1339
+
+
+\begin{verbatim}
+u=-0.037
+g=+0.024
+r=+0.005
+i=+0.018
+z=+0.016
+\end{verbatim}
+
 \subsection{Cataloged Quantities}
 
 In this section we describe the quantities from the imaging catalogs used in
-target selection.    These are all described in the above references in this
-section, but we will give a few more details here.
+target selection.    These are all described in the above references, but we
+will give a few more details here.
+
+\subsubsection{Flux Measurements}
+
+We use a few different fluxes in our selection. For point sources we always use
+the flux derived by fitting a model of the local PSF interpolated to the
+location of the object \citep{LuptonADASS01,Sheldon04}, known as \psfmag.  
+
+
+For galaxies we use three different magnitudes, one optimized for colors called
+\modelmag\footnote{\DRatemags}, one designed to be an approximate total
+magnitudes in each band, called \cmodelmag, and one designed to mimic
+the 2 arcsec aperture of the spectroscopic fibers called \fibertwomag.  
+
+We fit each object to elliptical exponential disk and elliptical \devauc\
+models, convolved with a double Gaussian approximate to the PSF model
+interpolated to the location of the object.  The best fit model in the
+\rmag-band is then used to measure fluxes in the other bands, convolving with
+the filter-dependent PSF as appropriate.  Because the effective aperture is the
+same for each band, \modelmag\ is appropriate for measuring colors.  
+
+Note, as part of the \devauc\ fitting we measure the scale radius $r_{deV}$
+which is also used in galaxy target selection.
+
+For approximate total magnitudes, we use ``composite model magnitudes'', aka
+\cmodelmag.  In \photo\ we do an additional joint fit to a non-negative linear
+combination of the best-fitting exponential and \devauc\ models.  The parameter
+\texttt{frac\_deV} ($f_{deV}$) is then used to construct \cmodelmag\ from the
+individual fits.
+\begin{equation}
+\textrm{Flux}_{cmodel} \equiv (1-f_{dev})\times \textrm{Flux}_{exp} + f_{dev} \times \textrm{Flux}_{dev},
+\end{equation}
+
+The \fibertwomag\ is the flux in a 2 arcecond aparture, convolved with a 2
+arcsecond PSF model in order to simulate the expected seeing during
+spectroscopic observations.  The \fibertwomag\ is used as a faint end cut for
+galaxy targets.
+
+\subsubsection{Image Processing Flags}
+
+flags,objc\_flags,objc\_flags2 Lets just call these OBJECT and be explicit when
+it is applied to all bands as objc
+
+calib\_status not used...
+
+\subsubsection{Other Quantities}
+\begin{verbatim}
+ra,dec
+rowv,colv
+\end{verbatim}
 
 \subsection{Unique Object Selection}
 
 The selection of unique objects from the imaging data, which we call the
 \texttt{resolve}, is described in detail in \citet{dr8} as well as the SDSS3
-website \footnote{\DRateresolve}.  In the following sections, we refer to the
+website\footnote{\DRateresolve}.  In the following sections, we refer to the
 use of the \texttt{SURVEY\_PRIMARY} bit in the \texttt{RESOLVE\_STATUS}, which
 marks these unique objects.
 
@@ -114,16 +186,18 @@ The fluxes are summed for all bands.  Because the exponential and
 \devauc\ models are convolved with the local PSF, the model scale radius
 approaches a delta function for stars, and $c$ approaches zero.  The measured
 concentration for galaxies should be greater than zero.  We define a simple cut
-$c > 0.145$ for galaxies.
+$c > 0.145$ for galaxies.  For the galaxy \loz\ sample we add an additional
+cut in the \rmag-only concentration at 0.3, to be consistent with 
+the Luminous Red Galaxy sample from SDSS I (cite XXX).
 
-We tried to implement an alternative star galaxy separation scheme for the
-galaxy target selection, relying on the fact that the galaxy targets
-should be better measured in \imag\ than other bands, but did not
-see significant improvement.
+We implemented an alternative star galaxy separation scheme for the \cmass\
+galaxy target selection using only \imag-band, which should be more
+well-measured than bluer bands for our galaxy targets. We did not see
+significant improvement.
 
 Note the star sample is used as a starting point for quasar target selection.
 This simple concentration cut is not adequate at the faint magnitudes
-(\gmag$\sim 22$) used for quasar selection \footnote{see, e.g., \DRsevsg}.
+(\gmag$\sim 22$) used for quasar selection\footnote{see, e.g., \DRsevsg}.
 However, the color based selection reduces the contamination by galaxies and in
 fact stars are by far the largest contaminant in the quasar target sample
 \citep{RossQTS}.
