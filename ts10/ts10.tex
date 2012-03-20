@@ -173,7 +173,7 @@ We use the proper motions in the CCD row and column directions
 (\texttt{rowv,colv}) as a flag to remove stars from QSO target selection.
 
 
-\section{Initial Star-Galaxy Separation} \label{sec:sgsep}
+\subsection{Initial Star-Galaxy Separation} \label{sec:sgsep}
 
 Inital star galaxy separation is performed in the photometric pipeline \photo.
 The algorithm uses only morphological information.  We first define
@@ -202,6 +202,147 @@ However, the color based selection reduces the contamination by galaxies and in
 fact stars are by far the largest contaminant in the quasar target sample
 \citep{RossQTS}.
 
+\section{Masks and Survey Boundaries} \label{sec:masks}
+
+We define the footprint for \boss\ as two regions of relatively low galactic
+extinction in the north and south galactic caps, as shown in figure
+\ref{fig:footprint}.  
+
+\begin{figure}[t] \centering
+ \centering 
+ \includegraphics[scale=0.6]{fig/boss-poly-coverage.eps}
+
+ \caption{BOSS angular window function for the south galactic cap on the left
+ and the north galactic cap on the right.  The differently shaded regions
+ represent contiguous rectangular regions in corrected SDSS survey coordinates,
+ used for construction of the window function.  Note points with RA $>$
+ 300\arcdeg\ have been wrapped below zero to avoid the 360\arcdeg\ crossing
+ point.} \label{fig:footprint}
+
+\end{figure}
+
+We define the footprint in terms of a set of contiguous rectangles in
+``corrected survey coordinates'' (\etalambda).  This coordinate system is
+designed so that the center of SDSS scan lines run along lines of constant
+longitude $\eta$.  The center point (\etalambda) = (0,0) maps to ra,dec =
+(185.0,32.5), and (90,-32.5) maps to (275,0).
+
+The rectangles as defined in survey coordinates are each assigned a color in
+figure \ref{fig:footprint}, and appear curved in the equatorial coordinate
+system.  These rectangles are given in table XXX.
+
+\begin{deluxetable}{lrrrrr}
+\tablecaption{Definition of \boss\ Survey Footprint\label{tbl:surveybounds}}
+\tablewidth{0pt}
+\tablehead{
+    \colhead{Region} &
+    \colhead{$\eta_c$ min} &
+    \colhead{$\eta_c$ max} &
+    \colhead{$\lambda_c$ min} &
+    \colhead{$\lambda_c$ max} &
+    \colhead{Area} \\
+    &
+    deg &
+    deg &
+    deg &
+    deg &
+    (sq. deg.)
+}
+\
+\startdata
+SGC & 111.25 & 133.75 & -25.00 & 35.00 & 1284.25 \\
+SGC & 133.75 & 138.75 & -25.00 & 48.00 & 333.97 \\
+SGC & 138.75 & 141.25 & -30.00 & 48.00 & 178.07 \\
+SGC & 141.25 & 153.75 & -40.00 & 48.00 & 992.60 \\
+SGC & 153.75 & 158.75 & -40.00 & 44.00 & 383.15 \\
+NGC & -36.25 & -29.25 & -65.50 & 52.00 & 681.01 \\
+NGC & -29.25 & -27.00 & -63.50 & 55.60 & 221.74 \\
+NGC & -27.00 & 14.50 & -63.50 & 58.60 & 4157.50 \\
+NGC & -20.00 & 14.50 & -65.30 & -63.50 & 26.83 \\
+NGC & -20.00 & -14.00 & 58.60 & 62.00 & 10.11 \\
+NGC & -14.00 & 24.00 & 58.60 & 63.00 & 81.55 \\
+NGC & 14.50 & 36.25 & -52.00 & 58.60 & 2045.69 \\
+NGC & 14.50 & 29.00 & -60.00 & -52.00 & 64.81 \\
+NGC & 14.50 & 19.50 & -62.80 & -60.00 & 6.70 \\
+NGC & 19.50 & 24.50 & -61.20 & -60.00 & 2.95 \\
+NGC & 29.00 & 34.00 & -54.50 & -52.00 & 7.48 \\
+NGC & 24.00 & 36.25 & 58.60 & 62.00 & 20.63 \\
+NGC & 36.25 & 41.25 & -48.60 & -15.00 & 140.74 \\
+NGC & 36.25 & 41.25 & 20.80 & 57.00 & 138.53
+\enddata
+\tablecomments{
+Definition of \boss\ survey footprint.  Rectangles
+are defined in corrected survey coordinates.  Positions inside
+these rectangles are included in the survey. See also figure 
+\ref{fig:footprint}}
+\end{deluxetable}
+
+
+
+
+
+For quasar target selection, which uses the \umag-band, we mask a few regions
+from the survey footprint where the only available imaging was taken during a
+failure of an amplifier behind one of the \umag\
+filters\footnote{\DRsevcaveat}.  These are again defined as rectangles in
+(\etalambda).  The definition of these mask rectangles are given in table
+masked.
+
+\begin{deluxetable}{lrrrrr}
+\tablecaption{Masked Areas\label{tbl:masked}}
+\tablewidth{0pt}
+\tablehead{
+    \colhead{Region} &
+    \colhead{$\eta_c$ min} &
+    \colhead{$\eta_c$ max} &
+    \colhead{$\lambda_c$ min} &
+    \colhead{$\lambda_c$ max} &
+    \colhead{Area} \\
+    &
+    deg &
+    deg &
+    deg &
+    deg &
+    (sq. deg.)
+}
+\
+\startdata
+NGC & -36.25 & -29.25 & -65.50 & 52.00 & 681.01 \\
+
+NGC & -36.25 & -35.60 & -65.50 & -62.30 & 0 \\
+NGC & -35.60 & -35.10 & -65.50 & -30.50 & 0 \\
+NGC & -35.50 & -35.30 & -18.80 & -14.0 & 0 \\
+
+NGC & -29.25 & -27.00 & -63.50 & 55.60 & 221.74 \\
+NGC & -27.00 & 14.50 & -63.50 & 58.60 & 4157.50 \\
+NGC & -20.00 & 14.50 & -65.30 & -63.50 & 26.83 \\
+NGC & -20.00 & -14.00 & 58.60 & 62.00 & 10.11 \\
+NGC & -14.00 & 24.00 & 58.60 & 63.00 & 81.55 \\
+NGC & 14.50 & 36.25 & -52.00 & 58.60 & 2045.69 \\
+NGC & 14.50 & 29.00 & -60.00 & -52.00 & 64.81 \\
+NGC & 14.50 & 19.50 & -62.80 & -60.00 & 6.70 \\
+NGC & 19.50 & 24.50 & -61.20 & -60.00 & 2.95 \\
+NGC & 29.00 & 34.00 & -54.50 & -52.00 & 7.48 \\
+NGC & 24.00 & 36.25 & 58.60 & 62.00 & 20.63 \\
+NGC & 36.25 & 41.25 & -48.60 & -15.00 & 140.74 \\
+NGC & 36.25 & 41.25 & 20.80 & 57.00 & 138.53
+\enddata
+\tablecomments{Regions excluded from the quasar target
+selection due to malfunctioning amplifier behind a
+\umag-band filter.  See also \ref{fig:badu}}
+\end{deluxetable}
+
+
+
+Note during the tiling process XXX, this full \boss\ footprint is not used.
+Details of that further trimming are given in XXX.
+
+\subsection{Mangle Representation of Footprint}
+
+We have developed mangle \citep{SwansonMangle08} representations of
+the survey footprint with and without the masked regions.
+
+URLs?
 
 \section{Pre-selection}
 
@@ -220,6 +361,7 @@ First, basic star-galaxy separation is performed as described in \S
 with extinction-corrected \psfmag\ less than [22.5, 22.5, 22.5, 22, 21.5] in
 the \allmag\ bands, respectively.  For galaxies, we retain objects with
 extinction-corrected \modelmag\ less than [21, 22, 22, 20.5, 20.1].
+
 
 Objects with the following \objflags\ flags set (see \S \ref{sec:flags}) are
 not considered for spectroscopic follow-up.  
@@ -297,127 +439,26 @@ stars:
 
 
 
+\subsection{Angular Masking}
 
-\subsection{Masks and Survey Boundaries} \label{sec:masks}
-
-Describe use of mangle (cite XXX).
-
-Describe corrected survey coordinates, the system used for defining masks.
-
-Objects outside the \boss\ survey boundaries are not considered for
-spectroscopic followup. Figure XXX shows the outline of this boundary
-separately for the NGC and SGC.
-
-\begin{figure}[t] \centering
- \centering 
- \includegraphics[scale=0.6]{fig/boss-poly-coverage.eps}
-
- \caption{BOSS angular window function for the south galactic cap on the left
- and the north galactic cap on the right.  The differently shaded regions
- represent contiguous rectangular regions in SDSS survey coordinates, used for
- construction of the window function.  Note points with RA $>$ 300\arcdeg\ have
- been wrapped below zero to avoid the 360\arcdeg\ crossing point.}
- \label{fig:footprint}
-
-\end{figure}
-
-
-
-In addition to this overall boundary cut, we masked regions where the certain
-amplifiers on chips behind \umag\ filters were not functioning (XXX need more
-info on this failure).  These regions are all in the NGC and are shown in XXX
-in figure XXX.
-
-\subsection{Datasweeps} \label{sec:sweeps}
-
+Using the definitions in \S \ref{sec:masks}, we trim these catalogs to the
+survey footprint and, for quasars, we further mask out some bad imaging
+regions.
 
 \subsection{Coadds}
-
-
-\section{Target Selection Framework}
 
 \subsection{Structure of Software Pipeline} \label{sec:structure}
 
 Describe how we actually do the processing.
 
-\subsection{General Photometric Selection} \label{sec:genselect}
-
-Objects that do not meet certain criteria are removed from consideration for
-spectroscopic followup. The only exceptions to this are certain known quasar
-objects, which are subjected to less restrictive criteria (see \S
-\ref{sec:knownfirst}), and quasars selected from coadded data during
-commissioning (XXX need Christophe's criteria).
-
-
-The following are not considered for spectroscopic followup:
-
-\begin{itemize}
-
-    \item Objects not labeled as \primary.
-
-    \item Objects outside the BOSS footprint.
-
-    \item Objects labeled as \texttt{BRIGHT}.
-
-    \item Objects labeled as \texttt{SATUR}.
-
-    \item For quasars and standard stars, objects
-        labeled as \texttt{INTERP\_CENTER}, 
-        \texttt{PSF\_FLUX\_INTERP}
-
-    \item For galaxies and quasars, objects labeled
-        as \texttt{NOTCHECKED}, for standards labeled
-        as \texttt{NOTCHECKED\_CENTER}.
-
-    \item For galaxies and quasars, objects labeled as
-        \texttt{PEAKCENTER}.
-
-    \item For galaxies and standard stars, objects labeled
-        as \texttt{NOPROFILE}.
-
-    \item For galaxies and standard stars, objects labeled as 
-        \texttt{DEBLEND\_TOO\_MANY\_PEAKS}.
-
-    \item For quasars and standard stars, objects that have
-        a cosmic ray in an associated pixel \texttt{CR}.
-    
-    \item For quasars and standards, objects labeled
-        as \texttt{BLENDED}, for galaxies objects labeled
-        as \texttt{BLENDED} but also \texttt{NODEBLEND}.
-
-
-    \item For quasars, objects not labeled as \texttt{BINNED1} in some band, 
-    for galaxies not labeled as \texttt{BINNED1}, \texttt{BINNED2}
-    or \texttt{BINNED4} either the \rmag- or \imag-band.
-   
-\end{itemize}
-
-\section{Standard Star Selection Framework} \label{sec:std}
-
-In addition to those cuts listed in \ref{sec:sweeps} and \ref{sec:genselect},
-the following are not considered for followup as standard stars:
-
-\begin{itemize}
-
-    \item Objects that have bad sky measurements \texttt{BADSKY}.
-    \item Objects labeled to have \texttt{PEAKS\_TOO\_CLOSE}.
-    \item Objects not labeled as \texttt{STATIONARY}.
-    \item Known quasars.
-   
-\end{itemize}
-
-
-
 \section{Galaxy Selection Framework} \label{sec:galframe}
 
 \subsection{Galaxy Photometric Cuts}
 
-In addition to those cuts listed in \ref{sec:sweeps} and \ref{sec:genselect},
-the following are not considered for followup as galaxies:
+In addition to those cuts listed in \ref{sec:basiccuts}, the following are not
+considered for follow-up as galaxies:
 
 \begin{itemize}
-
-
 
     \item Objects within a specified distance of a known Tycho star
     \citep{tycho2}.  The distance is magnitude dependent, and is given 
@@ -436,7 +477,6 @@ the following are not considered for followup as galaxies:
 \subsection{Galaxy Selection Algorithms}
 
 Show formulas and some status, heat maps, etc.
-
 
 
 \section{QSO Selection Framework} \label{sec:qsoframe}
@@ -779,17 +819,5 @@ research fellow of the Alexander von Humboldt Foundation of Germany.
 \bibliographystyle{apj}
 % Bib database
 \bibliography{apj-jour,astroref}
-
-
-\begin{comment}
-\begin{thebibliography}{}
-\bibitem[Bovy, Hogg, \& Roweis(2009)]{Bovy09a}
-{Bovy}, J., {Hogg}, D.~W., \& {Roweis}, S.~T. 2009, {arXiv:0905.2979v1
-[stat.ME]}
-\bibitem[Hopkins, Richards, \& Hernquist(2007)]{Hopkins07a}
-  Hopkins,~P.~F., Richards,~G.~T., \& Hernquist, L., 2007,
-  \apj, 654, 731
-\end{thebibliography}
-\end{comment}
 
 \end{document}
