@@ -151,26 +151,26 @@ arcsecond PSF model in order to simulate the expected seeing during
 spectroscopic observations.  The \fibertwomag\ is used as a faint end cut for
 galaxy targets.
 
-\subsubsection{Image Processing Flags}
+\subsubsection{Image Processing Flags} \label{sec:flags}
 
-flags,objc\_flags,objc\_flags2 Lets just call these OBJECT and be explicit when
-it is applied to all bands as objc
+The pipelines flag objects based on data quality and processing status, and we
+use these to help produce a clean sample.  The flags used in target selection
+are \objflags\footnote{\DRateflags} processing flags, \calibflags\ flags for
+the photometric calibration, and \resolveflags\ to identify unique objects (see
+also \S \ref{sec:resolve}).
 
-calib\_status not used...
-
-\subsubsection{Other Quantities}
-\begin{verbatim}
-ra,dec
-rowv,colv
-\end{verbatim}
-
-\subsection{Unique Object Selection}
+\subsubsection{Resolve Flags} \label{sec:resolve}
 
 The selection of unique objects from the imaging data, which we call the
 \texttt{resolve}, is described in detail in \citet{dr8} as well as the SDSS3
 website\footnote{\DRateresolve}.  In the following sections, we refer to the
 use of the \texttt{SURVEY\_PRIMARY} bit in the \texttt{RESOLVE\_STATUS}, which
 marks these unique objects.
+
+\subsubsection{Other Quantities}
+
+We use the proper motions in the CCD row and column directions
+(\texttt{rowv,colv}) as a flag to remove stars from QSO target selection.
 
 
 \section{Initial Star-Galaxy Separation} \label{sec:sgsep}
@@ -203,17 +203,100 @@ fact stars are by far the largest contaminant in the quasar target sample
 \citep{RossQTS}.
 
 
-\section{Galaxy and Star Pre-selection}
+\section{Pre-selection}
 
-\subsection{Basic Quality Cuts}
+\subsection{Unique Objects}
+
+For the main target selection, we only consider unique objects labeled as
+\surveyprimary\ in the \resolveflags\ flags as described in \S
+\ref{sec:resolve}.
+
+\subsection{Basic Quality Cuts} \label{sec:basiccuts}
 
 We use as the starting point for our selection the \calibObj\ or ``datasweep''
 files.   These files contain only objects that meet certain basic criteria.
-First, basic star-galaxy separation is performed.  For objects marked as stars,
-we only retain those objects with extinction-corrected \psfmag\ less than
-[22.5, 22.5, 22.5, 22, 21.5] in the \allmag\ bands, respectively.  For
-galaxies, we retain objects with extinction-corrected \modelmag\ less than [21,
-22, 22, 20.5, 20.1].
+First, basic star-galaxy separation is performed as described in \S
+\ref{sec:sgsep}.  For objects marked as stars, we only retain those objects
+with extinction-corrected \psfmag\ less than [22.5, 22.5, 22.5, 22, 21.5] in
+the \allmag\ bands, respectively.  For galaxies, we retain objects with
+extinction-corrected \modelmag\ less than [21, 22, 22, 20.5, 20.1].
+
+Objects with the following \objflags\ flags set (see \S \ref{sec:flags}) are
+not considered for spectroscopic follow-up.  
+
+\begin{itemize}
+
+    \item Objects labeled as \texttt{BRIGHT}.
+    \item Objects labeled as \texttt{SATUR}.
+
+    \item For quasars and standard stars, objects
+        labeled as \texttt{INTERP\_CENTER}, 
+        \texttt{PSF\_FLUX\_INTERP}
+
+    \item For galaxies and quasars, objects labeled
+        as \texttt{NOTCHECKED}, for standards labeled
+        as \texttt{NOTCHECKED\_CENTER}.
+
+    \item For galaxies and quasars, objects labeled as
+        \texttt{PEAKCENTER}.
+
+    \item For galaxies and standard stars, objects labeled
+        as \texttt{NOPROFILE}.
+
+    \item For galaxies and standard stars, objects labeled as 
+        \texttt{DEBLEND\_TOO\_MANY\_PEAKS}.
+
+    \item For quasars and standard stars, objects that have
+        a cosmic ray in an associated pixel \texttt{CR}.
+    
+    \item For quasars and standards, objects labeled
+        as \texttt{BLENDED}, for galaxies objects labeled
+        as \texttt{BLENDED} but also \texttt{NODEBLEND}.
+
+
+    \item For quasars, objects not labeled as \texttt{BINNED1} in some band, 
+    for galaxies not labeled as \texttt{BINNED1}, \texttt{BINNED2}
+    or \texttt{BINNED4} either the \rmag- or \imag-band.
+   
+\end{itemize}
+
+The only exceptions to the above criteria are certain known quasar objects,
+which are subjected to less restrictive criteria (see \S \ref{sec:knownfirst}),
+and quasars selected from coadded data during commissioning (XXX need
+Christophe's criteria).
+
+\subsubsection{Quasar Specific Cuts} \label{sec:cutqso}
+
+In addition to those cuts listed in \S \ref{sec:basiccuts}, the following are
+not considered for followup as QSOs:
+
+\begin{itemize}
+
+    \item Objects labeled as \texttt{BAD\_COUNTS\_ERROR}.
+    \item Objects labeled as \texttt{DEBLEND\_NOPEAK}.
+    \item Objects labeled as \texttt{EDGE}.
+    \item Objects labeled as \texttt{DEBLENDED\_AS\_MOVING}.
+
+\end{itemize}
+
+
+\subsubsubsection{Standard Star Specific Cuts} \label{sec:cutstd}
+
+In addition to those cuts listed in \ref{sec:basiccuts} and
+\ref{sec:genselect}, the following are not considered for followup as standard
+stars:
+
+\begin{itemize}
+
+    \item Objects that have bad sky measurements \texttt{BADSKY}.
+    \item Objects labeled to have \texttt{PEAKS\_TOO\_CLOSE}.
+    \item Objects not labeled as \texttt{STATIONARY}.
+    \item Known quasars.
+   
+\end{itemize}
+
+
+
 
 \subsection{Masks and Survey Boundaries} \label{sec:masks}
 
