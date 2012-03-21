@@ -225,17 +225,19 @@ We define the footprint in terms of a set of contiguous rectangles in
 ``corrected survey coordinates'' (\etalambda).  This coordinate system is
 designed so that the center of SDSS scan lines run along lines of constant
 longitude $\eta$.  The center point (\etalambda) = (0,0) maps to ra,dec =
-(185.0,32.5), and (90,-32.5) maps to (275,0).  Software to convert between
-equatorial and corrected survey coordinates is available on the 
-web\footnote{Python code: \url{http://code.google.com/p/esutil/} IDL code: 
+(185.0,32.5), and (90,-32.5) maps to (275,0).  The coordinate is corrected
+relative to the standard survey coordinates \citep{edr} in that the latitude
+$\lambda$ ranges only from -90 to 90 rather than -180 to 180.  Software to
+convert between equatorial and corrected survey coordinates is available on the
+web\footnote{Python code: \url{http://code.google.com/p/esutil/} IDL code:
 \url{http://code.google.com/p/sdssidl/}}.
 
 The rectangles as defined in survey coordinates are each assigned a color in
 figure \ref{fig:footprint}, and appear curved in the equatorial coordinate
-system.  These rectangles are given in table XXX.
+system.  These rectangles are given in table \ref{tab:surveybounds}.
 
 \begin{deluxetable}{lrrrrr}
-\tablecaption{Definition of \boss\ Survey Footprint\label{tbl:surveybounds}}
+\tablecaption{Definition of \boss\ Survey Footprint\label{tab:surveybounds}}
 \tablewidth{0pt}
 \tablehead{
     \colhead{Region} &
@@ -303,7 +305,7 @@ filters\footnote{\DRsevcaveat}.  These are again defined as rectangles in
 
 
 \begin{deluxetable}{lrrrrr}
-\tablecaption{Masked Areas\label{tbl:masked}}
+\tablecaption{Masked Areas\label{tab:masked}}
 \tablewidth{0pt}
 \tablehead{
     \colhead{Region} &
@@ -343,7 +345,6 @@ Details of that further trimming are given in XXX.
 We have developed mangle \citep{SwansonMangle08} representations of
 the survey footprint with and without the masked regions.
 
-URLs?
 
 \section{Pre-selection}
 
