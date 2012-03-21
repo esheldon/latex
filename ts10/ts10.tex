@@ -250,10 +250,10 @@ system.  These rectangles are given in table \ref{tab:surveybounds}.
     \colhead{$\lambda_c$ max} &
     \colhead{Area} \\
     &
-    deg &
-    deg &
-    deg &
-    deg &
+    (deg) &
+    (deg) &
+    (deg) &
+    (deg) &
     (sq. deg.)
 }
 \
@@ -280,7 +280,7 @@ NGC & 36.25 & 41.25 & 20.80 & 57.00 & 138.53
 \enddata
 \tablecomments{
 Definition of \boss\ survey footprint.  Rectangles
-are defined in corrected survey coordinates.  Positions inside
+are defined in corrected survey coordinates.  Objects found inside
 these rectangles are considered for target selection. See also figure 
 \ref{fig:footprint}}
 \end{deluxetable}
@@ -318,10 +318,10 @@ filters\footnote{\DRsevcaveat}.  These are again defined as rectangles in
     \colhead{$\lambda_c$ max} &
     \colhead{Area} \\
     &
-    deg &
-    deg &
-    deg &
-    deg &
+    (((((((((deg) &
+    (deg) &
+    (deg) &
+    (deg) &
     (sq. deg.)
 }
 \
@@ -370,7 +370,13 @@ For the main target selection, we only consider unique objects labeled as
 \surveyprimary\ in the \resolveflags\ flags as described in \S
 \ref{sec:resolve}.
 
-\subsection{Basic Quality Cuts} \label{sec:basiccuts}
+\subsection{Angular Masking}
+
+Using the definitions in \S \ref{sec:masks}, we trim these catalogs to the
+survey footprint and, for quasars, we further mask out some bad imaging
+regions.
+
+\subsection{Basic Photometric Cuts} \label{sec:basiccuts}
 
 We use as the starting point for our selection the \calibObj\ or ``datasweep''
 files.   These files contain only objects that meet certain basic criteria.
@@ -425,10 +431,27 @@ which are subjected to less restrictive criteria (see \S \ref{sec:knownfirst}),
 and quasars selected from coadded data during commissioning (XXX need
 Christophe's criteria).
 
+\subsubsection{Galaxy-specific Cuts} \label{sec:cutgal}
+
+In addition to those cuts listed in \ref{sec:basiccuts}, the following are not
+considered for follow-up as galaxies:
+
+\begin{itemize}
+
+    \item Objects in close proximity to a known Tycho star as described in \S
+    \ref{sec:tycho}.  
+
+    \item Galaxies that already have known redshifts from the SDSS.
+
+    \item The object matches a known quasar or star within 1 arcsecond.
+    {\color{red} how was knownquasarstar.060910.fits generated?}
+
+\end{itemize}
+
 \subsubsection{Quasar Specific Cuts} \label{sec:cutqso}
 
 In addition to those cuts listed in \S \ref{sec:basiccuts}, the following are
-not considered for followup as QSOs:
+not considered for follow-up as quasars:
 
 \begin{itemize}
 
@@ -443,7 +466,7 @@ not considered for followup as QSOs:
 \subsubsubsection{Standard Star Specific Cuts} \label{sec:cutstd}
 
 In addition to those cuts listed in \ref{sec:basiccuts} the following are not
-considered for followup as standard stars:
+considered for follow-up as standard stars:
 
 \begin{itemize}
 
@@ -456,42 +479,44 @@ considered for followup as standard stars:
 
 
 
-\subsection{Angular Masking}
-
-Using the definitions in \S \ref{sec:masks}, we trim these catalogs to the
-survey footprint and, for quasars, we further mask out some bad imaging
-regions.
-
 \section{Coadds}
 
-\section{Structure of Software Pipeline} \label{sec:structure}
 
-Describe how we actually do the processing.
+\section{Galaxy Selection} \label{sec:galframe}
 
-\section{Galaxy Selection Framework} \label{sec:galframe}
-
-\subsection{Galaxy Photometric Cuts}
-
-In addition to those cuts listed in \ref{sec:basiccuts}, the following are not
-considered for follow-up as galaxies:
-
-\begin{itemize}
-
-    \item Objects within a specified distance of a known Tycho star
-    \citep{tycho2} as described in \S \ref{sec:tycho}.  
-
-    \item Galaxies that already have known redshifts from the SDSS.
-
-    \item The object is a known quasar or star.
-
-\end{itemize}
+The full description of the evolution of the galaxy target selection algorithms
+is given in \citet{PadmanabhanTS}.  Here we will give an overview of the final
+selection and the simple diagnostics used to tune the algorithms to produce
+the nominal target density.
 
 \subsection{Galaxy Selection Algorithms}
 
 Show formulas and some status, heat maps, etc.
 
+\subsection{Tuning the Density}
 
-\section{QSO Selection Framework} \label{sec:qsoframe}
+\begin{figure}[t] \centering
+ \centering 
+ \includegraphics[scale=0.6]{fig/comm2-lrg-tile-positions-eq-any-002.eps}
+
+ \caption{blah} \label{fig:lrgtunetiles}
+
+\end{figure}
+
+
+
+
+\begin{figure}[t] \centering
+ \centering 
+ \includegraphics[scale=0.6]{fig/comm2-density-ihi-hiz-ihi-cmass-10x10.eps}
+
+ \caption{blah} \label{fig:lrgtuneihi}
+
+\end{figure}
+
+
+
+\section{Quasar Selection} \label{sec:qsoframe}
 
 In this section, we describe the overarching framework of the BOSS
 quasar target selection algorithm. The algorithm is complex, motivated
@@ -807,6 +832,25 @@ SDSS+GALEX FUV and NUV \citep{bovy11}.
 \subsection{Kernel Density Estimate} \label{sec:kde}
 
 \subsection{The ``Combinator''} \label{sec:comb}
+
+\section{Structure of Software Framework} \label{sec:structure}
+
+{\color{red} remove this rambling crap or move to an appendix}
+
+Target selection is a classic map-reduce problem.  The astronomical objects in
+our catalogs are represented as independent data points in an high dimensional
+space.  During the map stage a set of numbers is calculated for each of these
+independent objects.  The results are then collated and sorted, followed by
+reduction stage which, for target selection, is simply a set of cuts.
+
+Some of the algorithms used for quasar target selection were extremely
+computationally intensive. So we exploited the independence of our data by
+running in parallel, typically across 100-200 cores, which reduced the total
+clock time to of order a week.  The results of the slower codes were cached for
+later use, until the core algorithm changed.
+
+In order to build on top existing infrastructure, the framework was written in
+IDL.  
 
 \end{comment}
 
