@@ -204,6 +204,8 @@ fact stars are by far the largest contaminant in the quasar target sample
 
 \section{Masks and Survey Boundaries} \label{sec:masks}
 
+\subsection{BOSS Survey Boundaries}
+
 We define the footprint for \boss\ as two regions of relatively low galactic
 extinction in the north and south galactic caps, as shown in figure
 \ref{fig:footprint}.  
@@ -224,12 +226,13 @@ extinction in the north and south galactic caps, as shown in figure
 We define the footprint in terms of a set of contiguous rectangles in
 ``corrected survey coordinates'' (\etalambda).  This coordinate system is
 designed so that the center of SDSS scan lines run along lines of constant
-longitude $\eta$.  The center point (\etalambda) = (0,0) maps to ra,dec =
-(185.0,32.5), and (90,-32.5) maps to (275,0).  The coordinate is corrected
-relative to the standard survey coordinates \citep{edr} in that the latitude
-$\lambda$ ranges only from -90 to 90 rather than -180 to 180.  Software to
-convert between equatorial and corrected survey coordinates is available on the
-web\footnote{Python code: \url{http://code.google.com/p/esutil/} IDL code:
+longitude $\eta$.  The center point (\etalambda) = (0,0) maps to equatorial
+(\radec) = (185.0,32.5), and the poles map to (95,0) and (275,0).  The
+coordinate is corrected relative to the standard survey coordinates \citep{edr}
+in that the latitude $\lambda$ ranges only from -90 to 90 rather than -180 to
+180.  Software to convert between equatorial and corrected survey coordinates
+is available on the web\footnote{Python code:
+\url{http://code.google.com/p/esutil/} IDL code:
 \url{http://code.google.com/p/sdssidl/}}.
 
 The rectangles as defined in survey coordinates are each assigned a color in
@@ -278,12 +281,12 @@ NGC & 36.25 & 41.25 & 20.80 & 57.00 & 138.53
 \tablecomments{
 Definition of \boss\ survey footprint.  Rectangles
 are defined in corrected survey coordinates.  Positions inside
-these rectangles are included in the survey. See also figure 
+these rectangles are considered for target selection. See also figure 
 \ref{fig:footprint}}
 \end{deluxetable}
 
 
-
+\subsection{Masked Regions for Quasar Target Selection}
 
 
 For quasar target selection, which uses the \umag-band, we mask a few regions
@@ -337,13 +340,26 @@ also \ref{fig:badu}}
 \end{deluxetable}
 
 
+\subsection{Bright Star Masking For Galaxy Target Selection} \label{sec:tycho}
+
+We define a simple mask around bright stars from the tycho catalog
+\citep{tycho2}.  The radius is magnitude dependent, and is given by
+\begin{equation}
+r = (0.0802\times B_T^2 - 1.860\times B_T + 11.625)/60.0,
+\end{equation}
+where $B_T$ is the Tycho magnitude and $r$ is in degrees.
+
+\subsection{Trimming During Tiling}
+
 Note during the tiling process XXX, this full \boss\ footprint is not used.
 Details of that further trimming are given in XXX.
 
-\subsection{Mangle Representation of Footprint}
+\subsection{Mangle Representation of Footprint and Masks}
 
 We have developed mangle \citep{SwansonMangle08} representations of
 the survey footprint with and without the masked regions.
+{\color{red} should we give URLs into the svn repo?}
+
 
 
 \section{Pre-selection}
@@ -426,9 +442,8 @@ not considered for followup as QSOs:
 
 \subsubsubsection{Standard Star Specific Cuts} \label{sec:cutstd}
 
-In addition to those cuts listed in \ref{sec:basiccuts} and
-\ref{sec:genselect}, the following are not considered for followup as standard
-stars:
+In addition to those cuts listed in \ref{sec:basiccuts} the following are not
+considered for followup as standard stars:
 
 \begin{itemize}
 
@@ -447,9 +462,9 @@ Using the definitions in \S \ref{sec:masks}, we trim these catalogs to the
 survey footprint and, for quasars, we further mask out some bad imaging
 regions.
 
-\subsection{Coadds}
+\section{Coadds}
 
-\subsection{Structure of Software Pipeline} \label{sec:structure}
+\section{Structure of Software Pipeline} \label{sec:structure}
 
 Describe how we actually do the processing.
 
@@ -463,12 +478,7 @@ considered for follow-up as galaxies:
 \begin{itemize}
 
     \item Objects within a specified distance of a known Tycho star
-    \citep{tycho2}.  The distance is magnitude dependent, and is given 
-    by
-    \begin{equation}
-    r = (0.0802\times B_T^2 - 1.860\times B_T + 11.625)/60.0,
-    \end{equation}
-    where $B_T$ is the Tycho magnitude and $r$ is in degrees.
+    \citep{tycho2} as described in \S \ref{sec:tycho}.  
 
     \item Galaxies that already have known redshifts from the SDSS.
 
@@ -532,20 +542,9 @@ The details of the above samples will be described in more detail in
 
 As listed below, the \core\ and \bonus\ algorithms share a set of cuts on the
 SDSS photometry. These cuts are applied in addition to those listed in \S
-\ref{sec:genselect}. Exceptions are \known\ and \bonus\ from commissioning,
+\ref{sec:basiccuts}. Exceptions are \known\ and \bonus\ from commissioning,
 which will be described later.
 
-In addition to those cuts listed in \ref{sec:sweeps} and \ref{sec:genselect},
-the following are not considered for followup as QSOs:
-
-\begin{itemize}
-
-    \item Objects labeled as \texttt{BAD\_COUNTS\_ERROR}.
-    \item Objects labeled as \texttt{DEBLEND\_NOPEAK}.
-    \item Objects labeled as \texttt{EDGE}.
-    \item Objects labeled as \texttt{DEBLENDED\_AS\_MOVING}.
-
-\end{itemize}
 
 \subsection{The QSO \known\ and \first\ Algorithms} \label{sec:knownfirst}
 
