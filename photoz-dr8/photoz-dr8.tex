@@ -328,12 +328,12 @@ be further trimmed.
 \subsection{Other Cuts}
 
 We remove objects for which the extinction-corrected \citep{Schlegel98} model
-flux is not well determined in {\bf at least one} of the photometric bands.  We
-do this by demanding \umag$ < $21 $||$ \gmag$ < $22 $||$ \rmag$ < $22 $||$
-\imag$ < $20.5 $||$ \zmag$ < $20.1, where $||$ is a C-style ``or'' meaning any
-one of the criteria should be true. This cut removes spurious entries in the
-catalog.  As such, this cut is relatively unimportant compared to the \rmag\
-cut given below.
+flux is not well determined, in {\bf at least one} of the photometric bands, by
+demanding \umag$ < $21 $||$ \gmag$ < $22 $||$ \rmag$ < $22 $||$ \imag$ < $20.5
+$||$ \zmag$ < $20.1, where $||$ is a C-style ``or'' meaning any one of the
+criteria should be true. This cut removes spurious entries in the catalog.  As
+such, this cut is relatively unimportant compared to the cut in \rmag\ given
+below.
 
 We additionally demand a detection in {\bf both} the \rmag\ and \imag\ bands.
 Rather than applying a magnitude cut, we instead use the \texttt{OBJECT}
@@ -372,15 +372,19 @@ objects due to the small overlap regions between adjacent scans, overlaps at
 the end of the scan lines where the great circles converge, and re-observed
 scan lines.  This results in duplicate observations for many objects.  These
 duplicates are ``resolved'' and only a single observation is assigned
-\texttt{SURVEY\_PRIMARY}.  Note the \texttt{SURVEY\_PRIMARY} flag also implies
+\texttt{SURVEY\_PRIMARY}.  Note that the \texttt{SURVEY\_PRIMARY} flag also implies
 that, if the object is blended, it is either a child or not deblended further.
 This cut is made in the \texttt{OBJECT} flags as \texttt{!BRIGHT \&\& (!BLENDED
 || NODEBLEND || nchild == 0)}.
 
 We also require the extinction corrected \citep{Schlegel98} \cmodelmag\ in the
-\rmag\ band to be in the range [\rmin, \rmax].   We also restrict the
-extinction corrected \modelmag\ to be within the range [\modelrmin, \modelrmax]
-in order to ensure reasonable colors for the galaxies.
+\rmag\ band to be in the range [\rmin, \rmax].   This cut is more stringent
+than our initial magnitude cut, which just demanded a good detection in at
+least one of the bands and therefore might allow galaxies fainter than 22nd
+magnitude in \rmag\ into the sample. Also this cut is in \cmodelmag\ rather
+than \modelmag.  We also restrict the extinction corrected \modelmag\ to be
+within the range [\modelrmin, \modelrmax] for all bands in order to ensure
+reasonable colors for the galaxies.
 
 
 We make broad geometrical cuts on the catalog.  We trim the objects to the
@@ -388,7 +392,7 @@ We make broad geometrical cuts on the catalog.  We trim the objects to the
 objects near stars in the tycho2 catalog \citep{tycho2} using a variable radius
 that depends on the magnitude of the star:
 \begin{equation}
-r = (0.0802\times B_T^2 - 1.860\times B_T + 11.625)/60.0
+\textrm{radius} = (0.0802\times B_T^2 - 1.860\times B_T + 11.625)/60.0
 \end{equation}
 where $B_T$ is the Tycho magnitude and $r$ is in degrees\citep{blanton05a}.
 Finally, we remove all objects from images taken where a \umag\ amplifier was
@@ -807,10 +811,11 @@ too sparse near the galaxy of interest.  However, we do not find the volume
 spanned by the 100 nearest neighbors to be a good indicator of the \pofz\
 quality, because other properties of the redshift-observable
 hyper-surface affect the local density of galaxies.  A potentially more
-interesting indicator of bias in individual \pofz s is the spatial distribution
-of the training set nearest neighbors relative to the galaxy for which a \pofz\
-is needed - i.e there could be a bias if the galaxy is very offset from the center of the distribution
-of neighbors. We leave these explorations for a future work.
+interesting indicator of bias in individual \pofz s is the distribution of
+observed properties for the training set nearest neighbors relative to the
+galaxy for which a \pofz\ is needed - i.e there could be a bias if the galaxy
+is very offset from the center of the distribution of neighbors. We leave these
+explorations for a future work.
 
 
 \begin{figure}[t]\centering
