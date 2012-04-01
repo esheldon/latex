@@ -3,11 +3,11 @@
 \usepackage{amssymb,amsmath}
 
 \usepackage{verbatim}
+\usepackage{color}
 \slugcomment{Last revision \today.}
 
 \input{newcommands.tex}
 
-\newcommand{\boss}{\texttt{BOSS}}
 \newcommand{\Lya}{Ly$\alpha$}
 \newcommand{\Lyaf}{Ly$\alpha$~Forest}
 \newcommand{\core}{\texttt{CORE}}
@@ -15,6 +15,8 @@
 \newcommand{\primary}{\texttt{SURVEY\_PRIMARY}}
 \newcommand{\known}{\texttt{KNOWN}}
 \newcommand{\first}{\texttt{FIRST}}
+\newcommand{\loz}{\texttt{LOZ}}
+\newcommand{\cmass}{\texttt{CMASS}}
 
 \shortauthors{Sheldon et al.}
 \shorttitle{BOSS Target Selection}
@@ -47,62 +49,350 @@ and many others to be added
 
 \section{SDSS Imaging Catalogs} \label{sec:sdssdata}
 
-The primary input catalogs are derived from the SDSS III imaging \citep{dr8}.
+The input catalogs are derived from the imaging released as SDSS III Data
+Release Eight \citep[SDSS DR8;][]{dr8}.   DR8 includes 2500 deg$^2$ of
+additional imaging over data release seven, specifically acquired to aid in
+spectroscopic target selection for \boss.
+
+The creation of the imaging catalogs is mostly well described elsewhere,
+including the derivation of photometric \citep{Nikhil08,Smith02,Tucker06}
+and astrometric \citep{Pier03} calibrations, and calculation of basic
+quantities such as fluxes and shapes \citep{LuptonADASS01}.  \citet{dr8}
+also describe some new features in the DR8 dataset.
+
+In the following sub-sections we will add some additional details about the
+DR8 imaging dataset.
 
 \subsection{Ubercal}
 
+The catalogs are placed on the same relative photometric system using the
+``ubercal'' technique described in \citet{Nikhil08}.  The relative calibration
+is precise at the $\sim$1\% level.
+
+There were small portions of the data used for target selection that were not
+photometric.  We targeted these regions anyway because the tiling algorithm
+(XXX) cannot find an efficient solution in the presence of holes that are
+comparable to the tile size.  This effectively means that the target selection
+is not uniform over the entire survey, even in the cases where a uniform
+algorithm was applied.  
+
+We have developed a \mangle\ \citep{SwansonMangle08} mask to mark these and
+other regions of sky we wish to ignore in science analyses that depend on a
+good understanding of the underlying selection function, such as angular
+correlations.  It is recommended that users make use of these masks when
+performing statistical studies using the \boss\ spectroscopic samples.  See \S
+\ref{sec:masks} for details of these masks and how to obtain them. 
+
 \subsection{AB Zero Points}
 
-\subsection{Resolve}
+{\color{red} Do we have any knowledge of this?  David suggests we know it only
+vicariously through matching to dr7 and demanding consistency.}
 
-\subsection{Masks and Survey Boundaries}
+Daniel 1152
 
-Describe use of mangle (cite XXX).
+\begin{verbatim}
+u(AB) = u(SDSS) - 0.036 - 0.009
+g(AB) = g(SDSS) + 0.012 - 0.004
+r(AB) = r(SDSS) + 0.01 by assumption
+i(AB) = i(SDSS) + 0.028 + 0.002
+z(AB) = z(SDSS) + 0.04ish + 0.004
+\end{verbatim}
 
-Describe corrected survey coordinates, the system used for defining masks.
-
-Objects outside the \boss\ survey boundaries are not considered for
-spectroscopic followup. Figure XXX shows the outline of this boundary separately
-for the NGC and SGC.
-
-In addition to this overall boundary cut, we masked regions where the certain
-amplifiers on chips behind \umag\ filters were not functioning (XXX need more
-info on this failure).  These regions are all in the NGC and are shown in XXX
-in figure XXX.
-
-\subsection{Datasweeps} \label{sec:sweeps}
-
-Describe the datasweeps. Other input catalogs should be described in the
-respective sections.
-
-\subsection{Coadds}
+Marriner 1339
 
 
-\section{Target Selection Framework}
+\begin{verbatim}
+u=-0.037
+g=+0.024
+r=+0.005
+i=+0.018
+z=+0.016
+\end{verbatim}
 
-\subsection{Structure of Software Pipeline} \label{sec:structure}
+\subsection{Cataloged Quantities}
 
-Describe how we actually do the processing.
+In this section we describe the quantities from the imaging catalogs used in
+target selection.    These are all described in the above references, but we
+will give a few more details here.
 
-\subsection{General Photometric Selection} \label{sec:genselect}
+\subsubsection{Flux Measurements}
 
-Objects that do not meet certain criteria are removed from consideration for
-spectroscopic followup. The only exceptions to this are certain known quasar
-objects, which are subjected to less restrictive criteria (see \S
-\ref{sec:knownfirst}), and quasars selected from coadded data during
-commissioning (XXX need Christophe's criteria).
+We use a few different fluxes in our selection. For point sources we always use
+the flux derived by fitting a model of the local PSF interpolated to the
+location of the object \citep{LuptonADASS01,Sheldon04}, known as \psfmag.  
 
 
-The following are not considered for spectroscopic followup:
+For galaxies we use three different magnitudes, one optimized for colors called
+\modelmag\footnote{\DRatemags}, one designed to be an approximate total
+magnitudes in each band, called \cmodelmag, and one designed to mimic
+the 2 arcsec aperture of the spectroscopic fibers called \fibertwomag.  
+
+We fit each object to elliptical exponential disk and elliptical \devauc\
+models, convolved with a double Gaussian approximate to the PSF model
+interpolated to the location of the object.  The best fit model in the
+\rmag-band is then used to measure fluxes in the other bands, convolving with
+the filter-dependent PSF as appropriate.  Because the effective aperture is the
+same for each band, \modelmag\ is appropriate for measuring colors.  
+
+Note, as part of the \devauc\ fitting we measure the scale radius $r_{deV}$
+which is also used in galaxy target selection.
+
+For approximate total magnitudes, we use ``composite model magnitudes'', aka
+\cmodelmag.  In \photo\ we do an additional joint fit to a non-negative linear
+combination of the best-fitting exponential and \devauc\ models.  The parameter
+\texttt{frac\_deV} ($f_{deV}$) is then used to construct \cmodelmag\ from the
+individual fits.
+\begin{equation}
+\textrm{Flux}_{cmodel} \equiv (1-f_{dev})\times \textrm{Flux}_{exp} + f_{dev} \times \textrm{Flux}_{dev},
+\end{equation}
+
+The \fibertwomag\ is the flux in a 2 arcecond aparture, convolved with a 2
+arcsecond PSF model in order to simulate the expected seeing during
+spectroscopic observations.  The \fibertwomag\ is used as a faint end cut for
+galaxy targets.
+
+\subsubsection{Image Processing Flags} \label{sec:flags}
+
+The pipelines flag objects based on data quality and processing status, and we
+use these to help produce a clean sample.  The flags used in target selection
+are \objflags\footnote{\DRateflags} processing flags, \calibflags\ flags for
+the photometric calibration, and \resolveflags\ to identify unique objects (see
+also \S \ref{sec:resolve}).
+
+\subsubsection{Resolve Flags} \label{sec:resolve}
+
+The selection of unique objects from the imaging data, which we call the
+\texttt{resolve}, is described in detail in \citet{dr8} as well as the SDSS3
+website\footnote{\DRateresolve}.  In the following sections, we refer to the
+use of the \texttt{SURVEY\_PRIMARY} bit in the \texttt{RESOLVE\_STATUS}, which
+marks these unique objects.
+
+\subsubsection{Other Quantities}
+
+We use the proper motions in the CCD row and column directions
+(\texttt{rowv,colv}) as a flag to remove stars from QSO target selection.
+
+
+\subsection{Initial Star-Galaxy Separation} \label{sec:sgsep}
+
+Inital star galaxy separation is performed in the photometric pipeline \photo.
+The algorithm uses only morphological information.  We first define
+the concentration $c$ as the difference between the 
+\psfmag\ and \modelmag:
+\begin{equation}
+c \equiv \textrm{psfmag} - \textrm{modelmag}~.
+\end{equation}
+The fluxes are summed for all bands.  Because the exponential and
+\devauc\ models are convolved with the local PSF, the model scale radius
+approaches a delta function for stars, and $c$ approaches zero.  The measured
+concentration for galaxies should be greater than zero.  We define a simple cut
+$c > 0.145$ for galaxies.  For the galaxy \loz\ sample we add an additional
+cut in the \rmag-only concentration at 0.3, to be consistent with 
+the Luminous Red Galaxy sample from SDSS I (cite XXX).
+
+We implemented an alternative star galaxy separation scheme for the \cmass\
+galaxy target selection using only \imag-band, which should be more
+well-measured than bluer bands for our galaxy targets. We did not see
+significant improvement.
+
+Note the star sample is used as a starting point for quasar target selection.
+This simple concentration cut is not adequate at the faint magnitudes
+(\gmag$\sim 22$) used for quasar selection\footnote{see, e.g., \DRsevsg}.
+However, the color based selection reduces the contamination by galaxies and in
+fact stars are by far the largest contaminant in the quasar target sample
+\citep{RossQTS}.
+
+\section{Masks and Survey Boundaries} \label{sec:masks}
+
+\subsection{BOSS Survey Boundaries}
+
+We define the footprint for \boss\ as two regions of relatively low galactic
+extinction in the north and south galactic caps, as shown in figure
+\ref{fig:footprint}.  
+
+\begin{figure}[t] \centering
+ \centering 
+ \includegraphics[scale=0.6]{fig/boss-poly-coverage.eps}
+
+ \caption{BOSS angular window function for the south galactic cap on the left
+ and the north galactic cap on the right.  The differently shaded regions
+ represent contiguous rectangular regions in corrected SDSS survey coordinates,
+ used for construction of the window function.  Note points with RA $>$
+ 300\arcdeg\ have been wrapped below zero to avoid the 360\arcdeg\ crossing
+ point.} \label{fig:footprint}
+
+\end{figure}
+
+We define the footprint in terms of a set of contiguous rectangles in
+``corrected survey coordinates'' (\etalambda).  This coordinate system is
+designed so that the center of SDSS scan lines run along lines of constant
+longitude $\eta$.  The center point (\etalambda) = (0,0) maps to equatorial
+(\radec) = (185.0,32.5), and the poles map to (95,0) and (275,0).  The
+coordinate is corrected relative to the standard survey coordinates \citep{edr}
+in that the latitude $\lambda$ ranges only from -90 to 90 rather than -180 to
+180.  Software to convert between equatorial and corrected survey coordinates
+is available on the web\footnote{Python code:
+\url{http://code.google.com/p/esutil/} IDL code:
+\url{http://code.google.com/p/sdssidl/}}.
+
+The rectangles as defined in survey coordinates are each assigned a color in
+figure \ref{fig:footprint}, and appear curved in the equatorial coordinate
+system.  These rectangles are given in table \ref{tab:surveybounds}.
+
+\begin{deluxetable}{lrrrrr}
+\tablecaption{Definition of \boss\ Survey Footprint\label{tab:surveybounds}}
+\tablewidth{0pt}
+\tablehead{
+    \colhead{Region} &
+    \colhead{$\eta_c$ min} &
+    \colhead{$\eta_c$ max} &
+    \colhead{$\lambda_c$ min} &
+    \colhead{$\lambda_c$ max} &
+    \colhead{Area} \\
+    &
+    (deg) &
+    (deg) &
+    (deg) &
+    (deg) &
+    (sq. deg.)
+}
+\
+\startdata
+SGC & 111.25 & 133.75 & -25.00 & 35.00 & 1284.25 \\
+SGC & 133.75 & 138.75 & -25.00 & 48.00 & 333.97 \\
+SGC & 138.75 & 141.25 & -30.00 & 48.00 & 178.07 \\
+SGC & 141.25 & 153.75 & -40.00 & 48.00 & 992.60 \\
+SGC & 153.75 & 158.75 & -40.00 & 44.00 & 383.15 \\
+NGC & -36.25 & -29.25 & -65.50 & 52.00 & 681.01 \\
+NGC & -29.25 & -27.00 & -63.50 & 55.60 & 221.74 \\
+NGC & -27.00 & 14.50 & -63.50 & 58.60 & 4157.50 \\
+NGC & -20.00 & 14.50 & -65.30 & -63.50 & 26.83 \\
+NGC & -20.00 & -14.00 & 58.60 & 62.00 & 10.11 \\
+NGC & -14.00 & 24.00 & 58.60 & 63.00 & 81.55 \\
+NGC & 14.50 & 36.25 & -52.00 & 58.60 & 2045.69 \\
+NGC & 14.50 & 29.00 & -60.00 & -52.00 & 64.81 \\
+NGC & 14.50 & 19.50 & -62.80 & -60.00 & 6.70 \\
+NGC & 19.50 & 24.50 & -61.20 & -60.00 & 2.95 \\
+NGC & 29.00 & 34.00 & -54.50 & -52.00 & 7.48 \\
+NGC & 24.00 & 36.25 & 58.60 & 62.00 & 20.63 \\
+NGC & 36.25 & 41.25 & -48.60 & -15.00 & 140.74 \\
+NGC & 36.25 & 41.25 & 20.80 & 57.00 & 138.53
+\enddata
+\tablecomments{
+Definition of \boss\ survey footprint.  Rectangles
+are defined in corrected survey coordinates.  Objects found inside
+these rectangles are considered for target selection. See also figure 
+\ref{fig:footprint}}
+\end{deluxetable}
+
+
+\subsection{Masked Regions for Quasar Target Selection}
+
+
+For quasar target selection, which uses the \umag-band, we mask a few regions
+from the survey footprint where the only available imaging was taken during a
+failure of an amplifier attached to a CCD behind one of the \umag\
+filters\footnote{\DRsevcaveat}.  These are again defined as rectangles in
+(\etalambda).  The definition of these mask rectangles are given in table
+\ref{tab:masked} and shown in figure \ref{fig:badu}.
+
+\begin{figure}[t] \centering
+ \centering 
+ \includegraphics[scale=0.6]{fig/badu-zoom-ply.eps}
+
+ \caption{A zoomed view of the BOSS footprint, now excluding regions where an
+ amplifier attached to a CCD behind one of the \umag-band filters was not
+ working.  We use this mask during quasar target selection.} \label{fig:badu}
+
+\end{figure}
+
+
+\begin{deluxetable}{lrrrrr}
+\tablecaption{Masked Areas\label{tab:masked}}
+\tablewidth{0pt}
+\tablehead{
+    \colhead{Region} &
+    \colhead{$\eta_c$ min} &
+    \colhead{$\eta_c$ max} &
+    \colhead{$\lambda_c$ min} &
+    \colhead{$\lambda_c$ max} &
+    \colhead{Area} \\
+    &
+    (((((((((deg) &
+    (deg) &
+    (deg) &
+    (deg) &
+    (sq. deg.)
+}
+\
+\startdata
+NGC & -36.00 & -35.60 & -65.50 & -62.30 & 0.56 \\
+NGC & -35.60 & -35.10 & -65.50 & -30.50 & 11.53 \\
+NGC & -35.50 & -35.30 & -18.80 & -14.00 & 0.92 \\
+NGC & -30.80 & -30.40 & -33.00 & -30.50 & 0.85 \\
+NGC & -27.90 & -27.55 & 3.50 & 55.60 & 15.32
+\enddata
+
+\tablecomments{Regions excluded from the quasar target selection due to
+malfunctioning amplifier attached to a CCD behind a \umag-band filter.  See
+also \ref{fig:badu}}
+
+\end{deluxetable}
+
+
+\subsection{Bright Star Masking For Galaxy Target Selection} \label{sec:tycho}
+
+We define a simple mask around bright stars from the tycho catalog
+\citep{tycho2}.  The radius is magnitude dependent, and is given by
+\begin{equation}
+r = (0.0802\times B_T^2 - 1.860\times B_T + 11.625)/60.0,
+\end{equation}
+where $B_T$ is the Tycho magnitude and $r$ is in degrees.
+
+\subsection{Trimming During Tiling}
+
+Note during the tiling process XXX, this full \boss\ footprint is not used.
+Details of that further trimming are given in XXX.
+
+\subsection{Mangle Representation of Footprint and Masks}
+
+We have developed mangle \citep{SwansonMangle08} representations of
+the survey footprint with and without the masked regions.
+{\color{red} should we give URLs into the svn repo?}
+
+
+
+\section{Pre-selection}
+
+\subsection{Unique Objects}
+
+For the main target selection, we only consider unique objects labeled as
+\surveyprimary\ in the \resolveflags\ flags as described in \S
+\ref{sec:resolve}.
+
+\subsection{Angular Masking}
+
+Using the definitions in \S \ref{sec:masks}, we trim these catalogs to the
+survey footprint and, for quasars, we further mask out some bad imaging
+regions.
+
+\subsection{Basic Photometric Cuts} \label{sec:basiccuts}
+
+We use as the starting point for our selection the \calibObj\ or ``datasweep''
+files.   These files contain only objects that meet certain basic criteria.
+First, basic star-galaxy separation is performed as described in \S
+\ref{sec:sgsep}.  For objects marked as stars, we only retain those objects
+with extinction-corrected \psfmag\ less than [22.5, 22.5, 22.5, 22, 21.5] in
+the \allmag\ bands, respectively.  For galaxies, we retain objects with
+extinction-corrected \modelmag\ less than [21, 22, 22, 20.5, 20.1].
+
+
+Objects with the following \objflags\ flags set (see \S \ref{sec:flags}) are
+not considered for spectroscopic follow-up.  
 
 \begin{itemize}
 
-    \item Objects not labeled as \primary.
-
-    \item Objects outside the BOSS footprint.
-
     \item Objects labeled as \texttt{BRIGHT}.
-
     \item Objects labeled as \texttt{SATUR}.
 
     \item For quasars and standard stars, objects
@@ -136,10 +426,47 @@ The following are not considered for spectroscopic followup:
    
 \end{itemize}
 
-\section{Standard Star Selection Framework} \label{sec:std}
+The only exceptions to the above criteria are certain known quasar objects,
+which are subjected to less restrictive criteria (see \S \ref{sec:knownfirst}),
+and quasars selected from coadded data during commissioning (XXX need
+Christophe's criteria).
 
-In addition to those cuts listed in \ref{sec:sweeps} and \ref{sec:genselect},
-the following are not considered for followup as standard stars:
+\subsubsection{Galaxy-specific Cuts} \label{sec:cutgal}
+
+In addition to those cuts listed in \ref{sec:basiccuts}, the following are not
+considered for follow-up as galaxies:
+
+\begin{itemize}
+
+    \item Objects in close proximity to a known Tycho star as described in \S
+    \ref{sec:tycho}.  
+
+    \item Galaxies that already have known redshifts from the SDSS.
+
+    \item The object matches a known quasar or star within 1 arcsecond.
+    {\color{red} how was knownquasarstar.060910.fits generated?}
+
+\end{itemize}
+
+\subsubsection{Quasar Specific Cuts} \label{sec:cutqso}
+
+In addition to those cuts listed in \S \ref{sec:basiccuts}, the following are
+not considered for follow-up as quasars:
+
+\begin{itemize}
+
+    \item Objects labeled as \texttt{BAD\_COUNTS\_ERROR}.
+    \item Objects labeled as \texttt{DEBLEND\_NOPEAK}.
+    \item Objects labeled as \texttt{EDGE}.
+    \item Objects labeled as \texttt{DEBLENDED\_AS\_MOVING}.
+
+\end{itemize}
+
+
+\subsubsubsection{Standard Star Specific Cuts} \label{sec:cutstd}
+
+In addition to those cuts listed in \ref{sec:basiccuts} the following are not
+considered for follow-up as standard stars:
 
 \begin{itemize}
 
@@ -152,38 +479,41 @@ the following are not considered for followup as standard stars:
 
 
 
-\section{Galaxy Selection Framework} \label{sec:galframe}
-
-\subsection{Galaxy Photometric Cuts}
-
-In addition to those cuts listed in \ref{sec:sweeps} and \ref{sec:genselect},
-the following are not considered for followup as galaxies:
-
-\begin{itemize}
+\section{Coadds}
 
 
+\section{Galaxy Selection} \label{sec:galframe}
 
-    \item Objects within a specified distance of a known Tycho star
-    \citep{tycho2}.  The distance is magnitude dependent, and is given 
-    by
-    \begin{equation}
-    r = (0.0802\times B_T^2 - 1.860\times B_T + 11.625)/60.0,
-    \end{equation}
-    where $B_T$ is the Tycho magnitude and $r$ is in degrees.
-
-    \item Galaxies that already have known redshifts from the SDSS.
-
-    \item The object is a known quasar or star.
-
-\end{itemize}
+The full description of the evolution of the galaxy target selection algorithms
+is given in \citet{PadmanabhanTS}.  Here we will give an overview of the final
+selection and the simple diagnostics used to tune the algorithms to produce
+the nominal target density.
 
 \subsection{Galaxy Selection Algorithms}
 
 Show formulas and some status, heat maps, etc.
 
+\subsection{Tuning the Density}
+
+\begin{figure}[t] \centering
+ \centering 
+ \includegraphics[scale=0.6]{fig/comm2-lrg-tile-positions-eq-any-002.eps}
+
+ \caption{blah} \label{fig:lrgtunetiles}
+
+\end{figure}
+
+\begin{figure}[t] \centering
+ \centering 
+ \includegraphics[scale=0.6]{fig/comm2-density-ihi-hiz-ihi-cmass-10x10.eps}
+
+ \caption{blah} \label{fig:lrgtuneihi}
+
+\end{figure}
 
 
-\section{QSO Selection Framework} \label{sec:qsoframe}
+
+\section{Quasar Selection} \label{sec:qsoframe}
 
 In this section, we describe the overarching framework of the BOSS
 quasar target selection algorithm. The algorithm is complex, motivated
@@ -234,20 +564,9 @@ The details of the above samples will be described in more detail in
 
 As listed below, the \core\ and \bonus\ algorithms share a set of cuts on the
 SDSS photometry. These cuts are applied in addition to those listed in \S
-\ref{sec:genselect}. Exceptions are \known\ and \bonus\ from commissioning,
+\ref{sec:basiccuts}. Exceptions are \known\ and \bonus\ from commissioning,
 which will be described later.
 
-In addition to those cuts listed in \ref{sec:sweeps} and \ref{sec:genselect},
-the following are not considered for followup as QSOs:
-
-\begin{itemize}
-
-    \item Objects labeled as \texttt{BAD\_COUNTS\_ERROR}.
-    \item Objects labeled as \texttt{DEBLEND\_NOPEAK}.
-    \item Objects labeled as \texttt{EDGE}.
-    \item Objects labeled as \texttt{DEBLENDED\_AS\_MOVING}.
-
-\end{itemize}
 
 \subsection{The QSO \known\ and \first\ Algorithms} \label{sec:knownfirst}
 
@@ -511,6 +830,25 @@ SDSS+GALEX FUV and NUV \citep{bovy11}.
 
 \subsection{The ``Combinator''} \label{sec:comb}
 
+\section{Structure of Software Framework} \label{sec:structure}
+
+{\color{red} remove this rambling crap or move to an appendix}
+
+Target selection is a classic map-reduce problem.  The astronomical objects in
+our catalogs are represented as independent data points in an high dimensional
+space.  During the map stage a set of numbers is calculated for each of these
+independent objects.  The results are then collated and sorted, followed by
+reduction stage which, for target selection, is simply a set of cuts.
+
+Some of the algorithms used for quasar target selection were extremely
+computationally intensive. So we exploited the independence of our data by
+running in parallel, typically across 100-200 cores, which reduced the total
+clock time to of order a week.  The results of the slower codes were cached for
+later use, until the core algorithm changed.
+
+In order to build on top existing infrastructure, the framework was written in
+IDL.  
+
 \end{comment}
 
 \acknowledgements E.S. is supported by grant DE-AC02-98CH10886.
@@ -523,20 +861,5 @@ research fellow of the Alexander von Humboldt Foundation of Germany.
 \bibliographystyle{apj}
 % Bib database
 \bibliography{apj-jour,astroref}
-
-
-\begin{comment}
-\begin{thebibliography}{}
-\bibitem[Bovy, Hogg, \& Roweis(2009)]{Bovy09a}
-{Bovy}, J., {Hogg}, D.~W., \& {Roweis}, S.~T. 2009, {arXiv:0905.2979v1
-[stat.ME]}
-\bibitem[Hopkins, Richards, \& Hernquist(2007)]{Hopkins07a}
-  Hopkins,~P.~F., Richards,~G.~T., \& Hernquist, L., 2007,
-  \apj, 654, 731
-\end{thebibliography}
-\end{comment}
-
-
-\end{document}
 
 \end{document}
