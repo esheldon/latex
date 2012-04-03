@@ -127,9 +127,10 @@ correlate with redshift, and are the only relevant quantities for redshift
 determination, the resulting weighted redshift histogram is proportional to the
 redshift probability distribution \nofz\ of the photometric sample. 
 
-The weighting provides a key advantage over other training sample methods such
-as neural nets.  Forcing the distributions of observables of the two samples to
-be proportional essentially creates a ``fair sample'' from the training set,
+%The weighting provides a key advantage over other training sample methods such
+%as neural nets.  Forcing 
+The weighting forces the distributions of observables of the two samples to
+be proportional, essentially creating a ``fair sample'' from the training set,
 avoiding errors due to population differences.  An additional advantage is that
 the technique naturally identifies the regions of intersection in the
 observable space between training and photometric samples. Only in the
@@ -449,7 +450,7 @@ process for matching to the photometric sample.
     \item 445 objects from the Canadian Network for Observational Cosmology
     (CNOC) Field Galaxy Survey \cite[CNOC2;][]{yee00}\footnote{\tt
     http://www.astro.toronto.edu/$\sim$cnoc/cnoc2.html} with \texttt{Rval} $>4$
-    for \texttt{Sc}$=2$ or \texttt{Rval} $> 5$ for \texttt{Sc}$=5$
+    for \texttt{Sc}$=2$ or 4, or \texttt{Rval} $> 5$ for \texttt{Sc}$=5$
 
     \item 151 from the Canada-France Redshift Survey
     \cite[CFRS;][]{lilly95}\footnote{\tt
@@ -465,14 +466,18 @@ process for matching to the photometric sample.
 
     \item 197 from the Team Keck Redshift Survey
     \cite[TKRS;][]{wirth04}\footnote{\tt
-    http://tkserver.keck.hawaii.edu/tksurvey/}.
+    http://tkserver.keck.hawaii.edu/tksurvey/} with $Q=4$ and $Q=-1$.
+    The flag $Q=-1$ corresponds to stars, and only two of them were left in the final
+    sample.
 
     \item 8,633 LRGs from the 2dF-SDSS LRG and QSO Survey
     \cite[2SLAQ;][]{cannon06}\footnote{\tt http://www.2slaq.info/} with
     \texttt{qop} $\geq$ 3.
 
     \item  2,080 from zCOSMOS redshift survey \cite{lilly07}, with
-    \texttt{cc=3.4 || 3.5 || 4.4.  || 4.5 || 9.5}.
+    \texttt{cc=3.4 || 3.5 || 4.4.  || 4.5 || 9.5}. Note that 2,046 galaxies
+    had \texttt{cc=3.5 || 4.5}, and 24 had \texttt{cc=9.5}. 
+    
     
     \item 1,587 from the VIMOS VLT-Deep survey
     \cite[VVDS;][]{garilli08}\footnote{\tt http://www.oamp.fr/virmos/vvds.htm}
@@ -770,8 +775,11 @@ than the SDSS sample.
 failures is the most difficult to quantify.  We chose a bright $r$-magnitude
 cut and relatively stringent cuts on spectroscopic quality in order to minimize
 the effect of incorrect redshifts. However, this does increase the
-incompleteness of the sample.  We estimate a completeness rate of roughly
-$70\%$ for the main training sets comprising our sample.  The incompleteness in
+incompleteness of the sample. \textcolor{red}{ We estimate a completeness rate of roughly
+$70\%$ for the main training sets comprising our sample (PRIMUS, zCOSMOS, VVDS, DEEP2-EGS).
+Here we define the completeness as the number of objects with high redshift confidence 
+divided by total number of galaxies targeted for observation.}
+The incompleteness in
 the training sample is problematic if it is not purely random and if it is not
 well described by the observables.  \cite{Nakajima11} conducted extensive tests
 on the selection of the main samples comprising our training set, namely
@@ -788,6 +796,13 @@ encouraging that the redshift distributions of the different training samples
 are roughly consistent with each other, despite being obtained from surveys
 with significantly different instruments and redshift success rates \citep[Fig.
 7 of][]{Nakajima11}. 
+\textcolor{red}{The completeness could be increased by adopting less stringent quality cuts, at 
+the cost of increasing the fraction of wrong redshifts. 
+Cunha et al. (in preparation) show, using spectroscopic/photometric simulations
+of the Dark Energy Survey and spectroscopic follow-up surveys, that, whereas 
+incompleteness in the spectroscopic samples can be robustly identified with colors,
+incorrect redshifts need to be exquisitely controlled. 
+We therefore, prefer to adopt more stringent quality cuts.}
 
 
 
