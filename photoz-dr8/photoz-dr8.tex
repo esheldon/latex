@@ -145,16 +145,20 @@ the photometric sample.
 In this section, we briefly review the weighting method\footnote{The weights
 and \pofz\ codes are available at {\url
 http://kobayashi.physics.lsa.umich.edu/$\sim$ccunha/nearest/}. Alternatively,
-the code can be accessed as the git repository probwts in \url{http://github.com}} of
-\cite{LimaPhotoz08}, which is required for computing \pofz.  We define the
-weight, $w$, of a galaxy in the spectroscopic training set as the normalized
-ratio of the density of galaxies in the photometric sample to the density of
-training-set galaxies around the given galaxy.  These densities are calculated
-in a local neighborhood in the space of photometric observables, e.g.,
-multi-band magnitudes.  In this case, the SDSS {\it ugriz} magnitudes are our
-observables; in practice we use four colors and the \rmag--band magnitude.  The
-hypervolume used to estimate the density is set to be the Euclidean distance of
-the galaxy to its $100^{th}$ nearest-neighbor in the training set. 
+the code can be accessed as the git repository probwts in
+\url{http://github.com}} of \cite{LimaPhotoz08}, which is required for
+computing \pofz.  We define the weight, $w$, of a galaxy in the spectroscopic
+training set as the normalized ratio of the density of galaxies in the
+photometric sample to the density of training set galaxies around the given
+galaxy.  These densities are calculated in a local neighborhood in the space of
+photometric observables, e.g., multi-band magnitudes.  In this case, the SDSS
+{\it ugriz} magnitudes are our observables; in practice we use four colors and
+the \rmag--band magnitude.  The hypervolume used to estimate the density is set
+to be the Euclidean distance of the galaxy to its $100^{th}$ nearest-neighbor
+in the training set.   Note, when the training data is assembled from multiple
+spectroscopic samples, we estimate the weights from the entire combined sample
+rather than separately from individual samples.
+
 
 The weights can be used to estimate the redshift distribution $\nwei$ of the
 photometric sample:
@@ -724,36 +728,31 @@ tests to constrain them:
 
 \begin{itemize}
 
-\item {\it Large-scale structure: } We expect this item to be one of the main sources of
-error.
-We use galaxy+$N$-body simulations\footnote{Simulations provided courtesy of Risa Wechsler and
-Michael Busha. See \cite{bushasimulations} for details.}
-noise uncertainties of the spectroscopic redshift distributions of the training
-set. 
-The photometry of the simulation assumed substantially deeper observations, hence
-our selection is only roughly appropriate.
-We first made a cut on $r<21.8$ followed by a cut on $u<24.7$ to match the fraction
-of objects removed by the u-band selection on the real data.
-For simplicity, we only simulate the magnitude-limited surveys of the
-training set.  In addition, because of the overlap between zCOSMOS and one of
-the PRIMUS fields, we neglect the zCOSMOS sample in the error estimation to
-simplify the calculation.  This approach results in a $\sim$10\% increase in the error
-bars relative to including zCOSMOS as an independent sample.  The predicted
-error bars are overlayed on the simulated overall redshift
-distribution in Fig.
-\ref{fig:ebars}, and the values of the errors are given in Table \ref{tab:nofz}. The
-uncertainty in the training set redshift distributions is not identical to that
-of the uncertainty in the estimated redshift distributions \nofz\ derived using
-the weights, hence the error bars should be thought of as approximate.
-A more detailed estimation of the errors would require SDSS-specific
-photometry+$N$-body simulations.  Relative to the error bars in the
-training set, the error bars in the weighted \nofz\ should be (very roughly)
-about 10-30\% smaller, with increased anti-correlations between neighboring
-bins, but a more exact statement would require a significantly more
-detailed investigation.
-%There are also 
-We explore these issues in more detail, and for a different data set,
-in \citet{CunhaPhotozLSS11}.
+\item {\it Large-scale structure: } We expect this item to be one of the main
+sources of error.  We use galaxy+$N$-body simulations\footnote{Simulations
+provided courtesy of Risa Wechsler and Michael Busha. See
+\cite{bushasimulations} for details.} to access the sample variance uncertainty
+in the redshift distribution of the training set.  The photometry of the
+simulation assumed substantially deeper observations, so the selection given
+below is only roughly appropriate.  We first made a cut on $r<21.8$ followed by
+a cut on $u<24.7$ to match the fraction of objects removed by the u-band
+selection on the real data.  For simplicity, we only simulate the
+magnitude-limited surveys of the training set.  In addition, because of the
+overlap between zCOSMOS and one of the PRIMUS fields, we neglect the zCOSMOS
+sample in the error estimation to simplify the calculation.  This approach
+results in a $\sim$10\% increase in the error bars relative to including
+zCOSMOS as an independent sample.  The predicted error bars are overlayed on
+the simulated overall redshift distribution in Fig.  \ref{fig:ebars}, and the
+values of the errors are given in Table \ref{tab:nofz}. The uncertainty in the
+training set redshift distributions is not identical to that of the uncertainty
+in the estimated redshift distributions \nofz\ derived using the weights, so
+the error bars should be thought of as approximate.  A more detailed estimation
+of the errors would require SDSS-specific photometry+$N$-body simulations.
+Relative to the error bars in the training set, the error bars in the weighted
+\nofz\ should be (very roughly) about 10-30\% smaller, with increased
+anti-correlations between neighboring bins, but a more exact statement would
+require a significantly more detailed investigation.  We explore these issues
+in more detail, and for a different data set, in \citet{CunhaPhotozLSS11}.
 
 
 \item {\it Selection in non-observables: } Two of the surveys comprising our
@@ -775,34 +774,33 @@ than the SDSS sample.
 failures is the most difficult to quantify.  We chose a bright $r$-magnitude
 cut and relatively stringent cuts on spectroscopic quality in order to minimize
 the effect of incorrect redshifts. However, this does increase the
-incompleteness of the sample. \textcolor{red}{ We estimate a completeness rate of roughly
-$70\%$ for the main training sets comprising our sample (PRIMUS, zCOSMOS, VVDS, DEEP2-EGS).
-Here we define the completeness as the number of objects with high redshift confidence 
-divided by total number of galaxies targeted for observation.}
-The incompleteness in
-the training sample is problematic if it is not purely random and if it is not
-well described by the observables.  \cite{Nakajima11} conducted extensive tests
-on the selection of the main samples comprising our training set, namely
-PRIMUS, VVDS, DEEP2 and zCOSMOS, and found that, with the exception of VVDS,
-none of the samples showed signs of incompleteness in color/magnitude space. In
-addition, incompleteness that is well localized in the observable space is
-partly corrected by the weighting procedure. The risk remains that the
-incompleteness is partly associated with galaxies that are localized in
-redshift but not in color, or are localized in color, but only comprise a very
-biased sample of the redshift distribution of galaxies with the same color. A
-proper assessment of the exact nature of the incompleteness in the training
-sets would require detailed simulations of the spectroscopic surveys.  It is
-encouraging that the redshift distributions of the different training samples
-are roughly consistent with each other, despite being obtained from surveys
-with significantly different instruments and redshift success rates \citep[Fig.
-7 of][]{Nakajima11}. 
-\textcolor{red}{The completeness could be increased by adopting less stringent quality cuts, at 
-the cost of increasing the fraction of wrong redshifts. 
-Cunha et al. (in preparation) show, using spectroscopic/photometric simulations
-of the Dark Energy Survey and spectroscopic follow-up surveys, that, whereas 
-incompleteness in the spectroscopic samples can be robustly identified with colors,
-incorrect redshifts need to be exquisitely controlled. 
-We therefore, prefer to adopt more stringent quality cuts.}
+incompleteness of the sample.  We estimate a completeness rate of roughly
+$70\%$ for the main training sets comprising our sample (PRIMUS, zCOSMOS, VVDS,
+DEEP2-EGS).  Here we define the completeness as the number of objects with high
+redshift confidence divided by total number of galaxies targeted for
+observation. The incompleteness in the training sample is problematic if it is
+not purely random and if it is not well described by the observables.
+\cite{Nakajima11} conducted extensive tests on the selection of the main
+samples comprising our training set, namely PRIMUS, VVDS, DEEP2 and zCOSMOS,
+and found that, with the exception of VVDS, none of the samples showed signs of
+incompleteness in color/magnitude space. In addition, incompleteness that is
+well localized in the observable space is partly corrected by the weighting
+procedure. The risk remains that the incompleteness is partly associated with
+galaxies that are localized in redshift but not in color, or are localized in
+color, but only comprise a very biased sample of the redshift distribution of
+galaxies with the same color. A proper assessment of the exact nature of the
+incompleteness in the training sets would require detailed simulations of the
+spectroscopic surveys.  It is encouraging that the redshift distributions of
+the different training samples are roughly consistent with each other, despite
+being obtained from surveys with significantly different instruments and
+redshift success rates \citep[Fig.  7 of][]{Nakajima11}.  The completeness
+could be increased by adopting less stringent quality cuts, at the cost of
+increasing the fraction of wrong redshifts.  Cunha et al. (in preparation)
+show, using spectroscopic/photometric simulations of the Dark Energy Survey and
+spectroscopic follow-up surveys, that, whereas incompleteness in the
+spectroscopic samples can be robustly identified with colors, incorrect
+redshifts need to be exquisitely controlled.  We therefore, prefer to adopt
+more stringent quality cuts.
 
 
 
