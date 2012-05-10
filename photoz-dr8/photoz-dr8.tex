@@ -137,6 +137,17 @@ observable space between training and photometric samples. Only in the
 intersection can one safely use the training sample to make inferences about
 the photometric sample.
 
+The method, as well as any other training set based estimator, will not work if there 
+are redshift selection issues localized in the space of observables.
+For example, consider a sample of galaxies occupying the same region of observable space. 
+If, there is a systematic selection such that the subset of the galaxies 
+with spectra has a systematically different redshift distribution from the rest of the galaxies,
+the weights will not be able to recover the redshift distribution correctly.
+Note that if redshifts cannot be obtained for a particular type of SED at that region, there
+will only be a bias if the redshift distribution of galaxies with that SED at that particular 
+region of observable space does not match that of the other galaxies.
+In general, this does not appear to be a dominant issue for this dataset, but may affect some 
+particular populations.
 
 \subsection{Nearest-neighbor \pofz\ redshift estimators}\label{sec:nnpz}
 
@@ -741,8 +752,8 @@ simplify the calculation.  This approach results in a $\sim$10\% increase in the
 bars relative to including zCOSMOS as an independent sample.  The predicted
 error bars are overlayed on the simulated overall redshift
 distribution in Fig.
-\ref{fig:ebars}, and the values of the errors are given in Table \ref{tab:nofz}. The
-uncertainty in the training set redshift distributions is not identical to that
+\ref{fig:ebars}, and the values of the errors are given in Table \ref{tab:nofz}. uncertainty
+The in the training set redshift distributions is not identical to that
 of the uncertainty in the estimated redshift distributions \nofz\ derived using
 the weights, hence the error bars should be thought of as approximate.
 A more detailed estimation of the errors would require SDSS-specific
