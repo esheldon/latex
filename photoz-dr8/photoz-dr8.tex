@@ -133,6 +133,17 @@ observable space between training and photometric samples. Only in the
 intersection can one safely use the training sample to make inferences about
 the photometric sample.
 
+The method, as well as any other training set based estimator, will not work if there 
+are redshift selection issues localized in the space of observables.
+For example, consider a sample of galaxies occupying the same region of observable space. 
+If, there is a systematic selection such that the subset of the galaxies 
+with spectra has a systematically different redshift distribution from the rest of the galaxies,
+the weights will not be able to recover the redshift distribution correctly.
+Note that if redshifts cannot be obtained for a particular type of SED at that region, there
+will only be a bias if the redshift distribution of galaxies with that SED at that particular 
+region of observable space does not match that of the other galaxies.
+In general, this does not appear to be a dominant issue for this dataset, but may affect some 
+particular populations.
 
 \subsection{Nearest-neighbor \pofz\ redshift estimators}\label{sec:nnpz}
 
@@ -728,11 +739,11 @@ tests to constrain them:
 sources of error.  We use galaxy+$N$-body simulations\footnote{Simulations
 provided courtesy of Risa Wechsler and Michael Busha. See
 \cite{bushasimulations} for details.} to access the sample variance uncertainty
-in the redshift distribution of the training set.  The photometry of the
-simulation assumed substantially deeper observations, so the selection given
-below is only roughly appropriate.  We first made a cut on $r<21.8$ followed by
-a cut on $u<24.7$ to match the fraction of objects removed by the u-band
-selection on the real data.  For simplicity, we only simulate the
+in the spectroscopic redshift distribution of the training set.  The photometry
+of the simulation assumed substantially deeper observations, so the selection
+given below is only roughly appropriate.  We first made a cut on $r<21.8$
+followed by a cut on $u<24.7$ to match the fraction of objects removed by the
+u-band selection on the real data.  For simplicity, we only simulate the
 magnitude-limited surveys of the training set.  In addition, because of the
 overlap between zCOSMOS and one of the PRIMUS fields, we neglect the zCOSMOS
 sample in the error estimation to simplify the calculation.  This approach
@@ -749,7 +760,6 @@ Relative to the error bars in the training set, the error bars in the weighted
 anti-correlations between neighboring bins, but a more exact statement would
 require a significantly more detailed investigation.  We explore these issues
 in more detail, and for a different data set, in \citet{CunhaPhotozLSS11}.
-
 
 \item {\it Selection in non-observables: } Two of the surveys comprising our
 training set have selections in observables that are not included in the SDSS
