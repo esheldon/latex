@@ -8,6 +8,9 @@
 
 \newcommand{\M}{\textbf{M}}
 \newcommand{\X}{\textbf{X}}
+\newcommand{\Dx}{\ensuremath{\Delta x}}
+\newcommand{\Dy}{\ensuremath{\Delta y}}
+
 \newcommand{\downloadURL}{{\tt http://www.sdss3.org/dr8/data\_access.php\#VAC}}
 \newcommand{\datamodelURL}{{\tt http://data.sdss3.org/datamodel/files/BOSS\_PHOTOOBJ/photoz-weight/pofz.html}}
 \def\eps@scaling{1.0}% 
@@ -37,15 +40,17 @@ G = \frac{1}{2 \pi \sqrt{|\M|} } ~~ \textrm{exp}\left( -\frac{1}{2} \X^T \M^{-1}
 where \M\ is the covariance matrix
 \begin{equation}
 \M = \left( \begin{array}{cc}
-\M_{11} & \M_{12} \\
-\M_{12} & \M_{22} \end{array} \right)
+\M_{xx} & \M_{xy} \\
+\M_{xx} & \M_{yy} \end{array} \right)
 \end{equation}
 and \X\ is the position vector relative to the mean of the Gaussian
 \begin{equation}
 \X = \left( \begin{array}{c}
-\X_1 - \langle \X_1 \rangle \\
-\X_2 - \langle \X_2 \rangle \end{array} \right)
+\Dx \\
+\Dy \end{array} \right),
 \end{equation}
+where we have defined the positions relative to the center $(x_0,y_0)$
+as $\Delta x=(x-x_0)$ and $\Delta y=(y-y_0)$.
 
 Under convolution with a Gaussian PSF $P$ we get an observed model intensity
 profile
@@ -76,6 +81,123 @@ the plane is unity
 \begin{equation}
 \int \sum_{j=1}^{N_{P}} P_j dA = 1.
 \end{equation}
+
+\subsection{Alternative Parametrization}
+
+An alternative parametrization of the covariance matrix is in
+terms of the ellipticity parameters and size
+\begin{equation}
+\M = \frac{T}{2}\left( \begin{array}{cc}
+1+e_1 & e_2 \\
+e_2 & 1-e_1 \end{array} \right),
+\end{equation}
+where the ellipticity and size $T$ are defined in terms
+of the elements of the covariance matrix as
+\begin{eqnarray}
+T & = & M_{xx} + M_{yy} \\
+e_1 & = & \frac{M_{xx}-M_{yy}}{T} = e~\mathrm{cos}(2 \theta) \\
+e_2 & = & \frac{2 M_{xy}}{T} = e~\mathrm{sin}(2 \theta)\\
+e & = & \sqrt{e_1^2 + e_2^2}.
+\end{eqnarray}
+The $e_1$ and $e_2$ are bounded within $[-1,1]$ and total ellipticity $e$ is
+within $[0,1]$.  It is further convenient for the fitting process to define the
+total ellipticity in terms of an unbounded parameter $\eta$:
+\begin{equation}
+e = \frac{1+\mathrm{tanh}(\eta)}{2}.
+\end{equation}
+This parameter $\eta$ can range from $[-\inf,\inf]$, which corresponds
+to a limit for $e$ of $[0,1]$. Note in this parametrization, 
+the argument of the exponential is
+\begin{equation}
+\frac{1}{2} \X^T \M^{-1} \X = \frac{\Dx^2 (1.-e_1) - 2 e_2 \Dx \Dy + \Dy^2 (1+e_1)}{T (1.-e^2)}
+\end{equation}
+
+
+\subsection{Jacobian}
+
+The Jacobian is the set of first derivatives of model with respect
+to the parameters:
+\begin{equation}
+J_i = \frac{\partial G}{\partial \beta_i}
+\end{equation}
+
+For a single Gaussian, the elements of the Jacobian can be readily
+calculated.  For the parameters $x_0,y_0,\theta,T,p$ we find
+\begin{eqnarray}
+\frac{1}{G} \frac{\partial G}{\partial x_0}
+    & = & 2 \frac{ \Dx (1-e_1) - \Dy e_2 }{T (1-e^2)} \\
+\frac{1}{G} \frac{\partial G}{\partial y_0}
+    & = & 2 \frac{ \Dy (1+e_1) - \Dx e_2 }{T (1-e^2)} \\
+\frac{1}{G} \frac{\partial G}{\partial \theta}
+  & = & -2 \frac{ e_2 (\Dx^2-\Dy^2)  - 2 e_1 \Dx \Dy }{T (1-e^2)} \\
+\frac{1}{G} \frac{\partial G}{\partial T}
+  & = & \frac{-1}{T} \left( 1 - \frac{1}{2} \X^T \M^{-1} \X  \right)  \\
+\frac{1}{G} \frac{\partial G}{\partial p}
+  & = & \frac{1}{p}
+\end{eqnarray}
+For the conformal ellipticity parameter $\eta$ we use the chain rule
+\begin{eqnarray}
+\frac{1}{G} \frac{\partial G}{\partial \eta}
+ & = & \frac{1}{G} \frac{\partial G}{\partial e }\frac{\partial e}{\partial \eta} \\
+\frac{1}{G} \frac{\partial G}{\partial e } 
+  & = & - \frac{ 2 e (\Dx^2 + \Dy^2) - (1-e^2)\left[ (\Dx^2-\Dy^2) \mathrm{cos}(2 \theta) + 2 \Dx \Dy \mathrm{sin}(2 \theta)\right] }{T (1-e^2)^2 } \\
+\frac{\partial e}{\partial \eta} & = & \frac{1}{2} \mathrm{sech}^2(\eta)
+\end{eqnarray}
+
+\subsection{Jacobian in the Presence of a PSF}
+
+For $x_0,y_0,T$ and $p$, we can use the same Jacobian equations for the pre-PSF
+case, evaluated with the convolved covariance matrix. 
+
+For $\eta$ we must include a piece from the chain rule
+\begin{eqnarray}
+\frac{1}{G_o} \frac{\partial G_o}{\partial e} 
+ & = & \frac{1}{G_o} \frac{\partial G_o}{\partial e_o} \frac{\partial e_o}{\partial e} \frac{\partial e}{\partial \eta} \\
+\frac{\partial e_o}{\partial e} 
+ & = & R \left[ \mathrm{cos}(2\theta_o)\mathrm{cos}(2\theta)
+               +\mathrm{sin}(2\theta_o)\mathrm{sin}(2\theta) \right]
+\end{eqnarray}
+where quantities underscored with $o$ are ``observed'' quantities, in 
+other words post-PSF convolution.  We have defined the resolution 
+parameter 
+\begin{equation}
+R = \frac{T}{T + T_P} = \frac{T}{T_o}.
+\end{equation}
+
+For $\theta$ we must derive entirely new equations
+\begin{eqnarray}
+\frac{1}{G_o} \frac{\partial G_o}{\partial \theta} 
+ & = & \frac{1}{G_o} \left( 
+   \frac{\partial G_o}{\partial e_{1,o}} \frac{\partial e_{1,o}}{\partial \theta}
+   + \frac{\partial G_o}{\partial e_{2,o}} \frac{\partial e_{2,o}}{\partial \theta}
+                     \right) \\
+\frac{1}{G_o} \frac{\partial G_o}{\partial e_{1,o}} 
+   & = & \frac{e_{1,o}}{(1-e_o^2)} + (\Dx^2 - \Dy^2) \left(\frac{1-e_o^2 + 2 e_{1,o}^2}{T (1-e_o^2)^2}\right)\\
+\frac{1}{G_o} \frac{\partial G_o}{\partial e_{2,o}} 
+   & = & \frac{e_{2,o}}{(1-e_o^2)} + 2 \Dx \Dy \left(\frac{1-e_o^2 + 2 e_{2,o}^2}{T (1-e_o^2)^2}\right)\\
+\frac{\partial e_{1,o}}{\partial \theta} & = & -2 R e_2 \\
+\frac{\partial e_{2,o}}{\partial \theta} & = & 2 R e_1 \\
+\end{eqnarray}
+
+\section{Examples}
+
+In this section we show some fits to example profiles.
+
+\subsection{Exponential Disk}
+
+An exponential disk can be represented reasonably well by three Gaussians
+as shown in Fig. \ref{fig:expcmp}
+
+\begin{figure}[t] \centering
+ \centering 
+ \includegraphics[scale=1]{figures/test-opt-exp.eps}
+
+ \caption{A fit to an exponential disk using three Gaussians.}
+ \label{fig:expcmp}
+
+\end{figure}
+
+
 
 \end{document}
 
