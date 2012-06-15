@@ -1,0 +1,81 @@
+\documentclass[12pt,preprint]{aastex}
+
+\usepackage{verbatim}
+\usepackage{color}
+
+\usepackage[normalem]{ulem} % for striking out with \sout
+\input{newcommands.tex}
+
+\newcommand{\M}{\textbf{M}}
+\newcommand{\X}{\textbf{X}}
+\newcommand{\downloadURL}{{\tt http://www.sdss3.org/dr8/data\_access.php\#VAC}}
+\newcommand{\datamodelURL}{{\tt http://data.sdss3.org/datamodel/files/BOSS\_PHOTOOBJ/photoz-weight/pofz.html}}
+\def\eps@scaling{1.0}% 
+
+\slugcomment{Last revision \today}
+\shortauthors{Sheldon}
+\shorttitle{Gaussian Mixtures for Shape Measurement}
+
+\begin{document}
+
+\title{Gaussian Mixtures for Shape Measurement}
+
+\input{authors.tex}
+
+\begin{abstract}
+
+GMix
+
+\end{abstract}
+
+\section{Gaussian Mixtures} \label{sec:gmix}
+
+The two dimensional Gaussian intensity function is defined as
+\begin{equation}
+G = \frac{1}{2 \pi \sqrt{|\M|} } ~~ \textrm{exp}\left( -\frac{1}{2} \X^T \M^{-1} \X \right)
+\end{equation}
+where \M\ is the covariance matrix
+\begin{equation}
+\M = \left( \begin{array}{cc}
+\M_{11} & \M_{12} \\
+\M_{12} & \M_{22} \end{array} \right)
+\end{equation}
+and \X\ is the position vector relative to the mean of the Gaussian
+\begin{equation}
+\X = \left( \begin{array}{c}
+\X_1 - \langle \X_1 \rangle \\
+\X_2 - \langle \X_2 \rangle \end{array} \right)
+\end{equation}
+
+Under convolution with a Gaussian PSF $P$ we get an observed model intensity
+profile
+\begin{equation}
+G_o = G * P
+\end{equation}
+In this case the covariance matrices simply add
+\begin{equation}
+\M_o = \M + \M_{P}
+\end{equation}
+
+We can fit a number of gaussians to a galaxy or star image.  There is 
+no guarantee this will be a good representation, as sums of Gaussians
+do not form a complete set of functions.   This model can be represented
+as
+\begin{equation}
+I = \sum_{i=1}^{N_{g}} p_i G_i
+\end{equation}
+
+If the PSF is also represented as a sum of gaussians, then the observed
+light intensity profile can be modeled as
+\begin{eqnarray}
+I_o & = & \sum_{i=1}^{N_{g}} p_i \sum_{j=1}^{N_{P}} G_i * P_j \\
+    & = & \sum_{i=1}^{N_{g}} p_i \sum_{j=1}^{N_{P}} \frac{1}{2 \pi \sqrt{|\M + \M_P|} } ~~ \textrm{exp}\left( -\frac{1}{2} \X^T (\M+\M_P)^{-1} \X \right) \\
+\end{eqnarray}
+where the $P_j$ are normalized such that the integral over
+the plane is unity
+\begin{equation}
+\int \sum_{j=1}^{N_{P}} P_j dA = 1.
+\end{equation}
+
+\end{document}
+
