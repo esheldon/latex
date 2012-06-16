@@ -95,21 +95,15 @@ where the ellipticity and size $T$ are defined in terms
 of the elements of the covariance matrix as
 \begin{eqnarray}
 T & = & M_{xx} + M_{yy} \\
-e_1 & = & \frac{M_{xx}-M_{yy}}{T} = e~\mathrm{cos}(2 \theta) \\
-e_2 & = & \frac{2 M_{xy}}{T} = e~\mathrm{sin}(2 \theta)\\
+e_1 & = & \frac{M_{xx}-M_{yy}}{T} \\
+e_2 & = & \frac{2 M_{xy}}{T} \\
 e & = & \sqrt{e_1^2 + e_2^2}.
 \end{eqnarray}
 The $e_1$ and $e_2$ are bounded within $[-1,1]$ and total ellipticity $e$ is
-within $[0,1]$.  It is further convenient for the fitting process to define the
-total ellipticity in terms of an unbounded parameter $\eta$:
-\begin{equation}
-e = \frac{1+\mathrm{tanh}(\eta)}{2}.
-\end{equation}
-This parameter $\eta$ can range from $[-\inf,\inf]$, which corresponds
-to a limit for $e$ of $[0,1]$. Note in this parametrization, 
+within $[0,1]$.  Note in this parametrization, 
 the argument of the exponential is
 \begin{equation}
-\frac{1}{2} \X^T \M^{-1} \X = \frac{\Dx^2 (1.-e_1) - 2 e_2 \Dx \Dy + \Dy^2 (1+e_1)}{T (1.-e^2)}
+\frac{1}{2} \X^T \M^{-1} \X = \frac{\Dx^2 (1-e_1) - 2 \Dx \Dy~e_2 + \Dy^2 (1+e_1)}{T (1-e^2)}
 \end{equation}
 
 
@@ -128,20 +122,14 @@ calculated.  For the parameters $x_0,y_0,\theta,T,p$ we find
     & = & 2 \frac{ \Dx (1-e_1) - \Dy e_2 }{T (1-e^2)} \\
 \frac{1}{G} \frac{\partial G}{\partial y_0}
     & = & 2 \frac{ \Dy (1+e_1) - \Dx e_2 }{T (1-e^2)} \\
-\frac{1}{G} \frac{\partial G}{\partial \theta}
-  & = & -2 \frac{ e_2 (\Dx^2-\Dy^2)  - 2 e_1 \Dx \Dy }{T (1-e^2)} \\
+\frac{1}{G} \frac{\partial G}{\partial e_1}
+  & = & \frac{e_1}{1-e^2} + \frac{\Dx^2-\Dy^2}{T (1-e^2)^2} (1-e^2 + 2 e_1^2) \\
+\frac{1}{G} \frac{\partial G}{\partial e_2}
+  & = & \frac{e_2}{1-e^2} + \frac{2 \Dx \Dy}{T (1-e^2)^2} (1-e^2 + 2 e_2^2) \\
 \frac{1}{G} \frac{\partial G}{\partial T}
   & = & \frac{-1}{T} \left( 1 - \frac{1}{2} \X^T \M^{-1} \X  \right)  \\
 \frac{1}{G} \frac{\partial G}{\partial p}
   & = & \frac{1}{p}
-\end{eqnarray}
-For the conformal ellipticity parameter $\eta$ we use the chain rule
-\begin{eqnarray}
-\frac{1}{G} \frac{\partial G}{\partial \eta}
- & = & \frac{1}{G} \frac{\partial G}{\partial e }\frac{\partial e}{\partial \eta} \\
-\frac{1}{G} \frac{\partial G}{\partial e } 
-  & = & - \frac{ 2 e (\Dx^2 + \Dy^2) - (1-e^2)\left[ (\Dx^2-\Dy^2) \mathrm{cos}(2 \theta) + 2 \Dx \Dy \mathrm{sin}(2 \theta)\right] }{T (1-e^2)^2 } \\
-\frac{\partial e}{\partial \eta} & = & \frac{1}{2} \mathrm{sech}^2(\eta)
 \end{eqnarray}
 
 \subsection{Jacobian in the Presence of a PSF}
@@ -149,35 +137,18 @@ For the conformal ellipticity parameter $\eta$ we use the chain rule
 For $x_0,y_0,T$ and $p$, we can use the same Jacobian equations for the pre-PSF
 case, evaluated with the convolved covariance matrix. 
 
-For $\eta$ we must include a piece from the chain rule
+For $e_1$ and $e_2$ we modify the jacobians according to the following equations
 \begin{eqnarray}
-\frac{1}{G_o} \frac{\partial G_o}{\partial e} 
- & = & \frac{1}{G_o} \frac{\partial G_o}{\partial e_o} \frac{\partial e_o}{\partial e} \frac{\partial e}{\partial \eta} \\
-\frac{\partial e_o}{\partial e} 
- & = & R \left[ \mathrm{cos}(2\theta_o)\mathrm{cos}(2\theta)
-               +\mathrm{sin}(2\theta_o)\mathrm{sin}(2\theta) \right]
+\frac{\partial G_o}{\partial e_1} 
+ & = & \frac{\partial G_o}{\partial e_1^o} \frac{\partial e_1^o}{\partial e_1} 
+    =  R \frac{\partial G_o}{\partial e_1^o}\\
+\frac{\partial G_o}{\partial e_2} 
+ & = & \frac{\partial G_o}{\partial e_2^o} \frac{\partial e_2^o}{\partial e_2}
+    =  R \frac{\partial G_o}{\partial e_2^o}\\
+R & = & \frac{T}{T + T_P} = \frac{T}{T_o}.
 \end{eqnarray}
-where quantities underscored with $o$ are ``observed'' quantities, in 
-other words post-PSF convolution.  We have defined the resolution 
-parameter 
-\begin{equation}
-R = \frac{T}{T + T_P} = \frac{T}{T_o}.
-\end{equation}
-
-For $\theta$ we must derive entirely new equations
-\begin{eqnarray}
-\frac{1}{G_o} \frac{\partial G_o}{\partial \theta} 
- & = & \frac{1}{G_o} \left( 
-   \frac{\partial G_o}{\partial e_{1,o}} \frac{\partial e_{1,o}}{\partial \theta}
-   + \frac{\partial G_o}{\partial e_{2,o}} \frac{\partial e_{2,o}}{\partial \theta}
-                     \right) \\
-\frac{1}{G_o} \frac{\partial G_o}{\partial e_{1,o}} 
-   & = & \frac{e_{1,o}}{(1-e_o^2)} + (\Dx^2 - \Dy^2) \left(\frac{1-e_o^2 + 2 e_{1,o}^2}{T (1-e_o^2)^2}\right)\\
-\frac{1}{G_o} \frac{\partial G_o}{\partial e_{2,o}} 
-   & = & \frac{e_{2,o}}{(1-e_o^2)} + 2 \Dx \Dy \left(\frac{1-e_o^2 + 2 e_{2,o}^2}{T (1-e_o^2)^2}\right)\\
-\frac{\partial e_{1,o}}{\partial \theta} & = & -2 R e_2 \\
-\frac{\partial e_{2,o}}{\partial \theta} & = & 2 R e_1 \\
-\end{eqnarray}
+where quantities sub- or super-scripted with $o$ are convolved or ``observed''
+quantities, and we have defined the resolution parameter $R$.
 
 \section{Examples}
 
