@@ -11,6 +11,8 @@
 % for comments
 \usepackage{verbatim}
 
+\newcommand{\diskapprox}{$\sim$100 TB}
+\newcommand{\diskredapprox}{$\sim$300 TB}
 
 % bibliography stuff
 \usepackage{natbib}
@@ -250,34 +252,45 @@ bins.
         2010 Equivalent &
     }
     \startdata
-2012 & 14 & 4000 & 13 & 27000 \\
-2013 & 18 & 4000 & 17 & 27000 \\
-2014 & 23 & 4000 & 21 & 27000 \\
-2015 & 30 & 4000 & 28 & 27000 \\
-2016 & 46 & 4000 & 41 & 27000 \\
+2012 & 14$\times$3 & 4000 & 13 & 27000 \\
+2013 & 18$\times$3 & 4000 & 17 & 27000 \\
+2014 & 23$\times$3 & 4000 & 21 & 27000 \\
+2015 & 30$\times$3 & 4000 & 28 & 27000 \\
+2016 & 46$\times$3 & 4000 & 41 & 27000 \\
 \hline
 \relax\\[-1.7ex]
-Total in 5 years & 131 & 20000 & 120 & 135000 \\\\[-2.7ex]
+Total in 5 years & 131$\times$3=393 & 20000 & 120 & 135000 \\\\[-2.7ex]
 \enddata
 
-    \tablecomments{The number of compute nodes purchased is based on
-    the assumption that each node (26kSI2k, 104 HEP-SPEC 2006) would stay at the
-    performance level of a node purchased in 2010. As the performance per node will
-    increase over time the actual number of compute nodes after 5 years will be
-    significantly smaller (probably O(70)), providing a combined performance of
-    O(120) 2010 equivalent nodes. Prices include 40\% bulk discounts from
-    purchasing through the RHIC ATLAS Computing Facility at BNL. {\bf Power,
-    cooling and maintence will be provided at no extra cost to this experiment.}}
+    \tablecomments{The number of compute nodes purchased is based on the
+    assumption that each node (26kSI2k, 104 HEP-SPEC 2006) would stay at the
+    performance level of a node purchased in 2010. As the performance per node
+    will increase over time the actual number of compute nodes after 5 years
+    will be significantly smaller (probably O(70)), providing a combined
+    performance of O(120) 2010 equivalent nodes. Note the factor of three
+    redundancy for optimizing the distributed file system. Prices include 40\%
+    bulk discounts from purchasing through the RHIC ATLAS Computing Facility at
+    BNL. {\bf Power, cooling and maintence will be provided at no extra cost to
+    this experiment.}}
 
 \end{deluxetable}
  
 
 The full DES survey is expected to generate 80,000 exposures over five years.
 Each exposure generates 62 CCD images, for a total of $5\times 10^6$ images.
-The data volume on disk will be $\approx 100$~TB of disk space when stored in
-compressed format, and including the data quality indicators for each pixel,
-plus the coadded images and catalogs that are produced by the DESDM pipeline
-and serve as inputs to the ME process.
+The on disk data volume required for lensing analysis will be \diskapprox\
+of disk space when stored in compressed format, and including the data quality
+indicators for each pixel, plus the coadded images and catalogs that are
+produced by the DESDM pipeline and serve as inputs to the ME process.  
+
+We require a further factor of three in disk for redundancy in the distributed
+file system (Hadoop\footnote{http://hadoop.apache.org/}).   We use a
+distributed file system in order to get the required data throughput; we have
+found that a few dedicated file servers cannot handle the load. The redundancy
+guarantees data integrity and dramatically increases throughput.  Distributed
+file systems have been in use in high energy physics and industry for many
+years, and have proven to be a simple, high-availability and high througput
+solution.
 
 Scaling from the hardware and software speeds used for table
 \ref{table:timing}, the SE processing is simply (1728 cph)/(46000 im)*(80000
@@ -304,9 +317,8 @@ factor of five slower than the Jarvis \& Sheldon pipeline.  Certainly this can
 be improved, but we may expect the multiplier for adding additional algorithms
 to be greater than unity.
 
-We must also store the 100 TB of data in order to efficiently process it
-through multiple algorithms.  
-
+We must also permanently store the \diskredapprox\ of data in order to efficiently
+process it through multiple algorithms.  
 
 \subsection{Purchasing Plan}
 
@@ -315,7 +327,7 @@ developed a purchasing plan that should be nearly optimal in the sense that
 we can process data as it arrives but take advantage of increasing computing
 power and storage per dollar.  This plan is outlined in table \ref{table:computing}.
 
-To store and process the 100 TB of DES data, we propose to spend about
+To store and process the \diskredapprox\ of DES data, we propose to spend about
 \$30,000/year for five years. The first year we will acquire $\sim$ 13 nodes
 with at least 32G of memory each (26kSI2k, 104 HEP-SPEC 2006).  In following
 years we will purchase more computing for the same price, and keep a trajectory
@@ -328,7 +340,7 @@ purposes.
 Note in table \ref{table:computing} we have listed storage purchases per year.
 We are also requesting and additional 30TB of disk to provide storage for the
 lensing data products, including many re-processings.  This makes a total of
-$\approx 130$TB of storage.
+$\approx 130$TB of storage, with a factor of three redundancy.
 
 It is important to note these prices include bulk discounts of order 40\%.
 This is due to purchasing along with other BNL experiments through the RHIC
