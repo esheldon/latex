@@ -72,7 +72,7 @@ I = \sum_{i=1}^{N_{g}} p_i G_i
 
 If the PSF is also represented as a sum of gaussians, then the observed
 light intensity profile can be modeled as
-\begin{eqnarray}
+\begin{eqnarray} \label{eq:postpsf}
 I_o & = & \sum_{i=1}^{N_{g}} p_i \sum_{j=1}^{N_{P}} G_i * P_j \\
     & = & \sum_{i=1}^{N_{g}} p_i \sum_{j=1}^{N_{P}} \frac{1}{2 \pi \sqrt{|\M + \M_P|} } ~~ \textrm{exp}\left( -\frac{1}{2} \X^T (\M+\M_P)^{-1} \X \right) \\
 \end{eqnarray}
@@ -107,6 +107,48 @@ the argument of the exponential is
 \end{equation}
 
 
+
+\section{Examples}
+
+In this section we show some fits to example profiles.
+
+\subsection{Exponential Disk}
+
+An exponential disk can be represented reasonably well by three Gaussians
+as shown in Fig. \ref{fig:expcmp}
+
+\begin{figure}[t] \centering
+ \centering 
+ \includegraphics[scale=0.7]{figures/test-opt-exp.eps}
+
+ \caption{A fit to an exponential disk using three Gaussians.}
+ \label{fig:expcmp}
+
+\end{figure}
+
+
+
+\section{Fitting for the Pre-PSF Object}
+
+In order to fit for the pre-psf object, we must first fit the PSF to a gaussian
+mixture.  Then, for a given set of object parameters, we generate a model that
+is convolved with this PSF according to equation \ref{eq:postpsf} and compare
+with the image.  We then search for a set of parameters that give the best
+fit in a $\chi^2$ sense.  
+
+Note both the object and PSF are also convolved with the pixel response
+function.  This pixelization is accounted for when fitting a gaussian mixture
+model to the observed pixel-convolved PSF.  Thus when generating our model
+using equation \ref{eq:postpsf}, the we recover the pre-PSF, pre-pixel object.
+
+
+
+
+
+
+\appendix
+
+\section{Appendix}
 \subsection{Jacobian}
 
 The Jacobian is the set of first derivatives of model with respect
@@ -114,6 +156,8 @@ to the parameters:
 \begin{equation}
 J_i = \frac{\partial G}{\partial \beta_i}
 \end{equation}
+The jacobian can be useful in some fitting routines to help guide the descent
+to best fit.
 
 For a single Gaussian, the elements of the Jacobian can be readily
 calculated.  For the parameters $x_0,y_0,\theta,T,p$ we find
@@ -149,26 +193,6 @@ R & = & \frac{T}{T + T_P} = \frac{T}{T_o}.
 \end{eqnarray}
 where quantities sub- or super-scripted with $o$ are convolved or ``observed''
 quantities, and we have defined the resolution parameter $R$.
-
-\section{Examples}
-
-In this section we show some fits to example profiles.
-
-\subsection{Exponential Disk}
-
-An exponential disk can be represented reasonably well by three Gaussians
-as shown in Fig. \ref{fig:expcmp}
-
-\begin{figure}[t] \centering
- \centering 
- \includegraphics[scale=1]{figures/test-opt-exp.eps}
-
- \caption{A fit to an exponential disk using three Gaussians.}
- \label{fig:expcmp}
-
-\end{figure}
-
-
 
 \end{document}
 
