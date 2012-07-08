@@ -97,10 +97,10 @@ Release 8 \citep[SDSS DR8;][]{dr8} of the Sloan Digital Sky Survey III
 \citet{CunhaPhotoz09}, which was also applied to SDSS DR7 \citep{dr7}, with
 improvements in the training set and photometry.  The DR7 catalog of
 \cite{CunhaPhotoz09} has been successfully used in cosmological analyses,
-allowing, for example, for the first measurement of the transverse BAO scale
-derived purely from angular information, i.e. without using the 3D
-power-spectrum \citep{car11}  and for the measurement of the growth of
-structure using photometric LRGs \citep{cro11}. 
+allowing, for example, for the first measurement of the transverse baryon
+acoustic oscillation scale derived purely from angular information, i.e.
+without using the 3D power-spectrum \citep{car11}  and for the measurement of
+the growth of structure using photometric LRGs \citep{cro11}. 
 
 This paper is organized as follows.  In \S \ref{sec:method} we discuss the
 method and in \S \ref{sec:data},\ref{sec:photo},\ref{sec:select} we describe
@@ -136,7 +136,7 @@ the photometric sample.
 The method, as well as any other training set based estimator, will not work if
 there are redshift selection issues localized in the space of observables.  For
 example, consider a sample of galaxies occupying the same region of observable
-space.  If, there is a systematic selection such that the subset of the
+space.  If there is a systematic selection such that the subset of the
 galaxies with spectra has a systematically different redshift distribution from
 the rest of the galaxies, the weights will not be able to recover the redshift
 distribution correctly.  Note that if redshifts cannot be obtained for a
@@ -181,16 +181,15 @@ photometric sample:
 \end{equation}
 \end{comment}
 
-\noindent For a bin $z_1 < z < z_2$, we sum the weights, $w_{\beta}$, of all 
-($N_{\rm T}=100$ in our case) training set galaxies that have redshift $z_{\beta}$ 
-fall within that bin. \cite{LimaPhotoz08} and
-\cite{CunhaPhotoz09} show that this indeed provides a nearly unbiased estimate
-of the redshift distribution of the photometric sample, $N(z)_{\rm P}$,
-provided the differences in the selection of the training and photometric
-samples are solely in the observable quantities used to calculate the weights.
-For example, if the photometric sample has a morphology dependent cut,
-the same cut should be applied to the training sample or morphology should be 
-one of the observables used to measure weights.
+\noindent For a bin $z_1 < z < z_2$, we sum the weights, $w_{\beta}$, of all
+training set galaxies that have redshift $z_{\beta}$ fall within that bin.
+\cite{LimaPhotoz08} and \cite{CunhaPhotoz09} show that this indeed provides a
+nearly unbiased estimate of the redshift distribution of the photometric
+sample, $N(z)_{\rm P}$, provided the differences in the selection of the
+training and photometric samples are solely in the observable quantities used
+to calculate the weights.  For example, if the photometric sample has a
+morphology dependent cut, the same cut should be applied to the training sample
+or morphology should be one of the observables used to measure weights.
 
 
 \subsubsection{\pofz}
@@ -441,7 +440,7 @@ cuts, and when only that cut is applied
 
 \end{itemize}
 
-The loss of 20\% of the galaxies to the last cut is primarily to the \umag
+The loss of 20\% of the galaxies to the last cut is primarily to the \umag\
 limit.  This means the sample is not strictly flux-limited to \rmag$ < $\rmax.
 Star forming galaxies will be retained more so than those with older stellar
 populations.
@@ -559,7 +558,7 @@ distributions.
     are derived to produced distributions approximately proportional to the
     photometric sample.  The following four panels show extinction-corrected
     colors based on \modelmag.  The bottom right panel shows the distribution
-    of of the derived weights for the training sample. Note the weight
+    of the derived weights for the training sample. Note the weight
     calculation is performed in the full five dimensional space; we show
     the projections here to help visualization.} \label{fig:varhist}
 
@@ -586,7 +585,7 @@ distribution in \S \ref{sec:errors}. These \nofz\ data are presented in Table
 
 Also shown in Fig. \ref{fig:pofz} is the summed \pofz\ derived for individual
 galaxies.  The uncorrected $\npz$\ is, characteristically, slightly more peaked than
-than $\nwei$.
+$\nwei$.
 In \S \ref{sec:pzcorr} we apply Eq. \ref{eqn:pzcorrect} to correct the \pofz s.
 
 \begin{figure}[p] \centering
