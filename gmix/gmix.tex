@@ -10,6 +10,8 @@
 \newcommand{\X}{\textbf{X}}
 \newcommand{\Dx}{\ensuremath{\Delta x}}
 \newcommand{\Dy}{\ensuremath{\Delta y}}
+\newcommand{\aratio}{\ensuremath{\sigma^2_{psf}/\sigma^2_{gal}}}
+%\newcommand{\aratio}{$\sigma^2_{psf}/\sigma^2_{gal}$}
 
 \newcommand{\downloadURL}{{\tt http://www.sdss3.org/dr8/data\_access.php\#VAC}}
 \newcommand{\datamodelURL}{{\tt http://data.sdss3.org/datamodel/files/BOSS\_PHOTOOBJ/photoz-weight/pofz.html}}
@@ -157,14 +159,14 @@ the we fit for parameters of an object before convolution with the PSF,
 including the pixel response.
 
 
-\section{Simulations}
+\section{Simulations} \label{sec:sim}
 
 We generated a set of mock galaxy and PSF images for test purposes.  We use
 three different elliptical galaxy models: Gaussian, exponential, de
 Vaucouleurs' model \citep{devauc1948}.  We also use three different PSF models:
 Gaussian, double Gaussian, and a PSF representing atmospheric turbulence.
 
-For the special case of Gaussians galaxy convolved by Gaussian PSF, the
+For the special case of a Gaussian galaxy convolved by Gaussian PSF, the
 convolution is performed analytically and only convolution with the pixel
 response is done numerically.  
 
@@ -182,13 +184,67 @@ turbulent PSF, we generate the PSF in Fourier space directly.
 PSF (XXX cite kaiser, others) only has a closed form in Fourier space, and thus
 also required in Fourier space.
 
+\subsection{Simulation Parameters}
+
 For all simulation runs we use a single PSF and galaxy type with different
-orientations and noise properties.
+orientations and noise properties.  The relevant parameters for each simulation
+are the galaxy ellipticity $e$, the ratio of PSF area to galaxy area \aratio, the
+signal to noise ratio S/N, and the applied shear $\gamma$.
 
-We generate images with constant, weak shear of order 0.01.  We do not attempt
-to recover spatially varying shear.
+The area ratio \aratio\ is defined as the ratio of the unweighted second
+moments of PSF and object.  As such, it does not correspond directly to the
+area ratio as determined by weighted moments or of any particular fitting
+routine in the presense of noise.  For very extended objects such as \devauc\
+profile, it may be impossible to recover the true size of the object at
+low S/N.  We use \aratio\ simply as a label.
 
-\subsection{Ring Tests}
+Similarly, the S/N is defined arbitrarily as the ``optimally matched''
+detection S/N.  This is a sum of the image intensity $I_i$ over pixels $i$
+\begin{equation}
+\left(\frac{S}{N}\right)^2_{matched} = \frac{1}{n} \sum_{i} I_i^2.
+\end{equation}
+where we have assumed unit pixels and $n$ is a uniform variance per pixel.
+This can be shown to be the maximal measure of detection S/N under the
+assumptions of sky-noise limited images and uniform noise \citep{plazasthesis}.
+It is important to think of this simply as a, fairly arbitrary, label.  The
+unweighted S/N is typically much smaller, and the ratio between the optimal and
+unweighted S/N depends dramatically on the galaxy profile and aperture.
+
+\subsection{Applied Shear} \label{sec:sim:shear}
+
+For each set of images, we add a constant, weak shear of order 0.01.  We do not
+attempt to recover spatially varying shear.  We applied the shear using the
+addition rule for distortions as given by Equation 2.6 of
+\citet{Escude91}. A galaxy with intrinsice shape $(e_1,e_2)$, when
+sheared with a distortion $(\delta_1, \delta_2)$ will have an observed
+ellipticity
+\begin{eqnarray}
+e_1^o  & = & \frac
+{e_1 + \delta_1 + \delta_2/\delta^2\left[1 - \sqrt{1-\delta^2}\right]\left( \delta_1 e_2 - \delta_2 e_1\right)}
+{1 + \delta_1 e_1 + \delta_2 e_2 } \\
+e_2^o  & = & \frac
+{e_2 + \delta_2 + \delta_1/\delta^2\left[1 - \sqrt{1-\delta^2}\right]\left( \delta_2 e_1 - \delta_1 e_2\right)}
+{1 + \delta_1 e_1 + \delta_2 e_2 },
+\end{eqnarray}
+where, again, superscript $o$ denotes ``observed'' quantities.
+
+One can transform between shear and $\delta$ using the rules given by
+\citet{bern02} in Section 2.2; note however, that we use the ellipticity 
+$e$ interchangeably with distortion $\delta$, where as \citet{bern02} define
+$e$ as $1-q$ where $q$ is the axis ratio.
+
+\subsection{Models}
+
+\section{Shape Recovery}
+
+In this section we discuss the accurately of our galaxy shape recovery for
+various models, as a function of ellipticity, resolution and S/N.
+
+\section{Shear Recover Using Ring Tests}
+
+In this section we demonstrate how accurately we recover shear as a function of
+S/N and ellipticity.  Since S/N and resolution are more important determinants
+than ellipticity, we only show results for a few values of ellipticity.
 
 For each realization of galaxy ellipticity, we place pairs of images at exactly
 90 degree separation in the full range of position angle $2 \theta \in
