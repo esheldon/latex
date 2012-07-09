@@ -35,7 +35,7 @@ GMix
 
 The two dimensional Gaussian intensity function is defined as
 \begin{equation}
-G = \frac{1}{2 \pi \sqrt{|\M|} } ~~ \textrm{exp}\left( -\frac{1}{2} \X^T \M^{-1} \X \right)
+G = \frac{p}{2 \pi \sqrt{|\M|} } ~~ \textrm{exp}\left( -\frac{1}{2} \X^T \M^{-1} \X \right)
 \end{equation}
 where \M\ is the covariance matrix
 \begin{equation}
@@ -52,8 +52,8 @@ and \X\ is the position vector relative to the mean of the Gaussian
 where we have defined the positions relative to the center $(x_0,y_0)$
 as $\Delta x=(x-x_0)$ and $\Delta y=(y-y_0)$.
 
-Under convolution with a Gaussian PSF $P$ we get an observed model intensity
-profile
+Under convolution with a Gaussian point-spread-function (PSF) $P$ we get an
+observed model intensity profile
 \begin{equation}
 G_o = G * P
 \end{equation}
@@ -82,6 +82,11 @@ the plane is unity
 \int \sum_{j=1}^{N_{P}} P_j dA = 1.
 \end{equation}
 
+A Gaussian defined as above has 6 parameters, $x_0, y_0, \textrm{M}_{xx},
+\textrm{M}_{xy}, \textrm{M}_{yy},$ and an intensity $p$.  We define a general gaussian
+mixture as a set of $N_g$ Gaussians.  Such a Gaussian 
+mixture has $6 N_g$ total parameters.
+
 \subsection{Alternative Parametrization}
 
 An alternative parametrization of the covariance matrix is in
@@ -107,6 +112,14 @@ the argument of the exponential is
 \end{equation}
 
 
+\subsection{Co-elliptical Gaussians}
+
+We will find it useful to use co-elliptical Gaussians; Gaussians with
+proportional covariance matrices.  In this case, the dimensionality for $N_g$
+Gaussians is reduced from $6 N_g$ to $2 N_g + 4$.  We parametrize this model
+with $x_0, y_0, e_1, e_2, T_{max}, f_{i}, p_{i}$ where $T_{max}$ represents
+the largest gaussian and $f_{i} = T_{i}/T_{max}$.
+
 
 \section{Examples}
 
@@ -115,38 +128,82 @@ In this section we show some fits to example profiles.
 \subsection{Exponential Disk}
 
 An exponential disk can be represented reasonably well by three Gaussians
-as shown in Fig. \ref{fig:expcmp}
+as shown in Fig. 
+%\ref{fig:expcmp}
 
-\begin{figure}[t] \centering
- \centering 
- \includegraphics[scale=0.7]{figures/test-opt-exp.eps}
+%\begin{figure}[t] \centering
+% \centering 
+% \includegraphics[scale=0.7]{figures/test-opt-exp.eps}
 
- \caption{A fit to an exponential disk using three Gaussians.}
- \label{fig:expcmp}
+% \caption{A fit to an exponential disk using three Gaussians.}
+% \label{fig:expcmp}
 
-\end{figure}
+%\end{figure}
 
 
 
 \section{Fitting for the Pre-PSF Object}
 
-In order to fit for the pre-psf object, we must first fit the PSF to a gaussian
+In order to fit for the pre-psf object, we first fit the PSF to a gaussian
 mixture.  Then, for a given set of object parameters, we generate a model that
 is convolved with this PSF according to equation \ref{eq:postpsf} and compare
-with the image.  We then search for a set of parameters that give the best
-fit in a $\chi^2$ sense.  
+with the image.  We then search for a set of parameters that give the best fit
+in a $\chi^2$ sense.  
 
-Note both the object and PSF are also convolved with the pixel response
-function.  This pixelization is accounted for when fitting a gaussian mixture
-model to the observed pixel-convolved PSF.  Thus when generating our model
-using equation \ref{eq:postpsf}, the we recover the pre-PSF, pre-pixel object.
-
-
-
+Note both the object and PSF are convolved with the pixel response function.
+This pixelization is accounted for when fitting a Gaussian mixture model to the
+observed PSF.  Thus when generating our model using equation \ref{eq:postpsf},
+the we fit for parameters of an object before convolution with the PSF,
+including the pixel response.
 
 
+\section{Simulations}
 
-\appendix
+We generated a set of mock galaxy and PSF images for test purposes.  We use
+three different elliptical galaxy models: Gaussian, exponential, de
+Vaucouleurs' model \citep{devauc1948}.  We also use three different PSF models:
+Gaussian, double Gaussian, and a PSF representing atmospheric turbulence.
+
+For the special case of Gaussians galaxy convolved by Gaussian PSF, the
+convolution is performed analytically and only convolution with the pixel
+response is done numerically.  
+
+For non-Gaussian models we use a Fast Fourier Transform (FFT) convolution (XXX
+cite FFT and scipy).  We first generate the images on a super-fine mesh. We
+then FFT the image, multiply the image by the PSF in Fourier space, and
+transform back. Finally, we re-sample at the desired pixel scale.  Using this
+fine mesh is a fast way to perform accurate convolution with the pixel response
+and is necessary for accurate FFTs.  We performed convergence tests for each
+type of profile to determine the sampling required to obtain accurate results.
+
+Gaussian and turbulent PSFs have closed mathematical forms in Fourier space.
+When convolving a Gaussian with a non-Gaussian object, or when using a
+turbulent PSF, we generate the PSF in Fourier space directly.
+PSF (XXX cite kaiser, others) only has a closed form in Fourier space, and thus
+also required in Fourier space.
+
+For all simulation runs we use a single PSF and galaxy type with different
+orientations and noise properties.
+
+We generate images with constant, weak shear of order 0.01.  We do not attempt
+to recover spatially varying shear.
+
+\subsection{Ring Tests}
+
+For each realization of galaxy ellipticity, we place pairs of images at exactly
+90 degree separation in the full range of position angle $2 \theta \in
+[0,360)$.  When using this so-called ``ring test'' \citep{Nakajima2007}, the
+noise from the intrinsic galaxy shape cancels exactly in the absence of noise.
+Since this ``shape noise'' will dominate the noise in many cases, the ring test
+reduces the number of mocks needed to accurately test shear recovery for our
+algorithm.
+
+
+\bibliographystyle{apj}
+% Bib database
+\bibliography{apj-jour,astroref}
+
+\appendix 
 
 \section{Appendix}
 \subsection{Jacobian}
