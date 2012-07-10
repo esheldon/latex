@@ -158,9 +158,10 @@ in a $\chi^2$ sense.
 
 Note both the object and PSF are convolved with the pixel response function.
 This pixelization is accounted for when fitting a Gaussian mixture model to the
-observed PSF.  Thus when generating our model using equation \ref{eq:postpsf},
-the we fit for parameters of an object before convolution with the PSF,
-including the pixel response.
+observed PSF.  Thus when using equation \ref{eq:postpsf}, to generate the
+model, we are fitting for parameters of an object {\it before} convolution with
+the PSF, including the pixel response.  We call these the parameters of the
+pre-psf model.
 
 
 \section{Simulations} \label{sec:sim}
@@ -168,7 +169,8 @@ including the pixel response.
 We generated a set of mock galaxy and PSF images for test purposes.  We use
 three different elliptical galaxy models: Gaussian, exponential, de
 Vaucouleurs' model \citep{devauc1948}.  We also use three different PSF models:
-Gaussian, double Gaussian, and a PSF representing atmospheric turbulence.
+Gaussian, double Gaussian, and a PSF representing atmospheric turbulence (XXX
+cite kaiser or other).
 
 For the special case of a Gaussian galaxy convolved by Gaussian PSF, the
 convolution is performed analytically and only convolution with the pixel
@@ -185,8 +187,6 @@ type of profile to determine the sampling required to obtain accurate results.
 Gaussian and turbulent PSFs have closed mathematical forms in Fourier space.
 When convolving a Gaussian with a non-Gaussian object, or when using a
 turbulent PSF, we generate the PSF in Fourier space directly.
-PSF (XXX cite kaiser, others) only has a closed form in Fourier space, and thus
-also required in Fourier space.
 
 \subsection{Simulation Parameters}
 
@@ -251,9 +251,9 @@ Equation 5.11,][]{bern02}:
   \frac{\langle e_i \rangle}{2 \Rshear} 
 \end{equation}
 
-\noindent Errors in the shear recovery due to mis-estimation of $R_{shear}$ will enter
-fractionally as \rfracerr.  This will be our
-diagnostic in the following sub-sections.
+\noindent Errors in $R_{shear}$ will, to leading order, result in a fractional
+error in the shear of $\sim$ \rfracerr.  This will be our diagnostic for the
+remainder of this section.
 
 \subsection{Gaussian Object and Gaussian PSF}
 
