@@ -124,7 +124,8 @@ We will find it useful to use co-elliptical Gaussians; Gaussians with
 proportional covariance matrices.  In this case, the dimensionality for $N_g$
 Gaussians is reduced from $6 N_g$ to $2 N_g + 4$.  We parametrize this model
 with $x_0, y_0, e_1, e_2, T_{max}, f_{i}, p_{i}$ where $T_{max}$ represents
-the largest gaussian and $f_{i} = T_{i}/T_{max}$.
+the largest Gaussian and $f_{i} = T_{i}/T_{max}$ is the relative size of
+Gaussian $i$, and $p_i$ is the intensity in Gaussian $i$.
 
 
 \section{Examples}
@@ -163,6 +164,22 @@ model, we are fitting for parameters of an object {\it before} convolution with
 the PSF, including the pixel response.  We call these the parameters of the
 pre-psf model.
 
+\section{Recovering Shear from Shapes}
+
+We use our models to fit for the ellipticity of each object.  We can then
+average these shapes to estimate a mean shear as outlined in \citet{bern02}.
+Key to this is the application of an average ``shear response'', \Rshear.  The
+shear response tells us how an image of a given ellipticity responds to an
+applied shear.  For an average shear we can also measure an average response.
+For this work we use an unweighted estimator for the average allipticity and
+the response \citep[see e.g.  Equation 5.11,][]{bern02}:
+\begin{equation} \label{eq:shearest}
+\langle \gamma_i \rangle  = \frac{\langle e_i \rangle}{2 \langle 1 - \frac{1}{2} e^2 \rangle } \equiv
+  \frac{\langle e_i \rangle}{2 \Rshear} 
+\end{equation}
+\noindent Errors in the average total square ellipticity will, to leading
+order, result in a fractional error in the shear of $\sim$ \rfracerr = 
+0.5 $\Delta e^2/(1-0.5 e^2)$.
 
 \section{Simulations} \label{sec:sim}
 
@@ -241,29 +258,25 @@ $e$ as $1-q$ where $q$ is the axis ratio.
 
 \section{Shape Recovery}
 
+XXX do we need this section?
+
 In this section we demonstrate the accuracy of our galaxy ellipticity recovery
 for various models, as a function of ellipticity, resolution and S/N.  This is
 relevant because the average square ellipticity is used to calculate the shear
-response \Rshear, which is used to convert the mean shape to shear \citep[e.g.
-Equation 5.11,][]{bern02}:
-\begin{equation}
-\langle \gamma_i \rangle  = \frac{\langle e_i \rangle}{2 \langle 1 - \frac{1}{2} e^2 \rangle } \equiv
-  \frac{\langle e_i \rangle}{2 \Rshear} 
-\end{equation}
+response \Rshear, which is used to convert the mean shape to shear according
+to Equation \ref{eq:shearest}.
 
-\noindent Errors in $R_{shear}$ will, to leading order, result in a fractional
-error in the shear of $\sim$ \rfracerr.  This will be our diagnostic for the
-remainder of this section.
 
 \subsection{Gaussian Object and Gaussian PSF}
 
-Single gaussian galaxy and PSF should be a very natural fit for the gaussian
-mixture model, so we expect the performance to be the best with these models.
-In Figure \ref{fig:gg04r09} we show the fractional error in the estimated shear
-response \rfracerr\ as a function of the galaxy ellipticity for very low noise
-simulations (S/N=$10^6$).  We show a curve for various values of the area
-ratio \aratio.  For this now noise simulation we recover the shear response to 
-better than a part in $10^4$ for all values of ellipticity and \aratio.
+A single Gaussian galaxy convolved with a single Gaussian PSF should be a very
+natural fit for the Gaussian mixture model, so we expect the performance to be
+the best with these models.  In Figure \ref{fig:gg04r09} we show the fractional
+error in the estimated shear response \rfracerr\ as a function of the galaxy
+ellipticity for very low noise simulations (S/N=$10^6$).  We show a curve for
+various values of the area ratio \aratio.  For this now noise simulation we
+recover the shear response to better than a part in $10^4$ for all values of
+ellipticity and \aratio.
 
 We performed additional simulations with consecutively more noise, as shown in
 Figures \ref{fig:gg04r04} (S/N=100), \ref{fig:gg04r05}(S/N=47),
@@ -290,6 +303,30 @@ noise from the intrinsic galaxy shape cancels exactly in the absence of noise.
 Since this ``shape noise'' will dominate the noise in many cases, the ring test
 reduces the number of mocks needed to accurately test shear recovery for our
 algorithm.
+
+\subsection{Shear Error vs. Shear}
+
+\begin{figure}[t] \centering
+ \centering 
+ \includegraphics[scale=1]{figures/set-edg02-yr-0.005-0.005-vs-shear.eps}
+
+ \caption{Shear error vs shear for round double gaussian psf and
+ exponential galaxies.}
+ \label{fig:diffvsshroundpsf}
+
+\end{figure}
+
+\begin{figure}[t] \centering
+ \centering 
+ \includegraphics[scale=1]{figures/set-edg01-yr-0.005-0.005-vs-shear.eps}
+
+ \caption{Shear error vs shear for elliptical double gaussian psf and
+ exponential galaxies.}
+ \label{fig:diffvsshellippsf}
+
+\end{figure}
+
+
 
 
 \bibliographystyle{apj}
