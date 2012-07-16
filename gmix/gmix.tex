@@ -106,13 +106,15 @@ where the ellipticity and size $T$ are defined in terms
 of the elements of the covariance matrix as
 \begin{eqnarray}
 T & = & M_{xx} + M_{yy} \\
-e_1 & = & \frac{M_{xx}-M_{yy}}{T} \\
-e_2 & = & \frac{2 M_{xy}}{T} \\
-e & = & \sqrt{e_1^2 + e_2^2}.
+e_1 & = & \frac{M_{xx}-M_{yy}}{T}  = e ~ \textrm{cos} (2 \theta) \\
+e_2 & = & \frac{2 M_{xy}}{T}  = e ~ \textrm{sin} (2 \theta) \\
+e & = & \sqrt{e_1^2 + e_2^2},
 \end{eqnarray}
-The $e_1$ and $e_2$ are bounded within $[-1,1]$ and total ellipticity $e$ is
-within $[0,1]$.  Note in this parametrization, 
-the argument of the exponential is
+where $\theta$ is the position angle relative to the coordinate system. 
+The components 
+$e_1$ and $e_2$ are bounded within
+$[-1,1]$ and total ellipticity $e$ is within $[0,1]$.  Note in this
+parametrization, the argument of the exponential is
 \begin{equation}
 \frac{1}{2} \X^T \M^{-1} \X = \frac{\Dx^2 (1-e_1) - 2 \Dx \Dy~e_2 + \Dy^2 (1+e_1)}{T (1-e^2)}
 \end{equation}
@@ -209,8 +211,8 @@ turbulent PSF, we generate the PSF in Fourier space directly.
 
 For all simulation runs we use a single PSF and galaxy type with different
 orientations and noise properties.  The relevant parameters for each simulation
-are the galaxy ellipticity $e$, the ratio of PSF area to galaxy area \aratio, the
-signal to noise ratio S/N, and the applied shear $\gamma$.
+are the galaxy ellipticity $e$, the ratio of PSF area to galaxy area \aratio,
+the signal to noise ratio S/N, and the applied shear $\gamma$.
 
 The area ratio \aratio\ is defined as the ratio of the unweighted second
 moments of PSF and object.  As such, it does not correspond directly to the
@@ -256,53 +258,127 @@ $e$ as $1-q$ where $q$ is the axis ratio.
 
 \subsection{Models}
 
-\section{Shape Recovery}
+\section{Types of Tests}
 
-XXX do we need this section?
+\subsection{Ring Tests of Shear Recovery}
 
-In this section we demonstrate the accuracy of our galaxy ellipticity recovery
-for various models, as a function of ellipticity, resolution and S/N.  This is
-relevant because the average square ellipticity is used to calculate the shear
-response \Rshear, which is used to convert the mean shape to shear according
-to Equation \ref{eq:shearest}.
+We place pairs of images at exactly 90 degree relative position angle across
+the full range of position angle $2 \theta \in [0,360)$.  When using this
+so-called ``ring test'' \citep{Nakajima2007}, the noise from the intrinsic
+galaxy shape cancels exactly in the absence of noise.  Since this ``shape
+noise'' will dominate the noise in many cases, the ring test reduces the number
+of mocks needed to accurately test shear recovery for our algorithm.
+
+\subsection{Total Ellipticity Recovery}
+
+We generate models with a range of intrinsic total ellipticities and test the
+recovery as a function of resolution and S/N.  This test is relevant because we
+use the average square total ellipticity to calculate the shear response
+\Rshear, which is used to convert the a mean ellipticity to a
+mean shear according to Equation \ref{eq:shearest}.
+
+\section{Gaussian Object and Gaussian PSF}
+
+We start with a single Gaussian galaxy convolved with a single Gaussian PSF,
+which is a natural fit for the Gaussian mixture model.  
+
+\subsection{Shear Bias vs. Galaxy Ellipticity}
+
+In figure \ref{fig:set-e-gg01} we show a set of ring tests.  Each panel
+represents simulations with a different S/N.  Within each panel, the curves
+represent different limiting values of the PSF to galaxy area ratio \aratio.
+In the bin with S/N = 5 we see dependence of the bias on ellipticity and
+\aratio.  For S/N = 11 we see reduced dependence on ellipticity and the bias
+level is of order $10^{-3}$.  For higher S/N the bias is generally within the
+noise.  Note the \aratio\ limits are not independent: the data are cumulative
+from larger to smaller galaxies.  We only plot error bars for the largest
+sized galaxy sample.
+
+\begin{figure}[t] \centering
+ \centering 
+ \includegraphics[scale=1]{figures/set-e-gg01-yr-0.005-0.005-vs-e.eps}
+
+ \caption{Shear error vs galaxy input ellipticity for round gaussian psf
+ and gaussian galaxies. The intrinsic shear for $\gamma_1$ is 0.01.  This plot
+ shows $\gamma_1$; we find similar results for $\gamma_2$.  The curves in each
+ panel are not independent, but accumulate from larger to smaller galaxies.
+ Errors bars are shown only for the largest galaxies.
+ \label{fig:set-e-gg01}}
+
+\end{figure}
+
+%In Figure
+%\ref{fig:gg04r09} we show the fractional error in the estimated shear response
+%\rfracerr\ as a function of the galaxy ellipticity for very low noise
+%simulations (S/N=$10^6$).  We show a curve for various values of the area ratio
+%\aratio.  For this now noise simulation we recover the shear response to better
+%than a part in $10^4$ for all values of ellipticity and \aratio.
 
 
-\subsection{Gaussian Object and Gaussian PSF}
+\subsection{Shear Bias vs. Galaxy S/N}
 
-A single Gaussian galaxy convolved with a single Gaussian PSF should be a very
-natural fit for the Gaussian mixture model, so we expect the performance to be
-the best with these models.  In Figure \ref{fig:gg04r09} we show the fractional
-error in the estimated shear response \rfracerr\ as a function of the galaxy
-ellipticity for very low noise simulations (S/N=$10^6$).  We show a curve for
-various values of the area ratio \aratio.  For this now noise simulation we
-recover the shear response to better than a part in $10^4$ for all values of
-ellipticity and \aratio.
+Next we explore the bias as a function of S/N and fixed ellipticity.    We use
+more trials for each point to better access the dependence of bias on S/N.
 
-We performed additional simulations with consecutively more noise, as shown in
-Figures \ref{fig:gg04r04} (S/N=100), \ref{fig:gg04r05}(S/N=47),
-\ref{fig:gg04r06} (S/N=22) , \ref{fig:gg04r07} (S/N=11) and \ref{fig:gg04r08}
-(S/N=5).
+XXX do the other two ellipticities and make new multiplotter for that
+where we just show g1 and all three ellipticities.
+
+\begin{figure}[t] \centering
+\includegraphics[scale=0.7]{figures/gmix-fit-gg04r01-yr-0.005-0.005-diff-cum.eps}
+
+ \caption{Shear error vs galaxy S/N$_{matched}$ for round gaussian psf and
+ gaussian galaxies. The intrinsic shear is shown in the upper left corner of
+ each panel.  These galaxies have total ellipticity 0.33.  The curves in each
+ panel are not independent, but accumulate from larger to smaller galaxies.
+ Errors bars are shown only for the largest galaxies.
+ \label{fig:gg04r01}}
+
+\end{figure}
 
 
-\section{Ring Tests of Shear Recovery}
+\section{Exponential Object and Turbulent Atmospheric PSF}
 
-In this section we demonstrate the accuracy of our shear as a function of S/N,
-resolution, and ellipticity.  Since S/N and resolution are more important
-determinants than ellipticity, we only show results for a few values of
-ellipticity.  This is partly motivated by the large amounts of computing time
-required to simulate the low S/N objects, which require a relatively large
-number of realizations to probe the error with precision (the
-required number of realizations goes as $1/(S/N)^2$).  Also, \devauc\ profiles
-are much noisier at fixed \snmatch\ than exponential or gaussian profiles, 
-and require a correspondingly larger number of realizations.
+\subsection{Shear Bias vs. Galaxy Ellipticity}
 
-For each realization of galaxy ellipticity, we place pairs of images at exactly
-90 degree separation in the full range of position angle $2 \theta \in
-[0,360)$.  When using this so-called ``ring test'' \citep{Nakajima2007}, the
-noise from the intrinsic galaxy shape cancels exactly in the absence of noise.
-Since this ``shape noise'' will dominate the noise in many cases, the ring test
-reduces the number of mocks needed to accurately test shear recovery for our
-algorithm.
+%In figure \ref{fig:set-e-et01} we show a set of ring tests as 
+%in \ref{fig:set-e-gg01}
+
+XXX These sims need to finish running
+
+%\begin{figure}[t] \centering
+% \centering 
+% \includegraphics[scale=1]{figures/XXX}
+
+% \caption{Shear error vs galaxy input ellipticity for for round gaussian psf
+% and gaussian galaxies. The intrinsic shear for $\gamma_1$ is 0.01.  This plot
+% shows $\gamma_1$; we find similar results for $\gamma_2$.  The curves in each
+% panel are not independent, but accumulate from larger to smaller galaxies.
+% Errors bars are shown only for the largest galaxies.
+% \label{fig:set-e-gg01}}
+
+\subsection{Shear Bias vs. Galaxy S/N}
+
+\begin{figure}[t] \centering \centering
+\includegraphics[scale=0.7]{figures/gmix-fit-et03r01-yr-0.005-0.005-diff-cum.eps}
+
+ \caption{Shear error vs galaxy S/N$_{matched}$ for turbulent atmospheric PSF
+ and exponential galaxies. The intrinsic shear is shown in the upper left of
+ each panel.  These galaxies have total ellipticity 0.33.  The curves in each
+ panel are not independent, but accumulate from larger to smaller galaxies.
+ Errors bars are shown only for the largest galaxies.
+ \label{fig:et03r01}}
+
+\end{figure}
+
+
+
+\section{Exponential Object and Double Gaussian PSF}
+
+Although the double gaussian is a simpler model than the turbulent atmospheric PSF,
+it is interesting because it can be made elliptical.  In this section we will explore
+the shear error as a function of shear for round and ellipticial PSFs. This will allow
+us to separate out the ``additive bias'' which occurs at zero shear when galaxies
+are convolved with an elliptical PSF.
 
 \subsection{Shear Error vs. Shear}
 
@@ -310,9 +386,9 @@ algorithm.
  \centering 
  \includegraphics[scale=1]{figures/set-edg02-yr-0.005-0.005-vs-shear.eps}
 
- \caption{Shear error vs shear for round double gaussian psf and
+ \caption{Shear error vs true shear for round double gaussian psf and
  exponential galaxies.}
- \label{fig:diffvsshroundpsf}
+ \label{fig:edgdiffvsshroundpsf}
 
 \end{figure}
 
@@ -323,6 +399,41 @@ algorithm.
  \caption{Shear error vs shear for elliptical double gaussian psf and
  exponential galaxies.}
  \label{fig:diffvsshellippsf}
+
+\end{figure}
+
+
+\section{\devauc\ Object and Turbulent Atmospheric PSF}
+
+\subsection{Shear Bias vs. Galaxy Ellipticity}
+
+%In figure \ref{fig:set-e-et01} we show a set of ring tests as 
+%in \ref{fig:set-e-gg01}
+
+XXX These sims need to finish running
+
+%\begin{figure}[t] \centering
+% \centering 
+% \includegraphics[scale=1]{figures/XXX}
+
+% \caption{Shear error vs galaxy input ellipticity for for round gaussian psf
+% and gaussian galaxies. The intrinsic shear for $\gamma_1$ is 0.01.  This plot
+% shows $\gamma_1$; we find similar results for $\gamma_2$.  The curves in each
+% panel are not independent, but accumulate from larger to smaller galaxies.
+% Errors bars are shown only for the largest galaxies.
+% \label{fig:set-e-gg01}}
+
+\subsection{Shear Bias vs. Galaxy S/N}
+
+\begin{figure}[t] \centering \centering
+\includegraphics[scale=0.7]{figures/gmix-fit-dt02r02-yr-0.005-0.005-diff-cum.eps}
+
+ \caption{Shear error vs galaxy S/N$_{matched}$ for turbulent atmospheric PSF
+ and \devauc\ galaxies. The intrinsic shear is shown in the upper left of
+ each panel.  These galaxies have total ellipticity 0.33.  The curves in each
+ panel are not independent, but accumulate from larger to smaller galaxies.
+ Errors bars are shown only for the largest galaxies.
+ \label{fig:dt02r02}}
 
 \end{figure}
 
