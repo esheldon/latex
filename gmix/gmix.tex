@@ -285,14 +285,14 @@ mean shear according to Equation \ref{eq:shearest}.
 We start with a single Gaussian galaxy convolved with a single Gaussian \psf,
 which is a natural fit for the Gaussian mixture model.  
 
-\subsection{Shear Bias vs. Galaxy Ellipticity}
+\subsection{Shear Error vs. Galaxy Ellipticity}
 
 In figure \ref{fig:set-e-gg01} we show a set of ring tests.  Each panel
 represents simulations with a different S/N.  Within each panel, the curves
 represent different values of the \psf\ to galaxy area ratio \aratio.  In the bin
-with S/N = 10 we see dependence of the bias on ellipticity and \aratio.  For
-S/N = 20 we see reduced dependence on ellipticity and the bias level is of
-order $10^{-3}$, even for the highest \aratio.  For higher S/N the bias is
+with S/N = 10 we see dependence of the shear error on ellipticity and \aratio.  For
+S/N = 20 we see reduced dependence on ellipticity and the error is of
+order $10^{-3}$, even for the highest \aratio.  For higher S/N the error is
 generally within the noise of our simulation.
 
 \begin{figure}[t] \centering
@@ -313,10 +313,10 @@ generally within the noise of our simulation.
 %than a part in $10^4$ for all values of ellipticity and \aratio.
 
 
-\subsection{Shear Bias vs. Galaxy S/N}
+\subsection{Shear Error vs. Galaxy S/N}
 
-Next we explore the bias as a function of S/N and fixed ellipticity.    We use
-more trials for each point to better access the dependence of bias on S/N.
+Next we explore the shear error as a function of S/N and fixed ellipticity.  We
+use more trials for each point to better access the dependence of error on S/N.
 
 XXX do the other two ellipticities and make new multiplotter for that
 where we just show g1 and all three ellipticities.
@@ -339,7 +339,7 @@ We find that exponential disk galaxies are well represented by three guassian
 components.  We find that the turbulent \psf\ is also well represented with three
 gaussians.
 
-\subsection{Shear Bias vs. Galaxy Ellipticity}
+\subsection{Shear Error vs. Galaxy Ellipticity}
 
 %In figure \ref{fig:set-e-et01} we show a set of ring tests as 
 %in \ref{fig:set-e-gg01}
@@ -357,7 +357,7 @@ XXX These sims need to finish running
 % Errors bars are shown only for the largest galaxies.
 % \label{fig:set-e-gg01}}
 
-\subsection{Shear Bias vs. Galaxy S/N}
+\subsection{Shear Error vs. Galaxy S/N}
 
 \begin{figure}[t] \centering \centering
 \includegraphics[scale=0.7]{figures/gmix-fit-et04r02-yr-0.005-0.005-diff.eps}
@@ -374,7 +374,7 @@ XXX These sims need to finish running
 We find that exponential disk galaxies are well represented by four guassian
 components.
 
-\subsection{Shear Bias vs. Galaxy Ellipticity}
+\subsection{Shear Error vs. Galaxy Ellipticity}
 
 %In figure \ref{fig:set-e-et01} we show a set of ring tests as 
 %in \ref{fig:set-e-gg01}
@@ -392,7 +392,7 @@ XXX These sims need to finish running
 % Errors bars are shown only for the largest galaxies.
 % \label{fig:set-e-gg01}}
 
-\subsection{Shear Bias vs. Galaxy S/N}
+\subsection{Shear Error vs. Galaxy S/N}
 
 \begin{figure}[t] \centering \centering
 \includegraphics[scale=0.7]{figures/gmix-fit-dt03r03r04-yr-0.005-0.005-diff.eps}
@@ -407,18 +407,33 @@ XXX These sims need to finish running
 
 
 
-\section{Exponential Object and Double Gaussian \psf}
+\section{Calibration and Additive Errors for Exponential Objects and Double
+Gaussian \psf s}
 
-Although the double gaussian is a simpler model than the turbulent atmospheric \psf,
-it is interesting because it can be made elliptical.  In this section we will explore
-the shear error as a function of shear for round and ellipticial \psf s. This will allow
-us to separate out the ``additive bias'' which occurs at zero shear when galaxies
-are convolved with an elliptical \psf.
+Although the double gaussian is a simpler model than the turbulent atmospheric
+\psf, it is useful because it can be made elliptical.  In this section we
+will isolate the calibration and additive errors in the shear recovery, as defined
+in the following equation:
+\begin{equation}
+\langle \gamma \rangle = m\times \gamma_{true} + c
+\end{equation}
+
+The calibration error is related to the slope as $m-1$.  The additive error is
+present even at zero shear, and can be caused by incomplete correction for the
+effects of an elliptical \psf.  We will isolate the calibration error by first
+exploring round \psf s at different shear values.  We will isolate the additive
+error by setting the shear to zero and testing the shear recover at different
+\psf\ ellipticities.
 
 XXX discuss how model is based on SDSS back in the models section
 
-\subsection{Shear Error vs. Shear}
+\subsection{Calibration Error}
 
+In this section we isolate the calibration error by exploring round
+\psf\ models, for which the additive bias is consistent with zero.
+\begin{equation}
+\left. \frac{\Delta \gamma}{\gamma} \right|_{c=0} = m - 1
+\end{equation}
 \begin{figure}[p] \centering
  \centering 
  \includegraphics[scale=1.1]{figures/set-s2n-edg02-vs-shear.eps}
@@ -430,7 +445,6 @@ XXX discuss how model is based on SDSS back in the models section
 
 \end{figure}
 
-\subsection{Multiplicitave Error}
 
 \begin{figure}[t] \centering
  \centering 
@@ -439,8 +453,8 @@ XXX discuss how model is based on SDSS back in the models section
  \caption{Calibration error error as a function of matched S/N for SDSS-like
  round double gaussian \psf s and exponential galaxies.  The calibration error is
  $\Delta \gamma/\gamma = (m-1)$, where $m$ is the linear slope of the fits shown in
- Figure \ref{fig:edgdiffvsshroundpsf}.  The grey region represents the maximum
- allowed calibration error in order to meet Dark Energy Survey science
+ Figure \ref{fig:edgdiffvsshroundpsf}.  The grey region represents the 
+ calibration error sufficient to meet Dark Energy Survey science
  requirements.  The matched S/N is the maximal possible S/N measure.  Any real
  world S/N estimate will be considerably lower for these objects.} 
 
@@ -448,15 +462,30 @@ XXX discuss how model is based on SDSS back in the models section
 
 \end{figure}
 
-\subsection{Additive Bias}
+\begin{figure}[t] \centering
+ \centering 
+ \includegraphics[scale=0.65]{figures/set-s2n-edg02-c-vs-shear.eps}
+
+ \caption{The additive error for round double gaussian \psf s and exponential
+ galaxies.  The calibration error is shown in figure \ref{fig:edgcaliberr}.
+ The grey region represents the additive error sufficient to meet Dark Energy
+ Survey science requirements.  For round \psf s the additive error is
+ sub-dominant.  This plot can be compared to Figure \ref{fig:edgadderr},
+ in which we show the additive error for elliptical \psf s.  } 
+
+ \label{fig:edgverifyadditive}
+\end{figure}
+
+
+\subsection{Additive Error}
 
 \begin{figure}[t] \centering
  \centering 
  \includegraphics[scale=1]{figures/set-epsf-edg01-yr-0.003-0.003-vs-epsf.eps}
 
- \caption{Additive bias as a function of \psf\ ellipticity and matched S/N for
+ \caption{Additive error as a function of \psf\ ellipticity and matched S/N for
  SDSS-like elliptical double gaussian \psf s and exponential galaxies.  The grey
- region represents the maximum allowed additive bias in order to meet Dark
+ region represents the additive error sufficient to meet Dark
  Energy Survey science requirements.  }
 
  \label{fig:edgadderr}
