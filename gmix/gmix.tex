@@ -1,4 +1,9 @@
-\documentclass[12pt,preprint]{aastex}
+\documentclass[10pt,preprint]{aastex}
+%\documentclass[10pt,twocolumn]{article}
+
+%\usepackage[margin=0.85in]{geometry}
+%\setlength{\columnsep}{0.2in}
+%\documentclass{emulateapj}
 
 \usepackage{verbatim}
 \usepackage{color}
@@ -22,11 +27,17 @@
 \newcommand{\datamodelURL}{{\tt http://data.sdss3.org/datamodel/files/BOSS\_PHOTOOBJ/photoz-weight/pofz.html}}
 \def\eps@scaling{1.0}% 
 
-\slugcomment{Last revision \today}
-\shortauthors{Sheldon}
-\shorttitle{Gaussian Mixtures for Shape Measurement}
+%\slugcomment{Last revision \today}
+%\shortauthors{Sheldon}
+%\shorttitle{Gaussian Mixtures for Shape Measurement}
 
 \begin{document}
+
+\fontsize{10pt}{1}
+\selectfont
+
+%\footnotesize
+%\scriptsize
 
 \title{Gaussian Mixtures for Shape Measurement}
 
@@ -81,7 +92,8 @@ If the \psf\ is also represented as a sum of gaussians, then the observed
 light intensity profile can be modeled as
 \begin{eqnarray} \label{eq:postpsf}
 I_o & = & \sum_{i=1}^{N_{g}} p_i \sum_{j=1}^{N_{P}} G_i * P_j \\
-    & = & \sum_{i=1}^{N_{g}} p_i \sum_{j=1}^{N_{P}} \frac{1}{2 \pi \sqrt{|\M + \M_P|} } ~~ \textrm{exp}\left( -\frac{1}{2} \X^T (\M+\M_P)^{-1} \X \right) \\
+    & = & \sum_{i=1}^{N_{g}} p_i \sum_{j=1}^{N_{P}} \frac{1}{2 \pi \sqrt{|\M_o|} } ~~ \textrm{exp}\left( -\frac{1}{2} \X^T \M_o^{-1} \X \right) \\
+%    & = & \sum_{i=1}^{N_{g}} p_i \sum_{j=1}^{N_{P}} \frac{1}{2 \pi \sqrt{|\M + \M_P|} } ~~ \textrm{exp}\left( -\frac{1}{2} \X^T (\M+\M_P)^{-1} \X \right) \\
 \end{eqnarray}
 where the $P_j$ are normalized such that the integral over
 the plane is unity
@@ -321,7 +333,7 @@ use more trials for each point to better access the dependence of error on S/N.
 XXX do the other two ellipticities and make new multiplotter for that
 where we just show g1 and all three ellipticities.
 
-\begin{figure}[t] \centering
+\begin{figure}[h] \centering
 \includegraphics[scale=0.7]{figures/gmix-fit-gg05r01-yr-0.005-0.005-diff.eps}
 
  \caption{Shear error vs matched S/N for round gaussian \psf\ and gaussian
