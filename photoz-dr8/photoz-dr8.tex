@@ -151,21 +151,20 @@ particular populations.
 \subsubsection{Weights}
 
 In this section, we briefly review the weighting method\footnote{The weights
-and \pofz\ codes are available at {\url
-http://kobayashi.physics.lsa.umich.edu/$\sim$ccunha/nearest/}. Alternatively,
-the code can be accessed as the git repository probwts in
-\url{http://github.com}} of \cite{LimaPhotoz08}, which is required for
-computing \pofz.  We define the weight, $w$, of a galaxy in the spectroscopic
-training set as the normalized ratio of the density of galaxies in the
-photometric sample to the density of training set galaxies around the given
-galaxy.  These densities are calculated in a local neighborhood in the space of
-photometric observables, e.g., multi-band magnitudes.  In this case, the SDSS
-{\it ugriz} magnitudes are our observables; in practice we use four colors and
-the \rmag--band magnitude.  The hypervolume used to estimate the density is set
-to be the Euclidean distance of the galaxy to its $100^{th}$ nearest-neighbor
-in the training set.   Note, when the training data is assembled from multiple
-spectroscopic samples, we estimate the weights from the entire combined sample
-rather than separately from individual samples.
+and \pofz\ codes are available at http://slac.stanford.edu/~ccunha/nearest/.
+Alternatively, the code can be accessed at the git repository 
+\url{https://github.com/dcurl47/probwts}} of \cite{LimaPhotoz08}, which
+is required for computing \pofz.  We define the weight, $w$, of a galaxy in the
+spectroscopic training set as the normalized ratio of the density of galaxies
+in the photometric sample to the density of training set galaxies around the
+given galaxy.  These densities are calculated in a local neighborhood in the
+space of photometric observables, e.g., multi-band magnitudes.  In this case,
+the SDSS {\it ugriz} magnitudes are our observables; in practice we use four
+colors and the \rmag--band magnitude.  The hypervolume used to estimate the
+density is set to be the Euclidean distance of the galaxy to its $100^{th}$
+nearest-neighbor in the training set.   Note, when the training data is
+assembled from multiple spectroscopic samples, we estimate the weights from the
+entire combined sample rather than separately from individual samples.
 
 
 The weights can be used to estimate the redshift distribution $\nwei$ of the

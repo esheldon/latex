@@ -12,7 +12,8 @@
 \newcommand{\Dy}{\ensuremath{\Delta y}}
 \newcommand{\aratio}{\ensuremath{\sigma^2_{psf}/\sigma^2_{gal}}}
 %\newcommand{\aratio}{$\sigma^2_{psf}/\sigma^2_{gal}$}
-\newcommand{\snmatch}{$(S/N)_{matched}$}
+\newcommand{\psf}{PSF}
+\newcommand{\snmatch}{\ensuremath{(S/N)_{m}}}
 %\newcommand{\Rshear}{\ensuremath{R_{sh}}}
 \newcommand{\Rshear}{\ensuremath{\mathcal{R}}}
 \newcommand{\rfracerr}{\ensuremath{\Delta \Rshear/\Rshear}}
@@ -58,7 +59,7 @@ and \X\ is the position vector relative to the mean of the Gaussian
 where we have defined the positions relative to the center $(x_0,y_0)$
 as $\Delta x=(x-x_0)$ and $\Delta y=(y-y_0)$.
 
-Under convolution with a Gaussian point-spread-function (PSF) $P$ we get an
+Under convolution with a Gaussian point-spread-function (\psf) $P$ we get an
 observed model intensity profile
 \begin{equation}
 G_o = G * P
@@ -76,7 +77,7 @@ as
 I = \sum_{i=1}^{N_{g}} p_i G_i
 \end{equation}
 
-If the PSF is also represented as a sum of gaussians, then the observed
+If the \psf\ is also represented as a sum of gaussians, then the observed
 light intensity profile can be modeled as
 \begin{eqnarray} \label{eq:postpsf}
 I_o & = & \sum_{i=1}^{N_{g}} p_i \sum_{j=1}^{N_{P}} G_i * P_j \\
@@ -130,14 +131,14 @@ the largest Gaussian and $f_{i} = T_{i}/T_{max}$ is the relative size of
 Gaussian $i$, and $p_i$ is the intensity in Gaussian $i$.
 
 
-\section{Examples}
+%\section{Examples}
 
-In this section we show some fits to example profiles.
+%In this section we show some fits to example profiles.
 
-\subsection{Exponential Disk}
+%\subsection{Exponential Disk}
 
-An exponential disk can be represented reasonably well by three Gaussians
-as shown in Fig. 
+%An exponential disk can be represented reasonably well by three Gaussians
+%as shown in Fig. 
 %\ref{fig:expcmp}
 
 %\begin{figure}[t] \centering
@@ -151,20 +152,20 @@ as shown in Fig.
 
 
 
-\section{Fitting for the Pre-PSF Object}
+\section{Fitting for the Pre-\psf\ Object}
 
-In order to fit for the pre-psf object, we first fit the PSF to a gaussian
+In order to fit for the pre-\psf\ object, we first fit the \psf\ to a gaussian
 mixture.  Then, for a given set of object parameters, we generate a model that
-is convolved with this PSF according to equation \ref{eq:postpsf} and compare
-with the image.  We then search for a set of parameters that give the best fit
+is convolved with this \psf\ according to equation \ref{eq:postpsf} and compare
+with the image.  We then search for a set of parameters that gives the best fit
 in a $\chi^2$ sense.  
 
-Note both the object and PSF are convolved with the pixel response function.
+Note both the object and \psf\ are convolved with the pixel response function.
 This pixelization is accounted for when fitting a Gaussian mixture model to the
-observed PSF.  Thus when using equation \ref{eq:postpsf}, to generate the
+observed \psf.  Thus when using equation \ref{eq:postpsf} to generate the
 model, we are fitting for parameters of an object {\it before} convolution with
-the PSF, including the pixel response.  We call these the parameters of the
-pre-psf model.
+the \psf, including the pixel response.  We call these the parameters of the
+pre-\psf\ model.
 
 \section{Recovering Shear from Shapes}
 
@@ -185,46 +186,48 @@ order, result in a fractional error in the shear of $\sim$ \rfracerr =
 
 \section{Simulations} \label{sec:sim}
 
-We generated a set of mock galaxy and PSF images for test purposes.  We use
+We generated a set of mock galaxy and \psf\ images for test purposes.  We use
 three different elliptical galaxy models: Gaussian, exponential, de
-Vaucouleurs' model \citep{devauc1948}.  We also use three different PSF models:
-Gaussian, double Gaussian, and a PSF representing atmospheric turbulence (XXX
+Vaucouleurs' model \citep{devauc1948}.  We also use three different \psf\ models:
+Gaussian, double Gaussian, and a \psf\ representing atmospheric turbulence (XXX
 cite kaiser or other).
 
-For the special case of a Gaussian galaxy convolved by Gaussian PSF, the
+For the special case of a Gaussian galaxy convolved by Gaussian \psf, the
 convolution is performed analytically and only convolution with the pixel
 response is done numerically.  
 
 For non-Gaussian models we use a Fast Fourier Transform (FFT) convolution (XXX
 cite FFT and scipy).  We first generate the images on a super-fine mesh. We
-then FFT the image, multiply the image by the PSF in Fourier space, and
+then FFT the image, multiply the image by the \psf\ in Fourier space, and
 transform back. Finally, we re-sample at the desired pixel scale.  Using this
-fine mesh is a fast way to perform accurate convolution with the pixel response
-and is necessary for accurate FFTs.  We performed convergence tests for each
-type of profile to determine the sampling required to obtain accurate results.
+fine mesh is a way to perform accurate convolution with the pixel response, but
+more importantly it is necessary for accurate FFTs.  We performed convergence
+tests for each type of profile to determine the sampling required to obtain
+accurate results.
 
-Gaussian and turbulent PSFs have closed mathematical forms in Fourier space.
+Gaussian and turbulent \psf s have closed mathematical forms in Fourier space.
 When convolving a Gaussian with a non-Gaussian object, or when using a
-turbulent PSF, we generate the PSF in Fourier space directly.
+turbulent \psf, we generate the \psf\ in Fourier space directly.
 
 \subsection{Simulation Parameters}
 
-For all simulation runs we use a single PSF and galaxy type with different
+For all simulation runs we use a single \psf\ and galaxy type with different
 orientations and noise properties.  The relevant parameters for each simulation
-are the galaxy ellipticity $e$, the ratio of PSF area to galaxy area \aratio,
+are the galaxy ellipticity $e$, the ratio of \psf\ area to galaxy area \aratio,
 the signal to noise ratio S/N, and the applied shear $\gamma$.
 
 The area ratio \aratio\ is defined as the ratio of the unweighted second
-moments of PSF and object.  As such, it does not correspond directly to the
+moments of \psf\ and object.  As such, it does not correspond directly to the
 area ratio as determined by weighted moments or of any particular fitting
 routine in the presense of noise.  For very extended objects such as \devauc\
-profile, it may be impossible to recover the true size of the object at
-low S/N.  We use \aratio\ simply as a label.
+profile, it may be impossible to recover this size at low S/N.  We use \aratio\
+simply as a label.
 
 Similarly, the S/N is defined arbitrarily as the ``optimally matched''
-detection S/N.  This is a sum of the image intensity $I_i$ over pixels $i$
+detection S/N.  This matched S/N is a derived from the square image intensity
+$I_i$ over pixels $i$
 \begin{equation}
-\left(\frac{S}{N}\right)^2_{matched} = \frac{1}{n} \sum_{i} I_i^2.
+\left(\frac{S}{N}\right)^2_{match} = \frac{1}{n} \sum_{i} I_i^2.
 \end{equation}
 where we have assumed unit pixels and $n$ is a uniform variance per pixel.
 This can be shown to be the maximal measure of detection S/N under the
@@ -277,33 +280,28 @@ use the average square total ellipticity to calculate the shear response
 \Rshear, which is used to convert the a mean ellipticity to a
 mean shear according to Equation \ref{eq:shearest}.
 
-\section{Gaussian Object and Gaussian PSF}
+\section{Gaussian Object and Gaussian \psf}
 
-We start with a single Gaussian galaxy convolved with a single Gaussian PSF,
+We start with a single Gaussian galaxy convolved with a single Gaussian \psf,
 which is a natural fit for the Gaussian mixture model.  
 
 \subsection{Shear Bias vs. Galaxy Ellipticity}
 
 In figure \ref{fig:set-e-gg01} we show a set of ring tests.  Each panel
 represents simulations with a different S/N.  Within each panel, the curves
-represent different limiting values of the PSF to galaxy area ratio \aratio.
-In the bin with S/N = 5 we see dependence of the bias on ellipticity and
-\aratio.  For S/N = 11 we see reduced dependence on ellipticity and the bias
-level is of order $10^{-3}$.  For higher S/N the bias is generally within the
-noise.  Note the \aratio\ limits are not independent: the data are cumulative
-from larger to smaller galaxies.  We only plot error bars for the largest
-sized galaxy sample.
+represent different values of the \psf\ to galaxy area ratio \aratio.  In the bin
+with S/N = 10 we see dependence of the bias on ellipticity and \aratio.  For
+S/N = 20 we see reduced dependence on ellipticity and the bias level is of
+order $10^{-3}$, even for the highest \aratio.  For higher S/N the bias is
+generally within the noise of our simulation.
 
 \begin{figure}[t] \centering
  \centering 
  \includegraphics[scale=1]{figures/set-e-gg01-yr-0.005-0.005-vs-e.eps}
 
- \caption{Shear error vs galaxy input ellipticity for round gaussian psf
- and gaussian galaxies. The intrinsic shear for $\gamma_1$ is 0.01.  This plot
- shows $\gamma_1$; we find similar results for $\gamma_2$.  The curves in each
- panel are not independent, but accumulate from larger to smaller galaxies.
- Errors bars are shown only for the largest galaxies.
- \label{fig:set-e-gg01}}
+ \caption{Shear error vs galaxy input ellipticity for round gaussian \psf\ and
+ gaussian galaxies. The intrinsic shear is 0.01.  In this plot we show
+ $\gamma_1$; we find similar results for $\gamma_2$.  \label{fig:set-e-gg01}}
 
 \end{figure}
 
@@ -324,19 +322,22 @@ XXX do the other two ellipticities and make new multiplotter for that
 where we just show g1 and all three ellipticities.
 
 \begin{figure}[t] \centering
-\includegraphics[scale=0.7]{figures/gmix-fit-gg04r01-yr-0.005-0.005-diff-cum.eps}
+\includegraphics[scale=0.7]{figures/gmix-fit-gg05r01-yr-0.005-0.005-diff.eps}
 
- \caption{Shear error vs galaxy S/N$_{matched}$ for round gaussian psf and
- gaussian galaxies. The intrinsic shear is shown in the upper left corner of
- each panel.  These galaxies have total ellipticity 0.33.  The curves in each
- panel are not independent, but accumulate from larger to smaller galaxies.
- Errors bars are shown only for the largest galaxies.
- \label{fig:gg04r01}}
+ \caption{Shear error vs matched S/N for round gaussian \psf\ and gaussian
+ galaxies. The intrinsic shear is shown in the upper left corner of each panel.
+ These galaxies have total ellipticity 0.33.  The curves in each panel are not
+ independent, but accumulate from larger to smaller galaxies.  Errors bars are
+ shown only for the largest galaxies.  \label{fig:gg05r01}}
 
 \end{figure}
 
 
-\section{Exponential Object and Turbulent Atmospheric PSF}
+\section{Exponential Object and Turbulent Atmospheric \psf}
+
+We find that exponential disk galaxies are well represented by three guassian
+components.  We find that the turbulent \psf\ is also well represented with three
+gaussians.
 
 \subsection{Shear Bias vs. Galaxy Ellipticity}
 
@@ -349,7 +350,7 @@ XXX These sims need to finish running
 % \centering 
 % \includegraphics[scale=1]{figures/XXX}
 
-% \caption{Shear error vs galaxy input ellipticity for for round gaussian psf
+% \caption{Shear error vs galaxy input ellipticity for for round gaussian \psf\
 % and gaussian galaxies. The intrinsic shear for $\gamma_1$ is 0.01.  This plot
 % shows $\gamma_1$; we find similar results for $\gamma_2$.  The curves in each
 % panel are not independent, but accumulate from larger to smaller galaxies.
@@ -359,81 +360,106 @@ XXX These sims need to finish running
 \subsection{Shear Bias vs. Galaxy S/N}
 
 \begin{figure}[t] \centering \centering
-\includegraphics[scale=0.7]{figures/gmix-fit-et03r01-yr-0.005-0.005-diff-cum.eps}
+\includegraphics[scale=0.7]{figures/gmix-fit-et04r02-yr-0.005-0.005-diff.eps}
 
- \caption{Shear error vs galaxy S/N$_{matched}$ for turbulent atmospheric PSF
+ \caption{Shear error vs matched S/N for turbulent atmospheric \psf\
  and exponential galaxies. The intrinsic shear is shown in the upper left of
- each panel.  These galaxies have total ellipticity 0.33.  The curves in each
- panel are not independent, but accumulate from larger to smaller galaxies.
- Errors bars are shown only for the largest galaxies.
- \label{fig:et03r01}}
+ each panel.  These galaxies have total ellipticity 0.33.
+ \label{fig:et04r02}}
+
+\end{figure}
+
+\section{\devauc\ Object and Turbulent Atmospheric \psf}
+
+We find that exponential disk galaxies are well represented by four guassian
+components.
+
+\subsection{Shear Bias vs. Galaxy Ellipticity}
+
+%In figure \ref{fig:set-e-et01} we show a set of ring tests as 
+%in \ref{fig:set-e-gg01}
+
+XXX These sims need to finish running
+
+%\begin{figure}[t] \centering
+% \centering 
+% \includegraphics[scale=1]{figures/XXX}
+
+% \caption{Shear error vs galaxy input ellipticity for for round gaussian \psf\
+% and gaussian galaxies. The intrinsic shear for $\gamma_1$ is 0.01.  This plot
+% shows $\gamma_1$; we find similar results for $\gamma_2$.  The curves in each
+% panel are not independent, but accumulate from larger to smaller galaxies.
+% Errors bars are shown only for the largest galaxies.
+% \label{fig:set-e-gg01}}
+
+\subsection{Shear Bias vs. Galaxy S/N}
+
+\begin{figure}[t] \centering \centering
+\includegraphics[scale=0.7]{figures/gmix-fit-dt03r03r04-yr-0.005-0.005-diff.eps}
+
+ \caption{Shear error vs matched S/N for turbulent atmospheric \psf\
+ and \devauc\ galaxies. The intrinsic shear is shown in the upper left of
+ each panel.  These galaxies have total ellipticity 0.33.
+ \label{fig:dt03r03r04}}
 
 \end{figure}
 
 
 
-\section{Exponential Object and Double Gaussian PSF}
 
-Although the double gaussian is a simpler model than the turbulent atmospheric PSF,
+\section{Exponential Object and Double Gaussian \psf}
+
+Although the double gaussian is a simpler model than the turbulent atmospheric \psf,
 it is interesting because it can be made elliptical.  In this section we will explore
-the shear error as a function of shear for round and ellipticial PSFs. This will allow
+the shear error as a function of shear for round and ellipticial \psf s. This will allow
 us to separate out the ``additive bias'' which occurs at zero shear when galaxies
-are convolved with an elliptical PSF.
+are convolved with an elliptical \psf.
+
+XXX discuss how model is based on SDSS back in the models section
 
 \subsection{Shear Error vs. Shear}
 
-\begin{figure}[t] \centering
+\begin{figure}[p] \centering
  \centering 
- \includegraphics[scale=1]{figures/set-edg02-yr-0.005-0.005-vs-shear.eps}
+ \includegraphics[scale=1.1]{figures/set-s2n-edg02-vs-shear.eps}
 
- \caption{Shear error vs true shear for round double gaussian psf and
- exponential galaxies.}
+ \caption{Shear error vs true shear for SDSS-like round double gaussian \psf s
+ and exponential galaxies.  Note the vertical scale is different for each row
+ of plots.  The over-plotted curves are the best-fitting linear model.}
  \label{fig:edgdiffvsshroundpsf}
 
 \end{figure}
 
+\subsection{Multiplicitave Error}
+
 \begin{figure}[t] \centering
  \centering 
- \includegraphics[scale=1]{figures/set-edg01-yr-0.005-0.005-vs-shear.eps}
+ \includegraphics[scale=0.65]{figures/set-s2n-edg02-m-vs-shear.eps}
 
- \caption{Shear error vs shear for elliptical double gaussian psf and
- exponential galaxies.}
- \label{fig:diffvsshellippsf}
+ \caption{Calibration error error as a function of matched S/N for SDSS-like
+ round double gaussian \psf s and exponential galaxies.  The calibration error is
+ $\Delta \gamma/\gamma = (m-1)$, where $m$ is the linear slope of the fits shown in
+ Figure \ref{fig:edgdiffvsshroundpsf}.  The grey region represents the maximum
+ allowed calibration error in order to meet Dark Energy Survey science
+ requirements.  The matched S/N is the maximal possible S/N measure.  Any real
+ world S/N estimate will be considerably lower for these objects.} 
+
+ \label{fig:edgcaliberr}
 
 \end{figure}
 
+\subsection{Additive Bias}
 
-\section{\devauc\ Object and Turbulent Atmospheric PSF}
+\begin{figure}[t] \centering
+ \centering 
+ \includegraphics[scale=1]{figures/set-epsf-edg01-yr-0.003-0.003-vs-epsf.eps}
 
-\subsection{Shear Bias vs. Galaxy Ellipticity}
+ \caption{Additive bias as a function of \psf\ ellipticity and matched S/N for
+ SDSS-like elliptical double gaussian \psf s and exponential galaxies.  The grey
+ region represents the maximum allowed additive bias in order to meet Dark
+ Energy Survey science requirements.  }
 
-%In figure \ref{fig:set-e-et01} we show a set of ring tests as 
-%in \ref{fig:set-e-gg01}
-
-XXX These sims need to finish running
-
-%\begin{figure}[t] \centering
-% \centering 
-% \includegraphics[scale=1]{figures/XXX}
-
-% \caption{Shear error vs galaxy input ellipticity for for round gaussian psf
-% and gaussian galaxies. The intrinsic shear for $\gamma_1$ is 0.01.  This plot
-% shows $\gamma_1$; we find similar results for $\gamma_2$.  The curves in each
-% panel are not independent, but accumulate from larger to smaller galaxies.
-% Errors bars are shown only for the largest galaxies.
-% \label{fig:set-e-gg01}}
-
-\subsection{Shear Bias vs. Galaxy S/N}
-
-\begin{figure}[t] \centering \centering
-\includegraphics[scale=0.7]{figures/gmix-fit-dt02r02-yr-0.005-0.005-diff-cum.eps}
-
- \caption{Shear error vs galaxy S/N$_{matched}$ for turbulent atmospheric PSF
- and \devauc\ galaxies. The intrinsic shear is shown in the upper left of
- each panel.  These galaxies have total ellipticity 0.33.  The curves in each
- panel are not independent, but accumulate from larger to smaller galaxies.
- Errors bars are shown only for the largest galaxies.
- \label{fig:dt02r02}}
+ \label{fig:edgadderr}
 
 \end{figure}
 
@@ -474,9 +500,9 @@ calculated.  For the parameters $x_0,y_0,\theta,T,p$ we find
   & = & \frac{1}{p}
 \end{eqnarray}
 
-\subsection{Jacobian in the Presence of a PSF}
+\subsection{Jacobian in the Presence of a \psf}
 
-For $x_0,y_0,T$ and $p$, we can use the same Jacobian equations for the pre-PSF
+For $x_0,y_0,T$ and $p$, we can use the same Jacobian equations for the pre-\psf\
 case, evaluated with the convolved covariance matrix. 
 
 For $e_1$ and $e_2$ we modify the jacobians according to the following equations
