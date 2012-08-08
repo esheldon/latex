@@ -417,19 +417,15 @@ XXX These sims need to finish running
 \end{figure}
 
 
+\section{Calibration and Additive Errors}
 
-
-\section{Calibration and Additive Errors for Exponential Objects and Double
-Gaussian \psf s}
-
-Although the double gaussian is a simpler model than the turbulent atmospheric
-\psf, it is useful because it can be made elliptical.  In this section we
-will isolate the calibration and additive errors in the shear recovery, as defined
-in the following equation:
+In this section we further explore calibration and additive errors.  By
+exploring the shear error as a function of true shear and \psf\ ellipticity, we
+can isolate the calibration and additive errors, as defined in the following
+equation:
 \begin{equation}
 \langle \gamma \rangle = m\times \gamma_{true} + c
 \end{equation}
-
 The calibration error is related to the slope as $m-1$.  The additive error is
 present even at zero shear, and can be caused by incomplete correction for the
 effects of an elliptical \psf.  We will isolate the calibration error by first
@@ -437,15 +433,73 @@ exploring round \psf s at different shear values.  We will isolate the additive
 error by setting the shear to zero and testing the shear recover at different
 \psf\ ellipticities.
 
+\subsection{Calibration Errors for Exponential Objects and Atmospheric Turbulence}
+
+In this section we explore calibration errors for objects with exponential
+profiles convolved with a \psf\ representing a turbulent atmosphere.  Because
+this model is purely round, we cannot fully explore additive errors, but we
+will demonstrate that at zero shear we detect no significant additive component.
+
+
+\begin{figure}[p] \centering
+ \centering 
+ \includegraphics[scale=1.1]{figures/set-s2n-et01-vs-shear.eps}
+
+ \caption{Shear error vs true shear for atmospheric turbulence \psf s
+ and exponential galaxies.  Note the vertical scale is different for each row
+ of plots.  The over-plotted curves are the best-fitting linear model.}
+ \label{fig:etdiffvsshroundpsf}
+
+\end{figure}
+
+
+\begin{figure}[t] \centering
+ \centering 
+ \includegraphics[scale=0.65]{figures/set-s2n-et01-m-vs-shear.eps}
+
+ \caption{Calibration error error as a function of matched S/N for atmospheric
+ turbulence  \psf s and exponential galaxies.  The calibration error is
+ $\Delta \gamma/\gamma = (m-1)$, where $m$ is the linear slope of the fits shown in
+ Figure \ref{fig:etdiffvsshroundpsf}.  The grey region represents the 
+ calibration error sufficient to meet Dark Energy Survey science
+ requirements.  The matched S/N is the maximal possible S/N measure.  Any real
+ world S/N estimate will be considerably lower for these objects.} 
+
+ \label{fig:etcaliberr}
+
+\end{figure}
+
+\begin{figure}[t] \centering
+ \centering 
+ \includegraphics[scale=0.65]{figures/set-s2n-et01-c-vs-shear.eps}
+
+ \caption{The additive error for round double gaussian \psf s and exponential
+ galaxies.  The calibration error is shown in figure \ref{fig:etcaliberr}.
+ The grey region represents the additive error sufficient to meet Dark Energy
+ Survey science requirements.  For round \psf s the additive error is
+ unimportant. } 
+
+ \label{fig:etverifyadditive}
+\end{figure}
+
+
+
+
+
+\subsection{Calibration and Additive Errors for Exponential Objects and Double
+Gaussian \psf s}
+
+The double gaussian \psf\ model, based on \psf s derived from SDSS data, is
+useful because it can be made elliptical.  In this section we will isolate the
+calibration and additive errors in the shear recovery, as defined in the
+following equation:
+\begin{equation}
+\langle \gamma \rangle = m\times \gamma_{true} + c
+\end{equation}
+
 XXX discuss how model is based on SDSS back in the models section
 
-\subsection{Calibration Error}
 
-In this section we isolate the calibration error by exploring round
-\psf\ models, for which the additive bias is consistent with zero.
-\begin{equation}
-\left. \frac{\Delta \gamma}{\gamma} \right|_{c=0} = m - 1
-\end{equation}
 \begin{figure}[p] \centering
  \centering 
  \includegraphics[scale=1.1]{figures/set-s2n-edg02-vs-shear.eps}
@@ -489,7 +543,7 @@ In this section we isolate the calibration error by exploring round
 \end{figure}
 
 
-\subsection{Additive Error}
+\subsubsection{Additive Error}
 
 \begin{figure}[t] \centering
  \centering 
