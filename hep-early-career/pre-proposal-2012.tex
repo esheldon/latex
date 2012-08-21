@@ -1,0 +1,110 @@
+\documentclass[12pt]{article}
+
+\usepackage[margin=1in,dvips]{geometry}
+
+% for comments
+\usepackage{verbatim}
+
+\begin{document}
+
+\title{Measuring Dark Energy with Gravitational Lensing in the Dark Energy Survey}
+\author{Erin Sheldon, Assistant Physicist\\
+Brookhaven National Laboratory\\
+(631) 344-3117, erin.sheldon@gmail.com\\
+Year Doctorate Awarded: 2002\\
+Program Announcement Number: LAB 10-395}
+
+\date{}
+\maketitle
+
+\section{Introduction}
+I propose to analyze data from the Dark Energy Survey (DES) to constrain the
+properties of Dark Energy.  My primary focus will be on measuring gravitational
+lensing effects to probe the expansion history and growth rate of massive
+structures in our universe.  I am a DES member with data rights and am co-leading 
+development of the DES lensing software pipeline.
+
+Dark Energy accelerates the expansion of the universe, dramatically increasing
+the volume in comparison to a matter-only universe.  Dark Energy also inhibits
+the growth of massive structures under gravitational collapse.  Thus the number
+density of massive objects such as galaxy clusters as a function of cosmic time
+is directly related to the properties of Dark Energy, in particular the
+equation of state parameter $w=$pressure/density.  Critical to using the number
+density to constrain cosmology is knowing the masses of the clusters. We will
+measure these masses using gravitational lensing.  Using cluster counts,
+lensing and other complimentary probes, the DES will measure $w$ to $\sim$3\%.
+This program is a natural continuation of my earlier measurements of lensing in
+the Sloan Digital Sky Survey (SDSS), which are most sensitive such measurements
+to date.
+
+DES will see first light in the fall of 2012.  I will spend the intervening
+time finalizing our data reduction pipelines, which we strenuously test using
+realistic simulations.  I am developing a new code to measure shear using
+gaussian mixtures which I have tested on simulations and will apply to the
+data.  In collaboration with Mike Jarvis at the University of Pennsylvania, I
+am also developing a second code using the method of ``shapelets''.  These
+codes run in a processing framework and queuing system I have developed. 
+
+After first light, DES will take data for five years, during which I will
+process the data as it arrives and perform analysis to extract Dark Energy
+parameters.  These analyses will most likely produce results in two stages: an
+early set of results from the first year data and a second set of results from
+the full data set after year five.
+
+To achieve these goals, I need the assistance of postdocs and significant
+computing infrastructure.
+
+\section{Resources}
+
+The DES survey will produce of order a petabyte of data which will arrive over
+the course of five years.  I am co-leading the development of the lensing
+software pipelines.  These pipelines will process all the images produced by
+the DES to measure the detailed shapes of galaxies for use in lensing analyses.
+Fortunately, the basic reduced images are a relatively small fraction of the
+total data set, about 130 terabytes.
+
+Processing this data data as it arrives will require significant manpower and
+computing resources.  The NSF funded DES data management (DESDM) is committed
+to produce a single processing of the data per year.  Thus, although our
+lensing pipelines will be incorporated into DESDM, all development and testing
+must occur outside of DESDM.  
+
+In order to test our pipelines and analysis codes we must process the full data
+set multiple times.  This is because many systematics tests require essentially
+the full data set to explore.  And only from analyzing the full data set to
+extract the lensing signal will we be able to feed back what we have learned
+into the pipelines.  Working with a single processing would be highly
+restrictive.  The processing requires very high memory machines and large
+permanent data storage, which precludes use of existing computing resources
+such as NERSC. Finally, computing from other experiments at Brookhaven is not
+available for use.  Thus we must have separate, although quite moderate,
+computing resources to facilitate the data processing.
+
+Based on current hardware and codes, it would take about 2.5 weeks to process
+the final DES data on a moderate 70 node cluster with 8 cores per node.  This
+is approximately the desired processing time given that we want to reprocess
+the data with several iterations with two or more independent shape measurement
+algorithms in order to obtain a robust result.
+
+We will also require significant resources for the science analysis, which is
+computationally intensive when performed optimally, although this should be
+sub-dominant to the image processing.
+
+A moderate compute cluster of 70 nodes the required disk will cost about
+\$55,000 per year over the course of this five year award.  This number
+includes a compounded Moore's law, and is entirely dominated by CPU rather than
+storage costs.  The power, cooling, and maintenence, which is significant, will
+be provided free of charge by the RHIC Computing Facility at BNL.
+
+\section{Personnel}
+
+As required for applicants at national laboratories, this award will cover my
+own salary.  I will hire a postdoc to work on testing and development of the
+pipelines and DES data, as well as analysis of the results to constrain the
+properties of Dark Energy.  These analyses will focus on measuring lensing
+effects to constrain the masses of galaxy clusters and interpretation in terms
+of cosmology.  This is a primary goal of the DES survey with high scientific
+impact:  most of the constraining power on Dark Energy comes from lensing and
+the counts of galaxy clusters at a given mass threshold.  
+
+\end{document}

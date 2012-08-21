@@ -70,7 +70,7 @@ and \X\ is the position vector relative to the mean of the Gaussian
 where we have defined the positions relative to the center $(x_0,y_0)$
 as $\Delta x=(x-x_0)$ and $\Delta y=(y-y_0)$.
 
-Under convolution with a Gaussian point-spread-function (\psf) $P$ we get an
+Under convolution with a Gaussian point-spread-function (\psf) $P$ we measure an
 observed model intensity profile
 \begin{equation}
 G_o = G * P
@@ -186,7 +186,7 @@ average these shapes to estimate a mean shear as outlined in \citet{bern02}.
 Key to this is the application of an average ``shear response'', \Rshear.  The
 shear response tells us how an image of a given ellipticity responds to an
 applied shear.  For an average shear we can also measure an average response.
-For this work we use an unweighted estimator for the average allipticity and
+For this work we use an unweighted estimator for the average ellipticity and
 the response \citep[see e.g.  Equation 5.11,][]{bern02}:
 \begin{equation} \label{eq:shearest}
 \langle \gamma_i \rangle  = \frac{\langle e_i \rangle}{2 \langle 1 - \frac{1}{2} e^2 \rangle } \equiv
@@ -282,7 +282,7 @@ the full range of position angle $2 \theta \in [0,360)$.  When using this
 so-called ``ring test'' \citep{Nakajima2007}, the noise from the intrinsic
 galaxy shape cancels exactly in the absence of noise.  Since this ``shape
 noise'' will dominate the noise in many cases, the ring test reduces the number
-of mocks needed to accurately test shear recovery for our algorithm.
+of simulated images needed to accurately test shear recovery for our algorithm.
 
 \subsection{Total Ellipticity Recovery}
 
@@ -299,13 +299,14 @@ which is a natural fit for the Gaussian mixture model.
 
 \subsection{Shear Error vs. Galaxy Ellipticity}
 
-In figure \ref{fig:set-e-gg01} we show a set of ring tests.  Each panel
-represents simulations with a different S/N.  Within each panel, the curves
-represent different values of the \psf\ to galaxy area ratio \aratio.  In the bin
-with S/N = 10 we see dependence of the shear error on ellipticity and \aratio.  For
-S/N = 20 we see reduced dependence on ellipticity and the error is of
-order $10^{-3}$, even for the highest \aratio.  For higher S/N the error is
-generally within the noise of our simulation.
+In figure \ref{fig:set-e-gg01} we show a set of ring tests as a function of
+intrinsic galaxy ellipticity.  In each panel we show simulations with a
+different S/N.  Within each panel, the curves represent different values of the
+\psf\ to galaxy area ratio \aratio.  In the bin with S/N = 10 we see dependence
+of the shear error on ellipticity and \aratio.  For S/N = 20 we see reduced
+dependence on ellipticity and the error is of order $10^{-3}$, even for the
+highest \aratio.  For higher S/N the error is generally within the noise of our
+simulation.
 
 \begin{figure}[t] \centering
  \centering 
@@ -338,9 +339,8 @@ where we just show g1 and all three ellipticities.
 
  \caption{Shear error vs matched S/N for round gaussian \psf\ and gaussian
  galaxies. The intrinsic shear is shown in the upper left corner of each panel.
- These galaxies have total ellipticity 0.33.  The curves in each panel are not
- independent, but accumulate from larger to smaller galaxies.  Errors bars are
- shown only for the largest galaxies.  \label{fig:gg05r01}}
+ These galaxies have total ellipticity 0.33.
+ \label{fig:gg05r01}}
 
 \end{figure}
 
