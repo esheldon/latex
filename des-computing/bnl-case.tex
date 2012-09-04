@@ -14,11 +14,11 @@ pipeline work at Brookhaven National Laboratory (BNL).  Here we present a high
 level view; technical details can be found in the full DES analysis computing
 document (ref to not compromised version of doc).
 
-The lensing pipeline will be run in a ``production mode'': as data is gathered it
-will be immediately processed through one or more lensing pipelines.  We expect
-100\% utilization of the computing resources.  For efficiency reasons, we do
-not wish to fight for computing resources in a shared queue system with highly
-inhomogeneous demands from a large number of users.
+The lensing pipeline will be run in a ``production mode'': as data is gathered
+it will be immediately processed through one or more lensing pipelines.  We
+expect to approach 100\% utilization of the computing resources.  For
+efficiency reasons, we do not wish to fight for computing resources in a shared
+queue system with highly inhomogeneous demands from a large number of users.
 
 The technology required to run the pipelines in production mode has been
 developed ``in house'' at BNL:  
@@ -38,15 +38,15 @@ developed ``in house'' at BNL:
     it. We would have to transfer the knowledge to another site.  This would
     require significant time from Sheldon and experts at BNL.
     
-    \item A special simplified job queuing system was written by Sheldon which
+    \item A simplified job queuing system was written by Sheldon which
     facilitates the lensing work.
 
 \end{itemize}
 
 In production mode, we must have a tight relationship with those who maintain
 the machines and software stack.  Although HDFS provides high availability, we
-still need tight integration with the computing facility to deal with hardware
-failures in order to work at maximum efficiency.  
+still need tight integration with the maintainers to deal with hardware
+failures and software upgrades in order to work at maximum efficiency.  
 
 Because maintenance, power, and cooling for DES computing provided free by BNL,
 there is no direct cost to the DES analysis computing effort for these services.
