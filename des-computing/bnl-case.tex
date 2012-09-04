@@ -8,30 +8,56 @@ Brookhaven National Laboratory}
 \begin{document}
 \maketitle
 
+
+In this document we present the case for separate computing for DES lensing
+pipeline work at Brookhaven National Laboratory (BNL).  Here we present a high
+level view; technical details can be found in the full DES analysis computing
+document (ref to not compromised version of doc).
+
+The lensing pipeline will be run in a ``production mode'': as data is gathered it
+will be immediately processed through one or more lensing pipelines.  We expect
+100\% utilization of the computing resources.  For efficiency reasons, we do
+not wish to fight for computing resources in a shared queue system with highly
+inhomogeneous demands from a large number of users.
+
+The technology required to run the pipelines in production mode has been
+developed ``in house'' at BNL:  
 \begin{itemize}
 
+    \item The processing framework was written by Sheldon. This system would
+    have to be transferred, requiring significant time from Sheldon.
 
-    \item Maintenance, power, cooling for DES computing provided free by BNL.
-    (Brookhaven Computing Facility).
-
-    \item Isolated cluster with dedicated job queue.   In production we cannot
-    fight for resources.
-
-    \item Tight integration with those who maintain the machines.
-
-    \item Using special distributed disk model built on the Hadoop Distributed
-    File System.  Provides the needed data throughput for image processing and
-    high availability (can handle machine failure transparently due to
-    redundancy).  Is scalable to petabyte installations; such installations
-    exist.  We at BNL set this up and understand it, would have to transfer the
-    knowledge to another site.  This would require significant time from
-    Sheldon and experts at BNL.
-
-    \item Technology developed in house: The processing framework for the
-    lensing work was written by Sheldon.  This system would have to be
-    transferred, requiring significant time from Sheldon.
+    \item In order to get the required data throughput, we use a distributed
+    disk model built on the Hadoop Distributed File System (HDFS).  HDFS
+    provides the throughput for image processing which we were not able to get
+    using NFS servers. HDFS provides the high availability needed for a
+    production environment: HDFS handles machine failure transparently due to
+    redundancy.  HDFS is scalable to petabyte installations; such installations
+    exist.  HDFS also presents the possibility to move to a full ``map reduce''
+    framework for even higher throughput.  We at BNL set this up and understand
+    it. We would have to transfer the knowledge to another site.  This would
+    require significant time from Sheldon and experts at BNL.
     
+    \item A special simplified job queuing system was written by Sheldon which
+    facilitates the lensing work.
 
 \end{itemize}
+
+In production mode, we must have a tight relationship with those who maintain
+the machines and software stack.  Although HDFS provides high availability, we
+still need tight integration with the computing facility to deal with hardware
+failures in order to work at maximum efficiency.  
+
+Because maintenance, power, and cooling for DES computing provided free by BNL,
+there is no direct cost to the DES analysis computing effort for these services.
+
+In summary, all the needed technology and expertise exists at BNL to facilitate
+the lensing pipeline work.  We expect to work at close to 100\% efficiency.
+Transferring this knowledge to another institution would require months of
+effort from Sheldon and other experts at BNL.  Furthermore, the lack of tight
+integration with the system maintainers will introduce latency and require more
+effort from Sheldon and others.  These inefficiencies will introduce unneeded
+cost to the project and reduce time available to Sheldon and others for
+scientific investigation.
 
 \end{document}
