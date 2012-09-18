@@ -19,6 +19,9 @@ it will be immediately processed through one or more lensing pipelines.  We
 expect to approach 100\% utilization of the computing resources.  For
 efficiency reasons, we do not wish to fight for computing resources in a shared
 queue system with highly inhomogeneous demands from a large number of users.
+This is made more acute by the fact that much of the lensing processing
+requires very high memory for each job: this usage pattern requires that entire
+nodes be used for a given job, not just a single core on a machine.
 
 The technology required to run the pipelines in production mode has been
 developed ``in house'' at BNL:  
@@ -30,13 +33,9 @@ developed ``in house'' at BNL:
     \item In order to get the required data throughput, we use a distributed
     disk model built on the Hadoop Distributed File System (HDFS).  HDFS
     provides the throughput for image processing which we were not able to get
-    using NFS servers. HDFS provides the high availability needed for a
-    production environment: HDFS handles machine failure transparently due to
-    redundancy.  HDFS is scalable to petabyte installations; such installations
-    exist.  HDFS also presents the possibility to move to a full ``map reduce''
-    framework for even higher throughput.  We at BNL set this up and understand
-    it. We would have to transfer the knowledge to another site.  This would
-    require significant time from Sheldon and experts at BNL.
+    using NFS servers.  We at BNL set this up and understand it. We would have
+    to transfer the knowledge to another site.  This would require significant
+    time from Sheldon and experts at BNL.
     
     \item A simplified job queuing system was written by Sheldon which
     facilitates the lensing work.
