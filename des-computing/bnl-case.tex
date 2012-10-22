@@ -1,6 +1,6 @@
 \documentclass[12pt]{article}
 \usepackage{amsmath}
-\title{DES Computing}
+\title{DES Computing at BNL}
 \author{Erin S. Sheldon\\
 Brookhaven National Laboratory}
 \date{}
@@ -8,20 +8,10 @@ Brookhaven National Laboratory}
 \begin{document}
 \maketitle
 
-
 In this document we present the case for separate computing for DES lensing
 pipeline work at Brookhaven National Laboratory (BNL).  Here we present a high
 level view; technical details can be found in the full DES analysis computing
-document (ref to not compromised version of doc).
-
-The lensing pipeline will be run in a ``production mode'': as data is gathered
-it will be immediately processed through one or more lensing pipelines.  We
-expect to approach 100\% utilization of the computing resources.  For
-efficiency reasons, we do not wish to fight for computing resources in a shared
-queue system with highly inhomogeneous demands from a large number of users.
-This is made more acute by the fact that much of the lensing processing
-requires very high memory for each job: this usage pattern requires that entire
-nodes be used for a given job, not just a single core on a machine.
+document.
 
 The technology required to run the pipelines in production mode has been
 developed ``in house'' at BNL:  
@@ -33,13 +23,12 @@ developed ``in house'' at BNL:
     \item In order to get the required data throughput, we use a distributed
     disk model built on the Hadoop Distributed File System (HDFS).  HDFS
     provides the throughput for image processing which we were not able to get
-    using NFS servers.  We at BNL set this up and understand it. We would have
-    to transfer the knowledge to another site.  This would require significant
+    using NFS servers.  It also provides high availabiltity; it can recover
+    from machine loss transparently and without any system down time from the
+    user standpoint.  We at BNL set this up and understand it. We would have to
+    transfer the knowledge to another site.  This would require significant
     time from Sheldon and experts at BNL.
     
-    \item A simplified job queuing system was written by Sheldon which
-    facilitates the lensing work.
-
 \end{itemize}
 
 In production mode, we must have a tight relationship with those who maintain
@@ -47,17 +36,22 @@ the machines and software stack.  Although HDFS provides high availability, we
 still need tight integration with the maintainers to deal with hardware
 failures and software upgrades in order to work at maximum efficiency.  
 
-Because maintenance, power, and cooling for DES computing is provided free by
-BNL, there is no direct cost to the DES analysis computing effort for these
-services.
+The lensing pipeline will be run in ``production mode'': as data is gathered it
+will be immediately processed through one or more lensing pipelines.  The data
+will be re-processed dozens of times per year.  We need and expect to approach
+100\% utilization of the computing resources.  For efficiency reasons, we do
+not wish to fight for computing resources in a shared queue system with highly
+inhomogeneous demands from a large number of users.  This is made more acute by
+the fact that much of the lensing processing requires very high memory for each
+job: we require that entire nodes be used for a given job, not just a single
+core on a machine.  This type of job is much more difficult to schedule in an
+inhomogeneous environment.
 
-In summary, all the needed technology and expertise exists at BNL to facilitate
-the lensing pipeline work.  We expect to work at close to 100\% efficiency.
-Transferring this knowledge to another institution would require months of
-effort from Sheldon and other experts at BNL.  Furthermore, the lack of tight
-integration with the system maintainers will introduce latency and require more
-effort from Sheldon and others.  These inefficiencies will introduce unneeded
-cost to the project and reduce time available to Sheldon and others for
-scientific investigation.
+In summary, we require that the entire system matches well the requirements of
+our application.   The technology and expertise already exists at BNL.  Neither
+the technology nor expertise will will exist at another site, and much effort
+will be required to bring it there.  This extra work and inefficiency will
+introduce unneeded cost to the project and reduce time available to Sheldon and
+others for scientific investigation.
 
 \end{document}
