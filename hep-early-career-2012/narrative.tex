@@ -9,6 +9,7 @@
 \newcommand{\commissdate}{Fall 2012}
 \newcommand{\surveyproper}{Spring 2013}
 \newcommand{\devauc}{De Vaucouleurs'}
+\newcommand{\devprof}{exp$(-r^{1/4})$}
 
 % Get rid of the normal page numbers
 %\usepackage{nopageno}
@@ -306,114 +307,15 @@ While powerful in themselves, these results are also very complimentary to
 other measurements, breaking degeneracies in analyses of the Cosmic Microwave
 Background \cite{KomatsuWMAPCosmo09}. 
 
-As I will describe in the section on DES, gravitational shear measurements
-are central to two of that survey's primary goals.  The techniques we developed
-in the SDSS are directly applicable to DES science, especially the study of
-galaxy clusters as cosmological probes.  By extending the measurements backward
-in time with the deeper DES data, we will learn about Dark Energy as well as
-Dark Matter.
+As I will describe in the section \ref{sec:des} on DES, gravitational shear
+measurements are central to two of that survey's primary goals.  The techniques
+we developed in the SDSS are directly applicable to DES science, especially the
+study of galaxy clusters as cosmological probes.  By extending the measurements
+backward in time with the deeper DES data, we will learn about Dark Energy as
+well as Dark Matter.
 
 
-\begin{comment}
-The lensing statistic I use is the gravitational shear.  Because the path of
-light in the absence of lensing is not known, the bending angle is not usually
-measurable.  But the difference in the bending angle vector across the face of
-a source is measurable because it results in a change in the shape of the
-background sources.  The unlensed shape is also not known, but because lensing
-causes correlations in the shapes of all the galaxies behind a lens that would
-not exist without the lensing effect, one can statistically infer the net
-change in shape.  This statistical measurement requires averaging the shapes of
-a large number of background galaxies.
-\end{comment}
-
-\subsection{New Lensing Shear Measurement Technique}
-
-The weak gravitational shear effect is a very small distortion of the images of
-galaxies by foreground mass distributions due to the bending of light.  This
-small distortion produces correlations in the ellipticities of the background
-galaxies, which can only be measured statistically.  In principle all one needs
-is many galaxies to extract this signal.  However, the telescope optics and
-atmosphere distort and blur the images of galaxies, and this also produces
-correlations in the ellipticities of galaxies; the combined effect is generally
-referred to as the point spread function (PSF). The primary affect is a
-convolution, which means the effect is more significant for smaller galaxies.
-Most detected galaxies are of order the size of the PSF, and the effect is
-typically at a level much larger than the lensing effect we wish to measure.
-
-Many methods have been developed to measure and remove the effect of the PSF to
-produce unbiased ellipticity measurements, e.g.
-\cite{ksb95,Bern02,Miller07,Melchior11} and many more.  No method yet tested
-has proven good enough to meet the DES survey requirements for realistic galaxy
-populations:  calibration errors of 0.004 in the measured shear, and additive
-errors 0.0004.
-
-I have been developing a new technique that shows promise to deliver on the DES
-requirements.  The method uses mixtures of gaussians to represent the galaxies
-and PSF, and bayesian techniques to control noise bias.  This model has enough
-flexibility to represent the canonical galaxy types; this has been
-independently verified recently \citep{HoggGMix12}.  One result of my recent
-research is that many fewer gaussians are required than used in
-\cite{HoggGMix12} when the object is of order the size of the PSF; three is
-enough.  When also demanding the Gaussians are co-centric and co-elliptical the
-parameter space is reduced even further.  
-
-It is tempting to just use the canonical galaxy profiles (exponential disks and
-$exp(-r^{1/4})$ ``\devauc'' profiles) to fit for the ellipticity, but these are
-computationally intensive to generate when convolving with a PSF and the pixel
-response.  Using Gaussians greatly speeds up the convolution and model
-generating process; this is important for controlling the noise bias described
-below.
-
-Other features of the method are more generic and are designed to mitigate the
-effects of noise.  Noise is known to produces bias in the ellipticity
-measurement when using either maximum likelihood \cite{Refreg12} or the full
-expectation value \cite{Miller12}.  This can be mitigated using the techniques
-in \cite{Miller07,Miller12}, which involve using prior information on the
-ellipticity and size distributions of the galaxy population as a whole.  Use of
-the prior on ellipticity was introduced in \cite{Miller07} and I developed the
-use of the size prior distribution independently of \cite{Miller12}.  I have
-developed an alternative method to implement these ideas using a Monte Carlo
-Markov Chain, and the code is publicly available (the code used for \cite{Miller07}
-is proprietary).
-
-The results using simulations are quite promising.  For exponential disk galaxies,
-a prior on the ellipticity distribution is sufficient, as shown in figure \ref{fig:get}
-
-
-\begin{figure}[p]
-\centering
-
-\includegraphics[scale=0.4]{mcbayes-get01r05r06r07r08-yr-0.050-0.050-frac.eps}
-\caption{Shear bias as a function of signal-to-noise ratio (S/N) for exponential disk
-galaxies fit by a Gaussian mixture.  The different line/point styles represent
-galaxies of different size ratio with respect to the point spread function.
-A prior on the distribution of ellipticities has been applied.
-The gray band is the DES requirement on the shear error; the error is within
-the DES requirements for S/N $\geq$ 20 and for galaxies comparable to
-or larger than the PSF\label{fig:get}}
-
-
-\end{figure}
-
-
-
-\begin{figure}[p]
-\centering
-
-\includegraphics[scale=0.4]{mcbayes-gdt02r11-yr-0.050-0.050-frac.eps}
-\caption{Shear bias as a function of signal-to-noise ratio (S/N) for
-$exp(-r^{1/4})$ galaxies fit by a Gaussian mixture.  The lines and shaded area
-are the same as figure \ref{fig:get}. Measurements of these galaxy types are
-intrinsically more noisy than exponential disks, and at the current writing
-more statistics are needed to fully characterize the error.  In addition to a
-prior on ellipticity, a prior on the distribution of sizes is applied. The
-error is within the DES requirements.  A topic of future research will be to
-determine the priors from data \label{fig:gdt}}
-
-
-\end{figure}
-
-\subsection{The Dark Energy Survey (DES)}
+\subsection{The Dark Energy Survey (DES)} \label{sec:des}
 
 The Dark Energy Survey (DES) is an optical, multi-band survey of 5000 square
 degrees using the 4-meter ``Blanco'' telescope at the Cerro Tololo
@@ -424,7 +326,7 @@ properties of Dark Energy.  Combining DES lensing measurements and DES optical
 observations of galaxy clusters with observations by the South Pole Telescope
 (SPT, \cite{SPT04}) of the same galaxy clusters, greatly enhances the
 constraining power.  These combined methods will constrain the Dark Energy
-equation of state parameter $w$ to better than 3\%.  First light is planned for
+equation of state parameter $w$ to better than 3\%.  First light occured in
 \commissdate, and the survey will run for five years.  DES operations are
 funded in part by the U.S.  Department of Energy. 
 
@@ -482,17 +384,9 @@ Supernovae Ia & 0.34 \\
 
 
 
-
 \subsection{Lensing Analysis of DES Data} \label{sec:deslensing}
 
 \subsubsection{Science Analysis}
-
-In collaboration with Mike Jarvis and Bhuvnesh Jain of Penn, I am working to
-create data processing pipelines and analysis codes to measure gravitational
-lensing in DES.  I will use this data to calibrate the masses of the galaxy
-clusters used in the cosmological analyses.  I will also participate in the
-measurement of shear-shear correlations (cosmic shear).  These are critical
-components of the DES mission.
 
 As described in the introduction, the cosmological information from clusters is
 primarily in the number density of clusters with a given mass as a function of
@@ -502,6 +396,13 @@ imaging data.  The strength of the SZ effect and the number of galaxies are
 both correlated with mass, but that correlation must be measured by a secondary
 method.  As described in the introduction, lensing is the best method for doing
 this.  
+
+
+I will process the data data to calibrate the masses of the galaxy clusters
+used in the cosmological analyses.  I will also participate in the measurement
+of shear-shear correlations (cosmic shear).  These are critical components of
+the DES mission.  
+
 
 As described in \S\ref{sec:sdssold}, in our studies of SDSS lensing we have
 developed analysis techniques to calibrate the mass-observable relation of
@@ -526,7 +427,6 @@ sky, which can propagate systematic errors directly into the measurement. Thus
 cosmic shear and cluster lensing are quite complimentary.
 
 
-
 Table \ref{table:constraints} shows the power of lensing in the DES to
 constrain $w$ as compared to other DES probes.
 
@@ -535,134 +435,242 @@ constrain $w$ as compared to other DES probes.
 \label{sec:des:process}
 
 Gravitational Shear alters the shapes of galaxy images, producing recognizable
-patterns in their ellipticities across the sky. Thus accurate shear
-measurements require accurate measurements of galaxy shapes.  But there are a
-number of factors other than lensing that must be taken into account in order
-to extract shear signal from the shapes of galaxies. In fact these other
-factors are typically 10 to 100 times larger than the shear signal.
+patterns in their ellipticities across the sky.  As described in \ref{sec:gmix},
+these patterns are hidden by the blurring by the atmosphere and telescope
+optics, and the images must be corrected.
 
-The most dominant source of error is the intrinsic shape of the galaxy itself.
-While the shear may alter the ellipticity of a galaxy by less than a percent
-(the smallest shears measured in \cite{SheldonLensing07} are $10^{-4}$!) the
-typical galaxy ellipticity is about 0.3.  It is impossible to measure typical
-shears from a single galaxy image.  However, this ``shape noise'' is purely
-random, so with enough galaxies the shear signal can be extracted using
-statistical techniques.
+I have created a generic data processing pipeline to analyze DES images, and
+analysis codes to remove the PSF effect and measure lensing using that
+framework.  At this time we have a full shear measurement pipeline based on the
+shapelets technique and I am developing a new algorithm based on Gaussian
+mixtures.  These techniques are described in sections \ref{sec:shapelets} and
+\ref{sec:gmix} respectively.
 
-Other effects are less benign and must be explicitly corrected.  The most
-serious of these is the point spread function (PSF) of the sky plus telescope
-optical system. The sky causes enough blurring of images to significantly alter
-the shapes of most galaxies, diluting the shear signal.  Furthermore the
-optical system and instrument will significantly distort and blur the shapes of
-objects, producing correlations in their shapes that can mimic lensing.
+\subsection{New Lensing Shear Measurement Technique Using Gaussian Mixtures}
+\label{sec:gmix}
 
-There are existing techniques for removing these effects but for DES Mike
-Jarvis and I are developing a new pipeline designed to be nearly optimal in
-tracking the PSF and accounting for its effects in the shear estimation
-\cite{Bern02,JarvisJain04}.  Furthermore, this pipeline can make full use of
-the multi-epoch DES data where the sky is observed many times.  A prototype of
-this ``multishear'' pipeline is already in place and is being tested on
-simulated DES data.  This pipeline will continue to undergo heavy testing and
-refinement in preparation for commissioning in Spring 2012.  We will further
-test this pipeline in a real world setting using the multi-epoch southern SDSS
-survey as described in section \S \ref{sec:sdssnew}.  After the survey comes
-online in \commissdate, we will process the data in real time as it arrives.
-The processing of simulated and real data will require significant manpower and
-computing resources.
+The weak gravitational shear effect is a very small distortion of the images of
+galaxies by foreground mass distributions due to the bending of light.  This
+small distortion produces correlations in the ellipticities of the background
+galaxies, which can only be measured statistically.  In principle all one needs
+is enough galaxies to extract this signal from the noise.  However, the
+telescope optics and atmosphere distort and blur the images of galaxies, and
+this also produces correlations in the ellipticities of galaxies; the combined
+effect is generally referred to as the point spread function (PSF). The primary
+affect is a convolution, which means the effect is more significant for smaller
+galaxies.  Most detected galaxies are of order the size of the PSF, and the
+effect is typically at a level much larger than the lensing effect we wish to
+measure.
 
-\subsection{New Analysis of SDSS Multi-epoch Data} \label{sec:sdssnew}
+Many methods have been developed to measure and remove the effect of the PSF to
+produce unbiased ellipticity measurements, e.g.
+\cite{ksb95,Bern02,Miller07,Melchior11} and many more.  No method yet tested
+has proven accurate enough to meet the DES survey requirements for realistic
+galaxy populations:  a fractional error of 0.004 in the measured shear.
 
-Once the pipeline described in \S \ref{sec:des:process} reaches a state of
-maturity, we will process the multi-epoch data from the SDSS ``southern
-stripe''.  Although this data is only 225 square degrees and somewhat shallower
-than the final DES data, it is interesting both for testing our pipeline and
-performing a cosmological analysis.  The data will be a more stringent test of
-the pipeline than DES in the sense that there are many more epochs, typically
-30-40.  This means many of the galaxies we use will have no detection at all on
-the single epoch images, requiring the multishear code to deal properly with
-very noisy data.  But it is an excellent data set for a lensing analysis as
-well, being comparable or larger in volume than any existing cosmic shear
-study.  I expect at least one publication on cosmological parameters will be
-based on this work.
+I have been developing a new technique that shows promise to meet the DES
+requirements.  The method uses mixtures of gaussians to represent the galaxies
+and PSF, and bayesian techniques to control noise bias.  This model has enough
+flexibility to represent the canonical galaxy types; this has recently been
+independently verified \citep{HoggGMix12}.  One result of my recent
+research is that many fewer gaussians are required than used in
+\cite{HoggGMix12} when the object is of order the size of the PSF; three is
+enough.  When also demanding the Gaussians are co-centric and co-elliptical the
+parameter space is reduced even further.  
 
-\subsection{BOSS and LSST}
+It is tempting to just use the canonical galaxy profiles (exponential disks and
+\devprof\ ``\devauc'' profiles) to fit for the ellipticity, but these are
+computationally intensive to generate when convolving with a PSF and the pixel
+response.  Using Gaussians for both PSF and galaxy greatly increases the speed
+because the convolutions can be done analytically.  This is important for
+controlling the noise bias described below.  Furthermore, the Gaussian mixture
+model can adapt to profiles that differ from the canonical models.
 
-I am an ``architect'' of the Baryon Oscillation Spectroscopic Survey (BOSS,
-\cite{BossWhitePaper}), leading the spectroscopic target selection.  I am also
-a member of LSST, working on the early stages of lensing pipeline development.
-Although no equipment purchases or additional manpower are required to support
-this work, I am contributing a total of 25\% of my time to these two projects.
+Other features of the method are more generic and are designed to mitigate the
+effects of noise.  Noise is known to produce bias in the shear measurement when
+using either maximum likelihood \cite{Refreg12} or the full expectation value
+\cite{Miller12}.  This can be mitigated using the techniques in
+\cite{Miller07,Miller12}, which involve using prior information on the
+ellipticity and size distributions of the galaxy population as a whole.  Use of
+the prior on ellipticity was introduced in \cite{Miller07}. I developed the use
+of the size prior distribution and this was recently also used in
+\cite{Miller12}.  I have implemented these techniques using a Monte Carlo
+Markov Chain, and the code is publicly available (the code used for
+\cite{Miller07} is proprietary).
 
-\subsection{Requested Resources}
 
-\subsubsection{Computing}
+The results from simulations indicate the method can potentially meet DES
+requirements.  For exponential disk galaxies, a prior on the ellipticity
+distribution is sufficient, as shown in figure \ref{fig:get}.  For \devprof\
+galaxies a prior in the size distribution is also required for unbiased shear
+measurements.
 
-We will commission the DES survey in \commissdate\ and run for five years,
-generating about a petabyte of data in total.  For lensing we will process all
-the reduced single-epoch images and multi-epoch images, which amount to about
-130 terabytes.  We must assemble more storage in preparation for the survey
-data.
+\begin{figure}[p]
+\centering
 
-In order to process the data as it arrives we will also require significant
-manpower and computing resources.  The NSF funded DES data management (DESDM)
-is committed to produce a single processing of the data per year.  Thus,
-although our lensing pipelines will be incorporated into DESDM, all development
-and testing must occur outside of DESDM.  
+\includegraphics[scale=0.4]{mcbayes-get01r05r06r07r08-yr-0.050-0.050-frac.eps}
+\caption{Shear bias as a function of signal-to-noise ratio (S/N) for
+exponential disk galaxies fit by a Gaussian mixture.  The PSF represents
+atmospheric turbulence.  The different line/point styles represent galaxies of
+different size ratio with respect to the point spread function.  A prior on the
+distribution of ellipticities has been applied.  The gray band is the DES
+requirement on the shear error; the error is within the DES requirements for
+S/N $\geq$ 20 and for galaxies comparable to or larger than the
+PSF\label{fig:get}}
 
-In order to test our pipelines and analysis codes we must process the full data
-set many times.  This is because many systematics tests require essentially
-the full data set to explore.  And only from analyzing the full data set to
-extract the lensing signal will we be able to feed back what we have learned
-into the pipelines.  Working with a single processing would be highly
-restrictive.  Thus we must have our own separate computing resources to
-facilitate these tests and analyses.  
+\end{figure}
 
-We projected our current running times, and expect it would take about 2.5
-weeks to process the final DES data on a moderate 70 node cluster with at least
-8 cores per node and 4 GB of memory per core.  These  numbers assume 2015
-computer speeds, which will be the ``average'' speed for our computers
-purchased over the five year period. This is approximately the desired
-processing time given that we want to reprocess the data with several
-iterations on two or more independent shape algorithms in order to obtain a
-robust result.
+\begin{figure}[p]
+\centering
 
-We will also require significant resources for the science analysis, which is
-computationally intensive.  As a reference point, the SDSS analysis presented
-in \S \ref{sec:sdssold} required running for a week on a cluster of 80
-processors.  The mass and luminosity analysis of \cite{SheldonM2L07} is even
-more intensive, requiring two weeks on a 300 processor cluster (although these
-processors were a factor of two slower than the current generation).  The DES
-data set will be 50 times larger.
+\includegraphics[scale=0.4]{mcbayes-gdt02r11-yr-0.050-0.050-frac.eps}
+\caption{Shear bias as a function of signal-to-noise ratio (S/N) for \devprof\
+galaxies fit by a Gaussian mixture.  The PSF represents atmospheric turbulence.
+The lines and shaded area are the same as figure \ref{fig:get}. In addition to
+a prior on ellipticity, a prior on the distribution of sizes was applied.
+Measurements of these galaxy types are intrinsically more noisy than
+exponential disks, and at the current writing more simulations are needed to
+fully characterize the error, but with the current statistics the error is
+consistent with the DES requirements.  A topic of future research will be to
+determine the priors from data \label{fig:gdt}}
 
-Because of Moore's law, and the steady data flow we expect, it makes sense to
-buy the computing over a period of time with most purchases toward the end of
-the survey.  To store and process the DES images, we propose to spend about
-\$31,000/year for five years (2012-2016), accruing about 130TB of storage per
-year plus processing nodes.  The first year we will acquire around 14TB of
-storage and about 15 nodes with at least 4GB of memory per core and at least 8
-cores.  Or reference spec is 26kSI2k, 104 HEP-SPEC 2006 .  In following years
-we will purchase more disk and CPU for the same price, and keep a trajectory to
-our goal.  We expect to assemble a system with about 70 actual nodes, which is
-about 120 units of our spec.  An outline of our plans for computing purchases
-is shown in Table \ref{table:computing}.
+\end{figure}
 
-Note these prices include bulk discounts from purchasing along with other
-experiments through the RHIC-Atlas Computing Facility at BNL.  
+\subsubsection{Speeding Up the Computations with GPUs} \label{sec:gmix:gpu}
 
-\input{cost.tex}
+Correction for noise effects requires measurement of the full likelihood
+surface, and is thus very computationally intensive.  Using the Gaussian
+mixture model provides a fast and flexible model for the necessarily
+convolutions.   While relatively fast, about 1 second per galaxy, the
+requirements for DES are enormous: the expected 500 million galaxies will be
+observed on $\sim$ 10 separate exporues, which would require $\sim$ 1.4 million
+cpu hours to process.
+
+Great gains can made by using graphics processing units (GPUs).  Using my own
+GPU implementation I was able to increase the speed by a factor of $\sim 8$ for
+an individual likelihood calculation. Many can be run simultaneously on a
+single GPU, depending on the available memory and architecture.  On typical
+scientifically oriented GPUs (I tested a nvidia 2050) one has sufficient
+resources to run $\sim$ 20 likelihood computations at a time with no
+significant overhead; this is the desired number of ``parallel walkers'' when
+using an affine invariant Markov chain sampler, so is well suited to our needs.
+One can attach 2 GPUs to an individual compute node.
+
+These increases in speed come at a moderate increase in cost over typical
+``farm'' compute nodes.  Recent purchases for the Atlas experiment at
+Brookhaven National Laboratory cost about \$5,000 (32GB memory, 10TB disk, 12
+cores).  The GPUs I have tested (nvidia 2050) can be purchased for $\sim$
+\$1,800.  If we assume an increase in speed of 8 per likelihood calculation,
+and 40 such calculations running simultaneously over 2 separate GPUs, this is a
+factor of 26 increase in speed over the 12 cpu cores on those systems for less
+than a doubling of the total cost.  In section \ref{sec:computing} we outline
+the moderate cost to build a sufficient system.
+
+Notes: some more time can be spent tuning the GPU implementation, but my tests
+indicate it will be difficult to improve on the above speedups due to memory
+bandwidth limitations.  Also note a high performance distributed file system is
+needed to get the required data throughput.  The cosmology group at BNL uses
+the Hadoop Distributed File System, which provides sufficient throughput.
+
+\subsubsection{Future Work on Gaussian Mixtures}
+
+A focus of future work on this method will be determining the priors on
+ellipticity and size from real data.  This is a topic of research because, at
+faint magnitudes, it is difficult to determine these distributions, especially
+for \devprof\ galaxies\cite{Miller12}.  Another area of focus will be testing
+the method on more complex galaxy and PSF models, and testing the method on
+real data.  This is a significant challenge both in terms of man power and
+compute power. 
+
+
+\subsection{Shear Measurement Using Shapelets}
+\label{sec:shapelets}
+
+In addition to the Gaussian mixture method described in section \ref{sec:gmix},
+Mike Jarvis of the University of Pennsylvania and I have implemented a full
+shear pipeline based on the shapelets technique\cite{Bern02}.   The accuracy
+does not yet meet DES requirements, but this pipeline is mature in the sense
+that it can now run fully autonomously on the data and is fast and stable.
+Tuning of the pipeline to increase accuracy is being led by Jarvis and is
+showing promise.   The ideas for reducing bias, outlined in section
+\ref{sec:gmix}, can in principle be applied to this technique as well.
+
+This pipeline can make full use of the multi-epoch DES data where the sky is
+observed many times.  This code has been tested on simulated DES data and will
+continue to undergo heavy testing and refinement throughout the commissioning
+phase.  After the survey comes online in \surveyproper, we will process the
+data in real time as it arrives.  The processing of simulated and real data
+will require significant manpower and computing resources.
+
+The processing pipeline was implemented by myself.  This pipeline is
+``pluggable'' so that other codes can be plugged in readily and can make use of
+the infrastructure built around the shapelets code.  I plan to plug in
+the Gaussian mixture code as well as 2-3 other pipelines developed within
+DES.
+
+Note the shapelets pipeline, as it is implemented currently, does not gain
+significantly by running on GPUs because it is a maximum likelihood technique
+and so requires relatively few evaluations.  If the bias-correction schemes
+discussed in section \ref{sec:gmix} are implemented for shapelets then
+gains can be had using GPUs.
+
+\subsection{Personnel and Resources}
 
 \subsubsection{Research Associate}
 
 We plan for much of the higher level analysis and many of the science papers to
 be led by research associates (postdocs).  We expect to hire a postdoc during
 the first year of the award for three years and a second postdoc to begin in
-the fourth year.  The work of these postdocs would focus on the measurement of
-shear statistics, testing, and interpretation in terms of mass and cosmology.  
+the fourth year.  The work of these postdocs would focus on testing the shear
+pipelines, measurement of shear statistics and interpretation in terms of mass
+and cosmology.  These analyses will be important and will have high scientific
+impact.
+
+In addition, as we plan to run multiple shear measurement pipelines, we expect
+a postdoc to take ``ownership'' of at least one of these pipelines to ensure
+the processing goes smoothly and to implement tests.  An associate with
+experience using GPUs would be ideal, but this is certainly not a requirement
+as the technique can be learned readily.
+
+\subsubsection{Computing} \label{sec:computing}
+
+We are commissioning the DES survey at the time of this writing (\commissdate)
+and will run for five years, generating about a petabyte of data in total.  For
+lensing we will process all the reduced single-epoch images and multi-epoch
+images, which amounts to about 130 terabytes.
+
+The NSF Dark Energy Survey data management team will process the data using a
+selected lensing pipeline approximately yearly.  The Gaussian mixture pipeline
+is still in heavy development and will require many more runs on the data to
+find and fix bugs.  A turnaround time of 2.5 weeks is desirable.
+
+As described in \ref{sec:gmix:gpu}, we want to process all 500 million
+galaxies, each on 10 separate exposures, in this time of 2.5 weeks. This would
+require about ten nodes with two GPUs each.  We desire fairly large memory on
+the system in order to hold data from all exposures in memory for a full
+``coadd tile''. A coadd tile is the unit of association used when combining
+exposures and covers several pointing, each with about 10 exposures.  Tests
+indicate 32GB is sufficient to avoid input/output overhead.  Finally, we need
+130TB in the distributed file system, so about 13TB per machine (we can in
+principle do without redundancy as the data are readily available for download
+from the DES collaboration).  Recent purchases for the Atlas experiment at BNL
+are very similar to this and cost approximately \$5,000.  The addition of two
+GPUs would add another \$4,000. The total cost for ten machines is \$90,000
+plus overhead.  These can be purchased over the five year survey. There are
+potential increase in speed per GPU, but note this is difficult to predict as
+scientific GPUs are a new technology, so we prefer to quote the current
+performance profile.
+
+Note these prices include bulk discounts from purchasing along with other
+experiments through the RHIC-Atlas Computing Facility at BNL.  
+
+\input{cost.tex}
 
 \subsubsection{Salary and Travel}
 
-We ask for 100\%  of Erin Sheldon's salary and overhead for five years, and
-100\% for a research associate for five years.
+It is required that DOE employees pay their salary from this grant, so
+we request 100\% of Erin Sheldon's salary and overhead for five years. We
+also request 100\% for a research associate for five years.
 
 The remaining funds are primarily for travel expenses.   The DES collaboration
 is multi-national and Erin Sheldon and a postdoc will most likely travel abroad
