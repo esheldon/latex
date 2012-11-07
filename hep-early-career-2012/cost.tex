@@ -4,34 +4,33 @@
     \tablewidth{0pt}
     \tablehead{
         \multicolumn{1}{l}{Fiscal Year} &
-        \colhead{Disk Storage}       & 
-        \colhead{\$ for Storage}    & 
-        \colhead{Compute Servers}   & 
-        \colhead{\$ for CPU} \\
+        \colhead{Compute Servers with GPUs}   & 
+        \colhead{Total Storage} &
+        \colhead{Cost in \$} \\
+        &
         &
         [TB] &
-        &
-        2010 Equivalent &
+        2012 Equivalent &
     }
     \startdata
-2012 & 14 & 4000 & 13 & 27000 \\
-2013 & 18 & 4000 & 17 & 27000 \\
-2014 & 23 & 4000 & 21 & 27000 \\
-2015 & 30 & 4000 & 28 & 27000 \\
-2016 & 46 & 4000 & 41 & 27000 \\
+2013 & 2 & 26 & 17600 \\
+2014 & 2 & 26 & 17600 \\
+2015 & 2 & 26 & 17600 \\
+2016 & 2 & 26 & 17600 \\
+2017 & 2 & 26 & 17600 \\
 \hline
 \relax\\[-1.7ex]
-Total in 4 years & 131 & 20000 & 120 & 135000 \\\\[-2.7ex]
+Total in 5 years & 10 & 130 TB & 88000 \\\\[-2.7ex]
 \enddata
 
-    \tablecomments{The number of compute nodes purchased is based on
-    the assumption that each node (26kSI2k, 104 HEP-SPEC 2006) would stay at the
-    performance level of a node purchased in 2010. As the performance per node will
-    increase over time the actual number of compute nodes after 3 years will be
-    significantly smaller (probably O(70)), providing a combined performance of
-    O(120) 2010 equivalent nodes. Prices include 40\% bulk discounts from
-    purchasing through the RHIC ATLAS Computing Facility at BNL. {\bf Power,
-    cooling and maintence will be provided at no extra cost to this experiment.}}
+    \tablecomments{The number of compute nodes purchased is based on the
+    assumption that each node and GPU (Intel 12 cores, 32GB ram, two nvidia
+    2050 GPUS) would stay at the performance level of a node purchased in 2012.
+    It is not clear how the performance per GPU will increase over time so this
+    table is conservative.  Disk is likely to get cheaper, so 13TB per machine
+    at this price is a lower limit. Power, cooling and maintenance will be
+    provided at no extra cost to this experiment, but overhead of \overhead\
+    must be additionally included.}
 
     \end{deluxetable}
     

@@ -10,6 +10,7 @@
 \newcommand{\surveyproper}{Spring 2013}
 \newcommand{\devauc}{De Vaucouleurs'}
 \newcommand{\devprof}{exp$(-r^{1/4})$}
+\newcommand{\overhead}{10\%}
 
 % Get rid of the normal page numbers
 %\usepackage{nopageno}
@@ -139,12 +140,12 @@ the Sloan Digital Sky Survey (SDSS), which are most sensitive such measurements
 to date, and naturally leads to future work on projects such as the Large Scale
 Synoptic Telescope\cite{lsstweb}.
 
-DES has entered the commissioning phase.  I am in the final stages of
-development of a promising new algorithm to measure lensing effects from
-astronomical images.  In addition, in collaboration with Mike Jarvis of UPenn,
-I am continuing to test and tune the de-facto algorithm and pipeline for DES.
-We are strenuously testing these algorithms using simulations and will soon
-begin testing on the commissioning data.
+DES has entered the commissioning phase.  I am finishing the prototyping stage
+of a promising new algorithm to measure lensing effects from astronomical
+images.  In addition, in collaboration with Mike Jarvis of UPenn, I am
+continuing to test and tune the de-facto algorithm and pipeline for DES.  We
+are strenuously testing these algorithms using simulations and will soon begin
+testing on the commissioning data.
 
 After first light, DES will take data for five years, during which I will
 process the data as it arrives and perform analysis to extract Dark Energy
@@ -498,43 +499,47 @@ of the size prior distribution and this was recently also used in
 Markov Chain, and the code is publicly available (the code used for
 \cite{Miller07} is proprietary).
 
-
 The results from simulations indicate the method can potentially meet DES
 requirements.  For exponential disk galaxies, a prior on the ellipticity
-distribution is sufficient, as shown in figure \ref{fig:get}.  For \devprof\
-galaxies a prior in the size distribution is also required for unbiased shear
-measurements.
+distribution is sufficient, as shown in the left panel of figure
+\ref{fig:getgdt}.  For \devprof\ galaxies a prior in the size distribution is
+also required for unbiased shear measurements, as shown in the right panel
+of figure \ref{fig:getgdt}.
 
-\begin{figure}[p]
+\begin{figure}[t]
 \centering
 
 \includegraphics[scale=0.4]{mcbayes-get01r05r06r07r08-yr-0.050-0.050-frac.eps}
-\caption{Shear bias as a function of signal-to-noise ratio (S/N) for
-exponential disk galaxies fit by a Gaussian mixture.  The PSF represents
-atmospheric turbulence.  The different line/point styles represent galaxies of
-different size ratio with respect to the point spread function.  A prior on the
-distribution of ellipticities has been applied.  The gray band is the DES
-requirement on the shear error; the error is within the DES requirements for
-S/N $\geq$ 20 and for galaxies comparable to or larger than the
-PSF\label{fig:get}}
-
-\end{figure}
-
-\begin{figure}[p]
-\centering
-
 \includegraphics[scale=0.4]{mcbayes-gdt02r11-yr-0.050-0.050-frac.eps}
-\caption{Shear bias as a function of signal-to-noise ratio (S/N) for \devprof\
-galaxies fit by a Gaussian mixture.  The PSF represents atmospheric turbulence.
-The lines and shaded area are the same as figure \ref{fig:get}. In addition to
-a prior on ellipticity, a prior on the distribution of sizes was applied.
-Measurements of these galaxy types are intrinsically more noisy than
-exponential disks, and at the current writing more simulations are needed to
-fully characterize the error, but with the current statistics the error is
-consistent with the DES requirements.  A topic of future research will be to
-determine the priors from data \label{fig:gdt}}
+
+\caption{Fractional shear bias as a function of signal-to-noise ratio (S/N).
+Left panel: Exponential disk galaxies fit by a Gaussian mixture.  The PSF
+represents atmospheric turbulence.  The different line/point styles represent
+galaxies of different size ratio with respect to the point spread function.  A
+prior on the distribution of ellipticities has been applied.  The gray band is
+the DES requirement on the shear error; the error is within the DES
+requirements for S/N $\geq$ 20 and for galaxies comparable to or larger than
+the PSF.  Right panel: \devprof\ galaxies fit by a Gaussian mixture with the
+same PSF as the left panel. In addition to a prior on ellipticity, a prior on
+the distribution of sizes was applied.  Measurements of these galaxy types are
+intrinsically more noisy than exponential disks, and at the current writing
+more simulations are needed to fully characterize the error, but with the
+current statistics the error is consistent with the DES requirements. 
+A topic of future research will be to
+determine the priors from data 
+\label{fig:getgdt}}
 
 \end{figure}
+
+\subsubsection{Future Work on Gaussian Mixtures}
+
+A focus of future work on this method will be determining the priors on
+ellipticity and size from real data.  This is a topic of research because, at
+faint magnitudes, it is difficult to determine these distributions, especially
+for \devprof\ galaxies\cite{Miller12}.  Another area of focus will be testing
+the method on more complex galaxy and PSF models, and testing the method on
+real data.  This is a significant challenge both in terms of man power and
+compute power. 
 
 \subsubsection{Speeding Up the Computations with GPUs} \label{sec:gmix:gpu}
 
@@ -558,29 +563,19 @@ One can attach 2 GPUs to an individual compute node.
 
 These increases in speed come at a moderate increase in cost over typical
 ``farm'' compute nodes.  Recent purchases for the Atlas experiment at
-Brookhaven National Laboratory cost about \$5,000 (32GB memory, 10TB disk, 12
-cores).  The GPUs I have tested (nvidia 2050) can be purchased for $\sim$
-\$1,800.  If we assume an increase in speed of 8 per likelihood calculation,
-and 40 such calculations running simultaneously over 2 separate GPUs, this is a
-factor of 26 increase in speed over the 12 cpu cores on those systems for less
-than a doubling of the total cost.  In section \ref{sec:computing} we outline
-the moderate cost to build a sufficient system.
+Brookhaven National Laboratory we estimate the cost to be about \$5,200 (32GB
+memory, 13TB disk, 12 cores).  The GPUs I have tested (nvidia 2050) can be
+purchased for $\sim$ \$1,800.  If we assume an increase in speed of 8 per
+likelihood calculation, and 40 such calculations running simultaneously over 2
+separate GPUs, this is a factor of 26 increase in speed over the 12 cpu cores
+on those systems for less than a doubling of the total cost.  In section
+\ref{sec:computing} we outline the moderate cost to build a sufficient system.
 
 Notes: some more time can be spent tuning the GPU implementation, but my tests
 indicate it will be difficult to improve on the above speedups due to memory
 bandwidth limitations.  Also note a high performance distributed file system is
 needed to get the required data throughput.  The cosmology group at BNL uses
 the Hadoop Distributed File System, which provides sufficient throughput.
-
-\subsubsection{Future Work on Gaussian Mixtures}
-
-A focus of future work on this method will be determining the priors on
-ellipticity and size from real data.  This is a topic of research because, at
-faint magnitudes, it is difficult to determine these distributions, especially
-for \devprof\ galaxies\cite{Miller12}.  Another area of focus will be testing
-the method on more complex galaxy and PSF models, and testing the method on
-real data.  This is a significant challenge both in terms of man power and
-compute power. 
 
 
 \subsection{Shear Measurement Using Shapelets}
@@ -621,7 +616,7 @@ gains can be had using GPUs.
 We plan for much of the higher level analysis and many of the science papers to
 be led by research associates (postdocs).  We expect to hire a postdoc during
 the first year of the award for three years and a second postdoc to begin in
-the fourth year.  The work of these postdocs would focus on testing the shear
+the fourth year.  The work of these postdocs will focus on testing the shear
 pipelines, measurement of shear statistics and interpretation in terms of mass
 and cosmology.  These analyses will be important and will have high scientific
 impact.
@@ -639,27 +634,30 @@ and will run for five years, generating about a petabyte of data in total.  For
 lensing we will process all the reduced single-epoch images and multi-epoch
 images, which amounts to about 130 terabytes.
 
-The NSF Dark Energy Survey data management team will process the data using a
-selected lensing pipeline approximately yearly.  The Gaussian mixture pipeline
-is still in heavy development and will require many more runs on the data to
-find and fix bugs.  A turnaround time of 2.5 weeks is desirable.
+The NSF funded Dark Energy Survey data management team will process the data
+using a selected lensing pipeline approximately yearly.  The DES may also have
+some computing available to run the shapelets pipeline, but this will not be a
+GPU based system so the still-immature Gaussian mixture code is not a good use
+of that resource.  The Gaussian mixture pipeline is still in heavy development
+and will require many runs on the data and simulations to find and fix bugs.  A
+turnaround time of 2.5 weeks is desirable.
 
 As described in \ref{sec:gmix:gpu}, we want to process all 500 million
 galaxies, each on 10 separate exposures, in this time of 2.5 weeks. This would
 require about ten nodes with two GPUs each.  We desire fairly large memory on
 the system in order to hold data from all exposures in memory for a full
 ``coadd tile''. A coadd tile is the unit of association used when combining
-exposures and covers several pointing, each with about 10 exposures.  Tests
-indicate 32GB is sufficient to avoid input/output overhead.  Finally, we need
-130TB in the distributed file system, so about 13TB per machine (we can in
-principle do without redundancy as the data are readily available for download
-from the DES collaboration).  Recent purchases for the Atlas experiment at BNL
-are very similar to this and cost approximately \$5,000.  The addition of two
-GPUs would add another \$4,000. The total cost for ten machines is \$90,000
-plus overhead.  These can be purchased over the five year survey. There are
-potential increase in speed per GPU, but note this is difficult to predict as
-scientific GPUs are a new technology, so we prefer to quote the current
-performance profile.
+exposures and covers several tens pointings, with about 10 exposures per
+pointing.  Tests indicate 32GB is sufficient to avoid input/output overhead.
+Finally, we need 130TB in the distributed file system, so about 13TB per
+machine (we can in principle do without redundancy as the data are readily
+available for download from the DES collaboration).  Recent purchases for the
+Atlas experiment at BNL are very similar to this and we project a cost of
+approximately \$5,200.  The addition of two GPUs adds another $\sim$ \$3,600.
+The total cost for ten machines is \$88,000 plus overhead.  These can be
+purchased over the five year survey.  There is potential for increase in speed
+per GPU, but this is difficult to predict currently as scientific GPUs are a
+new technology.  I prefer to quote the current performance profile.
 
 Note these prices include bulk discounts from purchasing along with other
 experiments through the RHIC-Atlas Computing Facility at BNL.  
@@ -668,17 +666,18 @@ experiments through the RHIC-Atlas Computing Facility at BNL.
 
 \subsubsection{Salary and Travel}
 
-It is required that DOE employees pay their salary from this grant, so
-we request 100\% of Erin Sheldon's salary and overhead for five years. We
-also request 100\% for a research associate for five years.
+It is required that DOE employees pay their salary from this grant, so 100\% of
+Erin Sheldon's salary and overhead for five years is requested.  I also request
+100\% for a research associate for five years.
 
-The remaining funds are primarily for travel expenses.   The DES collaboration
-is multi-national and Erin Sheldon and a postdoc will most likely travel abroad
-to the collaboration meetings.  Sheldon plans to spend three weeks each summer
-at a workshop in the US, such as those held at Aspen and Santa Fe.  Further
-travel will involve attending a few conferences per year across the US for both
-Sheldon and postdoc.  Erin Sheldon will also make regular trips to the
-University of Pennsylvania to collaborate with Mike Jarvis and Bhuvnesh Jain.
+The remaining funds are beyond salary and computing is primarily for travel
+expenses.   The DES collaboration is multi-national and Erin Sheldon and a
+postdoc will most likely travel abroad to the collaboration meetings.  Sheldon
+plans to spend three weeks each summer at a workshop in the US, such as those
+held at Aspen and Santa Fe.  Further travel will involve attending a few
+conferences per year across the US for both Sheldon and postdoc.  Erin Sheldon
+will also make regular trips to the University of Pennsylvania to collaborate
+with Mike Jarvis and Bhuvnesh Jain.
 
 \clearpage
 \newpage
@@ -686,42 +685,37 @@ University of Pennsylvania to collaborate with Mike Jarvis and Bhuvnesh Jain.
 
 This is an outline of the activities for the five year extent of the award.  It
 is assumed that the primary collaborators on these activities are Erin Sheldon
-(ES) of BNL, Zhaoming Ma (ZM) of BNL, and research associates to be hired in
-the Fall of 2012 and 2015.  Zhaoming may continue working on the project after
-he leaves BNL in fall 2012.
+(ES) of BNL, current and research associates (RA) to be hired in the Fall of 2013
+and 2016.
 
 \begin{itemize}
 
-\item {\bf Fall 2011-Early Spring 2012} Continued testing of the weak lensing
-pipeline on simulated DES data (ES, ZM).  Processing of full DES
-simulated data set for DES data challenge 6 (ES).     Continued development of
-PSF interpolation code (ZM).
+\item {\bf Fall 2012-Spring 2013} Process and evaluate commissioning data as it
+arrives  (ES,RA) Continued testing of the weak lensing pipelines on simulated
+DES data (ES, RA).
 
-\item {\bf Spring \& Early Summer 2012} Process and evaluate commissioning data
-as it arrives.  (ES,ZM)
+\item {\bf Late Spring through end of 2013} Survey proper begins; process data
+as it arrives.  Re-process data as bugs are found and algorithms improve
+(ES,RA).  Processing using Gaussian mixtures at BNL on GPU cluster.  Begin
+science lensing analysis (ES,RA).
 
-\item {\bf Late Summer \& Fall 2012} Survey proper begins; process data as it
-arrives.  Re-process data as bugs are found and algorithms improve. (ES,ZM).
-Begin science lensing analysis (ES).  ZM departs, new postdoc arrives, staying
-through Fall 2015.
+\item {\bf 2014} Continue processing data and testing pipelines.  Publication
+of first year DES measurements for galaxy and cluster-mass correlations
+(ES,RA).
 
-\item {\bf Fall 2013} Publication of first year DES measurements for
-galaxy and cluster-mass correlations (ES).  
+\item {\bf 2015} Continue processing data as it arrives (ES,RA).  Continue
+improving algorithms (ES,RA).   First publications using multi-epoch data
+(ES,RA) in 2014.
 
-\item {\bf 2014} Continue processing data as it arrives (ES).  Continue
-improving algorithms (ES).  Postdoc hire working on own science projects and
-image processing.  First publications using multi-epoch data (ES,postdoc) in
-2014.
-
-\item {\bf 2015-2017}  Activities should continue as before until survey end.
-Processing data as it arrives, incrementally improving the data pipelines and
-analysis codes.  Analysis methods will evolve, especially as the final data are
-in hand and there are many epochs with which to work.   There will be
-intermediate publications based on this data.  New postdoc hire will arrive
-in Fall 2015.
+\item {\bf 2016-2017}  Activities should continue as before until survey end.
+New RA will arrive in Fall 2016.  Processing data as it arrives, incrementally
+improving the data pipelines and analysis codes.  Analysis methods will evolve,
+especially as the final data are in hand and there are many epochs with which
+to work.   There will be intermediate publications based on this data.
 
 \item {\bf Post survey} A re-processing of all data through the final pipelines
-and final analysis of the full dataset to extract cosmological information (ES,postdoc).
+and final analysis of the full dataset to extract cosmological information
+(ES,RA).
 
 
 \end{itemize}
@@ -836,6 +830,8 @@ erin.sheldon@gmail.com
 \makebox[\myshorttab][l]{}{{\large \bf Advisees}}
 \newline
 \makebox[\mytab][l]{}{Postdoc, BNL: Zhaoming Ma}
+\newline
+\makebox[\mytab][l]{}{Postdoc, BNL: Andres Plazas}
 
 
 %\noindent
@@ -863,11 +859,11 @@ Note Appendix 3 holds the references for the narrative.
 
 1 & E.~S. {Sheldon} et~al.
 \newblock {Photometric Redshift Probability Distributions for Galaxies in the SDSS DR8}.
-\newblock {\em arXiv:1109.5192},  September 2011. \\[6pt]
+\newblock {\em \apjs}, 201 32, August 2012. \\[6pt]
 
 2 & J. {Tinker}, E.~S. {Sheldon} et~al.
 \newblock {Cosmological Constraints from Galaxy Clustering and the Mass-to-Number Ratio of Galaxy Clusters}.
-\newblock {\em arXiv:1104.1635},  April 2011. \\[6pt]
+\newblock {\em \apj},  745:16 January 2012. \\[6pt]
 
 3 & E. {Rozo} et~al.
 \newblock {Cosmological Constraints from the Sloan Digital Sky Survey maxBCG Cluster Catalog}.
@@ -948,7 +944,7 @@ Elected {\bf Architect} of the Sloan Digital Sky Survey III \hfill {\small 2011}
 \section*{Appendix 2: Current and Pending Support}
 
 Dr. Erin S. Sheldon is fully supported by Brookhaven National Laboratory as an
-Assistant Physicist in the Astrophysics and Cosmology Group of the Physics
+Associate Physicist in the Astrophysics and Cosmology Group of the Physics
 Department at 100\%.  Pending project approval, this support will be reduced
 appropriately and redirected to the work proposed herein.  There is no other
 support pending.
@@ -989,20 +985,21 @@ Astronomical Society.
 \addcontentsline{toc}{section}{Appendix 4: Facilities and Other Resources}
 \section*{Appendix 4: Facilities and Other Resources}
 
-We plan to acquire a large amount of computing.  The housing, power and
+We plan to acquire a moderate amount of computing.  The housing, power and
 cooling, administration, and maintenance for these computers will be provided
-by the RHIC-Atlas Computing Facility at Brookhaven National Lab at no additional cost
-to this experiment.		
+by the RHIC-Atlas Computing Facility at Brookhaven National Lab at no
+additional cost to this experiment.		
 
 \newpage
 \addcontentsline{toc}{section}{Appendix 5: Equipment}
 \section*{Appendix 5: Equipment}
 
-The equipment currently available to this project is shared time on a set of 25
-compute nodes and a file server purchased in 2009-2011.  The file server holds
-40 TB. Nine of the compute nodes are 12 core with 32GB ram, two are 12 core
-with 48GB ram, and the rest are 4 core 32GB ram systems.  These are housed at
-the RHIC-Atlas Computing Facility at BNL.  Because these are a shared resource,
-only a fraction of the resources can be dedicated to this project.
+The equipment {\bf currently} available to this project is shared time on a set
+of 34 compute nodes and a file server purchased in 2009-2012.  The file server
+holds 40 TB. Nine of the compute nodes are 12 core with 32GB ram, twelve are 12
+core with 48GB ram, and the rest are 8 core 32GB ram systems.  These are housed
+at the RHIC-Atlas Computing Facility at BNL.  Because these are a highly
+over-subscribed, shared resource, only a fraction of the resources can be
+dedicated to this project.
 
 \end{document}
