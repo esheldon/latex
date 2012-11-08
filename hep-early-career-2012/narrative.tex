@@ -132,20 +132,21 @@ the growth of massive structures under gravitational collapse.  Thus the number
 density of massive objects such as galaxy clusters as a function of cosmic time
 is directly related to the properties of Dark Energy, in particular the
 equation of state parameter $w=$pressure/density.  Critical to using the number
-density to constrain cosmology is knowing the masses of the clusters. We will
+density to constrain cosmology is knowing the masses of the clusters. I will
 measure these masses using gravitational lensing.  Using cluster counts,
 lensing and other complimentary probes, the DES will measure $w$ to $\sim$3\%.
-This program is a natural continuation of my earlier measurements of lensing in
-the Sloan Digital Sky Survey (SDSS), which are most sensitive such measurements
-to date, and naturally leads to future work on projects such as the Large Scale
-Synoptic Telescope\cite{lsstweb}.
+This program is a natural continuation of my earlier measurements of cluster
+lensing in the Sloan Digital Sky Survey (SDSS), which are most sensitive such
+measurements to date, and naturally leads to future work on projects such as
+the Large Scale Synoptic Telescope\cite{lsstweb}.
 
 DES has entered the commissioning phase.  I am finishing the prototyping stage
 of a promising new algorithm to measure lensing effects from astronomical
-images.  In addition, in collaboration with Mike Jarvis of UPenn, I am
-continuing to test and tune the de-facto algorithm and pipeline for DES.  We
-are strenuously testing these algorithms using simulations and will soon begin
-testing on the commissioning data.
+images.  This method shows potential to meet the DES requirements for lensing
+measurement accuracy. In addition, in collaboration with Mike Jarvis of UPenn,
+I am continuing to test and tune the de-facto algorithm and pipeline for DES.
+We are strenuously testing these algorithms using simulations and will soon
+begin testing on the commissioning data.
 
 After first light, DES will take data for five years, during which I will
 process the data as it arrives and perform analysis to extract Dark Energy
@@ -229,6 +230,18 @@ this is a natural extension of my earlier work in Gravitational Lensing using
 data from the Sloan Digital Sky Survey (SDSS) and will lead naturally to work
 on the Large Scale Synoptic Telescope \cite{lsstweb}, in which I am a
 participant.
+
+The rest of this narrative is divided as follows: In section \ref{sec:sdssold}
+I describe my previous research in gravitational lensing, which can be thought
+of as a precursor for the DES work.  In section \ref{sec:des} I describe the
+Dark Energy Survey (DES) and in section \ref{sec:deslensing} I describe my
+plans for lensing measurements using DES data.  In section \ref{sec:gmix} I
+describe the new technique for shear measurement I am developing, which
+shows promise to reach the required precision for DES, and in section
+\ref{sec:shapelets} I describe the ``de-facto'' pipeline we have developed over
+the past few years.  Finally, in sections \ref{sec:resources} and
+\ref{sec:timeline} I describe the personnel and resources needed to complete the
+work in this proposal and the expected timeline.
 
 \subsection{Previous Lensing Measurements in the SDSS} \label{sec:sdssold}
 
@@ -467,7 +480,8 @@ Many methods have been developed to measure and remove the effect of the PSF to
 produce unbiased ellipticity measurements, e.g.
 \cite{ksb95,Bern02,Miller07,Melchior11} and many more.  No method yet tested
 has proven accurate enough to meet the DES survey requirements for realistic
-galaxy populations:  a fractional error of 0.004 in the measured shear.
+galaxy populations:  for DES to measure the projected constraints on
+dark energy, the fractional error on the shear cannot exceed 0.004.
 
 I have been developing a new technique that shows promise to meet the DES
 requirements.  The method uses mixtures of gaussians to represent the galaxies
@@ -494,17 +508,22 @@ using either maximum likelihood \cite{Refreg12} or the full expectation value
 \cite{Miller07,Miller12}, which involve using prior information on the
 ellipticity and size distributions of the galaxy population as a whole.  Use of
 the prior on ellipticity was introduced in \cite{Miller07}. I developed the use
-of the size prior distribution and this was recently also used in
-\cite{Miller12}.  I have implemented these techniques using a Monte Carlo
-Markov Chain, and the code is publicly available (the code used for
-\cite{Miller07} is proprietary).
+of the size prior distribution and this was recently also used by other
+researchers \cite{Miller12}.  I have implemented these techniques using a Monte
+Carlo Markov Chain technique, and the code is publicly available (although the
+method is clearly described in \cite{Miller07}, that author's code is
+proprietary).
 
 The results from simulations indicate the method can potentially meet DES
 requirements.  For exponential disk galaxies, a prior on the ellipticity
 distribution is sufficient, as shown in the left panel of figure
-\ref{fig:getgdt}.  For \devprof\ galaxies a prior in the size distribution is
-also required for unbiased shear measurements, as shown in the right panel
-of figure \ref{fig:getgdt}.
+\ref{fig:getgdt}.  The DES requirements for shear accuracy are met for galaxies
+$\geq$ the size of the PSF and for signal-to-noise ratios $\geq$ 20.  For
+\devprof\ galaxies a prior in the size distribution is also required for
+unbiased shear measurements, as shown in the right panel of figure
+\ref{fig:getgdt}.  More simulations are needed to fully characterize the error,
+but it appears that with the size prior in place the accuracy will be
+sufficient.
 
 \begin{figure}[t]
 \centering
@@ -609,7 +628,7 @@ and so requires relatively few evaluations.  If the bias-correction schemes
 discussed in section \ref{sec:gmix} are implemented for shapelets then
 gains can be had using GPUs.
 
-\subsection{Personnel and Resources}
+\subsection{Personnel and Resources} \label{sec:resources}
 
 \subsubsection{Research Associate}
 
@@ -681,7 +700,7 @@ with Mike Jarvis and Bhuvnesh Jain.
 
 \clearpage
 \newpage
-\subsection{Timeline}
+\subsection{Timeline} \label{sec:timeline}
 
 This is an outline of the activities for the five year extent of the award.  It
 is assumed that the primary collaborators on these activities are Erin Sheldon
@@ -1001,5 +1020,9 @@ core with 48GB ram, and the rest are 8 core 32GB ram systems.  These are housed
 at the RHIC-Atlas Computing Facility at BNL.  Because these are a highly
 over-subscribed, shared resource, only a fraction of the resources can be
 dedicated to this project.
+
+% this is a pdf insert
+\newpage
+\addcontentsline{toc}{section}{Appendix 6: Other Attachments}
 
 \end{document}
