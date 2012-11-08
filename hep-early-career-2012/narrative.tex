@@ -526,14 +526,15 @@ Other features of the method are more generic and are designed to mitigate the
 effects of noise.  Noise is known to produce bias in the shear measurement when
 using either maximum likelihood \cite{Refreg12} or the full expectation value
 \cite{Miller12}.  This can be mitigated using the techniques in
-\cite{Miller07,Miller12}, which involve using prior information on the
-ellipticity and size distributions of the galaxy population as a whole.  Use of
-the prior on ellipticity was introduced in \cite{Miller07}. I developed the use
-of the size prior distribution and this was recently also used by other
-researchers \cite{Miller12}.  I have implemented these techniques using a Monte
-Carlo Markov Chain technique, and the code is publicly available (although the
-method is clearly described in \cite{Miller07}, that author's code is
-proprietary).
+\cite{Miller07,Miller12}. These techniques involve measuring the full
+likelihood surface and applying prior information on the ellipticity and size
+distributions of the galaxy population as a whole.  Corrections can then be
+derived to mitigate bias introduced by the priors and noise.  Use of the prior
+on ellipticity was introduced in \cite{Miller07}. I developed the use of the
+size prior distribution and this was developed independently by\cite{Miller12}.
+I have implemented these techniques using a Monte Carlo Markov Chain technique,
+and the code is publicly available (although the method is clearly described in
+\cite{Miller07}, that author's code is proprietary).
 
 The results from simulations indicate the method can potentially meet DES
 requirements.  For exponential disk galaxies, a prior on the ellipticity
@@ -543,7 +544,7 @@ $\geq$ the size of the PSF and for signal-to-noise ratios $\geq$ 20.  For
 \devprof\ galaxies a prior in the size distribution is also required for
 unbiased shear measurements, as shown in the right panel of figure
 \ref{fig:getgdt}.  More simulations are needed to fully characterize the error,
-but it appears that with the size prior in place the accuracy will be
+but it appears that with an accurate size prior in place the accuracy will be
 sufficient.
 
 \begin{figure}[t]
@@ -573,13 +574,15 @@ determine the priors from data
 
 \subsubsection{Future Work on Gaussian Mixtures}
 
-A focus of future work on this method will be determining the priors on
-ellipticity and size from real data.  This is a topic of research because, at
-faint magnitudes, it is difficult to determine these distributions, especially
-for \devprof\ galaxies\cite{Miller12}.  Another area of focus will be testing
-the method on more complex galaxy and PSF models, and testing the method on
-real data.  This is a significant challenge both in terms of man power and
-compute power. 
+There is much future work to be done on the Gaussian Mixture method.  We must
+determine the priors on ellipticity and size from real data.  This is a topic
+of research because, at faint magnitudes, it is difficult to determine these
+distributions, especially for \devprof\ galaxies\cite{Miller12}.  Another area
+of focus will be testing the method on more complex galaxy and PSF models, and
+testing the method on real data.  This is a significant challenge both in terms
+of man power and compute power; see section \ref{sec:gmix:gpu} for details on
+addressing the computational issues.  If this proposal is funded, this work
+will be carried out by myself and a research associate.
 
 \subsubsection{Speeding Up the Computations with GPUs} \label{sec:gmix:gpu}
 
@@ -592,24 +595,25 @@ observed on $\sim$ 10 separate exporues, which would require $\sim$ 1.4 million
 cpu hours to process.
 
 Great gains can made by using graphics processing units (GPUs).  Using my own
-GPU implementation I was able to increase the speed by a factor of $\sim 8$ for
-an individual likelihood calculation. Many can be run simultaneously on a
-single GPU, depending on the available memory and architecture.  On typical
-scientifically oriented GPUs (I tested a nvidia 2050) one has sufficient
+simple GPU code I was able to increase the speed by a factor of $\sim 8$ for an
+individual likelihood calculation. Many can be run simultaneously on a single
+GPU, depending on the available memory and architecture.  On typical
+scientifically oriented GPUs (I tested an nvidia 2050) one has sufficient
 resources to run $\sim$ 20 likelihood computations at a time with no
-significant overhead; this is the desired number of ``parallel walkers'' when
-using an affine invariant Markov chain sampler, so is well suited to our needs.
-One can attach 2 GPUs to an individual compute node.
+significant overhead; this comparable to the desired number of ``parallel
+walkers'' when using an affine invariant Markov chain sampler, so is well
+suited to our needs.  One can attach 2 GPUs to an individual compute node.
 
 These increases in speed come at a moderate increase in cost over typical
-``farm'' compute nodes.  Recent purchases for the Atlas experiment at
-Brookhaven National Laboratory we estimate the cost to be about \$5,200 (32GB
-memory, 13TB disk, 12 cores).  The GPUs I have tested (nvidia 2050) can be
-purchased for $\sim$ \$1,800.  If we assume an increase in speed of 8 per
-likelihood calculation, and 40 such calculations running simultaneously over 2
-separate GPUs, this is a factor of 26 increase in speed over the 12 cpu cores
-on those systems for less than a doubling of the total cost.  In section
-\ref{sec:computing} we outline the moderate cost to build a sufficient system.
+``farm'' compute nodes.  Based on recent purchases for the Atlas experiment at
+Brookhaven National Laboratory, we estimate the cost for a compute node to be
+about \$5,200 (32GB memory, 13TB disk, 12 cores).  The GPUs I have tested
+(nvidia 2050) can be purchased for $\sim$ \$1,800.  If we assume an increase in
+speed of 8 per likelihood calculation, and 40 such calculations running
+simultaneously over 2 separate GPUs, this is a factor of 26 increase in speed
+over the 12 cpu cores on those systems for less than a doubling of the total
+cost.  In section \ref{sec:computing} we outline the moderate cost to build a
+sufficient system.
 
 Notes: some more time can be spent tuning the GPU implementation, but my tests
 indicate it will be difficult to improve on the above speedups due to memory
