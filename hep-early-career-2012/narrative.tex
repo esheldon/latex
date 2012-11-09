@@ -268,11 +268,12 @@ of as a precursor for the DES work.  In section \ref{sec:des} I describe the
 Dark Energy Survey (DES) and in section \ref{sec:deslensing} I describe plans
 for lensing measurements using DES data.  In section \ref{sec:gmix} I describe
 the new technique for shear measurement I am developing, which shows promise to
-reach the required precision for DES. In section \ref{sec:shapelets} I describe
-the ``de-facto'' pipeline we have developed over the past few years.  Finally,
-in sections \ref{sec:resources} and \ref{sec:timeline} I describe the personnel
-and resources needed to complete the work in this proposal and the expected
-timeline.
+reach the required precision for DES. 
+%In section \ref{sec:shapelets} I describe the ``de-facto'' pipeline we have
+%developed over the past few years.  
+Finally, in sections \ref{sec:resources} and \ref{sec:timeline} I describe the
+personnel and resources needed to complete the work in this proposal and the
+expected timeline.
 
 
 \subsection{Previous Lensing Measurements in the SDSS} \label{sec:sdssold}
@@ -503,24 +504,6 @@ point spread function.  In the next section I will address the second major
 part of this proposal: a new method to measure shear and a fast implementation
 on graphics processing units.
 
-\begin{comment}
-%\lhead{}
-\subsubsection{Data Reduction and Removal of Systematic Effects} 
-\label{sec:des:process}
-
-Gravitational Shear alters the shapes of galaxy images, producing recognizable
-patterns in their ellipticities across the sky.  As described in \ref{sec:gmix},
-these patterns are hidden by the blurring by the atmosphere and telescope
-optics, and the images must be corrected.
-
-I have created a generic data processing pipeline to analyze DES images, and
-analysis codes to remove the PSF effect and measure lensing using that
-framework.  At this time we have a full shear measurement pipeline based on the
-shapelets technique and I am developing a new algorithm based on Gaussian
-mixtures.  These techniques are described in sections \ref{sec:shapelets} and
-\ref{sec:gmix} respectively.
-\end{comment}
-
 \subsection{New Lensing Shear Measurement Technique Using Gaussian Mixtures}
 \label{sec:gmix}
 
@@ -655,19 +638,22 @@ can be attached to each node.  If we take the measured increase in speed of
 simultaneously over 2 separate GPUs, we get a factor of \overallspeedup\
 increase in speed over the {\it combined} 12 cpu cores on those systems for less than
 a doubling of the total cost.  In section \ref{sec:computing} we outline the
-moderate cost to build a sufficient system.
+moderate cost to build a sufficient system to process the DES data.
 
-Notes: Some more time can be spent tuning the GPU implementation, but my tests
-indicate it will be difficult to improve on the above speedups due to memory
-bandwidth limitations.  Although each galaxy image is rather small, $\sim$
-25x25 pixels, it is rather slow to upload this to the GPU memory.  More walkers
-could be used for better parallelization, but the tradeoff is a more costly
-burnin for the Markov chain, as the required burnin does not decrease inversely
-with the number walkers.  Also note a ``high-end'' graphics card is required to
-get this speedup; I tested an Nvidia 2050. The comparison CPUs are 2.7 GHz
-intel Xeon processors.  Finally, a high performance distributed file system is
-needed to get the required data throughput, but the cosmology group at BNL uses
-the Hadoop Distributed File System, which provides sufficient throughput.
+Notes: I have already created a software framework for processing the DES data,
+fully tested on the DES simulations.  I can simply ``plug in'' the Gaussian
+mixture code.  Some more time can be spent tuning the GPU implementation, but
+my tests indicate it will be difficult to improve on the above speedups due to
+memory bandwidth limitations.  Although each galaxy image is rather small,
+$\sim$ 25x25 pixels, it is rather slow to upload this to the GPU memory.  More
+walkers could be used for better parallelization, but the tradeoff is a more
+costly burnin for the Markov chain, as the required burnin does not decrease
+inversely with the number walkers.  Also note a ``high-end'' graphics card is
+required to get this speedup; I tested an Nvidia 2050. The comparison CPUs are
+2.7 GHz intel Xeon processors.  Finally, a high performance distributed file
+system is needed to get the required data throughput, but the cosmology group
+at BNL uses the Hadoop Distributed File System, which provides sufficient
+throughput.
 
 
 \subsubsection{Future Work on Gaussian Mixtures}
@@ -676,10 +662,11 @@ There is much future work to be done on the Gaussian Mixture method.  We must
 determine the priors on ellipticity and size from real data.  This is a topic
 of research because, at faint magnitudes, it is difficult to determine these
 distributions, especially for \devprof\ galaxies\cite{Miller12}.  Another area
-of focus will be testing the method on more complex galaxy and PSF models, and
-testing the method on real data.
+of focus will be testing the method on more complex simulated galaxy and PSF
+models, and testing the method on real data.
 
 
+\begin{comment}
 \subsection{Shear Measurement Using Shapelets}
 \label{sec:shapelets}
 
@@ -697,16 +684,18 @@ observed many times.  This code has been tested on simulated DES data and will
 continue to undergo heavy testing and refinement throughout the commissioning
 phase.  
 
-The processing framework was implemented by myself.  This pipeline is
+The processing framework was implemented by myself.  This framework is
 ``pluggable'' so that other codes can be plugged in readily and can make use of
 the infrastructure built around the shapelets code.  I plan to plug in the
 Gaussian mixture code as well as 2-3 other pipelines developed within DES.
 
-Note the shapelets pipeline, as it is implemented currently, does not gain
-significantly by running on GPUs because it is a maximum likelihood technique
-and so requires relatively few evaluations.  If the bias-correction schemes
-discussed in section \ref{sec:gmix} are implemented for shapelets then
+Note the shapelets pipeline, as it is implemented currently, gains less from a
+GPU implementation than the Gaussian mixtures because it is a maximum
+likelihood technique and so requires relatively few evaluations.  That said,
+significant gains should be possible.  And, if the bias-correction schemes
+discussed in section \ref{sec:gmix} are implemented for shapelets, then greater
 gains can be had using GPUs.
+\end{comment}
 
 \subsection{Personnel and Resources} \label{sec:resources}
 
@@ -732,42 +721,49 @@ technique outlines in section \ref{sec:gmix}.
 
 \subsubsection{Computing} \label{sec:computing}
 
+In section \ref{sec:gmix} I described a promising new shear measurement
+technique based on Gaussian mixtures a full bayesian exploration of the
+likelihood space.  Here I will give some justification for funding a moderate
+computing purchase with this grant.
+
 We are commissioning the DES survey at the time of this writing (\commissdate)
 and will run for five years, generating about a petabyte of data in total.  For
 lensing we will process all the reduced images, including analysis of multiple
 epochs for each pointing.  This subset represents about 130TB of data.
 
 The NSF funded Dark Energy Survey data management team will process the data
-using a selected lensing pipeline approximately yearly.  The DES may also have
-some computing available to run the shapelets pipeline (section
-\ref{sec:shapelets}), but this will not be a GPU based system so the new
-Gaussian mixture code is not a good use of that resource.  The Gaussian mixture
-pipeline is still in heavy development and will require many runs on the data
-and simulations to find and fix bugs.  A turnaround time of 2.5 weeks on the
-full data set is desirable.   This will facilitate development in response to
-data-driven needs as well as sufficient computing for any simulation tests we
-require.
+using a selected lensing pipeline approximately yearly.  However, the Gaussian
+mixture pipeline is still in heavy development and will require many runs on
+the data and simulations to find and fix bugs.  A turnaround time more like 2.5
+weeks on the full data set is desirable.   This will facilitate development in
+response to data-driven needs as well as sufficient computing for any
+simulation tests we require.
+
+Note the DES collaboration may also have some computing available to run the
+pipelines, but these systems will not be GPU based so the new Gaussian mixture
+code is not a good use of that resource.  
 
 As described in \ref{sec:gmix:gpu}, we want to process all 500 million
 galaxies, each on 10 separate exposures, in this time of 2.5 weeks. This would
-require about 8 nodes with two GPUs each given the speed numbers quoted in
+require about 8-9 nodes with two GPUs each given the speed numbers quoted in
 \ref{sec:gmix:gpu}.  We round this up to 10 nodes for two reasons: 1) the
 gaussian mixture algorithm is under development and computational requirements
-may increase and 2) it is more cost-effective and efficient to spread the
-required disk to more machines.  We desire fairly large memory on the system in
-order to hold data from all exposures in memory for a full ``coadd tile''. A
-coadd tile is the unit of association used when combining exposures and covers
-several tens pointings, with about 10 exposures per pointing.  Tests indicate
-32GB is sufficient to avoid input/output overhead.  Finally, we need 130TB in
-the distributed file system, so about 13TB per machine (we can in principle do
-without redundancy as the data are readily available for download from the DES
-collaboration).  Recent purchases for the Atlas experiment at BNL are very
-similar to this and we project a cost of approximately \$5,200.  The addition
-of two high-performance GPUs (e.g. Nvidia 2050) adds another $\sim$ \$3,600.
-The total cost for ten machines is \$88,000 plus overhead.  These can be
-purchased over the five year survey.  There is potential for increase in speed
-per GPU, but this is difficult to predict currently as scientific GPUs are a
-new technology.  I prefer to quote the current performance profile.
+may increase and 2) it is more cost-effective and efficient for data throughput
+to spread the required disk to more machines.  We desire fairly large memory on
+the system in order to hold data from all exposures in memory for a full
+``coadd tile''. A coadd tile is the unit of association used when combining
+exposures and covers several tens pointings, with about 10 exposures per
+pointing.  Tests indicate 32GB is sufficient to avoid input/output overhead.
+Finally, we need 130TB in the distributed file system, so about 13TB per
+machine (we can in principle do without redundancy as the data are readily
+available for download from the DES collaboration).  Recent purchases for the
+Atlas experiment at BNL are very similar to this and we project a cost of
+approximately \$5,200.  The addition of two high-performance GPUs (e.g. Nvidia
+2050) adds another $\sim$ \$3,600.  The total cost for ten machines is \$88,000
+plus overhead.  These can be purchased over the five year survey.  There is
+potential for increase in speed per GPU, but this is difficult to predict
+currently as scientific GPUs are a new technology.  I prefer to quote the
+current performance profile.
 
 Note these prices include bulk discounts from purchasing along with other
 experiments through the RHIC-Atlas Computing Facility at BNL.  
@@ -787,7 +783,7 @@ plans to spend three weeks each summer at a workshop in the US, such as those
 held at Aspen and Santa Fe.  Further travel will involve attending a few
 conferences per year across the US for both Sheldon and postdoc.  Erin Sheldon
 will also make regular trips to the University of Pennsylvania to collaborate
-with Mike Jarvis and Bhuvnesh Jain.
+with fellow DES weak lensers Mike Jarvis and Bhuvnesh Jain.
 
 \clearpage
 \newpage
@@ -1095,19 +1091,22 @@ Astronomical Society.
 We plan to acquire a moderate amount of computing.  The housing, power and
 cooling, administration, and maintenance for these computers will be provided
 by the RHIC-Atlas Computing Facility at Brookhaven National Lab at no
-additional cost to this experiment.		
+additional cost to this experiment.	The tests we performed on GPUs occured
+on a set of two machines in the RACF set aside for prototyping.  The engineers
+who set up these systems can lend expertise to tuning the new GPU systems
+purchased with this grant.
 
 \newpage
 \addcontentsline{toc}{section}{Appendix 5: Equipment}
 \section*{Appendix 5: Equipment}
 
 The equipment {\bf currently} available to this project is shared time on a set
-of 34 compute nodes and a file server purchased in 2009-2012.  The file server
-holds 40 TB. Nine of the compute nodes are 12 core with 32GB ram, twelve are 12
-core with 48GB ram, and the rest are 8 core 32GB ram systems.  These are housed
-at the RHIC-Atlas Computing Facility at BNL.  Because these are a highly
-over-subscribed, shared resource, only a fraction of the resources can be
-dedicated to this project.
+of 34 compute nodes and a file server purchased in 2009-2012.  
+%The file server holds 40 TB. Nine of the compute nodes are 12 core with 32GB
+%ram, twelve are 12 core with 48GB ram, and the rest are 8 core 32GB ram
+%systems.  These are housed at the RHIC-Atlas Computing Facility at BNL.  
+Because these are a highly over-subscribed, shared resource, only a fraction of
+the resources can be dedicated to this project.
 
 % this is a pdf insert
 \newpage
