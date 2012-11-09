@@ -164,25 +164,25 @@ measure $w$ to $\sim$3\%.  This program is a natural continuation of my earlier
 measurements of cluster lensing in the Sloan Digital Sky Survey (SDSS).  This
 grant will support a research associate to lead this analysis.
 
-I am finishing the prototyping stage of a promising new algorithm to measure
-lensing effects from astronomical images.  In simulated imaging data, this
-method meets the DES requirements for shear measurement accuracy. While highly
-computationally intensive, the algorithm is ideally suited to use graphics
-processing units (GPUs). An existing GPU implementation exists and huge
-speedups have been achieved, making analysis of the full DES possible with a
-moderate amount of computing resources.   This grant will supply funds for this
-computing.
+I am prototyping a promising new algorithm to measure lensing effects from
+astronomical images.  In simulated imaging data, this method meets the DES
+requirements for shear measurement accuracy. While highly computationally
+intensive, the algorithm is ideally suited to use graphics processing units
+(GPUs). An GPU implementation already exists and huge speed gains have been
+achieved over a highly optimized CPU code, making analysis of the full DES
+possible with a moderate amount of computing resources.   This grant will
+supply funds for this computing.
 %In addition, in collaboration with Mike Jarvis of UPenn, I am continuing to
 %test and tune the de-facto algorithm and pipeline we have developed for DES.
 
 DES has now entered the commissioning phase.  The DES survey proper will begin
-in \surveyproper\ and will take data for five years. During which a research
-associate and I will continuously process the data as it arrives, measure
-gravitational shear.  These science analysis in terms of Dark Energy will most
-likely produce results in three stages: an early set of results from the first
-year data, a second set of results after two or three years when multi-epoch
-data are available, and a final set of results from the full data set circa
-2017.
+in \surveyproper\ and will take data for five years. A research associate and I
+will continuously process the data as it arrives to measure gravitational
+shear, followed by analysis to constrain Dark Energy.  This science analysis
+will most likely produce results in three stages: an early set of results from
+the first year data, a second set of results after two or three years when
+multi-epoch data are available, and a final set of results from the full data
+set circa 2017.
 
 
 \newpage
@@ -471,9 +471,9 @@ effect of shear measurements errors due to object overlap in crowded regions at
 cluster centers; errors introduced by distance uncertainties in the cluster
 catalog and source catalog; bias in the orientation of clusters introduced by
 the cluster finding procedure.  At the same time, the great sensitivity of DES
-imaging will create the potential to explore new lensing-based probes.   What
-we learn from this largest survey to date will be highly influential in future
-surveys such as LSST.
+imaging will create the potential to explore entirely new lensing-based probes.
+What we learn from this largest survey to date will be highly influential in
+future surveys such as LSST.
 
 In contrast with cluster lensing measurements, the ``cosmic shear'' is the
 correlation of shears across the sky independent of the location of foreground
@@ -528,11 +528,11 @@ realistic galaxy populations:  for DES to measure the projected constraints on
 dark energy, the fractional error on the shear cannot exceed 0.004.
 
 I have developed a new technique that shows promise to meet the DES
-requirements.  The method uses mixtures of gaussians to represent the galaxies
+requirements.  The method uses mixtures of Gaussians to represent the galaxies
 and PSF, and bayesian techniques to control noise bias.  This model has enough
 flexibility to represent the canonical galaxy types; this has recently been
 independently verified \citep{HoggGMix12}.  One result of my recent research is
-that many fewer gaussians are required than used in \cite{HoggGMix12} when the
+that many fewer Gaussians are required than used in \cite{HoggGMix12} when the
 object is of order the size of the PSF; three is enough.  When also demanding
 the Gaussians are co-centric and co-elliptical the parameter space is reduced
 even further.  
@@ -564,15 +564,16 @@ requirements.  Results for exponential disk galaxies are shown in the left
 panel of figure \ref{fig:getgdt}.  The DES requirements for shear accuracy are
 met for galaxies $\geq$ the size of the PSF and for signal-to-noise ratios
 $\geq$ 20.  Galaxies with \devprof\ profiles are shown in the right panel of
-figure \ref{fig:getgdt}, here as a function of shear error (the S/N range is
-the same as the left panel).  Shear measurements for this type of galaxy are
-intrinsically more noisy, and thus have larger noise bias.  More simulations
-are needed to fully characterize the error for these galaxies, but it appears
-that with cut on the shear error at \errcut\ we can eliminate
-galaxies with large systematic errors.  Pure \devprof\ galaxies only account
-for about $\sim$10\% of the total galaxy sample and they yield very noisy shape
-measurements, so removing a large fraction of them with such a cut would not
-reduce the total shear sensitivity significantly.
+figure \ref{fig:getgdt}, here as a function of shear measurement error (the S/N
+range is the same as the left panel).  Shear measurements for this type of
+galaxy are intrinsically more noisy, and thus have larger noise bias.  These
+types of galaxies are extremely time consuming to simulate; more simulations
+are needed to fully characterize the bias. But it appears that with a cut on
+the shear error at \errcut\ galaxies with severe bias can be eliminated.  Pure
+\devprof\ galaxies only account for about $\sim$10\% of the total galaxy sample
+and they yield very noisy shape measurements, so removing a large fraction of
+them with such a cut would not reduce the total shear sensitivity
+significantly.
 
 \begin{figure}[t]
 \centering
@@ -597,8 +598,7 @@ poor. But the current data indicate a cut on shear measurement error at
 \errcut\ would remove the most biased sample (the ``dip'' at 0.1 is not
 significant).  Pure \devprof\ galaxies represent only about $\sim$10\% of all
 galaxies, so cutting a large portion of them from the sample would not strongly
-impact sensitivity. A topic of future research will be to determine the priors
-from data.  \label{fig:getgdt}}
+impact sensitivity.  \label{fig:getgdt}}
 
 \end{figure}
 
@@ -613,6 +613,8 @@ expected 500 million galaxies will be observed on $\sim$ 10 separate exposures,
 which would require $\sim$ 1.4 million cpu hours to process. Note the CPU
 computation is highly optimized, using a fast approximate exponential function
 that decreased the time for likelihood evaluation by a factor of five.
+However, profiling indicates the rendering of the Gaussians on the pixel grid
+is still the primary bottleneck in the analysis.
 
 I have found great gains in speed by using a graphics processing unit (GPU).
 This problem is particularly suited to GPU processing because the image must be
@@ -636,9 +638,10 @@ tested (nvidia 2050) can be purchased for an additional $\sim$ \$1,800 and two
 can be attached to each node.  If we take the measured increase in speed of
 \speedupnum\ per likelihood calculation, and perform 40 such calculations
 simultaneously over 2 separate GPUs, we get a factor of \overallspeedup\
-increase in speed over the {\it combined} 12 cpu cores on those systems for less than
-a doubling of the total cost.  In section \ref{sec:computing} we outline the
-moderate cost to build a sufficient system to process the DES data.
+increase in speed over the {\it combined} 12 cpu cores on those systems.  This
+speedup comes with less than a doubling of the total cost.  In section
+\ref{sec:computing} we outline the moderate total cost to build a sufficient
+system to process the DES data.
 
 Notes: I have already created a software framework for processing the DES data,
 fully tested on the DES simulations.  I can simply ``plug in'' the Gaussian
@@ -647,13 +650,12 @@ my tests indicate it will be difficult to improve on the above speedups due to
 memory bandwidth limitations.  Although each galaxy image is rather small,
 $\sim$ 25x25 pixels, it is rather slow to upload this to the GPU memory.  More
 walkers could be used for better parallelization, but the tradeoff is a more
-costly burnin for the Markov chain, as the required burnin does not decrease
-inversely with the number walkers.  Also note a ``high-end'' graphics card is
-required to get this speedup; I tested an Nvidia 2050. The comparison CPUs are
-2.7 GHz intel Xeon processors.  Finally, a high performance distributed file
-system is needed to get the required data throughput, but the cosmology group
-at BNL uses the Hadoop Distributed File System, which provides sufficient
-throughput.
+costly burnin for the Markov chain, as the total burnin does not decrease
+inversely with the number walkers.  A ``high-end'' graphics card is required to
+get this speedup; I tested an Nvidia 2050. The comparison CPUs are 2.7 GHz
+intel Xeon processors.  Finally, a high performance distributed file system is
+needed to get the required data throughput, but the cosmology group at BNL uses
+the Hadoop Distributed File System, which provides sufficient throughput.
 
 
 \subsubsection{Future Work on Gaussian Mixtures}
@@ -702,28 +704,28 @@ gains can be had using GPUs.
 \subsubsection{Research Associate}
 
 We will fund our current postdoc, Andres Plazas, for the first two years of the
-award and a second postdoc will begin in the third year.  Plazas is already
-working on DES and it makes sense for him to continue under this funding.
+award. Plazas is already working on DES and it makes sense for him to continue
+under this funding.  A second postdoc will begin in the third year after Plazas'
+departure.  
 
 The work of these postdocs will focus on high-level science analysis.  In
 particular, we have carved out a niche in the field of cluster lensing and
 cosmology, and I expect the postdocs will primarily work on that analysis.  As
 outlined in section \ref{sec:sdssold}, this involves interpreting the shear in
-terms of mass, and incorporating this into an overall measurement of cosmology
-as outlined in section.  These analyses will be important and will have high
-scientific impact, as cluster lensing and cosmology is one of the primary
-probes of DES.  There is also much room for innovation.
+terms of mass, and incorporating this into an overall measurement of cosmology.
+These analyses will be important and will have high scientific impact, as
+cluster lensing and cosmology is one of the primary probes of DES.
 
 Other analyses are also available at the postdocs discretion; the DES data set
-will present unexpected new avenues of exploration.  Postdocs well versed in
-computation may help with the computationally intense Gaussian Mixture
-technique outlines in section \ref{sec:gmix}.
+will present an opportunity to explore new lensing-based probes.  Postdocs well
+versed in computation may help with the computationally intense, GPU-based,
+Gaussian Mixture technique outlined in section \ref{sec:gmix}.
 
 \subsubsection{Computing} \label{sec:computing}
 
 In section \ref{sec:gmix} I described a promising new shear measurement
-technique based on Gaussian mixtures a full bayesian exploration of the
-likelihood space.  Here I will give some justification for funding a moderate
+technique based on Gaussian mixtures and full bayesian exploration of the
+likelihood.  Here I will give some justification for funding a moderate
 computing purchase with this grant.
 
 We are commissioning the DES survey at the time of this writing (\commissdate)
@@ -739,17 +741,17 @@ weeks on the full data set is desirable.   This will facilitate development in
 response to data-driven needs as well as sufficient computing for any
 simulation tests we require.
 
-Note the DES collaboration may also have some computing available to run the
-pipelines, but these systems will not be GPU based so the new Gaussian mixture
-code is not a good use of that resource.  
+%Note the DES collaboration may also have some computing available to run the
+%pipelines, but these systems will not be GPU based so the computationally
+%intensive Gaussian mixture code is not a good use of that resource.
 
 As described in \ref{sec:gmix:gpu}, we want to process all 500 million
-galaxies, each on 10 separate exposures, in this time of 2.5 weeks. This would
-require about 8-9 nodes with two GPUs each given the speed numbers quoted in
-\ref{sec:gmix:gpu}.  We round this up to 10 nodes for two reasons: 1) the
-gaussian mixture algorithm is under development and computational requirements
-may increase and 2) it is more cost-effective and efficient for data throughput
-to spread the required disk to more machines.  We desire fairly large memory on
+galaxies, each on 10 separate exposures, in this time of 2.5 weeks. Given the
+speed numbers quoted in \ref{sec:gmix:gpu}, this would require 8-9 nodes, each
+with two GPUs.  We round this up to 10 nodes for two reasons: 1) the Gaussian
+mixture algorithm is under development and computational requirements may
+increase and 2) it is more cost-effective and efficient for data throughput to
+spread the required disk to more machines.  We desire fairly large memory on
 the system in order to hold data from all exposures in memory for a full
 ``coadd tile''. A coadd tile is the unit of association used when combining
 exposures and covers several tens pointings, with about 10 exposures per
@@ -759,11 +761,12 @@ machine (we can in principle do without redundancy as the data are readily
 available for download from the DES collaboration).  Recent purchases for the
 Atlas experiment at BNL are very similar to this and we project a cost of
 approximately \$5,200.  The addition of two high-performance GPUs (e.g. Nvidia
-2050) adds another $\sim$ \$3,600.  The total cost for ten machines is \$88,000
-plus overhead.  These can be purchased over the five year survey.  There is
-potential for increase in speed per GPU, but this is difficult to predict
-currently as scientific GPUs are a new technology.  I prefer to quote the
-current performance profile.
+2050) adds another $\sim$ \$3,600.  The total cost for ten machines is
+\$88,000.  Note overhead and slight yearly escalation are also included in the
+budget.  These can be purchased over the five year survey.  There is potential
+for increase in speed per GPU, but this is difficult to predict currently as
+scientific GPUs are a new technology.  I prefer to quote the current
+performance profile.
 
 Note these prices include bulk discounts from purchasing along with other
 experiments through the RHIC-Atlas Computing Facility at BNL.  
@@ -774,16 +777,16 @@ experiments through the RHIC-Atlas Computing Facility at BNL.
 
 It is required that DOE employees pay their salary from this grant, so 100\% of
 Erin Sheldon's salary and overhead for five years is requested.  I also request
-100\% for a research associate for five years.
+support for a research associate for five years.
 
-The remaining costs beyond salary and computing is primarily for travel
-expenses.   The DES collaboration is multi-national and Erin Sheldon and a
-postdoc will most likely travel abroad to the collaboration meetings.  Sheldon
-plans to spend three weeks each summer at a workshop in the US, such as those
-held at Aspen and Santa Fe.  Further travel will involve attending a few
-conferences per year across the US for both Sheldon and postdoc.  Erin Sheldon
-will also make regular trips to the University of Pennsylvania to collaborate
-with fellow DES weak lensers Mike Jarvis and Bhuvnesh Jain.
+The remaining expenses beyond salary and computing are primarily for travel.
+The DES collaboration is multi-national and Erin Sheldon and a postdoc will
+most likely travel abroad to the collaboration meetings.  Sheldon plans to
+spend three weeks each summer at a workshop in the US, such as those held at
+Aspen and Santa Fe.  Further travel will involve attending a few conferences
+per year across the US for both Sheldon and postdoc.  Erin Sheldon will also
+make regular trips to the University of Pennsylvania to collaborate with fellow
+DES weak lensers Mike Jarvis and Bhuvnesh Jain.
 
 \clearpage
 \newpage
@@ -1046,12 +1049,21 @@ Elected {\bf Architect} of the Sloan Digital Sky Survey III \hfill {\small 2011}
 \addcontentsline{toc}{section}{Appendix 2: Current and Pending Support}
 \section*{Appendix 2: Current and Pending Support}
 
-Dr. Erin S. Sheldon is fully supported by Brookhaven National Laboratory as a
-Physicist in the Astrophysics and Cosmology Group of the Physics
-Department at 100\%.  Pending project approval, this support will be reduced
-appropriately and redirected to the work proposed herein.  There is no other
-support pending.
+Dr. Erin S. Sheldon is currently supported as a physicist at Brookhaven
+National Laboratory at 100\%.  Pending project approval, support will be
+redirected to this grant {\bf as required for laboratory employeees}.  There is
+no other support pending.
 
+\vspace{5mm}
+\noindent
+Investigator: Erin Sheldon\newline
+Source of Support: DOE Office of Science\newline
+High Energy Physics\newline
+FWP: PO104\newline
+Period Covered: 10/1/12-9/30/13\newline
+Man Months: 12 months
+
+\begin{comment}
 \begin{table}[h]
 \begin{center}
 \begin{tabular*}{0.85\textwidth}{ll}
@@ -1065,7 +1077,7 @@ B\&R \#YN010000  & \parbox[t]{\textwidth}{BNL Laboratory Directed
 \& Lab Directed Research \& Development \label{table:support}}}
 \end{center}
 \end{table}
-
+\end{comment}
 
 
 \newpage
@@ -1091,10 +1103,10 @@ Astronomical Society.
 We plan to acquire a moderate amount of computing.  The housing, power and
 cooling, administration, and maintenance for these computers will be provided
 by the RHIC-Atlas Computing Facility at Brookhaven National Lab at no
-additional cost to this experiment.	The tests we performed on GPUs occured
-on a set of two machines in the RACF set aside for prototyping.  The engineers
-who set up these systems can lend expertise to tuning the new GPU systems
-purchased with this grant.
+additional cost to this experiment.	The tests we performed on GPUs occured on a
+machine in the RACF set aside for prototyping.  The engineers who set up this
+system can lend expertise to tuning the new GPU systems purchased with this
+grant.
 
 \newpage
 \addcontentsline{toc}{section}{Appendix 5: Equipment}
