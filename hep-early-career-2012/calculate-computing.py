@@ -1,8 +1,7 @@
 time_per_obj_cpu=1.0
-speedup=10.0
-nparallel=40. # per machine
 
-time_per_obj_gpu = time_per_obj_cpu/speedup/nparallel
+speedup=170.*2
+time_per_obj_gpu = time_per_obj_cpu/speedup
 
 nobj=500000000.
 nexp=10.
