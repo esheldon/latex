@@ -147,9 +147,22 @@ the Dark Energy Survey}
 We propose to study the properties of Dark Energy using data from the Dark
 Energy Survey (DES), of which Erin Sheldon (ES) is survey ``builder'' with data
 rights for himself and a postdoc.  This proposal has two aspects: development
-of new methods to measure shear from astronomical images and interpretation of
-the shear in terms of Dark Energy.
+of new methods to measure lensing effects from astronomical images and
+interpretation of the lensing in terms of Dark Energy.
 
+Dark Energy accelerates the expansion of the universe, dramatically altering
+how the volume changes over cosmic time in comparison to a matter-only
+universe.  Dark Energy also inhibits the growth of massive structures under
+gravitational collapse.  The number of density of very massive objects such as
+galaxy clusters, the extrema of the mass density field, is exponentially
+sensitive to these effects.  Crucial to making use of this sensitivity is
+knowing the masses of the galaxy clusters.  Using DES data, Sheldon and a
+postdoc will use the gravitational lensing effect to infer these masses to
+constrain cosmology.  This program is a natural continuation of earlier
+measurements by Sheldon of cluster lensing in the Sloan Digital Sky Survey
+(SDSS).  This grant will support a postdoc to participate in this analysis.
+
+\begin{comment}
 Dark Energy accelerates the expansion of the universe, dramatically increasing
 the volume in comparison to a matter-only universe.  Dark Energy also inhibits
 the growth of massive structures under gravitational collapse.  Thus the number
@@ -163,10 +176,11 @@ will measure $w$ to $\sim$3\%.  This program is a natural continuation of
 earlier measurements by Sheldon of cluster lensing in the Sloan Digital Sky
 Survey (SDSS).  This grant will support a research associate to lead this
 analysis.
+\end{comment}
 
 Erin Sheldon is prototyping a promising new algorithm to measure lensing
 effects from astronomical images.  In simulated imaging data, this method meets
-the DES requirements for shear measurement accuracy. While highly
+the DES requirements for lensing measurement accuracy. While highly
 computationally intensive, the algorithm is ideally suited to use graphics
 processing units (GPUs). An implementation for GPUs already exists and huge
 speed gains have been achieved over a highly optimized CPU code, making
@@ -214,56 +228,60 @@ mass at a given time in history is predictable essentially from the Hubble
 expansion constant $H_0$ and low order statistics of the mass field such as the
 mean of the density and the variance in the density as a function of scale
 (ignoring baryons).  But in the presence of Dark Energy, the volume changes
-over time in a dramatically different way and the growth of structures is
-inhibited.  The cumulative effects of Dark Energy significantly alter the
-predicted number of massive structures in a given volume of space.
+over time in a dramatically different way; additionally the growth of
+structures is slightly inhibited due to the acceleration.  These cumulative
+effects from Dark Energy significantly alter the predicted number of massive
+structures in a given volume of space.
 
 Gravitational lensing is particularly well suited to studying this problem
-(e.g. \cite{Kaiser98,Hu04}).  Lensing is the apparent bending of light as it
-passes massive structures.  The amount of bending depends on the lens mass and
-the geometry of the lens-source-observer system.  Thus, measurements of a large
-sample of lenses at various cosmological epochs will elucidate the expansion
-history of the universe, encoded in the geometry, and the growth history,
-encoded in the statistical distribution of the measured masses.  
+(e.g. \cite{Kaiser98,Hu04}).  Light emitted by distant sources is bent as it
+passes massive foreground structures, or ``lenses''.  The amount of bending
+depends on the mass of the lens and the geometry of the lens-source-observer
+system.  Thus, with lensing, one can infer properties of the mass field via the
+lens masses. Furthermore, by studying lenses and sources from different times
+in the history of the universe, one can use the geometrical dependence to infer
+the expansion history.
 
 Lensing is more appropriate for measuring masses in an cosmological context
 than other techniques.  The traditional technique of using orbital calculations
 and Kepler's laws to infer masses does not work because the timescales are too
 long to characterize the orbits. Velocities can only be used in a statistical
-way, and require assumptions about the dynamical equilibrium of the systems in
-question, which is often dubious on the physical scales of interest.
-Furthermore, interpretation based on luminous tracers is complicated by the
-ubiquitous presence of another mysterious substance: Dark Matter.  Dark Matter
-dominates the mass density field, but because it is collisionless it is
-distributed very differently from the luminous matter.  Often there are no
-luminous tracers in the relevant regions of space with which to infer masses.
-With lensing, one only needs enough background sources with which to
-statistically measure the lensing signal.
+way, and their use requires assumptions about the dynamical equilibrium of the
+systems in question, which is often dubious on the physical scales of interest.
+One can attempt to infer mass by counting luminous tracers such as stars, but
+this is complicated by the ubiquitous presence of another mysterious substance:
+Dark Matter.  Dark Matter dominates the mass density field, but because it is
+collisionless it is distributed very differently from the luminous matter.
+Often there are no luminous tracers in the relevant regions of space with which
+to infer mass.  With lensing, to infer the mass one only needs enough
+background sources with which to statistically measure the lensing signal.
 
 Sheldon will use data from the Dark Energy Survey (DES, \cite{DESWhitePaper})
 to perform gravitational lensing measurements and infer the properties of Dark
 Energy.  Sheldon is a DES ``builder'', having worked steadily on the project
-since it's inception.  This designation brings perpetual data rights for
+since its inception.  This designation brings perpetual data rights for
 Sheldon, a postdoc and students.  Sheldon is a leader in the DES lensing
 effort.  
 
 Erin Sheldon's focus will be primarily on optimal measurement of the
-gravitational shear induced in the shapes of galaxies by lensing. As described
-below, he has developed a new technique that shows promise to meet the DES
-requirements for shear measurement accuracy.  This technique is highly
-computationally intensive, but is also nearly perfectly suited to use of
-graphics processing units (GPUs) which we have shown provide huge speedups
-relative to CPUs.
+gravitational shear induced in the shapes of galaxies by lensing. Shear is the
+coherent distortion produced in the images of extended background sources by
+the lensing effect, and has been studied in great detail over the last decade.
+No method yet tested for measuring shear has proven accurate enough to meet the
+DES survey requirements.  As described below, Sheldon has developed a new
+technique to measure shear that shows promise to meet the DES requirements for
+shear measurement accuracy.  This technique is highly computationally
+intensive, but is also nearly perfectly suited to use of graphics processing
+units (GPUs) which we have shown provide huge speedups relative to CPUs.
 
 Under Sheldon's guidance, a postdoc will focus on using the shear to infer
 statistics of the mass density field, namely the mass associated with galaxy
-clusters and the power spectrum of the mass density fluctuations in our
-universe. Both of these measurements will be highly sensitive to the properties
-of Dark Energy.  Using a combination of techniques, we expect to constrain the
-equation of state parameter $w$ to a few percent.  As we will describe below,
-this is a natural extension of earlier work by Sheldon in Gravitational Lensing
-using data from the Sloan Digital Sky Survey (SDSS).  Yet there much to learn
-in order to reach the full potential of this method.
+clusters and, more generally, the mass density fluctuations in our universe.
+Both of these measurements will be highly sensitive to the properties of Dark
+Energy.   As we will describe below, this is a natural extension of earlier
+gravitational lensing measurements by Sheldon using data from the Sloan Digital
+Sky Survey (SDSS).  Yet there much to learn in order to reach the full
+potential of this method.
 
 The rest of this narrative is divided as follows: In section \ref{sec:sdssold}
 we describe previous research by Sheldon in gravitational lensing, which can be
@@ -299,43 +317,32 @@ principle diluting information about the individual lenses, has the positive
 effect of averaging out line of sight projections and ``lumpiness'' in the
 lenses, which complicates the interpretation.  This in turn facilitates the
 extraction of accurate masses.  Figure \ref{fig:massngals} shows results from
-\cite{SheldonLensing07,JohnstonLensing07}. Plotted is mean cluster mass as a
-function of the number of galaxies in the cluster.  
+\cite{SheldonLensing07,JohnstonLensing07}. For this plot we used as lenses
+groups and clusters of galaxies.  Plotted is mean mass as a function of the
+number of galaxies in the group.  
 
 %\begin{figure}[ht]
 \begin{figure}[p]
 \centering
 \includegraphics[scale=0.7]{mass-rich-plot.eps}
-\caption{Mean cluster mass as a function of the number of
-galaxies in the cluster as measured from lensing in SDSS
+\caption{Mean mass as a function of the number of
+galaxies in the group/cluster as measured by the PI from lensing in SDSS
 data \cite{SheldonLensing07,JohnstonLensing07}. This calibration
 is critical to measuring Dark Energy with galaxy clusters.\label{fig:massngals}}
 \end{figure}
 
 
 
-%\begin{figure}[ht] 
-\begin{figure}[p] 
-\centering 
-\includegraphics[scale=0.6]{s8_Om.ps}
 
-\caption{Constraints on the fractional mass density of our universe $\Omega_m$
-and the relative variance in the density on 8 Mpc scales $\sigma_8$ as measured
-from SDSS data.  These results \cite{RozoCosmo09} are derived by combining the
-counts of galaxy clusters with the mass calibrations from gravitational lensing
-as shown in Figure \ref{fig:massngals}
-\cite{SheldonLensing07,JohnstonLensing07}.  The cluster results break
-degeneracies with other probes such as the cosmic microwave background (WMAP).
-With DES we will study Dark Energy properties by extending these measurements
-back in time.  \label{fig:omegasigma8}} \end{figure}
-
-From galaxy and cluster lensing measurements we confirmed that there is an
+From measurements using galaxies as the lenses, we confirmed that there is an
 enormous amount of unseen dark matter in galaxies, and that this dark matter is
 in a ``dark halo'' that extends far beyond the concentrated bundle of stars at
-the center of galaxies.  These measurements are completely consistent with the
-cold dark matter model.  A number of derived results have come from these basic
-measurement papers, in which we have learned a great deal about the connection
-between the dark and visible matter in galaxies and clusters, e.g.
+the center of galaxies.  We have found similar results for groups and clusters
+of galaxies; there is a pool of Dark Matter between galaxies in the group.
+These measurements are completely consistent with the cold dark matter model.
+A number of derived results have come from these basic measurement papers, in
+which we have learned a great deal about the connection between the dark and
+visible matter in galaxies and clusters, e.g.
 \cite{RykoffLXM08,RozoScatter09,TinkerM2N2012}. 
 
 Sheldon and collaborators have also used these measurements to estimate
@@ -344,12 +351,31 @@ halos of a given mass is related to the mean mass density of the universe and
 variance in the density.  In \cite{RozoCosmo09} we combined the counts of
 galaxy clusters with our lensing mass estimates to constrain these cosmological
 parameters.  Figure \ref{fig:omegasigma8} shows results from \cite{RozoCosmo09}
-constraining the fractional mass density $\Omega_m$ and the relative variance
-in mass density on 8 Mpc scales $\sigma_8$.  In \cite{TinkerM2N2012} we used
-the ratio of mass to number density in clusters, combined with the large scale
-clustering of all galaxies, to place further complimentary constraints on
-$\Omega_m$ and $\sigma_8$.  All these results are consistent with one another
-and the Cold Dark Matter theory.
+constraining the fractional mass density $\Omega_m$ (relative to the total
+energy density) and the variance in mass density on 8 Mpc scales $\sigma_8$
+relative to the mean. In \cite{TinkerM2N2012} we used the ratio of mass to
+number density in clusters, combined with the large scale clustering of all
+galaxies, to place further complimentary constraints on $\Omega_m$ and
+$\sigma_8$.  All these results are consistent with one another and the Cold
+Dark Matter theory.
+
+\begin{figure}[p] 
+\centering 
+\includegraphics[scale=0.6]{s8_Om.ps}
+
+\caption{Constraints on the fractional mass density of our universe $\Omega_m$
+    (relative to the total energy density) and the variance in the density on 8
+    Mpc scales $\sigma_8$, relative to the mean, as measured from SDSS data.
+    These results \cite{RozoCosmo09} are derived by combining the counts of
+    galaxy clusters with the mass calibrations from gravitational lensing as
+    shown in Figure \ref{fig:massngals}
+    \cite{SheldonLensing07,JohnstonLensing07}.  The cluster results break
+degeneracies with other probes such as the cosmic microwave background (WMAP).
+With DES we will study Dark Energy properties by extending these measurements
+back in time.  \label{fig:omegasigma8}} 
+
+\end{figure}
+
 
 While powerful in themselves, these results are also very complimentary to
 other measurements, breaking degeneracies in analyses of the Cosmic Microwave
@@ -374,15 +400,16 @@ properties of Dark Energy.  Combining DES lensing measurements and DES optical
 observations of galaxy clusters with observations by the South Pole Telescope
 (SPT, \cite{SPT04}) of the same galaxy clusters, greatly enhances the
 constraining power.  These combined methods will constrain the Dark Energy
-equation of state parameter $w$ to better than 3\%.  First light occured in
-\commissdate, and the survey will run for five years.  DES operations are
-funded in part by the U.S.  Department of Energy. 
+equation of state parameter $w$ to better than 3\%; an important component of
+this overall constraint will be the cluster lensing measurements led by
+Sheldon.  First light occured in \commissdate, and the survey will run for five
+years.  DES operations are funded in part by the U.S. Department of Energy. 
 
 
 The SPT will use the Sunyaev-Zel'dovich (SZ) Effect \cite{Birkinshaw99}, the
 Compton up-scattering of light from the cosmic microwave background by the hot
 gas in galaxy clusters, to find a complete sample of clusters to high redshift.
-This cluster sample has selection that is complimentary to the DES optical
+This selection of this cluster sample is complimentary to the DES optical
 cluster selection in that it is expected to be nearly independent of the
 distance of the cluster from the observer.  As with DES, the goal of the SPT is
 to use these clusters to probe the growth of structure, and the volume of
@@ -402,7 +429,7 @@ functions cover a much larger range of scales, they are complimentary.  There
 is also a Supernova program that, while less constraining by itself, breaks
 degeneracies between certain cosmological parameters.  
 
-Table \ref{table:constraints} shows forcasted constraints on $w$ for various
+Table \ref{table:constraints} contains forcasted constraints on $w$ for various
 techniques employed by DES \cite{DESWhitePaper}.  These forecasts are for DES
 and SPT data alone; combining with other data, for example from cosmic
 microwave background measurements from the Planck satellite
@@ -446,13 +473,13 @@ this research and planned activities.
 \subsubsection{Science Analysis}
 
 As described in the introduction, the cosmological information from clusters is
-primarily in the number density of clusters with a given mass as a function of
-time.  Clusters are identified not by their mass but by other indicators, such
-as the SZ effect from SPT data or by the clustering of visible galaxies in DES
-imaging data.  The strength of the SZ effect and the number of galaxies are
-both correlated with mass, but that correlation must be measured by a secondary
-method.  As described in the introduction, lensing is the best method for doing
-this.  
+primarily in the number density of objects with a given mass as a function of
+time, especially the most massive objects such as galaxy clusters.  Clusters
+are identified not by their mass but by other indicators, such as the number of
+galaxies in a cluster or the SZ effect.  The SZ effect and the number of
+galaxies are both correlated with mass, but that correlation must be measured
+by a secondary method.  As described in the introduction, lensing is the best
+method for doing this.  
 
 As described in \S\ref{sec:sdssold}, in our studies of SDSS lensing we
 developed analysis techniques to calibrate the mass-observable relation of
@@ -460,36 +487,37 @@ clusters (Figure \ref{fig:massngals}).  Using this calibration in conjunction
 with the number density we have inferred cosmological parameters (Figure
 \ref{fig:omegasigma8}).  These techniques are limited only by our understanding
 of the systematics and characterization of the cluster selection process.  The
-volume and depth of DES is sufficiently large to perform equivalent
-measurements in many bins of cosmic time.  Time dependent measurements will
-allow us to extend our cosmological analysis to constrain the properties of
-Dark Energy.
+volume and depth of DES is sufficiently large to perform measurements
+equivalent to the SDSS study, but separately in many bins of cosmic time.  Time
+dependent measurements will allow us to extend our cosmological analysis to
+constrain the properties of Dark Energy.
 
 There is much room for innovation in this field: the sensitivity of DES will be
 such that small systematic effects will become important. Some such issues are:
-the deviation of the identified cluster relative to the center of mass; the
-effect of shear measurements errors due to object overlap in crowded regions at
-cluster centers; errors introduced by distance uncertainties in the cluster
-catalog and source catalog; bias in the orientation of clusters introduced by
-the cluster finding procedure.  At the same time, the great sensitivity of DES
-imaging will create the potential to explore entirely new lensing-based probes.
-What we learn from DES, the largest survey to date, will be highly influential
-for future surveys such as LSST.
+offsets between the identified galaxy cluster position and the true center of
+mass; measurements errors due to object overlap in crowded regions at cluster
+centers; errors introduced by distance uncertainties in the cluster catalog and
+source catalog; bias in the orientation of clusters introduced by the cluster
+finding procedure.  At the same time, the great sensitivity of DES imaging will
+create the potential to explore entirely new lensing-based probes.  What we
+learn from DES, the largest survey to date, will be highly influential for
+future surveys such as LSST.
 
 In contrast with cluster lensing measurements, the ``cosmic shear'' is the
 correlation of shears across the sky independent of the location of foreground
 structures.  Since the shear is related to mass, the cosmic shear can be used
-to directly infer statistics of the underlying mass distribution, the evolution
-of which is directly related to the properties of Dark Energy.  Because the
-signal need not be modeled in terms of cluster halos, the interpretation of
-cosmic shear can be simpler than cluster lensing.  However, the measurement
-involves directly correlating shears from many sources as a function of their
-separation on the sky, which can propagate systematic errors directly into the
+to infer statistics of the underlying mass distribution, the evolution of which
+is directly related to the properties of Dark Energy.  Because the signal need
+not be modeled in terms of cluster halos, the interpretation of cosmic shear
+can be simpler than cluster lensing.  However, the measurement involves
+directly correlating shears from many sources as a function of their separation
+on the sky, which can propagate systematic errors directly into the
 measurement. Thus cosmic shear and cluster lensing are quite complimentary.
 
 Table \ref{table:constraints} contains a list of DES probes and their power to
 constrain the equation of state $w$.  If the desired accuracy is achieved,
-cluster lensing is the most sensitive to the equation of state.
+cluster lensing (clusters with WL calibration), which is begin led by Sheldon,
+is the most sensitive probe.
 
 Erin Sheldon will guide a research associate in using shear measurements to
 calibrate the masses of the galaxy clusters used in the cosmological analyses.
@@ -498,12 +526,12 @@ shear.  These are critical components of the DES mission.  We expect major
 results to appear after year one based on the single epoch data, year 2-3 after
 multi-epoch data becomes available, and at survey end with the final data set.
 
-In this section on science analysis, we have assumed we can meet the fore-casted
-lensing shear measurement accuracy.  This analysis is ultimately limited by how
-accurately we can measure galaxy ellipticities and remove the effects of the
-point spread function.  In the next section we will address the second major
-part of this proposal: a new method to measure shear and a fast implementation
-on graphics processing units.
+In our forecasting of cosmological parameter constraints, we have assumed we
+can meet a certain level of lensing shear measurement accuracy.  This analysis
+is ultimately limited by how accurately we can measure galaxy ellipticities and
+remove the effects of the point spread function.  In the next section we will
+address the second major part of this proposal: a new method to measure shear
+and a fast implementation on graphics processing units.
 
 \subsection{New Lensing Shear Measurement Technique Using Gaussian Mixtures}
 \label{sec:gmix}
@@ -524,9 +552,10 @@ typically at a level much larger than the lensing effect we wish to measure.
 Many methods have been developed to measure and remove the effect of the PSF to
 produce unbiased ellipticity measurements, e.g.
 \cite{ksb95,Bern02,Miller07,Melchior11} and there are many more.  No method yet
-tested has proven accurate enough to meet the DES survey requirements for
-realistic galaxy populations:  for DES to measure the projected constraints on
-dark energy, the fractional error on the shear cannot exceed 0.004.
+tested has proven accurate enough to meet the DES survey requirements when
+applied to realistic galaxy populations:  for DES to meet the projected
+constraints on dark energy, the fractional error on the shear cannot exceed
+0.004.
 
 Erin Sheldon has developed a new technique that shows promise to meet the DES
 requirements.  The method uses mixtures of Gaussians to represent the galaxies
@@ -534,9 +563,10 @@ and PSF, and bayesian techniques to control noise bias.  This model has enough
 flexibility to represent the canonical galaxy types; this has recently been
 independently verified \citep{HoggGMix12}.  One result of our recent research
 is that many fewer Gaussians are required than used in \cite{HoggGMix12} when
-the object is of order the size of the PSF; three is enough.  When also
-demanding the Gaussians are co-centric and co-elliptical the parameter space is
-reduced even further.  
+the object is of order the size of the PSF; three is enough.  
+%When also
+%demanding the Gaussians are co-centric and co-elliptical the parameter space is
+%reduced even further.  
 
 It is tempting to just use the canonical galaxy profiles (exponential disks and
 \devprof\ ``\devauc'' profiles) to fit for the ellipticity, but these are
@@ -553,7 +583,7 @@ mitigated using the techniques in \cite{Miller07,Miller12}. These techniques
 involve measuring the full likelihood surface and applying prior information on
 the ellipticity distribution of the galaxy population as a whole\footnote{In
 \cite{Miller12} a prior on size is applied, but we have found this unnecessary
-as long as a proper cut is made in \snsize\ of the measured scale size}.
+if a proper \snsize\ cut is made}.
 Corrections can then be derived to mitigate bias introduced by the priors and
 noise.  Sheldon has implemented these techniques using a Monte Carlo Markov
 Chain technique, and the code is publicly available (although the use of priors
@@ -561,7 +591,7 @@ is clearly described in \cite{Miller07}, that author's code is proprietary).
 
 The results from simulations indicate the method can potentially meet DES
 requirements.  The shear bias as a function of signal-to-noise ratio \snsize\
-are shown in \ref{fig:getgdt}.  Results for simulated exponential disk galaxies
+is shown in \ref{fig:getgdt}.  Results for simulated exponential disk galaxies
 are shown in the left panel.  Galaxies with \devprof\ profiles are shown in the
 right panel.  The DES requirement is shown as the gray band.  The DES
 requirements for shear accuracy are met for galaxies with \snsize\ $\geq$
@@ -570,8 +600,9 @@ requirements for shear accuracy are met for galaxies with \snsize\ $\geq$
 The value \snsize\ is the signal-to-noise ratio of the measured size
 $T=\sigma^2$ of the object.  The \snsize\ is a good indicator because galaxies
 with different profiles have similar shear bias at fixed \snsize.  In contrast,
-S/N of the flux is not a good indicator: objects at fixed flux S/N have
-different shear bias.  Size and ellipticity are degenerate in these fits, and a
+the weighted S/N of the flux is not a good indicator: objects at fixed weighted
+flux S/N have different shear bias.  This effect is not completely understood,
+but it is true that size and ellipticity are degenerate in these fits, and a
 very poorly constrained size results in more scatter in the ellipticity and
 more noise bias.
 
@@ -602,9 +633,9 @@ necessarily convolutions, but the large number of likelihood evaluations
 require of order 1 second per galaxy on a CPU (2.7 GHz intel). The requirements
 to process the full DES will be enormous: the expected 500 million galaxies
 will be observed on $\sim$ 10 separate exposures, which would require $\sim$
-1.4 million cpu hours to process\footnote{Note the CPU computation is highly
-optimized, including a fast approximate exponential function five times faster
-than the standard}. 
+1.4 million cpu hours to process. Note the CPU computation is highly optimized,
+including a fast approximate exponential function five times faster than the
+standard. 
 
 We have found significant gains in speed by using a graphics processing unit
 (GPU).  This problem is particularly suited to GPU processing because the image
@@ -613,13 +644,18 @@ made on the GPU. Only a single number, the likelihood, must be returned by the
 calculations, minimizing the overhead of moving data back and forth from the
 GPU memory.  We have found that each likelihood calculation is faster by a
 factor of $>$\speedupnum\ compared to the CPU code, primarily due to
-parallelization of the pixel rendering.
+parallelization of the pixel rendering of the model; each pixel can be rendered
+in parallel.
 
 Further speedup was obtained by parallelizing the Markov chain.  We use an
 affine invariant Markov chain\cite{GoodmanWeare10} with twenty separate
 ``walkers'' that are evaluated independently at each step.  The total speedup
 is about a factor of \overallspeedup.  This is somewhat less than the 20x10=200
-possible speedup, presumably due to data transfer inefficiencies.
+possible speedup, presumably due to data transfer inefficiencies.  This gain of
+\overallspeedup\ may seem exceptional, but is due to the extreme
+parallelization we can achieve.  This parallelization is made possible by the
+small image dimensions for a typical galaxy (25x25) and independence of the
+likelihood evaluations for each walker.
 
 We can also make use of multiple GPUs attached to a single machine; we shall
 propose attaching two.  Of cource there are also typically multiple CPUs per
@@ -634,25 +670,23 @@ DES data.
 
 {\it
     
-Notes:  The number of likelihood evaluations needed is the number of walkers
-times (burn-in + steps).  For higher S/N objects, a burn-in of about 400 steps
-per walker is needed, followed by 200 steps.  A large number is needed after
-burn-in to measure the tails of the distribution, which are important. Some
-more time can be spent tuning the GPU implementation. On the other hand, the
-ultimate bottleneck will be memory bandwidth limitations, which these tests may
-already have met.   More walkers could be used for better parallelization, but
-the tradeoff is a more costly burn-in for the Markov chain, as the total
-burn-in does not decrease inversely with the number walkers.  A ``high-end''
-graphics card is required to get this speedup; we tested an Nvidia 2050. The
-comparison CPUs are 2.7 GHz intel Xeon processors.  A high performance
-distributed file system is needed to get the required data throughput: the
-cosmology group at BNL uses the Hadoop Distributed File System, which provides
-sufficient throughput.  Sheldon has already created a software framework for
-processing the DES data, fully tested on the DES simulations.  The framework
-already uses HDFS.  We can simply ``plug in'' the Gaussian mixture code.  All
-the code was written in OpenCL by Erin Sheldon.
-
-}
+Notes:  All the code was written in the OpenCL and the C language by Erin
+Sheldon and is publicly available.  Some more time can be spent tuning the GPU
+implementation. On the other hand, the ultimate bottleneck will be memory
+bandwidth limitations, which these tests may already have met.   More walkers
+could be used for better parallelization, but the tradeoff is a more costly
+burn-in for the Markov chain, as the total burn-in does not decrease inversely
+with the number walkers.  A ``high-end'' graphics card is required to get this
+speedup; we tested an Nvidia 2050. The comparison CPUs are 2.7 GHz intel Xeon
+processors.  The number of likelihood evaluations needed is the number of
+walkers times (burn-in + steps).  For higher S/N objects, a burn-in of about
+400 steps per walker is needed, followed by 200 steps.  A large number is
+needed after burn-in to measure the tails of the distribution, which are
+important.  A high performance distributed file system is needed to get the
+required data throughput: the cosmology group at BNL uses the Hadoop
+Distributed File System, which provides sufficient throughput by allowing jobs
+to run on the same machine holding the data; input/output from disk is only
+about 10\% overhead.  }
 
 \subsubsection{Future Work on Gaussian Mixtures}
 
@@ -744,10 +778,11 @@ for any simulation tests we require.
 %intensive Gaussian mixture code is not a good use of that resource.
 
 As described in section \ref{sec:gmix:gpu}, we want to process all 500 million
-galaxies, each on 10 separate exposures, in this time of 2.5 weeks. In section
-\ref{sec:gmix:gpu}, we showed that with two GPUs we got a factor of 28 speedup
-compared to 12 CPU cores.  With these speedups we we would require only $\sim$
-10 nodes, each with two GPUs, to reach our goal. 
+galaxies, each on 10 separate exposures, in this time of 2.5 weeks. Time per
+galaxy is of order 1 second on a 2.7GHz Intel CPU.  In section
+\ref{sec:gmix:gpu}, we showed that with two GPUs we got a factor of
+\overallspeedup\ speedup as compared to a single CPU.  With these speedups we
+we would require only $\sim$ 10 nodes, each with two GPUs, to reach our goal. 
 %We round this up to 10 nodes for two reasons: 1) the Gaussian mixture
 %algorithm is under development and computational requirements may increase and
 %2) it is more cost-effective and efficient for data throughput to spread the
@@ -794,9 +829,10 @@ DES weak lensers Mike Jarvis and Bhuvnesh Jain.
 \newpage
 \subsection{Timeline} \label{sec:timeline}
 
-This is an outline of the activities for the five year extent of the award.  It
-is assumed that the primary collaborators on these activities are Erin Sheldon
-of BNL and a research associate (RA).
+This is an outline of the activities for the five year extent of the award.
+For reasons of continuity, we will begin the timeline in Fall 2012.  It is
+assumed that the primary collaborators on these activities are Erin Sheldon of
+BNL and a postdoc, or research associate.
 
 \begin{itemize}
 
@@ -919,7 +955,24 @@ erin.sheldon@gmail.com
 \newline
 \makebox[1.25in][l]{}{}
         \hfill
-        \makebox[1in][r]{{\small \it September 2008--present}}
+        \makebox[1in][r]{{\small \it Jan 2012--present}}
+\newline
+\vspace{0.2cm}
+\makebox[\mytab][l]{}{Associate Physicist, {\bf Brookhaven National Laboratory}}
+\newline
+\makebox[1.25in][l]{}{}
+        \hfill
+        \makebox[1in][r]{{\small \it 2010--2012}}
+\newline
+\vspace{0.2cm}
+\makebox[\mytab][l]{}{Assistant Physicist, {\bf Brookhaven National Laboratory}}
+\newline
+\makebox[1.25in][l]{}{}
+        \hfill
+        \makebox[1in][r]{{\small \it Sep 2008--2010}}
+
+
+
 
 \vspace{0.3cm}
 \noindent
