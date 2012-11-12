@@ -700,10 +700,10 @@ gains can be had using GPUs.
 
 \subsubsection{Research Associate}
 
-This grant be used to fund our current postdoc, Andres Plazas, for the first
-two years of the award. Plazas is already working on DES and it makes sense for
-him to continue under this funding.  A second postdoc will begin in the third
-year after Plazas' departure.  
+This grant will be used to fund our current postdoc, Andres Plazas, for the
+first two years of the award. Plazas is already working on DES and it makes
+sense for him to continue under this funding.  A second postdoc will begin in
+the third year after Plazas' departure.  
 
 The work of these postdocs will focus on high-level science analysis.  In
 particular, we have carved out a niche in the field of cluster lensing and
@@ -725,10 +725,11 @@ technique based on Gaussian mixtures, and a fast implementation on graphics
 processing units (GPUs).  Here we will give justification for funding a
 moderate computing purchase with this grant.
 
-We are commissioning the DES survey at the time of this writing (\commissdate)
-and will run for five years, generating about a petabyte of data in total.  For
-lensing we will process all the reduced images, including analysis of multiple
-epochs for each pointing.  This subset represents about 130TB of data.
+We will have a lot of data to process.  We are commissioning the DES survey at
+the time of this writing (\commissdate) and will run for five years, generating
+about a petabyte of data in total.  For lensing we will process all the reduced
+images, including analysis of multiple epochs for each pointing.  This subset
+represents about 130TB of data.
 
 The NSF funded Dark Energy Survey data management team will process the data
 using a selected lensing pipeline approximately yearly.  However, the Gaussian
@@ -743,29 +744,31 @@ for any simulation tests we require.
 %intensive Gaussian mixture code is not a good use of that resource.
 
 As described in section \ref{sec:gmix:gpu}, we want to process all 500 million
-galaxies, each on 10 separate exposures, in this time of 2.5 weeks. Given the
-speed numbers quoted in section \ref{sec:gmix:gpu}, this would require about 10
-nodes, each with two GPUs.  
+galaxies, each on 10 separate exposures, in this time of 2.5 weeks. In section
+\ref{sec:gmix:gpu}, we showed that with two GPUs we got a factor of 28 speedup
+compared to 12 CPU cores.  With these speedups we we would require only $\sim$
+10 nodes, each with two GPUs, to reach our goal. 
 %We round this up to 10 nodes for two reasons: 1) the Gaussian mixture
 %algorithm is under development and computational requirements may increase and
 %2) it is more cost-effective and efficient for data throughput to spread the
 %required disk to more machines.  
-We desire fairly large memory on the system in order to hold data from all
-exposures in memory for a full ``coadd tile''. A coadd tile is the unit of
-association used when combining exposures and covers several tens of pointings,
-(with about ten exposures per pointing).  Tests indicate 32GB is sufficient to
-avoid input/output overhead.  Finally, we need 130TB in the distributed file
-system, so about 13TB per machine (we can in principle do without redundancy as
-the data are readily available for download from the DES collaboration).
-Recent purchases for the Atlas experiment at BNL are very similar to this and
-we project a cost of approximately \$5,200.  The addition of two
-high-performance GPUs (e.g. Nvidia 2050) adds another $\sim$ \$3,600.  The
-total cost for ten machines is \$88,000.  Note overhead and slight yearly
-escalation are also included in the budget.  These can be purchased over the
-five year survey, in stride with data acquisition.  There is potential for
-increase in speed per GPU, but this is difficult to predict currently as
-scientific GPUs are a new technology.  We prefer to quote the current
-performance profile.
+
+What type of systems should these be?  We desire fairly large memory on the
+system in order to hold data from all exposures in memory for a full ``coadd
+tile''. A coadd tile is the unit of association used when combining exposures
+and covers several tens of pointings, (with about ten exposures per pointing).
+Tests indicate 32GB is sufficient to avoid input/output overhead.  We need
+130TB in the distributed file system, so about 13TB per machine (we can in
+principle do without redundancy as the data are readily available for download
+from the DES collaboration).  Recent purchases for the Atlas experiment at BNL
+are very similar to this and we project a cost of approximately \$5,200.  The
+addition of two high-performance GPUs (e.g. Nvidia 2050) adds another $\sim$
+\$3,600.  The total cost for ten machines is \$88,000.  Note overhead and
+slight yearly escalation are also included in the budget.  These can be
+purchased over the five year survey, in stride with data acquisition.  There is
+potential for increase in speed per GPU, but this is difficult to predict
+currently as scientific GPUs are a new technology.  We prefer to quote the
+current performance profile.
 
 Note these prices include bulk discounts from purchasing along with other
 experiments through the RHIC-Atlas Computing Facility at BNL.  
