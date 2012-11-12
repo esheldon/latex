@@ -1,5 +1,6 @@
 time_per_obj_cpu=1.0
 
+# 2 for two GPUs
 speedup=170.*2
 time_per_obj_gpu = time_per_obj_cpu/speedup
 

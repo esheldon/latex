@@ -356,11 +356,11 @@ other measurements, breaking degeneracies in analyses of the Cosmic Microwave
 Background \cite{KomatsuWMAPCosmo09}. 
 
 Gravitational shear measurements are central to two of the primary goals of the
-Dark Energy Survey (DES,\cite{sec:des}).  The techniques we developed in the
-SDSS are directly applicable to DES science, especially the study of galaxy
-clusters as cosmological probes.  By extending the measurements backward in
-time with the deeper DES data, we will learn about Dark Energy as well as Dark
-Matter.
+Dark Energy Survey (DES, section \ref{sec:des}).  The techniques we developed
+in the SDSS are directly applicable to DES science, especially the study of
+galaxy clusters as cosmological probes.  By extending the measurements backward
+in time with the deeper DES data, we will learn about Dark Energy as well as
+Dark Matter.
 
 
 \subsection{The Dark Energy Survey (DES)} \label{sec:des}
@@ -621,6 +621,11 @@ affine invariant Markov chain\cite{GoodmanWeare10} with twenty separate
 is about a factor of \overallspeedup.  This is somewhat less than the 20x10=200
 possible speedup, presumably due to data transfer inefficiencies.
 
+We can also make use of multiple GPUs attached to a single machine; we shall
+propose attaching two.  Of cource there are also typically multiple CPUs per
+system.  Comparing a 2 GPU system to a 12-core CPU system, the total speedup is
+2*170/12 = 28.
+
 These increases in speed come at a moderate increase in cost over typical
 ``farm'' compute nodes.  Adding two high performance GPUs to a typical node
 increases the cost by about 70\%. In section \ref{sec:computing} we will
@@ -717,8 +722,8 @@ Gaussian Mixture technique outlined in section \ref{sec:gmix}.
 
 In section \ref{sec:gmix} we described a promising new shear measurement
 technique based on Gaussian mixtures, and a fast implementation on graphics
-processing units.  Here we will give justification for funding a moderate
-computing purchase with this grant.
+processing units (GPUs).  Here we will give justification for funding a
+moderate computing purchase with this grant.
 
 We are commissioning the DES survey at the time of this writing (\commissdate)
 and will run for five years, generating about a petabyte of data in total.  For
@@ -737,10 +742,10 @@ for any simulation tests we require.
 %pipelines, but these systems will not be GPU based so the computationally
 %intensive Gaussian mixture code is not a good use of that resource.
 
-As described in \ref{sec:gmix:gpu}, we want to process all 500 million
+As described in section \ref{sec:gmix:gpu}, we want to process all 500 million
 galaxies, each on 10 separate exposures, in this time of 2.5 weeks. Given the
-speed numbers quoted in \ref{sec:gmix:gpu}, this would require about 10 nodes,
-each with two GPUs.  
+speed numbers quoted in section \ref{sec:gmix:gpu}, this would require about 10
+nodes, each with two GPUs.  
 %We round this up to 10 nodes for two reasons: 1) the Gaussian mixture
 %algorithm is under development and computational requirements may increase and
 %2) it is more cost-effective and efficient for data throughput to spread the
