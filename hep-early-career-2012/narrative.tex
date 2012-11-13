@@ -10,11 +10,13 @@
 \newcommand{\surveyproper}{Spring 2013}
 \newcommand{\devauc}{De Vaucouleurs'}
 \newcommand{\devprof}{exp$(-r^{1/4})$}
-\newcommand{\overhead}{10\%}
 \newcommand{\speedupnum}{10}
 \newcommand{\speedup}{ten}
 \newcommand{\overallspeedup}{170}
 \newcommand{\sncut}{20}
+\newcommand{\iooverhead}{10\%}
+
+\newcommand{\overhead}{10\%}
 
 \newcommand{\snsize}{(S/N)$_{T}$}
 
@@ -42,8 +44,10 @@
 
 \begin{document}
 
-\setcounter{page}{0}
-\addcontentsline{toc}{section}{Cover Page}
+\thispagestyle{empty}
+%\pagenumbering{Alph}
+%\setcounter{page}{0}
+%\addcontentsline{toc}{section}{Cover Page}
 %\addcontentsline{toc}{section}{Table of Contents}
 
 % Title and TOC
@@ -126,7 +130,7 @@ Lensing in the Dark Energy Survey}
 
 \newpage
 
-\tableofcontents
+\thispagestyle{empty}
 
 \newpage
 
@@ -138,69 +142,58 @@ the Dark Energy Survey}
 \date{}
 \maketitle
 
-\setcounter{page}{1}
-\addcontentsline{toc}{section}{Abstract}
+%\setcounter{page}{1}
+%\addcontentsline{toc}{section}{Abstract}
+\thispagestyle{empty}
 \begin{center}
 \section*{Abstract}
 \end{center}
 
 We propose to study the properties of Dark Energy using data from the Dark
-Energy Survey (DES), of which Erin Sheldon (ES) is survey ``builder'' with data
-rights for himself and a postdoc.  This proposal has two aspects: development
-of new methods to measure lensing effects from astronomical images and
-interpretation of the lensing in terms of Dark Energy.
+Energy Survey (DES). This proposal has two aspects: development of new methods
+to measure lensing effects from astronomical images and interpretation of the
+lensing in terms of Dark Energy.
 
 Dark Energy accelerates the expansion of the universe, dramatically altering
 how the volume changes over cosmic time in comparison to a matter-only
 universe.  Dark Energy also inhibits the growth of massive structures under
-gravitational collapse.  The number of density of very massive objects such as
-galaxy clusters, the extrema of the mass density field, is exponentially
-sensitive to these effects.  Crucial to making use of this sensitivity is
-knowing the masses of the galaxy clusters.  Using DES data, Sheldon and a
-postdoc will use the gravitational lensing effect to infer these masses to
-constrain cosmology.  This program is a natural continuation of earlier
-measurements by Sheldon of cluster lensing in the Sloan Digital Sky Survey
-(SDSS).  This grant will support a postdoc to participate in this analysis.
+gravitational collapse.  These volume and growth effects dramatically alter the
+predicted number density of very massive objects such clusters of galaxies;
+thus the number density of clusters is highly sensitive to Dark Energy.
+Crucial to making use of this sensitivity is knowing the masses of the galaxy
+clusters.  Gravitational lensing, the bending of light from background sources
+as it passes foreground masses, is the best method for measuring mass on large
+scales.  Using DES data, Sheldon and a postdoc will use the gravitational
+lensing effect to measure these masses and constrain Dark Energy.  This program
+is a natural continuation of earlier measurements by Sheldon of cluster lensing
+in the Sloan Digital Sky Survey (SDSS).
+%This grant will support a postdoc to
+%participate in this analysis.
 
-\begin{comment}
-Dark Energy accelerates the expansion of the universe, dramatically increasing
-the volume in comparison to a matter-only universe.  Dark Energy also inhibits
-the growth of massive structures under gravitational collapse.  Thus the number
-density of massive objects such as galaxy clusters as a function of cosmic time
-is directly related to the properties of Dark Energy, in particular the
-equation of state parameter $w=$pressure/density.  Critical to using the number
-density to constrain cosmology is knowing the masses of the clusters. A
-research associate and Sheldon will measure these masses using gravitational
-lensing.  Using cluster counts, lensing and other complimentary probes, the DES
-will measure $w$ to $\sim$3\%.  This program is a natural continuation of
-earlier measurements by Sheldon of cluster lensing in the Sloan Digital Sky
-Survey (SDSS).  This grant will support a research associate to lead this
-analysis.
-\end{comment}
-
-Erin Sheldon is prototyping a promising new algorithm to measure lensing
-effects from astronomical images.  In simulated imaging data, this method meets
-the DES requirements for lensing measurement accuracy. While highly
-computationally intensive, the algorithm is ideally suited to use graphics
-processing units (GPUs). An implementation for GPUs already exists and huge
-speed gains have been achieved over a highly optimized CPU code, making
-analysis of the full DES possible with a moderate amount of computing
-resources.   This grant will supply funds for this computing.
-%In addition, Sheldon, in collaboration with Mike Jarvis of UPenn, is
-%continuing to test and tune the de-facto algorithm and pipeline we have
-%developed for DES.
+Erin Sheldon is developing a new algorithm to measure lensing effects from
+astronomical images.  In simulated images, this method meets the DES
+requirements for lensing measurement accuracy. While highly computationally
+intensive, the algorithm is ideally suited for use with graphics processing
+units (GPUs). An implementation for GPUs already exists and huge speed gains
+have been achieved over a highly optimized CPU code, making analysis of the
+full DES possible with a moderate amount of computing resources.
+%This grant will supply funds for this computing.
 
 DES has now entered the commissioning phase.  The DES survey proper will begin
-in \surveyproper\ and will take data for five years. Sheldon and a research
-associate will continuously process the data as it arrives to measure
-gravitational shear, followed by analysis to constrain Dark Energy.  This
-science analysis will most likely produce results in three stages: an early set
-of results from the first year data, a second set of results after two or three
-years when multi-epoch data are available, and a final set of results from the
-full data set circa 2017.
-
+in \surveyproper\ and will take data for five years. Sheldon and a postdoc will
+continuously process the data as it arrives to measure lensing, followed by
+analysis to constrain Dark Energy.  This science analysis will most likely
+produce results in three stages: an early set of results from the first year
+data, a second set of results after two or three years when multi-epoch data
+are available, and a final set of results from the full data set circa 2017.
+The PI, Erin Sheldon, has ``builder'' status in DES with data rights for
+himself and a postdoc. 
 
 \newpage
+
+\tableofcontents
+\newpage
+\setcounter{page}{1}
 \addcontentsline{toc}{section}{Narrative}
 \section*{Narrative}
 \setcounter{section}{1}
@@ -213,7 +206,7 @@ ordinary matter decelerates at late times under its own gravitation, but recent
 studies of the brightnesses of distant supernovae indicate that our universe
 has begun to accelerate \cite{Riess98,Perlmutter99}.  This can happen if there
 is an exotic energy component in our universe with an equation of state
-parameter $w$=pressure/density that is less than -1/3.
+parameter $w$=pressure/density that is less than --1/3.
 
 The observational consequences of a Dark Energy component in our universe are
 numerous, but for our purposes the following are most relevant: 1) The
@@ -363,16 +356,15 @@ Dark Matter theory.
 \centering 
 \includegraphics[scale=0.6]{s8_Om.ps}
 
-\caption{Constraints on the fractional mass density of our universe $\Omega_m$
-    (relative to the total energy density) and the variance in the density on 8
-    Mpc scales $\sigma_8$, relative to the mean, as measured from SDSS data.
-    These results \cite{RozoCosmo09} are derived by combining the counts of
-    galaxy clusters with the mass calibrations from gravitational lensing as
-    shown in Figure \ref{fig:massngals}
-    \cite{SheldonLensing07,JohnstonLensing07}.  The cluster results break
-degeneracies with other probes such as the cosmic microwave background (WMAP).
-With DES we will study Dark Energy properties by extending these measurements
-back in time.  \label{fig:omegasigma8}} 
+\caption{Constraints on the mass density of our universe $\Omega_m$ (relative
+    to the total energy density) and the variance in the density on 8 Mpc
+    scales $\sigma_8$, relative to the mean, as measured from SDSS data.  These
+    results \cite{RozoCosmo09} are derived by combining the counts of galaxy
+    clusters with the mass calibrations from gravitational lensing as shown in
+    Figure \ref{fig:massngals} \cite{SheldonLensing07,JohnstonLensing07}.  The
+    cluster results break degeneracies with other probes such as the cosmic
+microwave background (WMAP).  With DES we will study Dark Energy properties by
+extending these measurements back in time.  \label{fig:omegasigma8}} 
 
 \end{figure}
 
@@ -591,10 +583,10 @@ is clearly described in \cite{Miller07}, that author's code is proprietary).
 
 The results from simulations indicate the method can potentially meet DES
 requirements.  The shear bias as a function of signal-to-noise ratio \snsize\
-is shown in \ref{fig:getgdt}.  Results for simulated exponential disk galaxies
+is shown in Figure \ref{fig:getgdt}.  Results for simulated exponential disk galaxies
 are shown in the left panel.  Galaxies with \devprof\ profiles are shown in the
 right panel.  The DES requirement is shown as the gray band.  The DES
-requirements for shear accuracy are met for galaxies with \snsize\ $\geq$
+requirements for shear accuracy are met for galaxies with \snsize\ $>$
 \sncut.  
 
 The value \snsize\ is the signal-to-noise ratio of the measured size
@@ -619,7 +611,7 @@ more noise bias.
     prior on the distribution of ellipticities has been applied.  The gray band
     is the DES requirement on the shear bias. Right panel: Same as the left
     panel but for simulated \devprof\ galaxies.  These simulations indicate a
-    cut on \snsize\ $\geq$ \sncut\ removes the most biased sample.
+    cut on \snsize\ $>$ \sncut\ removes the most biased sample.
 \label{fig:getgdt} }
 
 \end{figure}
@@ -628,14 +620,13 @@ more noise bias.
 
 The corrections discussed in the previous section require measurement of the
 full likelihood surface, and are thus very computationally intensive.  Using
-the Gaussian mixture model provides a fast and flexible model for the
-necessarily convolutions, but the large number of likelihood evaluations
-require of order 1 second per galaxy on a CPU (2.7 GHz intel). The requirements
-to process the full DES will be enormous: the expected 500 million galaxies
-will be observed on $\sim$ 10 separate exposures, which would require $\sim$
-1.4 million cpu hours to process. Note the CPU computation is highly optimized,
-including a fast approximate exponential function five times faster than the
-standard. 
+the Gaussian mixture provides fast convolutions, but the large number of
+likelihood evaluations requires of order 2 seconds per galaxy on a CPU (2.7 GHz
+intel). The requirements to process the full DES will be enormous: the expected
+500 million galaxies will be observed on $\sim$ 10 separate exposures, which
+would require $\sim$ 3 million cpu hours to process. Note the CPU computation
+is highly optimized, including a fast approximate exponential function five
+times faster than the standard. 
 
 We have found significant gains in speed by using a graphics processing unit
 (GPU).  This problem is particularly suited to GPU processing because the image
@@ -651,11 +642,11 @@ Further speedup was obtained by parallelizing the Markov chain.  We use an
 affine invariant Markov chain\cite{GoodmanWeare10} with twenty separate
 ``walkers'' that are evaluated independently at each step.  The total speedup
 is about a factor of \overallspeedup.  This is somewhat less than the 20x10=200
-possible speedup, presumably due to data transfer inefficiencies.  This gain of
-\overallspeedup\ may seem exceptional, but is due to the extreme
-parallelization we can achieve.  This parallelization is made possible by the
-small image dimensions for a typical galaxy (25x25) and independence of the
-likelihood evaluations for each walker.
+possible speedup due to data transfer overhead.  This gain of \overallspeedup\
+may seem exceptional, but is due to the extreme parallelization we can achieve.
+This parallelization is made possible by the small image dimensions for a
+typical galaxy (25x25) and independence of the likelihood evaluations for each
+walker.
 
 We can also make use of multiple GPUs attached to a single machine; we shall
 propose attaching two.  Of cource there are also typically multiple CPUs per
@@ -670,9 +661,9 @@ DES data.
 
 {\it
     
-Notes:  All the code was written in the OpenCL and the C language by Erin
-Sheldon and is publicly available.  Some more time can be spent tuning the GPU
-implementation. On the other hand, the ultimate bottleneck will be memory
+Notes:  All the code was written in the C language with OpenCL extensions by
+Erin Sheldon and is publicly available.  Some more time can be spent tuning the
+GPU implementation. On the other hand, the ultimate bottleneck will be memory
 bandwidth limitations, which these tests may already have met.   More walkers
 could be used for better parallelization, but the tradeoff is a more costly
 burn-in for the Markov chain, as the total burn-in does not decrease inversely
@@ -686,7 +677,7 @@ important.  A high performance distributed file system is needed to get the
 required data throughput: the cosmology group at BNL uses the Hadoop
 Distributed File System, which provides sufficient throughput by allowing jobs
 to run on the same machine holding the data; input/output from disk is only
-about 10\% overhead.  }
+about \iooverhead\ overhead.  }
 
 \subsubsection{Future Work on Gaussian Mixtures}
 
@@ -779,10 +770,12 @@ for any simulation tests we require.
 
 As described in section \ref{sec:gmix:gpu}, we want to process all 500 million
 galaxies, each on 10 separate exposures, in this time of 2.5 weeks. Time per
-galaxy is of order 1 second on a 2.7GHz Intel CPU.  In section
-\ref{sec:gmix:gpu}, we showed that with two GPUs we got a factor of
-\overallspeedup\ speedup as compared to a single CPU.  With these speedups we
-we would require only $\sim$ 10 nodes, each with two GPUs, to reach our goal. 
+galaxy is about 1.75 seconds on a 2.7GHz Intel CPU. In section
+\ref{sec:gmix:gpu}, we showed this time can be reduced to 0.01 seconds using a
+Nvidia 205 GPU.  Input output from a local disk, which we can guarantee using
+the file system described in section \ref{sec:gmix:gpu}, is about \iooverhead\
+overhead.  Thus we would require only $\sim$ 20 nodes with two GPUs each to
+process the survey in 2.5 weeks. 
 %We round this up to 10 nodes for two reasons: 1) the Gaussian mixture
 %algorithm is under development and computational requirements may increase and
 %2) it is more cost-effective and efficient for data throughput to spread the
@@ -792,13 +785,13 @@ What type of systems should these be?  We desire fairly large memory on the
 system in order to hold data from all exposures in memory for a full ``coadd
 tile''. A coadd tile is the unit of association used when combining exposures
 and covers several tens of pointings, (with about ten exposures per pointing).
-Tests indicate 32GB is sufficient to avoid input/output overhead.  We need
-130TB in the distributed file system, so about 13TB per machine (we can in
-principle do without redundancy as the data are readily available for download
+Tests indicate 32GB is sufficient.  We need 130TB in the distributed file
+system, so $\sim$ 8TB per machine in order to avoid over-filling the disks (we
+are doing without redundancy as the data are readily available for download
 from the DES collaboration).  Recent purchases for the Atlas experiment at BNL
 are very similar to this and we project a cost of approximately \$5,200.  The
 addition of two high-performance GPUs (e.g. Nvidia 2050) adds another $\sim$
-\$3,600.  The total cost for ten machines is \$88,000.  Note overhead and
+\$3,600.  The total cost for ten machines is \$176,000.  Note overhead and
 slight yearly escalation are also included in the budget.  These can be
 purchased over the five year survey, in stride with data acquisition.  There is
 potential for increase in speed per GPU, but this is difficult to predict
@@ -1103,10 +1096,10 @@ Elected {\bf Architect} of the Sloan Digital Sky Survey III \hfill {\small 2011}
 \addcontentsline{toc}{section}{Appendix 2: Current and Pending Support}
 \section*{Appendix 2: Current and Pending Support}
 
-Dr. Erin S. Sheldon is currently supported as a physicist at Brookhaven
-National Laboratory at 100\%.  Pending project approval, support will be
-redirected to this grant {\bf as required for laboratory employeees}.  There is
-no other support pending.
+Dr. Erin S. Sheldon is currently supported for the 2012-2013 as a physicist at
+Brookhaven National Laboratory at 100\%.   There is no other support pending.
+Pending project approval, support will be redirected to this grant {\bf as
+required for laboratory employeees}.
 
 \vspace{5mm}
 \noindent
