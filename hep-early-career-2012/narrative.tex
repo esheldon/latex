@@ -11,12 +11,22 @@
 \newcommand{\devauc}{De Vaucouleurs'}
 \newcommand{\devprof}{exp$(-r^{1/4})$}
 \newcommand{\speedupnum}{10}
+\newcommand{\ncpus}{12}
+\newcommand{\speedupcpu}{42.5}
 \newcommand{\speedup}{ten}
 \newcommand{\overallspeedup}{170}
 \newcommand{\sncut}{20}
 \newcommand{\iooverhead}{10\%}
 
+\newcommand{\nmachines}{13}
+\newcommand{\ngpus}{3}
+\newcommand{\basecost}{\$5,200}
+\newcommand{\costgpu}{\$5,400}
+\newcommand{\diskper}{10TB}
+\newcommand{\costincrease}{2}
+
 \newcommand{\overhead}{10\%}
+\newcommand{\totalcost}{\$137,800}
 
 \newcommand{\snsize}{(S/N)$_{T}$}
 
@@ -191,6 +201,7 @@ himself and a postdoc.
 
 \newpage
 
+\thispagestyle{empty}
 \tableofcontents
 \newpage
 \setcounter{page}{1}
@@ -643,27 +654,29 @@ affine invariant Markov chain\cite{GoodmanWeare10} with twenty separate
 ``walkers'' that are evaluated independently at each step.  The total speedup
 is about a factor of \overallspeedup.  This is somewhat less than the 20x10=200
 possible speedup due to data transfer overhead.  This gain of \overallspeedup\
-may seem exceptional, but is due to the extreme parallelization we can achieve.
-This parallelization is made possible by the small image dimensions for a
-typical galaxy (25x25) and independence of the likelihood evaluations for each
-walker.
+is due to the extreme parallelization possible with this problem.  This
+parallelization is made possible by the small image dimensions for a typical
+galaxy (25x25) and independence of the likelihood evaluations for each walker
+at a given step.
 
 We can also make use of multiple GPUs attached to a single machine; we shall
-propose attaching two.  Of cource there are also typically multiple CPUs per
-system.  Comparing a 2 GPU system to a 12-core CPU system, the total speedup is
-2*170/12 = 28.
+propose attaching \ngpus.  Of cource there are also typically multiple CPUs per
+system.  Comparing a \ngpus\ GPU system to a \ncpus-core CPU system, the total
+speedup is \ngpus*\overallspeedup/\ncpus = \speedupcpu.
 
 These increases in speed come at a moderate increase in cost over typical
-``farm'' compute nodes.  Adding two high performance GPUs to a typical node
-increases the cost by about 70\%. In section \ref{sec:computing} we will
-outline the moderate cost to build a sufficient set of machines to process the
-DES data.
+``farm'' compute nodes.  Adding \ngpus\ high performance GPUs to a typical node
+increases the cost by about a factor or \costincrease. In section
+\ref{sec:computing} we will outline the moderate cost to build a sufficient set
+of machines to process the DES data.
 
 {\it
     
 Notes:  All the code was written in the C language with OpenCL extensions by
-Erin Sheldon and is publicly available.  Some more time can be spent tuning the
-GPU implementation. On the other hand, the ultimate bottleneck will be memory
+Erin Sheldon and is publicly available.  Using OpenCL means we are not tied to
+any vendor-specific optimizations and could in principle use different GPUs
+from Nvidia. Some more time can be spent tuning the GPU
+implementation. On the other hand, the ultimate bottleneck will be memory
 bandwidth limitations, which these tests may already have met.   More walkers
 could be used for better parallelization, but the tradeoff is a more costly
 burn-in for the Markov chain, as the total burn-in does not decrease inversely
@@ -761,8 +774,8 @@ using a selected lensing pipeline approximately yearly.  However, the Gaussian
 mixture pipeline is still in heavy development and will require many runs on
 the data and simulations to find and fix bugs.  A turnaround time more like
 $\sim$2.5 weeks on the full data set is desirable.   This will facilitate
-development in response to data-driven needs as well as sufficient computing
-for any simulation tests we require.
+development in response to data-driven needs as well as provide sufficient
+computing for any simulation tests we require.
 
 %Note the DES collaboration may also have some computing available to run the
 %pipelines, but these systems will not be GPU based so the computationally
@@ -772,10 +785,10 @@ As described in section \ref{sec:gmix:gpu}, we want to process all 500 million
 galaxies, each on 10 separate exposures, in this time of 2.5 weeks. Time per
 galaxy is about 1.75 seconds on a 2.7GHz Intel CPU. In section
 \ref{sec:gmix:gpu}, we showed this time can be reduced to 0.01 seconds using a
-Nvidia 205 GPU.  Input output from a local disk, which we can guarantee using
-the file system described in section \ref{sec:gmix:gpu}, is about \iooverhead\
-overhead.  Thus we would require only $\sim$ 20 nodes with two GPUs each to
-process the survey in 2.5 weeks. 
+Nvidia 205 GPU.  Input output from a local disk (which we can guarantee using
+the file system described in section \ref{sec:gmix:gpu}), is about \iooverhead\
+overhead.  Thus we would require only $\sim$ \nmachines\ nodes with \ngpus\
+GPUs each to process the survey in 2.5 weeks. 
 %We round this up to 10 nodes for two reasons: 1) the Gaussian mixture
 %algorithm is under development and computational requirements may increase and
 %2) it is more cost-effective and efficient for data throughput to spread the
@@ -785,18 +798,21 @@ What type of systems should these be?  We desire fairly large memory on the
 system in order to hold data from all exposures in memory for a full ``coadd
 tile''. A coadd tile is the unit of association used when combining exposures
 and covers several tens of pointings, (with about ten exposures per pointing).
-Tests indicate 32GB is sufficient.  We need 130TB in the distributed file
-system, so $\sim$ 8TB per machine in order to avoid over-filling the disks (we
-are doing without redundancy as the data are readily available for download
-from the DES collaboration).  Recent purchases for the Atlas experiment at BNL
-are very similar to this and we project a cost of approximately \$5,200.  The
-addition of two high-performance GPUs (e.g. Nvidia 2050) adds another $\sim$
-\$3,600.  The total cost for ten machines is \$176,000.  Note overhead and
-slight yearly escalation are also included in the budget.  These can be
-purchased over the five year survey, in stride with data acquisition.  There is
-potential for increase in speed per GPU, but this is difficult to predict
-currently as scientific GPUs are a new technology.  We prefer to quote the
-current performance profile.
+Tests indicate 32GB is sufficient, but we prefer 48GB as this is a better
+number per core and is not a large increase in cost.  We need 130TB in the
+distributed file system, so $\sim$ \diskper\ per machine(we are doing without
+redundancy as the data are readily available for download from the DES
+collaboration).  Recent purchases for the Atlas experiment at BNL are very
+similar to this and we project a cost of approximately \basecost.  The addition
+of \ngpus\ high-performance GPUs (e.g.  Nvidia 2050) adds another $\sim$
+\costgpu. Note we could increase the number of GPUs per machine and buy fewer
+machines but we would then have difficulty getting the required amount of disk
+on the machines at a reasonable cost.  The total cost is about \totalcost.
+Note overhead is also included in the budget, but not escalation as we expect
+the machines to become somewhat cheaper at fixed performance.  These can be
+purchased over the five year survey.  There is potential for increase in speed
+per GPU, but this is difficult to predict currently as scientific GPUs are a
+new technology.  We prefer to quote the current performance profile.
 
 Note these prices include bulk discounts from purchasing along with other
 experiments through the RHIC-Atlas Computing Facility at BNL.  
@@ -810,13 +826,13 @@ Erin Sheldon's salary and overhead for five years is requested.  We also request
 support for a research associate for five years.
 
 The remaining expenses beyond salary and computing are primarily for travel.
-The DES collaboration is multi-national and Erin Sheldon and a postdoc will
-most likely travel abroad to the collaboration meetings.  Sheldon plans to
-spend three weeks each summer at a workshop in the US, such as those held at
-Aspen and Santa Fe.  Further travel will involve attending a few conferences
-per year across the US for both Sheldon and postdoc.  Erin Sheldon will also
-make regular trips to the University of Pennsylvania to collaborate with fellow
-DES weak lensers Mike Jarvis and Bhuvnesh Jain.
+Erin Sheldon and a postdoc will travel to a DES collaboration meeting each
+year.  Sheldon plans to spend three weeks each summer at a workshop in the US,
+such as those held at Aspen and Santa Fe.  Further travel will involve
+attending a few conferences per year across the US for both Sheldon and
+postdoc.  Erin Sheldon will also make regular trips to the University of
+Pennsylvania to collaborate with fellow DES weak lensers Mike Jarvis and
+Bhuvnesh Jain.
 
 \clearpage
 \newpage
