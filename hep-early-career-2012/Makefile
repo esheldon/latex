@@ -12,7 +12,7 @@ narrative:
 proposal: narrative
 	dvips -t letter narrative
 	ps2pdf narrative.ps
-	pdftk narrative.pdf cat 1-25 output narrative-cut.pdf
+	pdftk narrative.pdf cat 1-26 output narrative-cut.pdf
 	pdflatex early-career-sheldon
 
 clean:

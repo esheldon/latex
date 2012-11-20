@@ -201,16 +201,16 @@ himself and a postdoc.
 
 \newpage
 
-\thispagestyle{empty}
+%\thispagestyle{empty}
+\setcounter{page}{1}
 \tableofcontents
 \newpage
-\setcounter{page}{1}
+%\setcounter{page}{1}
 \addcontentsline{toc}{section}{Narrative}
 \section*{Narrative}
 \setcounter{section}{1}
 \subsection{Introduction}
 
-%The phenomenon of Dark Energy is one of the unsolved mysteries of our time.
 The initial discovery of Dark Energy was made by studying the expansion history
 of our universe.  According to General Relativity, a universe containing only
 ordinary matter decelerates at late times under its own gravitation, but recent
@@ -300,6 +300,35 @@ Finally, in sections \ref{sec:resources} and \ref{sec:timeline} we describe the
 personnel and resources needed to complete the work in this proposal and the
 expected timeline.
 
+\subsection{Relevance to DOE Missions}
+
+The High Energy Physics program of the Departement of Energy Office of Science
+has identified three ``scientific frontiers''.  Our proposed research
+on Dark Energy falls under the ``Cosmic Frontier'' where
+
+\begin{quote} non-accelerator-based experiments and telescopes are used to make
+    measurements of naturally occurring phenomena that will offer new insight
+    and information about the nature of dark matter, dark energy, and other
+    phenomena for understanding the fundamental properties of matter and
+    energy.\footnote{From announcement LAB 12-751}
+
+\end{quote}
+
+\subsection{Competency of the PI}
+
+Erin Sheldon has been working on weak gravitational lensing since 1998.  His
+thesis from the University of Michigan was on lensing, titled ``Galaxies,
+Luminosity, and Mass: Gravitational Lensing Measurements of the Correlation
+between Dark and Luminous Matter''.  He has published extensively on lensing
+and lensing-related topics such as photometric redshifts; see Appendex 2 for
+selected publications and section \ref{sec:sdssold} for some details on
+previous work on galaxy cluster lensing.
+
+Erin Sheldon is already a leader in the DES weak lensing working group,
+currently focusing primarily on pipeline development and testing.  He is also
+participating in the cluster lensing working group: Using DES mock catalogs, he
+has demonstrated the methods describe below provide an unbiased mass estimator
+for galaxy clusters.
 
 \subsection{Previous Lensing Measurements in the SDSS} \label{sec:sdssold}
 
@@ -359,7 +388,7 @@ constraining the fractional mass density $\Omega_m$ (relative to the total
 energy density) and the variance in mass density on 8 Mpc scales $\sigma_8$
 relative to the mean. In \cite{TinkerM2N2012} we used the ratio of mass to
 number density in clusters, combined with the large scale clustering of all
-galaxies, to place further complimentary constraints on $\Omega_m$ and
+galaxies, to place further complementary constraints on $\Omega_m$ and
 $\sigma_8$.  All these results are consistent with one another and the Cold
 Dark Matter theory.
 
@@ -380,7 +409,7 @@ extending these measurements back in time.  \label{fig:omegasigma8}}
 \end{figure}
 
 
-While powerful in themselves, these results are also very complimentary to
+While powerful in themselves, these results are also very complementary to
 other measurements, breaking degeneracies in analyses of the Cosmic Microwave
 Background \cite{KomatsuWMAPCosmo09}. 
 
@@ -406,13 +435,13 @@ constraining power.  These combined methods will constrain the Dark Energy
 equation of state parameter $w$ to better than 3\%; an important component of
 this overall constraint will be the cluster lensing measurements led by
 Sheldon.  First light occured in \commissdate, and the survey will run for five
-years.  DES operations are funded in part by the U.S. Department of Energy. 
+years.  DES is funded in part by the U.S. Department of Energy. 
 
 
 The SPT will use the Sunyaev-Zel'dovich (SZ) Effect \cite{Birkinshaw99}, the
 Compton up-scattering of light from the cosmic microwave background by the hot
 gas in galaxy clusters, to find a complete sample of clusters to high redshift.
-This selection of this cluster sample is complimentary to the DES optical
+This selection of this cluster sample is complementary to the DES optical
 cluster selection in that it is expected to be nearly independent of the
 distance of the cluster from the observer.  As with DES, the goal of the SPT is
 to use these clusters to probe the growth of structure, and the volume of
@@ -428,7 +457,7 @@ constrain Dark Energy properties.  These include two other lensing probes:
 Shear-shear correlations as a function of scale and the cross-correlation
 between shear and known objects as a function of scale.  Data are shared
 between cluster mass measurements and these probes, but because the correlation
-functions cover a much larger range of scales, they are complimentary.  There
+functions cover a much larger range of scales, they are complementary.  There
 is also a Supernova program that, while less constraining by itself, breaks
 degeneracies between certain cosmological parameters.  
 
@@ -459,6 +488,21 @@ Angular Clustering of Galaxies & 0.36 \\
 Supernovae Ia & 0.34 \\
 \enddata
 \end{deluxetable}
+
+\subsection{DES Builder} \label{sec:builder}
+
+Sheldon was awarded DES ``builder'' status for his service to the survey.
+Sheldon initially began work on DES in 2004.  He worked to plan the survey,
+studying various possible systematics informed by real data. He forecasted the
+sensitivity of the DES to lensing effects under realistic observing conditions,
+which ``flowed down'' to constraints for the camera/telescope system. This work
+also informed the survey strategy, helping to optimize the spatial/temporal
+observing pattern on the sky and in time to limit systematic effects for
+lensing.  Sheldon has since worked on building software pipelines to process
+DES images to measure lensing effects.  He has built a generic, pluggable image
+processing framework; multiple lensing codes have been used in this framework
+to process the realistic simulated DES images, including the new method
+described in \ref{sec:gmix}.
 
 \subsection{Overview of DES Activities}
 
@@ -504,7 +548,8 @@ source catalog; bias in the orientation of clusters introduced by the cluster
 finding procedure.  At the same time, the great sensitivity of DES imaging will
 create the potential to explore entirely new lensing-based probes.  What we
 learn from DES, the largest survey to date, will be highly influential for
-future surveys such as LSST.
+future surveys such as LSST. Note BNL is an LSST member institution, and
+Sheldon will begin participating in LSST as DES finishes.
 
 In contrast with cluster lensing measurements, the ``cosmic shear'' is the
 correlation of shears across the sky independent of the location of foreground
@@ -515,12 +560,12 @@ not be modeled in terms of cluster halos, the interpretation of cosmic shear
 can be simpler than cluster lensing.  However, the measurement involves
 directly correlating shears from many sources as a function of their separation
 on the sky, which can propagate systematic errors directly into the
-measurement. Thus cosmic shear and cluster lensing are quite complimentary.
+measurement. Thus cosmic shear and cluster lensing are quite complementary.
 
 Table \ref{table:constraints} contains a list of DES probes and their power to
 constrain the equation of state $w$.  If the desired accuracy is achieved,
-cluster lensing (clusters with WL calibration), which is begin led by Sheldon,
-is the most sensitive probe.
+cluster lensing (clusters with weak lensing calibration), which is being led by
+Sheldon, is the most sensitive probe.
 
 Erin Sheldon will guide a research associate in using shear measurements to
 calibrate the masses of the galaxy clusters used in the cosmological analyses.
@@ -674,14 +719,14 @@ of machines to process the DES data.
     
 Notes:  All the code was written in the C language with OpenCL extensions by
 Erin Sheldon and is publicly available.  Using OpenCL means we are not tied to
-any vendor-specific optimizations and could in principle use different GPUs
-from Nvidia. Some more time can be spent tuning the GPU
-implementation. On the other hand, the ultimate bottleneck will be memory
-bandwidth limitations, which these tests may already have met.   More walkers
-could be used for better parallelization, but the tradeoff is a more costly
-burn-in for the Markov chain, as the total burn-in does not decrease inversely
-with the number walkers.  A ``high-end'' graphics card is required to get this
-speedup; we tested an Nvidia 2050. The comparison CPUs are 2.7 GHz intel Xeon
+any vendor-specific optimizations and could in principle use GPUs from vendors
+other than Nvidia. Some more time can be spent tuning the GPU implementation.
+On the other hand, the ultimate bottleneck will be memory bandwidth
+limitations, which these tests may already have met.   More walkers could be
+used for better parallelization, but the tradeoff is a more costly burn-in for
+the Markov chain, as the total burn-in does not decrease inversely with the
+number walkers.  A ``high-end'' graphics card is required to get this speedup;
+we tested an Nvidia 2050. The comparison CPUs are 2.7 GHz intel Xeon
 processors.  The number of likelihood evaluations needed is the number of
 walkers times (burn-in + steps).  For higher S/N objects, a burn-in of about
 400 steps per walker is needed, followed by 200 steps.  A large number is
@@ -1091,8 +1136,11 @@ Note Appendix 3 holds the references for the narrative.
 \noindent
 \parbox[l]{1.25in}{{\bf Synergistic \\ Activities}}
 \parbox[t]{5.40in}{
-Elected {\bf Builder} of the Dark Energy Survey \hfill {\small 2011} \newline
+Elected {\bf Builder} of the Dark Energy Survey {\it see section \ref{sec:builder}} \hfill {\small 2011} \newline
 Elected {\bf Architect} of the Sloan Digital Sky Survey III \hfill {\small 2011} \newline
+{\it For coordinating target selection, similar to DES builder} \newline
+Reviewer for the Astrophysical Journal and Monthly Notices of the Royal Astronomical Society.
+ \hfill {\small 2000-12}
 }
 
 \newpage
@@ -1113,8 +1161,9 @@ Elected {\bf Architect} of the Sloan Digital Sky Survey III \hfill {\small 2011}
 \section*{Appendix 2: Current and Pending Support}
 
 Dr. Erin S. Sheldon is currently supported for the 2012-2013 as a physicist at
-Brookhaven National Laboratory at 100\%.   There is no other support pending.
-Pending project approval, support will be redirected to this grant {\bf as
+Brookhaven National Laboratory at 100\%.   There is no other support pending;
+i.e. there is currently no support for Sheldon for the period covered by this
+proposal.  Pending project approval, support will come from this grant {\bf as
 required for laboratory employeees}.
 
 \vspace{5mm}
@@ -1181,7 +1230,9 @@ of 34 compute nodes and a file server purchased in 2009-2012.
 %ram, twelve are 12 core with 48GB ram, and the rest are 8 core 32GB ram
 %systems.  These are housed at the RHIC-Atlas Computing Facility at BNL.  
 Because these are a highly over-subscribed, shared resource, only a fraction of
-the resources can be dedicated to this project.
+the resources can be dedicated to this project.  For this reason, we have requested
+a moderate amount of computing to facilitate the proposed research, as outlined
+in section \ref{sec:computing}
 
 % this is a pdf insert
 \newpage
