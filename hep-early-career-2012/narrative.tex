@@ -305,14 +305,14 @@ expected timeline.
 The High Energy Physics program of the Departement of Energy Office of Science
 has identified three ``scientific frontiers''.  Our proposed research
 on Dark Energy falls under the ``Cosmic Frontier'' where
-
 \begin{quote} non-accelerator-based experiments and telescopes are used to make
     measurements of naturally occurring phenomena that will offer new insight
     and information about the nature of dark matter, dark energy, and other
     phenomena for understanding the fundamental properties of matter and
     energy.\footnote{From announcement LAB 12-751}
-
 \end{quote}
+Furthermore, the Dark Energy Survey is funded in part by the Department of
+Energy.
 
 \subsection{Competency of the PI}
 
@@ -425,7 +425,7 @@ Dark Matter.
 
 The Dark Energy Survey (DES) is an optical, multi-band survey of 5000 square
 degrees using the 4-meter ``Blanco'' telescope at the Cerro Tololo
-Inter-American Observatory in Chile. A new camera is being built and the
+Inter-American Observatory in Chile. A new camera has being built and the
 telescope repaired and upgraded.  The DES will utilize gravitational lensing,
 an optical cluster survey, supernovae, and galaxy clustering to constrain the
 properties of Dark Energy.  Combining DES lensing measurements and DES optical
@@ -441,7 +441,7 @@ years.  DES is funded in part by the U.S. Department of Energy.
 The SPT will use the Sunyaev-Zel'dovich (SZ) Effect \cite{Birkinshaw99}, the
 Compton up-scattering of light from the cosmic microwave background by the hot
 gas in galaxy clusters, to find a complete sample of clusters to high redshift.
-This selection of this cluster sample is complementary to the DES optical
+The selection of this cluster sample is complementary to the DES optical
 cluster selection in that it is expected to be nearly independent of the
 distance of the cluster from the observer.  As with DES, the goal of the SPT is
 to use these clusters to probe the growth of structure, and the volume of
@@ -493,16 +493,17 @@ Supernovae Ia & 0.34 \\
 
 Sheldon was awarded DES ``builder'' status for his service to the survey.
 Sheldon initially began work on DES in 2004.  He worked to plan the survey,
-studying various possible systematics informed by real data. He forecasted the
+studying various possible systematics, informed by real data. He forecasted the
 sensitivity of the DES to lensing effects under realistic observing conditions,
 which ``flowed down'' to constraints for the camera/telescope system. This work
 also informed the survey strategy, helping to optimize the spatial/temporal
 observing pattern on the sky and in time to limit systematic effects for
-lensing.  Sheldon has since worked on building software pipelines to process
-DES images to measure lensing effects.  He has built a generic, pluggable image
-processing framework; multiple lensing codes have been used in this framework
-to process the realistic simulated DES images, including the new method
-described in \ref{sec:gmix}.
+lensing. This work was presented in the  DES white paper\cite{DESWhitePaper}.
+Sheldon has since worked on building software to process DES images to measure
+lensing effects.  He has also built a generic, pluggable image processing
+framework; multiple lensing codes have been used in this framework to process
+the realistic simulated DES images, including the new method described in
+\ref{sec:gmix}.
 
 \subsection{Overview of DES Activities}
 
@@ -514,72 +515,6 @@ and a fast implementation using graphics processing units.  Sheldon will guide
 a research associate to analyze these measurements to extract cosmological
 parameters.  In the following sections we will describe the current state of
 this research and planned activities.
-
-\subsection{Lensing Analysis of DES Data} \label{sec:deslensing}
-
-\subsubsection{Science Analysis}
-
-As described in the introduction, the cosmological information from clusters is
-primarily in the number density of objects with a given mass as a function of
-time, especially the most massive objects such as galaxy clusters.  Clusters
-are identified not by their mass but by other indicators, such as the number of
-galaxies in a cluster or the SZ effect.  The SZ effect and the number of
-galaxies are both correlated with mass, but that correlation must be measured
-by a secondary method.  As described in the introduction, lensing is the best
-method for doing this.  
-
-As described in \S\ref{sec:sdssold}, in our studies of SDSS lensing we
-developed analysis techniques to calibrate the mass-observable relation of
-clusters (Figure \ref{fig:massngals}).  Using this calibration in conjunction
-with the number density we have inferred cosmological parameters (Figure
-\ref{fig:omegasigma8}).  These techniques are limited only by our understanding
-of the systematics and characterization of the cluster selection process.  The
-volume and depth of DES is sufficiently large to perform measurements
-equivalent to the SDSS study, but separately in many bins of cosmic time.  Time
-dependent measurements will allow us to extend our cosmological analysis to
-constrain the properties of Dark Energy.
-
-There is much room for innovation in this field: the sensitivity of DES will be
-such that small systematic effects will become important. Some such issues are:
-offsets between the identified galaxy cluster position and the true center of
-mass; measurements errors due to object overlap in crowded regions at cluster
-centers; errors introduced by distance uncertainties in the cluster catalog and
-source catalog; bias in the orientation of clusters introduced by the cluster
-finding procedure.  At the same time, the great sensitivity of DES imaging will
-create the potential to explore entirely new lensing-based probes.  What we
-learn from DES, the largest survey to date, will be highly influential for
-future surveys such as LSST. Note BNL is an LSST member institution, and
-Sheldon will begin participating in LSST as DES finishes.
-
-In contrast with cluster lensing measurements, the ``cosmic shear'' is the
-correlation of shears across the sky independent of the location of foreground
-structures.  Since the shear is related to mass, the cosmic shear can be used
-to infer statistics of the underlying mass distribution, the evolution of which
-is directly related to the properties of Dark Energy.  Because the signal need
-not be modeled in terms of cluster halos, the interpretation of cosmic shear
-can be simpler than cluster lensing.  However, the measurement involves
-directly correlating shears from many sources as a function of their separation
-on the sky, which can propagate systematic errors directly into the
-measurement. Thus cosmic shear and cluster lensing are quite complementary.
-
-Table \ref{table:constraints} contains a list of DES probes and their power to
-constrain the equation of state $w$.  If the desired accuracy is achieved,
-cluster lensing (clusters with weak lensing calibration), which is being led by
-Sheldon, is the most sensitive probe.
-
-Erin Sheldon will guide a research associate in using shear measurements to
-calibrate the masses of the galaxy clusters used in the cosmological analyses.
-We will also work with other DES collaborators on the measurement of cosmic
-shear.  These are critical components of the DES mission.  We expect major
-results to appear after year one based on the single epoch data, year 2-3 after
-multi-epoch data becomes available, and at survey end with the final data set.
-
-In our forecasting of cosmological parameter constraints, we have assumed we
-can meet a certain level of lensing shear measurement accuracy.  This analysis
-is ultimately limited by how accurately we can measure galaxy ellipticities and
-remove the effects of the point spread function.  In the next section we will
-address the second major part of this proposal: a new method to measure shear
-and a fast implementation on graphics processing units.
 
 \subsection{New Lensing Shear Measurement Technique Using Gaussian Mixtures}
 \label{sec:gmix}
@@ -705,7 +640,7 @@ galaxy (25x25) and independence of the likelihood evaluations for each walker
 at a given step.
 
 We can also make use of multiple GPUs attached to a single machine; we shall
-propose attaching \ngpus.  Of cource there are also typically multiple CPUs per
+propose attaching \ngpus.  Of course there are also typically multiple CPUs per
 system.  Comparing a \ngpus\ GPU system to a \ncpus-core CPU system, the total
 speedup is \ngpus*\overallspeedup/\ncpus = \speedupcpu.
 
@@ -748,36 +683,144 @@ PSF models.  Finally, the ultimate test is real data and we expect getting the
 method to work optimally on real data will require the most effort.
 
 
-\begin{comment}
-\subsection{Shear Measurement Using Shapelets}
-\label{sec:shapelets}
+%In our forecasting of cosmological parameter constraints, we have assumed we
+%can meet a certain level of lensing shear measurement accuracy.  This analysis
+%is ultimately limited by how accurately we can measure galaxy ellipticities and
+%remove the effects of the point spread function.  In the next section we will
+%address the second major part of this proposal: a new method to measure shear
+%and a fast implementation on graphics processing units.
 
-In addition to the Gaussian mixture method described in section \ref{sec:gmix},
-Mike Jarvis of the University of Pennsylvania and I have implemented a full
-shear pipeline based on the shapelets technique\cite{Bern02}.   The accuracy
-does not yet meet DES requirements, but this pipeline is mature in the sense
-that it can now run fully autonomously on the data and is fast and stable.
-Tuning of the pipeline to increase accuracy is being led by Jarvis and is
-showing promise.   The ideas for reducing bias, outlined in section
-\ref{sec:gmix}, can in principle be applied to this technique as well.
+\subsection{Cluster Lensing Analysis in DES Data} \label{sec:deslensing}
 
-This pipeline can make full use of the multi-epoch DES data where the sky is
-observed many times.  This code has been tested on simulated DES data and will
-continue to undergo heavy testing and refinement throughout the commissioning
-phase.  
+We will apply the shear measurement method discussed in section \ref{sec:gmix}
+to DES data. These shear measurements will be used to study Dark Energy in a
+large variety of ways.  In this section we will focus on lensing by
+galaxy clusters.
 
-The processing framework was implemented by Sheldon.  This framework is
-``pluggable'' so that other codes can be plugged in readily and can make use of
-the infrastructure built around the shapelets code.  I plan to plug in the
-Gaussian mixture code as well as 2-3 other pipelines developed within DES.
+As described in the introduction, the cosmological information from clusters is
+primarily in the number density of clusters with a given mass as a function of
+time.  However, clusters are identified not by their mass but by more easily
+observable quantities such as galaxy over-density. The correlation between the
+observable and true mass must be measured by a secondary method.  Lensing is
+the best method for doing this.  
 
-Note the shapelets pipeline, as it is implemented currently, gains less from a
-GPU implementation than the Gaussian mixtures because it is a maximum
-likelihood technique and so requires relatively few evaluations.  That said,
-significant gains should be possible.  And, if the bias-correction schemes
-discussed in section \ref{sec:gmix} are implemented for shapelets, then greater
-gains can be had using GPUs.
-\end{comment}
+\subsubsection{Cluster Finding}
+
+We mentioned cluster finding in section \ref{sec:des}, but we will give some
+additional information here. A number of methods will be used in DES to find
+galaxy clusters.  The primary method is to search for galaxy over-densities in
+space and color \cite{KoesterAlgorithm07,Rykoff12,MillerC4}.  As shown in
+\cite{Rykoff12}, optically selected cluster catalogs are now comparable to
+X--ray selected catalogs in terms of scatter between the mass and observables.
+
+Erin Sheldon participated in the cluster finding efforts in the SDSS, e.g.
+\cite{KoesterAlgorithm07}, primarily in the generation of clean galaxy input
+catalogs and characterization of a survey footprint.  He will continue this
+level of involvement in DES cluster finding, which will facilitate
+collaboration between the lensing and cluster working groups.
+
+A secondary method is to use the SZ effect in SPT data data (see section
+\ref{sec:des}). This method has the advantage over optical finding that the
+selection nearly independent of mass, but is limited to higher mass systems.
+We can cross-correlate these clusters with the lensing shear in a way
+complementary to the optical clusters.
+
+\subsubsection{Cluster Mass and Cosmological Interpretation}
+
+As described in \S\ref{sec:sdssold}, in our studies of SDSS lensing we
+developed analysis techniques to calibrate the mass-observable relation of
+clusters (Figure \ref{fig:massngals}).  We combined this with the counts of
+clusters to infer the number density of clusters as a function of mass.  This
+``mass function'' was then used to infer cosmological parameters (Figure
+\ref{fig:omegasigma8}).  These techniques are limited only by our understanding
+of the systematics and characterization of the cluster selection process.  
+
+The volume and depth of DES is sufficiently large to perform measurements
+equivalent to the SDSS study, but separately in many bins of cosmic time.  Time
+dependent measurements will allow us to extend our cosmological analysis to
+constrain the properties of Dark Energy.
+
+Erin Sheldon will guide a research associate in using shear measurements to
+calibrate the masses of the galaxy clusters, and in turn infer cosmological
+parameters.  We the same techniques used in the SDSS can be applied directly to
+DES data; it is this canonical analysis that will lead to the most important
+constraints on cosmology.  This in itself is a large project.  However, there
+is a much work to be done before we can meet the science goals.  The
+sensitivity of DES will be such that small systematic effects will be even more
+important than for the SDSS.
+
+\subsubsection{Characterization of Systematic Effects}
+
+Here we will briefly discuss a few of the systematic effects we must address
+for DES lensing interpretation.  This is far from an exhaustive list, and
+undoubtedly we will unearth previously undiscovered effects in the enormous DES
+dataset. Note these are effects beyond algorithmic errors in shear measurements
+as discussed in section \ref{sec:gmix}.
+
+There is generally an offset between the identified galaxy cluster position and
+the true center of mass. For example, the brightest galaxy or centroid of the
+members may provide an unbiased center on average, but there is significant
+scatter.  In addition, there is a relatively small population for which the
+center is actually biased: for example in the case of a merging system the
+brightest member is not at the center of mass. After averaging the lensing
+signal over many clusters, the profiles are effectively smoothed with a
+convolution kernel (note this effect is even harder to correct for if the
+signal is not averaged). This smearing must be taken into account to recover
+the true average mass.  We did address this in our previous
+work\cite{JohnstonLensing07}, but the simulations did not have sufficient
+realism to address this question.  With the extensive simulations planned for
+DES systematics studies, we will characterize this effect more accurately.  We
+will work closely with the group finding clusters and the simulators on this
+issue.
+
+There are errors introduced due to incorrect ``de-blending'' of overlapping
+objects in crowded regions at cluster centers. This is not a failing of the
+shear measurement algorithm, but of the code that finds objects and de-blends
+them. De-blending is not a fully solved problem, and often the de-blending
+results in a spurious correlation between the shapes of de-blended objects.
+Another error from incorrect image processing is due to poorly subtracted
+background light from bright objects such as stars in our galaxy or very bright
+galaxies.  We will work with the data management team to characterize these
+effects.  A proven method is to place simulated galaxies in the real data near
+cluster centers or bright stars and look for errors correlated with
+cluster-centric distance, e.g. as performed in the
+SDSS\cite{MandelbaumSystematics05}.
+
+We only know the distance to the background source galaxies statistically, and
+any inaccuracies result in a bias in the inferred masses and thus cosmology.
+Sheldon has experience working with these approximate distance measurements,
+so-called photo-zs\cite{SheldonPhotozDR8}, and he will work closely with the
+DES photo-z group to characterize the associated errors.  
+
+There is a bias in the orientation of clusters introduced by the cluster
+finding procedure: one is more likely to find a cluster oriented along the line
+of sight than perpendicular.  We will work with the cluster-finding team and
+DES experts on this effect (Jeorg Dietrich) to predict and remove the effect.
+
+Other important effects are the intrinsic correlations in the shapes of
+physically-associated source galaxies caused by gravitational
+effects\cite{HirataIntrinsicAlign07}, and the correlation of source galaxies
+with the lenses\cite{SheldonLensing07}(simple to correct using the
+cross-correlation).
+
+\subsubsection{Projected Sensitivity}
+
+Lensing measurements are a critical component of the DES mission.  Table
+\ref{table:constraints} contains a list of DES probes and their power to
+constrain the equation of state $w$.  If the desired accuracy is achieved,
+cluster lensing (clusters with weak lensing calibration), which is being led by
+Sheldon, is the most sensitive probe.
+
+We expect major results to appear after year one based on the single epoch
+data, year 2-3 after multi-epoch data becomes available, and at survey end with
+the final data set.
+
+The great sensitivity of DES imaging will create the potential to explore
+entirely new lensing-based probes.  What we learn from DES, the largest survey
+to date, will be highly influential for future surveys such as the Large
+Synoptic Survey Telescope (LSST). BNL is an LSST member institution, and
+Sheldon will begin participating in LSST as DES finishes.  Thus this work will
+directly benefit the future LSST survey.
 
 \subsection{Personnel and Resources} \label{sec:resources}
 
@@ -879,8 +922,8 @@ postdoc.  Erin Sheldon will also make regular trips to the University of
 Pennsylvania to collaborate with fellow DES weak lensers Mike Jarvis and
 Bhuvnesh Jain.
 
-\clearpage
-\newpage
+%\clearpage
+%\newpage
 \subsection{Timeline} \label{sec:timeline}
 
 This is an outline of the activities for the five year extent of the award.
@@ -908,7 +951,7 @@ BNL and a postdoc, or research associate.
 \item {\bf 2016-2017}  Activities should continue as before until survey end.
     Processing data as it arrives, incrementally improving the data pipelines
     and analysis codes.  Analysis methods will evolve, especially as the final
-    data are in hand and there are many epochs with which to work.   There will
+    data are in hand and there are many epochs with which to work.   There may
     be intermediate publications based on this data.
 
 \item {\bf Post survey} A re-processing of all data through the final pipelines
@@ -1137,8 +1180,8 @@ Note Appendix 3 holds the references for the narrative.
 \parbox[l]{1.25in}{{\bf Synergistic \\ Activities}}
 \parbox[t]{5.40in}{
 Elected {\bf Builder} of the Dark Energy Survey {\it see section \ref{sec:builder}} \hfill {\small 2011} \newline
-Elected {\bf Architect} of the Sloan Digital Sky Survey III \hfill {\small 2011} \newline
-{\it For coordinating target selection, similar to DES builder} \newline
+Elected {\bf Architect} of the Sloan Digital Sky Survey III
+{\it for coordinating target selection, similar to DES builder} \hfill {\small 2011} \newline
 Reviewer for the Astrophysical Journal and Monthly Notices of the Royal Astronomical Society.
  \hfill {\small 2000-12}
 }
@@ -1160,37 +1203,37 @@ Reviewer for the Astrophysical Journal and Monthly Notices of the Royal Astronom
 \addcontentsline{toc}{section}{Appendix 2: Current and Pending Support}
 \section*{Appendix 2: Current and Pending Support}
 
+Erin Sheldon\newline
+Brookhaven National Laboratory\newline
+\newline
+Erin Sheldon is supported by High Energy Physics program, DOE Office of Science
+as a full time staff member for the period 2012-2013 (12 months) under B\&R\# KA2301020.
+\newline
+\newline
+\noindent
+There is no other pending support. 
+
+\begin{comment}
 Dr. Erin S. Sheldon is currently supported for the 2012-2013 as a physicist at
-Brookhaven National Laboratory at 100\%.   There is no other support pending;
-i.e. there is currently no support for Sheldon for the period covered by this
-proposal.  Pending project approval, support will come from this grant {\bf as
-required for laboratory employeees}.
+Brookhaven National Laboratory at 100\%.   Postdoc Andres Plazas is also
+supported for this year.  There is {\bf no support pending} for the time period
+covered by this proposal.  Pending project approval, support will come from
+this grant {\bf as required for laboratory employeees}.
 
 \vspace{5mm}
 \noindent
 Investigator: Erin Sheldon\newline
 Source of Support: DOE Office of Science\newline
 High Energy Physics\newline
-FWP: PO104\newline
+DOE Program Manager:  Kathy Turner\newline
+B\&R \# KA2301020   Cosmic Frontier-  National Laboratory\newline
+FWP: PO104 Cosmic Frontier Research\newline
+Total funding (direct and indirect): \$450,000 for two scientists.\newline
+Funding is approved on an annual fiscal year basis.  The FWP supports the research activities of two scientists.\newline
 Period Covered: 10/1/12-9/30/13\newline
 Man Months: 12 months
 
-\begin{comment}
-\begin{table}[h]
-\begin{center}
-\begin{tabular*}{0.85\textwidth}{ll}
-B\&R \#YN010000  & \parbox[t]{\textwidth}{BNL Laboratory Directed 
-   Research \& Development \\ Award} \\
-                 & LDRD 10-45 (FY 2010 -– FY 2012) \\
-                 & Astrophysics \& Cosmology Initiative \\
-                 & 100\%
-\end{tabular*}
-\parbox{0.85\textwidth}{\caption{{\bf Current Funding}: Program Development 
-\& Lab Directed Research \& Development \label{table:support}}}
-\end{center}
-\end{table}
 \end{comment}
-
 
 \newpage
 \addcontentsline{toc}{section}{Appendix 3: Bibliography for Narrative}
@@ -1214,7 +1257,7 @@ Astronomical Society.
 
 We plan to acquire a moderate amount of computing.  The housing, power and
 cooling, administration, and maintenance for these computers will be provided
-by the RHIC-Atlas Computing Facility at Brookhaven National Lab at no
+by the RHIC-Atlas Computing Facility (RACF) at Brookhaven National Lab at no
 additional cost to this experiment.	The tests we performed on GPUs occured on a
 machine in the RACF set aside for prototyping.  The engineers who set up this
 system can lend expertise to tuning the new GPU systems purchased with this
