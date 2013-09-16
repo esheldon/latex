@@ -32,7 +32,76 @@ intro
 
 \section{Algorithm} \label{sec:algo}
 
-algo
+The full algorithm is presented in \citet[][BA13]{ba13}.  There are a few basic
+limitations and assumptions underlying this approach:
+
+\begin{itemize}
+
+    \item Only the mean shear over some region of sky is knowable.
+
+    \item The posterior distribution of the shear from a large ensemble of
+        galaxy shapes is Gaussian.
+
+    \item The shear is small, $\gamma \ll 1$.
+
+\end{itemize}
+
+The first point follows from the fact that galaxies have intrinsic shapes, with
+variance larger than the typical shear induced by structures in our universe.
+This limitation would not apply if a large set of intrinsically round sources
+were found.  Given this limitation, the estimation of shears from individual
+sources is abandoned.
+
+The second point follows from the first point and the central limit theorem: if
+the shear is derived from a large enough ensemble of galaxy shapes, the
+posterior necessarily approaches a Gaussian.
+
+The third point is true under most circumstances, but will for example break
+down along lines-of-sight near large clusters of galaxies.
+
+Under these assumptions, a second-order estimator was derived for the shear,
+consistent with the Gaussian assumption.  This form is a Taylor expansion of
+the logarithm of the posterior for the shear.  The equations are given in full
+in \citet{ba13}.
+
+Prior information is key to this approach: the intrinsic distribution of
+shapes, and how shapes respond to an applied shear.  The use of strong priors
+on all parameters also suppresses noise-related effects, such as the shear
+``noise bias''.  The basic statistics derived from each galaxy are integrals of
+derivatives of the prior over the full likelihood; thus the full likelihood
+must be explored.  The final shear statistic is itself an aggregate over these
+derivatives.
+
+An approach to measuring non-constant shear is also given, as are perturbations
+to the second-order equations, but implementations of those ideas are left to
+future work.
+
+A full implementation, fitting to pixelized galaxy images, was not attempted by
+\citet{ba13}.  The basic formalism was shown to work by generating shapes
+$(g_1,g_2)$ from a distribution, adding noise and shear, and recovering the
+underlying shear using the second-order formula.
+
+\section{Implementation} \label{sec:impl}
+
+For this work an implementation of the \citet{ba13} formalism was developed to
+fit models to galaxy images, accounting for the point spread function and
+pixelization.
+
+Two types of models were fitted: An elliptical exponential disk model exp$(-r)$,
+and an elliptical \devauc\ profile exp$( -r^{1/4} )$.
+
+The estimator involves integrals over the full likelihood distribution for each
+galaxy.  Exploration of the likelihood surface requires a large number of model
+evaluations.  As an optimization, galaxy and PSF models were approximated as
+sums of Gaussians according the to the fits in \citet{HoggGMix12}.  This use of
+Gaussians for both galaxy and PSF models facilitates analytic convolutions of
+the galaxy model with the PSF.  This is a faster and simpler alternative to
+convolutions based on the generation of high resolution images that are
+convolved using Fourier transform methods. While only approximate
+representations, the Gaussian representations are sufficiently accurate to meet
+our requirements.  We further optimize the code by using a fast exponential
+function\footnote{https://github.com/herumi/fmath.  The code was translated
+from C++ to C by the author.}.
 
 \section{Simulation} \label{sec:sim}
 
