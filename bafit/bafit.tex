@@ -33,53 +33,55 @@ intro
 \section{Algorithm} \label{sec:algo}
 
 The full algorithm is presented in \citet[][BA13]{ba13}.  There are a few basic
-limitations and assumptions underlying this approach:
+assumptions underlying this approach:
 
 \begin{itemize}
 
-    \item Only the mean shear over some region of sky is knowable.
+    \item In the limit of weak shear, only the ensemble mean shear can be
+        derived from galaxy shapes.
 
-    \item The posterior distribution of the shear from a large ensemble of
-        galaxy shapes is Gaussian.
+    \item The posterior distribution of the shear derived from a large ensemble
+        of galaxy images is Gaussian.
 
     \item The shear is small, $\gamma \ll 1$.
 
 \end{itemize}
 
-The first point follows from the fact that galaxies have intrinsic shapes, with
-variance larger than the typical shear induced by structures in our universe.
-This limitation would not apply if a large set of intrinsically round sources
-were found.  Given this limitation, the estimation of shears from individual
-sources is abandoned.
+The first assumption is true because galaxy images are to be used to estimate
+the shear: galaxies have intrinsic shapes, with variance larger than the
+typical shear induced by structures in our universe. Given this limitation, the
+estimation of shears from individual sources is abandoned.  This limitation
+would not apply if a large set of intrinsically round, extended sources were
+found.
 
-The second point follows from the first point and the central limit theorem: if
-the shear is derived from a large enough ensemble of galaxy shapes, the
-posterior necessarily approaches a Gaussian.
+The second point follows from the first, and the central limit theorem: if the
+shear is derived from a large enough ensemble of galaxy shapes, the posterior
+necessarily approaches a Gaussian.
 
-The third point is true under most circumstances, but will for example break
-down along lines-of-sight near large clusters of galaxies.
+The third assumption is true under most circumstances, but will break down
+along lines-of-sight near large over-densities, such as clusters of galaxies.
 
 Under these assumptions, a second-order estimator was derived for the shear,
-consistent with the Gaussian assumption.  This form is a Taylor expansion of
-the logarithm of the posterior for the shear.  The equations are given in full
-in \citet{ba13}.
+consistent with the assumption of a Gaussian posterior.  This form is a Taylor
+expansion of the logarithm of the posterior for the shear.  The full equations
+are given in \citet{ba13}.
 
-Prior information is key to this approach: the intrinsic distribution of
-shapes, and how shapes respond to an applied shear.  The use of strong priors
-on all parameters also suppresses noise-related effects, such as the shear
-``noise bias''.  The basic statistics derived from each galaxy are integrals of
-derivatives of the prior over the full likelihood; thus the full likelihood
-must be explored.  The final shear statistic is itself an aggregate over these
-derivatives.
+Prior information is key to this approach: to derive the shear estimator, the
+un-lensed distribution of shapes is mathematically sheared, and must thus be
+known accurately.  The use of strong priors on all parameters also suppresses
+noise-related effects, such as the shear ``noise bias''.  The basic statistics
+derived from each galaxy are integrals of derivatives of the prior over the
+full likelihood.  The final shear statistic is itself an aggregate over the
+marginalized derivatives.
 
-An approach to measuring non-constant shear is also given, as are perturbations
-to the second-order equations, but implementations of those ideas are left to
-future work.
+An approach to measuring non-constant shear is also given, as are third-order
+tweaks to the second-order perturbations, but implementations of those ideas
+are left to future work.
 
-A full implementation, fitting to pixelized galaxy images, was not attempted by
-\citet{ba13}.  The basic formalism was shown to work by generating shapes
-$(g_1,g_2)$ from a distribution, adding noise and shear, and recovering the
-underlying shear using the second-order formula.
+A full implementation, fitting to pixelized galaxy images, was not attempted in
+\citet{ba13}.  The basic formalism was shown to work by generating shapes from
+an analytic distribution, adding noise and shear, and recovering the underlying
+shear using the second-order formula.
 
 \section{Implementation} \label{sec:impl}
 
@@ -99,9 +101,11 @@ the galaxy model with the PSF.  This is a faster and simpler alternative to
 convolutions based on the generation of high resolution images that are
 convolved using Fourier transform methods. While only approximate
 representations, the Gaussian representations are sufficiently accurate to meet
-our requirements.  We further optimize the code by using a fast exponential
-function\footnote{https://github.com/herumi/fmath.  The code was translated
-from C++ to C by the author.}.
+our requirements.  A fast exponential function was
+used\footnote{https://github.com/herumi/fmath.  The code was translated from
+    C++ to C by the author.}, and even so evaluation of the exponential
+    function is the bottleneck for this calculation.
+
 
 \section{Simulation} \label{sec:sim}
 
@@ -114,8 +118,8 @@ sim
  \includegraphics[scale=0.45]{figures/cbafit-geg-T-s2n.eps}
  \includegraphics[scale=0.45]{figures/cbafit-geg-flux-s2n.eps}
 
- \caption{ Fractional error in the recovered shear for the estimator presented
-     in \cite{ba13}.  The error is plotted as a
+ \caption{ Fractional bias in the recovered shear for the estimator presented
+     in \cite{ba13}.  The bias is plotted as a
      function of galaxy signal-to-noise ratio (S/N), for various galaxy
      properties and two different measures of S/N.  In panel (a) is
      plotted \Tsn, where the measure of size is $T=I_{xx} + I_{yy}$.  In 
@@ -123,7 +127,7 @@ sim
      fits, and the associated (S/N) is the ratio of best-fit value to error in
      the fit.  In each panel the fractional error is plotted for galaxies of
      different size and type, as described in the text.  As shown panel (a)
-     panel, the error depends uniquely on \Tsn\ for different galaxy types and
+     panel, the bias depends uniquely on \Tsn\ for different galaxy types and
      sizes.  However, \fsn\ is not a sufficient descriminator for different
      galaxy types and sizes.  The \Tsn\ can be used to remove galaxies from the
      sample that will yield poor shear estimates, independent of galaxy
@@ -137,12 +141,12 @@ sim
  \centering 
  \includegraphics[scale=0.6]{figures/fracerr-vs-shear.eps}
 
- \caption{Fractional error in the recovered shear as a function of true shear,
+ \caption{Fractional bias in the recovered shear as a function of true shear,
      in a zero noise simulation.  The solid curve is the best-fit quadratic
-     function of the true shear.  The quadratic error as a function of true
-     shear indicates a break down of the second-order formulas presented in
- \cite{ba13}. The gray band represents the requirements for the Dark Energy
- Survey. \label{fig:nonoise}}
+     function of the true shear.  The quadratic bias as a function of true
+     shear indicates a break down of the second-order approximation presented
+     in \cite{ba13}. The gray band represents the requirements for the Dark
+ Energy Survey. \label{fig:nonoise}}
 
 \end{figure}
 
