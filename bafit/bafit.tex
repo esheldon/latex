@@ -7,7 +7,7 @@
 
 \def\eps@scaling{1.0}% 
 
-\newcommand{\Tsn}{$(S/N)_T$}
+\newcommand{\Tsn}{$(S/N)_{size}$}
 \newcommand{\fsn}{$(S/N)_{flux}$}
 
 \slugcomment{Last revision \today}
@@ -40,42 +40,42 @@ sim
 
 \section{Results} \label{sec:results}
 
-\begin{figure}[t] \centering
+\begin{figure}[p] \centering
  \centering 
- \includegraphics[scale=0.4]{figures/cbafit-geg-T-s2n.eps}
- \includegraphics[scale=0.4]{figures/cbafit-geg-flux-s2n.eps}
+ \includegraphics[scale=0.45]{figures/cbafit-geg-T-s2n.eps}
+ \includegraphics[scale=0.45]{figures/cbafit-geg-flux-s2n.eps}
 
  \caption{ Fractional error in the recovered shear for the estimator presented
-     in \cite{ba13}.  The error is plotted as a function of galaxy
-     signal-to-noise ratio (S/N), for various galaxy properties and two
-     different measures of S/N.  In the left panel is plotted \Tsn, where the
-     measure of size is $T=I_{xx} + I_{yy}$.  In the right panel is plotted
-     \fsn, the signal-to-noise ratio of the total flux in the galaxy.  The flux
-     and $T$ are parameters in the model fits, and the associated (S/N) is the
-     ratio of measured value to error in the fit parameter.  In each panel the
-     fractional error is plotted for galaxies of different size and type, as
-     described in the text.  As shown in the left panel, the error depends
-     uniquely on \Tsn\ for different galaxy types and sizes.  However, \fsn\ is
-     not a unique descriminator for different galaxy types and sizes.   The
-     \Tsn\ can be used to remove galaxies from the sample that will yield poor
- shear estimates, independent of galaxy properties, but not so \fsn.  For \Tsn$
- > 10$ this shear estimator meets the requirements for DES, shown as the grey
- band.  \label{fig:fracerr}}
+     in \cite{ba13}.  The error is plotted as a
+     function of galaxy signal-to-noise ratio (S/N), for various galaxy
+     properties and two different measures of S/N.  In panel (a) is
+     plotted \Tsn, where the measure of size is $T=I_{xx} + I_{yy}$.  In 
+     panel (b) is plotted \fsn.  The flux and $T$ are parameters in the model
+     fits, and the associated (S/N) is the ratio of best-fit value to error in
+     the fit.  In each panel the fractional error is plotted for galaxies of
+     different size and type, as described in the text.  As shown panel (a)
+     panel, the error depends uniquely on \Tsn\ for different galaxy types and
+     sizes.  However, \fsn\ is not a sufficient descriminator for different
+     galaxy types and sizes.  The \Tsn\ can be used to remove galaxies from the
+     sample that will yield poor shear estimates, independent of galaxy
+     properties, but not so \fsn.  For \Tsn$~ > 10$ this shear estimator meets
+ the accuracy requirements for the Dark Energy Survey, shown as the gray band.
+ \label{fig:fracerr}}
 
 \end{figure}
-
 
 \begin{figure}[t] \centering
  \centering 
  \includegraphics[scale=0.6]{figures/fracerr-vs-shear.eps}
 
- \caption{Fractional error in the recovered shear as a function
- of true shear, in a zero noise simulation.\label{fig:nonoise}}
+ \caption{Fractional error in the recovered shear as a function of true shear,
+     in a zero noise simulation.  The solid curve is the best-fit quadratic
+     function of the true shear.  The quadratic error as a function of true
+     shear indicates a break down of the second-order formulas presented in
+ \cite{ba13}. The gray band represents the requirements for the Dark Energy
+ Survey. \label{fig:nonoise}}
 
 \end{figure}
-
-
-res
 
 \section{Summary} \label{sec:summary}
 
