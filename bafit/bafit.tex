@@ -7,13 +7,16 @@
 
 \def\eps@scaling{1.0}% 
 
+\newcommand{\Tsn}{$(S/N)_T$}
+\newcommand{\fsn}{$(S/N)_{flux}$}
+
 \slugcomment{Last revision \today}
 \shortauthors{Sheldon}
 \shorttitle{Bayesian Shear Estimation}
 
 \begin{document}
 
-\title{An Implementation of Bayesian Lensing Measurement}
+\title{On Bayesian Shear Estimation}
 
 \input{authors.tex}
 
@@ -36,6 +39,41 @@ algo
 sim
 
 \section{Results} \label{sec:results}
+
+\begin{figure}[t] \centering
+ \centering 
+ \includegraphics[scale=0.4]{figures/cbafit-geg-T-s2n.eps}
+ \includegraphics[scale=0.4]{figures/cbafit-geg-flux-s2n.eps}
+
+ \caption{ Fractional error in the recovered shear for the estimator presented
+     in \cite{ba13}.  The error is plotted as a function of galaxy
+     signal-to-noise ratio (S/N), for various galaxy properties and two
+     different measures of S/N.  In the left panel is plotted \Tsn, where the
+     measure of size is $T=I_{xx} + I_{yy}$.  In the right panel is plotted
+     \fsn, the signal-to-noise ratio of the total flux in the galaxy.  The flux
+     and $T$ are parameters in the model fits, and the associated (S/N) is the
+     ratio of measured value to error in the fit parameter.  In each panel the
+     fractional error is plotted for galaxies of different size and type, as
+     described in the text.  As shown in the left panel, the error depends
+     uniquely on \Tsn\ for different galaxy types and sizes.  However, \fsn\ is
+     not a unique descriminator for different galaxy types and sizes.   The
+     \Tsn\ can be used to remove galaxies from the sample that will yield poor
+ shear estimates, independent of galaxy properties, but not so \fsn.  For \Tsn$
+ > 10$ this shear estimator meets the requirements for DES, shown as the grey
+ band.  \label{fig:fracerr}}
+
+\end{figure}
+
+
+\begin{figure}[t] \centering
+ \centering 
+ \includegraphics[scale=0.6]{figures/fracerr-vs-shear.eps}
+
+ \caption{Fractional error in the recovered shear as a function
+ of true shear, in a zero noise simulation.\label{fig:nonoise}}
+
+\end{figure}
+
 
 res
 
