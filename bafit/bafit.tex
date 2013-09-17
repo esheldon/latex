@@ -3,12 +3,21 @@
 \usepackage{verbatim}
 \usepackage{color}
 \usepackage[normalem]{ulem} % for striking out with \sout
+\usepackage{amsmath} % for boldsymbol
 \input{newcommands.tex}
 
 \def\eps@scaling{1.0}% 
 
 \newcommand{\Tsn}{$(S/N)_{size}$}
 \newcommand{\fsn}{$(S/N)_{flux}$}
+
+% stolen from the BA13 source
+\newcommand{\vecg}{\mbox{\boldmath $g$}}
+\newcommand{\vecD}{\mbox{\boldmath $D$}}
+\newcommand{\vecQ}{\mbox{\boldmath $Q$}}
+\newcommand{\matR}{\mbox{$\bf R$}}
+\newcommand{\matC}{\mbox{$\bf C$}}
+\newcommand{\bnabg}{ \boldsymbol{\nabla_g}}
 
 \slugcomment{Last revision \today}
 \shortauthors{Sheldon}
@@ -33,9 +42,11 @@ intro
 \section{Algorithm} \label{sec:algo}
 
 The full algorithm is presented in \citet[][BA13]{ba13}.  There are a few basic
-assumptions underlying this approach:
+assumptions underlying this approach.  Following the notation in BA13:
 
 \begin{itemize}
+
+    \item The shear is weak, $g \ll 1$.
 
     \item In the limit of weak shear, only the ensemble mean shear can be
         derived from galaxy shapes.
@@ -43,36 +54,56 @@ assumptions underlying this approach:
     \item The posterior distribution of the shear derived from a large ensemble
         of galaxy images is Gaussian.
 
-    \item The shear is small, $\gamma \ll 1$.
 
 \end{itemize}
 
-The first assumption is true because galaxy images are to be used to estimate
-the shear: galaxies have intrinsic shapes, with variance larger than the
-typical shear induced by structures in our universe. Given this limitation, the
-estimation of shears from individual sources is abandoned.  This limitation
-would not apply if a large set of intrinsically round, extended sources were
-found.
-
-The second point follows from the first, and the central limit theorem: if the
-shear is derived from a large enough ensemble of galaxy shapes, the posterior
-necessarily approaches a Gaussian.
-
-The third assumption is true under most circumstances, but will break down
+The first assumption is true under most circumstances, but will break down
 along lines-of-sight near large over-densities, such as clusters of galaxies.
+
+The second assumption follows from the first, and the fact that galaxy images
+are to be used to estimate the shear: galaxies have intrinsic shapes, with
+variance larger than the typical shear induced by structures in our universe.
+Given this limitation, the estimation of shears from individual sources is
+abandoned.  This limitation would not apply if a large set of intrinsically
+round, extended sources were found.
+
+The third point follows from the central limit theorem: if the shear is derived
+from a large enough ensemble of galaxy shapes, the posterior necessarily
+approaches a Gaussian.
 
 Under these assumptions, a second-order estimator was derived for the shear,
 consistent with the assumption of a Gaussian posterior.  This form is a Taylor
-expansion of the logarithm of the posterior for the shear.  The full equations
-are given in \citet{ba13}.
+expansion of the logarithm of the posterior for the shear, with shear as the
+expansion variable:
+\begin{equation} \label{eq:pexpand}
+-\ln P(\vecg | \vecD) \approx {(\rm const)} - \ln P(\vecg) - \vecg \cdot \sum_i
+    \frac{\vecQ_i}{P_i}
+    + \frac{1}{2} \vecg \cdot \left[ \sum_i \left(\frac{\vecQ_i \vecQ^T_i}{P_i^2}
+    - \frac{\matR_i}{P_i}\right) \right] \cdot \vecg,
+\end{equation}
+where the terms $P_i$, $\vecQ_i$, and $\matR_i$ are 
+\begin{eqnarray} \label{eq:pqrdef}
+P_i     & = & P(\vecD_i | \vecg=0) \nonumber \\
+\vecQ_i & = & \left. \bnabg P(\vecD_i | \vecg)\right|_{\vecg=0} \\
+\matR_i & = & \left. \bnabg \bnabg P(\vecD_i | \vecg)\right|_{\vecg=0}. \nonumber
+\end{eqnarray}
 
-Prior information is key to this approach: to derive the shear estimator, the
-un-lensed distribution of shapes is mathematically sheared, and must thus be
-known accurately.  The use of strong priors on all parameters also suppresses
-noise-related effects, such as the shear ``noise bias''.  The basic statistics
-derived from each galaxy are integrals of derivatives of the prior over the
-full likelihood.  The final shear statistic is itself an aggregate over the
-marginalized derivatives.
+Prior information is key to this approach: these equations involve derivatives
+of the un-lensed distribution of shapes, the prior $P$. To fully predict the
+observed distribution of shapes, the un-lensed distribution of shapes must be
+mathematically sheared and compared to observables.  Due to the approximations,
+only derivatives near $g=0$ are required. The mean shear can be solved for and
+is given by:
+\begin{eqnarray} \label{eq:shdef}
+\matC_g^{-1} & = & \sum_i \left(\frac{\vecQ_i \vecQ^T_i}{P_i^2} - \frac{\matR_i}{P_i}\right) \\
+\bar{\vecg} & = &  \matC_g \sum_i \frac{\vecQ_i}{P_i}.
+\end{eqnarray}
+
+In practice the shape of each galaxy is not precisely known. The derivatives in
+equation \ref{eq:pqrdef} are marginalized over the full likelihood distribution
+for each galaxy, and these marginalized values are used in the aggregate shown
+in equation \ref{eq:shdef}.  The use of strong priors on all parameters also
+suppresses noise-related effects, such as the shear ``noise bias''.  
 
 An approach to measuring non-constant shear is also given, as are third-order
 tweaks to the second-order perturbations, but implementations of those ideas
@@ -94,18 +125,26 @@ and an elliptical \devauc\ profile exp$( -r^{1/4} )$.
 
 The estimator involves integrals over the full likelihood distribution for each
 galaxy.  Exploration of the likelihood surface requires a large number of model
-evaluations.  As an optimization, galaxy and PSF models were approximated as
-sums of Gaussians according the to the fits in \citet{HoggGMix12}.  This use of
-Gaussians for both galaxy and PSF models facilitates analytic convolutions of
-the galaxy model with the PSF.  This is a faster and simpler alternative to
-convolutions based on the generation of high resolution images that are
-convolved using Fourier transform methods. While only approximate
-representations, the Gaussian representations are sufficiently accurate to meet
-our requirements.  A fast exponential function was
-used\footnote{https://github.com/herumi/fmath.  The code was translated from
-    C++ to C by the author.}, and even so evaluation of the exponential
-    function is the bottleneck for this calculation.
+evaluations.  As an optimization, galaxy models were approximated as sums of
+Gaussians according the to the fits in \citet{HoggGMix12}.  The PSF was also
+approximated using Gaussians.  This use of Gaussians for both galaxy and PSF
+models facilitates analytic convolutions of the galaxy model with the PSF.
+This is a faster and simpler alternative to convolutions using Fourier
+transforms. While only approximate representations, the Gaussian
+representations are sufficiently accurate to meet our requirements.  A fast
+exponential function was used\footnote{https://github.com/herumi/fmath.  The
+code was translated from C++ to C by the author.}, and even so evaluation of
+the exponential function is the bottleneck for this calculation.
 
+A Markov Chain Monte Carlo (MCMC) was used to explore the posterior surface.
+Galaxies can have a wide variety of model parameters and errors in the best-fit
+parameters.  It is not straightforward to predict what the parameter errors
+will be before doing the full fit.  For this reason an affine invariant MCMC
+method was used, as first presented in \citet{GoodmanWeare10}.  A new C code
+was developed to for this, which is available on request. The python
+implementation presented in \citet{Mackey13} was used during prototyping.  For
+each galaxy, 20 ``walkers'' were used in the chain, with 400 burnin steps and
+200 steps used for calculations.
 
 \section{Simulation} \label{sec:sim}
 
