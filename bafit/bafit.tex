@@ -8,8 +8,9 @@
 
 \def\eps@scaling{1.0}% 
 
-\newcommand{\Tsn}{$(S/N)_{size}$}
-\newcommand{\fsn}{$(S/N)_{flux}$}
+\newcommand{\sn}{$(S/N)$}
+\newcommand{\Tsn}{$(S/N)_{\textrm{size}}$}
+\newcommand{\fsn}{$(S/N)_{\textrm{flux}}$}
 
 % stolen from the BA13 source
 \newcommand{\vecg}{\mbox{\boldmath $g$}}
@@ -163,18 +164,20 @@ $I_{ij}$ is the unweighted second moment $\langle x_i x_j \rangle$.
 
 \section{Simulation} \label{sec:sim}
 
-Simulated galaxy models were generated in ``ring pairs'' \citep{Nakajima2007}.
 Pairs of galaxy images were generated at 90 degree offset in position
-angle, to cancel shape noise.
+angle, to cancel shape noise.  This simulation strategy is known as
+a ``ring test''\citep{Nakajima2007}.
 
 Two types of models were generated, exponential disks and \devauc\ profiles.
-The simulated PSF was a single round Gaussian with $\sigma = \sqrt{2}$ pixels
-$(T=4)$.  A simple PSF was chosen so that PSF modeling was not an issue.
+Models were convolved with a simulated PSF, a single round Gaussian with
+$\sigma = \sqrt{2}$ pixels $(T=4)$.  A simple PSF was chosen so that PSF
+modeling was not an issue.  The models were also convolved with square pixels
+of uniform response.
 
-The un-lensed shape distribution was identical to the toy distribution used in
-\cite{ba13}.  This distribution is not a good description of real galaxy
-shapes, but was chosen for consistency with that work.  That distribution also
-has the required property that it is twice differentiable.
+The un-lensed shape distribution was chosen to be identical to the toy
+distribution used in \cite{ba13}.  This distribution is not a good description
+of real galaxy shapes, but was chosen for consistency with that work.  That
+distribution also has the required property that it is twice differentiable.
 
 The other galaxy parameters were drawn from simple distributions.  The size
 parameter $T=I_{xx} + I_{yy}$ was drawn from a log-normal distribution with
@@ -188,11 +191,7 @@ chosen: $\sigma_{g}/\sigma_{\textrm{PSF}} = \{1.4,2.0\}$, which corresponds to
 $T_{g}/T_{\textrm{PSF}} =\{2,4\}$.
 
 
-\section{Results} \label{sec:results}
-
-Pairs of simulated galaxies were generated as described in \S \ref{sec:sim}. In
-all cases, the galaxies were convolved with a circular Gaussian with
-$\sigma_{\textrm{PSF}}=\sqrt{2}$ pixels $(T_{\textrm{PSF}}=4)$.
+\section{Fitting Simulated Galaxies} \label{sec:simfit}
 
 The simulated images were fit using parametrized models as presented in \S
 \ref{sec:impl}.   A Gaussian was fit to a rendered, pixelized PSF model, and
@@ -211,6 +210,14 @@ exponential disks, an exponential disk was fit.  By choosing the true priors
 and model, the accuracy of the algorithm is tested without confusion with other
 issues such as model bias or empirical prior determination.
 
+\section{Results} \label{sec:results}
+
+\subsection{Calibration Bias vs. \sn} \label{sec:snbias}
+
+Figure \ref{fig:fracerr} contains results for each of the four simulation
+suites discussed in \S \ref{sec:sim}, representing different galaxy types and
+sizes. 
+
 \begin{figure}[p] \centering
  \centering 
  \includegraphics[scale=0.45]{figures/cbafit-geg-T-s2n.eps}
@@ -218,11 +225,11 @@ issues such as model bias or empirical prior determination.
 
  \caption{ Fractional bias in the recovered shear for the estimator presented
      in \cite{ba13}.  The bias is plotted as a
-     function of galaxy signal-to-noise ratio (S/N), for various galaxy
-     properties and two different measures of S/N.  In panel (a) is
+     function of galaxy signal-to-noise ratio $(S/N)$, for various galaxy
+     properties and two different measures of $(S/N)$.  In panel (a) is
      plotted \Tsn, where the measure of size is $T=I_{xx} + I_{yy}$.  In 
      panel (b) is plotted \fsn.  The flux and $T$ are parameters in the model
-     fits, and the associated (S/N) is the ratio of best-fit value to error in
+     fits, and the associated $(S/N)$ is the ratio of best-fit value to error in
      the fit.  In each panel the fractional error is plotted for galaxies of
      different size and type, as described in the text.  As shown panel (a)
      panel, the bias depends uniquely on \Tsn\ for different galaxy types and
@@ -234,6 +241,24 @@ issues such as model bias or empirical prior determination.
  \label{fig:fracerr}}
 
 \end{figure}
+
+The fractional bias is shown as a function of signal-to-noise ratio $(S/N)$,
+for two definitions of $(S/N)$, \Tsn\ and \fsn.  The traditional measure of
+signal-to-noise ratio is \fsn, defined as the best fit value of total
+flux divided by the error in the fit.  A more useful definition of
+signal-to-noise ratio is \Tsn, the signal-to-noise ratio of the galaxy {\it
+pre-seeing} size.  As expected, fits to noisy galaxies will result in a noisy
+determination of size, and also a noisy shear measurement. But small galaxies
+are also more difficult to fit, even at higher values of flux signal-to-noise
+ratio.  Thus it is intuitive that small galaxies may also yield poor shear
+estimates.
+
+The fractional bias in the recovered shear is, within errors, uniquely
+determined by \Tsn.  But for \fsn, the fractional bias depends also on galaxy
+type and size, indicating the \fsn\ is not a sufficient statistic for
+determining the bias.
+
+\subsection{Calibration Bias vs. True Shear} \label{sec:truebias}
 
 \begin{figure}[t] \centering
  \centering 
@@ -248,6 +273,13 @@ issues such as model bias or empirical prior determination.
 
 \end{figure}
 
+\subsection{Comparison to Dark Energy Survey Requirements} \label{sec:desreq}
+
+Figures \ref{fig:fracerr} and \ref{fig:nonoise} contain a gray bands
+representing the requirements for shear recovery in the Dark Energy Survey
+\citep[][DES]{DESWhitePaper}.
+
+
 \section{Summary} \label{sec:summary}
 
 summary
@@ -257,7 +289,9 @@ summary
 ES is supported by DOE grant DE-AC02-98CH10886.
 
 Thanks to Gary Bernstein, Bob Armstrong, and Anze Slosar for many useful
-discussions.
+discussions.  Thanks to the STAR and LBNE experiments at BNL for use of spare
+cycles on their compute clusters, and to the RACF staff at BNL for support.
+
 
 \bibliographystyle{apj}
 % Bib database
