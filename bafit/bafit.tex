@@ -20,6 +20,8 @@
 \newcommand{\matC}{\mbox{$\bf C$}}
 \newcommand{\bnabg}{ \boldsymbol{\nabla_g}}
 
+\newcommand{\desreq}{$4\times 10^{-3}$}
+
 \slugcomment{Last revision \today}
 \shortauthors{Sheldon}
 \shorttitle{Bayesian Shear Estimation}
@@ -300,13 +302,33 @@ requirements for future surveys with tighter calibration requirements.
 Figure \ref{fig:nonoise} also contains a gray band representing DES
 requirements.  For shears greater than about 0.05, the Taylor expansion
 approximation is no longer sufficient to meet DES requirements.  An
-implementation to higher order, or perhaps a different expansion, will be
-required to recover larger shears to sufficient accuracy.
-
+implementation to higher order, a different expansion, or perhaps a full
+mapping of the posterior of the shear will be required to recover larger shears
+to sufficient accuracy.
 
 \section{Summary} \label{sec:summary}
 
-summary
+The Bayesian shear estimator presented in \cite{ba13} can be used to accurately
+recover gravitational shear in a galaxy population, as long as the underlying
+true distribution of all galaxy parameters is known and the sizes of the
+individual galaxies can be precisely determined.  For example, if the
+signal-to-noise ratio of the size \Tsn\ is greather than 8-10, the 
+the shear can be determined to $\sim 10^{-3}$, sufficient for current
+surveys such as DES.
+
+The estimator used in this work, an approximate expansion of the posterior of
+the shear to second order, was shown to break down at higher shears, as
+expected.  For shears greater than about 0.05, the systematic error introduced
+is larger than the baseline requirements of current experiments such as DES.
+In order to accurately measure larger shears, an alternative approximation
+or a full mapping of the shear posterior will be required.
+
+As noted in \cite{ba13}, the distribution of galaxy parameters can be
+determined from deep imaging, yielding the priors required for the model
+fitting in this work. But true galaxies cannot be fully described by a finite
+number of parameters. (XXX Need to cite and discuss model bias work here) Those
+authors propose a technique based on moments in Fourier space which uses no
+explicit parameterization of galaxy light distributions.  
 
 \section*{Acknowledgments}
 
