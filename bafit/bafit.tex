@@ -36,21 +36,21 @@
 
 \begin{abstract}
 
-The Bayesian algorithm for estimating gravitation shear presented in
-\cite{ba13} was implemented in full and tested using a suite of image
+The Bayesian method for estimating gravitational shear, presented in
+\cite{ba13}, was implemented in full and tested using a suite of image
 simulations.  Specifically, the model-fitting approach was used, in which prior
 information is included as analytic formulas for the intrinsic distribution of
 galaxy model parameters. The estimator is for the posterior distribution of the
-``shear'' derived from an ensemble of galaxy images, rather than a single
-galaxy shape, and hence holds promise to accurately recover the shear when
-using galaxies at very low signal-to-noise ratio.  Both the simulated and fit
-models were drawn from the \sersic\ family of approximate galaxy profiles.  The
-shear can be accurately recovered for a range of model types and galaxy sizes,
-as long as the galaxy {\it size} is precisely determined, as parametrized by
+shear derived from an ensemble of galaxy images, rather than a single galaxy
+shape, and hence holds promise to provide accurate shear recovery when using
+galaxies at very low signal-to-noise ratio.  Both the simulated and fit models
+were drawn from the \sersic\ family of approximate galaxy profiles.  The shear
+was accurately recovered for a range of model types and galaxy sizes, as long
+as the intrinsic galaxy {\it size} was precisely determined, as parametrized by
 the signal-to-noise ratio \Tsn.   The more standard signal-to-noise ratio of
-the flux is not a good indicator of shear accuracy.  For \Tsn$\gtrsim 8-10$ the
-shear can be recovered to an accuracy better than $\sim 10^{-3}$, sufficient
-for current generation lensing experiments.  \end{abstract}
+the flux was not a good indicator of shear accuracy.  For \Tsn$\gtrsim 10$ the
+shear was recovered to an accuracy $\Delta g/g \sim 10^{-3}$, sufficient for
+current generation lensing experiments.  \end{abstract}
 
 \section{Introduction} \label{sec:intro}
 
@@ -251,7 +251,7 @@ sizes.
      in \cite{ba13}.  The bias is plotted as a
      function of galaxy signal-to-noise ratio $(S/N)$, for various galaxy
      properties and two different measures of $(S/N)$.  In panel (a) is
-     plotted \Tsn, where the measure of size is $T=I_{xx} + I_{yy}$.  In 
+     plotted \Tsn, where the measure of intrinsic galaxy size is $T=I_{xx} + I_{yy}$.  In 
      panel (b) is plotted \fsn.  The flux and $T$ are parameters in the model
      fits, and the associated $(S/N)$ is the ratio of best-fit value to error in
      the fit.  In each panel the fractional error is plotted for galaxies of
@@ -268,14 +268,13 @@ sizes.
 
 The fractional bias is shown as a function of signal-to-noise ratio $(S/N)$,
 for two definitions of $(S/N)$, \Tsn\ and \fsn.  The traditional measure of
-signal-to-noise ratio is \fsn, defined as the best fit value of total
-flux divided by the error in the fit.  A more useful definition of
-signal-to-noise ratio is \Tsn, the signal-to-noise ratio of the galaxy {\it
-pre-seeing} size.  As expected, fits to noisy galaxies will result in a noisy
-determination of size, and also a noisy shear measurement. But small galaxies
-are also more difficult to fit, even at higher values of flux signal-to-noise
-ratio.  Thus it is intuitive that small galaxies may also yield poor shear
-estimates.
+signal-to-noise ratio is \fsn, defined as the best fit value of total flux
+divided by the error in the fit.  A more useful definition of signal-to-noise
+ratio is \Tsn, the signal-to-noise ratio of the galaxy intrinsic, pre-seeing
+size.  As expected, fits to noisy galaxies will result in a noisy determination
+of size, and also a noisy shear measurement. But small galaxies are also more
+difficult to fit, even at higher values of flux signal-to-noise ratio.  Thus it
+is intuitive that small galaxies may also yield poor shear estimates.
 
 The fractional bias in the recovered shear is, within errors, uniquely
 determined by \Tsn.  But for \fsn, the fractional bias depends also on galaxy
@@ -308,10 +307,11 @@ to second order.
 
 Figure \ref{fig:fracerr} contains a gray band representing the requirements for
 shear recovery in the Dark Energy Survey \citep[][DES]{DESWhitePaper}.  The
-method meets DES survey requirements for \Tsn$ \gtrsim 10$.  Note no unique
-value of the traditional flux signal-to-noise ratio \fsn\ is sufficient to
-choose such galaxies.  More simulation statistics are needed to study the
-requirements for future surveys with tighter calibration requirements.
+method meets DES survey requirements when using galaxies that have intrinsic
+sizes measured with \Tsn$ \gtrsim 10$.  Note no unique value of the traditional
+flux signal-to-noise ratio \fsn\ is sufficient to choose such galaxies.  More
+simulation statistics are needed to study the requirements for future surveys
+with tighter calibration requirements.
 
 Figure \ref{fig:nonoise} also contains a gray band representing DES
 requirements.  For shears greater than about 0.05, the Taylor expansion
@@ -326,8 +326,15 @@ The Bayesian shear estimator presented in \cite{ba13} can be used to accurately
 recover gravitational shear in a galaxy population, as long as the underlying
 true distribution of all galaxy parameters is known and the sizes of the
 individual galaxies can be precisely determined.  For example, if the
-signal-to-noise ratio of the size \Tsn\ is greater than $\sim$8-10, the shear
-can be determined to $\sim10^{-3}$, sufficient for current surveys such as DES.
+signal-to-noise ratio of the size \Tsn\ is greater than $\sim$10, the shear
+can be determined to $\Delta g/g \sim10^{-3}$, sufficient for current surveys such as DES.
+
+A generic conclusion of this study is that the signal-to-noise ratio of the
+estimated intrinsic galaxy size, \Tsn, is a good indicator of how well the
+shear can be recovered.  This was also found for other estimators, such as that
+presented in \cite{Miller07}, although that result is not shown in this work.
+The traditional signal-to-noise ratio \fsn\ was not found to correlate well
+with shear accuracy across different galaxy types and sizes.
 
 The estimator used in this work, an approximate expansion of the posterior of
 the shear to second order, was shown to break down at higher shears. This is as
