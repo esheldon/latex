@@ -22,6 +22,8 @@
 
 \newcommand{\desreq}{$4\times 10^{-3}$}
 
+\newcommand{\sersic}{S\'{e}rsic}
+
 \slugcomment{Last revision \today}
 \shortauthors{Sheldon}
 \shorttitle{Bayesian Shear Estimation}
@@ -38,16 +40,17 @@ The Bayesian algorithm for estimating gravitation shear presented in
 \cite{ba13} was implemented in full and tested using a suite of image
 simulations.  Specifically, the model-fitting approach was used, in which prior
 information is included as analytic formulas for the intrinsic distribution of
-galaxy model parameters. Both the simulated and fit models were drawn from the
-Sersic family of approximate galaxy profiles.  The shear can be accurately
-recovered for a range of model types and galaxy sizes, as long as the galaxy
-{\it size} is precisely determined, as parametrized by the signal-to-noise
-ratio \Tsn.  For \Tsn$\gtrsim 8-10$ the can be recovered to an accuracy better
-than $\sim 10^{-3}$, sufficient for current generation lensing experiments.
-The more standard signal-to-noise ratio of the flux is not a good indicator of
-shear accuracy.
-
-\end{abstract}
+galaxy model parameters. The estimator is for the posterior distribution of the
+``shear'' derived from an ensemble of galaxy images, rather than a single
+galaxy shape, and hence holds promise to accurately recover the shear when
+using galaxies at very low signal-to-noise ratio.  Both the simulated and fit
+models were drawn from the \sersic\ family of approximate galaxy profiles.  The
+shear can be accurately recovered for a range of model types and galaxy sizes,
+as long as the galaxy {\it size} is precisely determined, as parametrized by
+the signal-to-noise ratio \Tsn.   The more standard signal-to-noise ratio of
+the flux is not a good indicator of shear accuracy.  For \Tsn$\gtrsim 8-10$ the
+shear can be recovered to an accuracy better than $\sim 10^{-3}$, sufficient
+for current generation lensing experiments.  \end{abstract}
 
 \section{Introduction} \label{sec:intro}
 
