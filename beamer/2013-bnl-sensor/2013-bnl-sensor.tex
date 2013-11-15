@@ -20,6 +20,24 @@
 
 \section{Introduction}
 
+\frame
+{
+    \frametitle{Abell 370, HST}
+    \includegraphics[width=\textwidth]{abell370_hst_med.jpg}
+}
+\frame
+{
+    \frametitle{Lensing Geometry and Deflection}
+    \includegraphics[width=\textwidth]{lens_geometry.pdf}
+}
+
+\frame
+{
+    \frametitle{Shear Illustration}
+    \includegraphics[width=\textwidth]{shear-illustration.jpg}
+}
+
+
 
 \frame
 {
@@ -34,16 +52,16 @@
 
             \begin{itemize}
                 \item The path of light appears curved as it passes massive objects
-                \item The ``deflection'' differs across the face of an extended source galaxy.
+                \item The ``deflection'' can differ across the face of an extended source galaxy, causing distortion.
                 \item Shear distorts the image; we say it's ``shape'' is altered.
-                \item Galaxies are already elliptical, but shear produces spatial shape correlations.
+                \item Shearing produces correlations in the shapes of galaxies across the sky.
                     Shape correlations are closely related to mass density
                     correlations.
 
             \end{itemize}
         \end{column}
         \begin{column}{0.5\textwidth}
-            \includegraphics[width=\textwidth]{cbafit-geg-T-s2n.pdf}
+            \includegraphics[width=\textwidth]{shear-illustration-crop.jpg}
         \end{column}
     \end{columns}
 }
@@ -61,7 +79,8 @@
             the image: the Point Spread Function (PSF).
         \item That just adds to the moments, so we just need to
             subtract off the PSF moments!
-        \item But we have noise, so the moments don't converge.
+        \item .... but there is noise, so the moments don't converge (among
+            other difficulties).
     \end{itemize}
 }
 
@@ -71,19 +90,54 @@
     
     \begin{itemize}
 
-        \item One can use a weight function to suppress the noise, but then we
-            need to derive how that measurement responds to smearing by the PSF
+        \item One can use a weight function to suppress the noise, but then one
+            must derive how that measurement responds to smearing by the PSF
             and shearing (e.g. Kaiser, Squires, \& Broadhurst, Bernstein \& Jarvis, Melchior,
-                    Bernstein \& Armstrong)
+                    Bernstein \& Armstrong).  Working in Fourier space can help
+            with the deconvolution (Bernstein).
 
         \item Alternatively, one can forward-model the problem: fit a model that is
             convolved with an estimate of the PSF.  Limited by how well one can
-            model the galaxy and PSF (e.g. Miller et al., Bernetein \& Armstrong).
+            model the galaxy and PSF (e.g. Miller et al., Bernetein \& Armstrong, many
+            others).
+
+        \item These methods can be made to work pretty well, as long as
+            the $S/N$ is still pretty high, say 50 or higher.
 
     \end{itemize}
 }
 
+\frame
+{
+    \frametitle{Noise}
 
+    \begin{itemize}
+        \item When the $S/N$ is low, these techniques break down.
+        \item Non-linear fitting in the presence of noise is biased, both
+            the maximum likelihood and expectation value: using the mean
+            shape won't work (Hirata, Refregier, etc).  This is well 
+            known in statistics. 
+        \item The noise also causes problems for moment based methods.
+    \end{itemize}
+}
 
+\frame
+{
+    \frametitle{Bayesian Methods}
+
+    \begin{itemize}
+
+        \item Miller et al. 2007 (lensfit): Use prior on the shape distribution, and
+            then derive how the shear estimate is affected by the noise and
+            prior using integrals over the likelihood surface and first order
+            approximation in shear.
+
+        \item A difficulty with lensfit is that likelihood for a single galaxy is
+            complex and depends on galaxy properties and noise, no generic formulation
+            can be made for the response.
+
+        \item
+    \end{itemize}
+}
 
 \end{document}
