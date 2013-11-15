@@ -41,7 +41,6 @@
 
 \frame
 {
-    %\fontsize{10}{<value for \baselineskip>}\selectfont
     \fontsize{10}{\baselineskip}
 
     \frametitle{Gravitational Shear}
@@ -98,7 +97,7 @@
 
         \item Alternatively, one can forward-model the problem: fit a model that is
             convolved with an estimate of the PSF.  Limited by how well one can
-            model the galaxy and PSF (e.g. Miller et al., Bernetein \& Armstrong, many
+            model the galaxy and PSF (e.g. Miller et al., Bernstein \& Armstrong, many
             others).
 
         \item These methods can be made to work pretty well, as long as
@@ -123,21 +122,57 @@
 
 \frame
 {
-    \frametitle{Bayesian Methods}
+    \frametitle{Alternate Methods}
 
     \begin{itemize}
 
-        \item Miller et al. 2007 (lensfit): Use prior on the shape distribution, and
-            then derive how the shear estimate is affected by the noise and
-            prior using integrals over the likelihood surface and first order
-            approximation in shear.
+        \item Miller et al. 2007 (lensfit): Use prior on the shape distribution
+            and explore full posterior surface. Derive how the shear estimate
+            (the shape) is affected by the noise and prior using integrals over
+            the likelihood surface and first order approximation in shear.
 
-        \item A difficulty with lensfit is that likelihood for a single galaxy is
-            complex and depends on galaxy properties and noise, no generic formulation
-            can be made for the response.
+        \item A difficulty with lensfit is that likelihood of the shape for a
+            single galaxy is complex and depends on galaxy properties and
+            noise, no generic formulation can be made for the response.
 
-        \item
     \end{itemize}
 }
 
+\frame
+{
+    \frametitle{Alternate Methods}
+
+    \begin{itemize}
+
+        \item Could increase the $S/N$ by stacking around peaks in image
+            assuming the shear is constant over a small patch.  Model the full
+            two-point correlation function of the light, which is sheared just
+            as galaxy images are.  Don't need to de-blend.  Not fully explored.
+            (ES)
+    \end{itemize}
+}
+\frame
+{
+    \frametitle{Bernstein \& Armstrong 2013}
+
+    \begin{itemize}
+
+        \item While the likelihood surface for the {\it shape} of
+            single galaxy is complex, the posterior surface for the
+            {\it mean shear} of an {\bf ensemble} should approach a
+            Gaussian.  This must be true from the central limit
+            theorem.
+
+         \item With the Gaussian assumption, and assumption of weak
+             shear, can derive an unbiased estimator for the shear.
+
+         \item You lose nothing: in the limit of weak shear, you need
+             to use an ensemble statistic anyway.  The ``shape noise'',
+             intrinsic variance in shapes of galaxies, dominates over
+             the signal. XXX introduce shape noise earlier.
+
+
+    \end{itemize}
+
+}
 \end{document}
