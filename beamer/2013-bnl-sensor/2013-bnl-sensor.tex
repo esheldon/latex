@@ -3,25 +3,34 @@
 \usepackage{beamerthemesplit}
 
 \usetheme{Pittsburgh}
-\usecolortheme{seagull}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+\usecolortheme{beaver}
 
 \usefonttheme{serif}
 
-\newcommand{\snT}{$(S/N)_{size}$}
-\newcommand{\snflux}{$(S/N)_{flux}$}
+\newcommand{\snT}{$(S/N)_{\textrm{size}}$}
+%\newcommand{\snT}{$\left( \frac{S}{N}\right)_{\textrm{size}}$}
+\newcommand{\snflux}{$(S/N)_{\textrm{flux}}$}
+%\newcommand{\snflux}{$\left( \frac{S}{N}\right)_{\textrm{flux}}$}
 
 \title{Shear Estimation}
-\author
-{
-    Erin Sheldon \\
-    Brookhaven National Lab
-}
+\author{Erin Sheldon}
+\institute{Brookhaven National Laboratory}
+
+% http://texblog.net/latex-archive/plaintex/beamer-footline-frame-number/
+% to add the page (frame ) number and not screw up the bottom line
+% works for split themes?
+\expandafter\def\expandafter\insertshorttitle\expandafter{%
+      \insertshorttitle\hfill%
+        \insertframenumber\,/\,\inserttotalframenumber}
+
 
 \begin{document}
 
 \frame{\titlepage}
 
-\section{Introduction}
+%\section{Introduction}
 
 \frame
 {
@@ -44,9 +53,10 @@
 
 \frame
 {
-    \fontsize{10}{\baselineskip}
 
     \frametitle{Gravitational Shear}
+
+    \fontsize{10}{0.8\baselineskip}
 
     \begin{columns}
 
@@ -65,7 +75,43 @@
         \begin{column}{0.5\textwidth}
             \includegraphics[width=\textwidth]{shear-illustration-crop.jpg}
             \newline
-            Note galaxies aren't round!  ``Shape noise''
+            \begin{center}
+                {\small Note galaxies aren't round!  ``Shape noise''}
+            \end{center}
+        \end{column}
+    \end{columns}
+}
+
+\frame
+{
+    \frametitle{Shear}
+    \fontsize{10}{0.8\baselineskip}
+
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
+            \begin{itemize}
+
+                \item The correlations in the shear/matter field hold a lot of
+                    information about the {\bf Dark Matter} distribution.  The Cold Dark
+                    Matter theory predicts these correlations.
+
+                \item Shear depends on the distances to the lens and source. The
+                    distance dependence encodes the expansion rate of the universe and
+                    thus {\bf Dark Energy}.
+
+                \item To meet goals of current surveys we want to measure shear to
+                    about 0.3-0.4\% accuracy (e.g.  Dark Energy Survey).  LSST about
+                    a factor of five better.
+
+            \end{itemize}
+        \end{column}
+
+        \begin{column}{0.5\textwidth}
+            \includegraphics[width=\textwidth]{berlind-weinberg-f3.pdf}
+            \newline
+            \begin{center}
+                {\tiny Berlind \& Weinberg 2002}
+            \end{center}
         \end{column}
     \end{columns}
 }
@@ -79,11 +125,11 @@
     \begin{itemize}
         \item For a perfect detector with no noise, just measure
             the second moments and look for the correlations.
-        \item The atmosphere, telescope, and instrument smear
+        \item ... but the atmosphere, telescope, and instrument smear
             the image: the Point Spread Function (PSF).
-        \item That just adds to the moments, so we just need to
+        \item Convolution just adds to the moments, so we just need to
             subtract off the PSF moments!
-        \item .... but there is noise, so the moments don't converge (among
+        \item ... but there is noise, so the moments don't converge (among
             other difficulties).
     \end{itemize}
 }
@@ -105,8 +151,8 @@
             model the galaxy and PSF (e.g. Miller et al., Bernstein \& Armstrong, many
             others).
 
-        \item These methods can be made to work pretty well, as long as
-            the $S/N$ is still pretty high, say 50 or higher.
+        \item These methods can be made to work well, as long as the $S/N$ is
+            still pretty high, say 50 or higher.
 
     \end{itemize}
 }
@@ -117,13 +163,19 @@
 
     \begin{itemize}
         \item When the $S/N$ is low, these techniques break down.
-        \item Non-linear fitting in the presence of noise is biased, both
-            the maximum likelihood and expectation value: using the mean
-            shape won't work (Hirata, Refregier, etc).  This is well 
-            known in statistics. Badly aggravated by the PSF ``deconvolution''.
+
+        \item Non-linear fitting in the presence of noise is biased, both the
+            maximum likelihood and expectation value: using the mean shape
+            won't work (Hirata, Refregier, etc).   Results in a {\bf
+            calibration} error.
+
+        \item This is generally known in statistics, but not yet solved
+            for our particular problem. Badly aggravated by the PSF ``deconvolution''.
         \item The noise also causes problems for moment based methods.
     \end{itemize}
 }
+
+%\section{Bayesian Methods}
 
 \frame
 {
@@ -132,17 +184,23 @@
     \begin{itemize}
 
         \item Miller et al. 2007 (LENSFIT): Use priors on the parameters and
-            explore full posterior surface (Prior $\times$ Likelihood).
-            Attempt to derive how the shear estimate (the shape) is affected by
+            explore a constrained posterior surface (Prior $\times$
+            Likelihood).
+
+        \item Attempt to derive how the shear estimate (the shape) affected by
             the noise and prior using integrals over the posterior surface and
-            first order approximation in shear.
+            first order approximation in shear.  Called the {\bf response}.
 
         \item The posterior surface of the shape for a single galaxy is
             complex.  The space is bounded, the surface is necessarily
-            asymmetric and depends on galaxy properties and noise. No generic
-            formulation can be made for the response, rather an ad-hoc method
-            is used.  Miller et al. 2013 find large biases in simulations, of
-            order 10\%.
+            asymmetric and depends on galaxy properties and noise.
+
+        \item No rigorous expression is given for the mean shear of a
+            population given these ellipticity responses.  Choose to simply
+            average them.
+
+        \item Miller et al. 2013 find large biases in simulations, of
+            order 10\% at \snflux$ \sim 10$.
         
     \end{itemize}
 }
@@ -162,8 +220,10 @@
         \end{column}
     \end{columns}
 
+    \fontsize{9}{0.8\baselineskip}
     \begin{itemize}
-        \item I did my own tests of LENSFIT with strong structural priors (15\% wide).
+        \item I did my own tests of LENSFIT with strong structural priors (30\% lognormal
+            on flux, 15\% on size (that was a bug...) ).
 
         \item Very fast code using gaussian mixtures to approximate galaxies.  Fast
             analytic convolutions.
@@ -199,7 +259,7 @@
         \item While the posterior surface for the {\it shape} of single galaxy
             is complex, the posterior surface for the {\it mean shear} of an
             ensemble must approach a Gaussian according to the central limit
-            theorem.  This is actually true!
+            theorem.  This is both useful and actually true!
 
          \item With the Gaussian assumption, and assumption of weak
              shear, can derive an unbiased estimator for the mean shear.
@@ -207,7 +267,7 @@
          \item You lose nothing: in the limit of weak shear, you need
              to use an ensemble statistic anyway.  The ``shape noise'',
              intrinsic variance in shapes of galaxies, dominates over
-             the signal. XXX introduce shape noise earlier.
+             the signal.
 
         \item This is a good idea, but needed an implementation, so I worked it
             into my existing code.
@@ -230,7 +290,14 @@
             \includegraphics[width=\textwidth]{cbafit-geg07-geg08-deg03-deg05-pqr-T-s2n.pdf}
         \end{column}
     \end{columns}
+
+    \begin{itemize}
+        \item Assuming we can find the right model.
+        \item Sufficient accuracy for DES at \snflux$ > 10$.
+    \end{itemize}
 }
+
+%\section{Summary}
 
 \frame
 {
@@ -239,11 +306,51 @@
 
     \begin{itemize}
         \item Can push to lower \snT\ than LENSFIT.
+
         \item Bias varies with \snT\ in a simpler way than LENSFIT.
-        \item Bias vs \snT\ even more universal.
-        \item TODO: explore more realistic intrinsic distributions in structural
-            parameters (size, flux).  E.g. for a bin in measured flux, what are
-            the {\it true} distributions in size and flux?  Use Cosmos.
+        \item Bias vs \snT\ even more universal. Sufficient accuracy for DES at \snflux$ > 10$.
+
+        \item TODO: 
+            
+            \begin{itemize}
+
+                \item Explore more realistic intrinsic distributions in
+                    structural parameters (size, flux).  E.g. for a bin in {\it
+                    measured} flux, what are the {\it true} distributions in
+                    size and flux?  Use Cosmos.
+
+            \item Why is there bias at all?  Is it the likelhood sampling method?
+
+            \item Implement model-independent approach (Gary and Bob are on it).
+       
+        \end{itemize}
+
+    \end{itemize}
+}
+
+\frame
+{
+    \frametitle{Limitations}
+    \begin{itemize}
+        \item Assuming we can follow the right model.  Not true in real data.
+            Should be OK for DES (Kacprzak et al. 2013) but not LSST.
+        \item Bernstein \& Jarvis propose a model-independent technique using
+            moments in Fourier space, but not yet implemented.
+    \end{itemize}
+}
+\frame
+{
+    \frametitle{Summary}
+
+    \begin{itemize}
+
+        \item Shear estimation is difficult in the presence of noise.
+
+        \item Modern techniques can work well enough for current surveys.
+
+        \item For future experiments such as LSST we need a model-independent
+            approach.
+
     \end{itemize}
 }
 
