@@ -283,17 +283,17 @@
     \begin{columns}
         
         \begin{column}{0.5\textwidth}
-            \includegraphics[width=\textwidth]{cbafit-geg07-geg08-deg03-deg05-pqr-flux-s2n.pdf}
+            \includegraphics[width=\textwidth]{cbafit-geg07-geg08-deg03-deg05-ba13-flux-s2n.pdf}
         \end{column}
 
         \begin{column}{0.5\textwidth}
-            \includegraphics[width=\textwidth]{cbafit-geg07-geg08-deg03-deg05-pqr-T-s2n.pdf}
+            \includegraphics[width=\textwidth]{cbafit-geg07-geg08-deg03-deg05-ba13-T-s2n.pdf}
         \end{column}
     \end{columns}
 
     \begin{itemize}
         \item Assuming we can find the right model.
-        \item Sufficient accuracy for DES at \snflux$ > 10$.
+        \item Sufficient accuracy for DES at \snT$ > 10$.
     \end{itemize}
 }
 
@@ -308,7 +308,20 @@
         \item Can push to lower \snT\ than LENSFIT.
 
         \item Bias varies with \snT\ in a simpler way than LENSFIT.
-        \item Bias vs \snT\ even more universal. Sufficient accuracy for DES at \snflux$ > 10$.
+        \item Bias vs \snT\ even more universal. Sufficient accuracy for DES at \snT$ > 10$.
+
+       
+
+    \end{itemize}
+}
+
+\frame
+{
+    \frametitle{Limitations}
+    \begin{itemize}
+
+        \item I'm assuming I can find the right model.  Not true in real data.
+            Should be OK for DES (Kacprzak et al. 2013) but not LSST.
 
         \item TODO: 
             
@@ -319,23 +332,15 @@
                     measured} flux, what are the {\it true} distributions in
                     size and flux?  Use Cosmos.
 
-            \item Why is there bias at all?  Is it the likelhood sampling method?
+                \item Why is there bias at all?  Is it the likelhood sampling method?
 
-            \item Implement model-independent approach (Gary and Bob are on it).
-       
-        \end{itemize}
+                \item Bernstein \& Armstrong propose a model-independent
+                    technique using moments in Fourier space, but not yet
+                    implemented.  Gary and Bob plan to do it.  Student at Stony
+                    Brooke is working it as well.
 
-    \end{itemize}
-}
+            \end{itemize}
 
-\frame
-{
-    \frametitle{Limitations}
-    \begin{itemize}
-        \item Assuming we can follow the right model.  Not true in real data.
-            Should be OK for DES (Kacprzak et al. 2013) but not LSST.
-        \item Bernstein \& Jarvis propose a model-independent technique using
-            moments in Fourier space, but not yet implemented.
     \end{itemize}
 }
 \frame
