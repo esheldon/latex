@@ -41,7 +41,7 @@
 
 \frame
 {
-    \frametitle{Shear}
+    \frametitle{Weak Shear}
 
     \begin{itemize}
 
@@ -57,7 +57,7 @@
 }
 \frame
 {
-    \frametitle{Shear}
+    \frametitle{Weak Shear}
     \fontsize{9}{0.8\baselineskip}
 
     \begin{columns}
@@ -78,11 +78,11 @@
         \end{column}
 
         \begin{column}{0.5\textwidth}
-            \includegraphics[width=\textwidth]{berlind-weinberg-f3.pdf}
-            \newline
             \begin{center}
                 {\tiny Berlind \& Weinberg 2002}
             \end{center}
+            \includegraphics[width=\textwidth]{berlind-weinberg-f3-crop.pdf}
+            \newline
         \end{column}
     \end{columns}
 }
@@ -123,12 +123,13 @@
     \begin{itemize}
 
         \item Non-linear fitting in the presence of noise is biased, both the
-            maximum likelihood and expectation value over the posterior: using
-            the mean shape won't work (Hirata, Refregier, etc).   Results in a
-            {\bf calibration} error.
+            maximum likelihood and expectation value: using the mean shape
+            won't work (Hirata, Refregier, etc).   Results in a {\bf
+            calibration} error.
 
-        \item This is generally known in statistics, but not yet solved for our
-            particular problem. Badly aggravated by the PSF ``deconvolution''.
+        \item This is generally known in statistics, but not yet solved for
+            this particular problem. Badly aggravated by the PSF
+            ``deconvolution''.
 
         \item The noise also causes problems for moment based methods.
 
@@ -164,18 +165,16 @@
             explore a constrained posterior surface (Prior $\times$
             Likelihood).
 
-        \item Attempt to derive how the shear estimate (the shape) affected by
-            the noise and prior using integrals over the posterior surface and
-            first order approximation in shear.  Called the {\bf response} or
-            sensitivity.
+        \item Attempt to derive how the shear estimate (the shape) is affected
+            by the noise and prior.  Called the {\bf response} or sensitivity.
 
 %        \item The posterior surface of the shape for a single galaxy is
 %            complex.  The space is bounded, the surface is necessarily
 %            asymmetric and depends on galaxy properties and noise.
 
         \item No rigorous expression is given for the mean shear of a
-            population given the mean ellipticity and responses.  Choose to
-            simply average them separately and divide.
+            population given the ellipticities and responses.  Miller et al.
+            average them separately and divide.
 
         \item Miller et al. 2013 find large biases in simulations, of
             order 10\% at \snflux$ \sim 10$.
@@ -215,11 +214,10 @@
     \fontsize{8}{0.8\baselineskip}
     \begin{itemize}
 
-        \item I did my own tests of \lensfit\ with strong structural priors
-            (30\% lognormal on flux, 15\% on size (that was a bug...) ).
+        \item I did my own tests of \lensfit\ with strong structural priors.
 
         \item Very fast code needed to explore full likelihood.  Use Gaussian
-            mixtures to approximate \texttt{exp,dev} profiles (Hogg et al.).
+            mixtures to approximate \texttt{exp,dev,PSF} profiles (Hogg et al.).
             Fast analytic convolutions.
 
         \item Bias vs \snT\ has more universal form than vs \snflux.
@@ -252,20 +250,19 @@
 
     \begin{itemize}
 
-        \item Shape is not shear.
-        \item While the posterior surface for the {\it shape} of single galaxy
-            is complex, the posterior surface for the {\it mean shear} of an
-            ensemble must approach a Gaussian according to the central limit
-            theorem.  This is both useful and actually true!
+        \item Shape is not shear.  \item While the posterior surface for the
+            {\it shape} of single galaxy is complex, the posterior surface for
+            the {\it mean shear} of a large ensemble must approach a Gaussian
+            according to the central limit theorem.  This is both useful and
+            actually true!
 
          \item Assuming Gaussianity, weak shear, and knowledge of underlying
              distribution of shapes for the ensemble (the prior), one can
              derive an unbiased estimator for the mean shear of the ensemble.
 
-         \item You lose nothing: in the limit of weak shear, you need
-             to use an ensemble statistic anyway.  The ``shape noise'',
-             intrinsic variance in shapes of galaxies, dominates over
-             the signal.
+         \item Nothing is lost: in the limit of weak shear, need to use an
+             ensemble statistic anyway, and theory only predicts the ensemble
+             statistics, e.g. correlation functions.
 
         \item This is a good idea, but needed an implementation, so I worked it
             into my existing code.
@@ -278,16 +275,17 @@
 {
     \frametitle{Bernstein \& Armstrong}
 
-    \fontsize{9}{0.8\baselineskip}
+    \fontsize{8}{0.8\baselineskip}
 
     Assume a small shear \shear.  The posterior probability for
-    the shear estimated from many galaxies
+    the shear estimated from many galaxies is
+
     \begin{eqnarray}
     P(\shear | {\bf D}) & = & \frac{ P(\shear) P({\bf D}|\shear ) }{ P({\bf D}) }  \\
                         & = & P(\shear) \prod_i \frac{ P({\bf D}_i | \shear) }{ P({\bf D}_i) } \\
         P({\bf D}_i | \shear) & \approx & P_i + \shear  \cdot {\bf Q}_i + \frac{1}{2} \shear \cdot {\bf R}_i \cdot \shear \\
         -\textrm{ln} P(\shear | {\bf D}) & \approx & (\textrm{stuff})  - 
-        \shear \cdot \sum_i \frac{ {\bf Q}_i }{P_i} + \frac{1}{2} \cdot \left[ \sum_i \left( \frac{ {\bf Q}_i {\bf Q}_i^T}{P_i^2} - \frac{ {\bf R}_i }{P_i} \right) \right] 
+        \shear \cdot \sum_i \frac{ {\bf Q}_i }{P_i} + \frac{1}{2} \shear \cdot \left[ \sum_i \left( \frac{ {\bf Q}_i {\bf Q}_i^T}{P_i^2} - \frac{ {\bf R}_i }{P_i} \right) \right] \cdot \shear
     \end{eqnarray}
 }
 
@@ -337,7 +335,7 @@
     \begin{itemize}
 
         \item I'm assuming I can find the right model.  Not true in real data.
-            Should be OK for DES (Kacprzak et al. 2013) but perhaps not LSST.
+            Might be OK for DES (Kacprzak et al. 2013) but perhaps not LSST.
 
         \item Taylor expansion breaks down at higher shear.
 
@@ -378,7 +376,7 @@
 
     \begin{itemize}
 
-        \item The code is is called \ngmix.  This version is a recent rewrite
+        \item The package is \ngmix.  This version is a recent rewrite
             using {\texttt \python + \numba}.
 
         \item On github  \texttt{https://github.com/esheldon/ngmix}. 
@@ -389,7 +387,8 @@
         \item The code is running on DES data, measuring multi-epoch and
             multi-band shears and fluxes.  
             
-        \item Need to determine shape prior that is twice differentiable.
+        \item Need to parametrize shape distribution with twice differentiable
+            function.
 
     \end{itemize}
 }
@@ -399,9 +398,13 @@
 
     \begin{itemize}
 
-        \item Shear estimation is difficult in the presence of noise.
+        \item The error in most standard shear estimation techniques is
+            dominated by noise bias.
 
-        \item Modern techniques can work well enough for current surveys.
+        \item Modern techniques such as Bernstein \& Armstrong can work well
+            enough for current surveys.
+
+        \item Implemented and running on DES.
 
         \item For future experiments such as LSST may need a model-independent
             approach.
