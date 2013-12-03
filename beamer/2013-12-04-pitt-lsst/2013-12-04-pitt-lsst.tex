@@ -15,6 +15,12 @@
 \newcommand{\snflux}{$(S/N)_{\textrm{flux}}$}
 %\newcommand{\snflux}{$\left( \frac{S}{N}\right)_{\textrm{flux}}$}
 
+\newcommand{\lensfit}{\texttt{LENSFIT}}
+\newcommand{\numba}{\texttt{Numba}}
+\newcommand{\python}{\texttt{Python}}
+\newcommand{\ngmix}{\texttt{ngmix}}
+\newcommand{\shear}{{\bf g}}
+
 \title{Bayesian Shear Estimation}
 \author{Erin Sheldon}
 \institute{Brookhaven National Laboratory}
@@ -154,7 +160,7 @@
 
     \begin{itemize}
 
-        \item Miller et al. 2007 (LENSFIT): Use priors on the parameters and
+        \item Miller et al. 2007 (\lensfit): Use priors on the parameters and
             explore a constrained posterior surface (Prior $\times$
             Likelihood).
 
@@ -176,9 +182,23 @@
     \end{itemize}
 }
 
+\begin{comment}
 \frame
 {
-    \frametitle{LENSFIT Tests}
+    \frametitle{Miller et al. 2007}
+
+    Assume a small shear $g$ just shifts the likelihood a small amount.
+    Taylor expand
+    \begin{eqnarray}
+        L(g) & \rightarrow & L(g - \gamma_{\mu}) \\
+             & \approx     & L(g) - \gamma_{\mu} \frac{ \partial L }{ \partial g_{\mu} } + . . .
+    \end{eqnarray}
+}
+\end{comment}
+
+\frame
+{
+    \frametitle{\lensfit\ Tests}
 
     \begin{columns}
         
@@ -193,8 +213,9 @@
 
     \fontsize{9}{0.8\baselineskip}
     \begin{itemize}
-        \item I did my own tests of LENSFIT with strong structural priors (30\% lognormal
-            on flux, 15\% on size (that was a bug...) ).
+
+        \item I did my own tests of \lensfit\ with strong structural priors
+            (30\% lognormal on flux, 15\% on size (that was a bug...) ).
 
         \item Very fast code using gaussian mixtures to approximate galaxies.  Fast
             analytic convolutions.
@@ -253,6 +274,21 @@
 
 \frame
 {
+    \frametitle{Bernstein \& Armstrong}
+
+    Assume a small shear \shear.  The posterior probability for
+    the shear estimated from many galaxies
+    \begin{eqnarray}
+    P(\shear | {\bf D}) & = & \frac{ P(\shear) P({\bf D}|\shear ) }{ P({\bf D}) }  \\
+                        & = & P(\shear) \prod_i \frac{ P({\bf D}_i | \shear) }{ P({\bf D}_i) } \\
+        P({\bf D}_i | \shear) & \approx & P_i + \shear  \cdot {\bf Q}_i + \frac{1}{2} \shear \cdot {\bf R}_i \cdot \shear
+    \end{eqnarray}
+}
+
+
+
+\frame
+{
     \frametitle{Bernstein \& Armstrong Tests}
 
     \begin{columns}
@@ -272,7 +308,6 @@
     \end{itemize}
 }
 
-%\section{Summary}
 
 \frame
 {
@@ -280,9 +315,9 @@
     \frametitle{Bernstein \& Armstrong Tests}
 
     \begin{itemize}
-        \item Can push to lower \snT\ than LENSFIT.
+        \item Can push to lower \snT\ than \lensfit.
 
-        \item Bias varies with \snT\ in a simpler way than LENSFIT.
+        \item Bias varies with \snT\ in a simpler way than \lensfit.
         \item Bias vs \snT\ even more universal. Sufficient accuracy for DES at \snT$ > 10$.
 
        
@@ -324,15 +359,18 @@
 
     \begin{itemize}
 
-        \item The code is fairly mature.  New version re-written using {\texttt
-            numba}.
+        \item The code is fairly mature.  New version \ngmix\ re-written using
+            {\texttt \python + \numba}.
 
-        \item On github  {\texttt https://github.com/esheldon/ngmix}. The old
-            version {\texttt gmix\_image} which doesn't require numba is also
-            available.
+        \item On github  \texttt{https://github.com/esheldon/ngmix}. 
+            
+        \item The old version \texttt{gmix\_image} doesn't require \numba.
+            Also available, but is no longer maintained.
 
-        \item The code is running on DES data, but need to determine shape
-            prior that is twice differentiable.
+        \item The code is running on DES data, measuring multi-epoch and
+            multi-band shears and fluxes.  
+            
+        \item Need to determine shape prior that is twice differentiable.
 
     \end{itemize}
 }
@@ -346,7 +384,7 @@
 
         \item Modern techniques can work well enough for current surveys.
 
-        \item For future experiments such as LSST we need a model-independent
+        \item For future experiments such as LSST may need a model-independent
             approach.
 
     \end{itemize}
