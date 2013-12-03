@@ -166,15 +166,16 @@
 
         \item Attempt to derive how the shear estimate (the shape) affected by
             the noise and prior using integrals over the posterior surface and
-            first order approximation in shear.  Called the {\bf response}.
+            first order approximation in shear.  Called the {\bf response} or
+            sensitivity.
 
-        \item The posterior surface of the shape for a single galaxy is
-            complex.  The space is bounded, the surface is necessarily
-            asymmetric and depends on galaxy properties and noise.
+%        \item The posterior surface of the shape for a single galaxy is
+%            complex.  The space is bounded, the surface is necessarily
+%            asymmetric and depends on galaxy properties and noise.
 
         \item No rigorous expression is given for the mean shear of a
-            population given these ellipticity responses.  Choose to simply
-            average them.
+            population given the mean ellipticity and responses.  Choose to
+            simply average them separately and divide.
 
         \item Miller et al. 2013 find large biases in simulations, of
             order 10\% at \snflux$ \sim 10$.
@@ -211,14 +212,15 @@
         \end{column}
     \end{columns}
 
-    \fontsize{9}{0.8\baselineskip}
+    \fontsize{8}{0.8\baselineskip}
     \begin{itemize}
 
         \item I did my own tests of \lensfit\ with strong structural priors
             (30\% lognormal on flux, 15\% on size (that was a bug...) ).
 
-        \item Very fast code using gaussian mixtures to approximate galaxies.  Fast
-            analytic convolutions.
+        \item Very fast code needed to explore full likelihood.  Use Gaussian
+            mixtures to approximate \texttt{exp,dev} profiles (Hogg et al.).
+            Fast analytic convolutions.
 
         \item Bias vs \snT\ has more universal form than vs \snflux.
     \end{itemize}
@@ -276,12 +278,16 @@
 {
     \frametitle{Bernstein \& Armstrong}
 
+    \fontsize{9}{0.8\baselineskip}
+
     Assume a small shear \shear.  The posterior probability for
     the shear estimated from many galaxies
     \begin{eqnarray}
     P(\shear | {\bf D}) & = & \frac{ P(\shear) P({\bf D}|\shear ) }{ P({\bf D}) }  \\
                         & = & P(\shear) \prod_i \frac{ P({\bf D}_i | \shear) }{ P({\bf D}_i) } \\
-        P({\bf D}_i | \shear) & \approx & P_i + \shear  \cdot {\bf Q}_i + \frac{1}{2} \shear \cdot {\bf R}_i \cdot \shear
+        P({\bf D}_i | \shear) & \approx & P_i + \shear  \cdot {\bf Q}_i + \frac{1}{2} \shear \cdot {\bf R}_i \cdot \shear \\
+        -\textrm{ln} P(\shear | {\bf D}) & \approx & (\textrm{stuff})  - 
+        \shear \cdot \sum_i \frac{ {\bf Q}_i }{P_i} + \frac{1}{2} \cdot \left[ \sum_i \left( \frac{ {\bf Q}_i {\bf Q}_i^T}{P_i^2} - \frac{ {\bf R}_i }{P_i} \right) \right] 
     \end{eqnarray}
 }
 
@@ -331,7 +337,9 @@
     \begin{itemize}
 
         \item I'm assuming I can find the right model.  Not true in real data.
-            Should be OK for DES (Kacprzak et al. 2013) but not LSST.
+            Should be OK for DES (Kacprzak et al. 2013) but perhaps not LSST.
+
+        \item Taylor expansion breaks down at higher shear.
 
         \item TODO: 
             
@@ -340,8 +348,8 @@
                 \item Why is there bias at all?  Is it the likelhood sampling
                     method?
 
-                \item For real data need a shape prior that is twice
-                    differentiable.
+                \item For real data need a functional form for the distribution
+                    of shapes that is twice differentiable.
 
                 \item Bernstein \& Armstrong propose a model-independent
                     technique using moments in Fourier space, but not yet
@@ -355,12 +363,23 @@
 
 \frame
 {
+    \frametitle{Bernstein \& Armstrong}
+
+    \begin{center}
+    \includegraphics[width=0.7\textwidth]{{fracerr-vs-shear}.pdf}
+\end{center}
+
+}
+
+
+\frame
+{
     \frametitle{The Code}
 
     \begin{itemize}
 
-        \item The code is fairly mature.  New version \ngmix\ re-written using
-            {\texttt \python + \numba}.
+        \item The code is is called \ngmix.  This version is a recent rewrite
+            using {\texttt \python + \numba}.
 
         \item On github  \texttt{https://github.com/esheldon/ngmix}. 
             
