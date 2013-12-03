@@ -36,16 +36,27 @@
 \frame
 {
     \frametitle{Shear}
-    \fontsize{8}{0.8\baselineskip}
+
+    \begin{itemize}
+
+        \item Weak shear is smaller than the intrinsic variance in shapes.
+            
+        \item We average the shear from many sources to extract a signal.
+
+        \item Look for correlations in the shear field, or between shear and
+            known objects positions.
+
+
+    \end{itemize}
+}
+\frame
+{
+    \frametitle{Shear}
+    \fontsize{9}{0.8\baselineskip}
 
     \begin{columns}
         \begin{column}{0.5\textwidth}
             \begin{itemize}
-
-                \item Shear is weak, smaller than the shape noise, so we must
-                    average the shear from many sources.  Look for correlations
-                    in the shear field, or between shear and known objects
-                    positions.
 
                 \item Correlations in the shear/matter field hold information
                     about the {\bf Dark Matter} distribution.  The Cold Dark
@@ -78,20 +89,20 @@
 
 \frame
 {
-    \frametitle{PSF and Noise}
+    \frametitle{Shear Measurements}
     
     \begin{itemize}
 
-        \item One can use a weight function to suppress the noise, but then one
-            must derive how that measurement responds to smearing by the PSF
-            and shearing (e.g. Kaiser, Squires, \& Broadhurst, Bernstein \& Jarvis, Melchior,
-                    Bernstein \& Armstrong).  Working in Fourier space can help
-            with the deconvolution (Bernstein).
+        \item Forward-modeling: Fit a model that is convolved by an estimate of
+            the PSF. Limited by how well one can model the galaxy and PSF (e.g.
+            Miller et al., Bernstein \& Armstrong, many others).
 
-        \item Alternatively, one can forward-model the problem: fit a model that is
-            convolved with an estimate of the PSF.  Limited by how well one can
-            model the galaxy and PSF (e.g. Miller et al., Bernstein \& Armstrong, many
-            others).
+        \item Moments: Measure moments and correct them for the PSF.  Use a
+            weight function to suppress the noise. Derive how that measurement
+            responds to smearing by the PSF and shearing (e.g.  Kaiser,
+            Squires, \& Broadhurst, Bernstein \& Jarvis, Melchior, Bernstein \&
+            Armstrong).  Working in Fourier space can help with the
+            deconvolution (Bernstein).
 
         \item These methods can be made to work well, as long as the $S/N$ is
             still pretty high, say 50 or higher.
@@ -106,9 +117,9 @@
     \begin{itemize}
 
         \item Non-linear fitting in the presence of noise is biased, both the
-            maximum likelihood and expectation value: using the mean shape
-            won't work (Hirata, Refregier, etc).   Results in a {\bf
-            calibration} error.
+            maximum likelihood and expectation value over the posterior: using
+            the mean shape won't work (Hirata, Refregier, etc).   Results in a
+            {\bf calibration} error.
 
         \item This is generally known in statistics, but not yet solved for our
             particular problem. Badly aggravated by the PSF ``deconvolution''.
@@ -128,7 +139,14 @@
 
 }
 
-%\section{Bayesian Methods}
+\section{Bayesian Methods}
+
+\frame
+{
+    \begin{center}
+        {\huge Bayesian Shear Measurement }
+    \end{center}
+}
 
 \frame
 {
@@ -235,7 +253,7 @@
 
 \frame
 {
-    \frametitle{BA13 Tests}
+    \frametitle{Bernstein \& Armstrong Tests}
 
     \begin{columns}
         
@@ -259,7 +277,7 @@
 \frame
 {
     
-    \frametitle{Bernstein \& Armstrong 2013 Tests}
+    \frametitle{Bernstein \& Armstrong Tests}
 
     \begin{itemize}
         \item Can push to lower \snT\ than LENSFIT.
@@ -284,12 +302,11 @@
             
             \begin{itemize}
 
-                \item Explore more realistic intrinsic distributions in
-                    structural parameters (size, flux).  E.g. for a bin in {\it
-                    measured} flux, what are the {\it true} distributions in
-                    size and flux?  Use Cosmos.
+                \item Why is there bias at all?  Is it the likelhood sampling
+                    method?
 
-                \item Why is there bias at all?  Is it the likelhood sampling method?
+                \item For real data need a shape prior that is twice
+                    differentiable.
 
                 \item Bernstein \& Armstrong propose a model-independent
                     technique using moments in Fourier space, but not yet
@@ -297,6 +314,25 @@
                     Brooke as well (Madhavacheril).
 
             \end{itemize}
+
+    \end{itemize}
+}
+
+\frame
+{
+    \frametitle{The Code}
+
+    \begin{itemize}
+
+        \item The code is fairly mature.  New version re-written using {\texttt
+            numba}.
+
+        \item On github  {\texttt https://github.com/esheldon/ngmix}. The old
+            version {\texttt gmix\_image} which doesn't require numba is also
+            available.
+
+        \item The code is running on DES data, but need to determine shape
+            prior that is twice differentiable.
 
     \end{itemize}
 }
