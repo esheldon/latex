@@ -69,10 +69,12 @@
                     Matter theory predicts these correlations and the
                     corresponding shear correlations.
 
-                \item The theory does {\bf not } predict the structure of
-                    individual dark matter halos.  A weak shear measurement in
-                    the direction of a single object is just a poorly measured
-                    and difficult to interpret shear correlation function.
+                \item The theory does {\bf not} predict the structure of
+                    individual dark matter halos.  
+
+                \item A weak shear measurement in the direction of a single
+                    object is just a poorly measured, difficult to interpret
+                    shear correlation function.
 
             \end{itemize}
         \end{column}
@@ -98,6 +100,8 @@
     \frametitle{Shear Measurements}
     
     \begin{itemize}
+
+        \item Tradition: measure shapes and average them.
 
         \item Forward-modeling: Fit a model that is convolved by an estimate of
             the PSF. Limited by how well one can model the galaxy and PSF (e.g.
@@ -128,7 +132,7 @@
             calibration} error.
 
         \item This is generally known in statistics, but not yet solved for
-            this particular problem. Badly aggravated by the PSF
+            the particular problem of shear. Badly aggravated by the PSF
             ``deconvolution''.
 
         \item The noise also causes problems for moment based methods.
@@ -138,10 +142,10 @@
 
 \frame
 {
-    \frametitle{Maximum Likelihood}
+    \frametitle{Using Expectation Value $<e>$ for Shear}
 
     \begin{center}
-    \includegraphics[width=0.7\textwidth]{{gmix-fit-gg05r01-yr-0.005-0.005-diff}.pdf}
+    \includegraphics[width=0.7\textwidth]{{cbafit-geg07-geg08-deg03-deg05-gmean-flux-s2n}.pdf}
 \end{center}
 
 }
@@ -376,8 +380,8 @@
 
     \begin{itemize}
 
-        \item The package is \ngmix.  This version is a recent rewrite
-            using {\texttt \python + \numba}.
+        \item The package is \ngmix.  This version is a rewrite using {\texttt
+            \python + \numba}.
 
         \item On github  \texttt{https://github.com/esheldon/ngmix}. 
             
@@ -406,7 +410,7 @@
 
         \item Implemented and running on DES.
 
-        \item For future experiments such as LSST may need a model-independent
+        \item Future analyses using LSST data may need a model-independent
             approach.
 
     \end{itemize}
