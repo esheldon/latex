@@ -62,40 +62,38 @@ intro
 
 \section{Algorithm} \label{sec:algo}
 
-The full algorithm is presented in \citet[][BA14]{ba14}.  There are a few basic
-assumptions underlying this approach.  Following the notation in BA14:
+The full algorithm is presented in \citet[][BA14]{ba14}.  There are two
+important assumptions underlying this approach (following the notation in
+BA14):
 
 \begin{itemize}
 
     \item The shear is weak, $g \ll 1$.
 
-    \item In the limit of weak shear, only the ensemble mean shear can be
-        derived from galaxy shapes.
-
     \item The posterior distribution of the shear derived from a large ensemble
         of galaxy images is Gaussian.
 
-
 \end{itemize}
 
-The first assumption is true under most circumstances, but will break down
+The first assumption is true under many circumstances, but will break down
 along lines-of-sight near large over-densities, such as clusters of galaxies.
 
-The second assumption follows from the first, and the fact that galaxy images
-are to be used to estimate the shear: galaxies have intrinsic shapes, with
-variance larger than the typical shear induced by structures in our universe.
-Given this limitation, the estimation of shears from individual sources is
-abandoned.  This limitation would not apply if a large set of intrinsically
-round, extended sources were found.
+The second point follows from the central limit theorem: if the shear is
+derived from a large enough ensemble of galaxy shapes, the posterior
+necessarily approaches a Gaussian.
 
-The third point follows from the central limit theorem: if the shear is derived
-from a large enough ensemble of galaxy shapes, the posterior necessarily
-approaches a Gaussian.
+The likelihood or posterior distribution for a parameter derived from a single
+galaxy will not generally be Gaussian except in the limit of exceedingly high
+signal-to-noise ratio. Even if such high signal-to-noise ratio galaxies could
+be used, galaxies have intrinsic shapes that serve as a large noise to shear
+estimation. Some kind of averaging most be performed to extract a shear from
+galaxy shapes.  Thus nothing substantial is ``lost'' by restricting shear
+estimation to populations rather than individual galaxies.  
 
-Under these assumptions, a second-order estimator was derived for the shear,
-consistent with the assumption of a Gaussian posterior.  This form is a Taylor
-expansion of the logarithm of the posterior for the shear, with shear as the
-expansion variable:
+Under these assumptions, \cite{ba14} derived a second-order estimator for the
+shear, consistent with the assumption of a Gaussian posterior.  This form is a
+Taylor expansion of the logarithm of the posterior for the shear, with shear as
+the expansion variable:
 \begin{equation} \label{eq:pexpand}
 -\ln P(\vecg | \vecD) \approx {(\rm const)} - \ln P(\vecg) - \vecg \cdot \sum_i
     \frac{\vecQ_i}{P_i}
@@ -127,10 +125,15 @@ In practice the shape of each galaxy is not precisely known. Instead, the
 derivatives in equation \ref{eq:pqrdef} are marginalized over the full
 likelihood distribution for each galaxy, and these marginalized values are used
 in the aggregate shown in equation \ref{eq:shdef}.  
+%\begin{equation} \label{eq:marg}
+%P_i     & = & P(\vecD_i | \vecg=0) \nonumber \\
+%\vecQ_i & = & \left. \bnabg P(\vecD_i | \vecg)\right|_{\vecg=0} \\
+%\matR_i & = & \left. \bnabg \bnabg P(\vecD_i | \vecg)\right|_{\vecg=0}. \nonumber
+%\end{equation}
 
-An approach to measuring non-constant shear is also given, as are third-order
-tweaks to the second-order perturbations, but implementations of those ideas
-are left to future work.
+An approach to measuring non-constant shear was also given by \cite{ba14}, as
+are third-order tweaks to the second-order perturbations, but I will leave
+implementations of those ideas to future work.
 
 A full implementation, fitting to pixelized galaxy images, was not attempted in
 \citet{ba14}.  The basic formalism was shown to work by generating shapes from
@@ -139,39 +142,46 @@ shear using the second-order formula.
 
 \section{Implementation} \label{sec:impl}
 
-For this work a full implementation of the \citet{ba14} formalism was developed
-to analyze noisy galaxy images smeared by a point spread function and 
-pixelization.
+For this work I implemented the \citet{ba14} to analyze noisy galaxy images
+smeared by a point spread function and a pixel response function.
 
 As described in \S \ref{sec:algo}, the estimator involves integrals over the
 full likelihood distribution for each galaxy.  Exploration of the likelihood
-surface requires a large number of model evaluations.  As an optimization,
-galaxy models were approximated as sums of Gaussians according the to the fits
-in \citet{HoggGMix12}.  The PSF was also approximated using Gaussians.  This
-use of Gaussians for both galaxy and PSF models facilitates analytic
-convolutions of the galaxy model with the PSF.  This is a faster and simpler
-alternative to convolutions using Fourier transforms. The use of the
-Gaussian approximation introduces negligible bias in the recovered shear for
-the sersic models fit in this work.
+surface requires a large number of model evaluations.  As an optimization, I
+approximated galaxy models as sums of Gaussians according the to the fits in
+\citet{HoggGMix12}.  I also fit the PSF using Gaussians.  By using Gaussians
+for both galaxy and PSF models I could perform fast analytic convolutions of
+the galaxy model with the PSF.  This is a faster and simpler alternative to
+convolutions using Fourier transforms. The use of the Gaussian approximation
+introduces negligible bias in the recovered shear for the \sersic\ models fit
+in this work.
 
-A fast, third order approximation to the exponential function was used for
+I used a fast, third order approximation to the exponential function for
 rendering the galaxy and PSF profiles.  Even so evaluation of the exponential
-function is the bottleneck for this calculation.
+function was the bottleneck for this calculation.
 
-A Markov Chain Monte Carlo (MCMC) was used to explore the posterior surface.
+I used a Markov Chain Monte Carlo (MCMC) to explore the posterior surface.
 Galaxies can have a wide variety of model parameters and errors in the best-fit
-parameters.  It is not straightforward to predict what the parameter errors
-will be before doing the full fit, making it difficult to choose a ``step
-size'' for the MCMC chain.  For this reason an affine invariant MCMC method was
-used, as first presented in \citet{GoodmanWeare10}.  The affine invariant MCMC
-automatically adapts to the underlying distribution, so does not require tuning
-the step size.  The python implementation presented in \citet{Mackey13} was
-chosen for this work, as the rest of the algorithm and simulation were also
-implemented in python.  For each galaxy, 80 ``walkers'' were used in the chain,
-with 400 burnin steps and 200 steps per walker used for calculations.  This
-number of steps may be excessive in some situations, but we found that accurate
-results were obtained for the full range of parameters used in our simulations,
-so we did not explore this further.
+parameters.  I did not find it straightforward to predict what the parameter
+errors would be before doing the full fit, which made it difficult to choose a
+``step size'' for the MCMC chain.  For this reason I used an affine invariant
+MCMC as first presented in \citet{GoodmanWeare10}.  The affine invariant MCMC
+dynamically adapts to the underlying distribution by comparing multiple
+``walkers'' through the parameter space; it thus does not require tuning the
+step size.  I used the python implementation presented in \citet{Mackey13}.
+
+For each galaxy, I used 80 ``walkers'' in the chain, 400 initial steps as
+burn-in, followed by 200 additional steps for measuring expectation values.
+This large number of steps may be excessive in some situations, but I found
+that with these settings accurate results were obtained for the full range of
+parameters used in the simulations, so I did not explore this further.
+Certainly optimization if the likelihood exploration is worthy of study.
+
+Note I did not apply the prior on the galaxy shapes during exploration of the
+posterior, except to limit the parameter space such that $|e| <= 1$. The reason
+is that the algorithm involves integrals of various quantities over the
+likelihood in ellipticity space rather than the posterior.  Priors were applied
+for the other parameters to restrict the space.
 
 \section{A Note on Parametrization}
 
