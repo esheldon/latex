@@ -12,7 +12,7 @@
 \newcommand{\Tsn}{$(S/N)_{\textrm{size}}$}
 \newcommand{\fsn}{$(S/N)_{\textrm{flux}}$}
 
-% stolen from the BA13 source
+% stolen from the BA14 source
 \newcommand{\vecg}{\mbox{\boldmath $g$}}
 \newcommand{\vecD}{\mbox{\boldmath $D$}}
 \newcommand{\vecQ}{\mbox{\boldmath $Q$}}
@@ -21,6 +21,7 @@
 \newcommand{\bnabg}{ \boldsymbol{\nabla_g}}
 
 \newcommand{\desreq}{$4\times 10^{-3}$}
+\newcommand{\lsstreq}{$2\times 10^{-3}$}
 
 \newcommand{\sersic}{S\'{e}rsic}
 
@@ -36,21 +37,24 @@
 
 \begin{abstract}
 
-The Bayesian method for estimating gravitational shear, presented in
-\cite{ba13}, was implemented in full and tested using a suite of image
-simulations.  Specifically, the model-fitting approach was used, in which prior
-information is included as analytic formulas for the intrinsic distribution of
-galaxy model parameters. The estimator is for the posterior distribution of the
-shear derived from an ensemble of galaxy images, rather than a single galaxy
-shape, and hence holds promise to provide accurate shear recovery when using
-galaxies at very low signal-to-noise ratio.  Both the simulated and fit models
-were drawn from the \sersic\ family of approximate galaxy profiles.  The shear
-was accurately recovered for a range of model types and galaxy sizes, as long
-as the intrinsic galaxy {\it size} was precisely determined, as parametrized by
-the signal-to-noise ratio \Tsn.   The more standard signal-to-noise ratio of
-the flux was not a good indicator of shear accuracy.  For \Tsn$\gtrsim 10$ the
-shear was recovered to an accuracy $\Delta g/g \sim 10^{-3}$, sufficient for
-current generation lensing experiments.  \end{abstract}
+    I present an implementation of the Bayesian shear estimation method of
+    \cite{ba14}, in particular model-fitting approach.  In \cite{ba14}, the
+    method was shown to be unbiased, but no implementation for fitting
+    astronomical images was presented. I tested the implementation using
+    simulated galaxy images modeled as \sersic\ profiles with $n=1/2, 1,
+    \textrm{and} ~ 2$, and convolved with a PSF and flat pixel response
+    function.  I used a simple Gaussian model for the PSF to avoid potential
+    PSF-fitting errors, and I fit simulated images with the correct \sersic\
+    model family to avoid model-bias.  I simulated galaxies with a discrete set
+    of size ratios $\sigma_{gal}/\sigma_{PSF} = 1, 1.4, 2$ and a broad range of
+    signal-to-noise ratios $S/N \in [10,1000]$. A constant shear was applied to
+    all images.  In all cases I recover the input shear to better than 2 parts
+    in a thousand, finding the largest error for the smallest galaxies. I
+    suspect the remaining bias is due to details of the likelihood sampling
+    technique, and can be improved upon.  This accuracy is sufficient for
+    current and planned surveys.  
+
+\end{abstract}
 
 \section{Introduction} \label{sec:intro}
 
@@ -58,8 +62,8 @@ intro
 
 \section{Algorithm} \label{sec:algo}
 
-The full algorithm is presented in \citet[][BA13]{ba13}.  There are a few basic
-assumptions underlying this approach.  Following the notation in BA13:
+The full algorithm is presented in \citet[][BA14]{ba14}.  There are a few basic
+assumptions underlying this approach.  Following the notation in BA14:
 
 \begin{itemize}
 
@@ -129,13 +133,13 @@ tweaks to the second-order perturbations, but implementations of those ideas
 are left to future work.
 
 A full implementation, fitting to pixelized galaxy images, was not attempted in
-\citet{ba13}.  The basic formalism was shown to work by generating shapes from
+\citet{ba14}.  The basic formalism was shown to work by generating shapes from
 an analytic distribution, adding noise and shear, and recovering the underlying
 shear using the second-order formula.
 
 \section{Implementation} \label{sec:impl}
 
-For this work a full implementation of the \citet{ba13} formalism was developed
+For this work a full implementation of the \citet{ba14} formalism was developed
 to analyze noisy galaxy images smeared by a point spread function and 
 pixelization.
 
@@ -150,10 +154,9 @@ alternative to convolutions using Fourier transforms. The use of the
 Gaussian approximation introduces negligible bias in the recovered shear for
 the sersic models fit in this work.
 
-A fast exponential function was used\footnote{https://github.com/herumi/fmath.
-The code was translated from C++ to C by the author.} for rendering the galaxy
-and PSF profiles.  Even so evaluation of the exponential function is the
-bottleneck for this calculation.
+A fast, third order approximation to the exponential function was used for
+rendering the galaxy and PSF profiles.  Even so evaluation of the exponential
+function is the bottleneck for this calculation.
 
 A Markov Chain Monte Carlo (MCMC) was used to explore the posterior surface.
 Galaxies can have a wide variety of model parameters and errors in the best-fit
@@ -162,10 +165,13 @@ will be before doing the full fit, making it difficult to choose a ``step
 size'' for the MCMC chain.  For this reason an affine invariant MCMC method was
 used, as first presented in \citet{GoodmanWeare10}.  The affine invariant MCMC
 automatically adapts to the underlying distribution, so does not require tuning
-the step size.  A new C code was developed to for this, which is available on
-request. The python implementation presented in \citet{Mackey13} was used
-during prototyping.  For each galaxy, 20 ``walkers'' were used in the chain,
-with 400 burnin steps and 200 steps used for calculations.
+the step size.  The python implementation presented in \citet{Mackey13} was
+chosen for this work, as the rest of the algorithm and simulation were also
+implemented in python.  For each galaxy, 80 ``walkers'' were used in the chain,
+with 400 burnin steps and 200 steps per walker used for calculations.  This
+number of steps may be excessive in some situations, but we found that accurate
+results were obtained for the full range of parameters used in our simulations,
+so we did not explore this further.
 
 \section{A Note on Parametrization}
 
@@ -197,7 +203,7 @@ modeling was not a source of error in the shear recovery.  The models were also
 convolved with square pixels of uniform response.
 
 The un-lensed shape distribution was chosen to be identical to the toy
-distribution used in \cite{ba13}.  This distribution is not a good description
+distribution used in \cite{ba14}.  This distribution is not a good description
 of real galaxy shapes, but was chosen for consistency with that work.  That
 distribution also has the required property that it is twice differentiable.
 
@@ -248,7 +254,7 @@ sizes.
  \includegraphics[scale=0.45]{figures/cbafit-geg-flux-s2n.eps}
 
  \caption{ Fractional bias in the recovered shear for the estimator presented
-     in \cite{ba13}.  The bias is plotted as a
+     in \cite{ba14}.  The bias is plotted as a
      function of galaxy signal-to-noise ratio $(S/N)$, for various galaxy
      properties and two different measures of $(S/N)$.  In panel (a) is
      plotted \Tsn, where the measure of intrinsic galaxy size is $T=I_{xx} + I_{yy}$.  In 
@@ -298,7 +304,7 @@ to second order.
      in a zero noise simulation.  The solid curve is the best-fit quadratic
      function of the true shear.  The quadratic bias as a function of true
      shear indicates a break down of the second-order approximation presented
-     in \cite{ba13}. The gray band represents the requirements for the Dark
+     in \cite{ba14}. The gray band represents the requirements for the Dark
  Energy Survey. \label{fig:nonoise}}
 
 \end{figure}
@@ -322,7 +328,7 @@ to sufficient accuracy.
 
 \section{Summary} \label{sec:summary}
 
-The Bayesian shear estimator presented in \cite{ba13} can be used to accurately
+The Bayesian shear estimator presented in \cite{ba14} can be used to accurately
 recover gravitational shear in a galaxy population, as long as the underlying
 true distribution of all galaxy parameters is known and the sizes of the
 individual galaxies can be precisely determined.  For example, if the
@@ -348,7 +354,7 @@ fully described by a finite number of parameters.  \cite{Kacprzak13} show that
 this ``model bias'' may be on the order of baseline requirements for surveys
 such as DES, and potentially crippling for future surveys with more stringent
 requirements. One potential solution is to fit models with more freedom, and
-appropriately choose galaxies with well measured sizes.  \cite{ba13} propose an
+appropriately choose galaxies with well measured sizes.  \cite{ba14} propose an
 alternative to the model-fitting technique based on moments in Fourier space
 which makes no explicit parameterization of galaxy light distributions.  An
 evaluation of this model free approach in the presence of noise will be the
