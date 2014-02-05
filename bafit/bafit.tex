@@ -198,49 +198,51 @@ position angle, in order to cancel shape noise.  This simulation strategy is
 known as a ``ring test''\citep{Nakajima2007}, and greatly reduces the number of
 simulated images required to test the shear code.
 
-I generated galaxies elliptical \sersic\ profiles \citep{Sersic63}
+I generated simulated galaxies with elliptical \sersic\ profiles \citep{Sersic63}
 \begin{equation}
-I(r) \varpropto exp(-(r/r_0)^(1/n)).
+I(r) \varpropto \mathrm{exp} \left[ -\left( \frac{r}{r_0} \right)^{1/n} \right].
 \end{equation}
 I used only three values of the index: $n=1/2$ (Gaussians), $n=1$ (exponential
-disks), and $n=4$ (\dev profiles).
+disks), and $n=4$ (\devauc\ profiles).
 
 I convolved the models with a simple simulated PSF, a single round Gaussian
-with $\sigma = \sqrt{2}$ pixels $(T=4)$.  A simple PSF was chosen so that PSF
-modeling was not a source of error in the shear recovery.  The models were also
-convolved with square pixels of uniform response.
+with $\sigma = \sqrt{2}$ pixels $(T=4)$.  A simple Gaussian PSF was chosen so
+that PSF modeling was not a source of error in the shear recovery.  The models
+were also convolved with square pixels of uniform response.
 
 Because I used Gaussians for modeling both Galaxies and PSF, I found it
 convenient to parameterize objects in terms of the second moments rather than
 alternative quantities such as half-life radii.  This parametrization is also
 intuitive: it is the unweighted second moments that are modified by convolution
 by the PSF; the moments of the galaxy and the PSF simply add\footnote{In the
-presence of noise, subtraction of measured moments is not a practical PSF
+presence of noise, subtraction of {\it measured} moments is not a practical PSF
 correction scheme.}.  It is the area that is modified by the isotropic part of
 the PSF, and it is the ratio of areas that determines the influence of the PSF
-on the shape of a galaxy.  The quantity $T = I_{xx} + I_{yy}$, was chosen as a
-convenient size parameter, where $I_{ij}$ is the unweighted second moment
-$\langle x_i x_j \rangle$.  The corresponding scale length can be written as
-$\sigma = \sqrt{T/2}$.
+on the shape of a galaxy.  The quantity $T = \langle x^2 \rangle + \langle y^2
+\rangle$, was chosen as a convenient size parameter.  The corresponding linear
+scale length can be written as $\sigma = \sqrt{T/2}$.
 
-I chose the un-lensed shape distribution to be identical to the toy
-distribution used in \cite{ba14}.  This distribution is not represent an
-entirely accurate description of real galaxy shapes, but was chosen for
-consistency with that work.  That distribution also has the required property
-that it is twice differentiable.
+For consistency with \cite{ba14}, I chose the same un-lensed shape distribution
+used for the toy-model tests in that work: 
+\begin{equation}
+P_0(e^s)\propto \left[1-(e^s)^2\right]^2 \exp\left[-(e^s)^2/2\sigma_{\rm prior}^2\right].
+\end{equation}
+This distribution is sufficiently similar to the
+distribution of true galaxy shapes to be useful in this test.  That
+distribution also has the required property that it is twice differentiable.
 
 I drew the other galaxy parameters from simple distributions.  I drew the size
-parameter $T=I_{xx} + I_{yy}$ and the overall flux from log-normal
-distributions with scatter 30\%.  I drew the centroid from a Gaussian in each
-coordinate, with $\sigma$ of 0.1 pixels.
+parameter $T$ and the total galaxy flux from log-normal distributions with
+scatter 30\%.  I drew the centroid from a Gaussian in each coordinate, with
+$\sigma$ of 0.1 pixels.
 
-For each galaxy type, I ran a simulations with ratio of galaxy size to PSF size
+For each galaxy type, I ran simulations with ratio of galaxy size to PSF size
 $\sigma_{gal}/\sigma_{PSF}$ set to 1, 1.4 and 2.0.  In other words the mean of
 the log-normal distribution of $T$ was tuned to get the corresponding {\it
-average} size ratio.  Within each size ratio category, I generated sub-categories for
-different flux signal-to-noise ratio \fsn\ were run.  I drew fluxes from the
-same distribution but added more or less noise as needed to recover approximately
-the correct mean \fsn\ in the range $[10,1000]$..
+average} size ratio.  Within each size ratio category, I simulated different
+flux signal-to-noise ratios \fsn\ in the range $[10,1000]$.  To do this I drew
+fluxes from the same underlying flux distribution but added more or less noise
+as needed to recover approximately the correct mean \fsn.
 
 By drawing sizes and fluxes from log-normal distributions I was attempting to
 approximate a selection that might occur in real data, for example binning
@@ -251,13 +253,16 @@ PSF, and thus a PSF flux could be underestimated.
 
 \section{Fitting Simulated Galaxies} \label{sec:simfit}
 
-I fit the simulated images using parametrized models as presented in \S
-\ref{sec:impl}.   I fit a single Gaussian to a rendered, pixelized PSF model,
-and the full, convolved model was generated by analytically convolving the
-galaxy model with this PSF model. By using a fit to the observed, pixelized
-PSF, the convolution by the pixels is built in to the PSF model. Thus the
-analytic convolution of PSF with galaxy model accounts for the all PSF and
-pixel effects.
+I ``fit'' the simulated images using elliptical \sersic\ models as presented in
+\S \ref{sec:impl}.   I use the term ``fit'' here to refer to the process of
+running an MCMC chain and marginalizing the $P,Q,R$ terms over the resulting
+likelihood surface.
+
+For PSF fitting I used a single Gaussian, and the full, convolved galaxy model
+was generated by analytically convolving the galaxy model with this PSF model.
+By using a fit to the observed, pixelized PSF, the convolution by the pixels is
+built in to the PSF model. Thus the analytic convolution of PSF with galaxy
+model accounts for the all PSF and pixel effects.
 
 For these simulations, a single Gaussian did sufficiently model the {\it
 pixelized} Gaussian PSF. For a less well sample PSF, a more complex may be
@@ -267,8 +272,9 @@ During fitting, I adapted prior distributions matched exactly to the true
 distributions used in the simulation.  I used the correct \sersic\ family for
 fitting in each case; i.e. when simulating exponential disks, I also fit an
 exponential disk.  By choosing the true priors and model, I tested the accuracy
-of the algorithm and likelihood sampling without confusion with other issues
-such as model bias or empirical prior determination.
+of the algorithm and likelihood sampling technique directly and avoided
+confusion with other issues such as model bias or empirical prior
+determination.
 
 \section{Results} \label{sec:results}
 
