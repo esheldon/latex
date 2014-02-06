@@ -37,26 +37,26 @@
 
 \begin{abstract}
 
-The Bayesian shear estimation method presented in \cite{ba14} has the potential
-to recover weak gravitational shear from galaxy shapes even at low detected
-signal-to-noise ratio (\sn).  In that work the authors confirmed the method is
-unbiased by drawing shapes from a distribution, shearing them, adding noise,
-and recovering the average input shear.  Here I present a full implementation
-for fitting galaxy images, including PSF and pixelization effects.  I test the
-implementation using simulated galaxy images modeled as \sersic\ profiles
-($n=1/2, 1, \textrm{and} ~ 2$), convolved with a point spread function (PSF)
-and a flat pixel response function.  I use a simple Gaussian model for the PSF
-to avoid potential PSF-fitting errors. I simulate galaxies with a discrete set
-of size ratios $\sigma_{gal}/\sigma_{PSF} = 1, 1.4, 2$, a discrete set of of
-average $\sn\ \in [10,1000]$, and apply a constant shear to all images. I fit
-the simulated images using the correct \sersic\ model family to avoid modeling
-biases.   In all cases I recover the input shear to better than 2 parts in a
-thousand, finding the largest bias for the smallest galaxies.  These small
-galaxies contribute little weight in the average shear derived from samples
-defined by a \sn\ threshold TODO.  This accuracy is sufficient for current and
-next-generation surveys.  The bias occurs at a range of \sn, which may indicate
-the bias is a feature of my likelihood sampling technique, and can potentially
-be improved upon.   
+The Bayesian shear estimation method developed by \cite{ba14} has the potential
+to accurately recover weak gravitational shear from galaxy shapes even for
+galaxies with low signal-to-noise ratio (\sn).  In that work the authors
+confirmed the method is unbiased by drawing shapes from a distribution,
+shearing them, adding noise, and recovering the average input shear.  Here I
+present a full implementation for fitting galaxy images, including point spread
+function (PSF) and pixelization effects.  I test the implementation using
+simulated galaxy images modeled as \sersic\ profiles ($n=1/2, 1, \textrm{and} ~
+2$), convolved with a PSF and a flat pixel response function.  I use a simple
+Gaussian model for the PSF to avoid potential PSF-fitting errors. I simulate
+galaxies with a discrete set of size ratios $\sigma_{gal}/\sigma_{PSF} = 1,
+1.4, 2$, a discrete set of of average $\sn\ \in [10,1000]$, and apply a
+constant shear to all images. I fit the simulated images to a model with the
+true \sersic\ index to avoid modeling biases.   In all cases I recover the
+input shear to better than 2 parts in a thousand, finding the largest bias for
+the smallest galaxies.  These small galaxies contribute little weight in the
+average shear derived from samples defined by a \sn\ threshold TODO.  This
+accuracy is sufficient for current and next-generation surveys.  The bias
+occurs at a range of \sn, which may indicate the bias is a feature of my
+likelihood sampling technique, and can potentially be improved upon.   
 
 \end{abstract}
 
@@ -163,57 +163,56 @@ shear using the second-order formula.
 
 \section{Implementation} \label{sec:impl}
 
-For this work I implemented the algorithm presented \citet{ba14} to analyze
-noisy galaxy images smeared by a point spread function and a pixel response
-function.
-
 As described in \S \ref{sec:algo}, the estimator involves integrals over the
-full likelihood distribution for each galaxy.  Exploration of the likelihood
-surface requires a large number of model evaluations, so efficiency is
-important.  As an optimization, I approximated galaxy models as sums of
-Gaussians according the to the fits in \citet{HoggGMix}.  I also fit the PSF
-using Gaussians.  By using Gaussians for both galaxy and PSF models I could
-perform fast analytic convolutions of the galaxy model with the PSF.  This is a
-faster and simpler alternative to convolutions using Fourier transforms. The
-use of the Gaussian approximation introduces negligible bias in the recovered
-shear for the models fit in this work.
+full posterior distribution for each galaxy, where by posterior I mean the
+prior times likelihood.  To be precise, the exploration is in the posterior for
+all parameters except ellipticity, because the integrands themselves contains
+the ellipticity prior. In other words, I only applied the priors in the
+non-ellipticity parameters during exploration.
+
+Exploration of the posterior surface required a large number of model
+evaluations, so I found efficiency to be important.  As an optimization, I
+approximated galaxy models as sums of Gaussians according the to the fits in
+\citet{HoggGMix}.  I also fit the PSF using Gaussians.  By using Gaussians for
+both galaxy and PSF models I could perform fast analytic convolutions of the
+galaxy model with the PSF; for gaussian convolutions, the covariance matrices
+add.  This is a faster and simpler alternative to convolutions using Fourier
+transforms. The use of the Gaussian approximation introduces negligible bias in
+the recovered shear for the models fit in this work.
 
 I used a fast, third order approximation to the exponential function for
 rendering the galaxy and PSF profiles.  Even so evaluation of the exponential
-function was the bottleneck for this calculation.
+function was the bottleneck for this calculation due to the large number
+of model evaluations.
 
 I used a Markov Chain Monte Carlo (MCMC) to explore the posterior surface.
-Galaxies can have a wide variety of model parameters and errors in the best-fit
-parameters.  I did not find it straightforward to predict what the parameter
-errors would be before doing the full fit, which made it difficult to choose a
-``step size'' for the MCMC chain.  For this reason I used an affine invariant
-MCMC as first presented in \citet{GoodmanWeare10}.  The affine invariant MCMC
-dynamically adapts to the underlying distribution by comparing multiple
-``walkers'' through the parameter space; it thus does not require tuning the
-step size.  I used the python implementation presented in \citet{Mackey13}.
+Galaxy fitting presents a difficult challenge for standard MCMC methods such as
+the Metropolis-Hastings algorithm \citep{Metropolis53}, because galaxies can
+have a wide variety of best-fit model parameters and errors those parameters.
+I did not find it straightforward to predict what the parameter errors would be
+a priori, which made it difficult to choose a ``step size'' for the MCMC chain.
+For this reason I used an affine invariant MCMC \citet{GoodmanWeare10}.  An
+affine invariant MCMC is dynamically adapted to the underlying distribution by
+comparing multiple ``walkers'' as they are moved through the parameter space;
+it thus does not require tuning the step size.  I used the python
+implementation presented in \citet{Mackey13}.
 
 I used an affine parameter $a=2$, which results in an acceptance rate of about
 0.50. I used 80 ``walkers'' in the chain, with 400 initial steps as burn-in
 followed by 200 additional steps for measuring expectation values.  This large
-number of steps may be excessive in some situations, but I found that with
-these parameters I could accurately recover the shear in all cases, so I did
-not explore alternatives in great detail.  Certainly optimization of the
-posterior exploration is worthy of future study.
-
-I did not apply the prior on the galaxy shapes during exploration of the
-posterior, except to limit the parameter space such that $|e| <= 1$. The reason
-is that the algorithm involves integrals of various quantities over the
-likelihood in ellipticity space rather than the posterior.  Priors were applied
-for all other parameters.
+number of steps may be excessive in many situations, but I found that with this
+single set of parameters I could accurately recover the shear in all cases, so
+I did not explore alternatives in great detail.  Optimization of the posterior
+exploration is worthy of future study.
 
 
 \section{Simulation} \label{sec:sim}
 
-I simulated pairs of galaxy images with identical structural parameters and
-position angles offset by 90 degrees, in order to cancel the intrinsic shape
-noise.  This simulation strategy is known as a ``ring
+I simulated pairs of galaxy images with identical structural parameters, but
+with position angles offset by 90 degrees, in order to cancel the intrinsic
+shape noise.  This simulation strategy is known as a ``ring
 test''\citep{Nakajima2007}, and greatly reduces the number of simulated images
-required to test the shear code.
+required to reach a desired precision in the recovered shear.
 
 For galaxy models I used elliptical \sersic\ profiles \citep{Sersic63}
 \begin{equation}
@@ -224,30 +223,31 @@ disks), and $n=4$ (\devauc\ profiles).
 
 I convolved the models with a simple simulated PSF, a single round Gaussian
 with $\sigma = \sqrt{2}$ pixels $(T=4)$.  I chose a simple Gaussian PSF so that
-PSF modeling would not be a source of error.  I then convolved the models with
-square pixels of uniform response by integrating the models over a 16x16
-sub-grid.  Generation of the simulated galaxies was not a speed bottleneck in
-this work, so I attempted no further optimization.
+PSF modeling would not be a source of error, and I chose a round PSF to avoid
+any potential additive bias.  I then convolved the models with square pixels of
+uniform response by integrating the models over a 16x16 sub-grid.  Generation
+of the simulated galaxies was not a speed bottleneck in this work, so I
+attempted no further optimization.
 
 Because I used Gaussians for modeling both Galaxies and PSF, I found it
-convenient to parameterize objects in terms of the second moments rather than
+convenient to parameterize objects in terms of their second moments rather than
 alternative quantities such as half-life radii.  This parametrization is also
 intuitive: it is the unweighted second moments that are modified by convolution
 by the PSF; the moments of the galaxy and the PSF simply add\footnote{In the
 presence of noise, subtraction of {\it measured} moments is not a practical PSF
 correction scheme.}.  It is the area that is modified by the isotropic part of
 the PSF, and it is the ratio of areas that determines the influence of the PSF
-on the shape of a galaxy.  The quantity $T = \langle x^2 \rangle + \langle y^2
-\rangle$, was chosen as a convenient size parameter.  The corresponding linear
+on the shape of a galaxy.  I chose the quantity $T = \langle x^2 \rangle +
+\langle y^2 \rangle$ as a convenient size parameter.  A corresponding linear
 scale length can be written as $\sigma = \sqrt{T/2}$.
 
-For consistency with \cite{ba14}, I chose the same un-lensed shape distribution
-used for the toy-model tests in that work: 
+For consistency, I chose the same un-lensed shape distribution
+used in \cite{ba14}:
 \begin{equation}
-P_0(e^s)\propto \left[1-(e^s)^2\right]^2 \exp\left[-(e^s)^2/2\sigma_{\rm prior}^2\right].
+P_0(e^s)\propto \left[1-(e^s)^2\right]^2 \exp\left[-(e^s)^2/2\sigma_{\rm prior}^2\right],
 \end{equation}
-This distribution is sufficiently similar to the
-distribution of true galaxy shapes to be useful in this test.  That
+with $\sigma_{\rm prior}=0.3$. This distribution is sufficiently similar to the
+distribution of true galaxy shapes to be useful in this test.  This
 distribution also has the required property that it is twice differentiable.
 
 I drew the other galaxy parameters from simple distributions.  I drew the size
@@ -257,41 +257,42 @@ $\sigma$ of 0.1 pixels.
 
 For each galaxy type, I ran simulations with ratio of galaxy size to PSF size
 $\sigma_{gal}/\sigma_{PSF}$ set to 1, 1.4 and 2.0.  In other words the mean of
-the log-normal distribution of $T$ was tuned to get the corresponding {\it
-average} size ratio.  Within each size ratio category, I simulated different
-flux signal-to-noise ratios \fsn\ in the range $[10,1000]$.  To do this I drew
-fluxes from the same underlying flux distribution but added more or less noise
-as needed to recover approximately the correct mean \fsn.
+the log-normal distribution of $T$ was tuned to get the required {\it average}
+size ratio, but since the scatter was chosen to be 30\%, there were a range of
+sizes tested in each bin.  Within each size ratio category, I simulated
+different flux signal-to-noise ratios \fsn\ in the range $[10,1000]$.  I
+accomplished this by drawing fluxes from the same underlying flux distribution
+but adding more or less noise as needed to produce the desired mean \fsn.
 
 By drawing sizes and fluxes from log-normal distributions I was attempting to
 approximate a selection that might occur in real data, for example binning
-galaxies by a robust flux measure such as a PSF flux.  Within such a bin, the
-true distribution of \fsn\ would have a small tail to lower values due to noise
-and a long tail to higher \fsn\ because galaxies can be larger than the
+galaxies by a robust flux measure such as a PSF flux.  Within a PSF flux bin,
+the true distribution of \fsn\ would have a small tail to lower values due to
+noise and a long tail to higher \fsn\ because galaxies can be larger than the
 PSF, and thus a PSF flux could be underestimated.
 
 \section{Fitting Simulated Galaxies} \label{sec:simfit}
 
 I ``fit'' the simulated images using elliptical \sersic\ models as presented in
 \S \ref{sec:impl}.   I use the term ``fit'' here to refer to the process of
-running an MCMC chain and marginalizing the $P,Q,R$ terms over the resulting
-likelihood surface.
+running an MCMC chain, as described in \ref{sec:impl}, and marginalizing the
+$P,Q,R$ terms over the resulting posterior surface.
 
 For PSF fitting I used a single Gaussian, and the full, convolved galaxy model
 was generated by analytically convolving the galaxy model with this PSF model.
-By using a fit to the observed, pixelized PSF, the convolution by the pixels is
-built in to the PSF model. Thus the analytic convolution of PSF with galaxy
-model accounts for the all PSF and pixel effects.
+By using a fit to the observed, pixelized PSF, I can account for the
+convolution by the pixels in the PSF model. Thus the analytic convolution of
+PSF with galaxy model accounts for the all PSF and pixel effects.
 
 For these simulations, a single Gaussian did sufficiently model the {\it
-pixelized} Gaussian PSF. For a less well sample PSF, a more complex may be
-required.
+pixelized} Gaussian PSF. For a less well sample PSF, a more complex model would
+be required.
 
-During fitting, I adapted prior distributions matched exactly to the true
-distributions used in the simulation.  I used the correct \sersic\ family for
-fitting in each case; i.e. when simulating exponential disks, I also fit an
-exponential disk.  By choosing the true priors and model, I tested the accuracy
-of the algorithm and likelihood sampling technique directly and avoided
+During fitting, I used prior distributions matched exactly to the true
+distributions used in the simulation.  I used the correct \sersic\ index for
+fitting each case; i.e. when simulating exponential disks, I also fit an
+exponential disk ($n=1$).  By choosing the true priors and model, I tested the
+accuracy of the algorithm and posterior sampling technique directly and avoided
 confusion with other issues such as model bias or empirical prior
 determination.
 
