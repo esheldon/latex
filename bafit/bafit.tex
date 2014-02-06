@@ -52,11 +52,12 @@ galaxies with a discrete set of size ratios $\sigma_{gal}/\sigma_{PSF} = 1,
 constant shear to all images. I fit the simulated images to a model with the
 true \sersic\ index to avoid modeling biases.   In all cases I recover the
 input shear to better than 2 parts in a thousand, finding the largest bias for
-the smallest galaxies.  These small galaxies contribute little weight in the
-average shear derived from samples defined by a \sn\ threshold TODO.  This
-accuracy is sufficient for current and next-generation surveys.  The bias
-occurs at a range of \sn, which may indicate the bias is a feature of my
-likelihood sampling technique, and can potentially be improved upon.   
+the smallest galaxies. This accuracy is sufficient for current and
+next-generation surveys.   Small and noisy galaxies should contribute little
+weight in the average shear derived from a flux limited sample of galaxies, but
+more realistic simulations are needed to verify this.  The bias occurs at a
+wide range of \sn, which may indicate the bias is a feature of my likelihood
+sampling technique, and can potentially be improved upon.   
 
 \end{abstract}
 
@@ -271,6 +272,15 @@ the true distribution of \fsn\ would have a small tail to lower values due to
 noise and a long tail to higher \fsn\ because galaxies can be larger than the
 PSF, and thus a PSF flux could be underestimated.
 
+%In COSMOS data \citep{COSMOSProposal03}, disk galaxies and \devauc\ galaxies at
+%drawn from a flux-limited sample similar half-light radii\footnote{See the
+%\sersic\ fits to COSMOS data included with the GREAT3 challenge
+%http://great3.projects.phys.ucl.ac.uk}.  In my own fits to COSMOS images I
+%found the corresponding second-moment size $\sigma$ is typically larger for the
+%\devauc\ galaxies than for exponentials by a factor of a few, but that there
+%are far fewer of \devauc\ galaxies.  I did not account for this difference in
+%my simulations, instead drawing sizes equally from the same distributions.
+
 \section{Fitting Simulated Galaxies} \label{sec:simfit}
 
 I ``fit'' the simulated images using elliptical \sersic\ models as presented in
@@ -296,9 +306,39 @@ accuracy of the algorithm and posterior sampling technique directly and avoided
 confusion with other issues such as model bias or empirical prior
 determination.
 
+As I will show in section \ref{sec:truebias}, the formulas in BA14 break down
+at high shear.  On the other hand it is highly beneficial to work perform tests
+at high shear because the number of simulated galaxies required to reach a
+specified fractional noise in the measured shear will go as the inverse square
+of the shear.  For this reason I choose my expansion point to be the {\it true}
+shear instead of zero.  In real data this will only be possible if the solution
+can be iterated; one iteration would be sufficient.
+
 \section{Results} \label{sec:results}
 
-\subsection{Calibration Bias vs. \sn} \label{sec:snbias}
+\subsection{Calibration Bias vs. True Shear} \label{sec:truebias}
+
+Figure \ref{fig:nonoise} contains results for a zero-noise simulation.  The
+fractional bias is shown as a function of true shear.  The bias is well fit by
+a quadratic function of the true shear, shown in the red curve. This quadratic
+error is expected, since the formulas for the ensemble shear are expanded to
+second order.
+
+\begin{figure}[t] \centering
+ \centering 
+ \includegraphics[scale=0.6]{figures/fracerr-vs-shear.eps}
+
+ \caption{Fractional bias in the recovered shear as a function of true shear,
+     in a zero noise simulation.  The solid curve is the best-fit quadratic
+     function of the true shear.  The quadratic bias as a function of true
+     shear indicates a break down of the second-order approximation presented
+     in \cite{ba14}. The gray band represents the requirements for the Dark
+     Energy Survey. \label{fig:nonoise}}
+
+\end{figure}
+
+
+\subsection{Calibration Bias vs. \sn and Size} \label{sec:snbias}
 
 Figure \ref{fig:fracerr} contains results for each of the four simulation
 suites discussed in \S \ref{sec:sim}, representing different galaxy types and
@@ -343,27 +383,6 @@ determined by \Tsn.  But for \fsn, the fractional bias depends also on galaxy
 type and size, indicating the \fsn\ is not a sufficient statistic for
 determining the bias.
 
-\subsection{Calibration Bias vs. True Shear} \label{sec:truebias}
-
-Figure \ref{fig:nonoise} contains results for a zero-noise simulation.  The
-fraction bias is shown as a function of true shear.  The bias follows deviates
-from zero as a quadratic function of the true shear.  The red curve shows a
-best-fit quadratic function, and is fully consistent with the data.  This
-quadratic error expected, since the formulas for the ensemble shear are expanded
-to second order.
-
-\begin{figure}[t] \centering
- \centering 
- \includegraphics[scale=0.6]{figures/fracerr-vs-shear.eps}
-
- \caption{Fractional bias in the recovered shear as a function of true shear,
-     in a zero noise simulation.  The solid curve is the best-fit quadratic
-     function of the true shear.  The quadratic bias as a function of true
-     shear indicates a break down of the second-order approximation presented
-     in \cite{ba14}. The gray band represents the requirements for the Dark
- Energy Survey. \label{fig:nonoise}}
-
-\end{figure}
 
 \subsection{Comparison to Dark Energy Survey Requirements} \label{sec:desreq}
 
