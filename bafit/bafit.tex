@@ -388,21 +388,22 @@ determining the bias.
 
 \subsection{Comparison with Requirements for Current and Planned Surveys} \label{sec:req}
 
-In the figures above I showed grey bands representing the approximate
+In the figures above I showed gray bands representing the approximate
 multiplicative bias requirements for current surveys such as the Dark Energy
 Survey \citep[][DES]{DESWhitePaper} Hyper-Suprime-Cam survey
 \citep[][HSC]{HSC12}, and planned surveys such as the Large Synoptic
 Survey Telescope \citep[][LSST]{IvezicLSST08} and Euclid \citep{Euclid2011}.
-Requirements for current surveys are met in all cases.
+These requirements are based on \citep{HutererSystematics06} assuming fiducial
+sky coverage.  Requirements for are met in all cases that I tested.
 
-For planned surveys my implementation does not meet requirements for the
-smallest galaxies tested, which have second moment size equal to that of the
-PSF.  If this bias were related to noise bias I would expect the error to be
-worse for low \sn\ images, but in fact the bias is similar at intermediate and
-high \sn.  This may be a sign that the implementation itself is flawed; perhaps
-the exploration of the likelihood using MCMC needs further tuning.  The
-simulations used in this study took millions of processing hours, so repeating
-the experiments to the same precision for new MCMC parameters is a significant
+Yet I did detect small bias in a number of cases, and the bias is larger for
+the smallest galaxies tested, which have second moment size equal to that of
+the PSF.   If this bias were related noise I would expect the error to be worse
+for low \sn\ images, but in fact the bias is similar at intermediate and high
+\sn.  This may be a sign that the implementation itself is flawed; perhaps the
+exploration of the posterior using MCMC needs further tuning.  The simulations
+used in this study took millions of processor hours, so repeating the
+experiments to the same precision for new MCMC parameters is a significant
 task.  That exploration is left to future work.
 
 The authors of \cite{ba14} noted that small and noisy galaxies get little
@@ -411,14 +412,15 @@ fact is intrinsice to the estimator, no additional weighting is needed.  Thus
 it may be that the bias seen for very small galaxies will not propagate
 significantly into measurements in real data.  Yet they are the more numerous
 population, so as a whole the population of small galaxies may indeed have
-weight.  It may be worthwile to make cuts on size, but care must be taken not
-to introduce selection biases. A more realistic simulation, with galaxy images
-drawn from a flux-limited sample, can test this reasoning, but is beyond the
-scope of this work.
+weight.  It may be worth wile to make cuts on galaxy size, and in fact some cut
+will indirectly be made in the process of star-galaxy selection.  But care must
+be taken not to introduce selection biases. A more realistic simulation, with
+galaxy images drawn from a flux-limited sample, can test this reasoning, but is
+beyond the scope of this work.
 
 In Figure \ref{fig:nonoise} I showed the multiplicative bias due to the
-breakdown of the second-order taylor expansion at higher shear.   This level of
-error is prohibitive even for current surveys at shear about 0.05.  An
+breakdown of the second-order taylor expansion at higher shear.   This effect
+is prohibitive even for current surveys for shears greater than about 0.05.  An
 implementation using higher order information, a different expansion, or
 perhaps a full mapping of the posterior of the shear will be required to
 recover larger shears to sufficient accuracy.  Simply correcting the result
