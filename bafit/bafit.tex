@@ -398,30 +398,30 @@ requirements are based on \citep{HutererSystematics06} assuming fiducial sky
 coverage and a degredation in the dark energy equation of state parameter of
 less than 20\%.  The cut at 20\% is somewhat arbitrary, and was chosen to
 coincide very roughly with the ``official'' requirements for DES. The
-requirements is about \desreq\ for current surveys and \lsstreq\ for planned
+requirements are $\sim$\desreq\ for current surveys and $\sim$\lsstreq\ for planned
 surveys.  These requirements are met in all cases that I tested.
 
-Yet I did detect small bias in a number of cases, and the bias is larger for
-the smallest galaxies tested, which have second moment size equal to that of
-the PSF.   If this bias were related noise I would expect the error to be worse
-for low \sn\ images, but in fact the bias is similar at intermediate and high
-\sn.  This may be a sign that the implementation itself is flawed; perhaps the
-exploration of the posterior using MCMC needs further tuning.  The simulations
-used in this study took millions of processor hours, so repeating the
-experiments to the same precision for new MCMC parameters is a significant
-task.  That exploration is left to future work.
+Yet I did detect small bias in a number of cases, and the bias is generally
+larger for smaller galaxies.  If this bias were related to noise I would expect
+the error to be worse for low \sn\ images, but the bias is similar at
+intermediate and high \sn.  This may be a sign that the implementation itself
+is flawed; perhaps the exploration of the posterior using MCMC needs further
+tuning.  The simulations used in this study took millions of processor hours,
+so repeating the experiments to the same precision for new MCMC parameters is a
+significant task.  That exploration is left to future work.
 
-The authors of \cite{ba14} noted that small and noisy galaxies get little
-weight in the average shear relative to brighter and larger galaxies.  This
-fact is intrinsice to the estimator, no additional weighting is needed.  Thus
-it may be that the bias seen for very small galaxies will not propagate
-significantly into measurements in real data.  Yet they are the more numerous
-population, so as a whole the population of small galaxies may indeed have
-weight.  It may be worth wile to make cuts on galaxy size, and in fact some cut
-will indirectly be made in the process of star-galaxy selection.  But care must
-be taken not to introduce selection biases. A more realistic simulation, with
-galaxy images drawn from a flux-limited sample, can test this reasoning, but is
-beyond the scope of this work.
+The authors of \cite{ba14} noted that small and faint galaxies, for which the
+ellipticity likelihood is broad, get little weight in the average shear
+relative to larger and brighter galaxies.  This is an intrinsic feature of the
+estimator, no additional weighting is needed.  Thus it may be that the bias
+seen for very small galaxies will not propagate significantly into measurements
+performed on real data.  Yet they are the most numerous population in any
+flux-limited sample, so as a whole the population of small galaxies may indeed
+have weight.  It may be worth while to make cuts on galaxy size, and in fact
+some cut will indirectly be made in the process of star-galaxy selection.  But
+care must be taken not to introduce selection biases. A more realistic
+simulation, with galaxy images drawn from a flux-limited sample, can test this
+reasoning, but is beyond the scope of this work.
 
 In Figure \ref{fig:nonoise} I showed the multiplicative bias due to the
 breakdown of the second-order taylor expansion at higher shear.   This effect
