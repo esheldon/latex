@@ -396,29 +396,34 @@ Survey Telescope \citep[][LSST]{IvezicLSST08} and Euclid \citep{Euclid2011}.
 Requirements for current surveys are met in all cases.
 
 For planned surveys my implementation does not meet requirements for the
-smallest galaxies tested, which have second moment size equal to the PSF.  If
-this bias were related to noise bias I would expect the error to be worse for
-low \sn\ images, but in fact the bias is similar at intermediate and high \sn.
-This may be a sign that the implementation itself has problems, perhaps the
-exploration of the likelihood using MCMC.  More study will be required to
-track this issue down.
+smallest galaxies tested, which have second moment size equal to that of the
+PSF.  If this bias were related to noise bias I would expect the error to be
+worse for low \sn\ images, but in fact the bias is similar at intermediate and
+high \sn.  This may be a sign that the implementation itself is flawed; perhaps
+the exploration of the likelihood using MCMC needs further tuning.  The
+simulations used in this study took millions of processing hours, so repeating
+the experiments to the same precision for new MCMC parameters is a significant
+task.  That exploration is left to future work.
 
-In \cite{ba14} it was noted that small and noisy galaxies will get little
-weight in the average shear over an ensemble of galaxy images with a wide
-variety of \sn.  This is intrinsice to the estimator, and does not require
-any additional weighting.  A more realistic simulation, with galaxy images
-drawn from a flux-limited sample, will test this reasoning.
+The authors of \cite{ba14} noted that small and noisy galaxies get little
+weight in the average shear relative to brighter and larger galaxies.  This
+fact is intrinsice to the estimator, no additional weighting is needed.  Thus
+it may be that the bias seen for very small galaxies will not propagate
+significantly into measurements in real data.  Yet they are the more numerous
+population, so as a whole the population of small galaxies may indeed have
+weight.  It may be worthwile to make cuts on size, but care must be taken not
+to introduce selection biases. A more realistic simulation, with galaxy images
+drawn from a flux-limited sample, can test this reasoning, but is beyond the
+scope of this work.
 
-In Figure \ref{fig:nonoise} I showed the multiplicative error coming from the
+In Figure \ref{fig:nonoise} I showed the multiplicative bias due to the
 breakdown of the second-order taylor expansion at higher shear.   This level of
 error is prohibitive even for current surveys at shear about 0.05.  An
 implementation using higher order information, a different expansion, or
 perhaps a full mapping of the posterior of the shear will be required to
-recover larger shears to sufficient accuracy.  Also for estimation of the shear
-over relatively small patches, in which the shear is constant, an iterative
-appoach is feasible where initially the expansion about zero shear is used, and
-on a second iteration the mean shear from the first iteration is expanded
-about.
+recover larger shears to sufficient accuracy.  Simply correcting the result
+based on the curve in figure \ref{fig:nonoise} might be sufficient TODO TEST
+THAT!.
 
 \section{Summary} \label{sec:summary}
 
