@@ -434,45 +434,27 @@ THAT!.
 
 \section{Summary} \label{sec:summary}
 
-The Bayesian shear estimator presented in \cite{ba14} can be used to accurately
-recover gravitational shear in a galaxy population, as long as the underlying
-true distribution of all galaxy parameters is known and the sizes of the
-individual galaxies can be precisely determined.  For example, if the
-signal-to-noise ratio of the size \Tsn\ is greater than $\sim$10, the shear
-can be determined to $\Delta g/g \sim10^{-3}$, sufficient for current surveys such as DES.
-
-A generic conclusion of this study is that the signal-to-noise ratio of the
-estimated intrinsic galaxy size, \Tsn, is a good indicator of how well the
-shear can be recovered.  This was also found for other estimators, such as that
-presented in \cite{Miller07}, although that result is not shown in this work.
-The traditional signal-to-noise ratio \fsn\ was not found to correlate well
-with shear accuracy across different galaxy types and sizes.
-
-The estimator used in this work, an approximate expansion of the posterior of
-the shear to second order, was shown to break down at higher shears. This is as
-expected.  For shears greater than about 0.05, the systematic error introduced
-is larger than the baseline requirements of current experiments such as DES.
-In order to accurately measure larger shears, an alternative approximation or a
-full mapping of the shear posterior is required.
-
-A model fitting approach was used in this work, but true galaxies cannot be
-fully described by a finite number of parameters.  \cite{Kacprzak13} show that
-this ``model bias'' may be on the order of baseline requirements for surveys
-such as DES, and potentially crippling for future surveys with more stringent
-requirements. One potential solution is to fit models with more freedom, and
-appropriately choose galaxies with well measured sizes.  \cite{ba14} propose an
-alternative to the model-fitting technique based on moments in Fourier space
-which makes no explicit parameterization of galaxy light distributions.  An
-evaluation of this model free approach in the presence of noise will be the
-subject future work.
+I used a model fitting approach in this work, but true galaxies cannot be fully
+described by a finite number of parameters.  \cite{Kacprzak13} show that this
+``model bias'' may be on the order of baseline requirements for current
+surveys, but potentially crippling for future surveys with more stringent
+requirements. One potential solution is to fit models with more freedom, but
+this will be accompanied by relatively larger noise in the recovered shear.
+\cite{ba14} propose an alternative to the model-fitting technique based on
+moments in Fourier space which makes no explicit parameterization of galaxy
+light distributions.  An evaluation of this model free approach in the presence
+of noise is worthy of study.
 
 \section*{Acknowledgments}
 
 ES is supported by DOE grant DE-AC02-98CH10886.
 
 Thanks to Gary Bernstein, Bob Armstrong, and Anze Slosar for many useful
-discussions.  Thanks to the STAR and LBNE experiments at BNL for use of spare
-cycles on their compute clusters, and to the RACF staff at BNL for support.
+discussions; thanks to Anze for suggesting I expand the equations about the
+true shear to reduce the number of simulated images required for each test.
+Thanks to the STAR, PHENIX and LBNE experiments at BNL for use of spare cycles
+on their compute clusters, and to the RACF staff at BNL for their continued, and
+disproportionately large support for my work.
 
 
 \bibliographystyle{apj}
