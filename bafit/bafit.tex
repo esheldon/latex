@@ -38,28 +38,30 @@
 \begin{abstract}
 
 The Bayesian gravitational shear estimation method developed by \cite{ba14} has
-the potential for accurate shear recovery from low signal-to-noise ratio (\sn)
-galaxy images.  In that work the authors confirmed the method is unbiased by
-drawing shapes from a known distribution, shearing them, adding noise, and
-recovering the average input shear using the shape distribution as prior
-information.  Here I present a full implementation for fitting galaxy images,
-including point spread function (PSF) and pixelization effects.  I tested the
-implementation using simulated galaxy images modeled as \sersic\ profiles with
-index $n=1/2, 1, \textrm{and} ~ 2$, convolved with a PSF and a flat pixel
-response function.  I used a simple Gaussian model for the PSF to avoid
-potential PSF-fitting errors. I simulated galaxies with a discrete set of size
-ratios $\sigma_{gal}/\sigma_{PSF} = 1, 1.4, 2$, a discrete set of average $\sn\
-\in [10,1000]$, and applied a constant shear to all images. I fit the simulated
-images to a model with the true \sersic\ index to avoid modeling biases.   In
-all cases I recovered the input shear to better than 2 parts in a thousand,
-finding the largest bias for the smallest galaxies. This accuracy is sufficient
-for current and next-generation surveys.   
+the potential for use in accurate shear measurements from low signal-to-noise
+ratio (\sn) galaxy images.  In that work the authors confirmed the method is
+unbiased by drawing shapes from a known distribution, shearing them, adding
+noise, and recovering the average input shear using the shape distribution as
+prior information.  Here I present a full implementation for fitting galaxy
+images to models, including point spread function (PSF) and pixelization
+effects.  I tested the implementation using simulated galaxy images modeled as
+\sersic\ profiles with index $n=1/2, 1, \textrm{and} ~ 2$, convolved with a PSF
+and a flat pixel response function.  I used a simple Gaussian model for the PSF
+to avoid potential PSF-fitting errors. I simulated galaxies with a discrete set
+of size ratios $\sigma_{gal}/\sigma_{PSF} = 1, 1.4, 2$, a discrete set of
+average $\sn\ \in [10,1000]$, and applied a constant shear to all images. I fit
+the simulated images to a model with the true \sersic\ index to avoid modeling
+biases.   In all cases I recovered the input shear to better than 2 parts in a
+thousand, finding the largest bias for the smallest galaxies. This accuracy is
+sufficient for current and next-generation surveys.   
 %Small and noisy galaxies should contribute little weight in the average shear
 %derived from a flux limited sample of galaxies, but more realistic simulations
 %are needed to verify this.
 The small bias occurs at a wide range of \sn, which may indicate the bias is a
 feature of my likelihood sampling technique, and can potentially be improved
-upon.   
+upon.  I hope this demonstration will be considered a proof-of-principle, which
+may encourage a model-independent approach that has yet to be implemented.
+
 
 \end{abstract}
 
