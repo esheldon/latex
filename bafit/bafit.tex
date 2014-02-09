@@ -91,8 +91,8 @@ BA14):
 
     \item The shear is weak, $g \ll 1$.
 
-    \item The posterior distribution of the shear derived from a large ensemble
-        of galaxy images is Gaussian.
+    \item The posterior distribution of the mean shear derived from a large
+        ensemble of galaxy images is approximately Gaussian.
 
 \end{itemize}
 
@@ -112,9 +112,8 @@ Thus nothing substantial is ``lost'' by restricting shear estimation to
 populations rather than individual galaxies.  
 
 Under these assumptions, the authors of \cite{ba14} derived a second-order
-estimator for the shear, consistent with the assumption of a Gaussian
-posterior.  This form is a Taylor expansion of the logarithm of the posterior
-for the shear, with shear as the expansion variable:
+expansion of the logarithm of the shear posterior, with shear as the
+expansion variable, consistent with the Gaussian assumption:
 \begin{equation} \label{eq:pexpand}
 -\ln P(\vecg | \vecD) \approx {(\rm const)} - \ln P(\vecg) - \vecg \cdot \sum_i
     \frac{\vecQ_i}{P_i}
@@ -156,8 +155,8 @@ in the aggregate shown in equation \ref{eq:shdef}.
 %\matR_i & = & \left. \bnabg \bnabg P(\vecD_i | \vecg)\right|_{\vecg=0}. \nonumber
 %\end{equation}
 
-An approach to measuring non-constant shear was also given by \cite{ba14}, as
-are third-order tweaks to the second-order perturbations.
+A conceptual approach to measuring non-constant shear was also given by
+\cite{ba14}, as are third-order tweaks to the second-order perturbations.
 
 A full implementation, fitting to pixelized galaxy images, was not attempted in
 \citet{ba14}.  The basic formalism was shown to work by generating shapes from
@@ -309,12 +308,14 @@ confusion with other issues such as model bias or empirical prior
 determination.
 
 As I will show in section \ref{sec:truebias}, the formulas in BA14 break down
-at high shear.  On the other hand it is highly beneficial to perform tests
-at high shear because the number of simulated galaxies required to reach a
+at high shear.  On the other hand it is highly beneficial to perform tests at
+high shear because the number of simulated galaxies required to reach a
 specified fractional noise in the measured shear will go as the inverse square
 of the shear.  For this reason I chose my expansion point to be the {\it true}
-shear instead of zero.  In real data this will only be possible if the solution
-can be iterated; one iteration may be sufficient.
+shear instead of zero.  I also performed limited tests at low shear (0.01) and
+expanding about zeros shear and got comparable but more noisy results. In real
+data this approach would only be possible if the solution can be iterated; one
+iteration may be sufficient.
 
 \section{Results} \label{sec:results}
 
@@ -323,8 +324,7 @@ can be iterated; one iteration may be sufficient.
 Figure \ref{fig:nonoise} contains results for a zero-noise simulation.  The
 fractional bias is shown as a function of true shear.  The bias is well fit by
 a quadratic function of the true shear, shown in the red curve. This quadratic
-error is expected, since the formulas for the ensemble shear are expanded to
-second order.
+error is expected for a second-order Taylor expansion.
 
 \begin{figure}[t] \centering
  \centering 
@@ -344,9 +344,9 @@ zero shear, as explained in \S \ref{sec:simfit}.
 
 \subsection{Calibration Bias vs. Galaxy \sn\ and Size} \label{sec:snbias}
 
-Figure \ref{fig:fracerr} contains results for each of the four simulation
-suites discussed in \S \ref{sec:sim}, representing different galaxy types and
-sizes. 
+Figure \ref{fig:fracerr} contains ...  \S \ref{sec:sim}, representing different
+galaxy types and sizes.  TODO figure out how to split the figures up; probably
+based on size.
 
 \begin{figure}[p] \centering
  \centering 
@@ -393,46 +393,48 @@ determining the bias.
 
 In the figures above I showed gray bands representing the approximate
 multiplicative bias requirements for current surveys such as the Dark Energy
-Survey \citep[][DES]{DESWhitePaper} Hyper-Suprime-Cam survey
+Survey \citep[][DES]{DESWhitePaper} and the Hyper-Suprime-Cam survey
 \citep[][HSC]{HSC12}, and planned surveys such as the Large Synoptic Survey
-Telescope \citep[][LSST]{IvezicLSST08} and Euclid \citep{Euclid2011}.  These
-requirements are based on \citep{HutererSystematics06} assuming fiducial sky
-coverage and a degredation in the dark energy equation of state parameter of
-less than 20\%.  The cut at 20\% is somewhat arbitrary, and was chosen to
-coincide very roughly with the ``official'' requirements for DES. The
-requirements are $\sim$\desreq\ for current surveys and $\sim$\lsstreq\ for planned
-surveys.  These requirements are met in all cases that I tested.
+Telescope \citep[][LSST]{IvezicLSST08} and the Euclid Mission
+\citep{Euclid2011}.  These requirements are based on
+\citep{HutererSystematics06} assuming fiducial sky coverage and a degredation
+in the dark energy equation of state parameter of less than 20\%.  The cut at
+20\% is somewhat arbitrary, and was chosen to coincide very roughly with the
+``official'' requirements for DES. The requirements are $\sim$\desreq\ for
+current surveys and $\sim$\lsstreq\ for planned surveys.  These requirements
+are met in all the cases that I tested.
 
-Yet I did detect small bias in a number of cases, and the bias is generally
-larger for smaller galaxies.  If this bias were related to noise I would expect
-the error to be worse for low \sn\ images, but the bias is similar at
-intermediate and high \sn.  This may be a sign that the implementation itself
-is flawed; perhaps the exploration of the posterior using MCMC needs further
-tuning.  The simulations used in this study took millions of processor hours,
-so repeating the experiments to the same precision for new MCMC parameters is a
-significant task.  That exploration is left to future work.
+Yet I did detect some small bias in a number of cases, and the bias is
+generally larger for smaller galaxies.  If this bias were related to noise I
+would expect the error to be worse for low \sn\ images, but the bias is similar
+at intermediate and high \sn.  This may be a sign that the implementation
+itself is flawed; perhaps the exploration of the posterior using MCMC needs
+further tuning.  The simulations used in this study took millions of processor
+hours, so repeating the experiments to the same precision for new MCMC
+parameters is a significant task.  That exploration is left to future work.
 
 The authors of \cite{ba14} noted that small and faint galaxies, for which the
 ellipticity likelihood is broad, get little weight in the average shear
 relative to larger and brighter galaxies.  This is an intrinsic feature of the
 estimator, no additional weighting is needed.  Thus it may be that the bias
 seen for very small galaxies will not propagate significantly into measurements
-performed on real data.  Yet they are the most numerous population in any
-flux-limited sample, so as a whole the population of small galaxies may indeed
-have weight.  It may be worth while to make cuts on galaxy size, and in fact
-some cut will indirectly be made in the process of star-galaxy selection.  But
-care must be taken not to introduce selection biases. A more realistic
-simulation, with galaxy images drawn from a flux-limited sample, can test this
-reasoning, but is beyond the scope of this work.
+performed on real data.  Yet small galaxies are more numerous than large
+galaxies in a flux-limited sample, so as a whole the population of small
+galaxies may indeed have weight.  It may be worth while to make cuts on galaxy
+size, and in fact some cut will indirectly be made in the process of
+star-galaxy selection.  But care must be taken not to introduce selection
+biases. A more realistic simulation, with galaxy images that mimic a
+flux-limited sample, can test this reasoning, but is beyond the scope of this
+work.
 
 In Figure \ref{fig:nonoise} I showed the multiplicative bias due to the
 breakdown of the second-order taylor expansion at higher shear.   This effect
-is prohibitive even for current surveys for shears greater than about 0.05.  An
+is prohibitive even for current surveys when the shear exceeds 0.05.  An
 implementation using higher order information, a different expansion, or
 perhaps a full mapping of the posterior of the shear will be required to
 recover larger shears to sufficient accuracy.  Simply correcting the result
-based on the curve in figure \ref{fig:nonoise} might be sufficient TODO TEST
-THAT!.
+based on the curve in figure \ref{fig:nonoise} might be sufficient (TODO test
+that).
 
 \section{Summary} \label{sec:summary}
 
