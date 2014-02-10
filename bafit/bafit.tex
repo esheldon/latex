@@ -108,16 +108,14 @@ estimate for the shear, they derived an expression for the mean shear from an
 ensemble of measurements, exploiting the fact that the posterior for the shear
 must approach a Gaussian for a large ensemble.  They showed that the method is
 sufficiently unbiased for current and planned surveys in a simple demonstration
-with galaxy ellipticities only, but no implementation for use on galaxy images
+with galaxy ellipticities only, but no implementation for use with galaxy images
 was presented.
 
 Here I present a full model-fitting implementation of the BA14 algorithm that
-works on galaxy images, including the effects of the PSF and pixelization.
-This model-fitting approach is useful as a proof-of-principle:  model-fitting
-is limited by the accuracy of the models to represent true galaxies, and thus
-in real data additional errors be present.  But if the shear can be recovered
-in a controlled simulation, fitting known models, this is a strong
-encouragement for further development of this method.
+works on galaxy images, including the effects of the PSF and pixelization.  I
+test the implementation using a simple set of image simulations of idealized
+galaxy profiles, and show that under controlled circumstances the method is
+indeed sufficiently accurate for current and planned surveys.
 
 \section{Algorithm} \label{sec:algo}
 
@@ -484,6 +482,8 @@ that).
 
 \section{Summary} \label{sec:summary}
 
+TODO merge these paragraphs some how.
+
 I used a model fitting approach in this work, but true galaxies cannot be fully
 described by a finite number of parameters.  \cite{Kacprzak13} show that this
 ``model bias'' may be on the order of baseline requirements for current
@@ -494,6 +494,13 @@ this will be accompanied by relatively larger noise in the recovered shear.
 moments in Fourier space which makes no explicit parameterization of galaxy
 light distributions.  An evaluation of this model free approach in the presence
 of noise is worthy of study.
+
+This model-fitting approach is useful as a proof-of-principle:  model-fitting
+is limited by the accuracy of the models to represent true galaxies, and thus
+in real data additional errors be present.  But if the shear can be recovered
+in a controlled simulation, fitting known models, this is a strong
+encouragement for further development of this method.
+
 
 \section*{Acknowledgments}
 
