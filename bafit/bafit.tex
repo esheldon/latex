@@ -37,8 +37,8 @@
 
 \begin{abstract}
 
-The Bayesian gravitational shear estimation method developed by \cite{ba14} has
-the potential for use in accurate shear measurements from low signal-to-noise
+The Bayesian gravitational shear estimation method developed by \cite{ba14} can
+potentially be used to measure shear accurately even from low signal-to-noise
 ratio (\sn) galaxy images.  In that work the authors confirmed the method is
 sufficiently unbiased in a simplified demonstration, but no test was performed
 on images.  Here I present a full implementation for fitting models to galaxy
@@ -72,51 +72,50 @@ gravitational shear measurements.  Noise bias is a multiplicative calibration
 error, caused by using certain point estimators for shear in the presence of
 noise, such as a maximum likelihood estimate or expectation value for the
 ellipticity of a galaxy \citep{HirataAlign04,Refreg12,Melchior12,Miller13}.
-The average of the mean of ellipticities derived from the these point
-estimators gives a biased estimate of the shear. The bias remains even when
-response terms are included, such as that introduced by, for example,
+Averaging these point estimators gives a biased estimate of the shear.  The
+bias remains even when response terms are included, such as that introduced by
 \cite{ksb95} and \cite{Bern02}.
 
 Noise bias is not a small effect.  At flux signal-to-noise ratio (\sn) $\sim
-10$, the effect can be $\sim$1-10\%, depending on the size of the galaxy relative
-to the size of the point-spread-function (PSF).  This is significantly larger
-than the requirements for planned and current surveys, which are of order
-0.2 and 0.4\%, respectively (see \ref{sec:req}).
+10$, the effect can be $\sim$1-10\%, depending on the size of the galaxy
+relative to the size of the point-spread-function (PSF).  This multiplicative
+error is significantly larger than the requirements for planned and current
+surveys, which are of order 0.2 and 0.4\%, respectively (see \ref{sec:req}).
 
 A Bayesian approach to shear estimate was first proposed by \cite{Miller07}.
-With that method, a point estimator for the shear is still used ( the
+With that method, a point estimator for the shear is still used (the
 expectation value of the galaxy ellipticity), but a response term is calculated
 based on prior information of the true distribution of galaxy ellipticities and
 the likelihood surface of the ellipticity for a given galaxy.  A limitation of
 this method is that no rigorous expression was derived for the mean shear from
 an ensemble of galaxies, rather it was proposed to average the responses from
-individual galaxies.  This pioneering method performs well in comparison to
+individual galaxies.  This pioneering approach performs well in comparison to
 previous methods, but does not meet the requirements for current and planned
-surveys \citet{ba14}.
+surveys \citep{ba14}.
 
 Other approaches have been proposed. For example \cite{Zuntz13} propose to use
 a point estimate from galaxy shapes and simply calibrate the answer using
 simulated data.  A related idea has been proposed in schematic form by
-\cite{Refregier13}, to use an iterative approach where the universe and
-instrument are simulated and tuned, along with calibration parameters of the
+\cite{Refregier13}, to use an iterative approach where the universe is
+simulated and its parameters tuned, along with calibration parameters of the
 measurement, to reproduce the observed results.  These methods are in principle
-limited only by the accuracy of the simulations to represent the real
-universe and instrument.
+limited only by the accuracy of the simulations to represent the real universe.
 
 A rigorous Bayesian formalism was developed by \cite[][herafter BA14]{ba14}
-that has potential for accurate shear recover using even low \sn\ galaxy
-images.  Rather than using a point estimate, they derive an expression for the
-mean shear from an ensemble, exploiting the fact that the posterior for the
-shear must approach a Gaussian for a large ensemble.  They showed that the
-method is sufficiently unbiased for current and planned surveys using a simple
-demonstration with galaxy ellipticities only, but no implementation that works
-on galaxy images was presented.
+that can potentially be used to accurately recover shear in the presence of
+noise, using even very low \sn\ galaxy images.  Rather than relying on a point
+estimate for the shear, they derived an expression for the mean shear from an
+ensemble of measurements, exploiting the fact that the posterior for the shear
+must approach a Gaussian for a large ensemble.  They showed that the method is
+sufficiently unbiased for current and planned surveys in a simple demonstration
+with galaxy ellipticities only, but no implementation for use on galaxy images
+was presented.
 
 Here I present a full model-fitting implementation of the BA14 algorithm that
 works on galaxy images, including the effects of the PSF and pixelization.
 This model-fitting approach is useful as a proof-of-principle:  model-fitting
 is limited by the accuracy of the models to represent true galaxies, and thus
-may not recover the true shear on real data.  But if the shear can be recovered
+in real data additional errors be present.  But if the shear can be recovered
 in a controlled simulation, fitting known models, this is a strong
 encouragement for further development of this method.
 
