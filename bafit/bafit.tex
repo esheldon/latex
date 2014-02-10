@@ -179,16 +179,18 @@ of noise.
 To predict the observed distribution of shapes in general, the un-lensed
 distribution of shapes must be mathematically sheared and compared to
 observables.  However in the approximation given above, only derivatives near
-$g=0$ are required and the mean shear can be found directly:
-\begin{eqnarray} \label{eq:shdef}
-\matC_g^{-1} & = & \sum_i \left(\frac{\vecQ_i \vecQ^T_i}{P_i^2} - \frac{\matR_i}{P_i}\right) \\
-\bar{\vecg} & = &  \matC_g \sum_i \frac{\vecQ_i}{P_i}.
+$g=0$ are required and the mean shear $\bar{\vecg}$ and covariance matrix
+$\matC_g$ can be found directly:
+\begin{eqnarray}
+\matC_g^{-1} & = & \sum_i \left(\frac{\vecQ_i \vecQ^T_i}{P_i^2} - \frac{\matR_i}{P_i}\right) \label{eq:cdef} \\
+\bar{\vecg} & = &  \matC_g \sum_i \frac{\vecQ_i}{P_i}. \label{eq:shdef}
 \end{eqnarray}
 
-In practice the shape of each galaxy is not precisely known. In that case the
-derivatives in equation \ref{eq:pqrdef} can be averaged over the full
-likelihood distribution for each galaxy, and these mean values used
-in the aggregate shown in equation \ref{eq:shdef}.  
+In practice the parameters of each galaxy are not precisely known. In that case
+the derivatives in equation \ref{eq:pqrdef} can be averaged over the full
+likelihood distribution for each galaxy, taking care to use the prior
+distribution given the shear.  These mean values can then be used in the
+aggregates shown in Equation \ref{eq:shdef}.
 %\begin{equation} \label{eq:marg}
 %P_i     & = & P(\vecD_i | \vecg=0) \nonumber \\
 %\vecQ_i & = & \left. \bnabg P(\vecD_i | \vecg)\right|_{\vecg=0} \\
