@@ -117,23 +117,26 @@ test the implementation using a simple set of image simulations of idealized
 galaxy profiles, and show that under these controlled circumstances the method
 is sufficiently accurate for current and planned surveys.
 
+Below I follow the notation of BA14, where a shear was represented by the
+glyph \vecg.
+
 \section{Algorithm} \label{sec:algo}
 
-The full algorithm is presented in BA14 .  There are two
-important assumptions underlying this approach (following the notation in
-BA14):
+The full algorithm is presented in BA14 .  There are two important assumptions
+underlying this approach (following the notation in BA14):
 
 \begin{itemize}
 
-    \item The shear is weak, $g \ll 1$.
+    \item The shear is weak, $\vecg \ll 1$.
 
     \item The posterior distribution of the mean shear derived from a large
         ensemble of galaxy images is approximately Gaussian.
 
 \end{itemize}
 
-The first assumption is true under many circumstances, but will break down
-along lines-of-sight near large over-densities, such as clusters of galaxies.
+The assumption of small shear is true under many circumstances, but breaks
+down along lines-of-sight near large over-densities, such as clusters of
+galaxies.
 
 The second point follows from the central limit theorem: if the shear is
 derived from a large enough ensemble of galaxy shapes, the posterior
@@ -142,14 +145,14 @@ necessarily approaches a Gaussian.
 The likelihood or posterior distribution for a parameter derived from a single
 galaxy will not generally be Gaussian except in the limit of high
 signal-to-noise ratio (\sn). Even if such high \sn\ galaxies could be used,
-galaxies have intrinsic shapes that serve as a large noise to shear estimation.
-Some kind of averaging must be performed to extract a shear from galaxy shapes.
-Thus nothing substantial is ``lost'' by restricting shear estimation to
-populations rather than individual galaxies.  
+galaxies have intrinsic shapes that are a large effective noise in a derived
+average shear.  Some kind of averaging must be performed to extract a shear
+from galaxy shapes.  Thus nothing substantial is ``lost'' by restricting shear
+estimation to populations rather than individual galaxies.  
 
-Under these assumptions, the authors of \cite{ba14} derived a second-order
-expansion of the logarithm of the shear posterior, with shear as the
-expansion variable, consistent with the Gaussian assumption:
+Under these assumptions, the authors of BA14 derived a second-order Taylor
+expansion of the logarithm of the shear posterior about zero shear, consistent
+with the Gaussian assumption:
 \begin{equation} \label{eq:pexpand}
 -\ln P(\vecg | \vecD) \approx {(\rm const)} - \ln P(\vecg) - \vecg \cdot \sum_i
     \frac{\vecQ_i}{P_i}
@@ -163,19 +166,20 @@ P_i     & = & P(\vecD_i | \vecg=0) \nonumber \\
 \vecQ_i & = & \left. \bnabg P(\vecD_i | \vecg)\right|_{\vecg=0} \\
 \matR_i & = & \left. \bnabg \bnabg P(\vecD_i | \vecg)\right|_{\vecg=0}. \nonumber
 \end{eqnarray}
-$P$ is the bayesian ``prior'', and corresponds to the true distribution
-of all the relevant galaxy parameters.
+$P$ is the bayesian ``prior'', and functionally corresponds to the true
+distribution of all the relevant galaxy parameters.
 
 Prior information is an important aspect of this method: it is the derivatives
-of the un-lensed distribution of shapes that yields the shear estimate.  In
-other words, with knowledge of the true population of shapes, and how that
-population transforms under shear, can one infer the applied shear, even in the
-presence of noise.
+of the un-lensed distribution of shapes that is sensitive to the shear; this is
+represents how the ensemble of galaxies responds to a shear.  In other words,
+with knowledge of the true population of shapes, and how that population
+transforms under shear, can one infer the applied shear, even in the presence
+of noise.
 
-To predict the observed distribution of shapes in
-general, the un-lensed distribution of shapes must be mathematically sheared
-and compared to observables.  However in the approximation given above, only
-derivatives near $g=0$ are required and the mean shear can be found directly:
+To predict the observed distribution of shapes in general, the un-lensed
+distribution of shapes must be mathematically sheared and compared to
+observables.  However in the approximation given above, only derivatives near
+$g=0$ are required and the mean shear can be found directly:
 \begin{eqnarray} \label{eq:shdef}
 \matC_g^{-1} & = & \sum_i \left(\frac{\vecQ_i \vecQ^T_i}{P_i^2} - \frac{\matR_i}{P_i}\right) \\
 \bar{\vecg} & = &  \matC_g \sum_i \frac{\vecQ_i}{P_i}.
@@ -191,11 +195,11 @@ in the aggregate shown in equation \ref{eq:shdef}.
 %\matR_i & = & \left. \bnabg \bnabg P(\vecD_i | \vecg)\right|_{\vecg=0}. \nonumber
 %\end{equation}
 
-A conceptual approach to measuring non-constant shear was also given by
-\cite{ba14}, as are third-order tweaks to the second-order perturbations.
+A conceptual outline for how measure non-constant shear was also given by BA14,
+as were third-order tweaks to the second-order perturbations.
 
 A full implementation, fitting to pixelized galaxy images, was not attempted in
-\citet{ba14}.  The basic formalism was shown to work by generating shapes from
+BA14.  The basic formalism was shown to work by generating shapes from
 an analytic distribution, adding noise and shear, and recovering the underlying
 shear using the second-order formula.
 
@@ -224,19 +228,19 @@ function was the bottleneck for this calculation due to the large number
 of model evaluations.
 
 I used a Markov Chain Monte Carlo (MCMC) to explore the posterior surface.
-Galaxy fitting presents a difficult challenge for standard MCMC methods such as
-the Metropolis-Hastings algorithm \citep{Metropolis53}, because galaxies can
-have a wide variety of best-fit model parameters and errors those parameters.
-I did not find it straightforward to predict what the parameter errors would be
-a priori, which made it difficult to choose a ``step size'' for the MCMC chain.
-For this reason I used an affine invariant MCMC \citet{GoodmanWeare10}.  An
-affine invariant MCMC is dynamically adapted to the underlying distribution by
-comparing multiple ``walkers'' as they are moved through the parameter space;
-it thus does not require tuning the step size.  I used the python
-implementation presented in \citet{Mackey13}.
+Using a standard Metropolis-Hastings algorithm \citep{Metropolis53}  to fit for
+galaxy parameters is challenging because galaxies have a wide variety of
+best-fit model parameters and errors in those parameters, depending on the
+noise level.  I did not find it straightforward to predict what the parameter
+errors would be a priori, which made it difficult to choose a ``step size'' for
+the MCMC chain.  This is one reason I used an affine invariant MCMC
+\citet{GoodmanWeare10}.  An affine invariant MCMC is dynamically adapted to the
+underlying distribution by comparing multiple ``walkers'' as they are moved
+through the parameter space; it thus does not require tuning the step size.  I
+used the python implementation presented in \citet{Mackey13}.
 
 I used an affine parameter $a=2$, which results in an acceptance rate of about
-0.50. I used 80 ``walkers'' in the chain, with 400 initial steps as burn-in
+0.5. I used 80 ``walkers'' in the chain, with 400 initial steps as burn-in
 followed by 200 additional steps for measuring expectation values.  This large
 number of steps may be excessive in many situations, but I found that with this
 single set of parameters I could accurately recover the shear in all cases, so
