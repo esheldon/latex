@@ -40,52 +40,89 @@
 The Bayesian gravitational shear estimation method developed by \cite{ba14} has
 the potential for use in accurate shear measurements from low signal-to-noise
 ratio (\sn) galaxy images.  In that work the authors confirmed the method is
-unbiased in a simplified demonstration, but no test was performed on images.
-Here I present a full implementation for fitting models to galaxy images,
-including the effects of a point spread function (PSF) and pixelization.  I
-tested the implementation using simulated galaxy images modeled as \sersic\
-profiles with index $n=1/2, 1, \textrm{and} ~ 2$, convolved with a PSF and a
-flat pixel response function.  I used a simple Gaussian model for the PSF to
-avoid potential PSF-fitting errors. I simulated galaxies with a discrete set of
-mean size ratios $\sigma_{gal}/\sigma_{PSF} = 1, 1.4, 2$ with log-normal
-scatter, and similarly a discrete set of mean $\sn\ \in [10,1000]$. I applied a
-constant shear to all images. I fit the simulated images to a model with the
-true \sersic\ index to avoid modeling biases.   In all cases I recovered the
-input shear to better than 2 parts in a thousand, finding the largest bias for
-the smallest galaxies. This accuracy is sufficient for current and
-next-generation surveys.   
-%Small and noisy galaxies should contribute little weight in the average shear
-%derived from a flux limited sample of galaxies, but more realistic simulations
-%are needed to verify this.
-The small bias occurs at a wide range of \sn, which may indicate the bias is a
-feature of my likelihood sampling technique, and can potentially be improved
-upon.  This demonstration can be considered a proof-of-principle, and
-encouragement for the implementation of a model-independent approach.
+sufficiently unbiased in a simplified demonstration, but no test was performed
+on images.  Here I present a full implementation for fitting models to galaxy
+images, including the effects of a point spread function (PSF) and
+pixelization.  I tested the implementation using simulated galaxy images
+modeled as \sersic\ profiles with index $n=1/2, 1, \textrm{and} ~ 2$, convolved
+with a PSF and a flat pixel response function.  I used a simple Gaussian model
+for the PSF to avoid potential PSF-fitting errors. I simulated galaxies with a
+discrete set of mean size ratios $\sigma_{gal}/\sigma_{PSF} = 1, 1.4, 2$ with
+log-normal scatter, and similarly a discrete set of mean $\sn\ \in [10,1000]$.
+I applied a constant shear to all images. I fit the simulated images to a model
+with the true \sersic\ index to avoid modeling biases.   In all cases I
+recovered the input shear to better than 2 parts in a thousand, finding the
+largest bias for the smallest galaxies. This accuracy is sufficient for current
+and next-generation surveys.   %Small and noisy galaxies should contribute
+little weight in the average shear %derived from a flux limited sample of
+galaxies, but more realistic simulations %are needed to verify this.  The small
+bias occurs at a wide range of \sn, which may indicate the bias is a feature of
+my likelihood sampling technique, and can potentially be improved upon.  This
+demonstration can be considered a proof-of-principle, and encouragement for the
+implementation of a model-independent approach.
 
 
 \end{abstract}
 
 \section{Introduction} \label{sec:intro}
 
-\begin{itemize}
 
-    \item ``Noise bias'' is now recognized as a primary source of error in
-        shear measurements.  \cite{HirataAlign04}; \cite{Refreg12};
-        \cite{Melchior12}; \cite{Miller13} for mean gaussian instead of
-        maxlike; others?
+Noise bias is one of the largest potential systematic effects in weak
+gravitational shear measurements.  Noise bias is a multiplicative calibration
+error, caused by using certain point estimators for shear in the presence of
+noise, such as a maximum likelihood estimate or expectation value for the
+ellipticity of a galaxy \citep{HirataAlign04,Refreg12,Melchior12,Miller13}.
+The average of the mean of ellipticities derived from the these point
+estimators gives a biased estimate of the shear. The bias remains even when
+response terms are included, such as that introduced by, for example,
+\cite{ksb95} and \cite{Bern02}.
 
-    \item discuss requirements of upcoming surveys.
+Noise bias is not a small effect.  At flux signal-to-noise ratio (\sn) $\sim
+10$, the effect can be $\sim$1-10\%, depending on the size of the galaxy relative
+to the size of the point-spread-function (PSF).  This is significantly larger
+than the requirements for planned and current surveys, which are of order
+0.2 and 0.4\%, respectively (see \ref{sec:req}).
 
-    \item Discuss proposed methods; lensfit \cite{Miller07}. im3shape
-        \cite{Zuntz13} to correct from simulations.  Are there others?
+A Bayesian approach to shear estimate was first proposed by \cite{Miller07}.
+With that method, a point estimator for the shear is still used ( the
+expectation value of the galaxy ellipticity), but a response term is calculated
+based on prior information of the true distribution of galaxy ellipticities and
+the likelihood surface of the ellipticity for a given galaxy.  A limitation of
+this method is that no rigorous expression was derived for the mean shear from
+an ensemble of galaxies, rather it was proposed to average the responses from
+individual galaxies.  This pioneering method performs well in comparison to
+previous methods, but does not meet the requirements for current and planned
+surveys \citet{ba14}.
 
-    \item Briefly discuss \cite{ba14} BA14 but put off main discussion 
+Other approaches have been proposed. For example \cite{Zuntz13} propose to use
+a point estimate from galaxy shapes and simply calibrate the answer using
+simulated data.  A related idea has been proposed in schematic form by
+\cite{Refregier13}, to use an iterative approach where the universe and
+instrument are simulated and tuned, along with calibration parameters of the
+measurement, to reproduce the observed results.  These methods are in principle
+limited only by the accuracy of the simulations to represent the real
+universe and instrument.
 
-\end{itemize}
+A rigorous Bayesian formalism was developed by \cite[][herafter BA14]{ba14}
+that has potential for accurate shear recover using even low \sn\ galaxy
+images.  Rather than using a point estimate, they derive an expression for the
+mean shear from an ensemble, exploiting the fact that the posterior for the
+shear must approach a Gaussian for a large ensemble.  They showed that the
+method is sufficiently unbiased for current and planned surveys using a simple
+demonstration with galaxy ellipticities only, but no implementation that works
+on galaxy images was presented.
+
+Here I present a full model-fitting implementation of the BA14 algorithm that
+works on galaxy images, including the effects of the PSF and pixelization.
+This model-fitting approach is useful as a proof-of-principle:  model-fitting
+is limited by the accuracy of the models to represent true galaxies, and thus
+may not recover the true shear on real data.  But if the shear can be recovered
+in a controlled simulation, fitting known models, this is a strong
+encouragement for further development of this method.
 
 \section{Algorithm} \label{sec:algo}
 
-The full algorithm is presented in \citet[][BA14]{ba14}.  There are two
+The full algorithm is presented in BA14 .  There are two
 important assumptions underlying this approach (following the notation in
 BA14):
 
@@ -335,12 +372,17 @@ error is expected for a second-order Taylor expansion.
  \centering 
  \includegraphics[scale=0.6]{figures/fracerr-vs-shear.eps}
 
- \caption{Fractional bias in the recovered shear as a function of true shear,
-     in a zero noise simulation.  The solid curve is the best-fit quadratic
-     function of the true shear.  The quadratic bias as a function of true
-     shear indicates a break down of the second-order approximation presented
-     in \cite{ba14}. The gray band represents the requirement for the Dark
-     Energy Survey. \label{fig:nonoise}}
+ \caption{Fractional bias in the recovered shear $\Delta g/g = g/g_{true}-1$
+     as a function of true shear,
+     in a zero noise simulation.  The blue circles represent the recovered
+     shear when using the posterior equations expanded to second order about
+     zero shear.  The red diamonds represent expansion about the true shear.
+     The solid curve represents the best-fitting quadratic function of the true
+     shear $\Delta g/g \sim 1.9~g^2_{true}$.  The quadratic bias as a function of
+     true shear indicates a break down of the second-order approximation
+ presented in \cite{ba14}. The light and dark gray bands represent the
+ requirements for current and planned surveys respectively.
+ \label{fig:nonoise}}
 
 \end{figure}
 
