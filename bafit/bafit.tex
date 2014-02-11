@@ -37,29 +37,27 @@
 
 \begin{abstract}
 
-The Bayesian gravitational shear estimation method developed by \cite{ba14} can
-potentially be used to measure shear accurately even from low signal-to-noise
-ratio (\sn) galaxy images.  In that work the authors confirmed the method is
-sufficiently unbiased in a simplified demonstration, but no test was performed
-on images.  Here I present a full implementation for fitting models to galaxy
-images, including the effects of a point spread function (PSF) and
-pixelization.  I tested the implementation using simulated galaxy images
-modeled as \sersic\ profiles with index $n=1/2, 1, \textrm{and} ~ 2$, convolved
-with a PSF and a flat pixel response function.  I used a simple Gaussian model
-for the PSF to avoid potential PSF-fitting errors. I simulated galaxies with a
-discrete set of mean size ratios $\sigma_{gal}/\sigma_{PSF} = 1, 1.4, 2$ with
-log-normal scatter, and similarly a discrete set of mean $\sn\ \in [10,1000]$.
-I applied a constant shear to all images. I fit the simulated images to a model
-with the true \sersic\ index to avoid modeling biases.   In all cases I
-recovered the input shear to better than 2 parts in a thousand, finding the
-largest bias for the smallest galaxies. This accuracy is sufficient for current
-and next-generation surveys.   %Small and noisy galaxies should contribute
-little weight in the average shear %derived from a flux limited sample of
-galaxies, but more realistic simulations %are needed to verify this.  The small
-bias occurs at a wide range of \sn, which may indicate the bias is a feature of
-my likelihood sampling technique, and can potentially be improved upon.  This
-demonstration can be considered a proof-of-principle, and encouragement for the
-implementation of a model-independent approach.
+The Bayesian gravitational shear estimation algorithm developed by \cite{ba14}
+can potentially be used to overcome noise bias and recover shear using very low
+signal-to-noise ratio (\sn) galaxy images.  In that work the authors confirmed
+the method is sufficiently unbiased for planned surveys ($\Delta g/g < 2 \times
+10^{-3}$) in a simplified demonstration, but no test was performed on images.
+Here I present a full implementation for fitting models to galaxy images,
+including the effects of a point spread function (PSF) and pixelization.  I
+tested the implementation using simulated galaxy images modeled as \sersic\
+profiles with index $n=1/2, 1, \textrm{and} ~ 2$, convolved with a PSF and a
+flat pixel response function.  I used a simple Gaussian model for the PSF to
+avoid potential PSF-fitting errors. I simulated galaxies with a discrete set of
+mean size ratios $\sigma_{gal}/\sigma_{PSF} = 1, 1.4, 2$ with log-normal
+scatter, and similarly a discrete set of mean $\sn\ \in [10,1000]$.  I applied
+a constant shear to all images. I fit the simulated images to a model with the
+true \sersic\ index to avoid modeling biases.   I recovered the input shear
+with sufficient accuracy for planned surveys except for galaxies with $n=2$,
+size equal to the PSF size, and \sn\ $\lesssim 15$.  Most such galaxies will be
+removed during star-galaxy separation, and the remaining will get little weight
+in the mean shear, but further study is needed to access the impact on a real
+survey.  This demonstration can be considered a proof-of-principle, and
+encouragement for the implementation of a model-independent approach.
 
 
 \end{abstract}
@@ -86,12 +84,11 @@ A Bayesian approach to shear estimate was first proposed by \cite{Miller07}.
 With that method, a point estimator for the shear is still used (the
 expectation value of the galaxy ellipticity), but a response term is calculated
 based on prior information of the true distribution of galaxy ellipticities and
-the likelihood surface of the ellipticity for a given galaxy.  A limitation of
-this method is that no rigorous expression was derived for the mean shear from
-an ensemble of galaxies, rather it was proposed to average the responses from
-individual galaxies.  This pioneering approach performs well in comparison to
-previous methods, but does not meet the requirements for current and planned
-surveys \citep{ba14}.
+the likelihood surface for a given galaxy.  A limitation of this method is that
+no expression was derived for the mean shear from an ensemble of galaxies,
+rather it was proposed to average the responses from individual galaxies.  This
+pioneering approach performs well in comparison to previous methods, but does
+not meet the requirements for current and planned surveys \citep{ba14}.
 
 Other approaches have been proposed. For example \cite{Zuntz13} propose to use
 a point estimate from galaxy shapes and simply calibrate the answer using
@@ -102,14 +99,13 @@ measurement, to reproduce the observed results.  These methods are in principle
 limited only by the accuracy of the simulations to represent the real universe.
 
 A rigorous Bayesian formalism was developed by \cite[][herafter BA14]{ba14}
-that can potentially be used to accurately recover shear in the presence of
-noise, using even very low \sn\ galaxy images.  Rather than relying on a point
-estimate for the shear, they derived an expression for the mean shear from an
-ensemble of measurements, exploiting the fact that the posterior for the shear
-must approach a Gaussian for a large ensemble.  They showed that the method is
-sufficiently unbiased for current and planned surveys in a simple demonstration
-with galaxy ellipticities only, but no implementation for use with galaxy images
-was presented.
+that has the potential to recover shear with good accuracy using even very low
+\sn\ galaxy images.  Rather than relying on a point estimate for the shear,
+they derived an expression for the mean shear from an ensemble of measurements,
+exploiting the fact that the posterior for the shear must approach a Gaussian
+for a large ensemble.  They showed that the method is sufficiently unbiased for
+current and planned surveys in a simple demonstration with galaxy ellipticities
+only, but no implementation for use with galaxy images was presented.
 
 Here I present a full model-fitting implementation of the BA14 algorithm that
 works on galaxy images, including the effects of the PSF and pixelization.  I
@@ -241,15 +237,6 @@ underlying distribution by comparing multiple ``walkers'' as they are moved
 through the parameter space; it thus does not require tuning the step size.  I
 used the python implementation presented in \citet{Mackey13}.
 
-I used an affine parameter $a=2$, which results in an acceptance rate of about
-0.5. I used 80 ``walkers'' in the chain, with 400 initial steps for burn-in
-followed by 200 additional steps for measuring expectation values.  This large
-number of steps may be excessive in many situations, but I found that with this
-single set of parameters I could accurately recover the shear in all cases, so
-I did not explore alternatives in great detail.  Optimization of the posterior
-exploration is worthy of future study.
-
-
 \section{Simulation} \label{sec:sim}
 
 I simulated pairs of galaxy images with identical structural parameters, but
@@ -352,6 +339,24 @@ exponential disk ($n=1$).  By choosing the true priors and model, I tested the
 accuracy of the algorithm and posterior sampling technique directly and avoided
 confusion with other issues such as model bias or empirical prior
 determination.
+
+For the MCMC I used an affine parameter $a=2$, which gives an acceptance rate
+of about 0.5. I used 80 ``walkers'' in the chain, with 400 initial steps for
+burn-in followed by 200 additional steps for measuring expectation values.  I
+found that increasing the number of steps beyond this amount did not improve
+the results. This large number of steps may be excessive in many situations.
+Optimization exploration of the posterior surface is worthy of future study.
+
+
+I chose initial locations for the walkers to be centered on the maximum
+likelihood solution found with a Levenberg-Marquardt method, with Guassian
+scatter based on errors in that fit, truncated to positive for flux and size
+and within -1 to 1 for shapes.  I also tried drawing the positions from the
+priors.  Both methods gave consistent results, and were in turn consistent with
+taking the starting locations centered on the true galaxy parameters.  For the
+large number of burn-in steps that I used the result is rather insensitive to
+the starting position.
+
 
 As I will show in section \ref{sec:truebias}, the formulas in BA14 break down
 at high shear.  However, it is beneficial to perform tests at high shear
