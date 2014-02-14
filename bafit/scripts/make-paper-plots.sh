@@ -15,6 +15,8 @@ yr="-0.01,0.01"
 
 dir="$HOME/tmp/ngmix-plots"
 
+mkdir -p $dir
+
 #for s2n_type in T flux; do
 for s2n_type in T; do
     if [[ $s2n_type == "flux" ]]; then
