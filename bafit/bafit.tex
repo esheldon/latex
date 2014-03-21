@@ -284,9 +284,9 @@ as
 \begin{equation}
     (S/N)^2_{matched} = \frac{1}{\sigma^2_{sky}} \int I^2(x,y) dx dy
 \end{equation}
-This matched signal-to-noise can be shown to be the maximal possible measure
-of the signal-to-noise ratio.
-
+This matched filter signal-to-noise can be shown to be the maximal possible
+measure of the signal-to-noise ratio, and was used as the signal-to-noise ratio
+definition for the GREAT08 shear measurement challenge \citep{BridleGREAT08}.
 
 I drew the centroid from a Gaussian in each coordinate, with $\sigma$ of 0.1
 pixels.  
@@ -294,9 +294,9 @@ pixels.
 By drawing sizes and fluxes from log-normal distributions I was attempting to
 very roughly approximate a selection that might occur in real data, for example
 binning galaxies by a robust flux measure such as a PSF flux.  Within a PSF
-flux bin, the true distribution of \Msn\ would have a small tail to lower
-values due to noise and a long tail to higher \Msn\ because galaxies can be
-larger than the PSF, causing the flux could be underestimated.
+flux bin, the true distribution of flux would have a small tail to lower values
+due to noise and a long tail to higher flux because galaxies can be larger than
+the PSF, causing the flux could be underestimated.
 
 \section{Fitting Simulated Galaxies} \label{sec:simfit}
 
@@ -304,7 +304,7 @@ I ``fit'' the simulated images using elliptical \sersic\ models as presented in
 \S \ref{sec:impl}.   When referring to galaxy fitting, I use the term ``fit''
 to refer to the process of running an MCMC chain, as described in
 \ref{sec:impl}, and finding the expectation values of the $P,Q,R$ terms over
-the resulting posterior surface.
+the resulting likelihood surface.
 
 I fit a single Gaussian to the PSF image using an expectation maximization
 algorithm. I then generated the galaxy model for each step in the MCMC chain by
@@ -322,17 +322,22 @@ During fitting, I used prior distributions matched exactly to the true
 distributions used in the simulation.  I used the correct \sersic\ index for
 fitting each case; i.e. when simulating exponential disks, I also fit an
 exponential disk ($n=1$).  By choosing the true priors and model, I tested the
-accuracy of the algorithm and posterior sampling technique directly and avoided
-confusion with other issues such as model bias or empirical prior
+accuracy of the algorithm and likelihood sampling technique directly and
+avoided confusion with other issues such as model bias or empirical prior
 determination.
 
 For the MCMC I used an affine parameter $a=2$, which gives an acceptance rate
 of about 0.5. I used 80 ``walkers'' in the chain, with 400 initial steps for
 burn-in followed by 200 additional steps for measuring expectation values.  I
 found that increasing the number of steps beyond this amount did not improve
-the results. This large number of steps may be excessive in many situations.
-Optimization exploration of the posterior surface is worthy of future study.
+the results dramatically, but generally more steps did result in less bias.
+This large number of steps may be excessive in many situations.
 
+It is probably worth while to further optimize the exploration of the
+likelihood surface, both in terms of the number of steps used and the computing
+resources used.  The problem is particularly amenable to use of graphics
+processing units; a brief study showed an increase in speed of order 100
+over traditional processors.
 
 I chose initial locations for the walkers to be centered on the maximum
 likelihood solution found with a Levenberg-Marquardt method, with Guassian
@@ -383,11 +388,8 @@ error is expected for a second-order Taylor expansion.
 Because of this bias, I expanded the equations about the true shear rather than
 zero shear, as explained in \S \ref{sec:simfit}.
 
-\subsection{Calibration Bias vs. Galaxy \sn\ and Size} \label{sec:snbias}
+\subsection{Calibration Bias vs. Galaxy Signal-to-noise Ratio} \label{sec:snbias}
 
-Figure \ref{fig:fracerr} contains ...  \S \ref{sec:sim}, representing different
-galaxy types and sizes.  TODO figure out how to split the figures up; probably
-based on size, but maybe by \sersic\ index?
 
 \begin{figure}[p] \centering
  \centering 
@@ -410,22 +412,6 @@ based on size, but maybe by \sersic\ index?
  Survey Telescope survey, shown as the dark gray band.  \label{fig:fracerr}}
 
 \end{figure}
-
-The fractional bias is shown as a function of signal-to-noise ratio \sn,
-for two definitions of \sn, \Tsn\ and \Msn.  The traditional measure of
-signal-to-noise ratio is \Msn, defined as the best fit value of total flux
-divided by the error in the fit.  A more useful definition of signal-to-noise
-ratio is \Tsn, the signal-to-noise ratio of the galaxy intrinsic, pre-seeing
-size.  As expected, fits to noisy galaxies will result in a noisy determination
-of size, and also a noisy shear measurement. But small galaxies are also more
-difficult to fit, even at higher values of flux signal-to-noise ratio.  Thus it
-is intuitive that small galaxies may also yield poor shear estimates.
-
-The fractional bias in the recovered shear is, within errors, uniquely
-determined by \Tsn.  But for \Msn, the fractional bias depends also on galaxy
-type and size, indicating the \Msn\ is not a sufficient statistic for
-determining the bias.
-
 
 \subsection{Comparison with Requirements for Current and Planned Surveys}
 \label{sec:req}
