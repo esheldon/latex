@@ -1,13 +1,11 @@
 dir="$HOME/tmp/ngmix-plots"
 
 #fwhm ~ 1.2
-s2n_field="flux_s2n"
-xr="7,1000"
+xr="7,1200"
 yr="-0.01,0.01"
 fwhm12_set="run-eg04r01 run-dg01rcomb"
 nsim-plot \
     -y "$yr" -x "$xr" \
-    --s2n-field $s2n_field \
     --noshow \
     --eps "$dir/ngmix-fwhm1.2.eps" \
     $fwhm12_set
