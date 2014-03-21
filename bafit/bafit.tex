@@ -56,10 +56,10 @@ with log-normal scatter.  Similarly I generated fluxes with log-normal scatter
 and a discrete set of mean fluxes tuned to produce various optimal, matched
 signal-to-noise ratio in the range $[10,1000]$.  I applied a constant shear to
 all images. I fit the simulated images to a model with the true \sersic\ index
-to avoid modeling biases.   Under these controlled I recovered the input shear
-with fractional error $\Delta g/g < 2 \times 10^{-3}$ in all cases, confirming
-the method is sufficiently unbiased for planned surveys.  This demonstration
-can be considered a proof-of-principle, and encouragement for the
+to avoid modeling biases.   Under these controlled conditions I recovered the
+input shear with fractional error $\Delta g/g < 2 \times 10^{-3}$ in all cases,
+confirming the method is sufficiently unbiased for planned surveys.  This
+demonstration can be considered a proof-of-principle, and encouragement for the
 implementation of a model-independent approach.
 
 
@@ -390,6 +390,10 @@ zero shear, as explained in \S \ref{sec:simfit}.
 
 \subsection{Calibration Bias vs. Galaxy Signal-to-noise Ratio} \label{sec:snbias}
 
+Figure \ref{fig:fracerr} contains the fractional error in the recovered shear
+as a function of optimal, matched signal-to-noise ration \Msn, for the
+simulated galaxies described in the previous sections.  In these controlled
+conditions the estimator is unbiased at the $\sim 2\times 10^{-3}$ level.
 
 \begin{figure}[p] \centering
  \centering 
@@ -402,16 +406,21 @@ zero shear, as explained in \S \ref{sec:simfit}.
      distributions in size, flux, and ellipticity.  The size distribution was
      log-normal with \lognormscatt\% scatter and mean such that the {\it
  observed, post-PSF} FWHM was approximately 1.2 times that of the PSF,
- mimicking the smallest faint galaxy that may pass a size as that used
- during star-galaxy separation.  The flux distribution was log-normal with
+ mimicking the smallest faint galaxy that may pass a size as that used during
+ star-galaxy separation.  The flux distribution was log-normal with
  \lognormscatt\% scatter, and mean chosen to produce the indicated
  signal-to-noise ratio.  The ellipticities were drawn from the simple
- distribution introduced in \cite{ba14}. Under these
- controlled circumstances, this shear estimator meets the accuracy requirements
- for the Dark Energy Survey shown as the light gray band, and the Large Synoptic
- Survey Telescope survey, shown as the dark gray band.  \label{fig:fracerr}}
+ distribution introduced in \cite{ba14}. Under these controlled conditions,
+ this shear estimator meets the accuracy requirements for the Dark Energy
+ Survey shown as the light gray band, and the Large Synoptic Survey Telescope
+ survey, shown as the dark gray band.  \label{fig:fracerr}}
 
 \end{figure}
+
+The errors for the different values of \Msn\ appear to be correlated.  This is
+most likely due to particulars of how the likelihood surface is explored,
+and may be correctable by tuning the parameters of the affine-invariant
+MCMC chain, such as number of walkers, burn-in, or post-burn-in steps.
 
 \subsection{Comparison with Requirements for Current and Planned Surveys}
 \label{sec:req}
@@ -420,7 +429,7 @@ In the figures above I showed gray bands representing the approximate
 multiplicative bias requirements for current surveys such as the Dark Energy
 Survey \citep[][DES]{DESWhitePaper} and the Hyper-Suprime-Cam survey
 \citep[][HSC]{HSC12}, and planned surveys such as the Large Synoptic Survey
-Telescope \citep[][LSST]{IvezicLSST08} and the Euclid Mission
+Telescope survey \citep[][LSST]{IvezicLSST08} and the Euclid Mission
 \citep{Euclid2011}.  These requirements are based on
 \citep{HutererSystematics06} assuming fiducial sky coverage and a degredation
 in the dark energy equation of state parameter of less than 20\%.  The cut at
@@ -429,28 +438,13 @@ in the dark energy equation of state parameter of less than 20\%.  The cut at
 current surveys and $\sim$\lsstreq\ for planned surveys.  These requirements
 are met in all the cases that I tested.
 
-Yet I did detect some small bias in a number of cases, and the bias is
-generally larger for smaller galaxies.  If this bias were related to noise I
-would expect the error to be worse for low \sn\ images, but the bias is similar
-at intermediate and high \sn.  This may be a sign that the implementation
-itself is flawed; perhaps the exploration of the posterior using MCMC needs
-further tuning.  The simulations used in this study took millions of processor
-hours, so repeating the experiments to the same precision for new MCMC
-parameters is a significant task.  That exploration is left to future work.
-
 The authors of \cite{ba14} noted that small and faint galaxies, for which the
 ellipticity likelihood is broad, get little weight in the average shear
 relative to larger and brighter galaxies.  This is an intrinsic feature of the
-estimator, no additional weighting is needed.  Thus it may be that the bias
-seen for very small galaxies will not propagate significantly into measurements
-performed on real data.  Yet small galaxies are more numerous than large
-galaxies in a flux-limited sample, so as a whole the population of small
-galaxies may indeed have weight.  It may be worth while to make cuts on galaxy
-size, and in fact some cut will indirectly be made in the process of
-star-galaxy selection.  But care must be taken not to introduce selection
-biases. A more realistic simulation, with galaxy images that mimic a
-flux-limited sample, can test this reasoning, but is beyond the scope of this
-work.
+estimator, no additional weighting is needed.  Indeed I made no cuts on the
+simulated galaxies used for this measurement, even though some had near zero
+signal-to-noise ratio.  This is advantageous, as the shear measurement process
+need  not necessarily introduce any additional selection effects.
 
 In Figure \ref{fig:nonoise} I showed the multiplicative bias due to the
 breakdown of the second-order Taylor expansion at higher shear.   This effect
