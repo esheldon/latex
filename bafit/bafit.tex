@@ -9,6 +9,7 @@
 \def\eps@scaling{1.0}% 
 
 \newcommand{\sn}{$S/N$}
+\newcommand{\Msn}{$(S/N)_{\textrm{matched}}$}
 \newcommand{\Tsn}{$(S/N)_{\textrm{size}}$}
 \newcommand{\fsn}{$(S/N)_{\textrm{flux}}$}
 
@@ -24,6 +25,8 @@
 \newcommand{\lsstreq}{$2\times 10^{-3}$}
 
 \newcommand{\sersic}{S\'{e}rsic}
+
+\newcommand{\lognormscatt}{30}
 
 \slugcomment{Last revision \today}
 \shortauthors{Sheldon}
@@ -405,25 +408,23 @@ based on size, but maybe by \sersic\ index?
 
 \begin{figure}[p] \centering
  \centering 
- \includegraphics[scale=0.45]{figures/cbafit-geg-T-s2n.eps}
- \includegraphics[scale=0.45]{figures/cbafit-geg-flux-s2n.eps}
+ \includegraphics[scale=0.8]{figures/ngmix-fwhm1.2.eps}
 
  \caption{ Fractional bias in the recovered shear for the estimator presented
-     in \cite{ba14}.  The bias is plotted as a
-     function of galaxy signal-to-noise ratio \sn, for various galaxy
-     properties and two different measures of \sn.  In panel (a) is
-     plotted \Tsn, where the measure of intrinsic galaxy size is $T=I_{xx} + I_{yy}$.  In 
-     panel (b) is plotted \fsn.  The flux and $T$ are parameters in the model
-     fits, and the associated \sn\ is the ratio of best-fit value to error in
-     the fit.  In each panel the fractional error is plotted for galaxies of
-     different size and type, as described in the text.  As shown panel (a)
-     panel, the bias depends uniquely on \Tsn\ for different galaxy types and
-     sizes.  However, \fsn\ is not a sufficient descriminator for different
-     galaxy types and sizes.  The \Tsn\ can be used to remove galaxies from the
-     sample that will yield poor shear estimates, independent of galaxy
-     properties, but not so \fsn.  For \Tsn$~ \gtrsim 10$ this shear estimator meets
- the accuracy requirements for the Dark Energy Survey, shown as the gray band.
- \label{fig:fracerr}}
+     in \cite{ba14}.  The bias is plotted as a function of the maximal, matched
+     galaxy signal-to-noise ratio \Msn, for galaxies with exponential and
+     \devauc\ profiles.  The simulated galaxy parameters were drawn from broad
+     distributions in size, flux, and ellipticity.  The size distribution was
+     log-normal with \lognormscatt\% scatter and mean such that the {\it
+ observed, post-PSF} FWHM was approximately 1.2 times that of the PSF,
+ mimicking the smallest faint galaxy that may pass a size as that used
+ during star-galaxy separation.  The flux distribution was log-normal with
+ \lognormscatt\% scatter, and mean chosen to produce the indicated
+ signal-to-noise ratio.  The ellipticities were drawn from the simple
+ distribution introduced in \cite{ba14}. Under these
+ controlled circumstances, this shear estimator meets the accuracy requirements
+ for the Dark Energy Survey shown as the light gray band, and the Large Synoptic
+ Survey Telescope survey, shown as the dark gray band.  \label{fig:fracerr}}
 
 \end{figure}
 
