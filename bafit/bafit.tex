@@ -265,7 +265,10 @@ very roughly approximate a selection that might occur in real data, for example
 binning galaxies by a robust flux measure such as a PSF flux.  Within a PSF
 flux bin, the true distribution of flux would have a small tail to lower values
 due to noise and a long tail to higher flux because galaxies can be larger than
-the PSF, causing the PSF flux to in some cases an underestimate.
+the PSF, causing the PSF flux to in some cases an underestimate.  By tuning
+the mean FWHM of the galaxies to approximately 1.2 times that of the PSF, I was
+attempting to mimic the sort of noisy size cut that can occur when 
+separating stars from galaxies at low signal-to-noise ratio.
 
 \section{Implementation} \label{sec:impl}
 
@@ -373,7 +376,7 @@ quadratic error is expected for a second-order Taylor expansion.
      shear $\Delta g/g \sim 1.9~g^2_{true}$.  The quadratic bias as a function of
      true shear indicates a break down of the second-order Taylor approximation
  presented in \cite{ba14}. The light and dark gray bands represent the
- requirements for current and planned surveys respectively.
+ approximate requirements for current and planned surveys respectively.
  \label{fig:nonoise}}
 
 \end{figure}
@@ -400,13 +403,13 @@ this implementation is unbiased at the $\Delta g/g \sim 2\times 10^{-3}$ level.
      size distribution was log-normal with \lognormscatt\% scatter and mean
      such that the {\it observed, post-PSF} FWHM was approximately 1.2 times
      that of the PSF, mimicking the smallest faint galaxy that may pass a size
-     as that used during star-galaxy separation.  The flux distribution was
-     log-normal with \lognormscatt\% scatter, and mean chosen to produce the
-     indicated signal-to-noise ratio.  The ellipticities were drawn from the
-     simple distribution introduced in \cite{ba14}. Under these controlled
-     conditions, this shear estimator meets the accuracy requirements for the
- Dark Energy Survey shown as the light gray band, and the Large Synoptic Survey
- Telescope survey, shown as the dark gray band.  \label{fig:fracerr}}
+     cut, such as that used during star-galaxy separation.  The flux
+     distribution was log-normal with \lognormscatt\% scatter, and mean chosen
+     to produce the indicated signal-to-noise ratio.  The ellipticities were
+     drawn from the simple distribution introduced in \cite{ba14}. Under these
+     controlled conditions, this shear estimator meets the approximate accuracy
+ requirements for current surveys, shown as the light gray band, and the future
+ surveys, shown as the dark gray band.  \label{fig:fracerr}}
 
 \end{figure}
 
