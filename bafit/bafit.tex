@@ -71,12 +71,14 @@ model-independent approach.
 
 Noise bias is one of the largest potential systematic effects in weak
 gravitational shear measurements.  Noise bias is a multiplicative calibration
-error, associated with some point estimators for shear in the presence
-of noise, such as a maximum likelihood estimate or expectation value for the
+error, associated with some point estimators for shear in the presence of
+noise, such as a maximum likelihood estimate or expectation value for the
 ellipticity of a galaxy \citep{HirataAlign04,Refreg12,Melchior12,Miller13}.
 Averaging these point estimators gives a biased estimate of the shear.  The
 bias remains even when response terms are included, such as that introduced by
-\cite{ksb95} and \cite{Bern02}.
+\cite{ksb95} and \cite{Bern02}. It may be possible to derive point estimators
+for the shear for which the average is unbiased, even in the presence of large
+noise, but no such estimator currently exists.
 
 Noise bias is not a small effect.  At flux signal-to-noise ratio (\sn) $\sim
 10$, the effect can be $\sim1-10$\%, depending on the size of the galaxy
@@ -298,7 +300,8 @@ through the parameter space; it thus does not require tuning the step size.  I
 used the implementation presented in \citet{Mackey13} for this work.
 
 I applied priors to the non-shape parameters {\it during exploration} to
-constrain the space and make exploration more efficient.
+constrain the space and make exploration more efficient.  This is possible
+because the shapes and other parameters were not covariant.
 
 By using a fit to the observed, pixelized PSF, I accounted approximately for
 the convolution by the pixels in the PSF model.  Thus the analytic convolution
