@@ -61,7 +61,7 @@ profiles with $n=1$ (exponential) and $n=4$ (\devauc), convolved with a PSF and
 a flat pixel response function.  I used a round Gaussian model for the PSF to
 avoid potential PSF-fitting errors. I simulated galaxies with mean {\it
 observed, post-PSF} full-width at half maximum equal to approximately 1.2 times
-that of the PSF, with log-normal scatter.  Similarly I generated fluxes with
+that of the PSF, with log-normal scatter.  I generated fluxes with
 log-normal scatter and a discrete set of mean fluxes tuned to produce various
 optimal, matched signal-to-noise ratios in the range $10-1000$.  I applied a
 constant shear to all images. I fit the simulated images to a model with the
@@ -135,7 +135,7 @@ glyph \vecg.
 
 \section{Algorithm} \label{sec:algo}
 
-The full algorithm is presented in BA14 .  There are two important assumptions
+The full algorithm is presented in BA14.  There are two important assumptions
 underlying this approach (following the notation in BA14):
 
 \begin{itemize}
@@ -156,10 +156,10 @@ necessarily approaches a Gaussian.
 The likelihood or posterior distribution for a parameter derived from a single
 galaxy will not generally be Gaussian except in the limit of high
 signal-to-noise ratio (\sn). Even if such high \sn\ galaxies could be used,
-galaxies have intrinsic shapes that are a large effective noise in a derived
-average shear.  Some kind of averaging must be performed to extract a shear
-from galaxy shapes.  Thus in any case nothing substantial is ``lost'' by
-restricting shear estimation to populations rather than individual galaxies.  
+galaxies have intrinsic shapes that are a large effective noise for shear
+measurement.  Some kind of averaging must be performed to extract a shear from
+galaxy shapes.  No information is necessarily ``lost'' by restricting shear
+estimation to populations rather than individual galaxies.  
 
 Under these assumptions, the authors of BA14 derived a second-order Taylor
 expansion of the logarithm of the shear posterior about zero shear, consistent
@@ -194,7 +194,7 @@ Prior information for the galaxy shapes is an important aspect of this method:
 the derivatives of the un-lensed distribution of shapes with respect to shear
 that encode how the ensemble of galaxy shapes responds to a shear. With
 knowledge of the true population of shapes, and how that population transforms
-under shear, can one infer the applied shear, even in the presence of noise.
+under shear, one can infer the applied shear, even in the presence of noise.
 
 To predict the observed distribution of shapes in general, the un-lensed
 distribution of shapes must be mathematically sheared and compared to
@@ -227,18 +227,20 @@ shear using the second-order formula.
 
 \section{Simulation} \label{sec:sim}
 
+I simulated elliptical \sersic\ \citep{Sersic63} profiles to represent galaxies:
+\begin{equation}
+I(r) \propto \mathrm{exp} \left[ -\left( \frac{r}{r_0} \right)^{1/n} \right].
+\end{equation}
+I used two distinct values of the index: $n=1$ (exponential
+disks), and $n=4$ (\devauc\ profiles).  These models have six parameters:
+two centroid parameters, two ellipticity parameters, a size parameter
+and an amplitude or flux parameter.
+
 I simulated pairs of galaxy images with identical structural parameters, but
 with position angles offset by 90 degrees, in order to cancel the intrinsic
 shape noise.  This simulation strategy is known as a ``ring
 test''\citep{Nakajima2007}. Using a ring test greatly reduces the number of
 simulated images required to reach a desired precision in the recovered shear.
-
-I used elliptical \sersic\ \citep{Sersic63} profiles to represent galaxies:
-\begin{equation}
-I(r) \propto \mathrm{exp} \left[ -\left( \frac{r}{r_0} \right)^{1/n} \right].
-\end{equation}
-I used two distinct values of the index: $n=1$ (exponential
-disks), and $n=4$ (\devauc\ profiles).
 
 I convolved the models with a simple simulated PSF, a single round Gaussian
 with $\sigma = \sqrt{2}$ pixels.  I chose a round Gaussian PSF to minimize PSF
@@ -286,7 +288,7 @@ very roughly approximate a selection that might occur in real data, for example
 binning galaxies by a robust flux measure such as a PSF flux.  Within a PSF
 flux bin, the true distribution of flux would have a small tail to lower values
 due to noise and a long tail to higher flux because galaxies can be larger than
-the PSF, causing the PSF flux to in some cases an underestimate.  By tuning
+the PSF, causing the PSF flux to in some cases be an underestimate.  By tuning
 the mean FWHM of the galaxies to approximately 1.2 times that of the PSF, I was
 attempting to mimic the sort of noisy size cut that can occur when 
 separating stars from galaxies at low signal-to-noise ratio.
@@ -306,10 +308,9 @@ convolutions of the galaxy model with the PSF; for gaussian convolutions, the
 covariance matrices add.  This is a fast and simple alternative to convolutions
 using Fourier transforms.
 
-I used a fast, third order approximation to the exponential function for
-evaluating the Gaussians in the galaxy models.  Even so, evaluation of the
-exponential function was the computational bottleneck for the likelihood
-evaluation.
+I used a fast approximation to the exponential function for evaluating the
+Gaussians in the galaxy models.  Even so, evaluation of the exponential
+function was the computational bottleneck for the likelihood evaluation.
 
 I used a Markov Chain Monte Carlo (MCMC) to explore the likelihood surface.
 Using a standard Metropolis-Hastings algorithm \citep{Metropolis53}  to fit for
@@ -330,24 +331,23 @@ because the shapes and other parameters were not covariant.
 By using a fit to the observed, pixelized PSF to convolve the galaxy models, I
 accounted approximately for the convolution by the pixels in the PSF model
 itself;  the analytic convolution of the PSF model with the galaxy model
-accounts for both th PSF and pixel effects.  This worked well for the
+accounts for both the PSF and pixel effects.  This worked well for the
 parameters I used, but for a poorly sampled PSF this approach could result in
 relatively large errors.
 
 During fitting, I used prior distributions matched exactly to the true
 distributions used in the simulation.  I used the correct \sersic\ index for
 fitting in each case; i.e. when simulating exponential disks, I also fit an
-exponential disk ($n=1$).  By choosing the true priors and model, I tested the
-accuracy of the algorithm and likelihood sampling technique directly and
-avoided confusion with other issues such as model bias or empirical prior
+exponential disk ($n=1$).  By choosing the true priors and model family, I
+tested the accuracy of the algorithm and likelihood sampling technique directly
+and avoided confusion with other issues such as model bias or empirical prior
 determination.
 
 For the MCMC I used an affine parameter $a=2$, which gives an acceptance rate
 of about 0.5. I used 80 ``walkers'' in the chain, with 400 initial steps for
 burn-in followed by 200 additional steps for measuring expectation values.  I
-found that increasing the number of steps beyond this amount did not improve
+found that increasing the number of steps beyond this amount did not change
 the results dramatically, but generally more steps did result in less bias.
-This large number of steps may be excessive in many situations.
 
 It may be worth while to further optimize the exploration of the likelihood
 surface, both in terms of the number of steps used and the type of computing
@@ -360,16 +360,16 @@ likelihood solution found with a Levenberg-Marquardt method. The location for
 each walker was chosen from a multi-dimensional Gaussian centered at the
 maximum likelihood with Guassian scatter based on errors in the fit, truncated
 to positive for flux and size and within -1 to 1 for shapes.  I also tried
-centering using the true parameters as the central guess, as well as drawing
-the initial positions from the priors.  All methods gave consistent results.
-For the large number of burn-in steps that I used the result was rather
-insensitive to the starting position.
+centering the initial positions on the true parameters, as well as drawing the
+initial positions from the priors.  All methods gave consistent results.  For
+the large number of burn-in steps that I used the result was rather insensitive
+to the starting position.
 
 
 As I will show in section \ref{sec:truebias}, the formulas in BA14 break down
 at high shear.  However, it is beneficial to perform tests at high shear
 because the number of simulated galaxies required to reach a specified
-fractional noise in the measured shear will go roughly as the inverse square of
+fractional noise in the measured shear goes roughly as the inverse square of
 the shear.  For this reason I chose to expand about the {\it true} shear
 instead of zero in Equations \ref{eq:pexpand} and \ref{eq:pqrdef}.  I performed
 limited tests expanding about zero shear and shearing the images by only 0.01,
@@ -450,13 +450,14 @@ in the dark energy equation of state parameter of less than 20\%.  The cut at
 current surveys and $\sim$\lsstreq\ for planned surveys.  These requirements
 are met in all the cases that I tested.
 
-The authors of \cite{ba14} noted that small and faint galaxies, for which the
+Smaller and fainter galaxies might have more bias than the average.  The
+authors of \cite{ba14} noted that small and faint galaxies, for which the
 ellipticity likelihood is broad, get little weight in the average shear
-relative to larger and brighter galaxies.  This is an intrinsic feature of the
-estimator, no additional weighting is needed.  Indeed I made no cuts on the
-simulated galaxies used for this measurement, even though some had
+measurement relative to larger and brighter galaxies.  This is an intrinsic
+feature of the estimator, no additional weighting is needed.  Indeed I made no
+cuts on the simulated galaxies used for this measurement, even though some had
 signal-to-noise ratio much less than 10.  This is advantageous, as the shear
-measurement process need  not necessarily introduce any additional selection
+measurement process need not necessarily introduce any additional selection
 effects.
 
 In Figure \ref{fig:nonoise} I showed the multiplicative bias due to the
