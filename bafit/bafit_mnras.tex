@@ -233,8 +233,8 @@ In the absence of an absolute calibration source for weak lensing, confidence
 in a shear measurement technique can be derived using simulation.  The Third
 Gravitational Lensing Accuracy Testing challenge \citep[GREAT3,][]{great3}
 provides an excellent set of simulations for testing shear recovery methods.
-However, all the provided simulations include relatively realistic PSFs and
-unknown galaxy properties, features which can introduce additional errors
+However, all the provided simulations include relatively realistic PSF and
+galaxy properties, features which can introduce additional errors
 beyond noise bias.  Going forward, such simulation efforts will be of primary
 importance, but for this preliminary work I sought more controlled conditions.
 
@@ -429,14 +429,14 @@ this implementation is unbiased at the $\Delta g/g \sim 2\times 10^{-3}$ level.
      were drawn from broad distributions in size, flux, and ellipticity.  The
      size distribution was log-normal with \lognormscatt\% scatter and mean
      such that the {\it observed, post-PSF} FWHM was approximately 1.2 times
-     that of the PSF, mimicking the smallest faint galaxy that may pass a size
+     that of the PSF, mimicking small galaxies that may pass a size
      cut, such as that used during star-galaxy separation.  The flux
      distribution was log-normal with \lognormscatt\% scatter, and mean chosen
      to produce the indicated signal-to-noise ratio.  The ellipticities were
      drawn from the simple distribution introduced in \citet{ba14}. Under these
      controlled conditions, this shear estimator meets the approximate accuracy
- requirements for current surveys, shown as the light gray band, and the future
- surveys, shown as the dark gray band.}
+ requirements for current and planned, shown as the light and dark gray bands,
+ respectively.}
  \label{fig:fracerr}
 \end{figure}
 
@@ -487,7 +487,7 @@ order equations.  I have not yet explored that approach.
 
 \section{Discussion} \label{sec:summary}
 
-But the success of this method in a controlled simulation is a strong
+The success of this implementation in a controlled simulation is strong
 encouragement for further development of this method.  However, the
 model-fitting approach I presented here may ultimately only be useful as a
 proof-of-principle: model-fitting is limited by the accuracy of the models to
@@ -504,10 +504,10 @@ I leave exploration of more complex models to future work.
 
 As an alternative to model fitting, \cite{ba14} propose to measure moments in
 Fourier space, making no explicit parameterization of galaxy light
-distributions beyond the observed pixel values, avoiding large model bias.  The
-moments are interpreted using a Bayesian formalism similar to that used for model
-fitting, and so could be robust to noise bias effects.  Evalutaion of this
-Fourier method in the presence of noise is worthy of future effort.
+distributions beyond the observed pixel values.  The moments are interpreted
+using a Bayesian formalism similar to that used for model fitting, and so could
+be robust to noise bias effects.  Evaluation of this Fourier method in the
+presence of noise is worthy of future effort.
 
 \section*{Acknowledgments}
 
