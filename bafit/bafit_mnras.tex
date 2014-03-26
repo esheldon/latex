@@ -187,7 +187,7 @@ P_i     & = & P(\vecD_i | \vecg=0) \nonumber \\
 \vecQ_i & = & \left. \bnabg P(\vecD_i | \vecg)\right|_{\vecg=0} \\
 \matR_i & = & \left. \bnabg \bnabg P(\vecD_i | \vecg)\right|_{\vecg=0}. \nonumber
 \end{eqnarray}
-$P$ is the bayesian ``prior'', and functionally corresponds to the true
+$P$ is the Bayesian ``prior'', and functionally corresponds to the true
 distribution of all the relevant galaxy parameters in the absence of shear.
 Note the prior on the shear $P(\vecg)$ is assumed to be uninformative, and is
 treated as effectively constant in what follows.
@@ -306,7 +306,7 @@ large number of model evaluations, so I found efficiency to be important.  As
 an optimization, I approximated galaxy models as sums of Gaussians according to
 the fits in \citet{HoggGMix}.  I also fit the PSF using a Gaussian.  By using
 Gaussians for both galaxy and PSF models I could perform fast analytic
-convolutions of the galaxy model with the PSF; for gaussian convolutions, the
+convolutions of the galaxy model with the PSF; for Gaussian convolutions, the
 covariance matrices add.  This is a fast and simple alternative to convolutions
 using Fourier transforms.
 
@@ -466,13 +466,15 @@ In Figure \ref{fig:nonoise} I showed the multiplicative bias due to the
 breakdown of the second-order Taylor expansion at higher shear.   This effect
 is prohibitive for current surveys when the shear exceeds 0.05.  The authors of
 BA14 suggested potentially using higher order information to tweak the second
-order equations.  One possibility is iteration: in a case where the shear field
-is predicted directly using some functional form, or if it is assumed to be
-constant in some patch of the sky, one might expand about the predicted shear
-field in a second iteration to refine the result; such a method would not
-likely work for cross-correlation lensing, however.  Perhaps a full mapping of
-the posterior of the shear could also be performed, but this would require
-keeping a large amount of information per galaxy.  
+order equations.  I have not yet explored that approach.
+
+%One possibility is iteration: in a case where the shear field
+%is predicted directly using some functional form, or if it is assumed to be
+%constant in some patch of the sky, one might expand about the predicted shear
+%field in a second iteration to refine the result; such a method would not
+%likely work for cross-correlation lensing, however.  Perhaps a full mapping of
+%the posterior of the shear could also be performed, but this would require
+%keeping a large amount of information per galaxy.  
 
 \section{Discussion} \label{sec:summary}
 
@@ -502,7 +504,7 @@ I leave exploration of more complex models to future work.
 As an alternative to model fitting, \cite{ba14} propose to measure moments in
 Fourier space, making no explicit parameterization of galaxy light
 distributions beyond the observed pixel values, avoiding large model bias.  The
-moments are interpreted using a Baysian formalism similar to that used for model
+moments are interpreted using a Bayesian formalism similar to that used for model
 fitting, and so could be robust to noise bias effects.  Evalutaion of this
 Fourier method in the presence of noise is worthy of future effort.
 
