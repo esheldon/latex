@@ -89,22 +89,22 @@ bias remains even when response terms are included, such as that introduced by
 for the shear for which the average is unbiased, even in the presence of large
 noise, but no such estimator currently exists.
 
-Noise bias is not a small effect.  At flux signal-to-noise ratio (\sn) $\sim
-10$, the effect can be $\sim1-10$\%, depending on the size of the galaxy
-relative to the size of the point-spread-function (PSF).  This multiplicative
-error is significantly larger than the requirements for planned and current
-surveys, which are $\sim$0.2\% and $\sim$0.4\%, respectively
-\citep{HutererSystematics06}.
+At flux signal-to-noise ratio (\sn) $\sim 10$, the noise bias can be of order
+10\% for galaxies with size comparable to that of the of the
+point-spread-function (PSF).  This multiplicative error is significantly larger
+than the requirements for planned and current surveys, which are $\sim$0.2\%
+and $\sim$0.4\%, respectively \citep{HutererSystematics06}.
 
-A Bayesian approach to shear estimate was proposed by \cite{Miller07}.  With
-that method, a point estimator for the shear is still used (the expectation
-value of the galaxy ellipticity), but a response term is calculated based on
-prior information of the true distribution of galaxy ellipticities and the
-likelihood surface for a given galaxy.  A limitation of this method is that no
-expression was derived for the mean shear from an ensemble of galaxies, rather
-it was proposed to average the responses from individual galaxies.  This
-pioneering approach performs well in comparison to many previous methods, but
-does not meet the requirements for current and planned surveys \citep{ba14}.
+A Bayesian approach to shear estimate was proposed by \cite{Miller07}
+specifically to address noise bias.  With that method, a point estimator for
+the shear is still used (the expectation value of the galaxy ellipticity), but
+a response term is calculated based on prior information of the true
+distribution of galaxy ellipticities and the likelihood surface for a given
+galaxy.  A limitation of this method is that no expression was derived for the
+mean shear from an ensemble of galaxies, rather it was proposed to average the
+responses from individual galaxies.  This pioneering approach performs well in
+comparison to many previous methods, but does not meet the requirements for
+current and planned surveys \citep{ba14}.
 
 Other approaches have been proposed. For example \cite{Zuntz13} propose to use
 a point estimate from galaxy shapes and simply calibrate the answer using
@@ -149,17 +149,19 @@ underlying this approach (following the notation in BA14):
 
 The assumption of small shear is true under many circumstances, but breaks down
 along lines-of-sight near large over-densities, such as clusters of galaxies.
+
 The second assumption follows from the central limit theorem: if the shear is
 derived from a large enough ensemble of galaxy shapes, the posterior
 necessarily approaches a Gaussian.
 
-The likelihood or posterior distribution for a parameter derived from a single
-galaxy will not generally be Gaussian except in the limit of high
-signal-to-noise ratio (\sn). Even if such high \sn\ galaxies could be used,
-galaxies have intrinsic shapes that are a large effective noise for shear
-measurement.  Some kind of averaging must be performed to extract a shear from
-galaxy shapes.  No information is necessarily ``lost'' by restricting shear
-estimation to populations rather than individual galaxies.  
+No information is necessarily ``lost'' by restricting shear estimation to
+populations rather than individual galaxies.  The likelihood or posterior
+distribution for a parameter derived from a single galaxy will not generally be
+Gaussian except in the limit of high signal-to-noise ratio (\sn). Even if such
+high \sn\ galaxies could be used, galaxies have intrinsic shapes that are a
+large effective noise for shear measurement.  Some kind of averaging must be
+performed to extract a shear from galaxy shapes.  
+
 
 Under these assumptions, the authors of BA14 derived a second-order Taylor
 expansion of the logarithm of the shear posterior about zero shear, consistent
@@ -186,15 +188,15 @@ P_i     & = & P(\vecD_i | \vecg=0) \nonumber \\
 \matR_i & = & \left. \bnabg \bnabg P(\vecD_i | \vecg)\right|_{\vecg=0}. \nonumber
 \end{eqnarray}
 $P$ is the bayesian ``prior'', and functionally corresponds to the true
-distribution of all the relevant galaxy parameters.  Note the prior on the shear
-$P(\vecg)$ is assumed to be uninformative, and is treated as effectively
-constant in what follows.
+distribution of all the relevant galaxy parameters in the absence of shear.
+Note the prior on the shear $P(\vecg)$ is assumed to be uninformative, and is
+treated as effectively constant in what follows.
 
-Prior information for the galaxy shapes is an important aspect of this method:
+Accurate prior information for the galaxy shapes is important for this method:
 the derivatives of the un-lensed distribution of shapes with respect to shear
-that encode how the ensemble of galaxy shapes responds to a shear. With
-knowledge of the true population of shapes, and how that population transforms
-under shear, one can infer the applied shear, even in the presence of noise.
+encode how the ensemble of galaxy images responds to a shear. With knowledge of
+the true population of shapes, and how that population transforms under shear,
+one can infer the applied shear, even in the presence of noise.
 
 To predict the observed distribution of shapes in general, the un-lensed
 distribution of shapes must be mathematically sheared and compared to
@@ -202,7 +204,7 @@ observables.  However in the approximation given above, only derivatives near
 $g=0$ are required and the mean shear $\bar{\vecg}$ and covariance matrix
 $\matC_g$ can be found directly:
 \begin{eqnarray}
-\matC_g^{-1} & = & \sum_i \left(\frac{\vecQ_i \vecQ^T_i}{P_i^2} - \frac{\matR_i}{P_i}\right) \label{eq:cdef} \\
+\matC_g^{-1} & = & \sum_i \left(\frac{\vecQ_i \vecQ^T_i}{P_i^2} - \frac{\matR_i}{P_i}\right) \label{eq:cdef} \nonumber \\
 \bar{\vecg} & = &  \matC_g \sum_i \frac{\vecQ_i}{P_i}. \label{eq:shdef}
 \end{eqnarray}
 
@@ -221,9 +223,9 @@ A conceptual outline for measurement of non-constant shear was also given by
 BA14, as were third-order tweaks to the second-order perturbations.
 
 A full implementation, fitting to pixelized galaxy images, was not attempted in
-BA14.  The basic formalism was shown to work by drawn shapes randomly from
-an analytic distribution, adding noise and shear, and recovering the underlying
-shear using the second-order formula.
+BA14.  The basic formalism was shown to work by drawn shapes randomly from an
+analytic distribution, adding noise and a small shear, and recovering the
+underlying shear using the second-order formula.
 
 \section{Simulation} \label{sec:sim}
 
@@ -265,11 +267,10 @@ galaxy image had {\it observed, post-PSF} full-width at half maximum (FWHM)
 that was approximately 1.2 times that of the PSF.  Due to the log-normal
 scatter, some galaxies were smaller and some larger.
 
-I simulated different signal-to-noise ratios \Msn\ in the range $[10,1000]$.  I
-accomplished this by drawing fluxes from the same underlying log-normal flux
-distribution but adding more or less Gaussian noise as needed to produce the
-desired mean \Msn.  The optimal, matched signal-to-noise ratio \Msn\ is defined
-as
+I ran multiple simulations with different mean signal-to-noise ratios \Msn\ in the
+range $[10,1000]$.  Fluxes were drawn from a log-normal distribution and
+Gaussian noise was added so that the mean galaxy image had the desired 
+\Msn.  The optimal, matched signal-to-noise ratio \Msn\ is defined as
 \begin{equation}
     (S/N)^2_{matched} = \frac{1}{\sigma^2_{sky}} \int I^2(x,y) dx dy
 \end{equation}
@@ -280,9 +281,6 @@ signal-to-noise ratio definition for the GREAT08 and GREAT3 shear measurement
 challenges \citep{BridleGREAT08,great3}.  Other measures of \sn\ can be lower
 by as much as a factor of two \citep{great3}.
 
-I drew the centroid from a Gaussian in each coordinate, with $\sigma$ of 0.1
-pixels.  
-
 By drawing sizes and fluxes from log-normal distributions I was attempting to
 very roughly approximate a selection that might occur in real data, for example
 binning galaxies by a robust flux measure such as a PSF flux.  Within a PSF
@@ -292,6 +290,10 @@ the PSF, causing the PSF flux to in some cases be an underestimate.  By tuning
 the mean FWHM of the galaxies to approximately 1.2 times that of the PSF, I was
 attempting to mimic the sort of noisy size cut that can occur when 
 separating stars from galaxies at low signal-to-noise ratio.
+
+Finally, I drew the centroid from a Gaussian in each coordinate, with $\sigma$
+of 0.1 pixels.  
+
 
 \section{Implementation} \label{sec:impl}
 
@@ -326,7 +328,7 @@ used the implementation presented in \citet{Mackey13} for this work.
 
 I applied priors to the non-shape parameters {\it during exploration} to
 constrain the space and make exploration more efficient.  This is possible
-because the shapes and other parameters were not covariant.
+because the shapes were not covariant with the other parameters.
 
 By using a fit to the observed, pixelized PSF to convolve the galaxy models, I
 accounted approximately for the convolution by the pixels in the PSF model
@@ -359,7 +361,7 @@ I chose initial locations for the walkers to be centered on the maximum
 likelihood solution found with a Levenberg-Marquardt method. The location for
 each walker was chosen from a multi-dimensional Gaussian centered at the
 maximum likelihood with Guassian scatter based on errors in the fit, truncated
-to positive for flux and size and within -1 to 1 for shapes.  I also tried
+to positive flux and size and for shapes within $(-1,1)$.  I also tried
 centering the initial positions on the true parameters, as well as drawing the
 initial positions from the priors.  All methods gave consistent results.  For
 the large number of burn-in steps that I used the result was rather insensitive
@@ -372,7 +374,7 @@ because the number of simulated galaxies required to reach a specified
 fractional noise in the measured shear goes roughly as the inverse square of
 the shear.  For this reason I chose to expand about the {\it true} shear
 instead of zero in Equations \ref{eq:pexpand} and \ref{eq:pqrdef}.  I performed
-limited tests expanding about zero shear and shearing the images by only 0.01,
+limited tests expanding about zero shear and shearing the images by only $g=0.01$,
 and got comparable results. 
 
 \section{Results} \label{sec:results}
@@ -406,7 +408,7 @@ zero shear, as explained in \S \ref{sec:impl}.
 
 Figure \ref{fig:fracerr} contains the fractional error in the recovered shear
 as a function of optimal, matched signal-to-noise ratio \Msn, for the simulated
-galaxies described in the previous sections.  In these controlled conditions
+galaxies described in the previous sections.  For these controlled conditions
 this implementation is unbiased at the $\Delta g/g \sim 2\times 10^{-3}$ level.
 
 \begin{figure}
@@ -429,10 +431,10 @@ this implementation is unbiased at the $\Delta g/g \sim 2\times 10^{-3}$ level.
  \label{fig:fracerr}
 \end{figure}
 
-The errors for the different values of \Msn\ appear to be correlated.  This is
-most likely due to particulars of how the likelihood surface is explored,
-and may be correctable by tuning the parameters of the affine-invariant
-MCMC chain, such as number of walkers, burn-in, or post-burn-in steps.
+The errors for the different values of \Msn\ appear to be correlated.  This may
+be due to the particulars of how the likelihood surface was explored, and may be
+correctable by tuning the parameters of the affine-invariant MCMC chain, such
+as number of walkers, burn-in, or post-burn-in steps.
 
 \subsection{Comparison with Requirements for Current and Planned Surveys}
 \label{sec:req}
@@ -442,13 +444,13 @@ multiplicative bias requirements for current surveys such as the Dark Energy
 Survey \citep[][DES]{DESWhitePaper} and the Hyper-Suprime-Cam survey
 \citep[][HSC]{HSC12}, and planned surveys such as the Large Synoptic Survey
 Telescope survey \citep[][LSST]{IvezicLSST08} and the Euclid Mission
-\citep{Euclid2011}.  These requirements are based on
-\citep{HutererSystematics06} assuming fiducial sky coverage and a degredation
-in the dark energy equation of state parameter of less than 20\%.  The cut at
-20\% is somewhat arbitrary, and was chosen to coincide very roughly with the
-``official'' requirements for DES. The requirements are $\sim$\desreq\ for
-current surveys and $\sim$\lsstreq\ for planned surveys.  These requirements
-are met in all the cases that I tested.
+\citep{Euclid2011}.  These requirements are based on the calculations presented
+by \citet{HutererSystematics06}, assuming fiducial sky coverage and a
+degradation in the dark energy equation of state parameter of less than 20\%.
+The cut at 20\% is somewhat arbitrary, and was chosen to coincide very roughly
+with the ``official'' requirements for DES. The requirements are $\sim$\desreq\
+for current surveys and $\sim$\lsstreq\ for planned surveys.  These
+requirements are met in all the cases that I tested.
 
 Smaller and fainter galaxies might have more bias than the average.  The
 authors of \cite{ba14} noted that small and faint galaxies, for which the
@@ -456,21 +458,21 @@ ellipticity likelihood is broad, get little weight in the average shear
 measurement relative to larger and brighter galaxies.  This is an intrinsic
 feature of the estimator, no additional weighting is needed.  Indeed I made no
 cuts on the simulated galaxies used for this measurement, even though some had
-signal-to-noise ratio much less than 10.  This is advantageous, as the shear
-measurement process need not necessarily introduce any additional selection
-effects.
+signal-to-noise ratio much less than 10, yet I recovered the shear with good
+accuracy.  This is useful, as the shear measurement process need not
+necessarily introduce any additional selection effects.
 
 In Figure \ref{fig:nonoise} I showed the multiplicative bias due to the
 breakdown of the second-order Taylor expansion at higher shear.   This effect
 is prohibitive for current surveys when the shear exceeds 0.05.  The authors of
 BA14 suggested potentially using higher order information to tweak the second
-order equations.  Perhaps a full mapping of the posterior of the shear could
-also be performed, but this would require keeping a large amount of information
-per galaxy.  Another possibility is iteration: if the shear field is predicted
-directly using some functional form, or if it is assumed to be constant, one
-might expand about the predicted shear field in a second iteration to refine
-the result.
-
+order equations.  One possibility is iteration: in a case where the shear field
+is predicted directly using some functional form, or if it is assumed to be
+constant in some patch of the sky, one might expand about the predicted shear
+field in a second iteration to refine the result; such a method would not
+likely work for cross-correlation lensing, however.  Perhaps a full mapping of
+the posterior of the shear could also be performed, but this would require
+keeping a large amount of information per galaxy.  
 
 \section{Discussion} \label{sec:summary}
 
@@ -487,6 +489,14 @@ with more stringent requirements. One potential solution is to fit models with
 more freedom.  However, more complex models have more complex likelihood
 surfaces, which requires more burn-in for an MCMC chain and more samples to
 estimate the expectation values for the $P$, \vecQ\ and \matR\ parameters.
+
+%In the absence of an absolute calibration source for weak lensing, confidence
+%in any technique must ultimately be derived from comparisons with other
+%non-lensing measurements and from simulations.  The \texttt{real\_galaxy}
+%branch of the Third Gravitational Lensing Accuracy Testing challenge
+%\citep[GREAT3,][]{great3} provides an excellent test of shear recovery from
+%real galaxy images.  Going forward, such simulation efforts will be of primary
+%importance in evaluating the implementation presented here.
 
 \cite{ba14} propose an alternative to the model-fitting technique based on
 moments in Fourier space which makes no explicit parameterization of galaxy

@@ -1,39 +1,39 @@
 
-TEXFILE=bafit
+texfile := bafit
 default: dvi
 
 # just run it
 bib: 
-	bibtex ${TEXFILE}
+	bibtex ${texfile}
 
 dvi: 
-	latex ${TEXFILE}
-	latex ${TEXFILE}
+	latex ${texfile}
+	latex ${texfile}
 
 ps: 
-	latex ${TEXFILE}
-	latex ${TEXFILE}
-	dvips -t letter ${TEXFILE} -o ${TEXFILE}.ps
+	latex ${texfile}
+	latex ${texfile}
+	dvips -t letter ${texfile} -o ${texfile}.ps
 
 pdf:
-	latex ${TEXFILE}
-	latex ${TEXFILE}
-	dvips -t letter ${TEXFILE} -o ${TEXFILE}.ps
-	ps2pdf ${TEXFILE}.ps
+	latex ${texfile}
+	latex ${texfile}
+	dvips -t letter ${texfile} -o ${texfile}.ps
+	ps2pdf ${texfile}.ps
 
 all: 
-	latex ${TEXFILE}
-	latex ${TEXFILE}
-	dvips -t letter ${TEXFILE} -o ${TEXFILE}.ps
-	dvipdfm -o ${TEXFILE}.pdf ${TEXFILE}.dvi 
+	latex ${texfile}
+	latex ${texfile}
+	dvips -t letter ${texfile} -o ${texfile}.ps
+	dvipdfm -o ${texfile}.pdf ${texfile}.dvi 
 
 clean:
 	rm -f \
-	${TEXFILE}.dvi \
-	${TEXFILE}.ps \
-	${TEXFILE}.pdf \
-	${TEXFILE}.aux \
-	${TEXFILE}.bbl \
-	${TEXFILE}.blg \
-	${TEXFILE}.toc \
-	${TEXFILE}.log
+	${texfile}.dvi \
+	${texfile}.ps \
+	${texfile}.pdf \
+	${texfile}.aux \
+	${texfile}.bbl \
+	${texfile}.blg \
+	${texfile}.toc \
+	${texfile}.log
