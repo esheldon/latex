@@ -229,6 +229,15 @@ underlying shear using the second-order formula.
 
 \section{Simulation} \label{sec:sim}
 
+In the absence of an absolute calibration source for weak lensing, confidence
+in a shear measurement technique can be derived using simulation.  The Third
+Gravitational Lensing Accuracy Testing challenge \citep[GREAT3,][]{great3}
+provides an excellent set of simulations for testing shear recovery methods.
+However, all the provided simulations include relatively realistic PSFs and
+unknown galaxy properties, features which can introduce additional errors
+beyond noise bias.  Going forward, such simulation efforts will be of primary
+importance, but for this preliminary work I sought more controlled conditions.
+
 I simulated elliptical \sersic\ \citep{Sersic63} profiles to represent galaxies:
 \begin{equation}
 I(r) \propto \mathrm{exp} \left[ -\left( \frac{r}{r_0} \right)^{1/n} \right].
@@ -492,14 +501,6 @@ more freedom.  However, more complex models have more complex likelihood
 surfaces, which requires more burn-in for an MCMC chain and more samples to
 estimate the expectation values for the $P$, \vecQ\ and \matR\ parameters.
 I leave exploration of more complex models to future work.
-
-%In the absence of an absolute calibration source for weak lensing, confidence
-%in any technique must ultimately be derived from comparisons with other
-%non-lensing measurements and from simulations.  The \texttt{real\_galaxy}
-%branch of the Third Gravitational Lensing Accuracy Testing challenge
-%\citep[GREAT3,][]{great3} provides an excellent test of shear recovery from
-%real galaxy images.  Going forward, such simulation efforts will be of primary
-%importance in evaluating the implementation presented here.
 
 As an alternative to model fitting, \cite{ba14} propose to measure moments in
 Fourier space, making no explicit parameterization of galaxy light
