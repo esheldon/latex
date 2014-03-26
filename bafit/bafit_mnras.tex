@@ -476,12 +476,12 @@ keeping a large amount of information per galaxy.
 
 \section{Discussion} \label{sec:summary}
 
-The model-fitting approach I presented here is useful as a proof-of-principle:
-model-fitting is limited by the accuracy of the models to represent true
-galaxies, and thus in real data additional errors will be present; this is the
-so-called ``model bias''.  But if the shear can be recovered in a controlled
-simulation, fitting known models, this is a strong encouragement for further
-development of this method.
+But the success of this method in a controlled simulation is a strong
+encouragement for further development of this method.  However, the
+model-fitting approach I presented here may ultimately only be useful as a
+proof-of-principle: model-fitting is limited by the accuracy of the models to
+represent true galaxies, and thus in real data additional errors will be
+present; this is the so-called ``model bias''.  
 
 \cite{Kacprzak13} showed that model bias may be on the order of baseline
 requirements for current surveys, but potentially crippling for future surveys
@@ -489,6 +489,7 @@ with more stringent requirements. One potential solution is to fit models with
 more freedom.  However, more complex models have more complex likelihood
 surfaces, which requires more burn-in for an MCMC chain and more samples to
 estimate the expectation values for the $P$, \vecQ\ and \matR\ parameters.
+I leave exploration of more complex models to future work.
 
 %In the absence of an absolute calibration source for weak lensing, confidence
 %in any technique must ultimately be derived from comparisons with other
@@ -498,10 +499,12 @@ estimate the expectation values for the $P$, \vecQ\ and \matR\ parameters.
 %real galaxy images.  Going forward, such simulation efforts will be of primary
 %importance in evaluating the implementation presented here.
 
-\cite{ba14} propose an alternative to the model-fitting technique based on
-moments in Fourier space which makes no explicit parameterization of galaxy
-light distributions.  An evaluation of that approach in the presence of noise
-is worthy of study.
+As an alternative to model fitting, \cite{ba14} propose to measure moments in
+Fourier space, making no explicit parameterization of galaxy light
+distributions beyond the observed pixel values, avoiding large model bias.  The
+moments are interpreted using a Baysian formalism similar to that used for model
+fitting, and so could be robust to noise bias effects.  Evalutaion of this
+Fourier method in the presence of noise is worthy of future effort.
 
 \section*{Acknowledgments}
 
