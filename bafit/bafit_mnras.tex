@@ -90,10 +90,13 @@ for the shear for which the average is unbiased, even in the presence of large
 noise, but no such estimator currently exists.
 
 At flux signal-to-noise ratio (\sn) $\sim 10$, the noise bias can be of order
-10\% for galaxies with size comparable to that of the of the
-point-spread-function (PSF).  This multiplicative error is significantly larger
-than the requirements for planned and current surveys, which are $\sim$0.2\%
-and $\sim$0.4\%, respectively \citep{HutererSystematics06}.
+10\% for galaxies with size comparable to that of the point-spread-function
+(PSF).  This multiplicative error is significantly larger than the requirements
+for planned and current surveys, which are $\sim$0.2\% and $\sim$0.4\%,
+respectively \citep{HutererSystematics06}.
+
+A number of approaches have been proposed to address noise bias. I do not wish
+to give an exhaustive list, but rather a few examples.
 
 A Bayesian approach to shear estimate was proposed by \cite{Miller07}
 specifically to address noise bias.  With that method, a point estimator for
@@ -106,13 +109,13 @@ responses from individual galaxies.  This pioneering approach performs well in
 comparison to many previous methods, but does not meet the requirements for
 current and planned surveys \citep{ba14}.
 
-Other approaches have been proposed. For example \cite{Zuntz13} propose to use
-a point estimate from galaxy shapes and simply calibrate the answer using
-simulated data.  A related idea has been proposed in schematic form by
-\cite{Refregier13}, to use an iterative approach where the universe is
-simulated and its parameters tuned, along with calibration parameters of the
-measurement, to reproduce the observed results.  These methods are in principle
-limited only by the accuracy of the simulations to represent the real universe.
+\cite{Zuntz13} propose to use a point estimate from galaxy shapes and simply
+calibrate the answer using simulated data.  A related idea has been proposed in
+schematic form by \cite{Refregier13}, to use an iterative approach where the
+universe is simulated and its parameters tuned, along with calibration
+parameters of the measurement, to reproduce the observed results.  These
+methods are in principle limited only by the accuracy of the simulations to
+represent the real universe.
 
 A rigorous Bayesian formalism was developed by \cite{ba14}, hereafter BA14,
 that has the potential to recover shear with good accuracy using even very low
@@ -232,11 +235,11 @@ underlying shear using the second-order formula.
 In the absence of an absolute calibration source for weak lensing, confidence
 in a shear measurement technique can be derived using simulation.  The Third
 Gravitational Lensing Accuracy Testing challenge \citep[GREAT3,][]{great3}
-provides an excellent set of simulations for testing shear recovery methods.
+provides an excellent set of simulations for testing shear measurement methods.
 However, all the provided simulations include relatively realistic PSF and
-galaxy properties, features which can introduce additional errors
-beyond noise bias.  Going forward, such simulation efforts will be of primary
-importance, but for this preliminary work I sought more controlled conditions.
+galaxy properties, features which can introduce additional errors beyond noise
+bias.  Going forward, such simulation efforts will be of primary importance,
+but for this preliminary work I sought more controlled conditions.
 
 I simulated elliptical \sersic\ \citep{Sersic63} profiles to represent galaxies:
 \begin{equation}
