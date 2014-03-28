@@ -263,10 +263,10 @@ The \sersic\ profile for a round model is given by
 \begin{equation}
 I(r) \propto \mathrm{exp} \left[ -\left( \frac{r}{r_0} \right)^{1/n} \right].
 \end{equation}
-The full elliptical model has six parameters: two centroid parameters, two
-ellipticity parameters, a size parameter and an amplitude, or flux parameter.  I
-used two distinct values of the index: $n=1$ (exponential disks), and $n=4$
-(\devauc\ profiles).  
+For fixed $n$, the full elliptical model has six parameters: two centroid
+parameters, two ellipticity parameters, a size parameter and an amplitude, or
+flux parameter.  I used two distinct values of the index: $n=1$ (exponential
+disks), and $n=4$ (\devauc\ profiles).  
 
 I simulated pairs of galaxy images with identical structural parameters, but
 with position angles offset by 90 degrees, in order to cancel the intrinsic
@@ -290,8 +290,8 @@ distribution also has the required property that it is twice differentiable.
 
 I drew the other galaxy parameters from simple non-covariant distributions.  I
 drew the size parameter from a log-normal distribution with \lognormscatt\%
-scatter.  The mean of the size distribution was chosen such that in the average
-galaxy image had {\it observed, post-PSF} full-width at half maximum (FWHM)
+scatter.  The mean of the size distribution was chosen such that the average
+galaxy image had {\em observed, post-PSF} full-width at half maximum (FWHM)
 approximately 1.2 times that of the PSF.  Due to the log-normal scatter, some
 galaxies were smaller and some larger.
 
@@ -311,13 +311,14 @@ by as much as a factor of two \citep{great3}.
 
 By drawing sizes and fluxes from log-normal distributions I was attempting to
 very roughly approximate a selection that might occur in real data, for example
-binning galaxies by a robust flux measure such as a PSF flux.  Within a PSF
-flux bin, the true distribution of flux would have a small tail to lower values
-due to noise and a long tail to higher flux because galaxies can be larger than
-the PSF, causing the PSF flux to in some cases be an underestimate.  By tuning
-the mean FWHM of the galaxies to be approximately 1.2 times that of the PSF, I
-was attempting to mimic the sort of noisy size cut that can occur when
-separating stars from galaxies at low signal-to-noise ratio.
+binning galaxies by a robust flux measure such as a PSF flux and performing
+star-galaxy separation.  Within a PSF flux bin, the true distribution of flux
+would have a small tail to lower values due to noise and a long tail to higher
+flux because galaxies can be larger than the PSF, causing the PSF flux to in
+some cases be an underestimate.  By tuning the mean FWHM of the galaxies to be
+approximately 1.2 times that of the PSF, I was attempting to mimic the sort of
+noisy size cut that can occur when separating stars from galaxies at low
+signal-to-noise ratio.
 
 Finally, I drew the centroid from a Gaussian in each coordinate, with $\sigma$
 of 0.1 pixels.  
@@ -334,8 +335,8 @@ large number of model evaluations, so I found efficiency to be important.  As
 an optimization, I approximated galaxy models as sums of Gaussians according to
 the fits in \citet{HoggGMix}.  I also fit the PSF using a Gaussian.  Using
 Gaussians for both galaxy and PSF models facilitated performing fast analytic
-convolutions; for Gaussian convolutions, the covariance matrices add.  This is
-a fast and simple alternative to convolutions using Fourier transforms.
+convolutions.  This is a fast and simple alternative to convolutions using
+Fourier transforms.
 
 By using a fit to the observed, pixelized PSF to convolve the galaxy models, I
 accounted approximately for the convolution by the pixels in the PSF model
@@ -360,24 +361,24 @@ tested the accuracy of the algorithm and likelihood sampling technique directly
 and avoided confusion with other issues such as model bias or empirical prior
 determination.
 
-I used a Markov Chain Monte Carlo (MCMC) to explore the likelihood surface.
-Using a standard Metropolis-Hastings algorithm \citep{Metropolis53}  to fit for
-galaxy parameters is challenging because galaxies have a wide variety of
-best-fit model parameters and errors in those parameters, depending on the
-noise level.  I did not find it straightforward to predict what the parameter
-errors would be a priori, which made it difficult to choose a ``step size'' for
-the MCMC chain.  This is one reason I used an affine invariant MCMC
-\citep{GoodmanWeare10}.  An affine invariant MCMC is dynamically adapted to the
-underlying distribution by comparing multiple ``walkers'' as they are moved
-through the parameter space; it thus does not require tuning the step size.  I
-used the implementation presented in \citet{Mackey13} for this work.
+I used a Markov Chain Monte Carlo (MCMC) to explore the likelihood surface.  I
+found using a standard Metropolis-Hastings algorithm \citep{Metropolis53}
+challenging because galaxies have a wide variety of best-fit model parameters
+and errors in those parameters, depending on the noise level.  I did not find
+it straightforward to predict what the parameter errors would be a priori,
+which made it difficult to choose a ``step size'' for the MCMC chain.  This is
+one reason I used an affine invariant MCMC \citep{GoodmanWeare10}.  An affine
+invariant MCMC is dynamically adapted to the underlying distribution by
+comparing multiple ``walkers'' as they are moved through the parameter space;
+it thus does not require tuning the step size.  I used the implementation
+presented in \citet{Mackey13} for this work.
 
 For the MCMC I used an affine parameter $a=2$, which gives an acceptance rate
-of about 0.5. I used 80 ``walkers'' in the chain, with 400 initial steps for
-burn-in followed by 200 additional steps for measuring expectation values.  I
-found that increasing the number of steps generally resulted in less bias,
-but I found diminishing returns beyond 200 for the simple models I was
-fitting.
+of about 0.5. I used 80 ``walkers'' in the chain, with 400 initial steps per
+walker for burn-in followed by 200 additional steps per walker for measuring
+expectation values.  I found that increasing the number of steps generally
+resulted in less bias, but I found diminishing returns beyond 200 for the
+simple models I was fitting.
 
 I chose initial locations for the walkers to be centered on the maximum
 likelihood solution found with a Levenberg-Marquardt method. The location for
