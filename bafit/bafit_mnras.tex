@@ -377,25 +377,24 @@ For the MCMC I used an affine parameter $a=2$, which gives an acceptance rate
 of about 0.5. I used 80 ``walkers'' in the chain, with 400 initial steps per
 walker for burn-in followed by 200 additional steps per walker for measuring
 expectation values.  I found that increasing the number of steps generally
-resulted in less bias, but I found diminishing returns beyond 200 for the
-simple models I was fitting.
+resulted in less bias in the recovered shear, but I found diminishing returns
+beyond 200 for the simple models I was fitting.
 
 I chose initial locations for the walkers to be centered on the maximum
-likelihood solution found with a Levenberg-Marquardt method. The location for
-each walker was chosen from a multi-dimensional Gaussian centered at the
-maximum likelihood with Guassian scatter based on errors in the fit, truncated
-to positive flux and size and for shapes within $(-1,1)$.  I also tried
+likelihood solution found with a Levenberg-Marquardt method\citep{Lev44}. The
+location for each walker was chosen from a multi-dimensional Gaussian centered
+at the maximum likelihood with scatter based on errors in the fit, truncated to
+positive for flux and size and within $(-1,1)$ for shapes.  I also tried
 centering the initial positions on the true parameters, as well as drawing the
 initial positions from the priors.  All methods gave consistent results.  For
 the large number of burn-in steps that I used the result was rather insensitive
 to the starting position.
 
 It may be worth while to further optimize the exploration of the likelihood
-surface, both in terms of the number of steps used and the type of computing
-resources used.  Graphics processing units may prove particularly useful; in
-a preliminary study I found an increase in speed of order 100 over traditional
-processors.
-
+surface in terms of the number of walkers and steps used, but also the type of
+computing resources used.  Graphics processing units may prove particularly
+useful; in a preliminary study I found an decrease in time per likelihood
+evaluation of order 100 over traditional processors.
 
 
 As I will show in section \ref{sec:truebias}, the formulas in BA14 break down
@@ -403,9 +402,9 @@ at high shear.  However, it is beneficial to perform tests at high shear
 because the number of simulated galaxies required to reach a specified
 fractional noise in the measured shear goes roughly as the inverse square of
 the shear.  For this reason I chose to expand about the true shear instead of
-zero shear in Equations \ref{eq:pexpand} and \ref{eq:pqrdef}.  I performed
-limited tests expanding about zero shear and shearing the images by only
-$g=0.01$, and got comparable results. 
+zero shear in Equations \ref{eq:pexpand} and \ref{eq:pqrdef}.  I also performed
+a more limited range of tests expanding about zero shear and shearing the
+images by $g=0.01$, and got consistent results. 
 
 \section{Results} \label{sec:results}
 
@@ -475,13 +474,13 @@ Survey \citep[][DES]{DESWhitePaper} and the Hyper-Suprime-Cam survey
 \citep[][HSC]{HSC12}, and planned surveys such as the Large Synoptic Survey
 Telescope survey \citep[][LSST]{IvezicLSST08} and the Euclid Mission
 \citep{Euclid2011}.  These requirements are based on the calculations presented
-by \citet{HutererSystematics06}, assuming fiducial sky coverage and less than
-20\% degradation in the accuracy of the recovered dark energy equation of state
-parameter, relative to shot noise errors, due to bias in shear estimation.  The
-cut at 20\% is somewhat arbitrary, and was chosen to coincide very roughly with
-the stated requirements for DES. The requirements are $\sim$\desreq\ for
-current surveys and $\sim$\lsstreq\ for planned surveys.  These requirements
-are met in all the cases that I tested.
+by \citet{HutererSystematics06}. I assumed fiducial sky coverage and that shear
+calibration bias results in less than 20\% degradation in the accuracy of the
+recovered dark energy equation of state parameter relative to shot noise
+errors.  The cut at 20\% is somewhat arbitrary, and was chosen to coincide very
+roughly with the stated requirements for DES. The requirements are
+$\sim$\desreq\ for current surveys and $\sim$\lsstreq\ for planned surveys.
+These requirements are met in all the cases that I tested.
 
 Smaller and fainter galaxies might have more bias than the average.  The
 authors of \cite{ba14} noted that small and faint galaxies, for which the
@@ -490,8 +489,8 @@ measurement relative to larger and brighter galaxies.  This is an intrinsic
 feature of the estimator, no additional weighting is needed.  Indeed I made no
 cuts on the simulated galaxies used for this measurement, even though some had
 signal-to-noise ratio much less than 10, yet I recovered the shear with good
-accuracy.  This is useful, as the shear measurement process need not
-necessarily introduce additional selection effects.
+accuracy.  This is a useful property of the estimator, as the shear measurement
+process need not necessarily introduce additional selection effects.
 
 In Figure \ref{fig:nonoise} I showed the multiplicative bias due to the
 breakdown of the second-order Taylor expansion at higher shear.   This effect
@@ -519,10 +518,11 @@ present; this is the so-called ``model bias''.
 \cite{Kacprzak13} showed that model bias may be on the order of baseline
 requirements for current surveys, but potentially crippling for future surveys
 with more stringent requirements. One potential solution is to fit models with
-more freedom.  However, more complex models have more complex likelihood
-surfaces. To fully explore the surface requires more burn-in for an MCMC chain
-and more samples to estimate the expectation values for the $P$, \vecQ\ and
-\matR\ parameters.  I leave tests with more complex models to future work.
+more freedom.  However, fitting a more complex model often results in a more
+complex likelihood surface. To fully explore the surface requires more burn-in
+for an MCMC chain and more samples to estimate the expectation values for the
+$P$, \vecQ\ and \matR\ parameters.  I leave tests with more complex models to
+future work.
 
 As an alternative to model fitting, \cite{ba14} propose to measure moments in
 Fourier space, making no explicit parameterization of galaxy light
