@@ -98,10 +98,11 @@ bias remains even when response terms are included, such as that introduced by
 For galaxy images with signal-to-noise ratio (\sn) $\sim 10$, the noise bias
 can be of order 10\% for galaxies with size comparable to that of the
 point-spread-function (PSF).  This multiplicative error is significantly larger
-than the requirements for planned and current surveys, which are $\sim$0.2\%
-and $\sim$0.4\%, respectively \citep{HutererSystematics06}.  It may be possible
-to derive point estimators for which the average is unbiased, even in the
-presence of large noise, but no such estimator currently exists.
+than the requirements for current and planned surveys, which are $\sim$0.4\%
+and $\sim$0.2\%, respectively \citep{HutererSystematics06}.
+%It may be possible
+%to derive point estimators for which the average is unbiased in the
+%presence of large noise, but no such estimator has been yet been published.
 
 A number of approaches have been proposed to address noise bias. I do not wish
 to give an exhaustive list, but rather a few examples.
@@ -130,10 +131,10 @@ that has the potential to recover shear with good accuracy using even very low
 \sn\ galaxy images.  Rather than relying on a point estimate for the shear,
 they derived an expression for the mean shear estimated from an ensemble of
 measurements, exploiting the fact that the posterior for the shear must
-approach a Gaussian for a large ensemble.  They showed that the method is
-sufficiently unbiased for current and planned surveys in a simple demonstration
-with galaxy ellipticities only, but no implementation for use with galaxy
-images was presented.
+approach a Gaussian for a large ensemble.  No corrections based on simulations
+are required.  They showed that the method is sufficiently unbiased for current
+and planned surveys in a simple demonstration with galaxy ellipticities only,
+but no implementation for use with galaxy images was presented.
 
 Here I present a full model-fitting implementation of the BA14 algorithm that
 works on galaxy images, including the effects of the PSF and pixelization.  I
@@ -146,8 +147,10 @@ glyph \vecg.
 
 \section{Algorithm} \label{sec:algo}
 
-The full algorithm is presented in BA14.  There are two important assumptions
-underlying this approach (following the notation in BA14):
+%The full algorithm is presented in BA14.
+Here I will give a brief overview of the method presented by BA14.  There are
+two important assumptions underlying this approach (following the notation in
+BA14):
 
 \begin{itemize}
 
@@ -164,6 +167,10 @@ along lines-of-sight near large over-densities, such as clusters of galaxies.
 The second assumption follows from the central limit theorem: if the shear is
 derived from a large enough ensemble of galaxy shapes, the posterior approaches
 a Gaussian.
+
+Note no assumptions are made about the likelihood surface for parameters
+derived for individual galaxies; only the ensemble average shear from a
+population can be assumed to follow a simple Gaussian distribution.
 
 No information is necessarily ``lost'' by restricting shear estimation to
 populations rather than individual galaxies.  
@@ -202,8 +209,7 @@ P_i     & = & P(\vecD_i | \vecg=0) \nonumber \\
 \end{eqnarray}
 $P$ is the Bayesian ``prior'', and functionally corresponds to the true
 distribution of all the relevant galaxy parameters in the absence of shear.
-Note the prior on the shear $P(\vecg)$ is assumed to be uninformative, and is
-treated as effectively constant in what follows.
+Note the prior on the shear $P(\vecg)$ is assumed to be uninformative.
 
 Accurate prior information for the galaxy shapes is important for this method:
 the derivatives of the un-lensed distribution of shapes with respect to shear
