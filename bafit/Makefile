@@ -21,12 +21,6 @@ pdf:
 	dvips -t letter ${texfile} -o ${texfile}.ps
 	ps2pdf ${texfile}.ps
 
-all: 
-	latex ${texfile}
-	latex ${texfile}
-	dvips -t letter ${texfile} -o ${texfile}.ps
-	dvipdfm -o ${texfile}.pdf ${texfile}.dvi 
-
 clean:
 	rm -f \
 	${texfile}.dvi \

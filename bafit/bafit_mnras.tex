@@ -59,16 +59,16 @@ including the effects of a point spread function (PSF) and pixelization.  I
 tested the implementation using simulated galaxy images modeled as \sersic\
 profiles with $n=1$ (exponential) and $n=4$ (\devauc), convolved with a PSF and
 a flat pixel response function.  I used a round Gaussian model for the PSF to
-avoid potential PSF-fitting errors. I simulated galaxies with mean {\it
+avoid potential PSF-fitting errors. I simulated galaxies with mean {\em
 observed, post-PSF} full-width at half maximum equal to approximately 1.2 times
-that of the PSF, with log-normal scatter.  I generated fluxes with log-normal
-scatter and a discrete set of mean fluxes tuned to produce various optimal,
-matched signal-to-noise ratios in the range $10-1000$.  I applied a constant
-shear to all images. I fit the simulated images to a model with the true
+that of the PSF, with log-normal scatter.  I also drew fluxes from a log-normal
+distribution. I produced independent simulations, each with pixel noise tuned
+to produce different mean \sn\ ranging from $10-1000$.  I applied a constant
+shear to all images.  I fit the simulated images to a model with the true
 \sersic\ index to avoid modeling biases.  I recovered the input shear with
-fractional error $\Delta g/g < 2 \times 10^{-3}$ in all cases, confirming
-that, in these controlled conditions, the method is sufficiently unbiased
-for planned surveys.
+fractional error $\Delta g/g < 2 \times 10^{-3}$ in all cases, confirming that,
+{\em in these controlled conditions}, the method is sufficiently unbiased for
+planned surveys.
 
 
 %In these controlled
@@ -444,11 +444,11 @@ this implementation is unbiased at the $\Delta g/g \sim 2\times 10^{-3}$ level.
      such that the {\it observed, post-PSF} FWHM was approximately 1.2 times
      that of the PSF, mimicking small galaxies that may pass a size
      cut, such as that used during star-galaxy separation.  The flux
-     distribution was log-normal with \lognormscatt\% scatter, and mean chosen
-     to produce the indicated signal-to-noise ratio.  The ellipticities were
+     distribution was log-normal with \lognormscatt\% scatter, and noise chosen
+     to produce the indicated \Msn.  The ellipticities were
      drawn from the simple distribution introduced in \citet{ba14}. In these
      controlled conditions, this shear estimator meets the approximate accuracy
- requirements for current and planned, shown as the light and dark gray bands,
+ requirements for current and planned surveys, shown as the light and dark gray bands,
  respectively.}
  \label{fig:fracerr}
 \end{figure}
@@ -528,12 +528,12 @@ presence of noise is worthy of future effort.
 ES is supported by DOE grant DE-AC02-98CH10886.
 
 Thanks to Gary Bernstein, Bob Armstrong, Jim Bosch, Mike Jarvis and Robert
-Lupton for many useful discussions; thanks to An$\check{\textrm{z}}$e Slosar for
-suggesting I expand the equations about the true shear to reduce the number of
-simulated images required for each test.  Thanks to the STAR, PHENIX and LBNE
-experiments at BNL for use of spare cycles on their compute clusters, and to
-the RACF staff at BNL for their continued, and disproportionately large support
-of my work.
+Lupton for many useful discussions; thanks to An$\check{\textrm{z}}$e Slosar
+for suggesting I expand the equations about the true shear to reduce the number
+of simulated images required for each test.  Thanks to the STAR, PHENIX and
+LBNE experiments at BNL for use of spare cycles on their compute clusters, and
+to the staff of the Rhic Atlas Computing Facility at BNL for their continued,
+and disproportionately large support of my work.
 
 
 \bibliographystyle{mn2e}
