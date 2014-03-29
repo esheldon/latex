@@ -13,12 +13,12 @@ dvi:
 ps: 
 	latex ${texfile}
 	latex ${texfile}
-	dvips -t a4 ${texfile} -o ${texfile}.ps
+	dvips -t letter ${texfile} -o ${texfile}.ps
 
 pdf:
 	latex ${texfile}
 	latex ${texfile}
-	dvips -t a4 ${texfile} -o ${texfile}.ps
+	dvips -t letter ${texfile} -o ${texfile}.ps
 	ps2pdf ${texfile}.ps
 
 clean:
