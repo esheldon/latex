@@ -1,14 +1,14 @@
 # run this from the main directory
 
-dir=arxiv
-mkdir -p $dir
-mkdir -p $dir/figures
+dir=bafit-arxiv
+mkdir -pv $dir
+mkdir -pv $dir/figures
 
-cp -L -f bafit_mnras.tex \
-         bafit_mnras.bbl \
-         mn2e.bst \
-         mn2e.cls \
-         newcommands.tex \
-         $dir/
+cp -L -fv bafit_mnras.tex \
+          bafit_mnras.bbl \
+          mn2e.bst \
+          mn2e.cls \
+          newcommands.tex \
+          $dir/
 
-cp -f figures/* $dir/figures
+cp -fv figures/* $dir/figures
