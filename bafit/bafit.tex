@@ -394,7 +394,7 @@ resulted in less bias in the recovered shear, but I found diminishing returns
 beyond 200 for the simple models I was fitting.
 
 I chose initial locations for the walkers to be centered on the maximum
-likelihood solution found with a Levenberg-Marquardt method\citep{Lev44}. The
+likelihood solution found with a Levenberg-Marquardt method \citep{Lev44}. The
 location for each walker was chosen from a multi-dimensional Gaussian centered
 at the maximum likelihood with scatter based on errors in the fit, truncated to
 positive for flux and size and within $(-1,1)$ for shapes.  I also tried
@@ -418,6 +418,11 @@ the shear.  For this reason I chose to expand about the true shear instead of
 zero shear in Equations \ref{eq:pexpand} and \ref{eq:pqrdef}.  I also performed
 a more limited range of tests expanding about zero shear and shearing the
 images by $g=0.01$, and got consistent results. 
+
+The code is freely available for
+download\footnote{https://github.com/esheldon/ngmix}.  Potential users should
+note that, at the time of writing, the code is under heavy development and the
+application programming interface may evolve rapidly.
 
 \section{Results} \label{sec:results}
 
