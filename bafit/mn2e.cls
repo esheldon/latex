@@ -1,0 +1,1 @@
+../mnras/mn2e.cls
