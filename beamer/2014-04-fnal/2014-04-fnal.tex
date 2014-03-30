@@ -155,8 +155,8 @@
 \frame{
     \frametitle{Example: Ensemble Cluster Lensing with SDSS RedMapper}
 
-    Preliminary measurement using DR8 imaging and the latest RedMapper
-    catalog from E. Rykoff.
+    Preliminary measurement using SDSS DR8 imaging and the latest RedMapper
+    cluster catalog from E. Rykoff.
 
     \begin{center}
         \includegraphics[width=0.8\textwidth]{corrected-rm07s08-lambda-12-allplot.pdf}
@@ -246,12 +246,13 @@
          \item Find a set of weights such that the distribution of observables
              for training set galaxies with spectroscopic redshifts matches the
              observables for a set of galaxies without redshifts.  Then the
-             weighted histograms will match as well, and that is an estimate
-             of $N(z)$.
+             weighted redshift histogram will also match, and that is an
+             estimate of $N(z)$.
 
          \item Can break down if the two samples have very different selection
              in a redshift-correlated variable that is accounted for, but it
-             turns out this is not a problem in practice (Cunha et al. 2012).
+             turns out this is not a dominant problem in practice (Cunha et al.
+             2012).
 
 
          \item \texttt{ProbWTS}: Probability Distributions
@@ -380,9 +381,10 @@
                 \item Any systematic error in $N(z)$ translates to an error in
                     distance and thus errors in the measured mass.
                 
-                \item A mockup of the SDSS samples shows the weighting method
-                    works very well for lenses in the redshift range of
-                    interest $\left[0.0, 0.3\right]$
+                \item Using a subset of the SDSS sample with redshifts in DEEP
+                    as validation shows the weighting method works well for
+                    lenses in the redshift range of interest $\left[0.0,
+                    0.3\right]$.
 
                 \item For DES we need this to work for lens redshifts near
                     unity.  Calculations indicate it can work as long as we
@@ -437,13 +439,17 @@
 
     \begin{itemize}
 
-        \item When the $S/N$ is low, naive techniques to
-            measure shear from a galaxy ellipticity break down.
+        \item For low $S/N$ galaxy images, naive techniques to measure shear
+            from a galaxy ellipticity break down and this dominates the
+            systematic error.
 
         \item Non-linear fitting in the presence of noise is biased, both the
             maximum likelihood and expectation value: using the mean shape
             won't work (Hirata, Refregier, etc).   Results in a {\bf
             calibration} error.
+
+        \item Weighted moments can alleviate the problem somewhat, but there
+            can still be of order 10\% errors at $S/N=10$.
 
         \item This is generally known in statistics, but not recognized for our
             particular problem until relatively recently. Badly aggravated by
@@ -544,8 +550,8 @@
 
         \item My solution is to make lots of approximations:  use Gaussian
             mixtures for the galaxy models (Hogg and Lang 2013) and the PSF.
-            Then the convolutions are fast and analytic. Use a fast exponential
-            function, etc.
+            Then the convolutions are fast and analytic. Use a fast approximate
+            exponential function, etc.
 
         \item Can perform a likelihood evaluation in 100 microseconds,
             search the full space in a few seconds.
