@@ -14,7 +14,14 @@
 %\newcommand{\snT}{$\left( \frac{S}{N}\right)_{\textrm{size}}$}
 \newcommand{\snflux}{$(S/N)_{\textrm{flux}}$}
 %\newcommand{\snflux}{$\left( \frac{S}{N}\right)_{\textrm{flux}}$}
-\newcommand{\shear}{{\bf g}}
+
+\newcommand{\vecg}{\mbox{\boldmath $g$}}
+\newcommand{\vecQ}{\mbox{\boldmath $Q$}}
+\newcommand{\matR}{\mbox{$\bf R$}}
+\newcommand{\matC}{\mbox{$\bf C$}}
+\newcommand{\sersic}{S\'{e}rsic}
+\newcommand{\devauc}{De Vaucouleurs'}
+
 
 \title{Perfecting Weak Lensing Measurements}
 \author{Erin Sheldon}
@@ -44,8 +51,12 @@
         \item Some steps towards perfecting these measurements
 
             \begin{itemize}
-                \item Photometric redshifts
-                \item Unbiased shear estimation in the presence of noise
+
+                \item Photometric redshifts: use ensemble statistics
+
+                \item Unbiased shear estimation in the presence of noise: use
+                    ensemble statistics.
+
             \end{itemize}
 
         \item Summary
@@ -72,9 +83,10 @@
     \frametitle{Tangential Shear}
     \begin{columns}
         \begin{column}{0.4\textwidth}
+            \fontsize{9}{0.8\baselineskip}
             \begin{itemize}
                 \item Tangential Shear
-                \item Depends on the project mass density $\Sigma$.
+                \item Depends on the projected mass density $\Sigma$.
                 \item Depends on the distances to lens and source
             \end{itemize}
         \end{column}
@@ -143,10 +155,12 @@
 \frame{
     \frametitle{Example: Ensemble Cluster Lensing with SDSS RedMapper}
 
-    %Preliminary measurement using DR8 imaging and the latest RedMapper
-    %catalog from E. Rykoff.
+    Preliminary measurement using DR8 imaging and the latest RedMapper
+    catalog from E. Rykoff.
 
-    \includegraphics[width=\textwidth]{corrected-rm07s08-lambda-12-allplot.pdf}
+    \begin{center}
+        \includegraphics[width=0.8\textwidth]{corrected-rm07s08-lambda-12-allplot.pdf}
+    \end{center}
 }
 
 \frame{
@@ -160,7 +174,7 @@
         \item In DES the images are deeper, facilitating using about 10 times more
             galaxies for shear measurement.
          
-        \item How do we know we got the right answer?
+        \item Precision is great, but how do we know we got the right answer?
 
     \end{itemize}
 }
@@ -170,9 +184,9 @@
 
     \begin{itemize}
 
-        \item We might have used the wrong distances.  We don't have redshifts for 
-            the sources, only 5-filter photometry.  Major current and future surveys
-            all have the same limitation.
+        \item We might have used the wrong distances.  We don't have redshifts
+            for the sources, only 5-filter photometry.  Current and future
+            surveys all have this same limitation.
 
         \item We might have measured the wrong shear.  There are a lot of ways to
             get this wrong: atmosphere, instrument, noise, etc.
@@ -204,7 +218,7 @@
     
     \begin{itemize}
 
-        \item Forget about estimating {\em the redshift} of a single galaxy
+        \item Forget about estimating the redshift of a single galaxy
             from the light measured through a few broadband filters. It can't
             be done without strong prior information.
 
@@ -222,21 +236,26 @@
 \frame{
     \frametitle{Ensemble Photometric Redshifts}
     
+    \fontsize{10}{0.8\baselineskip}
     \begin{itemize}
 
-        \item An ensemble set of well measured quantities that correlate with
-            redshift is an indicator of the ensemble distribution of redshifts.
-
-         \item Assumption: If the distribution of all relevant observables are
+         \item Hypothesis: If the distribution of all relevant observables are
              the same for two populations then so are the redshift distributions
              $N(z)$.
 
-         \item Can break down if the two samples have very different selection
-             in a redshift-correlated variable that is not included, but it
-             turns out this is not a problem in practice (Cunha et al. 2012).
-             The real problem is wrong redshifts in the training set.
+         \item Find a set of weights such that the distribution of observables
+             for training set galaxies with spectroscopic redshifts matches the
+             observables for a set of galaxies without redshifts.  Then the
+             weighted histograms will match as well, and that is an estimate
+             of $N(z)$.
 
-         \item Weighting Method: References: Lima et al. 2008, Cunha et al.
+         \item Can break down if the two samples have very different selection
+             in a redshift-correlated variable that is accounted for, but it
+             turns out this is not a problem in practice (Cunha et al. 2012).
+
+
+         \item \texttt{ProbWTS}: Probability Distributions
+             from Weight Training Sets. References: Lima et al. 2008, Cunha et al.
              2008, Sheldon et al. 2012.
 
     \end{itemize}
@@ -289,6 +308,10 @@
 
                 \item Good recovery of underlying $N(z)$.
 
+                \item Uncertainties are dominated by sample variance
+                    (Cunha et al. 2012)
+
+
             \end{itemize}
         \end{column}
 
@@ -330,26 +353,41 @@
 }
 
 \frame{
+    \frametitle{What Does This Mean for Lensing Measurements?}
+
+        Systematic errors in $N(z)$ translate into a calibration error
+        for the shear.
+
+    \begin{center}
+        \includegraphics[width=0.8\textwidth]{corrected-rm07s08-lambda-12-allplot.pdf}
+        \newline
+        Preliminary
+    \end{center}
+}
+
+
+
+\frame{
     \frametitle{Weighting Method: Expected Lensing Bias}
 
-    \fontsize{10}{0.8\baselineskip}
+    \fontsize{9}{0.8\baselineskip}
     \begin{columns}
 
         \begin{column}{0.5\textwidth}
             \begin{itemize}
 
-                \item Any errors in $N(z)$ mean errors in distance
-                    and thus errors in the measured mass.
-                
-                \item A mockup of the SDSS samples shows the weighting
-                    method works very well for lenses in the redshift
-                range of interest $\left[0.0, 0.3\right]$
 
-                \item For DES we need this to work for lens redshifts
-                    near unity.  Calculations
-                    indicate it can work as long as we have less than
-                    a percent of wrong redshifts in training sample.
-                    (Cunha et al. 2012)
+                \item Any systematic error in $N(z)$ translates to an error in
+                    distance and thus errors in the measured mass.
+                
+                \item A mockup of the SDSS samples shows the weighting method
+                    works very well for lenses in the redshift range of
+                    interest $\left[0.0, 0.3\right]$
+
+                \item For DES we need this to work for lens redshifts near
+                    unity.  Calculations indicate it can work as long as we
+                    have less than a percent of wrong redshifts in training
+                    sample.  (Cunha et al. 2012)
 
 
             \end{itemize}
@@ -452,24 +490,112 @@
     \end{itemize}
 }
 
+
 \frame
 {
     \frametitle{Bernstein \& Armstrong}
 
     \fontsize{8}{0.8\baselineskip}
 
-    Assume a small shear \shear.  The posterior probability for
+    Assume a small shear \vecg.  The posterior probability for
     the shear estimated from many galaxies is
 
     \begin{eqnarray}
-    P(\shear | {\bf D}) & = & \frac{ P(\shear) P({\bf D}|\shear ) }{ P({\bf D}) }  \\
-                        & = & P(\shear) \prod_i \frac{ P({\bf D}_i | \shear) }{ P({\bf D}_i) } \\
-        P({\bf D}_i | \shear) & \approx & P_i + \shear  \cdot {\bf Q}_i + \frac{1}{2} \shear \cdot {\bf R}_i \cdot \shear \\
-        -\textrm{ln} P(\shear | {\bf D}) & \approx & (\textrm{stuff})  - 
-        \shear \cdot \sum_i \frac{ {\bf Q}_i }{P_i} + \frac{1}{2} \shear \cdot \left[ \sum_i \left( \frac{ {\bf Q}_i {\bf Q}_i^T}{P_i^2} - \frac{ {\bf R}_i }{P_i} \right) \right] \cdot \shear
+    P(\vecg | {\bf D}) & = & \frac{ P(\vecg) P({\bf D}|\vecg ) }{ P({\bf D}) }  \\
+                        & = & P(\vecg) \prod_i \frac{ P({\bf D}_i | \vecg) }{ P({\bf D}_i) } \\
+        P({\bf D}_i | \vecg) & \approx & P_i + \vecg  \cdot \vecQ_i + \frac{1}{2} \vecg \cdot \matR_i \cdot \vecg \\
+        -\textrm{ln} P(\vecg | {\bf D}) & \approx & (\textrm{stuff})  - 
+        \vecg \cdot \sum_i \frac{ \vecQ_i }{P_i} + \frac{1}{2} \vecg \cdot \left[ \sum_i \left( \frac{ \vecQ_i \vecQ_i^T}{P_i^2} - \frac{ \matR_i }{P_i} \right) \right] \cdot \vecg
     \end{eqnarray}
+    
+    Note the \vecQ\ and \matR\ involve first and second derivatives of the
+    prior (the true shape distribution) with respect to shear. In practice the
+    \vecQ\ and \matR\ are averaged over the likelihood surface.
+
 }
 
+\frame
+{
+    \frametitle{Bernstein \& Armstrong}
+
+    Then the shear can be solved for directly
+
+    \begin{eqnarray}
+    \matC_g^{-1} & = & \sum_i \left(\frac{\vecQ_i \vecQ^T_i}{P_i^2} - \frac{\matR_i}{P_i}\right) \label{eq:cdef} \nonumber \\
+    \bar{\vecg} & = &  \matC_g \sum_i \frac{\vecQ_i}{P_i}. \label{eq:shdef}
+    \end{eqnarray}
+
+}
+
+\frame{
+    \frametitle{Bernstein \& Armstrong}
+
+    \fontsize{10}{0.8\baselineskip}
+    \begin{itemize}
+
+        \item Bernstein \& Armstrong gave a simple demonstration but no
+            implemenation to work with images.
+
+        \item Computationally challenging to measure the full likelihood
+            surface in a high dimensional space.
+            
+        \item Even the fastest existing codes took seconds to perform a few
+            hundred likelihood evaluations.  Tens of thousands are needed here.
+
+        \item My solution is to make lots of approximations:  use Gaussian
+            mixtures for the galaxy models (Hogg and Lang 2013) and the PSF.
+            Then the convolutions are fast and analytic. Use a fast exponential
+            function, etc.
+
+        \item Can perform a likelihood evaluation in 100 microseconds,
+            search the full space in a few seconds.
+
+        \item Just submitted to the arXiv over the weekend (Sheldon 2014)
+
+    \end{itemize}
+}
+
+
+\frame{
+    \frametitle{Bayesian Shear Estimation: Test By Simulation}
+
+    \fontsize{9}{0.8\baselineskip}
+    \begin{columns}
+
+        \begin{column}{0.5\textwidth}
+            \begin{itemize}
+
+                \item Simulate galaxies with \sersic\ index $n=1$ for
+                    exponential radial profile (like spiral galaxies) and $n=4$
+                    for \devauc\ profile (like early type galaxies).
+
+                \item PSF-convolved size just bigger than the PSF, similar to
+                    what you get from star-galaxy separation for faint noisy
+                    galaxies.
+
+                \item In these controlled conditions, sufficiently
+                    unbiased for current surveys (light gray) and future
+                    surveys (dark gray).
+
+                \item No other published method meets these requirements
+                    without some kind of post-calibration based
+                    on simulations.
+
+            \end{itemize}
+        \end{column}
+
+        \begin{column}{0.5\textwidth}
+
+            \begin{center}
+                \includegraphics[width=\textwidth]{ngmix-fwhm1_2.pdf}
+                \newline
+                Sheldon 2014
+            \end{center}
+
+        \end{column}
+
+    \end{columns}
+}
 
 
 
