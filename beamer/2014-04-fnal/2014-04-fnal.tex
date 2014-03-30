@@ -14,6 +14,7 @@
 %\newcommand{\snT}{$\left( \frac{S}{N}\right)_{\textrm{size}}$}
 \newcommand{\snflux}{$(S/N)_{\textrm{flux}}$}
 %\newcommand{\snflux}{$\left( \frac{S}{N}\right)_{\textrm{flux}}$}
+\newcommand{\shear}{{\bf g}}
 
 \title{Perfecting Weak Lensing Measurements}
 \author{Erin Sheldon}
@@ -30,6 +31,27 @@
 \begin{document}
 
 \frame{\titlepage}
+
+\frame{
+    \frametitle{Outline}
+    \begin{itemize}
+
+        \item Lensing and cosmology intro
+
+        \item Example: Some preliminary cluster lensing results from the Sloan
+            Digital Sky Survey
+
+        \item Some steps towards perfecting these measurements
+
+            \begin{itemize}
+                \item Photometric redshifts
+                \item Unbiased shear estimation in the presence of noise
+            \end{itemize}
+
+        \item Summary
+
+    \end{itemize}
+}
 
 \frame{
     \frametitle{Abell 370, HST}
@@ -68,11 +90,40 @@
 }
 
 \frame{
-    \frametitle{Cosmology with Clusters}
+    \frametitle{Cosmology with Lensing}
+
     \begin{itemize}
-        \item Cosmology with Clusters
+
+        \item Lensing depends on mass and geometry.
+
+        \item If we know where everything is (lens and source) we can use
+            lensing to measure mass.
+
+            \begin{itemize}
+
+                \item This is especially useful for measuring the
+                    distribution of dark matter in the universe
+                \item The connection between galaxies and dark matter.
+
+            \end{itemize}
+
+        \item If we know the mass, or control for it, we can measure geometry.
+            
+            \begin{itemize}
+
+                \item This is especially interesting for measuring dark energy,
+                    which is driving the expansion. 
+                \item If we know the redshifts to
+                    everything and the absolute distance between everything
+                    from lensing, we infer the redshift-distance relation
+                    and thus cosmological parameters, including dark energy.
+
+            \end{itemize}
+
     \end{itemize}
 }
+
+\begin{comment}
 \frame{
     \frametitle{Ensemble Cluster Lensing}
     
@@ -87,9 +138,10 @@
 
     \end{itemize}
 }
+\end{comment}
 
 \frame{
-    \frametitle{Ensemble Cluster Lensing with SDSS RedMapper}
+    \frametitle{Example: Ensemble Cluster Lensing with SDSS RedMapper}
 
     %Preliminary measurement using DR8 imaging and the latest RedMapper
     %catalog from E. Rykoff.
@@ -108,8 +160,317 @@
         \item In DES the images are deeper, facilitating using about 10 times more
             galaxies for shear measurement.
          
+        \item How do we know we got the right answer?
+
     \end{itemize}
 }
+
+\frame{
+    \frametitle{Did We Get the Right Answer?}
+
+    \begin{itemize}
+
+        \item We might have used the wrong distances.  We don't have redshifts for 
+            the sources, only 5-filter photometry.  Major current and future surveys
+            all have the same limitation.
+
+        \item We might have measured the wrong shear.  There are a lot of ways to
+            get this wrong: atmosphere, instrument, noise, etc.
+
+    \end{itemize}
+}
+
+\frame{
+    \frametitle{Photometric Redshifts}
+    
+    \begin{itemize}
+        \item Infer the redshift based on broad band photometry.
+
+        \item Difficult because there are strong degeneracies: e.g. luminous
+            blue objects at high redshift look like faint red objects at low
+            redshift.
+
+        \item Naive techniques have lots of scatter, significant bias, especially
+            as galaxy spectral features move between filters, and a large outlier
+            population.
+
+        \item Good progress in recent years with a huge variety of techniques.
+
+    \end{itemize}
+}
+
+\frame{
+    \frametitle{Ensemble Photometric Redshifts}
+    
+    \begin{itemize}
+
+        \item Forget about estimating {\em the redshift} of a single galaxy
+            from the light measured through a few broadband filters. It can't
+            be done without strong prior information.
+
+        \item Just try to estimate the overall redshift distribution $N(z)$.
+
+        \item For much lensing work $N(z)$ is sufficient.
+        
+        \item Secondarily try to learn something about the probability distribution
+            as a function of redshift for each galaxy $P(z)$.  Useful as a weight
+            for studies such as ensemble cluster lensing.
+
+    \end{itemize}
+}
+
+\frame{
+    \frametitle{Ensemble Photometric Redshifts}
+    
+    \begin{itemize}
+
+        \item An ensemble set of well measured quantities that correlate with
+            redshift is an indicator of the ensemble distribution of redshifts.
+
+         \item Assumption: If the distribution of all relevant observables are
+             the same for two populations then so are the redshift distributions
+             $N(z)$.
+
+         \item Can break down if the two samples have very different selection
+             in a redshift-correlated variable that is not included, but it
+             turns out this is not a problem in practice (Cunha et al. 2012).
+             The real problem is wrong redshifts in the training set.
+
+         \item Weighting Method: References: Lima et al. 2008, Cunha et al.
+             2008, Sheldon et al. 2012.
+
+    \end{itemize}
+
+}
+
+
+\frame{
+    \frametitle{Weighting Method: Tests on DES Mocks}
+
+    \begin{columns}
+
+        \begin{column}{0.4\textwidth}
+            \begin{itemize}
+
+                \item DES Mock catalogs
+
+                \item with very different magnitude
+                    distributions for spectroscopic training sample and
+                    photometric only sample.
+
+            \end{itemize}
+        \end{column}
+
+        \begin{column}{0.6\textwidth}
+
+            \begin{center}
+                \includegraphics[width=\textwidth]{lima-fig4-maghist.pdf}
+                \newline
+                Lima et al. 2008
+            \end{center}
+
+        \end{column}
+
+    \end{columns}
+
+
+}
+
+\frame{
+    \frametitle{Weighting Method: Tests on DES Mocks}
+
+    \begin{columns}
+
+        \begin{column}{0.5\textwidth}
+            \begin{itemize}
+
+                \item Training set very different magnitudes and
+                    redshift distribution.
+
+                \item Good recovery of underlying $N(z)$.
+
+            \end{itemize}
+        \end{column}
+
+        \begin{column}{0.5\textwidth}
+
+            \begin{center}
+                \includegraphics[width=\textwidth]{lima-fig5-recovery.pdf}
+                \newline
+                Lima et al. 2008
+            \end{center}
+
+        \end{column}
+
+    \end{columns}
+}
+
+\frame{
+    \frametitle{Weighting Method: Application to SDSS Data}
+
+    \begin{columns}
+
+        \begin{column}{0.5\textwidth}
+            \begin{center}
+                \includegraphics[width=\textwidth]{zweight-10-varhist.pdf}
+            \end{center}
+        \end{column}
+
+        \begin{column}{0.5\textwidth}
+            \begin{center}
+                \includegraphics[width=\textwidth]{zweight-10-zhist-withorig-withsum-12.pdf}
+                \newline
+                Sheldon et al. 2008
+            \end{center}
+        \end{column}
+
+
+    \end{columns}
+
+}
+
+\frame{
+    \frametitle{Weighting Method: Expected Lensing Bias}
+
+    \fontsize{10}{0.8\baselineskip}
+    \begin{columns}
+
+        \begin{column}{0.5\textwidth}
+            \begin{itemize}
+
+                \item Any errors in $N(z)$ mean errors in distance
+                    and thus errors in the measured mass.
+                
+                \item A mockup of the SDSS samples shows the weighting
+                    method works very well for lenses in the redshift
+                range of interest $\left[0.0, 0.3\right]$
+
+                \item For DES we need this to work for lens redshifts
+                    near unity.  Calculations
+                    indicate it can work as long as we have less than
+                    a percent of wrong redshifts in training sample.
+                    (Cunha et al. 2012)
+
+
+            \end{itemize}
+        \end{column}
+
+        \begin{column}{0.5\textwidth}
+
+            \begin{center}
+                \includegraphics[width=\textwidth]{pz-egs-c3n7-paper.pdf}
+                \newline
+                Sheldon et al. 2012
+            \end{center}
+
+        \end{column}
+
+    \end{columns}
+}
+
+\frame{
+    \frametitle{Shear Estimation}
+    \begin{center}
+        Sources of error in shear measurement.
+        \newline
+
+        \includegraphics[width=0.7\textwidth]{real_gal.png}
+        \newline
+
+        {\scriptsize Mandelbaum. et al. Great 3 Handbook}
+
+    \end{center}
+}
+
+\frame{
+    \frametitle{Shear Estimation}
+
+    Sources of error in shear measurement.
+    \newline
+
+    \includegraphics[width=\textwidth]{forward_G3.pdf}
+    \newline
+    {\scriptsize Mandelbaum. et al. Great 3 Handbook}
+}
+
+
+\frame{
+    \frametitle{Noise}
+
+    \begin{itemize}
+
+        \item When the $S/N$ is low, naive techniques to
+            measure shear from a galaxy ellipticity break down.
+
+        \item Non-linear fitting in the presence of noise is biased, both the
+            maximum likelihood and expectation value: using the mean shape
+            won't work (Hirata, Refregier, etc).   Results in a {\bf
+            calibration} error.
+
+        \item This is generally known in statistics, but not recognized for our
+            particular problem until relatively recently. Badly aggravated by
+            the PSF ``deconvolution''.
+
+
+    \end{itemize}
+}
+
+\frame{
+    \frametitle{Extreme Example: Noise Bias using the Expectation Value}
+    \begin{center}
+
+        \includegraphics[width=0.7\textwidth]{cbafit-geg07-geg08-deg03-deg05-gmean-flux-s2n.pdf}
+        \newline
+
+    \end{center}
+}
+
+
+
+\frame{
+    \frametitle{Ensemble Shear Measurement}
+    
+    \begin{itemize}
+
+        \item Bernstein \& Armstrong 2014
+
+        \item Forget about estimating a weak shear from a single galaxy
+            image. It can't be done.  Galaxies are elliptical and this
+            noise dominates, so you have to average anyway.
+
+        \item But we know true things that can help: the posterior
+            distribution of the mean shear averaged from many galaxies must
+            approach a Gaussian: central limit theorem.
+        
+        \item We also know the shear is weak.
+
+        \item Assuming Gaussianity, weak shear, and knowledge of underlying
+             distribution of shapes for the ensemble (the prior), one can
+             derive an unbiased estimator for the mean shear of the ensemble.
+
+
+    \end{itemize}
+}
+
+\frame
+{
+    \frametitle{Bernstein \& Armstrong}
+
+    \fontsize{8}{0.8\baselineskip}
+
+    Assume a small shear \shear.  The posterior probability for
+    the shear estimated from many galaxies is
+
+    \begin{eqnarray}
+    P(\shear | {\bf D}) & = & \frac{ P(\shear) P({\bf D}|\shear ) }{ P({\bf D}) }  \\
+                        & = & P(\shear) \prod_i \frac{ P({\bf D}_i | \shear) }{ P({\bf D}_i) } \\
+        P({\bf D}_i | \shear) & \approx & P_i + \shear  \cdot {\bf Q}_i + \frac{1}{2} \shear \cdot {\bf R}_i \cdot \shear \\
+        -\textrm{ln} P(\shear | {\bf D}) & \approx & (\textrm{stuff})  - 
+        \shear \cdot \sum_i \frac{ {\bf Q}_i }{P_i} + \frac{1}{2} \shear \cdot \left[ \sum_i \left( \frac{ {\bf Q}_i {\bf Q}_i^T}{P_i^2} - \frac{ {\bf R}_i }{P_i} \right) \right] \cdot \shear
+    \end{eqnarray}
+}
+
+
 
 
 \begin{comment}
