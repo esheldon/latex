@@ -128,10 +128,10 @@
                 \item This is especially useful for measuring dark energy,
                     which is driving the expansion of the universe. 
 
-                \item If we know the redshifts to
-                    everything and the absolute distance between everything
-                    from lensing, we infer the redshift-distance relation
-                    and thus cosmological parameters, including dark energy.
+                \item If we know the redshifts to everything and the relative
+                    distance to things from lensing, we infer the
+                    redshift-distance relation and thus cosmological
+                    parameters, including dark energy.
 
             \end{itemize}
 
@@ -212,6 +212,8 @@
             are near filter boundaries.
 
         \item Good progress in recent years with a huge variety of techniques.
+            I will talk about one I am involved with (C. Cunha, M. Lima,
+            also Huan Lin and Josh Frieman of FNAL).
 
     \end{itemize}
 }
@@ -246,13 +248,15 @@
 
          \item Hypothesis: If the distribution of all relevant observables are
              the same for two populations then so are the redshift distributions
-             $N(z)$.
+             $N(z)$.  This is true when there are no selection effects.
 
+         \item What about when there are selection effects and only one sample
+             has redshifts?
+             
          \item Find a set of weights such that the distribution of observables
-             for training set galaxies with spectroscopic redshifts matches the
-             observables for a set of galaxies without redshifts.  Then the
-             weighted redshift histogram will also match, and that is an
-             estimate of $N(z)$.
+             for galaxies  with redshifts matches the observables for a set of
+             galaxies without redshifts.  Then the weighted redshift histogram
+             will also match, and that is an estimate of $N(z)$.
 
          \item Works for the part of observable space spanned by the training set.
 
@@ -397,9 +401,8 @@
                     get less than a percent of redshifts in training
                     sample wrong.  (Cunha et al. 2012)
 
-                \item Otherwise need deep spectroscopic datasets
-                   in widely separated fields and very few wrong
-                   redshifts.
+                \item Need deep spectroscopic datasets
+                   in widely separated fields.
 
 
             \end{itemize}
