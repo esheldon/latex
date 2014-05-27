@@ -11,6 +11,27 @@
 \addtolength{\voffset}{-0.5in}
 
 
+% to make bibliography work in letter
+\makeatletter
+\newenvironment{thebibliography}[1]
+     {\list{\@biblabel{\@arabic\c@enumiv}}%
+           {\settowidth\labelwidth{\@biblabel{#1}}%
+            \leftmargin\labelwidth
+            \advance\leftmargin\labelsep
+            \usecounter{enumiv}%
+            \let\p@enumiv\@empty
+            \renewcommand\theenumiv{\@arabic\c@enumiv}}%
+      \sloppy
+      \clubpenalty4000
+      \@clubpenalty \clubpenalty
+      \widowpenalty4000%
+      \sfcode`\.\@m}
+     {\def\@noitemerr
+       {\@latex@warning{Empty `thebibliography' environment}}%
+      \endlist}
+\newcommand\newblock{\hskip .11em\@plus.33em\@minus.07em}
+
+\makeatother
 
 \address{
 Erin Scott Sheldon\\
@@ -55,11 +76,33 @@ docdb: 5247. I have summarized his infrastructure work in following table.
 
 Andres' work on CCD testing was performed at FNAL under the supervision of J.
 Estrada, T. Diehl, B. Flaugher, D. Kubik, H. Cease., T. Shaw , G.  Bernstein,
-B. Jain (Penn), and J. P. Negret (Universidad de los Andes, Bogot ́).
+B. Jain (Penn), and J. P. Negret (Universidad de los Andes, Bogot ́).  His work
+involved the measurement and validation of crosstalk, full-well level,
+non-linearity, persistence (validation of the ERASE mechanism), diffusion, and
+charge transfer inefficiency.
 
+Andres' work at U. Pennsylvania was supervised by Gary Bernstein.  This work
+involved testing of the ``shaplets'' pipeline developed by Jarvis and Sheldon.
+In particular Andres tested the recovery of the point spread function (PSF) and
+shear estimation in the presence of various systematic effects.  He also began
+his work measuring astrometric residuals while at UPenn.
+
+Andres' work at Brookhaven National Laboratory (BNL) is supervised by Erin
+Sheldon.  Andres' characterized the astrometric and photometric residuals in
+the DES science verification data, in particular the ``tree-rings'' and
+``glowing edges''. He has has successfully modeled the tree-ring effect
+assuming they are caused by lateral electric fields associated with non-uniform
+doping during the manufacturing
+process.\cite{PlazasProceedings2014,Plazas2014}.  The astrometric templates he
+has derived will be used to refine the astrometric solution in DES images.
 
 
 \closing{Sincerely, }
+
+
+\bibliographystyle{unsrt}
+\bibliography{astroref}
+
 
 \end{letter}
 \end{document}
