@@ -185,10 +185,6 @@ population can be assumed to follow a simple Gaussian distribution.
 
 No information is necessarily ``lost'' by restricting shear estimation to
 populations rather than individual galaxies.  
-%The likelihood or posterior distribution for a parameter derived from a single
-%galaxy will not generally be Gaussian except in the limit of high
-%signal-to-noise ratio (\sn), and is thus difficult to interpret.  Even if only
-%high \sn\ galaxies could be used, 
 Galaxies have intrinsic shapes that are a large effective noise for shear
 measurement, an order of magnitude larger than the signal.  Thus some kind of
 averaging must be performed to extract a shear from galaxy shapes.  
@@ -197,13 +193,6 @@ averaging must be performed to extract a shear from galaxy shapes.
 Given the above assumptions, the authors of BA14 derived a second-order Taylor
 expansion of the logarithm of the shear posterior about zero shear, consistent
 with the Gaussian assumption:
-%\begin{equation} \label{eq:pexpand}
-%-\ln P(\vecg | \vecD) \approx {(\rm const)} 
-%    - \ln P(\vecg) - \vecg \cdot \sum_i
-%    \frac{\vecQ_i}{P_i}
-%    + \frac{1}{2} \vecg \cdot \left[ \sum_i \left(\frac{\vecQ_i \vecQ^T_i}{P_i^2}
-%    - \frac{\matR_i}{P_i}\right) \right] \cdot \vecg,
-%\end{equation}
 \begin{eqnarray} \label{eq:pexpand}
     -\ln P(\vecg | \vecD) & \approx & {(\rm const)} - \ln P(\vecg) \nonumber \\
                           & & - \vecg \cdot \sum_i \frac{\vecQ_i}{P_i} \\
@@ -243,11 +232,6 @@ the derivatives in equation \ref{eq:pqrdef} can be averaged over the full
 likelihood surface for each galaxy, taking care to use the prior
 distribution given the shear.  These mean values can then be used in the
 aggregates shown in Equation \ref{eq:shdef}.
-%\begin{equation} \label{eq:marg}
-%P_i     & = & P(\vecD_i | \vecg=0) \nonumber \\
-%\vecQ_i & = & \left. \bnabg P(\vecD_i | \vecg)\right|_{\vecg=0} \\
-%\matR_i & = & \left. \bnabg \bnabg P(\vecD_i | \vecg)\right|_{\vecg=0}. \nonumber
-%\end{equation}
 
 A conceptual outline for measurement of non-constant shear was also given by
 BA14, as were third-order tweaks to the second-order perturbations.
@@ -340,7 +324,14 @@ noisy size cut that can occur when separating stars from galaxies at low
 signal-to-noise ratio.
 
 Finally, I drew the centroid from a Gaussian in each coordinate, with $\sigma$
-of 0.1 pixels.
+of 0.1 pixels.  I was attempting to model the situation in real data where one
+may have a poor initial guess at the true centroid that may not agree well with
+that derived from the model fit, and the prior on the center would be based on
+this guess.  However, this may be sub-dominant to the pixelization effect,
+which would result in a more uniform distribution across a
+pixel\footnote{Thanks to the anonymous referee for bringing this to my
+attention.}.  I did not explicitly account for this distribution in my
+simulation.
 
 \section{Implementation} \label{sec:impl}
 
@@ -424,9 +415,9 @@ zero shear in Equations \ref{eq:pexpand} and \ref{eq:pqrdef}.  I also performed
 a more limited range of tests expanding about zero shear and shearing the
 images by $g=0.01$, and got consistent results.   Note, if constant shear is a
 valid assumption, the procedure can be iterated, plugging the estimated shear
-into the taylor expansion in each successive iteration.  I found this procedure
-to converge in three iterations even for shears of order 10\%, but note this
-convergence will not succeed in the presense of large additive biases.
+into the Taylor expansion in each successive iteration.  I found this procedure
+to converge in three iterations even for shears of order 10\%. Note this
+convergence will not succeed in the presence of large additive biases.
 
 The code is freely available for
 download\footnote{https://github.com/esheldon/ngmix}.  Potential users should
@@ -574,7 +565,8 @@ for suggesting I expand the equations about the true shear to reduce the number
 of simulated images required for each test.  Thanks to the STAR, PHENIX and
 LBNE experiments at BNL for use of spare cycles on their compute clusters, and
 to the staff of the Rhic Atlas Computing Facility at BNL for their continued,
-and disproportionately large support of my work.
+and disproportionately large support of my work.  Finally, thanks to the
+anonymous referee for many helpful suggestions.
 
 
 \bibliographystyle{mn2e}

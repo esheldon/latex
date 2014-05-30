@@ -62,9 +62,11 @@ taking account of both of these points.
     scope of this paper as narrow as possible.
 
     Concerning the actual number 1.5 versus 2.0 I think this is within the
-    noise, especially considering the reality of astronomical observations.
+    noise, especially considering the reality of astronomical observations.  I
+    was clear this is a crude number, and I think it is intrinsically so.
     Certainly no one should take this paper as a reference for that
-    requirement; I have referenced other works.
+    requirement; I have referenced other works and justified my very crude
+    calculation.
 
 4.      Also in section 4, and in section 5.1, it is noted that the test is
 carried out by making the Taylor series expansion about the true shear, rather
@@ -74,7 +76,6 @@ galaxies have the same shear.  This also is not true in real data.  For these
 two reasons, it is not really possible to claim that the method as it stands
 can be used on real surveys.
 
-
     I certainly don't claim this implementation is ready for real data.  I
     have added additional caveats to section 4 and the discussion.
 
@@ -83,16 +84,16 @@ same as assuming that all galaxies have the same shear, and estimating that
 value.  The first case requires us to convolve probability distributions, the
 second case allows us to multiply them.
 
-    Put another way: In this paper I measure the mean shear and assume the
-    shear is constant, and thus the mean shear is a good representation of the
-    underlying value.  It turns out for my simulations this is a correct
-    assumption.  I think this is clear.
+    Put another way: In this paper I put in a constant shear, and I measure
+    the mean shear and interpret that mean as a measure of a constant shear.
+    It turns out for my simulations this is a correct assumption.  I think
+    this is clear.
 
     However, I don't think measuring the mean is a convolution in the
     conventional sense.  It is equivalent to multiplying the likelihoods and
-    taking the maximum likelihood.  Do you mean is the pixel noise results in
-    a likelihood surface with a given breadth for each galaxy and these all
-    get multiplied; in that sense it is sort of like a convolution of the truth
+    taking the maximum likelihood.  Do you mean the pixel noise results in a
+    likelihood surface with a given breadth for each galaxy and these all get
+    multiplied? In that sense it is sort of like a convolution of the truth
     (delta functions) with a kernel from the pixel noise and integrated over
     the (ignored) shear prior?
 
@@ -102,9 +103,9 @@ that method did not work particularly well and it was not used in that form for
 CFHTLenS (Miller et al 2013).  Similarly, B&A did not test the current method,
 but instead tested their implementation of Miller et al 2007.
 
-    That was my interpretation, but I will say I approached the 2007 paper
-    hoping to learn something about noise bias and how to treat it.  I will
-    accept your word on this matter.
+    That was my interpretation, but I approached the 2007 paper hoping to
+    learn something about noise bias and how to treat it.  I will accept your
+    word on this matter, and have updated the text.
 
 7.      Although B&A is billed as a Bayesian method, the reason it works is not
 particularly because it is Bayesian (after all, the prior on shear is assumed
@@ -115,10 +116,10 @@ this more clearly, perhaps with reference to the work of Melchior & Viola
 
     I generally agree, but would word it differently:  By writing Bayes'
     theorem the authors began with a correct equation, and were thus able to
-    derive correct expressions, and  aggregates that behave correctly in the
-    large n limit.  In my discussion of the method I say pretty much this and
-    it does I think agree with what you have said.  I'm not sure how I could
-    expand it.
+    derive correct expressions and understand their approximations. They could
+    derive aggregates that behave correctly in the large n limit.  In my
+    discussion of the method I said pretty much that, and it does I think
+    agree with what you have said.  I'm not sure how I could expand it.
 
 8.      In defining the glyph g, it would be more accurate to state that this
 is reduced shear.
@@ -144,9 +145,9 @@ be explained.
     spent time, too much time, trying to find the source of this correlated
     error, but I have not found any good evidence.
 
-    I clarified that my ring test is a bit non-standard.  I used pairs
-    because it gives a lot of flexibility, especially working as I was 
-    generating the images on the fly rather than beforehand.
+    I clarified that my ring test is non-standard.  I used pairs because it
+    gives a lot of flexibility, especially working as I was generating the
+    images on the fly rather than beforehand.
 
 10.     In section 3, it is stated that the galaxy centroids were randomly
 drawn from a Gaussian of sigma 0.1 pixels.  If I have understood what was done,
@@ -162,6 +163,8 @@ the pixels.
     real data, where some simple centroiding algorithm is used that would not
     coincide well with the centroid associated with the complex model fit.
     But the uniform pixelization may well dominate this, I have not checked.
+
+    I put a note about this in the text.
 
 11.     It would be useful to tell the reader how many galaxies were used in
 the simulations.
