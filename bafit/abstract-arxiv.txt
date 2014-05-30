@@ -3,19 +3,19 @@ and Armstrong (2014) can potentially be used to overcome noise bias and
 recover shear using very low signal-to-noise ratio (S/N) galaxy images.  In
 that work the authors confirmed the method is sufficiently unbiased for
 planned surveys (fractional error less than 2 x 10^{-3}) in a simplified
-demonstration, but no test was performed on images.  Here I present a full
-implementation for fitting models to galaxy images, including the effects of a
-point spread function (PSF) and pixelization.  I tested the implementation
-using simulated galaxy images modeled as Sersic profiles with n=1
-(exponential) and n=4 (De Vaucouleurs'), convolved with a PSF and a flat pixel
-response function.  I used a round Gaussian model for the PSF to avoid
-potential PSF-fitting errors.  I simulated galaxies with mean observed,
-post-PSF full-width at half maximum equal to approximately 1.2 times that of
-the PSF, with log-normal scatter.  I also drew fluxes from a log-normal
-distribution. I produced independent simulations, each with pixel noise tuned
-to produce different mean S/N ranging from 10-1000.  I applied a constant
-shear to all images.  I fit the simulated images to a model with the true
-Sersic index to avoid modeling biases.  I recovered the input shear with
+demonstration, but no test was performed on images with realistic pixel noise.
+Here I present a full implementation for fitting models to galaxy images,
+including the effects of a point spread function (PSF) and pixelization.  I
+tested the implementation using simulated galaxy images modeled as Sersic
+profiles with n=1 (exponential) and n=4 (De Vaucouleurs'), convolved with a
+PSF and a flat pixel response function.  I used a round Gaussian model for the
+PSF to avoid potential PSF-fitting errors.  I simulated galaxies with mean
+observed, post-PSF full-width at half maximum equal to approximately 1.2 times
+that of the PSF, with log-normal scatter.  I also drew fluxes from a
+log-normal distribution. I produced independent simulations, each with pixel
+noise tuned to produce different mean S/N ranging from 10-1000.  I applied a
+constant shear to all images.  I fit the simulated images to a model with the
+true Sersic index to avoid modeling biases.  I recovered the input shear with
 fractional error less than 2 x 10^{-3} in all cases, confirming that, in these
 controlled conditions, the method is sufficiently unbiased for planned
 surveys.
