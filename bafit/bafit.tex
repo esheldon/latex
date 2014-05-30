@@ -280,8 +280,8 @@ I(r) \propto \mathrm{exp} \left[ -\left( \frac{r}{r_0} \right)^{1/n} \right].
 \end{equation}
 For fixed $n$, the full elliptical model has six parameters: two centroid
 parameters, two ellipticity parameters, a size parameter and an amplitude, or
-flux parameter.  The size parameter is the sum of the variance in each
-direction: $T=<x^2> + <y^2>$.  I used two distinct values of the index: $n=1$
+flux parameter.  For the size parameter I used the sum of the variance in each
+coordinate: $T=<x^2> + <y^2>$.  I used two distinct values of the index: $n=1$
 (exponential disks), and $n=4$ (\devauc\ profiles).  
 
 I simulated pairs of galaxy images with identical structural parameters, but
@@ -340,8 +340,7 @@ noisy size cut that can occur when separating stars from galaxies at low
 signal-to-noise ratio.
 
 Finally, I drew the centroid from a Gaussian in each coordinate, with $\sigma$
-of 0.1 pixels.  
-
+of 0.1 pixels.
 
 \section{Implementation} \label{sec:impl}
 
@@ -487,6 +486,9 @@ this implementation is unbiased at the $\Delta g/g \sim 2\times 10^{-3}$ level.
  respectively.}
  \label{fig:fracerr}
 \end{figure}
+
+To give a sense of scale, 43,026,754 images were used to estimate the point
+at $S/N \approx 10$ for the \devauc\ galaxy test.
 
 The errors for the different values of \Msn\ appear to be correlated.  This may
 be due to the details of how the likelihood surface was explored, and may be
