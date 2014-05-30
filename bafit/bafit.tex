@@ -59,22 +59,22 @@ The Bayesian gravitational shear estimation algorithm developed by \cite{ba14}
 can potentially be used to overcome noise bias and recover shear using very low
 signal-to-noise ratio (\sn) galaxy images.  In that work the authors confirmed
 the method is sufficiently unbiased for planned surveys ($\Delta g/g < 2 \times
-10^{-3}$) in a simplified demonstration, but no test was performed on images.
-Here I present a full implementation for fitting models to galaxy images,
-including the effects of a point spread function (PSF) and pixelization.  I
-tested the implementation using simulated galaxy images modeled as \sersic\
-profiles with $n=1$ (exponential) and $n=4$ (\devauc), convolved with a PSF and
-a flat pixel response function.  I used a round Gaussian model for the PSF to
-avoid potential PSF-fitting errors. I simulated galaxies with mean {\em
-observed, post-PSF} full-width at half maximum equal to approximately 1.2 times
-that of the PSF, with log-normal scatter.  I also drew fluxes from a log-normal
-distribution. I produced independent simulations, each with pixel noise tuned
-to produce different mean \sn\ ranging from $10-1000$.  I applied a constant
-shear to all images.  I fit the simulated images to a model with the true
-\sersic\ index to avoid modeling biases.  I recovered the input shear with
-fractional error $\Delta g/g < 2 \times 10^{-3}$ in all cases, confirming that,
-{\em in these controlled conditions}, the method is sufficiently unbiased for
-planned surveys.
+10^{-3}$) in a simplified demonstration, but no test was performed on images
+with realistic pixel noise.  Here I present a full implementation for fitting
+models to galaxy images, including the effects of a point spread function (PSF)
+and pixelization.  I tested the implementation using simulated galaxy images
+modeled as \sersic\ profiles with $n=1$ (exponential) and $n=4$ (\devauc),
+convolved with a PSF and a flat pixel response function.  I used a round
+Gaussian model for the PSF to avoid potential PSF-fitting errors. I simulated
+galaxies with mean {\em observed, post-PSF} full-width at half maximum equal to
+approximately 1.2 times that of the PSF, with log-normal scatter.  I also drew
+fluxes from a log-normal distribution. I produced independent simulations, each
+with pixel noise tuned to produce different mean \sn\ ranging from $10-1000$.
+I applied a constant shear to all images.  I fit the simulated images to a
+model with the true \sersic\ index to avoid modeling biases.  I recovered the
+input shear with fractional error $\Delta g/g < 2 \times 10^{-3}$ in all cases,
+confirming that, {\em in these controlled conditions}, the method is
+sufficiently unbiased for planned surveys.
 
 
 %In these controlled
@@ -100,36 +100,33 @@ planned surveys.
 
 
 Noise bias is one of the largest potential systematic errors in weak
-gravitational shear measurements.  It is a multiplicative calibration
-error, associated with some point estimators for shear in the presence of
-noise, such as a maximum likelihood estimate or expectation value for the
-ellipticity of a galaxy \citep{HirataAlign04,Refreg12,Melchior12,Miller13}.
-Averaging these point estimators gives a biased estimate of the shear, and the
-bias remains even when response terms are included, such as that introduced by
+gravitational shear measurements.  For some point estimates of the shear,
+such as the maximum-likelihood or expectation value of a galaxy shape, noise can
+result in a multiplicative calibration error as well as a PSF-correlated
+additive error \citep{HirataAlign04,Refreg12,Melchior12,Miller13}.  Averaging
+these point estimators gives a biased estimate of the shear, and the bias
+remains even when response terms are included, such as that introduced by
 \cite{ksb95} and \cite{Bern02}.
 
-For galaxy images with signal-to-noise ratio (\sn) $\sim 10$, the noise bias
-can be of order 10\% for galaxies with size comparable to that of the
-point-spread-function (PSF).  This multiplicative error is significantly larger
-than the requirements for current and planned surveys, which are $\sim$0.4\%
-and $\sim$0.2\%, respectively \citep{HutererSystematics06}.
-%It may be possible
-%to derive point estimators for which the average is unbiased in the
-%presence of large noise, but no such estimator has been yet been published.
+For galaxy images with signal-to-noise ratio (\sn) $\sim 10$, the
+multiplicative noise bias can be of order 10\% for galaxies with size
+comparable to that of the point-spread-function (PSF).  This multiplicative
+error is significantly larger than the requirements for current and planned
+surveys, which are $\sim$0.4\% and $\sim$0.2\%, respectively
+\citep{HutererSystematics06}.
 
 A number of approaches have been proposed to address noise bias. I do not wish
 to give an exhaustive list, but rather a few examples.
 
-A Bayesian approach to shear estimate was proposed by \cite{Miller07}
-specifically to address noise bias.  With that method, a point estimator for
-the shear is still used (the expectation value of the galaxy ellipticity), but
-a response term is calculated based on prior information of the true
-distribution of galaxy ellipticities and the likelihood surface for a given
-galaxy.  A limitation of this method is that no expression was derived for the
-mean shear from an ensemble of galaxies, rather it was proposed to average the
-responses from individual galaxies.  This method performs well in comparison
-to many previous methods, but does not meet the requirements for current and
-planned surveys \citep{ba14}.
+A Bayesian approach to shear estimate was proposed by \cite{Miller07}.  With
+that method, a point estimator for the shear is still used (the expectation
+value of the galaxy ellipticity), but a response term is calculated based on
+prior information of the true distribution of galaxy ellipticities and the
+likelihood surface for a given galaxy.  A limitation of this method is that no
+expression was derived for the mean shear from an ensemble of galaxies, rather
+it was proposed to average the responses from individual galaxies.  This method
+performs well in comparison to many previous methods, but does not meet the
+requirements for current and planned surveys \citep{ba14}.
 
 \cite{Zuntz13} propose to use a point estimate from galaxy shapes and simply
 calibrate the answer using simulated data.  A related idea has been proposed in
@@ -152,11 +149,12 @@ but no implementation for use with galaxy images was presented.
 Here I present a full model-fitting implementation of the BA14 algorithm that
 works on galaxy images, including the effects of the PSF and pixelization.  I
 test the implementation using a set of image simulations with idealized galaxy
-models, and show that in these controlled conditions the method is
-sufficiently accurate for current and planned surveys.
+models.  To avoid potential PSF-fitting errors, I use only round PSFs, and thus
+only test the potential multiplicative bias. I show that in these controlled
+conditions the method is sufficiently accurate for current and planned surveys.
 
-Below I follow the notation of BA14, where a shear was represented by the
-glyph \vecg.
+Below I follow the notation of BA14, where the reduced shear was represented by
+the glyph \vecg.
 
 \section{Algorithm} \label{sec:algo}
 
@@ -256,8 +254,12 @@ BA14, as were third-order tweaks to the second-order perturbations.
 
 A full implementation, fitting to pixelized galaxy images, was not attempted in
 BA14.  The basic formalism was shown to work by drawing shapes randomly from an
-analytic distribution, adding noise and a small shear, and recovering that shear
-using second-order formula.
+analytic distribution, adding noise and a small shear, and recovering that
+shear using second-order formula.  Because the likelihood surface was not
+derived from an image with realistic pixel noise, it may not accurately
+represent the challenges of real data.  In the following sections I will show
+tests using simulations of galaxy images with pixel noise, which should be a
+good first approximation.
 
 \section{Simulation} \label{sec:sim}
 
@@ -278,14 +280,18 @@ I(r) \propto \mathrm{exp} \left[ -\left( \frac{r}{r_0} \right)^{1/n} \right].
 \end{equation}
 For fixed $n$, the full elliptical model has six parameters: two centroid
 parameters, two ellipticity parameters, a size parameter and an amplitude, or
-flux parameter.  I used two distinct values of the index: $n=1$ (exponential
-disks), and $n=4$ (\devauc\ profiles).  
+flux parameter.  The size parameter is the sum of the variance in each
+direction: $T=<x^2> + <y^2>$.  I used two distinct values of the index: $n=1$
+(exponential disks), and $n=4$ (\devauc\ profiles).  
 
 I simulated pairs of galaxy images with identical structural parameters, but
 with position angles offset by 90 degrees, in order to cancel the intrinsic
-shape noise.  This simulation strategy is known as a ``ring
-test''\citep{Nakajima2007}. Using a ring test greatly reduces the number of
+shape noise.  This simulation strategy is generally known as a ``ring
+test''\citep{Nakajima2007}.  Using a ring test greatly reduces the number of
 simulated images required to reach a desired precision in the recovered shear.
+Traditional ring tests use more than two orientations, which can result in
+faster convergence to the true shear, but I found the flexibility of working
+with pairs to be useful.  
 
 I convolved the models with a round Gaussian PSF with $\sigma = \sqrt{2}$
 pixels.  I chose a Gaussian to minimize PSF modeling errors, and made it round
@@ -417,7 +423,11 @@ fractional noise in the measured shear goes roughly as the inverse square of
 the shear.  For this reason I chose to expand about the true shear instead of
 zero shear in Equations \ref{eq:pexpand} and \ref{eq:pqrdef}.  I also performed
 a more limited range of tests expanding about zero shear and shearing the
-images by $g=0.01$, and got consistent results. 
+images by $g=0.01$, and got consistent results.   Note, if constant shear is a
+valid assumption, the procedure can be iterated, plugging the estimated shear
+into the taylor expansion in each successive iteration.  I found this procedure
+to converge in three iterations even for shears of order 10\%, but note this
+convergence will not succeed in the presense of large additive biases.
 
 The code is freely available for
 download\footnote{https://github.com/esheldon/ngmix}.  Potential users should
@@ -527,20 +537,23 @@ order equations.  I have not yet explored that approach.
 \section{Discussion} \label{sec:summary}
 
 The success of this implementation in a controlled simulation is strong
-encouragement for further development of this method.  However, the
-model-fitting approach I presented here may ultimately only be useful as a
-proof-of-principle: model-fitting is limited by the accuracy of the models to
-represent true galaxies, and thus in real data additional errors will be
-present; this is the so-called ``model bias''.  
+encouragement for further development of this method.  This implementation is
+significant limitations:  only constant spatially shear can be measured, and at
+higher shears some sort of iteration must be used to approach the correct
+answer (see \S \ref{sec:impl}).  Furthermore, the model-fitting approach I
+presented here may ultimately only be useful as a proof-of-principle:
+model-fitting is limited by the accuracy of the models to represent true
+galaxies, and thus in real data additional errors will be present; this is the
+so-called ``model bias''.  
 
 \cite{Kacprzak13} showed that model bias may be on the order of baseline
 requirements for current surveys, but potentially crippling for future surveys
 with more stringent requirements. One potential solution is to fit models with
 more freedom.  However, fitting a more complex model often results in a more
-complex likelihood surface. To fully explore the surface requires more burn-in
-for an MCMC chain and more samples to estimate the expectation values for the
-$P$, \vecQ\ and \matR\ parameters.  I leave tests with more complex models to
-future work.
+complex likelihood surface. To fully explore this more complex surface requires
+more burn-in for an MCMC chain and more samples to estimate the expectation
+values for the $P$, \vecQ\ and \matR\ parameters.  I leave tests with more
+complex models to future work.
 
 As an alternative to model fitting, \cite{ba14} propose to measure moments in
 Fourier space, making no explicit parameterization of galaxy light

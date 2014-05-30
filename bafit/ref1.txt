@@ -1,0 +1,176 @@
+
+Comments to the Author
+
+This is an interesting and useful paper that aims to test the shear measurement
+method recently proposed by Bernstein and Armstrong (2014, hereafter B&A). The
+author’s work is an essential test of the method, that was not carried out by
+B&A, and as such makes an important contribution to the field.  The paper
+should be published, although I recommend some more careful consideration, or
+explanation, of some issues.
+
+
+1.      In the introduction, it should be noted that noise bias not only causes
+a multiplicative bias, as tested in this paper, but also a PSF-dependent
+additive bias (e.g. Miller et al 2013).  Because a circular PSF has been
+chosen, there is no additive bias term in the author’s tests (nor those of
+B&A), but in the more general case, an additive bias should exist.  It would
+have been interesting to test how well the method corrects for anisotropic
+additive bias as well as multiplicative bias. I recommend that the author
+either extend his work to include the effect of an anisotropic PSF, or else to
+discuss this point in the introduction and to clarify that only the
+multiplicative bias term has been tested.
+
+    Thank you for pointing this out.  I have modified the introduction to
+    reference this effect and remarked that I am only testing the
+    multiplicative bias in this paper.  I agree it would be interesting to
+    test the additive component, but this would require significant computing
+    resources and all my available resources are now being used to process
+    real data.
+
+2.      I feel that the author is underselling the importance of this work
+compared with the much more basic test carried out by B&A.  The author notes
+that this paper improves on the B&A test by working on images and including
+pixelisation, but the key point is that the paper includes explicitly the noise
+bias effect arising from the existence of pixel noise.  This was completely
+missing in B&A, where the only test was to perturb some notional “ellipticity”
+measurements with a Gaussian “measurement error”, truncating the latter
+artificially at the e=1 boundary.  In my view the B&A test was so far from the
+real problem as to be of very limited value, whereas the author’s work here is
+a much better test of the possible performance on real data. I recommend
+emphasizing this point some more in the text, especially in the last paragraph
+of section 2.
+
+    I agree that pixel noise is key because it will result in a realistic
+    likelihood surface.  I agree this should be emphasized. I have remarked on
+    this at the end of section 2.
+
+
+3.      Conversely, the tests here of course only test noise bias under
+controlled conditions, and don’t address the many other issues that can cause
+systematic error in lensing surveys.  Furthermore, the total budget for
+multiplicative error in the future Euclid survey is less than stated here, at
+1.5 x 10^{-3} (Cropper et al 2013) and only some fraction of that that total
+allowable bias can be occupied by noise bias.  The conclusion that “the method
+is sufficiently unbiased for planned surveys” should be modified accordingly,
+taking account of both of these points.
+
+    I understand the point that there are other sources of error. I think it
+    is clear in the text that I am only testing for this one type of bias; I
+    tried to emphasize these are controlled conditions and I'm assuming
+    everything else is negligible.  I intentionally ignored the other sources
+    of error, and purposefully did not talk about them; my aim was to keep the
+    scope of this paper as narrow as possible.
+
+    Concerning the actual number 1.5 versus 2.0 I think this is within the
+    noise, especially considering the reality of astronomical observations.
+    Certainly no one should take this paper as a reference for that
+    requirement; I have referenced other works.
+
+4.      Also in section 4, and in section 5.1, it is noted that the test is
+carried out by making the Taylor series expansion about the true shear, rather
+than zero. Of course, this cannot be done on real data.  Furthermore, the
+method as described works as an estimator of the shear assuming that all
+galaxies have the same shear.  This also is not true in real data.  For these
+two reasons, it is not really possible to claim that the method as it stands
+can be used on real surveys.
+
+
+    I certainly don't claim this implementation is ready for real data.  I
+    have added additional caveats to section 4 and the discussion.
+
+5.      It might also be worth noting that an estimate of mean shear is not the
+same as assuming that all galaxies have the same shear, and estimating that
+value.  The first case requires us to convolve probability distributions, the
+second case allows us to multiply them.
+
+    Put another way: In this paper I measure the mean shear and assume the
+    shear is constant, and thus the mean shear is a good representation of the
+    underlying value.  It turns out for my simulations this is a correct
+    assumption.  I think this is clear.
+
+    However, I don't think measuring the mean is a convolution in the
+    conventional sense.  It is equivalent to multiplying the likelihoods and
+    taking the maximum likelihood.  Do you mean is the pixel noise results in
+    a likelihood surface with a given breadth for each galaxy and these all
+    get multiplied; in that sense it is sort of like a convolution of the truth
+    (delta functions) with a kernel from the pixel noise and integrated over
+    the (ignored) shear prior?
+
+6.      I’m not sure that I would say that the Miller et al (2007) shear
+estimate was specifically to address noise bias (in the introduction) – in fact
+that method did not work particularly well and it was not used in that form for
+CFHTLenS (Miller et al 2013).  Similarly, B&A did not test the current method,
+but instead tested their implementation of Miller et al 2007.
+
+    That was my interpretation, but I will say I approached the 2007 paper
+    hoping to learn something about noise bias and how to treat it.  I will
+    accept your word on this matter.
+
+7.      Although B&A is billed as a Bayesian method, the reason it works is not
+particularly because it is Bayesian (after all, the prior on shear is assumed
+non-informative) but rather because it performs an averaging over many galaxies
+before any ratios of quantities are calculated.  It would be helpful to explain
+this more clearly, perhaps with reference to the work of Melchior & Viola
+(2012) and Viola et al (2014).
+
+    I generally agree, but would word it differently:  By writing Bayes'
+    theorem the authors began with a correct equation, and were thus able to
+    derive correct expressions, and  aggregates that behave correctly in the
+    large n limit.  In my discussion of the method I say pretty much this and
+    it does I think agree with what you have said.  I'm not sure how I could
+    expand it.
+
+8.      In defining the glyph g, it would be more accurate to state that this
+is reduced shear.
+
+    I have said this now.
+
+9.      In the description of the shape noise cancellation, in section 3, the
+pairwise cancellation only guarantees that <e_intrinsic>=0.  An ideal ring
+test, involving generating galaxies with a symmetric distribution of multiple
+position angles, leads to faster convergence to the expectation <e_observed>=g,
+but it appears this has not been done here.  This explanation should be
+corrected in the description of the ring test in section 3 – pairwise shape
+noise cancellation is not the same as a ring test. But this also might explain
+some of the correlated error in section 5.2.  It would be a good idea to check
+the value of <e_input> (i.e. the expectation value of the nominal input
+ellipticity values) to check for departures from the target value of g. If the
+target value has not been attained to some accuracy and if the same galaxy
+orientations were used for all signal-to-noise bins, then the correlation might
+be explained.
+
+    All bins in s/n, galaxy type etc. were completely independent.  I have
+    checked that the mean of the input shapes does equal the input shear.  I
+    spent time, too much time, trying to find the source of this correlated
+    error, but I have not found any good evidence.
+
+    I clarified that my ring test is a bit non-standard.  I used pairs
+    because it gives a lot of flexibility, especially working as I was 
+    generating the images on the fly rather than beforehand.
+
+10.     In section 3, it is stated that the galaxy centroids were randomly
+drawn from a Gaussian of sigma 0.1 pixels.  If I have understood what was done,
+this would not correctly model the effect of pixelisation, because galaxies are
+expected to be randomly placed with respect to the pixel centres – a better
+model would have been to draw positions from a top hat distribution of width
+one pixel to mimic the random positioning of galaxy centroids with respect to
+the pixels.
+
+    I agree.  I was simulating something else here:  having a poor initial
+    guess at the centroid and applying a prior based on that, with some guess
+    at the error.  I think this is not too far from what one would get from
+    real data, where some simple centroiding algorithm is used that would not
+    coincide well with the centroid associated with the complex model fit.
+    But the uniform pixelization may well dominate this, I have not checked.
+
+11.     It would be useful to tell the reader how many galaxies were used in
+the simulations.
+
+12.     In section 4, it is stated that [galaxy] shapes are not covariant with
+the other parameters.  What definition was used for galaxy size – was this the
+length of the (semi-)major axis or the geometric mean of major and minor axes?
+In real surveys of galaxies, the measure that is least correlated with
+ellipticity is the major axis, but this is not commonly used in many numerical
+experiments.
+
+    I used <x^2> + <y^2>.  I have updated the text to indicate this.
