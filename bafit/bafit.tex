@@ -56,26 +56,26 @@ Brookhaven National Laboratory, Bldg 510, Upton, New York 11973}
 \begin{abstract}
 
 The Bayesian gravitational shear estimation algorithm developed by \cite{ba14}
-can potentially be used to overcome noise bias and recover shear using very low
-signal-to-noise ratio (\sn) galaxy images.  In that work the authors confirmed
-the method is sufficiently unbiased for planned surveys ($\Delta g/g < 2 \times
-10^{-3}$) in a simplified demonstration, but no test was performed on images
-with realistic pixel noise.  Here I present a full implementation for fitting
-models to galaxy images, including the effects of a point spread function (PSF)
-and pixelization.  I tested the implementation using simulated galaxy images
-modeled as \sersic\ profiles with $n=1$ (exponential) and $n=4$ (\devauc),
-convolved with a PSF and a flat pixel response function.  I used a round
-Gaussian model for the PSF to avoid potential PSF-fitting errors. I simulated
-galaxies with mean {\em observed, post-PSF} full-width at half maximum equal to
-approximately 1.2 times that of the PSF, with log-normal scatter.  I also drew
-fluxes from a log-normal distribution. I produced independent simulations, each
-with pixel noise tuned to produce different mean \sn\ ranging from $10-1000$.
-I applied a constant shear to all images.  I fit the simulated images to a
-model with the true \sersic\ index to avoid modeling biases.  I recovered the
-input shear with fractional error $\Delta g/g < 2 \times 10^{-3}$ in all cases,
-confirming that, {\em in these controlled conditions}, the method is
-sufficiently unbiased for planned surveys.
-
+can potentially be used to overcome multiplicative noise bias and recover shear
+using very low signal-to-noise ratio (\sn) galaxy images.  In that work the
+authors confirmed the method is nearly unbiased in a simplified demonstration,
+but no test was performed on images with realistic pixel noise.  Here I present
+a full implementation for fitting models to galaxy images, including the
+effects of a point spread function (PSF) and pixelization.  I tested the
+implementation using simulated galaxy images modeled as \sersic\ profiles with
+$n=1$ (exponential) and $n=4$ (\devauc), convolved with a PSF and a flat pixel
+response function.  I used a round Gaussian model for the PSF to avoid
+potential PSF-fitting errors. I simulated galaxies with mean {\em observed,
+post-PSF} full-width at half maximum equal to approximately 1.2 times that of
+the PSF, with log-normal scatter.  I also drew fluxes from a log-normal
+distribution. I produced independent simulations, each with pixel noise tuned
+to produce different mean \sn\ ranging from $10-1000$.  I applied a constant
+shear to all images.  I fit the simulated images to a model with the true
+\sersic\ index to avoid modeling biases.  I recovered the input shear with
+fractional error $\Delta g/g < 2 \times 10^{-3}$ in all cases.  In these
+controlled conditions, and in the absence of other multiplicative errors, this
+implementation is sufficiently unbiased for current surveys and approaches the
+requirements for planned surveys.
 
 \end{abstract}
 
@@ -141,7 +141,8 @@ works on galaxy images, including the effects of the PSF and pixelization.  I
 test the implementation using a set of image simulations with idealized galaxy
 models.  To avoid potential PSF-fitting errors, I use only round PSFs, and thus
 only test the potential multiplicative bias. I show that in these controlled
-conditions the method is sufficiently accurate for current and planned surveys.
+conditions the method is sufficiently accurate for current and surveys and
+approaches the requirements for planned surveys.
 
 Below I follow the notation of BA14, where the reduced shear was represented by
 the glyph \vecg.
@@ -163,22 +164,23 @@ BA14):
 \end{itemize}
 
 The assumption of small shear is true in many circumstances, but breaks down
-along lines-of-sight near large over-densities, such as clusters of galaxies.
+along lines-of-sight near large mass over-densities, such as clusters of
+galaxies.
 
 The second assumption follows from the central limit theorem: if the shear is
 derived from a large enough ensemble of galaxy shapes, the posterior approaches
-a Gaussian.
+a Gaussian.  Note this is only true under the assumption that all
+galaxies have been sheared equally.
 
 Note no assumptions are made about the likelihood surface for parameters
 derived for individual galaxies; only the ensemble average shear from a
 population can be assumed to follow a simple Gaussian distribution.
 
 No information is necessarily ``lost'' by restricting shear estimation to
-populations rather than individual galaxies.  
-Galaxies have intrinsic shapes that are a large effective noise for shear
-measurement, an order of magnitude larger than the signal.  Thus some kind of
-averaging must be performed to extract a shear from galaxy shapes.  
-
+populations rather than individual galaxies.  Galaxies have intrinsic shapes
+that are a large effective noise for shear measurement, an order of magnitude
+larger than the signal.  Thus some kind of averaging must be performed to
+extract a shear from galaxy shapes.  
 
 Given the above assumptions, the authors of BA14 derived a second-order Taylor
 expansion of the logarithm of the shear posterior about zero shear, consistent
@@ -434,7 +436,7 @@ quadratic error is expected for a second-order Taylor expansion.
      shear $\Delta g/g \sim 1.9~g^2_{true}$.  The quadratic bias as a function of
      true shear indicates a break down of the second-order Taylor approximation
  presented in \citet{ba14}. The light and dark gray bands represent the
- approximate requirements for current and planned surveys respectively.}
+ approximate total multiplicative error requirements for current and planned surveys respectively.}
  \label{fig:nonoise}
 \end{figure}
 
@@ -450,21 +452,22 @@ this implementation is unbiased at the $\Delta g/g \sim 2\times 10^{-3}$ level.
 
 \begin{figure}
  \includegraphics[scale=0.45]{figures/ngmix-fwhm1.2.eps}
+
  \caption{ Fractional bias in the recovered shear for the estimator presented
-     in \citet{ba14}.  The bias is plotted as a function of the maximal, matched
-     galaxy signal-to-noise ratio \Msn, for galaxies with exponential (\sersic\
-     $n=1$) and \devauc\ profiles ($n=4$).  The simulated galaxy parameters
-     were drawn from broad distributions in size, flux, and ellipticity.  The
-     size distribution was log-normal with \lognormscatt\% scatter and mean
-     such that the {\it observed, post-PSF} FWHM was approximately 1.2 times
-     that of the PSF, mimicking small galaxies that may pass a size
-     cut, such as that used during star-galaxy separation.  The flux
-     distribution was log-normal with \lognormscatt\% scatter, and noise chosen
-     to produce the indicated \Msn.  The ellipticities were
-     drawn from the simple distribution introduced in \citet{ba14}. In these
-     controlled conditions, this shear estimator meets the approximate accuracy
- requirements for current and planned surveys, shown as the light and dark gray bands,
- respectively.}
+     in \citet{ba14}.  The bias is plotted as a function of the maximal,
+     matched galaxy signal-to-noise ratio \Msn, for galaxies with exponential
+     (\sersic\ $n=1$) and \devauc\ profiles ($n=4$).  The simulated galaxy
+     parameters were drawn from broad distributions in size, flux, and
+     ellipticity.  The size distribution was log-normal with \lognormscatt\%
+     scatter and mean such that the {\it observed, post-PSF} FWHM was
+     approximately 1.2 times that of the PSF, mimicking small galaxies that may
+     pass a size cut, such as that used during star-galaxy separation.  The
+     flux distribution was log-normal with \lognormscatt\% scatter, and noise
+ chosen to produce the indicated \Msn.  The ellipticities were drawn from the
+ simple distribution introduced in \citet{ba14}. The light and dark gray
+ bands represent the approximate total multiplicative error requirements for
+ current and planned surveys respectively.}
+
  \label{fig:fracerr}
 \end{figure}
 
@@ -491,7 +494,11 @@ recovered dark energy equation of state parameter relative to shot noise
 errors.  The cut at 20\% is somewhat arbitrary, and was chosen to coincide very
 roughly with the stated requirements for DES. The requirements are
 $\sim$\desreq\ for current surveys and $\sim$\lsstreq\ for planned surveys.
-These requirements are met in all the cases that I tested.
+These requirements are met in all the cases that I tested.  But note that the
+quoted requirements represent the {\em total} multiplicative error budget for
+these surveys; there may be other sources of bias in addition to noise bias,
+such as errors in measuring and interpolating the PSF \citep[e.g.][]{Cropper13},
+which may dominate at this level of accuracy.
 
 Smaller and fainter galaxies might have more bias than the average.  The
 authors of \cite{ba14} noted that small and faint galaxies, for which the
@@ -520,7 +527,7 @@ order equations.  I have not yet explored that approach.
 \section{Discussion} \label{sec:summary}
 
 The success of this implementation in a controlled simulation is strong
-encouragement for further development of this method.  This implementation is
+encouragement for further development of this method.  This implementation has
 significant limitations:  only constant spatially shear can be measured, and at
 higher shears some sort of iteration must be used to approach the correct
 answer (see \S \ref{sec:impl}).  Furthermore, the model-fitting approach I
@@ -556,7 +563,7 @@ of simulated images required for each test.  Thanks to the STAR, PHENIX and
 LBNE experiments at BNL for use of spare cycles on their compute clusters, and
 to the staff of the Rhic Atlas Computing Facility at BNL for their continued,
 and disproportionately large support of my work.  Finally, thanks to the
-anonymous referee for many helpful suggestions.
+referee for many helpful suggestions.
 
 
 \bibliographystyle{mn2e}
