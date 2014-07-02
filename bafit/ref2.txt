@@ -1,0 +1,54 @@
+
+***  I think the thing to be careful of though is that the existence of the
+other biases means that the allowed budget for noise bias alone must be a lot
+less than quoted.  For Euclid the noise bias budget requires m to be of order
+5e-4, substantially less than the 2e-3 assumed here - it's not a small effect.
+
+    OK, I don't think I appreciated your emphasis on this point in my first
+    reading of your report.  I've modified the text and abstract.  More below.
+
+--------
+
+*** I think it would be helpful also to modify the final sentence of the
+abstract to take into account both this point and the one above. It shouldn't
+be claimed that "the method is sufficiently unbiased for use on planned
+surveys" and it should be made clear in the abstract and conclusions that only
+multiplicative bias has been tested.
+
+   I have modified the sentence and updated text in the comparison section and
+   figure captions.  I don't think it is necessary to mention expanding about
+   the true shear in the abstract; it is too fine and complex a point. Also,
+   one can in principle use higher order equations to avoid that error.
+
+------------
+
+
+*** The point is the following.  Actually in this test (and in B&A) the shear
+is the same for every galaxy, so in that case it is correct to treat each
+galaxy as providing an independent estimate of that single shear value, and
+under those circumstances it is correct to multiply the likelihoods.  This is
+not the same as asserting that galaxies may have different shear values, and
+that we are interested in the mean shear: the PDF of the sum of a set of
+values is the convolution of the individual PDFs (as in the derivation of the
+central limit theorem), so in this case it is not rigorously correct to
+multiply the likelihoods: instead, the PDFs should be convolved together and
+rescaled (to account for the fact that the mean is the sum divided by the
+number of galaxies) and so this is mathematically different from multiplying
+likelihoods.  The formulation of the problem (as either a truly constant
+shear, or as the mean of a variable shear) makes a difference to the formal
+mathematics.  This really is a point that's relevant to B&A rather than the
+current paper, but I think it is worth mentioning.
+
+Yes, I see your point.  Thanks for clarifying. I have made an extra note in
+the algorithm section to emphasize this.
+
+---------
+
+
+
+-- 
+Erin Scott Sheldon
+Brookhaven National Laboratory erin dot sheldon at gmail dot com
+
+
+
