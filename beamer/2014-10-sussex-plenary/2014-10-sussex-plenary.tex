@@ -3,10 +3,19 @@
 \usepackage{beamerthemesplit}
 \usepackage{verbatim}
 
+%\definecolor{MyGreen}{RGB}{60, 140, 60}
+\definecolor{DarkPurple}{RGB}{60, 30, 60}
+\definecolor{Gray90}{RGB}{230, 230, 230}
+\definecolor{Gray10}{RGB}{25, 25, 25}
+
+
 \usetheme{Pittsburgh}
 %\usecolortheme{seagull}
+%\usecolortheme{spruce}
 %\usecolortheme{seahorse}
-\usecolortheme{beaver}
+%\usecolortheme{beaver}
+\setbeamercolor{structure}{fg=DarkPurple!90!black}
+%\setbeamercolor{structure}{fg=Gray10!10!DarkPurple}
 
 \usefonttheme{serif}
 
@@ -23,9 +32,6 @@
 \newcommand{\ngmix}{\texttt{ngmix}}
 \newcommand{\shear}{{\bf g}}
 
-\title{DES Shear Pipeline}
-\author{Erin Sheldon}
-\institute{Brookhaven National Laboratory}
 
 % http://texblog.net/latex-archive/plaintex/beamer-footline-frame-number/
 % to add the page (frame ) number and not screw up the bottom line
@@ -39,7 +45,7 @@
 
 %\frame{\titlepage}
 
-\section{DES Shear Pipelines}
+%\section{DES Shear Pipelines}
 
 \title{DES Shear Pipelines}
 \author{Erin Sheldon}
@@ -82,12 +88,16 @@
 {
     \frametitle{Noise Bias}
 
-    Using point estimates for shear can result in ``noise bias'',
-    a calibration error that depends on S/N.
-    \newline
-    {\bf {\em im3shape:}}  measure noise bias and correct for it.
-    \newline
-    {\bf {\em ngmix:}} no detectable noise bias
+    \begin{itemize}
+
+        \item Using point estimates for shear can result in ``noise bias'', a
+            calibration error that depends on S/N.
+
+        \item {\bf {\em im3shape:}}  measure noise bias and correct for it.
+
+        \item {\bf {\em ngmix:}} no detectable noise bias
+
+    \end{itemize}
 
     \begin{center}
         \includegraphics[width=0.5\textwidth]{noise-bias-im3shape.png}
@@ -137,7 +147,8 @@
     \frametitle{B Modes}
 
     Gravity only produces an E mode shear polarization (shears transform like
-    polarizations).  B mode should be consistent with zero.
+    polarizations).  B mode should be consistent with zero.  These data are
+    {\bf blinded}
 
     \begin{columns}
         \begin{column}{0.5\textwidth}
@@ -151,7 +162,7 @@
             \end{center}
         \end{column}
     \end{columns}
-    {\tiny Figures: Matt Becker, Blinded}
+    {\tiny Figures: Matt Becker}
 }
 
 \frame
@@ -177,6 +188,18 @@
      {\tiny Figure: Vinu Vikram (im3shape)}
 }
 
+\frame
+{
+    \frametitle{Summary}
+
+    \begin{itemize}
+
+        \item Overall the shear null tests look good.
+
+        \item We do not currently see any show stoppers for lensing with SVA1 data.
+
+    \end{itemize}
+}
 
 
 \end{document}
