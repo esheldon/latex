@@ -53,6 +53,22 @@
 \date{DES Collaboration Meeting, Sussex, 2014-10-20}
 
 \frame{\titlepage}
+
+\frame
+{
+    \frametitle{Outline}
+
+    \begin{itemize}
+
+        \item Brief description of the data and pipelines.
+        \item Systematics tests
+            \begin{itemize}
+                \item Simulation based
+                \item Data based (SVA1)
+            \end{itemize}
+        \item Summary
+    \end{itemize}
+}
  
 \frame
 {
@@ -62,11 +78,11 @@
     \begin{itemize}
         \item Two pipelines:
             \begin{itemize}
-                \item im3shape: maximum likelihood fitter (Zuntz. et al.)
+                \item im3shape: maximum likelihood fitter (Zuntz et al.)
                 \item ngmix: bayesian shear estimation (Sheldon)
             \end{itemize}
 
-        \item Object fitting is performed on all epochs simultaneously: PSF is
+        \item Algorithms are run on all epochs simultaneously: PSF is
             better behaved and understood on the single-epoch images.
 
         \item We use Multi-Epoch Data Structures for our processing (MEDS).
@@ -92,6 +108,8 @@
 
         \item Using point estimates for shear can result in ``noise bias'', a
             calibration error that depends on S/N.
+
+        \item GREAT DES simulations were created to test noise bias (Kacprzak)
 
         \item {\bf {\em im3shape:}}  measure noise bias and correct for it.
 
@@ -174,11 +192,11 @@
         \item Overall the null tests look good, but there are a few unexplained
             correlations.
 
-        \item The shape of galaxies seems to correlate with the size of the
-            postage stamp
+        \item Measured galaxy shape correlates with the size of the postage stamp
     
-         \item Galaxy shape correlates with the fraction of the stamp used for
-             measurement, a.k.a the {\em masked fraction}.
+         \item Measured galaxy shape correlates with the fraction of the stamp
+             used for measurement, a.k.a the {\em masked fraction}.
+
      \end{itemize}
 
     \begin{center}
