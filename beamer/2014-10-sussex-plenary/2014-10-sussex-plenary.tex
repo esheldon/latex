@@ -39,8 +39,15 @@
 
 %\frame{\titlepage}
 
-\section{DES Shear Pipeline}
+\section{DES Shear Pipelines}
 
+\title{DES Shear Pipelines}
+\author{Erin Sheldon}
+\institute{Brookhaven National Laboratory}
+\date{DES Collaboration Meeting, Sussex, 2014-10-20}
+
+\frame{\titlepage}
+ 
 \frame
 {
     \frametitle{Pipelines}
@@ -53,6 +60,9 @@
                 \item ngmix: bayesian shear estimation (Sheldon)
             \end{itemize}
 
+        \item Object fitting is performed on all epochs simultaneously: PSF is
+            better behaved and understood on the single-epoch images.
+
         \item We use Multi-Epoch Data Structures for our processing (MEDS).
             MEDS files include:
             \begin{itemize}
@@ -62,6 +72,7 @@
                 \item bit masks
                 \item other metadata
             \end{itemize}
+
         \item We only use coadds for detection.
 
     \end{itemize}
@@ -92,14 +103,14 @@
     PSF Correction: Look for correlation between galaxy shape and PSF shape.
 
     \begin{columns}
-        \begin{column}{0.4\textwidth}
+        \begin{column}{0.38\textwidth}
             \begin{center}
                 \includegraphics[width=\textwidth]{im3shape-PSF-E2.pdf}
                 \newline
-                {\tiny Figure: Vinu Vikram}
+                {\tiny Figure: Vinu Vikram (im3shape)}
             \end{center}
         \end{column}
-        \begin{column}{0.6\textwidth}
+        \begin{column}{0.62\textwidth}
             \begin{center}
             \includegraphics[width=\textwidth]{ngmix009-e-vs-epsf-Ts2n-min-1-s2n-min-20.pdf}
                 \newline
@@ -116,8 +127,9 @@
     Look for spurious signal round random points
 
     \begin{center}
-        \includegraphics[width=0.8\textwidth]{random_points_v6_v7.pdf}
+        \includegraphics[width=0.7\textwidth]{random_points_v6_v7_crop.pdf}
     \end{center}
+    {\tiny Figure: Carles S\`{a}nchez}
 }
 
 \frame
@@ -139,8 +151,32 @@
             \end{center}
         \end{column}
     \end{columns}
-    {\tiny Figures: Matt Becker}
+    {\tiny Figures: Matt Becker, Blinded}
 }
+
+\frame
+{
+    \frametitle{Unexplained Systematics}
+
+    \begin{itemize}
+
+        \item Overall the null tests look good, but there are a few unexplained
+            correlations.
+
+        \item The shape of galaxies seems to correlate with the size of the
+            postage stamp
+    
+         \item Galaxy shape correlates with the fraction of the stamp used for
+             measurement, a.k.a the {\em masked fraction}.
+     \end{itemize}
+
+    \begin{center}
+        \includegraphics[width=0.5\textwidth]{im3shape-v-vs-mask-frac.png}
+    \end{center}
+
+     {\tiny Figure: Vinu Vikram (im3shape)}
+}
+
 
 
 \end{document}
