@@ -74,13 +74,16 @@
 {
     \frametitle{Pipelines}
 
-    % \fontsize{9}{0.8\baselineskip}
+    \fontsize{9}{0.8\baselineskip}
     \begin{itemize}
-        \item Two pipelines:
-            \begin{itemize}
                 \item im3shape: maximum likelihood fitter (Zuntz et al.)
+                    \begin{itemize}
+                        \item Known to be biased: correct for biases using sims.
+                    \end{itemize}
                 \item ngmix: bayesian shear estimation (Sheldon)
-            \end{itemize}
+                    \begin{itemize}
+                        \item Less bias, but more computationally expensive
+                    \end{itemize}
 
         \item Algorithms are run on all epochs simultaneously: PSF is
             better behaved and understood on the single-epoch images.
@@ -134,16 +137,18 @@
     \end{columns}
 
 }
+
 \frame
 {
-    \frametitle{Noise Bias}
+    \frametitle{Calibration Errors: Noise Bias}
 
     \begin{itemize}
 
         \item Using point estimates for shear can result in ``noise bias'', a
             calibration error that depends on S/N.
 
-        \item GREAT DES simulations were created to test noise bias (Kacprzak)
+        \item GREAT DES simulations were created to test noise bias (Kacprzak).
+            Calibration errors difficult to test on data.
 
         \item {\bf {\em im3shape:}}  measure noise bias and correct for it.
 
@@ -157,6 +162,25 @@
     \end{center}
     {\tiny (Figures: Tomasz Kacprzak)}
 }
+
+\frame
+{
+    \frametitle{Calibration Errors: Comparison Using Same Sources}
+
+    \begin{itemize}
+
+        \item Average signal from RedMapper clusters
+        \item im3shape vs. ngmix using matched source list
+        \item Independent of photoz errors.
+    \end{itemize}
+
+    \begin{center}
+        \includegraphics[width=0.4\textwidth,angle=-90]{dsig_compare_crop.pdf}
+        \includegraphics[width=0.4\textwidth,angle=-90]{dsig_ratio_crop.pdf}
+    \end{center}
+    {\tiny (Figure: Andres Plazas)}
+}
+
 
 \frame
 {
@@ -238,9 +262,9 @@
         \item Overall the null tests look good, but there are a few unexplained
             correlations.
 
-        \item Measured galaxy shape correlate with the size of the postage stamp
+        \item Measured galaxy shape correlates with the size of the postage stamp
     
-         \item Measured galaxy shape correlate with the fraction of the stamp
+         \item Measured galaxy shape correlates with the fraction of the stamp
              used for measurement, a.k.a the {\em masked fraction}.
 
      \end{itemize}
@@ -259,6 +283,10 @@
     \begin{itemize}
 
         \item Overall the shear null tests look good.
+
+        \item im3shape corrects for calibration bias using sims, ngmix has less
+            bias.  Tests on data show the calibrations agree to within errors
+            (see talk by Plazas Tues. 15:45)
 
         \item We do not currently see any show stoppers for lensing with SVA1 data.
 
