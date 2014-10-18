@@ -29,8 +29,10 @@
 \newcommand{\lensfit}{\texttt{LENSFIT}}
 \newcommand{\numba}{\texttt{Numba}}
 \newcommand{\python}{\texttt{Python}}
-\newcommand{\ngmix}{\texttt{ngmix}}
 \newcommand{\shear}{{\bf g}}
+
+\newcommand{\ngmix}{ {\bf ngmix} }
+\newcommand{\imshape}{ {\bf im3shape} }
 
 
 % http://texblog.net/latex-archive/plaintex/beamer-footline-frame-number/
@@ -51,8 +53,8 @@
 
 \title{DES Shear Pipelines}
 \author{Erin Sheldon}
-\institute{Brookhaven National Laboratory}
-\date{DES Collaboration Meeting, Sussex, 2014-10-20}
+\institute{Brookhaven National Laboratory \newline {\tiny (For the Shear Pipeline \& Testing Subgroup)}}
+\date{DES Collaboration Meeting, Sussex, 2014-10-20 }
 
 \frame{\titlepage}
 
@@ -65,8 +67,9 @@
         \item Brief description of the data and pipelines.
         \item Systematics tests
             \begin{itemize}
-                \item Simulation based
-                \item Data based (SVA1)
+                \item PSF tests
+                \item Shear tests: simulation
+                \item Shear tests: null tests on data (SVA1)
             \end{itemize}
         \item Summary
     \end{itemize}
@@ -78,14 +81,14 @@
 
     \fontsize{9}{0.8\baselineskip}
     \begin{itemize}
-                \item im3shape: maximum likelihood fitter (Zuntz et al.)
-                    \begin{itemize}
-                        \item Known to be biased: correct for biases using sims.
-                    \end{itemize}
-                \item ngmix: bayesian shear estimation (Sheldon)
-                    \begin{itemize}
-                        \item Less bias, but more computationally expensive
-                    \end{itemize}
+        \item \imshape: maximum likelihood fitter (Zuntz et al.)
+            \begin{itemize}
+                \item Known to be biased: correct for biases using sims.
+            \end{itemize}
+        \item \ngmix: bayesian shear estimation (Sheldon)
+            \begin{itemize}
+                \item Less bias, but more computationally expensive $(\sim 2.5)$
+            \end{itemize}
 
         \item Algorithms are run on all epochs simultaneously: PSF is
             better behaved and understood on the single-epoch images.
@@ -152,9 +155,9 @@
         \item GREAT DES simulations were created to test noise bias (Kacprzak).
             Cannot test absolute errors with data.
 
-        \item {\bf {\em im3shape:}}  measure noise bias and correct for it.
+        \item \imshape:  measure noise bias and correct for it.
 
-        \item {\bf {\em ngmix:}} no detectable noise bias
+        \item \ngmix: no detectable noise bias
 
     \end{itemize}
 
@@ -167,28 +170,32 @@
 
 \frame
 {
-    \frametitle{Calibration Errors: Comparison Using Same Sources}
+    \frametitle{Calibration Errors: Apples to Apples}
 
-    \fontsize{9}{0.8\baselineskip}
+    \fontsize{8}{0.8\baselineskip}
     \begin{itemize}
 
         \item Average signal from RedMapper clusters
 
-        \item im3shape vs. ngmix using matched source list: careful matching
-            required because ngmix recovers significantly higher source density.
+        \item \imshape\ vs. \ngmix\ using matched source list: careful matching
+            required because \ngmix\ recovers higher source density.
 
-        \item This test is independent of photoz errors.
+        \item To leading order, this test is independent of photoz errors.
 
-        \item Signal may be slightly higher for im3shape.
+                \begin{itemize}
+                    {\tiny
+                    \item \imshape\ higher at the $\sim$ 10\% level.
 
-
+                    \item Maybe different weighting $\leftrightarrow$ different photoz errors: $(S/N)_{im3}=20 \leftrightarrow (S/N)_{ngmix}=40$
+                    }
+                \end{itemize}
     \end{itemize}
 
     \begin{center}
         %\includegraphics[width=0.4\textwidth,angle=-90]{dsig_compare_crop.pdf}
-        \includegraphics[width=0.4\textwidth,angle=-90]{dsig_ratio_crop.pdf}
+        \includegraphics[width=0.35\textwidth,angle=-90]{dsig_ratio_crop.pdf}
     \end{center}
-    {\tiny (Figure: Andres Plazas
+    {\tiny Figure: Andres Plazas
         For more details see talk in cluster lensing
             session Tues. 15:45
         }
@@ -206,7 +213,7 @@
             \begin{center}
                 \includegraphics[width=\textwidth]{im3shape-PSF-E2.pdf}
                 \newline
-                {\tiny Figure: Vinu Vikram (im3shape)}
+                {\tiny Figure: Vinu Vikram (\imshape)}
             \end{center}
         \end{column}
         \begin{column}{0.62\textwidth}
@@ -242,7 +249,18 @@
             polarizations).
 
         \item B mode should be consistent with zero.
-    
+
+        \item B mode estimation (Becker \& Rozo, in prep).
+
+            \begin{itemize} 
+
+                {\tiny 
+                    \item Every other point $\sim$ independent.
+                    \item No weights or bayesian sensitivities applied for ngmix.
+                    }
+
+            \end{itemize} 
+
         \item These data are {\bf blinded}
 
     \end{itemize}
@@ -286,7 +304,7 @@
         \includegraphics[width=0.5\textwidth]{im3shape-v-vs-mask-frac.png}
     \end{center}
 
-     {\tiny Figure: Vinu Vikram (im3shape)}
+     {\tiny Figure: Vinu Vikram (\imshape)}
 }
 
 \frame
@@ -295,15 +313,24 @@
 
     \begin{itemize}
 
+        \item PSF $\rho$-statistics look good
+            \begin{itemize}
+                \item need to understand the requirement, compared to signal.
+            \end{itemize}
+
+        \item Calibrations of \imshape\ and \ngmix\ very similar for a low number
+            density subset of common sources
+
         \item Overall the shear null tests look good.
 
-        \item There are still some unexplained correlations, but these do not seem to propagate
-            into the other null tests.
+            \begin{itemize}
 
-        \item Calibrations of im3shape and ngmix look consistent for a low
-            number density subset of common sources
+                \item There are still some unexplained correlations, but these
+                    do not appear to propagate into the other null tests.
+
+            \end{itemize}
             
-        \item Tentatively suggest we are ready for SVA1 science.
+        \item Optimistic we will be ready for SVA1 science before year end.
 
     \end{itemize}
 }
