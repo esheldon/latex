@@ -167,15 +167,22 @@
 {
     \frametitle{Calibration Errors: Comparison Using Same Sources}
 
+    \fontsize{9}{0.8\baselineskip}
     \begin{itemize}
 
         \item Average signal from RedMapper clusters
-        \item im3shape vs. ngmix using matched source list
-        \item Independent of photoz errors.
+
+        \item im3shape vs. ngmix using matched source list: careful matching
+            required because ngmix recovers significantly higher source density.
+
+        \item This test is independent of photoz errors.
+
+        \item Signals are consistent.
+
     \end{itemize}
 
     \begin{center}
-        \includegraphics[width=0.4\textwidth,angle=-90]{dsig_compare_crop.pdf}
+        %\includegraphics[width=0.4\textwidth,angle=-90]{dsig_compare_crop.pdf}
         \includegraphics[width=0.4\textwidth,angle=-90]{dsig_ratio_crop.pdf}
     \end{center}
     {\tiny (Figure: Andres Plazas)}
@@ -284,11 +291,13 @@
 
         \item Overall the shear null tests look good.
 
-        \item im3shape corrects for calibration bias using sims, ngmix has less
-            bias.  Tests on data show the calibrations agree to within errors
-            (see talk by Plazas Tues. 15:45)
+        \item There are still some unexplained correlations, but these do not seem to propagate
+            into the other null tests.
 
-        \item We do not currently see any show stoppers for lensing with SVA1 data.
+        \item Calibrations of im3shape and ngmix look consistent for a low
+            number density subset of common sources
+            
+        \item Tentatively suggest we are ready for SVA1 science.
 
     \end{itemize}
 }
