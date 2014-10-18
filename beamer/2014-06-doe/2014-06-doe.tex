@@ -126,7 +126,7 @@
         \item Theoretical work by Bernstein \& Armstrong (2014)
         \item New shear method that promises to eliminate noise-related biases.
         \item E.S. provided the first implementation.
-        \item Submitted to journal arXiv:1403.7669
+        \item Sheldon (2014).  Submitted to journal MNRAS, arXiv:1403.7669
     \end{itemize}
 }
 
@@ -183,14 +183,20 @@
 
     \begin{center}
         \includegraphics[width=0.7\textwidth]{delta_psf_pos.png}
+        \newline
+        Erin Sheldon (BNL), Eli Rykoff (SLAC)
     \end{center}
+
     \fontsize{9}{0.8\baselineskip}
     \begin{itemize}
-        \item Difference in brightnesses of stars measured using
-            multi-epoch fitting versus standard ``coadd'' of images.
-        \item linear features are due to discontinuities in the
-            point spread function at chip boundaries: the 
-            brightness measured in the coadd is wrong.
+
+        \item Sky position of stars with large difference between multi-epoch and
+            coadd flux (red positive, white negative)
+
+        \item These outlier objects trace the chip boundaries.  Discontinuities
+            in the point spread function at these locations. The brightness
+            measured in the coadd is wrong.
+
     \end{itemize}
 }
 
@@ -207,7 +213,7 @@
         \item Photometry performing significantly better than
             standard analysis.
 
-        \item Inital shear measurements running now.  Should have a full
+        \item Initial shear measurements running now.  Should have a full
             processing of early data in the next month.
 
     \end{itemize}
@@ -230,7 +236,7 @@
 {
     \frametitle{Andres Plazas: DES Detector Characterization}
 
-    \fontsize{9}{0.7\baselineskip}
+    \fontsize{8}{0.7\baselineskip}
     \begin{columns}
         \begin{column}{0.4\textwidth}
             \begin{itemize}
@@ -245,8 +251,9 @@
                     measurements indicate this introduces large systematic
                     errors.
 
-                \item We measure these instrumental signatures and produce
-                    models that fit the data well.
+                \item We measure these instrumental signatures from special
+                    calibration exposures and produce models based on the flat
+                    fields that fit the data well.
 
             \end{itemize}
         \end{column}
@@ -269,16 +276,22 @@
     \frametitle{Andres Plazas: DES Detector Characterization}
 
     \begin{center}
-    \includegraphics[width=0.7\textwidth]{astrometric_residuals_vs_model_S12.pdf}
+    \includegraphics[width=0.6\textwidth]{astrometric_residuals_vs_model_S12.pdf}
 \end{center}
 
-    \fontsize{9}{0.8\baselineskip}
+    \fontsize{8}{0.8\baselineskip}
         \begin{itemize}
             \item Astrometric residuals binned in radius from center of tree ring.
             \item Prediction from model fit to the flat field matches well.
             \item Model will be incorporated into all DES analyses.  Simple
                 to include in multi-epoch image processing.
-            \item Accepted for publication in PASP.  arXiv:1403.6127
+
+            \item First time the tree ring effect has been fully modeled using
+                only on-sky data.
+
+            \item Accepted for publication in PASP.  Plazas, Bernstein \&
+                Sheldon (2014), arXiv:1403.6127
+
         \end{itemize}
 }
 
@@ -290,7 +303,8 @@
     \begin{columns}
         \begin{column}{0.4\textwidth}    
             \begin{itemize}
-                \item RedMapper clusters in early DES data.
+                \item RedMapper clusters (Rykoff) in 150 square degrees of early DES data.
+                \item Shears from im3shape catalog.
                 \item Signal binned by cluster richness $\lambda$.
                 \item Detection in all bins.
                 \item Plenty of signal!
