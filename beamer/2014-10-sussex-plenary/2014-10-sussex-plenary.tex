@@ -31,8 +31,8 @@
 \newcommand{\python}{\texttt{Python}}
 \newcommand{\shear}{{\bf g}}
 
-\newcommand{\ngmix}{ {\bf ngmix} }
-\newcommand{\imshape}{ {\bf im3shape} }
+\newcommand{\ngmix}{{\bf ngmix}}
+\newcommand{\imshape}{{\bf im3shape}}
 
 
 % http://texblog.net/latex-archive/plaintex/beamer-footline-frame-number/
@@ -64,12 +64,17 @@
 
     \begin{itemize}
 
-        \item Brief description of the data and pipelines.
+        %\item Brief description of the data and pipelines.
+        \item Brief description of the two pipelines.
         \item Systematics tests
             \begin{itemize}
                 \item PSF tests
                 \item Shear tests: simulation
                 \item Shear tests: null tests on data (SVA1)
+
+                \item Many tests had to be left out due to time constraints:
+                    try to focus on the simplest to demonstrate.
+
             \end{itemize}
         \item Summary
     \end{itemize}
@@ -79,7 +84,8 @@
 {
     \frametitle{Pipelines}
 
-    \fontsize{9}{0.8\baselineskip}
+    %\fontsize{9}{0.8\baselineskip}
+
     \begin{itemize}
         \item \imshape: maximum likelihood fitter (Zuntz et al.)
             \begin{itemize}
@@ -92,20 +98,25 @@
                 \item Fit all bands at simultaneously
             \end{itemize}
 
-        \item Algorithms are run on all epochs simultaneously: PSF is
-            better behaved and understood on the single-epoch images.
+        \item Multi-epoch
+            fitting using Multi-Epoch Data Structures. Collect all postage
+            stamps from all single-epoch data into one file per tile.
+            \url{https://cdcvs.fnal.gov/redmine/projects/deswlwg/wiki/Multi_Epoch_Data_Structure}
 
-        \item We use Multi-Epoch Data Structures for our processing (MEDS).
-            MEDS files include:
-            \begin{itemize}
-                \item all postage stamps from all epochs associated with
-                    each coadd object.
-                \item weight maps
-                \item bit masks
-                \item other metadata
-            \end{itemize}
+        %\item Algorithms are run on all epochs simultaneously: PSF is
+        %    better behaved and understood on the single-epoch images.
 
-        \item We only use coadds for detection.
+        %\item We use Multi-Epoch Data Structures for our processing (MEDS).
+        %    MEDS files include:
+        %    \begin{itemize}
+        %        \item all postage stamps from all epochs associated with
+        %            each coadd object.
+        %        \item weight maps
+        %        \item bit masks
+        %        \item other metadata
+        %    \end{itemize}
+
+        %\item We only use coadds for detection.
 
     \end{itemize}
 }
@@ -130,15 +141,23 @@
 
                 \item $\rho_1$ is the auto-correlation of the residuals between
                     the measured shape of stars and that of the interpolated PSF.
+                    $\langle \delta e \delta e\rangle$
+                \item $\rho_2$ is the correlation of the shape with the residuals
+                    $\langle e \delta e\rangle$
+
+                \item Figures: Mike Jarvis
 
             \end{itemize}
         \end{column}
         \begin{column}{0.55\textwidth}
 
             \begin{center}
-                \includegraphics[width=\textwidth]{exp_rho1_crop.pdf}
+                \includegraphics[width=0.8\textwidth]{rho1-psfex-crop.pdf}
                 \newline
-                {\tiny Figure: Mike Jarvis}
+                \includegraphics[width=0.8\textwidth]{rho2-psfex-crop.pdf}
+                \newline
+
+
             \end{center}
         \end{column}
     \end{columns}
@@ -155,7 +174,7 @@
             calibration error that depends on S/N.
 
         \item GREAT DES simulations were created to test noise bias (Kacprzak).
-            Cannot test absolute errors with data.
+            Cannot test absolute calibration with data.
 
         \item \imshape:  measure noise bias and correct for it.
 
@@ -174,23 +193,26 @@
 {
     \frametitle{Calibration Errors: Apples to Apples}
 
-    \fontsize{8}{0.8\baselineskip}
+    \fontsize{9}{0.8\baselineskip}
     \begin{itemize}
 
         \item Average signal from RedMapper clusters
 
-        \item \imshape\ vs. \ngmix\ using matched source list: careful matching
-            required because \ngmix\ recovers higher source density.
+        \item \imshape\ vs. \ngmix\ using matched source list
 
-        \item To leading order, this test is independent of photoz errors.
+        
+        %\item To leading order, this test is independent of photoz errors:
+        %    \begin{itemize}
+        %        \item different weighting can lead to different photoz errors
+        %    \end{itemize}
 
-                \begin{itemize}
-                    {\tiny
-                    \item \imshape\ higher at the $\sim$ 10\% level.
+                %\begin{itemize}
+                %    {\tiny
+                %    \item \imshape\ higher at the $\sim$ 10\% level.
 
-                    \item Maybe different weighting $\leftrightarrow$ different photoz errors: $(S/N)_{im3}=20 \leftrightarrow (S/N)_{ngmix}=40$
-                    }
-                \end{itemize}
+                %    \item Maybe different weighting $\leftrightarrow$ different photoz errors: $(S/N)_{im3}=20 \leftrightarrow (S/N)_{ngmix}=40$
+                %    }
+                %\end{itemize}
     \end{itemize}
 
     \begin{center}
@@ -251,6 +273,18 @@
 }
 
 
+\frame
+{
+    \frametitle{Shear Around Stars}
+
+    Look for spurious signal round stars
+
+    \begin{center}
+        \includegraphics[width=0.7\textwidth]{star_gal_cs85_m16-22.pdf}
+    \end{center}
+    {\tiny Figure: Niall Maccrann (im3shape)}
+}
+
 
 \frame
 {
@@ -259,7 +293,7 @@
     Look for spurious signal round random points
 
     \begin{center}
-        \includegraphics[width=0.7\textwidth]{random_points_v6_v7_crop.pdf}
+        \includegraphics[width=0.7\textwidth]{random_points_im3shape_ngmix.pdf}
     \end{center}
     {\tiny Figure: Carles S\`{a}nchez}
 }
@@ -282,17 +316,16 @@
 
                 {\tiny 
                     \item Every other point $\sim$ independent.
-                    \item No weights or bayesian sensitivities applied for ngmix.
+                    \item No bayesian sensitivities applied for ngmix, which will boost the signal
                     }
 
             \end{itemize} 
 
-        \item These data are {\bf blinded}
+        \item These data are {\bf blinded}.
 
     \end{itemize}
 
     \begin{columns}
-
 
         \begin{column}{0.5\textwidth}
             \begin{center}
@@ -339,10 +372,7 @@
 
     \begin{itemize}
 
-        \item PSF $\rho$-statistics look good
-            \begin{itemize}
-                \item need to understand the requirement, compared to signal.
-            \end{itemize}
+        \item PSF $\rho$-statistics may be good enough for SVA
 
         \item Calibrations of \imshape\ and \ngmix\ very similar for a low number
             density subset of common sources
