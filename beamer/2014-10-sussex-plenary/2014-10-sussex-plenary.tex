@@ -84,10 +84,12 @@
         \item \imshape: maximum likelihood fitter (Zuntz et al.)
             \begin{itemize}
                 \item Known to be biased: correct for biases using sims.
+                \item Single band
             \end{itemize}
         \item \ngmix: bayesian shear estimation (Sheldon)
             \begin{itemize}
-                \item Less bias, but more computationally expensive $(\sim 2.5)$
+                \item Less biased, but more computationally expensive $(\sim 2.5)$
+                \item Fit all bands at simultaneously
             \end{itemize}
 
         \item Algorithms are run on all epochs simultaneously: PSF is
@@ -228,6 +230,30 @@
 
 \frame
 {
+    \frametitle{PSF Leakage}
+
+    \begin{columns}
+        \begin{column}{0.38\textwidth}
+            \begin{center}
+                \includegraphics[width=\textwidth]{im3shape-PSF-E1.pdf}
+                \newline
+                {\tiny Figure: Vinu Vikram (\imshape)}
+            \end{center}
+        \end{column}
+        \begin{column}{0.62\textwidth}
+            \begin{center}
+            \includegraphics[width=\textwidth]{ngmix009-e-vs-epsf-Ts2n-min-1-s2n-min-20.pdf}
+                \newline
+                {\tiny Figure: Erin Sheldon}
+            \end{center}
+        \end{column}
+    \end{columns}
+}
+
+
+
+\frame
+{
     \frametitle{Random Points}
 
     Look for spurious signal round random points
@@ -245,7 +271,7 @@
     \fontsize{9}{0.8\baselineskip}
     \begin{itemize}
 
-        \item Gravity only produces an E mode shear polarization (shears transform like
+        \item Gravity only produces an E mode shear (shears transform like
             polarizations).
 
         \item B mode should be consistent with zero.
@@ -321,18 +347,26 @@
         \item Calibrations of \imshape\ and \ngmix\ very similar for a low number
             density subset of common sources
 
-        \item Overall the shear null tests look good.
+        \item Most of the shear null tests look good.
 
             \begin{itemize}
 
                 \item There are still some unexplained correlations, but these
-                    do not appear to propagate into the other null tests.
+                    do not appear to propagate into the other null tests such
+                    as B mode and random points.
 
             \end{itemize}
             
         \item Optimistic we will be ready for SVA1 science before year end.
 
     \end{itemize}
+}
+
+
+\frame
+{
+    \frametitle{Extra Slides}
+    {\Huge Extra Slides}
 }
 
 
