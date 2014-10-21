@@ -58,6 +58,7 @@
 
 \frame{\titlepage}
 
+\begin{comment}
 \frame
 {
     \frametitle{Outline}
@@ -79,7 +80,38 @@
         \item Summary
     \end{itemize}
 }
- 
+\end{comment} 
+
+
+\frame
+{
+    \begin{center}
+        \includegraphics[width=0.7\textwidth]{flowchart-crop.pdf}
+        \newline
+        {\tiny Figure: Joe Zuntz}
+    \end{center}
+}
+
+\frame
+{
+    \frametitle{Multi-Epoch Data Structures (MEDS)}
+
+    {\small
+
+        Both pipelines use Multi-Epoch Data Structures (MEDS).  We collect all
+        postage stamps from all single-epoch data into one file per tile.
+    }
+    {\tiny
+
+        \url{https://cdcvs.fnal.gov/redmine/projects/deswlwg/wiki/Multi_Epoch_Data_Structure}
+    }
+    \begin{center}
+        \includegraphics[width=1.2\textwidth]{resid-im3shape-2929660524.png}
+    \end{center}
+
+}
+
+
 \frame
 {
     \frametitle{Pipelines}
@@ -89,36 +121,20 @@
     \begin{itemize}
         \item \imshape: maximum likelihood fitter (Zuntz et al.)
             \begin{itemize}
-                \item Known to be biased: correct for biases using sims.
-                \item Single band
+                \item Correct noise bias using sims.
+                \item Currently single band
             \end{itemize}
         \item \ngmix: bayesian shear estimation (Sheldon)
             \begin{itemize}
-                \item Less biased, but more computationally expensive $(\sim 2.5)$
+
+                \item Use prior information to control noise bias. More computationally expensive $(\sim 2.5)$
+
                 \item Fit all bands at simultaneously
             \end{itemize}
 
-        \item Multi-epoch
-            fitting using Multi-Epoch Data Structures. Collect all postage
-            stamps from all single-epoch data into one file per tile.
-            \url{https://cdcvs.fnal.gov/redmine/projects/deswlwg/wiki/Multi_Epoch_Data_Structure}
-
-        %\item Algorithms are run on all epochs simultaneously: PSF is
-        %    better behaved and understood on the single-epoch images.
-
-        %\item We use Multi-Epoch Data Structures for our processing (MEDS).
-        %    MEDS files include:
-        %    \begin{itemize}
-        %        \item all postage stamps from all epochs associated with
-        %            each coadd object.
-        %        \item weight maps
-        %        \item bit masks
-        %        \item other metadata
-        %    \end{itemize}
-
-        %\item We only use coadds for detection.
-
     \end{itemize}
+
+
 }
 
 \frame
@@ -168,27 +184,42 @@
 {
     \frametitle{Calibration Errors: Noise Bias}
 
+    \fontsize{9}{0.8\baselineskip}
     \begin{itemize}
 
-        \item Using point estimates for shear can result in ``noise bias'', a
-            calibration error that depends on S/N.
+        %{\small
+            \item Using point estimates for shear can result in ``noise bias'', a
+                calibration error that depends on S/N.
 
-        \item GREAT DES simulations were created to test noise bias (Kacprzak).
-            Cannot test absolute calibration with data.
+            \item GREAT DES simulations were created to test noise bias (Kacprzak).
+                Cannot test absolute calibration with data.
 
-        \item \imshape:  measure noise bias and correct for it.
+            \item \imshape:  Measure noise bias in sims and correct for it.
 
-        \item \ngmix: no detectable noise bias
-
+            \item \ngmix: Noise bias controlled during fitting.  {\em Priors derived from cosmos}.
+        %}
     \end{itemize}
 
-    \begin{center}
-        \includegraphics[width=0.5\textwidth]{noise-bias-im3shape.png}
-        \includegraphics[width=0.5\textwidth]{noise-bias-ngmix.png}
-    \end{center}
-    {\tiny (Figures: Tomasz Kacprzak)}
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
+            \begin{center}
+                \includegraphics[width=\textwidth]{greatdes-im3shape.pdf}
+                \newline
+                {\tiny im3shape}
+            \end{center}
+        \end{column}
+        \begin{column}{0.5\textwidth}
+            \begin{center}
+                \includegraphics[width=\textwidth]{greatdes-ngmix.pdf}
+                \newline
+                {\tiny ngmix}
+            \end{center}
+        \end{column}
+    \end{columns}
+
 }
 
+\begin{comment}
 \frame
 {
     \frametitle{Calibration Errors: Apples to Apples}
@@ -225,6 +256,7 @@
         }
 }
 
+\end{comment}
 
 \frame
 {
@@ -236,28 +268,6 @@
         \begin{column}{0.38\textwidth}
             \begin{center}
                 \includegraphics[width=\textwidth]{im3shape-PSF-E2.pdf}
-                \newline
-                {\tiny Figure: Vinu Vikram (\imshape)}
-            \end{center}
-        \end{column}
-        \begin{column}{0.62\textwidth}
-            \begin{center}
-            \includegraphics[width=\textwidth]{ngmix009-e-vs-epsf-Ts2n-min-1-s2n-min-20.pdf}
-                \newline
-                {\tiny Figure: Erin Sheldon}
-            \end{center}
-        \end{column}
-    \end{columns}
-}
-
-\frame
-{
-    \frametitle{PSF Leakage}
-
-    \begin{columns}
-        \begin{column}{0.38\textwidth}
-            \begin{center}
-                \includegraphics[width=\textwidth]{im3shape-PSF-E1.pdf}
                 \newline
                 {\tiny Figure: Vinu Vikram (\imshape)}
             \end{center}
@@ -286,6 +296,7 @@
 }
 
 
+\begin{comment}
 \frame
 {
     \frametitle{Random Points}
@@ -297,6 +308,7 @@
     \end{center}
     {\tiny Figure: Carles S\`{a}nchez}
 }
+\end{comment}
 
 \frame
 {
@@ -305,23 +317,27 @@
     \fontsize{9}{0.8\baselineskip}
     \begin{itemize}
 
-        \item Gravity only produces an E mode shear (shears transform like
-            polarizations).
+        %{\scriptsize
+            \item Gravity only produces an E mode shear (shears transform like
+                polarizations).
 
-        \item B mode should be consistent with zero.
+            \item B mode should be consistent with zero.
 
-        \item B mode estimation (Becker \& Rozo, in prep).
+            \item B mode estimation (Becker \& Rozo, in prep).
 
-            \begin{itemize} 
+                \begin{itemize} 
 
-                {\tiny 
-                    \item Every other point $\sim$ independent.
-                    \item No bayesian sensitivities applied for ngmix, which will boost the signal
-                    }
+                        %{\tiny 
+                        \item Every other point $\sim$ independent.
+                        %\item No bayesian sensitivities applied for ngmix, which will boost the signal
+                        %}
 
-            \end{itemize} 
+                \end{itemize} 
 
-        \item These data are {\bf blinded}.
+            \item We did not pass this test before Eli and Gary's Astrometry Fixes!
+
+            %\item These data are {\bf blinded}.
+        %}
 
     \end{itemize}
 
@@ -329,13 +345,13 @@
 
         \begin{column}{0.5\textwidth}
             \begin{center}
-                \includegraphics[width=1.05\textwidth]{im3shape_v7_r_crop.pdf}
+                \includegraphics[width=1.05\textwidth]{im3shape_v7_r_b.pdf}
             \end{center}
         \end{column}
 
         \begin{column}{0.5\textwidth}
             \begin{center}
-                \includegraphics[width=1.05\textwidth]{ngmix009_eb_crop.pdf}
+                \includegraphics[width=1.05\textwidth]{ngmix009_b.pdf}
             \end{center}
         \end{column}
 
@@ -374,8 +390,8 @@
 
         \item PSF $\rho$-statistics may be good enough for SVA
 
-        \item Calibrations of \imshape\ and \ngmix\ very similar for a low number
-            density subset of common sources
+        %\item Calibrations of \imshape\ and \ngmix\ very similar for a low number
+        %    density subset of common sources
 
         \item Most of the shear null tests look good.
 
@@ -396,6 +412,28 @@
 {
     \frametitle{Extra Slides}
     {\Huge Extra Slides}
+}
+
+\frame
+{
+    \frametitle{PSF Leakage}
+
+    \begin{columns}
+        \begin{column}{0.38\textwidth}
+            \begin{center}
+                \includegraphics[width=\textwidth]{im3shape-PSF-E1.pdf}
+                \newline
+                {\tiny Figure: Vinu Vikram (\imshape)}
+            \end{center}
+        \end{column}
+        \begin{column}{0.62\textwidth}
+            \begin{center}
+            \includegraphics[width=\textwidth]{ngmix009-e-vs-epsf-Ts2n-min-1-s2n-min-20.pdf}
+                \newline
+                {\tiny Figure: Erin Sheldon}
+            \end{center}
+        \end{column}
+    \end{columns}
 }
 
 
