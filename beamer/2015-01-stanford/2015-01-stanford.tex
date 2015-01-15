@@ -27,7 +27,7 @@
 \newcommand{\prelim}{{\bf{\it Preliminary}}}
 
 \title{Weak Lensing Results from DES}
-\author{Erin Sheldon}
+\author{Erin Sheldon, and the DES Lensing Working Group}
 \institute{Brookhaven National Laboratory}
 
 % http://texblog.net/latex-archive/plaintex/beamer-footline-frame-number/
@@ -45,6 +45,24 @@
 \frame{\titlepage}
 
 %\section{Dark Energy}
+
+\frame
+{
+    \frametitle{Outline}
+
+    \begin{itemize}
+
+        \item Introduction to Dark Energy and Lensing
+
+        \item The Dark Energy Survey
+
+        \item \prelim\ Lensing Results for Galaxy Clusters
+
+    \end{itemize}
+
+
+}
+
 
 \frame
 {
@@ -336,6 +354,7 @@
 }
 
 
+\begin{comment}
 \frame
 {
     \frametitle{Lensing Dark Energy State of the Art}
@@ -347,6 +366,7 @@
     \end{center}
 
 }
+\end{comment}
 
 
 
@@ -357,7 +377,7 @@
     \begin{center}
         \includegraphics[width=0.8\textwidth]{maxbcg_sample21-22_ngals200_12_jackknife.pdf}
         \newline
-        Sheldon et al. 2009.  Sloan Digital Sky Survey Galaxy Clusters
+        Sheldon et al. 2009.  MaxBCG Clusters from the Sloan Digital Sky Survey Galaxy Clusters
     \end{center}
 }
 
@@ -470,7 +490,12 @@
 
     \end{itemize}
 
-    \includegraphics[width=0.9\textwidth]{great3-systematics.pdf}
+    \begin{center}
+        \includegraphics[width=0.8\textwidth]{great3-systematics.pdf}
+        \newline
+        GREAT3 Team
+    \end{center}
+
 }
 
 \frame
@@ -480,7 +505,7 @@
     %\fontsize{9}{0.8\baselineskip}
     \begin{itemize}
 
-        \item In DES we have three shear implementations, all of which
+        \item In DES we have three shear measurement methods, all of which
             overcome the above difficulties
 
         \item For all methods we fit an elliptical model, such as an elliptical
@@ -513,7 +538,7 @@
         
         \item There are small distortions in the optics (not convolutions).
             These must be mapped and included in the analysis.
-            We use SWARP. (Bertin)
+            We use SCAMP. (Bertin)
 
         \item Fit a model to each galaxy, convolved with the interpolated PSF
             and estimated in the {\it undistorted} frame.
@@ -587,7 +612,7 @@
 
 \frame
 {
-    \frametitle{Bayesian Lensing Shear Measurement}
+    \frametitle{Bayesian Lensing Shear Measurement: \ngmix}
 
     \fontsize{9}{0.8\baselineskip}
     \begin{columns}
@@ -674,9 +699,9 @@
         \end{column}
         \begin{column}{0.7\textwidth}
             \begin{center}
-                %\includegraphics[width=\textwidth]{cbafit-geg07-geg08-deg03-deg05-lensfit-flux-s2n.pdf}
-                %\newline
                 \includegraphics[width=\textwidth]{noise-bias-ngmix.png}
+                \newline
+                Kacprzak, T.
             \end{center}
         \end{column}
     \end{columns}
@@ -693,7 +718,7 @@
         \item If the shear we measure is due to lensing, it must have
             certain symmetries: No B-modes allowed
 
-        \item Error bars from simulatioins
+        \item Error bars from simulations
         
         \item Consistent with zero
 
@@ -733,28 +758,6 @@
 
 \frame
 {
-    \frametitle{\ngmix\ Null Tests on DES Data: PSF Leakage}
-
-    \begin{itemize}
-
-        \item If our PSF correction is working, there should be no relation between
-            measured galaxy shape and PSF shape.
-
-        \item DECam PSF are quite round 
-
-        \item The relation is weak but detected.
-
-    \end{itemize}
-
-
-    \begin{center}
-        \includegraphics[width=0.8\textwidth]{ngmix011-e-vs-epsf-Ts2n-min-300-s2n-min-10.pdf}
-    \end{center}
-
-}
-
-\frame
-{
     \frametitle{\ngmix\ Null Tests on DES Data: Galaxy Size}
 
     \begin{itemize}
@@ -782,17 +785,37 @@
     
     \begin{itemize}
 
-        \item Select large contiguous area from DES Early Data: $\sim 150$ square degrees
+        \item Select large contiguous area from DES Early Data: $\sim 162$ square degrees
             in the SPT region.
 
-        \item Select galaxy clusters using the \redmapper\ algorithm (Rykoff, Rozo et al. 2014)
+        \item Select galaxy clusters using the \redmapper\ algorithm (Rykoff,
+            Rozo et al. 2014).  $\sim$ 12,000 groups and clusters with redshift
+            $z \in [0.2,0,0]$
 
         \item Measure the ensemble lensing signal around sets of clusters.
 
         \item Repeat SDSS analysis: Bin cluster by ``richness', look for mass scaling.
 
+    \end{itemize}
+}
+
+\frame
+{
+    \frametitle{DES Region ``SPT-E''}
+
+    \begin{itemize}
+
+        \item $\sim 162$ square degrees
+
+        \item Full survey depth: 10 epochs, $i$-band 10-$\sigma$ limiting magnitude
+            $\sim$ 24
 
     \end{itemize}
+
+    \begin{center}
+        \includegraphics[width=0.8\textwidth]{spte-greyscale-density-010000000.pdf}
+    \end{center}
+
 }
 
 \frame
@@ -801,18 +824,18 @@
 
     \begin{itemize}
 
-        \item Overall mean shear signal
+        \item Overall mean shear signal for 12,000 clusters
 
         \item No corrections at low radius for cluster members or deblending issues
 
     \end{itemize}
-
 
     \begin{center}
         \includegraphics[width=0.6\textwidth]{run-rm008-bin-zwide-jack.pdf}
     \end{center}
 
 }
+
 
 \frame
 {
@@ -878,7 +901,14 @@
 
     \begin{itemize}
 
-        \item blah
+        \item Lensing is a promising method to constrain Dark Energy
+
+        \item The Dark Energy Survey is underway.  We have significant shear measurements
+            with early data.
+
+        \item We have multiple promising shear pipelines, and are passing most
+            of our calibration and null tests.
+
 
     \end{itemize}
 
