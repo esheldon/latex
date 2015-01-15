@@ -22,6 +22,9 @@
 \newcommand{\python}{\texttt{Python}}
 \newcommand{\ngmix}{\texttt{ngmix}}
 \newcommand{\shear}{{\bf g}}
+\newcommand{\redmapper}{redMaPPer}
+
+\newcommand{\prelim}{{\bf{\it Preliminary}}}
 
 \title{Weak Lensing Results from DES}
 \author{Erin Sheldon}
@@ -39,7 +42,7 @@
 
 \begin{document}
 
-%\frame{\titlepage}
+\frame{\titlepage}
 
 %\section{Dark Energy}
 
@@ -51,17 +54,20 @@
     \begin{columns}
         \begin{column}{0.5\textwidth}    
             \begin{itemize}
-                \item The original story is simple
 
-                \item There are objects whose intrinsic brightness we think we
-                    know (type 1a supernovae)
+                \item The original story is simple: there are objects whose
+                    intrinsic brightness we think we know (type 1a supernovae)
 
-                \item If we know one of these objects is at a given distance we
-                    should be able to predict its observed brightness
+                \item If we know one of these objects is at a given redshift we
+                    should be able to predict its observed brightness: $D(z)$.
 
                 \item It turns out this only works if we modify the equations
-                    so that the universe is accelerating at late times (long
-                    after the big bang, recently) instead of slowing down
+                    so that the universe is accelerating at late times
+                    %(long
+                    %after the big bang, recently) instead of slowing down
+
+                %\item modifies the relation between the observable redshift $z$
+                %    and distance.
 
                 \item Either add a new component, such as a cosmological constant,
                     or modify general relativity
@@ -91,10 +97,12 @@
                     universe cools enough for baryons and photons to decouple:
                     it is thus a standard ruler
 
-                \item its apparent size at a give distance should be predictable
-                    given the observed size in the CMB and a cosmological model.
+                \item Its apparent size at a given redshift should be predictable
+                    given the observed size in the CMB and a cosmological model $D(z)$.
 
-                \item again, it only works if we modify the equations
+                \item Again, it only works if we modify the equations.
+
+                \item Agreement with supernovae
 
             \end{itemize}
         \end{column}
@@ -121,8 +129,10 @@
         \item Constant energy density in an expanding universe is unsatisfying,
             but it matches the data well with our current limited precision.
 
-        \item Next level of complexity: arbitrary equation of state.  This is
-            poorly constrained with current data.
+        \item Next level of complexity: arbitrary equation of
+            state\footnote{Any accelerating solution for $w$ ($< - 1/3$)
+            violates the strong energy condition.}.  This is poorly constrained
+            with current data.
 
     \end{itemize}
 
@@ -130,9 +140,9 @@
         p = w \rho
     \end{equation}
 
-    \begin{itemize}
-        \item Any accelerating solution for $w$ ($< - 1/3$) violates the strong energy condition.
-    \end{itemize}
+    %\begin{itemize}
+    %    \item Any accelerating solution $w$ ($< - 1/3$) violates the strong energy condition.
+    %\end{itemize}
 
 }
 
@@ -144,7 +154,7 @@
 
     \begin{itemize}
 
-        \item Light is apparently deflected as it passes massive bodies.
+        \item Light is deflected as it passes massive bodies.
 
         \item All objects in the universe are lensed.
 
@@ -252,6 +262,44 @@
     \end{columns}
 }
 
+
+\frame
+{
+
+    \frametitle{Weak Lensing}
+
+    \fontsize{10}{0.8\baselineskip}
+
+    \begin{columns}
+
+        \begin{column}{0.5\textwidth}
+
+            \begin{itemize}
+
+                \item The ``tangential'' stretching seen here is indicative
+                of a generic symmetry
+
+                \item When averaged over a large sample, there are no ``B-modes'',
+                    only ``E-modes''
+
+                \item Later I will discuss shear correlation measurements for both modes.
+
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.5\textwidth}
+            \begin{center}
+                \includegraphics[width=0.7\textwidth]{shear-illustration-crop.jpg}
+                \newline
+                \includegraphics[width=0.7\textwidth]{EBmode.pdf}
+                \newline
+                {\tiny Baumann http://arxiv.org/abs/0907.5424}
+            \end{center}
+        \end{column}
+    \end{columns}
+}
+
+
+
 \frame
 {
     \frametitle{Shear}
@@ -324,7 +372,7 @@
         \begin{column}{0.5\textwidth}
             \begin{itemize}
 
-                \item This technique is well established, and measured with high precision.
+                \item This technique is well established, and measurements have high precision.
 
                 \item In SDSS we used lensing to study the dark matter distribution in
                     and around galaxy clusters.
@@ -338,9 +386,11 @@
         \end{column}
 
         \begin{column}{0.5\textwidth}
-            \includegraphics[width=\textwidth]{maxbcg_sample21-22_ngals200_12_jackknife.pdf}
-            \newline
-            Sheldon et al. 2009
+            \begin{center}
+                \includegraphics[width=\textwidth]{maxbcg_sample21-22_ngals200_12_jackknife.pdf}
+                \newline
+                Sheldon et al. 2009
+            \end{center}
         \end{column}
     \end{columns}
 }
@@ -356,7 +406,7 @@
             \begin{itemize}
 
                 \item Imaging survey of 5000 square degrees in the 
-                    southern sky (CTIO) through 5 optical filters.  Dept $\sim 24$ in
+                    southern sky (CTIO) through 5 optical filters.  Depth $\sim 24$ in
                     $i$-band.
 
                 \item Study dark energy using weak lensing, galaxy clusters, supernovae
@@ -385,7 +435,7 @@
     %\fontsize{9}{0.8\baselineskip}
     \begin{itemize}
 
-        \item Measure the shears with $\sim$ 0.4\% accuracy
+        \item Measure the shears with $\sim$ 0.4\% accuracy (1-2\% for early data).
 
             \begin{itemize}
                 \item Develop galaxy shape measurement algorithms
@@ -400,27 +450,164 @@
     \end{itemize}
 }
 
+\frame
+{
+    \frametitle{Measuring Shear}
 
+    \begin{itemize}
 
+        \item For a perfect detector with no noise, just measure
+            the second moments and look for the correlations.
 
+        \item ... but the atmosphere, telescope, and instrument smear
+            the image: the Point Spread Function (PSF).
 
-%\section{Dark Energy Survey}
+        \item Convolution just adds to the moments, so we just need to
+            subtract off the PSF moments!
+
+        \item ... but there is noise, so error in moments blows up (among other
+            difficulties).
+
+    \end{itemize}
+
+    \includegraphics[width=0.9\textwidth]{great3-systematics.pdf}
+}
+
+\frame
+{
+    \frametitle{DES Shear Measurement Codes}
+
+    %\fontsize{9}{0.8\baselineskip}
+    \begin{itemize}
+
+        \item In DES we have three shear implementations, all of which
+            overcome the above difficulties
+
+        \item For all methods we fit an elliptical model, such as an elliptical
+            exponential disk, to galaxies.  We use the ellipse parameters as
+            measurements of the shear
+
+        \begin{itemize}
+            \item LENSFIT style method, based on Miller et al. 2007
+
+            \item Bayesian shear estimation based on Bernstein \& Armstrong 2014
+
+            \item im3shape measurement, Zuntz et al. 2013
+        \end{itemize}
+
+        \item In this talk I will focus on my implementations of
+            LENSFIT and B\&A
+
+    \end{itemize}
+}
+
+\frame
+{
+    \frametitle{Common Features of All Methods}
+
+    \begin{itemize}
+        
+        \item The Point Spread function of the telescope and atmosphere blurs
+            out the images.  We must determine this from stars and correct for it.
+            We use PSFEx. (Bertin)
+        
+        \item There are small distortions in the optics (not convolutions).
+            These must be mapped and included in the analysis.
+            We use SWARP. (Bertin)
+
+        \item Fit a model to each galaxy, convolved with the interpolated PSF
+            and estimated in the {\it undistorted} frame.
+
+        \item ``multi-fit'': We have of order 10 epochs.  Rather than use the coadd image
+            we do the fit using all the epochs simultaneously.  This avoids
+            discontinuities in the PSF.
+
+        \item Mitigate noise-related calibration biases
+
+    \end{itemize}
+}
+
+\frame
+{
+    \frametitle{How Can We Test Shear Methods?}
+
+    \begin{itemize}
+
+        \item No absolute calibration source for shear: we need to use
+            simulations to test overall calibration
+
+        \item Null tests (not exhaustive)
+
+            \begin{itemize}
+
+                \item In the absence of systematics, the mean shear should be
+                    zero over a large enough area of sky
+
+                \item The shear should not correlate with star shapes if we
+                    corrected properly for the PSF.
+
+                \item The shear should have the correct symmetries.  There
+                    should be no curl-like ``B-mode'' patterns.
+
+            \end{itemize}
+
+    \end{itemize}
+}
+
+\frame
+{
+    \frametitle{Bayesian Shear Measurement: Bernstein \& Armstrong 2014}
+
+    \begin{itemize}
+
+        \item Shape of a noisy galaxy is a biased estimate of shear
+
+        \item Forget about shear from a single galaxy image.
+
+        %\item While the posterior surface for the {\it shape} of single galaxy
+        %    is complex, the posterior surface for the {\it mean shear} of an
+        %    ensemble must approach a Gaussian according to the central limit
+        %    theorem.  This is both useful and actually true!
+
+         \item Assuming weak shear, and knowledge of underlying distribution of
+             shapes for the ensemble (the prior), one can derive an unbiased
+             estimator for the mean shear of the {\it ensemble}.
+
+         \item You lose nothing: in the limit of weak shear, you need
+             to use an ensemble statistic anyway.  The ``shape noise'',
+             intrinsic variance in shapes of galaxies, dominates over
+             the signal.
+
+        \item I developed an implementation, presented in Sheldon 2014
+         
+    \end{itemize}
+
+}
 
 
 \frame
 {
     \frametitle{Bayesian Lensing Shear Measurement}
 
+    \fontsize{9}{0.8\baselineskip}
     \begin{columns}
         \begin{column}{0.4\textwidth}
             \begin{itemize}
 
-                \item Figure: Fractional error in the shear for simulated galaxies
-                    (exp,dev profiles) near smallest usable {\it observed} size
-                    fwhm/fwhm$_{\textrm{psf}}$ = 1.2.
+                \item Figure: Fractional error in the shear
+                    %for simulated galaxies
+                    %(exp,dev profiles) near smallest usable {\it observed} size
+                    %fwhm/fwhm$_{\textrm{psf}}$ = 1.2.
 
-                \item Light Grey: DES requirements
-                \item Dark Grey: LSST requirements
+                \item Light grey: DES requirements, dark grey: LSST requirements
+
+                \item Current limitations:  very small shear ($\sim 0.01$) and 
+                    constant shear only.
+
+                \item We think we will ultimately use this method, but shelved
+                    for now until we address limitations (See Madhavacheril et
+                    al.)
+
             \end{itemize}
         \end{column}
         \begin{column}{0.6\textwidth}
@@ -433,6 +620,270 @@
     \end{columns}
 
 }
+
+
+
+\frame
+{
+    \frametitle{LENSFIT implementation: \ngmix}
+
+    \begin{itemize}
+
+        \item Use priors on the parameters and explore a constrained posterior
+            surface (Prior $\times$ Likelihood).
+
+        \item Derive approximately how the shear estimate (the shape) responds
+            to a small shear in the presence of the noise and prior.
+            
+        \item This {\bf response} is calculated using integrals over the
+            posterior surface and first order approximation in shear.
+
+        %\item The posterior surface of the shape for a single galaxy is
+        %    complex.  The space is bounded, the surface is necessarily
+        %    asymmetric and depends on galaxy properties and noise.
+
+        \item No rigorous expression is given for the mean shear of a
+            population given these responses.  Choose to simply average them.
+        
+    \end{itemize}
+}
+
+
+\frame
+{
+    \frametitle{\ngmix\ Tests with simulations}
+
+    \fontsize{9}{0.8\baselineskip}
+    \begin{columns}
+        \begin{column}{0.3\textwidth}
+            \begin{itemize}
+
+                %\item Top Figure: Fractional error in the shear for simulated galaxies
+                %    (exp,dev profiles) 
+
+                %\item Bottom Figure: Fractional error in the shear using real galaxy
+                %    images from COSMOS, sheared, convolved and noised.
+                \item Fractional error in the shear using real galaxy
+                    images from COSMOS, sheared, convolved and noised.
+
+                \item Works well at high shear.
+
+                \item Good enough for early DES data.
+
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.7\textwidth}
+            \begin{center}
+                %\includegraphics[width=\textwidth]{cbafit-geg07-geg08-deg03-deg05-lensfit-flux-s2n.pdf}
+                %\newline
+                \includegraphics[width=\textwidth]{noise-bias-ngmix.png}
+            \end{center}
+        \end{column}
+    \end{columns}
+
+}
+
+
+\frame
+{
+    \frametitle{\ngmix\ Null Tests on DES Data: B modes}
+
+    \begin{itemize}
+
+        \item If the shear we measure is due to lensing, it must have
+            certain symmetries: No B-modes allowed
+
+        \item Error bars from simulatioins
+        
+        \item Consistent with zero
+
+    \end{itemize}
+
+    \begin{center}
+        \includegraphics[width=0.8\textwidth]{ngmix009_b.pdf}
+        \newline
+        Matthew Becker (Stanford/SLAC)
+    \end{center}
+
+}
+
+
+\frame
+{
+    \frametitle{\ngmix\ Null Tests on DES Data: PSF Leakage}
+
+    \begin{itemize}
+
+        \item If our PSF correction is working, there should be no relation between
+            measured galaxy shape and PSF shape.
+
+        \item DECam PSF are quite round 
+
+        \item The relation is weak but detected.
+
+    \end{itemize}
+
+
+    \begin{center}
+        \includegraphics[width=0.8\textwidth]{ngmix011-e-vs-epsf-Ts2n-min-300-s2n-min-10.pdf}
+    \end{center}
+
+}
+
+
+\frame
+{
+    \frametitle{\ngmix\ Null Tests on DES Data: PSF Leakage}
+
+    \begin{itemize}
+
+        \item If our PSF correction is working, there should be no relation between
+            measured galaxy shape and PSF shape.
+
+        \item DECam PSF are quite round 
+
+        \item The relation is weak but detected.
+
+    \end{itemize}
+
+
+    \begin{center}
+        \includegraphics[width=0.8\textwidth]{ngmix011-e-vs-epsf-Ts2n-min-300-s2n-min-10.pdf}
+    \end{center}
+
+}
+
+\frame
+{
+    \frametitle{\ngmix\ Null Tests on DES Data: Galaxy Size}
+
+    \begin{itemize}
+
+        \item The mean shape should not depend on the galaxy size.
+
+        \item The absolute values are not huge (0.5\%) but clearly detected.
+        
+        \item Seems to mostly average out over the whole sample
+
+    \end{itemize}
+
+
+    \begin{center}
+        \includegraphics[width=0.5\textwidth]{ngmix011-e-vs-sigma-mx-50-Ts2n-min-300-s2n-min-10.pdf}
+    \end{center}
+
+}
+
+
+
+\frame
+{
+    \frametitle{\prelim\ Results: Lensing with \redmapper\ Clusters}
+    
+    \begin{itemize}
+
+        \item Select large contiguous area from DES Early Data: $\sim 150$ square degrees
+            in the SPT region.
+
+        \item Select galaxy clusters using the \redmapper\ algorithm (Rykoff, Rozo et al. 2014)
+
+        \item Measure the ensemble lensing signal around sets of clusters.
+
+        \item Repeat SDSS analysis: Bin cluster by ``richness', look for mass scaling.
+
+
+    \end{itemize}
+}
+
+\frame
+{
+    \frametitle{\prelim\ Results: Lensing with \redmapper\ Clusters}
+
+    \begin{itemize}
+
+        \item Overall mean shear signal
+
+        \item No corrections at low radius for cluster members or deblending issues
+
+    \end{itemize}
+
+
+    \begin{center}
+        \includegraphics[width=0.6\textwidth]{run-rm008-bin-zwide-jack.pdf}
+    \end{center}
+
+}
+
+\frame
+{
+    \frametitle{\prelim\ Results: Lensing with \redmapper\ Clusters}
+
+    \begin{itemize}
+
+        \item Dependence on richness $\lambda$.
+
+        \item No corrections at low radius for cluster members or deblending issues
+
+    \end{itemize}
+
+
+    \begin{center}
+        \includegraphics[width=0.6\textwidth]{run-rm008-bin-lbin4-zwide-jack.pdf}
+    \end{center}
+
+}
+
+\frame
+{
+    \frametitle{\prelim\ Results: Lensing with \redmapper\ Clusters}
+
+    \begin{itemize}
+
+        \item Dependence on lens redshift.
+
+        \item No corrections at low radius for cluster members or deblending issues
+
+    \end{itemize}
+
+
+    \begin{center}
+        \includegraphics[width=0.6\textwidth]{run-rm008-bin-lgt05-zbin4-jack.pdf}
+    \end{center}
+
+}
+
+\frame
+{
+    \frametitle{Future Work}
+
+    \begin{itemize}
+
+        \item Process more data!
+
+        \item Model the profiles using a simple halo model to extract
+            mass and clustering information.
+
+        \item Combine mass-$\lambda$ relation with the abundance of clusters to
+            constrain the ``mass function''.
+
+        \item Use the redshift dependence to constrain dark energy.
+
+    \end{itemize}
+
+}
+
+\frame
+{
+    \frametitle{Summary}
+
+    \begin{itemize}
+
+        \item blah
+
+    \end{itemize}
+
+}
+
 
 
 
