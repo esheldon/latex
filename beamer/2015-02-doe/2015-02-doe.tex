@@ -1,0 +1,62 @@
+\documentclass{beamer}
+
+\usepackage{beamerthemesplit}
+\usepackage{verbatim}
+
+\usetheme{Pittsburgh}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+\usecolortheme{beaver}
+
+\usefonttheme{serif}
+
+%\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+
+\newcommand{\snT}{$(S/N)_{\textrm{size}}$}
+%\newcommand{\snT}{$\left( \frac{S}{N}\right)_{\textrm{size}}$}
+\newcommand{\snflux}{$(S/N)_{\textrm{flux}}$}
+%\newcommand{\snflux}{$\left( \frac{S}{N}\right)_{\textrm{flux}}$}
+
+\newcommand{\lensfit}{\texttt{LENSFIT}}
+\newcommand{\numba}{\texttt{Numba}}
+\newcommand{\python}{\texttt{Python}}
+\newcommand{\ngmix}{\texttt{ngmix}}
+\newcommand{\shear}{{\bf g}}
+\newcommand{\redmapper}{redMaPPer}
+
+\newcommand{\prelim}{{\bf{\it Preliminary}}}
+
+\title{DES Weak Lensing}
+\author{Erin Sheldon}
+\institute{BNL}
+
+% http://texblog.net/latex-archive/plaintex/beamer-footline-frame-number/
+% to add the page (frame ) number and not screw up the bottom line
+% works for split themes?
+\expandafter\def\expandafter\insertshorttitle\expandafter{%
+      \insertshorttitle\hfill%
+        \insertframenumber\,/\,\inserttotalframenumber}
+
+% suppress navigation bar
+\beamertemplatenavigationsymbolsempty
+
+\begin{document}
+
+\frame
+{
+    \frametitle{\prelim\ DES Results: Cluster Lensing}
+
+    \begin{itemize}
+
+        \item Overall mean shear signal for 12,000 clusters
+
+    \end{itemize}
+
+    \begin{center}
+        \includegraphics[width=0.6\textwidth]{run-rm008-bin-zwide-jack.pdf}
+    \end{center}
+
+}
+
+
+\end{document}
