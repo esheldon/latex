@@ -30,14 +30,13 @@ pubpdf:
 
 clean:
 	rm -f \
-	${texfile}.dvi \
-	${texfile}.ps \
-	${texfile}.nav \
-	${texfile}.out \
-	${texfile}.snm \
-	${texfile}.pdf \
-	${texfile}.aux \
-	${texfile}.bbl \
-	${texfile}.blg \
-	${texfile}.toc \
-	${texfile}.log
+	*.dvi \
+	*.ps \
+	*.nav \
+	*.out \
+	*.snm \
+	*.pdf \
+	*.aux \
+	*.blg \
+	*.toc \
+	*.log
