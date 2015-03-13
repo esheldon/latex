@@ -83,11 +83,13 @@
 \frame
 {
 
-    {\em Do not Bodies act upon light at a distance, and by their action bend its Rays;
-    and is not this action } (caeteris paribus) {\em strongest at the least distance?}
-    \newline
+    {\Large 
+        {\em Do not Bodies act upon light at a distance, and by their action bend its Rays;
+        and is not this action } (caeteris paribus) {\em strongest at the least distance?}
+        \newline
 
-    \hfill - Isaac Newton (Query I, Opticks, 1704)
+        \hfill - Isaac Newton (Query I, Opticks, 1704)
+    }
 }
 
 \frame
@@ -376,11 +378,13 @@
 \frame
 {
 
-    {\em The observation of such gravitational lens effects promises to furnish us with
-    the simplest and most accurate determination of nebular masses.}
-    \newline
+    {\Large 
+        {\em The observation of such gravitational lens effects promises to furnish us with
+        the simplest and most accurate determination of nebular masses.}
+        \newline
 
-    \hfill - Fritz Zwicky, 1937
+        \hfill - Fritz Zwicky, 1937
+    }
 }
 
 
@@ -421,6 +425,10 @@
 {
     \frametitle{Cold Dark Matter (CDM)}
 
+    \setbeamerfont*{itemize/enumerate body}{size=\Large}
+    \setbeamerfont*{itemize/enumerate subbody}{parent=itemize/enumerate body}
+    \setbeamerfont*{itemize/enumerate subsubbody}{parent=itemize/enumerate body}
+
     \begin{itemize}
 
         \item Some form of matter that does not significantly emit or absorb light
@@ -438,6 +446,10 @@
 {
     \frametitle{Early Successes of CDM}
 
+    \setbeamerfont*{itemize/enumerate body}{size=\Large}
+    \setbeamerfont*{itemize/enumerate subbody}{parent=itemize/enumerate body}
+    \setbeamerfont*{itemize/enumerate subsubbody}{parent=itemize/enumerate body}
+ 
     \begin{itemize}
 
         \item Explains rotation curves of galaxies
@@ -458,6 +470,10 @@
 {
     \frametitle{Predictions of CDM}
 
+    \setbeamerfont*{itemize/enumerate body}{size=\large}
+    \setbeamerfont*{itemize/enumerate subbody}{parent=itemize/enumerate body}
+    \setbeamerfont*{itemize/enumerate subsubbody}{parent=itemize/enumerate body}
+ 
     \begin{itemize}
 
         \item  ``Universal'' radial profile of gravitationally bound dark matter
@@ -469,16 +485,8 @@
             \end{itemize}
 
 
-
-          %\item  show picture
-          %\item  say from first principles can prediction ~power law nature, but
-          %  details are interesting (broken power law)
-
         \item  Dark matter should be distributed smoothly throughout the
             universe, unlike dissipative baryons clumped in galaxies.
-
-            %\item  correlations in this field known from first principles on the
-            %  largest scales
 
     \end{itemize}
 
@@ -611,21 +619,22 @@
 
     \begin{columns}
         \begin{column}{0.5\textwidth}    
-            \begin{itemize}
+            \begin{enumerate}
 
                 \item Identify lenses, such as galaxies or cluster of galaxies
 
                 \item Identify background sources. Measure their ellipticities
                     {\color{gold}(that's the hard part!)}
 
+                \item Average over lots of lenses
+
                 \item Look for correlations in the shapes as a function of
                     distance from the lenses.
 
-                \item Average over lots of lenses
 
                 \item Infer the mean radial distribution of mass
 
-            \end{itemize}
+            \end{enumerate}
         \end{column}
         \begin{column}{0.5\textwidth}
             \begin{center}
@@ -635,6 +644,305 @@
             \end{center}
         \end{column}
     \end{columns}
+}
+
+
+\frame
+{
+    \frametitle{Shear Measurement}
+
+    \begin{itemize}
+
+        \item Shear induces ellipticity
+
+        \item Ellipticity is also altered by the atmosphere, the optics
+            of the telescope, and the pixelization.
+        
+        \item These effects we call the Point Spread Function (PSF),
+            must be modeled by studying stars.
+
+        \item Surprisingly, the noise is the biggest problem:  All
+            naive ellipticity measures are biased in the presence of
+            noise.
+
+    \end{itemize}
+    \begin{center}
+        \includegraphics[width=\textwidth]{great3-systematics.pdf}
+        \newline
+        {\tiny GREAT3 Team}
+    \end{center}
+}
+
+
+\frame
+{
+    \frametitle{Ellipticity Measurement}
+
+    \begin{itemize}
+
+        \item Find the elliptical model that best fits the image
+
+        \item In the presence of of noise, the best
+            ellipticity yields a biased shear estimate
+
+    \end{itemize}
+    \begin{center}
+
+        % the trim values are the number of "big pixels" to trim off each side
+        % or you can specify other units
+
+        %\includegraphics[trim=left bottom right top, clip]{file}
+        \includegraphics[trim=0 0 0 50,clip,width=0.7\textwidth]{example-fit-hi-s2n-invert.pdf}
+    \end{center}
+}
+
+
+
+\frame
+{
+    \frametitle{Unbiased Shear Measurement}
+
+    \setbeamerfont*{itemize/enumerate body}{size=\Large}
+    \setbeamerfont*{itemize/enumerate subbody}{parent=itemize/enumerate body}
+    \setbeamerfont*{itemize/enumerate subsubbody}{parent=itemize/enumerate body}
+ 
+    \begin{itemize}
+
+        \item In 2014 the first unbiased estimator was derived (Bernstein \&
+            Armstrong, 2014):  theoretical only
+
+        \item Using Bayesian principles: prior informatioin required from
+            low-noise data.
+
+        \item Forget about individual galaxy, estimate shear of population
+
+        \item I developed an implementation for use on real images.
+
+
+    \end{itemize}
+}
+
+\frame
+{
+    \frametitle{First Unbiased Shear Estimator}
+
+    \begin{columns}
+        \begin{column}{0.5\textwidth}    
+            \begin{itemize}
+
+                \item I developed image simulations
+                    \begin{itemize}
+                        \item Galaxies
+                        \item PSF
+                        \item noise
+                    \end{itemize}
+
+                \item Tested shear recovery for different galaxy types
+                    and noise levels
+
+                \item Unbiased at the level required for current and future surveys.
+
+                \item {\color{gold} Published (Sheldon 2014)}
+
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.5\textwidth}    
+            \begin{center}
+            \includegraphics[width=\textwidth]{ngmix-flux-s2n-sigrat-20-invert.pdf}
+                \newline
+                Sheldon 2014
+            \end{center}
+        \end{column}
+    \end{columns}
+}
+
+\frame
+{
+    \frametitle{Dark Matter Distribution around Galaxies}
+
+    \setbeamerfont*{itemize/enumerate body}{size=\large}
+    \setbeamerfont*{itemize/enumerate subbody}{parent=itemize/enumerate body}
+    \setbeamerfont*{itemize/enumerate subsubbody}{parent=itemize/enumerate body}
+
+    \begin{itemize}
+
+        \item Follow the program:
+            \begin{enumerate}
+
+                \item Identify lens galaxies and background source galaxies.
+
+                \item Measure the ellipticities of the source galaxies
+
+                \item Average over many lenses
+
+                \item Look for ellipticity correlation around the lenses: bin
+                    the shear in radial bins
+
+                \item Interpret in terms of surface mass density {\color{gold}
+                    $\Sigma$}
+
+            \end{enumerate}
+    \end{itemize}
+
+    \begin{center}
+        {\color{gold}
+            {\huge
+                $\overline{e}_{T}(R) \propto \overline{\Sigma}(<R) - \overline{\Sigma}(R)$
+            }
+        }
+    \end{center}
+}
+
+
+\frame
+{
+    \frametitle{Sloan Digital Sky Survey}
+
+    \begin{columns}
+        \begin{column}{0.5\textwidth}    
+            \begin{itemize}
+
+                \item 2.5 Telescope at Apache Point New Mexico
+
+                \item Imaged the northern sky through 5 filters, 126 Mpixel camera
+
+                \item Imaging taken from 1999-2009
+
+                \item Spectroscopy and redshifts for 1 million galaxies used
+                    as {\color{gold} lenses }
+
+                \item 50 million faint background galaxies used as {\color{gold} sources}
+                    
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.5\textwidth}
+            \begin{center}
+                \includegraphics[width=\textwidth]{sdss-telescope.jpg}
+                \newline
+                {\tiny SDSS Telescope}
+            \end{center}
+        \end{column}
+    \end{columns}
+}
+
+{
+    \definecolor{mblack}{RGB}{0,0,0}
+    \setbeamertemplate{background canvas}[vertical shading][bottom=black,top=black]
+
+    \frame
+    {	
+
+        \begin{center}
+            \includegraphics[trim=0 0 0 100,crop,width=0.85\textwidth]{M51-4x4.jpg}
+            \newline
+            M51, SDSS, Robert Lupton, Princeton
+        \end{center}
+
+    }
+    \definecolor{mblack}{RGB}{50,50,50}
+    \setbeamertemplate{background canvas}[vertical shading][bottom=mgray,top=mblack]
+}
+
+{
+    \definecolor{mblack}{RGB}{0,0,0}
+    \setbeamertemplate{background canvas}[vertical shading][bottom=black,top=black]
+
+
+    \frame
+    {
+        \frametitle{Mass Distribution Around Galaxies}
+
+        \begin{columns}
+            \begin{column}{0.5\textwidth}    
+                \begin{itemize}
+
+                    \item Mean mass density in radial bins
+
+                    \item Min radius 20 kpc max 10 Mpc (1pc = 3.2ly)
+
+                    \item Light concentrated within 10 kpc
+
+                    \item About 100 times more mass than light on small scales
+
+                    \item On large scales looks like distribution of galaxies:
+                        neighbors
+
+
+                \end{itemize}
+            \end{column}
+            \begin{column}{0.5\textwidth}
+                \begin{center}
+                    \includegraphics[trim=100 10 20 250,clip,width=\textwidth]{xi_all_idit_bias_icolor.png}
+                    \newline
+                    {\color{gold}Sheldon et al. 2004}
+                \end{center}
+            \end{column}
+        \end{columns}
+    }
+
+    \definecolor{mblack}{RGB}{50,50,50}
+    \setbeamertemplate{background canvas}[vertical shading][bottom=mgray,top=mblack]
+}
+
+
+
+
+
+{
+    \definecolor{mblack}{RGB}{0,0,0}
+    \setbeamertemplate{background canvas}[vertical shading][bottom=black,top=black]
+
+
+    \frame
+    {
+        \frametitle{Mass Distribution for Larger Galaxies}
+
+                \begin{center}
+                    \includegraphics[width=0.8\textwidth]{deltasig_all_allband_bylum_icolor_crop.png}
+                    \newline
+                    {\color{gold}Sheldon et al. 2004}
+                \end{center}
+    }
+
+    \definecolor{mblack}{RGB}{50,50,50}
+    \setbeamertemplate{background canvas}[vertical shading][bottom=mgray,top=mblack]
+}
+
+{
+    \definecolor{mblack}{RGB}{0,0,0}
+    \setbeamertemplate{background canvas}[vertical shading][bottom=black,top=black]
+
+
+
+    \frame
+    {
+        \frametitle{As Predicted by CDM}
+
+        \begin{itemize}
+
+            \item Extended running power-law profile
+
+            \item Shape of profile changes with size of galaxies
+
+        \end{itemize}
+
+
+        \begin{columns}
+            \begin{column}{0.5\textwidth}    
+                \includegraphics[width=\textwidth]{nfw.png}
+                \newline
+                {\tiny Navarro, Frenk, White 1996}
+            \end{column}
+            \begin{column}{0.5\textwidth}
+                \includegraphics[trim=0 0 0 8,clip,width=\textwidth]{deltasig_all_allband_bylum_icolor_crop.png}
+                \newline
+                {\color{gold}Sheldon et al. 2004}
+            \end{column}
+        \end{columns}
+    }
+
+    \definecolor{mblack}{RGB}{50,50,50}
+    \setbeamertemplate{background canvas}[vertical shading][bottom=mgray,top=mblack]
 }
 
 
