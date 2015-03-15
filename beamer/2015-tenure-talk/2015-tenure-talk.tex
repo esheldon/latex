@@ -52,6 +52,14 @@
 
 \frame{\titlepage}
 
+\usebackgroundtemplate{%
+\includegraphics[trim=100 0 0 0,clip,height=\paperheight]{DES-2013-01-medres.jpg}}
+\frame
+{
+}
+
+
+\setbeamertemplate{background canvas}[vertical shading][bottom=mgray,top=mblack]
 
 \frame
 {
@@ -110,8 +118,8 @@
 
         \item Newton's first Query, Opticks, 1704
             \begin{itemize}
-                \item One can incorrectly ``cancel'' the zero masses and predict
-                    some light deflection
+                \item One can naively ``cancel'' the zero masses and predict
+                    the effect
             \end{itemize}
 
         \item Einstein 1911
@@ -149,11 +157,14 @@
             \begin{column}{0.5\textwidth}    
                 \begin{itemize}
 
-                    \item Einstein predicted the small deflection of light from
-                        stars whose light passes very near the sun.
+                    \item Einstein predicted the light from background stars would
+                        be deflected as it passes near the sun.
 
-                    \item Eddington and colleagues observed the predicted
-                        deflection in the 1919 eclipse.
+                    \item Eddington and colleagues observed the 1919 eclipse
+                        looking for the effect.
+
+                    \item The locations of stars with known positions were
+                        measured, and found to have moved
 
                 \end{itemize}
             \end{column}
@@ -179,8 +190,8 @@
     \begin{center}
         \includegraphics[scale=0.4]{lens_geometry_invert.pdf}
         \newline
-        For a point mass, the deflection depends on impact
-        prameter as
+        For a point mass lens, the deflection depends on impact
+        prameter and mass as
         \newline
         {\huge {\color{gold} $\alpha \propto \frac{M}{b}$ }}
     \end{center}
@@ -219,7 +230,7 @@
 
 \frame
 {
-    \frametitle{Lensing Geometry}
+    \frametitle{Twin Quasars: {\color{gold} Can infer $\alpha$}}
 
     \begin{center}
         \includegraphics[scale=0.5]{lens_geometry_invert.pdf}
@@ -300,6 +311,7 @@
 
 }
 
+
 	
 \frame
 {
@@ -359,6 +371,49 @@
     \end{columns}
 }
 
+
+{
+	\definecolor{mblack}{RGB}{0,0,0}
+    \setbeamertemplate{background canvas}[vertical shading][bottom=black,top=black]
+	
+    \frame
+    {
+        \frametitle{Weak Lensing: Tangential Shear}
+            
+            \begin{minipage}{\linewidth}
+                \begin{center}
+                    \includegraphics[height=0.6\textheight]{shear-illustration-nowhite.jpg}
+                \end{center}
+            \end{minipage}
+
+            \begin{minipage}{\linewidth}
+                \begin{center}
+                    {\color{gold}
+                        {\huge
+                            $\overline{e}_{T}(R) \propto \overline{\Sigma}(<R) - \overline{\Sigma}(R)$
+                        }
+                    }
+                \end{center}
+            \end{minipage}
+
+    }
+
+
+	\definecolor{mblack}{RGB}{50,50,50}
+    \setbeamertemplate{background canvas}[vertical shading][bottom=mgray,top=mblack]
+
+}
+
+
+\frame
+{
+
+    {\Huge Dark Matter}
+
+}
+
+
+
 \frame
 {
     \frametitle{Dark Matter}
@@ -369,9 +424,11 @@
 
                 \item Fritz Zwicky 1937
 
-                \item The galaxies in the Coma cluster moving far too fast.
+                \item He found the galaxies in the Coma cluster were moving far
+                    too fast.
 
-                \item Implied binding mass $\sim$ 100 times the mass in stars
+                \item Assuming equilibrium (good to order of magnitude) he calculated
+                    the binding mass is $\sim$ 100 times the mass in stars
 
             \end{itemize}
         \end{column}
@@ -443,9 +500,12 @@
 
         \item Some form of matter that does not significantly emit or absorb light
 
+        \item Cold:  $v \ll c$
+
         \item Favored idea is an elementary particle, weakly interacting
 
-        \item So far CDM explains everything we see, as I will discuss below
+        \item So far CDM successfully explains most observations, and has been
+            predictive
 
     \end{itemize}
 
@@ -496,7 +556,10 @@
 
 
         \item  Dark matter should be distributed smoothly throughout the
-            universe, unlike dissipative baryons clumped in compact galaxies.
+            universe
+            \begin{itemize}
+                \item Unlike dissipative baryons that collapse to more compact objects
+            \end{itemize}
 
     \end{itemize}
 
@@ -524,7 +587,7 @@
                 \item  Dark matter distributed smoothly throughout the
                     universe, unlike dissipative baryons clumped in galaxies.
 
-                {\tiny 1pc = 3.2 ly}
+                {\color{gold} {\tiny 1pc = 3.2 ly}}
 
             \end{itemize}
         \end{column}
@@ -692,8 +755,8 @@
 
         \item Find the elliptical model that best fits the image
 
-        \item In the presence of of noise, the best
-            ellipticity yields a biased shear estimate
+        \item In the presence of of noise, the best ellipticity yields a
+            biased shear estimate: {\color{gold} $\sim 10$\%} for faint galaxies!
 
     \end{itemize}
     \begin{center}
@@ -765,6 +828,15 @@
         \end{column}
     \end{columns}
 }
+
+\frame
+{
+
+    {\Huge Dark Matter Distribution in Galaxies}
+
+}
+
+
 
 \frame
 {
@@ -958,6 +1030,14 @@
     \setbeamertemplate{background canvas}[vertical shading][bottom=mgray,top=mblack]
 }
 
+\frame
+{
+
+    {\Huge Dark Matter Distribution in Clusters of Galaxies}
+
+}
+
+
 {
     \definecolor{mblack}{RGB}{0,0,0}
     \setbeamertemplate{background canvas}[vertical shading][bottom=black,top=black]
@@ -1006,6 +1086,9 @@
     \setbeamertemplate{background canvas}[vertical shading][bottom=mgray,top=mblack]
 }
 
+
+
+
 {
     \definecolor{mblack}{RGB}{0,0,0}
     \setbeamertemplate{background canvas}[vertical shading][bottom=black,top=black]
@@ -1017,14 +1100,81 @@
 
         \begin{center}
             %\includegraphics[trim=left bottom right top, clip]{file}
-            \includegraphics[trim=10 10 10 10,clip,width=0.7\textwidth]{Ngal200_DS_hfits_icolor.png}
+            \includegraphics[trim=20 0 50 800,clip,width=0.9\textwidth]{m2l-ngals200_12-m21-22-l4-massfits-icolor.png}
         \end{center}
-        \hfill {\color{gold} Johnston et al.}
+        \hfill {\color{gold} Sheldon et al. 2009}
     }
 
     \definecolor{mblack}{RGB}{50,50,50}
     \setbeamertemplate{background canvas}[vertical shading][bottom=mgray,top=mblack]
 }
+
+{
+    \definecolor{mblack}{RGB}{0,0,0}
+    \setbeamertemplate{background canvas}[vertical shading][bottom=black,top=black]
+
+
+    \frame
+    {
+        \frametitle{Interpretation in Terms of Universal Profile}
+
+        \begin{center}
+            %\includegraphics[trim=left bottom right top, clip]{file}
+            \includegraphics[trim=100 50 850 1390,clip,width=1\textwidth]{m2l-ngals200_12-m21-22-l4-massfits-icolor.png}
+        \end{center}
+        \hfill {\color{gold} Sheldon et al. 2009}
+    }
+
+    \definecolor{mblack}{RGB}{50,50,50}
+    \setbeamertemplate{background canvas}[vertical shading][bottom=mgray,top=mblack]
+}
+
+
+
+\begin{comment}
+    {
+        \definecolor{mblack}{RGB}{0,0,0}
+        \setbeamertemplate{background canvas}[vertical shading][bottom=black,top=black]
+
+
+        \frame
+        {
+            \frametitle{Interpretation in Terms of Universal Profile}
+
+            \begin{center}
+                %\includegraphics[trim=left bottom right top, clip]{file}
+                \includegraphics[trim=10 10 10 10,clip,width=0.7\textwidth]{Ngal200_DS_hfits_icolor.png}
+            \end{center}
+            \hfill {\color{gold} Johnston et al.}
+        }
+
+        \definecolor{mblack}{RGB}{50,50,50}
+        \setbeamertemplate{background canvas}[vertical shading][bottom=mgray,top=mblack]
+    }
+
+
+    {
+        \definecolor{mblack}{RGB}{0,0,0}
+        \setbeamertemplate{background canvas}[vertical shading][bottom=black,top=black]
+
+
+        \frame
+        {
+            \frametitle{Interpretation in Terms of Universal Profile}
+
+            \begin{center}
+                %\includegraphics[trim=left bottom right top, clip]{file}
+                \includegraphics[trim=1050 450 50 480,clip,width=0.7\textwidth]{Ngal200_DS_hfits_icolor.png}
+            \end{center}
+            \hfill {\color{gold} Johnston et al.}
+        }
+
+        \definecolor{mblack}{RGB}{50,50,50}
+        \setbeamertemplate{background canvas}[vertical shading][bottom=mgray,top=mblack]
+    }
+
+\end{comment}
+
 
 
 {
@@ -1034,7 +1184,7 @@
 
     \frame
     {
-        \frametitle{Mass-to-light Ratio}
+        \frametitle{Mass-to-light Ratio: Light Should be More Concentrated}
 
         \begin{center}
             %\includegraphics[trim=left bottom right top, clip]{file}
@@ -1062,9 +1212,7 @@
                     \item Universal $M/L$
 
                     \item Multiply by the luminosity density in the universe to
-                        get the universal mass density
-                        
-                        {\color{gold} $\rho_m = \bar{\ell} \times M/L$ }
+                        get the universal mass density {\color{gold} $\rho_m = \bar{\ell} \times M/L$ }
 
 
                     \item Express as fraction of the universal energy density
@@ -1266,6 +1414,9 @@
                 \item Look at the dependence of the shear effect as a function
                     of the source redshift
                     
+                \item Current lensing data does not probe a sufficent volume of
+                    the universe
+
             \end{itemize}
         \end{column}
         \begin{column}{0.5\textwidth}
@@ -1387,7 +1538,7 @@
 \frame
 {
 
-    \frametitle{Preliminary Lensing Results from DES}
+    \frametitle{\prelim\ Lensing Results from DES}
 
     %\setbeamerfont*{itemize/enumerate body}{size=\small}
     %\setbeamerfont*{itemize/enumerate subbody}{parent=itemize/enumerate body}
@@ -1399,13 +1550,10 @@
 
                 \item Results from science verification period
 
-                \item 3\% of final data
+                \item {\color{gold} 3\% of final data }
 
                 \item Mean lensing signal for 12,000 galaxy clusters found
                     using the RedMapper algorithm
-
-                \item Shallow slope on small scales due to lack of standard
-                    corrections applied
 
             \end{itemize}
         \end{column}
@@ -1459,13 +1607,17 @@
 {
     \frametitle{DES: Future Work}
 
+    \setbeamerfont*{itemize/enumerate body}{size=\Large}
+    \setbeamerfont*{itemize/enumerate subbody}{parent=itemize/enumerate body}
+    \setbeamerfont*{itemize/enumerate subsubbody}{parent=itemize/enumerate body}
+ 
     \begin{itemize}
 
         \item Process more data!
 
         \item The codes are vetted, good enough for studies on early data
 
-        \item Look in detail at the dark matter profiles: Do they evolve in
+        \item Look in detail at the dark matter profiles: Do they evolve over
             time as predicted by CDM?
 
         \item Cosmological analysis requires more data.  Approximately 2 years
@@ -1556,7 +1708,7 @@
                     now. 
 
                 \item Raw shear sensitivity of LSST is $\sim$ 5 times that of
-                    DES, with more leverage over cosmic time
+                    DES, {\color{gold} with more leverage over cosmic time}
 
                 \item With weak lensing alone we will constrain dark energy $w$
                     to the sub-percent level.
