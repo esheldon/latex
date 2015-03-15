@@ -258,41 +258,45 @@
 
 }
 
-{
-	\definecolor{mblack}{RGB}{0,0,0}
-    \setbeamertemplate{background canvas}[vertical shading][bottom=black,top=black]
-	
-    \frame
+
+\begin{comment}
     {
-        \frametitle{Lensing by Galaxy Clusters: Abell 1689}
+        \definecolor{mblack}{RGB}{0,0,0}
+        \setbeamertemplate{background canvas}[vertical shading][bottom=black,top=black]
 
-        \begin{center}
-            \includegraphics[height=0.8\textheight]{abell1689_hubble_1280.jpg}
+        \frame
+        {
+            \frametitle{Lensing by Galaxy Clusters: Abell 1689}
 
-            {\tiny \hfill NASA, ESA, STScI/AURA, J. Blakeslee, H. Ford}
-        \end{center}
+            \begin{center}
+                \includegraphics[height=0.8\textheight]{abell1689_hubble_1280.jpg}
+
+                {\tiny \hfill NASA, ESA, STScI/AURA, J. Blakeslee, H. Ford}
+            \end{center}
+        }
+
+        \definecolor{mblack}{RGB}{50,50,50}
+        \setbeamertemplate{background canvas}[vertical shading][bottom=mgray,top=mblack]
+
     }
 
-	\definecolor{mblack}{RGB}{50,50,50}
-    \setbeamertemplate{background canvas}[vertical shading][bottom=mgray,top=mblack]
-
-}
-
-{
-	\definecolor{mblack}{RGB}{0,0,0}
-    \setbeamertemplate{background canvas}[vertical shading][bottom=black,top=black]
-	
-    \frame
     {
-        \begin{center}
-            \includegraphics[height=0.9\textheight]{abell1689-details.pdf}
-        \end{center}
+        \definecolor{mblack}{RGB}{0,0,0}
+        \setbeamertemplate{background canvas}[vertical shading][bottom=black,top=black]
+
+        \frame
+        {
+            \begin{center}
+                \includegraphics[height=0.9\textheight]{abell1689-details.pdf}
+            \end{center}
+        }
+
+        \definecolor{mblack}{RGB}{50,50,50}
+        \setbeamertemplate{background canvas}[vertical shading][bottom=mgray,top=mblack]
+
     }
+\end{comment}
 
-	\definecolor{mblack}{RGB}{50,50,50}
-    \setbeamertemplate{background canvas}[vertical shading][bottom=mgray,top=mblack]
-
-}
 
 {
 	\definecolor{mblack}{RGB}{0,0,0}
@@ -427,7 +431,7 @@
                 \item He found the galaxies in the Coma cluster were moving far
                     too fast.
 
-                \item Assuming equilibrium (good to order of magnitude) he calculated
+                \item Assuming equilibrium (good to factor of two) he calculated
                     the binding mass is $\sim$ 100 times the mass in stars
 
             \end{itemize}
@@ -540,7 +544,7 @@
 {
     \frametitle{Predictions of CDM}
 
-    \setbeamerfont*{itemize/enumerate body}{size=\large}
+    \setbeamerfont*{itemize/enumerate body}{size=\Large}
     \setbeamerfont*{itemize/enumerate subbody}{parent=itemize/enumerate body}
     \setbeamerfont*{itemize/enumerate subsubbody}{parent=itemize/enumerate body}
  
@@ -699,11 +703,11 @@
                 \item Identify background sources. Measure their ellipticities
                     {\color{gold}(that's the hard part!)}
 
-                \item Average over lots of lenses
 
                 \item Look for correlations in the shapes as a function of
-                    distance from the lenses.
+                    distance from the lens.
 
+                \item Average over lots of lenses
 
                 \item Infer the mean radial distribution of mass
 
@@ -856,10 +860,9 @@
 
                 \item Measure the ellipticities of the source galaxies
 
-                \item Average over many lenses
+                \item Look for ellipticity correlation around the lens
 
-                \item Look for ellipticity correlation around the lenses: bin
-                    the shear in radial bins
+                \item Average over many lenses
 
                 \item Interpret in terms of surface mass density {\color{gold}
                     $\Sigma$}
@@ -1050,7 +1053,7 @@
 
         \begin{itemize}
 
-            \item More useful to constrain the dark matter profile
+            \item More useful than galaxies for constraining the dark matter profile
 
             \item 100-1000 times more massive than galaxies, higher signal
 
@@ -1568,24 +1571,25 @@
 
 }
 
-\frame
-{
+\begin{comment}
+    \frame
+    {
 
-    \frametitle{Preliminary Lensing Results from DES}
- 
-    \begin{minipage}{\linewidth}
-        \vspace{5mm}
-        Binned by number of galaxies in the cluster
-        \vspace{5mm}
-    \end{minipage}
+        \frametitle{Preliminary Lensing Results from DES}
 
-    \begin{minipage}{\linewidth}
-        \centering
-        \includegraphics[width=0.8\textwidth]{run-rm008-bin-lbin12-zwide-jack-icolor.pdf}
-    \end{minipage}
+        \begin{minipage}{\linewidth}
+            \vspace{5mm}
+            Binned by number of galaxies in the cluster
+            \vspace{5mm}
+        \end{minipage}
 
-}
+        \begin{minipage}{\linewidth}
+            \centering
+            \includegraphics[width=0.8\textwidth]{run-rm008-bin-lbin12-zwide-jack-icolor.pdf}
+        \end{minipage}
 
+    }
+\end{comment}
 
 \frame
 {
@@ -1711,8 +1715,9 @@
                 \item Raw shear sensitivity of LSST is $\sim$ 5 times that of
                     DES, {\color{gold} with more leverage over cosmic time}
 
-                \item With weak lensing alone we will constrain dark energy $w$
-                    to the sub-percent level.
+                \item Constrain  {\color{gold} $w$} to the sub-percent level.
+
+                \item Study time dependence of dark energy properties: is {\color{gold} $w$ } constant?
 
             \end{itemize}
         \end{column}
