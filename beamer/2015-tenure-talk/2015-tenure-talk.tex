@@ -836,7 +836,7 @@
 \frame
 {
 
-    {\Huge Dark Matter Distribution in Galaxies}
+    {\Huge Dark Matter Distribution in Galaxies and Clusters}
 
 }
 
@@ -844,7 +844,7 @@
 
 \frame
 {
-    \frametitle{Dark Matter Distribution around Galaxies}
+    \frametitle{Dark Matter Distribution}
 
     \setbeamerfont*{itemize/enumerate body}{size=\large}
     \setbeamerfont*{itemize/enumerate subbody}{parent=itemize/enumerate body}
@@ -855,15 +855,17 @@
         \item Follow the program:
             \begin{enumerate}
 
-                \item Identify lens galaxies and background source galaxies.
+                \item Identify lenses (galaxies or clusters)
+
+                \item Identify background source galaxies.
 
                 \item Measure the ellipticities of the source galaxies
 
                 \item Average the ellipticities of background galaxies.
 
-                \item Average over many lenses
+                \item Further average over many lenses
 
-                \item Interpret in terms of surface mass density {\color{gold}
+                \item Interpret in terms of the mean surface mass density {\color{gold}
                     $\Sigma$}
 
             \end{enumerate}
@@ -945,11 +947,11 @@
 
                     \item Mean mass density in radial bins
 
-                    \item Min radius 20 kpc max 10 Mpc (1pc = 3.2ly)
+                    \item Min radius 20 kpc max 10 Mpc {\color{gold} (1pc = 3.2ly)}
 
                     \item Light concentrated within 10 kpc
 
-                    \item About 100 times more mass than light on small scales
+                    \item About 100 times more mass than in bound region
 
                     \item On large scales looks like distribution of galaxies:
                         neighbors
@@ -974,65 +976,66 @@
 
 
 
+\begin{comment}
 
-
-{
-    \definecolor{mblack}{RGB}{0,0,0}
-    \setbeamertemplate{background canvas}[vertical shading][bottom=black,top=black]
-
-
-    \frame
     {
-        \frametitle{Mass Distribution for Larger Galaxies}
+        \definecolor{mblack}{RGB}{0,0,0}
+        \setbeamertemplate{background canvas}[vertical shading][bottom=black,top=black]
 
-                \begin{center}
-                    \includegraphics[trim=0 0 5 9,clip,width=0.8\textwidth]{deltasig_all_allband_bylum_icolor_crop.png}
+
+        \frame
+        {
+            \frametitle{Mass Distribution for Larger Galaxies}
+
+                    \begin{center}
+                        \includegraphics[trim=0 0 5 9,clip,width=0.8\textwidth]{deltasig_all_allband_bylum_icolor_crop.png}
+                        \newline
+                        {\color{gold}Sheldon et al. 2004}
+                    \end{center}
+        }
+
+        \definecolor{mblack}{RGB}{50,50,50}
+        \setbeamertemplate{background canvas}[vertical shading][bottom=mgray,top=mblack]
+    }
+
+    {
+        \definecolor{mblack}{RGB}{0,0,0}
+        \setbeamertemplate{background canvas}[vertical shading][bottom=black,top=black]
+
+
+
+        \frame
+        {
+            \frametitle{As Predicted by CDM}
+
+            \begin{itemize}
+
+                \item Extended running power-law profile
+
+                \item Shape of profile changes with size of galaxies
+
+            \end{itemize}
+
+
+            \begin{columns}
+                \begin{column}{0.5\textwidth}    
+                    \includegraphics[width=\textwidth]{nfw.png}
+                    \newline
+                    {\tiny Navarro, Frenk, White 1996}
+                \end{column}
+                \begin{column}{0.5\textwidth}
+                    %\includegraphics[trim=left bottom right top, clip]{file}
+                    \includegraphics[trim=0 0 5 8,clip,width=\textwidth]{deltasig_all_allband_bylum_icolor_crop.png}
                     \newline
                     {\color{gold}Sheldon et al. 2004}
-                \end{center}
+                \end{column}
+            \end{columns}
+        }
+
+        \definecolor{mblack}{RGB}{50,50,50}
+        \setbeamertemplate{background canvas}[vertical shading][bottom=mgray,top=mblack]
     }
 
-    \definecolor{mblack}{RGB}{50,50,50}
-    \setbeamertemplate{background canvas}[vertical shading][bottom=mgray,top=mblack]
-}
-
-{
-    \definecolor{mblack}{RGB}{0,0,0}
-    \setbeamertemplate{background canvas}[vertical shading][bottom=black,top=black]
-
-
-
-    \frame
-    {
-        \frametitle{As Predicted by CDM}
-
-        \begin{itemize}
-
-            \item Extended running power-law profile
-
-            \item Shape of profile changes with size of galaxies
-
-        \end{itemize}
-
-
-        \begin{columns}
-            \begin{column}{0.5\textwidth}    
-                \includegraphics[width=\textwidth]{nfw.png}
-                \newline
-                {\tiny Navarro, Frenk, White 1996}
-            \end{column}
-            \begin{column}{0.5\textwidth}
-                %\includegraphics[trim=left bottom right top, clip]{file}
-                \includegraphics[trim=0 0 5 8,clip,width=\textwidth]{deltasig_all_allband_bylum_icolor_crop.png}
-                \newline
-                {\color{gold}Sheldon et al. 2004}
-            \end{column}
-        \end{columns}
-    }
-
-    \definecolor{mblack}{RGB}{50,50,50}
-    \setbeamertemplate{background canvas}[vertical shading][bottom=mgray,top=mblack]
-}
 
 \frame
 {
@@ -1041,6 +1044,7 @@
 
 }
 
+\end{comment}
 
 {
     \definecolor{mblack}{RGB}{0,0,0}
@@ -1054,11 +1058,14 @@
         \begin{itemize}
 
             \item More useful than galaxies for constraining the dark matter profile
+            \begin{itemize}
 
-            \item 100-1000 times more massive than galaxies, higher signal
+                \item 100-1000 times more massive than galaxies, higher signal
 
-            \item Much larger in extent, better resolution in radius to
-                constrain profile
+                \item 10 times larger in extent, better resolution in radius to
+                    constrain mass profile
+
+            \end{itemize}
 
         \end{itemize}
         \begin{center}
