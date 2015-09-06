@@ -94,6 +94,13 @@ cv:
 	dvipdfm -o cv.pdf cv.dvi 
 	@ echo "made cv.pdf"
 
+cvnfs: 
+	latex cvnfs.tex
+	latex cvnfs.tex
+	dvipdfm -o cvnfs.pdf cvnfs.dvi 
+	@ echo "made cvnfs.pdf"
+
+
 # Must run pub first.  Would just call make pub but the open command
 # messes up when called rapidly in succession
 cvpub: 
