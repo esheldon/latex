@@ -1,0 +1,295 @@
+\documentclass{beamer}
+
+\usepackage{beamerthemesplit}
+\usepackage{verbatim}
+
+\usepackage{xcolor}
+\definecolor{mygray}{RGB}{200,200,200}
+\usetheme{default}
+%\usetheme{Pittsburgh}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{beaver}
+\usecolortheme{mule}
+
+\usefonttheme{serif}
+
+%\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+
+\newcommand{\snT}{$(S/N)_{\textrm{size}}$}
+%\newcommand{\snT}{$\left( \frac{S}{N}\right)_{\textrm{size}}$}
+\newcommand{\snflux}{$(S/N)_{\textrm{flux}}$}
+%\newcommand{\snflux}{$\left( \frac{S}{N}\right)_{\textrm{flux}}$}
+
+\newcommand{\lensfit}{\texttt{LENSFIT}}
+\newcommand{\numba}{\texttt{Numba}}
+\newcommand{\python}{\texttt{Python}}
+\newcommand{\ngmix}{\texttt{ngmix}}
+\newcommand{\shear}{{\bf g}}
+\newcommand{\redmapper}{redMaPPer}
+
+\newcommand{\prelim}{{\bf{\it Preliminary}}}
+
+\definecolor{gold}{rgb}{1.,0.84,0.}
+
+
+\title{Metacalibration}
+\author{Erin Sheldon}
+\institute{Brookhaven National Laboratory}
+
+% http://texblog.net/latex-archive/plaintex/beamer-footline-frame-number/
+% to add the page (frame ) number and not screw up the bottom line
+% works for split themes?
+\expandafter\def\expandafter\insertshorttitle\expandafter{%
+      \insertshorttitle\hfill%
+        \insertframenumber\,/\,\inserttotalframenumber}
+
+% suppress navigation bar
+\beamertemplatenavigationsymbolsempty
+\setbeamertemplate{footline}{}
+
+\begin{document}
+
+\frame{\titlepage}
+
+
+\setbeamertemplate{background canvas}[vertical shading][bottom=mgray,top=mblack]
+
+\frame
+{
+    \frametitle{Outline}
+
+    \setbeamerfont*{itemize/enumerate body}{size=\Large}
+    \setbeamerfont*{itemize/enumerate subbody}{parent=itemize/enumerate body}
+    \setbeamerfont*{itemize/enumerate subsubbody}{parent=itemize/enumerate body}
+ 
+    \begin{itemize}
+
+        %\item The Primary Goal is to Study Dark Energy
+        \item Metacalibration
+
+        \item My take on it
+
+        \item Simulations using models
+
+        \item Simulations using real galaxy images
+
+    \end{itemize}
+
+}
+
+\frame
+{
+    \frametitle{Shear Accuracy Requirements}
+
+    \setbeamerfont*{itemize/enumerate body}{size=\Large}
+    \setbeamerfont*{itemize/enumerate subbody}{parent=itemize/enumerate body}
+    \setbeamerfont*{itemize/enumerate subsubbody}{parent=itemize/enumerate body}
+ 
+    \begin{itemize}
+
+        \item In order to measure the Dark Energy equation of state
+            to our desired accuracy for DES/LSST, we must measure
+            shear with exquisite accuracy.
+
+        \item Shear calibration errors
+            \begin{itemize}
+            
+                \item {\color{cyan} DES}:~ $\Delta \gamma/\gamma \lesssim 0.004$
+                \item {\color{green} LSST}: $\Delta \gamma/\gamma \lesssim 0.001$
+
+            \end{itemize}
+
+        \item There are other sources of error besides the shear
+            measurement error, so we would like to be well under
+            these numbers
+
+    \end{itemize}
+
+}
+
+
+
+\frame
+{
+    \frametitle{Metacalibration Idea from Eric Huff}
+
+    \setbeamerfont*{itemize/enumerate body}{size=\normalsize}
+    \setbeamerfont*{itemize/enumerate subbody}{parent=itemize/enumerate body}
+    \setbeamerfont*{itemize/enumerate subsubbody}{parent=itemize/enumerate body}
+ 
+    \begin{itemize}
+
+        \item Say we have a biased shear estimator $E$.  Then we can write
+            {\color{gold}
+                \begin{eqnarray}
+                    E & = & E(\gamma=0) + \frac{\partial E}{\partial \gamma} \gamma + ... \nonumber \\
+                      & \sim &  \frac{\partial E}{\partial \gamma} \gamma \equiv R \gamma \nonumber 
+                \end{eqnarray}
+            } 
+        \item Use image manipulation to estimate the derivative of the
+            estimator with respect to shear
+            {\color{gold}
+                \begin{equation}
+                    R = \frac{E(+\Delta\gamma) - E(-\Delta\gamma)}{2 \Delta \gamma} \nonumber 
+                \end{equation}
+            }
+            \begin{itemize}
+                \item Deconvolve the PSF
+                \item Shear the image by a small amount
+                \item Reconvolve by the PSF.  Use a slightly larger PSF to suppress
+                    the noise amplification at high k
+            \end{itemize}
+
+
+    \end{itemize}
+
+}
+
+\frame
+{
+    \frametitle{Metacalibration Idea from Eric Huff}
+
+    \setbeamerfont*{itemize/enumerate body}{size=\Large}
+    \setbeamerfont*{itemize/enumerate subbody}{parent=itemize/enumerate body}
+    \setbeamerfont*{itemize/enumerate subsubbody}{parent=itemize/enumerate body}
+ 
+    \begin{itemize}
+        
+        \item Should correct for modeling biases
+        \item Should correct for noise-related biases
+
+        \item Can also derive terms for PSF leakage $R_{\mathrm{PSF}}$
+
+    \end{itemize}
+
+}
+
+
+
+\frame
+{
+    \frametitle{My Take on Metacalibration}
+
+    \setbeamerfont*{itemize/enumerate body}{size=\large}
+    \setbeamerfont*{itemize/enumerate subbody}{parent=itemize/enumerate body}
+    \setbeamerfont*{itemize/enumerate subsubbody}{parent=itemize/enumerate body}
+ 
+    \begin{itemize}
+
+        \item These $R$ are very noisy, cannot be used naively.
+            \begin{itemize}
+
+                \item Slightly different noise correlations in the + and -
+                    sheared images.
+                \item Amplified by $1/\Delta \gamma$
+            \end{itemize}
+
+        \item Eric Huff has a method to bring in prior information (paper
+            to appear shortly)
+
+        \item My take is to use deep image data.
+            \begin{itemize}
+                \item Perform Deconv/Reconv on deep data
+                \item Then degrade images to noise level of shallow data.
+                \item Use exactly same noise image for 
+                    $E(+\Delta\gamma), E(-\Delta\gamma)$.
+            \end{itemize}
+
+        \item Weight deep data to match properties of shallow data
+
+    \end{itemize}
+
+}
+
+\frame
+{
+    \frametitle{Simulations Using Models}
+
+    \setbeamerfont*{itemize/enumerate body}{size=\large}
+    \setbeamerfont*{itemize/enumerate subbody}{parent=itemize/enumerate body}
+    \setbeamerfont*{itemize/enumerate subsubbody}{parent=itemize/enumerate body}
+ 
+    \begin{itemize}
+
+        \item Challenging simulation similar to recent paper Bernstein et al. 2015
+
+        \item Slightly undersampled PSF: Moffat, r50=1.5 pixels
+
+        \item Galaxies are Bulge+Disk each with r50=1.5-3.0 pixels.  Bulge
+            offset randomly up to distance of r50
+
+        \item Realistic flux distribution.  $S/N \gtrsim 8$
+
+        \item Recover shear to accuracy required for future surveys
+
+            {\color{gold}
+                \begin{equation}
+                    \Delta \gamma/\gamma = (2.16 \pm 3.19) \times 10^{-4} \nonumber
+                \end{equation}
+            }
+
+    \end{itemize}
+
+}
+
+\frame
+{
+    \frametitle{Simulations Using Real Galaxy Images and Realistic PSF}
+
+    \setbeamerfont*{itemize/enumerate body}{size=\large}
+    \setbeamerfont*{itemize/enumerate subbody}{parent=itemize/enumerate body}
+    \setbeamerfont*{itemize/enumerate subsubbody}{parent=itemize/enumerate body}
+ 
+    \begin{itemize}
+
+        \item Matt Becker (Stanford) created a modified version of 
+            the GREAT3 image simulation code. now
+            a re-usable library
+
+        \item Realistic PSF modeled after DES:  Optical aberrations derived
+            by Aaron Roodman and Chris Davis (SLAC)
+
+        \item Galaxy images drawn from COSMOS HST images.
+
+        \item First short run looks good
+
+            {\color{gold}
+                \begin{equation}
+                    \Delta \gamma/\gamma = (2.9 +/- 2.2) \times 10^{-3} \nonumber
+                \end{equation}
+            }
+        \item Matt is creating a large simulation now
+
+        \item My Gaussian mixture modeling of the PSF may be a limiting
+            factor
+
+    \end{itemize}
+
+}
+
+\frame
+{
+    \frametitle{Summary}
+
+    \setbeamerfont*{itemize/enumerate body}{size=\large}
+    \setbeamerfont*{itemize/enumerate subbody}{parent=itemize/enumerate body}
+    \setbeamerfont*{itemize/enumerate subsubbody}{parent=itemize/enumerate body}
+ 
+    \begin{itemize}
+        \item Metacalibration is a new idea for shear recovery from
+            Eric Huff
+
+        \item My version is an alternative to Eric Huff's, using
+            deep imaging
+        
+        \item Initial simulation results look very good
+
+        \item {\color{red} Please do not distribute these results yet, I'm
+            waiting for Eric's paper to come out}
+
+    \end{itemize}
+
+}
+
+\end{document}
