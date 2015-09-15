@@ -120,7 +120,7 @@
  
     \begin{itemize}
 
-        \item Say we have a biased shear estimator $E$.  Then we can write
+        \item Say we have a biased shear estimator {\color{gold} $E$}.  Then we can write
             {\color{gold}
                 \begin{eqnarray}
                     E & = & E(\gamma=0) + \frac{\partial E}{\partial \gamma} \gamma + ... \nonumber \\
@@ -138,7 +138,7 @@
                 \item Deconvolve the PSF
                 \item Shear the image by a small amount
                 \item Reconvolve by the PSF.  Use a slightly larger PSF to suppress
-                    the noise amplification at high k
+                    the noise amplification
             \end{itemize}
 
 
@@ -157,9 +157,12 @@
     \begin{itemize}
         
         \item Should correct for modeling biases
+
         \item Should correct for noise-related biases
 
-        \item Can also derive terms for PSF leakage $R_{\mathrm{PSF}}$
+        \item Can also derive terms for PSF leakage {\color{gold} $R_{\mathrm{PSF}}$ }
+
+        \item Works well at high shear.
 
     \end{itemize}
 
@@ -177,12 +180,12 @@
  
     \begin{itemize}
 
-        \item These $R$ are very noisy, cannot be used naively.
+        \item These {\color{gold} $R$} are very noisy, cannot be used naively.
             \begin{itemize}
 
                 \item Slightly different noise correlations in the + and -
                     sheared images.
-                \item Amplified by $1/\Delta \gamma$
+                \item Amplified by {\color{gold} $1/\Delta \gamma$}
             \end{itemize}
 
         \item Eric Huff has a method to bring in prior information (paper
@@ -193,10 +196,10 @@
                 \item Perform Deconv/Reconv on deep data
                 \item Then degrade images to noise level of shallow data.
                 \item Use exactly same noise image for 
-                    $E(+\Delta\gamma), E(-\Delta\gamma)$.
+                    {\color{gold} $E(+\Delta\gamma), E(-\Delta\gamma)$}.
             \end{itemize}
 
-        \item Weight deep data to match properties of shallow data
+        \item Weight deep data to match properties of shallow data.
 
     \end{itemize}
 
@@ -244,7 +247,7 @@
     \begin{itemize}
 
         \item Matt Becker (Stanford) created a modified version of 
-            the GREAT3 image simulation code. now
+            the GREAT3 image simulation code. Matt's version is
             a re-usable library
 
         \item Realistic PSF modeled after DES:  Optical aberrations derived
@@ -252,11 +255,11 @@
 
         \item Galaxy images drawn from COSMOS HST images.
 
-        \item First short run looks good
+        \item First short run
 
             {\color{gold}
                 \begin{equation}
-                    \Delta \gamma/\gamma = (2.9 +/- 2.2) \times 10^{-3} \nonumber
+                    \Delta \gamma/\gamma = (2.9 \pm 2.2) \times 10^{-3} \nonumber
                 \end{equation}
             }
         \item Matt is creating a large simulation now
@@ -283,7 +286,7 @@
         \item My version is an alternative to Eric Huff's, using
             deep imaging
         
-        \item Initial simulation results look very good
+        \item In initial simulations the shear is recovered within errors
 
         \item {\color{red} Please do not distribute these results yet, I'm
             waiting for Eric's paper to come out}
