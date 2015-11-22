@@ -1,0 +1,200 @@
+\documentclass[usegraphicx,usenatbib]{mn2e}
+%\documentclass[useAMS,usegraphicx,usenatbib]{mn2e}
+
+\usepackage{verbatim}
+\usepackage{color}
+\usepackage[normalem]{ulem} % for striking out with \sout
+\usepackage{amsmath} % for boldsymbol
+\usepackage{times}
+\usepackage{mathabx}
+\usepackage{enumitem}
+
+\input{newcommands.tex}
+
+\def\eps@scaling{1.0}% 
+
+\newcommand{\sn}{$S/N$}
+\newcommand{\Msn}{$(S/N)_{\textrm{matched}}$}
+\newcommand{\Tsn}{$(S/N)_{\textrm{size}}$}
+\newcommand{\fsn}{$(S/N)_{\textrm{flux}}$}
+
+% stolen from the BA14 source
+\newcommand{\vecg}{\mbox{\boldmath $g$}}
+\newcommand{\vecD}{\mbox{\boldmath $D$}}
+\newcommand{\vecQ}{\mbox{\boldmath $Q$}}
+\newcommand{\matR}{\mbox{$\bf R$}}
+\newcommand{\matC}{\mbox{$\bf C$}}
+\newcommand{\bnabg}{ \boldsymbol{\nabla_g}}
+
+\newcommand{\desreq}{$4\times 10^{-3}$}
+\newcommand{\lsstreq}{$2\times 10^{-3}$}
+
+\newcommand{\sersic}{S\'{e}rsic}
+
+\newcommand{\lognormscatt}{30}
+
+\newcommand{\mnras}{MNRAS}%
+\newcommand{\apj}{ApJ}%
+\newcommand{\aj}{AJ}%
+\newcommand{\pasp}{PASP}%
+\newcommand{\jcp}{J.~Chem.~Phys.}
+
+\newcommand{\mcal}{metacalibration}
+\newcommand{\Mcal}{Metacalibration}
+\newcommand{\mcalR}{$R$}
+
+%\slugcomment{Last revision \today}
+%\shortauthors{Sheldon}
+%\shorttitle{Bayesian Shear Estimation}
+
+
+\title{Correlated Noise Effects in \Mcal\ Lensing Shear Estimation}
+
+\author[Erin S. Sheldon]{Erin S. Sheldon\thanks{E-mail: erin.sheldon@gmail.com}\\
+Brookhaven National Laboratory, Bldg 510, Upton, New York 11973}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+
+I derive corrections for correlated noise effects in \mcal.   
+
+\end{abstract}
+
+
+\begin{keywords}                                                                    
+    cosmology: observations,
+    gravitational lensing: weak,
+    dark energy
+\end{keywords} 
+
+\section{Introduction} \label{sec:intro}
+
+\section{\Mcal} \label{sec:algo}
+
+Suppose we have a biased shear estimator $E$.  We can expand this estimator
+in a Taylor series around the true shear
+\begin{eqnarray}
+    E(\gamma) & = & E(0) + \gamma ~ \frac{ \partial E }{ \partial \gamma }\bigg|_{\gamma=0}  + ... \nonumber \\
+      & \approx & \gamma ~ \frac{ \partial E }{ \partial \gamma } \bigg|_{\gamma=0}  \\
+      & \equiv & \gamma ~ R \nonumber
+\end{eqnarray}
+where $\gamma$ is denotes the true gravitational shear.
+
+The essence of \mcal\ \citep{HuffMcal} is to estimate the shear response
+\mcalR\ for a shear estimator $E$ from image data.  This is accomplished using
+a numerical derivative.  The original image $I$ is de-convolved from the point
+spread function (PSF), sheared, and re-convolved with a slightly larger PSF.  A
+slightly larger PSF is used to suppress the amplified noise from high
+frequencies.  This is \mcal\ process is repeated for a positive and negative
+shear, which can be used to form a central derivative.  We can represent this
+as a series of operations on the observed image $I$:
+\begin{equation}
+    I(\gamma) = I \Asterisk P^{-1} \oplus \gamma \Asterisk P_{d}
+\end{equation}
+where $\Asterisk$ represents convolution, $\oplus$ represents shearing,
+and $P$ represents the point spread function.  De-convolution
+is represented as ``inverse``, $P^{-1}$.  The slightly larger PSF, or
+dilated PSF, is represented by $P_{d}$.
+
+To form the central derivative we shear by a small positive and negative
+amount $h$
+\begin{equation} \label{eq:Rnum}
+    R = \frac{E(\gamma_+) - E(\gamma_-)}{2 h}.
+\end{equation}
+The shear estimator is also derived from the re-convolved
+images
+\begin{equation} \label{eq:estimator}
+    E = \frac{E(\gamma_+) + E(\gamma_-)}{2}.
+\end{equation}
+One could also used an unsheared, re-convolved image for the
+shear estimator, but it should be
+equivalent to equation \ref{eq:estimator} if the \mcal\ steps
+introduce no additive errors.
+
+\section{Contamination of the Response by Correlated Noise} \label{sec:contam}
+
+In presence of noise, the \mcal\ images will contain
+contributions from de-convolved, sheared and re-convolved noise:
+\begin{eqnarray}
+    I^{\prime}(\gamma) & = & (I + I_\eta) \Asterisk P^{-1} \oplus \gamma \Asterisk P_{d} \nonumber \\
+    & = & I(\gamma) + I_\eta(\gamma),
+\end{eqnarray}
+where $I_\eta$ is the ``noise image''.  The de-convolution correlates the noise
+across the image.  This correlated noise is sheared, and then re-convolved by
+the dilated PSF.  This correlated noise term should cancel in the estimator in
+equation \ref{eq:estimator}, because the correlated noise field is averaged
+over both positive and negative shears.  But this term will not cancel when
+calculating the response, which is the difference of positive and negative
+shears.  We thus expect a contamination in the measured response
+\begin{equation}
+    R^{\prime}  =  R + R_{\eta}.
+\end{equation}
+
+\section{Corrections for Correlated Noise} \label{sec:corr}
+
+We propose to simulate the effects of the correlated noise on the measurement
+of the response.  We generate images with the right noise level and example
+the response of this noise to a shear.  We then subtract the mean noise
+response from the mean measured response, averaged over all galaxies.
+
+For shear estimators based on raw moments, without any form of iteration or
+fitting, it would be sufficient to simply measure the moments of the resulting
+sheared correlated noise field.  For shear estimators based on non-linear
+fitting, we propose the following process:
+\begin{enumerate}[label=\arabic*.]
+
+    \item Measure the response without correlated noise
+    
+        \begin{enumerate}[label*=\arabic*.]
+            \item Render the best fit model, including convolution by the point-spread
+                function
+
+            \item Perform the \mcal\ image processing steps, without noise added.
+
+            \item Add an appropriate amount of noise to all images, using the
+                same noise pattern $I_\eta$ for every image.
+
+            \item Measure the response for this model $R^{model}$.
+        \end{enumerate}
+
+    \item Measure the response with correlated noise
+    
+        \begin{enumerate}[label*=\arabic*.]
+            \item Render the best fit model, including convolution by the point-spread
+                function
+
+            \item Add an appropriate noise patter $I_\eta$ to the image, the
+                same pattern used for measuring the response without correlated
+                noise.
+
+            \item Perform the \mcal\ image processing steps on this noisy
+                image.
+
+            \item Measure the response for this model $R^{model}_{\eta}$.
+
+        \end{enumerate}
+
+\end{enumerate}
+
+The measurement with correlated noise will be the sum of the response
+without correlated noise and the response of the correlated noise field
+\begin{equation}
+    R^{model}_\eta = R^{model} + R_\eta
+\end{equation}
+Thus an estimate of the contribution from correlated noise can
+be calculated by averaging 
+\begin{equation}
+    \langle R_\eta \rangle = \langle R^{model}_\eta - R^{model} \rangle.
+\end{equation}
+The mean measured response for an ensemble of galaxies, $\langle R \rangle$ can
+then be corrected by subtracting the mean correction.
+
+\bibliographystyle{mn2e}
+% Bib database
+\bibliography{apj-jour,astroref}
+
+\end{document}
+
