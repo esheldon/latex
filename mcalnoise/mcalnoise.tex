@@ -142,8 +142,10 @@ response from the mean measured response, averaged over all galaxies.
 
 For shear estimators based on raw moments, without any form of iteration or
 fitting, it would be sufficient to simply measure the moments of the resulting
-sheared correlated noise field.  For shear estimators based on non-linear
-fitting, we propose the following process:
+sheared correlated noise field.
+
+For shear estimators based on non-linear fitting, we propose the following
+process:
 \begin{enumerate}[label=\arabic*.]
 
     \item Measure the response without correlated noise
@@ -187,10 +189,17 @@ without correlated noise and the response of the correlated noise field
 Thus an estimate of the contribution from correlated noise can
 be calculated by averaging 
 \begin{equation}
-    \langle R_\eta \rangle = \langle R^{model}_\eta - R^{model} \rangle.
+    \langle R_\eta \rangle = \langle R^{model}_\eta \rangle - \langle R^{model} \rangle,
 \end{equation}
-The mean measured response for an ensemble of galaxies, $\langle R \rangle$ can
-then be corrected by subtracting the mean correction.
+which can be subtracted to recover the unbiased mean response
+\begin{equation}
+    \langle R \rangle = \langle R^\prime \rangle - \langle R_\eta \rangle.
+\end{equation}
+
+This correction does not depend intimately on the model used, since it is only
+the difference in response that is desired.  For consistency, we choose to use
+the model that was used in the shear estimator, and we fit the generated model
+images using the same model.
 
 \bibliographystyle{mn2e}
 % Bib database
