@@ -102,12 +102,12 @@ dilated PSF, is represented by $P_{d}$.
 To form the central derivative we shear by a small positive and negative
 amount $\gamma$
 \begin{equation} \label{eq:Rnum}
-    R = \frac{E(\gamma_+) - E(\gamma_-)}{2 \gamma}.
+    R = \frac{E(+\gamma) - E(-\gamma)}{2 \gamma}.
 \end{equation}
 The shear estimator is also derived from the re-convolved
 images
 \begin{equation} \label{eq:estimator}
-    E = \frac{E(\gamma_+) + E(\gamma_-)}{2}.
+    E = \frac{E(+\gamma) + E(-\gamma)}{2}.
 \end{equation}
 One could also used an unsheared, re-convolved image for the
 shear estimator, but it should be
@@ -183,30 +183,28 @@ process:
 \end{enumerate}
 
 The measurement with correlated noise will be the sum of the response
-without correlated noise and the response of the correlated noise field
+without correlated noise plus the response of the correlated noise field
 \begin{equation}
     R^{model}_\eta = R^{model} + R_\eta
 \end{equation}
-Thus an estimate of the contribution from correlated noise can
+An estimate of the contribution from correlated noise can
 be calculated by averaging over many galaxies
 \begin{equation}
     \langle R_\eta \rangle = \langle R^{model}_\eta \rangle - \langle R^{model} \rangle,
 \end{equation}
-which can be subtracted to recover the unbiased mean response
+which can be subtracted to recover an estimate of the mean response without
+correlated noise
 \begin{equation}
     \langle R \rangle = \langle R^\prime \rangle - \langle R_\eta \rangle.
 \end{equation}
 
-For consistency, we simulate the images using the model that best fits the
-original image.
-
 \subsection{Corrections to $R_{PSF}$}
 
 A similar correction may exist for the $R_{PSF}$, but in general the average
-product $\langle R_{PSF}^\eta\times g^{PSF}\rangle$ should be quite small,
+product $\langle R^{PSF}_\eta\times g^{PSF}\rangle$ should be quite small,
 since the noise is not sheared.
 
-\section{Cancellation in Ring Configuration}
+\section{Cancellation in Ring Configurations}
 
 This bias does not seem to appear in GREAT3, which uses a ring configuration
 for galaxies.  I would not expect $R_\eta$ to cancel for 90 degree rotated
