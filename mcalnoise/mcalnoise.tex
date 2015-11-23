@@ -196,10 +196,22 @@ which can be subtracted to recover the unbiased mean response
     \langle R \rangle = \langle R^\prime \rangle - \langle R_\eta \rangle.
 \end{equation}
 
-This correction does not depend intimately on the model used, since it is only
-the difference in response that is desired.  For consistency, we choose to use
-the model that was used in the shear estimator, and we fit the generated model
-images using the same model.
+This correction does not depend on the details of the model used, since it is
+only the difference in response that is desired.  For consistency, we choose to
+use the model that was used in the shear estimator, and we fit the generated
+model images using the same model.
+
+\subsection{Corrections to $R_{PSF}$}
+
+A similar correction may exist for the $R_{PSF}$, but in general this should
+be quite small, since the noise is not sheared.
+
+\section{Cancellation in Ring Configuration}
+
+This bias does not seem to appear in GREAT3.  I would not expect it to cancel
+for 90 degree rotated pairs of galaxies unless their noise maps were also
+identical but rotated.
+
 
 \bibliographystyle{mn2e}
 % Bib database
