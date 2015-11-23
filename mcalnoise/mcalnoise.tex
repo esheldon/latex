@@ -124,14 +124,24 @@ contributions from de-convolved, sheared and re-convolved noise:
 \end{eqnarray}
 where $I_\eta$ is the ``noise image''.  The de-convolution correlates the noise
 across the image.  This correlated noise is sheared, and then re-convolved by
-the dilated PSF.  This correlated noise term should cancel in the estimator in
-equation \ref{eq:estimator}, because the correlated noise field is averaged
-over both positive and negative shears.  But this term will not cancel when
-calculating the response, which is the difference of positive and negative
-shears.  We thus expect a contamination in the measured response
+the dilated PSF.  We expect sheared correlated noise to partly cancel in the
+estimator in equation \ref{eq:estimator}, because the effect is
+averaged over both positive and negative shears.  But this term will not cancel
+when calculating the response, which is the difference of positive and negative
+shears.  This remainder is amplified due to division by $2 \gamma$.
+We thus expect a contamination in the measured response
 \begin{equation}
     R^{\prime}  =  R + R_{\eta}.
 \end{equation}
+
+\subsection{Expected Level of Contamination}
+
+The amplitude of the correlated noise effect, without shearing, is expected to
+be at the few percent level for very small and faint sources
+\citep{HirataCorrNoise}.  The sheared part, which is all that should remain in
+the response calculation, is suppressed by a factor of $\gamma$, but in forming
+the derivative another factor of $1/\gamma$ is applied.  Thus we expect the
+overall contamination $R_\eta$ to be at few percent level as well.
 
 \section{Corrections for Correlated Noise} \label{sec:corr}
 
