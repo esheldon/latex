@@ -198,17 +198,33 @@ correlated noise
     \langle R \rangle = \langle R^\prime \rangle - \langle R_\eta \rangle.
 \end{equation}
 
-\subsection{Corrections to $R_{PSF}$}
+\subsection{Corrections to $R^{PSF}$}
 
-A similar correction may exist for the $R_{PSF}$, but in general the average
-product $\langle R^{PSF}_\eta\times g^{PSF}\rangle$ should be quite small,
-since the noise is not sheared.
+A similar correction may exist for the PSF response term, which is
+calculated by shearing the PSF image instead of the galaxy image
+\begin{equation}
+    R^{PSF} = \frac{E(+\gamma^{PSF}) - E(-\gamma^{PSF})}{2 \gamma},
+\end{equation}
+which adds to the estimator multiplied by the PSF shape
+\begin{equation}
+    E = \gamma \times R + e^{PSF} \times R^{PSF}.
+\end{equation}
+This term can be subtracted to approximately correct for additive PSF errors.
+
+In calculating $R^{PSF}$, the image is de-convolved and re-convolved by these
+sheared PSFs. The noise is thus correlated by these convolutions, but in
+slightly different ways due to the differently sheared PSFs.  We thus expect a
+correlated noise contamination term $R^{PSF}_\eta$ associated with this
+response.  However, if the PSF ellipticity is small, we do expect this
+contamination to be suppressed in the product $\langle R^{PSF}_\eta\times
+e^{PSF}\rangle$.
 
 \section{Cancellation in Ring Configurations}
 
 This bias does not seem to appear in GREAT3, which uses a ring configuration
 for galaxies.  I would not expect $R_\eta$ to cancel for 90 degree rotated
-pairs of galaxies unless their noise maps were also identical but rotated.
+pairs of galaxies unless the noise maps for the rotated galaxies
+were also identical and rotated.
 
 
 \bibliographystyle{mn2e}
