@@ -124,12 +124,18 @@ contributions from de-convolved, sheared and re-convolved noise:
 \end{eqnarray}
 where $I_\eta$ is the ``noise image''.  The de-convolution correlates the noise
 across the image.  This correlated noise is sheared, and then re-convolved by
-the dilated PSF.  We expect sheared correlated noise to partly cancel in the
-estimator in equation \ref{eq:estimator}, because the effect is
-averaged over both positive and negative shears.  But this term will not cancel
-when calculating the response, which is the difference of positive and negative
-shears.  This remainder is amplified due to division by $2 \gamma$.
-We thus expect a contamination in the measured response
+the dilated PSF.
+
+We expect sheared correlated noise to partly cancel in the estimator in
+equation \ref{eq:estimator}, because the effect is averaged over both positive
+and negative shears.  The correlated noise part will be different
+for different galaxies, and should also cancel at some level in the
+shear estimator.
+
+However, the sheared correlated noise term will not cancel when calculating the
+response, which is the difference of positive and negative shears.  This
+remainder is amplified due to division by $2 \gamma$.  We thus expect a
+contamination in the measured response
 \begin{equation}
     R^{\prime}  =  R + R_{\eta}.
 \end{equation}
@@ -151,8 +157,8 @@ overall contamination $R_\eta$ to be at few percent level as well.
 \section{Corrections for Correlated Noise} \label{sec:corr}
 
 We propose to simulate the effects of the correlated noise on the measurement
-of the response.  We generate images with the right noise level and examine
-the response of this noise to a shear.  We then subtract the mean noise
+of the response.  We generate images with the right noise level and then
+measure the response of this noise to a shear.  We then subtract the mean noise
 response from the mean measured response, averaged over all galaxies.
 
 For shear estimators based on raw moments, without any form of iteration or
@@ -239,6 +245,8 @@ This bias does not seem to appear in GREAT3, which uses a ring configuration
 for galaxies.  I would not expect $R_\eta$ to cancel for 90 degree rotated
 pairs of galaxies unless the noise maps for the rotated galaxies
 were also identical and rotated.
+
+\section{Application to Realistic Image Simulations}
 
 
 \bibliographystyle{mn2e}
