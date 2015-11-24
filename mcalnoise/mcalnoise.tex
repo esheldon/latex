@@ -173,12 +173,13 @@ the order $f \times e^{PSF}$.
 
 \end{comment}
 
-\section{Corrections for Correlated Noise} \label{sec:corr}
+\section{Correction for Sheared, Correlated Noise} \label{sec:corr}
 
-We propose to simulate the effects of the correlated noise on the measured
-response.  We generate images with the right noise level and then measure the
-response of this noise to a shear.  We then subtract the mean noise response
-from the mean measured response, averaged over some set of galaxy images.
+We propose to simulate the effects of the sheared, correlated noise on the
+measured response.  We generate images with the right noise level for a given
+galaxy, and then measure the response of this noise the convolutions and shears
+used in \mcal.  We then subtract the mean sheared noise response from the mean
+measured response, averaged over some set of galaxy images.
 
 For shear estimators based on raw moments, without any form of iteration or
 fitting, it would be sufficient to simply measure the moments of the resulting
