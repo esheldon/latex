@@ -109,7 +109,7 @@ images
 \begin{equation} \label{eq:estimator}
     E = \frac{E(+\gamma) + E(-\gamma)}{2}.
 \end{equation}
-One could also used an unsheared, re-convolved image for the
+One could also use an unsheared, re-convolved image for the
 shear estimator, but it should be
 equivalent to equation \ref{eq:estimator} if the \mcal\ steps
 introduce no additive errors.
@@ -126,7 +126,7 @@ where $I_\eta$ is the ``noise image''.  The de-convolution correlates the noise
 across the image.  This correlated noise is sheared, and then re-convolved by
 the dilated PSF.
 
-We expect sheared correlated noise to partly cancel in the estimator in
+We expect the sheared correlated noise to partly cancel in the estimator in
 equation \ref{eq:estimator}, because the effect is averaged over both positive
 and negative shears.  The correlated noise part will be different
 for different galaxies, and should also cancel at some level in the
@@ -142,17 +142,20 @@ contamination in the measured response
 
 \subsection{Expected Level of Contamination}
 
-\cite{HirataCorrNoise} derived analytic formulas for the effect of correlated
-noise on shape measurements.  The amplitude of the effect was shown to be at
-the few percent level for very small and noisy galaxies, but the correlated
-noise field was not designed to match the effects of \mcal.  We do find effects
-at the few percent level in \mcal\ simulations (see below), so it would
-interesting to attempt to predict the effect using the analytic framework.
+The correlated noise is produced by de-convolving and re-convolving by the psf,
+so it may be correlated with the PSF ellipticity at some level.  Let's assume
+the induced ellipticity is $f \times e^{PSF}$ in the absence of shearing, with
+$f$ small.  We expect this to cancel in the response calculation, due to the
+subtraction, but add to the estimator $E$.  This should, however, be
+partly dealt with by subtracting $R^{PSF}$ (see below).
 
-The sheared part of the correlated noise, which is all that should remain in
-the response calculation, is suppressed by a factor of $\gamma$, but in forming
-the derivative another factor of $1/\gamma$ is applied.  Thus we expect the
-overall contamination $R_\eta$ to be at few percent level as well.
+If we introduce shearing, then the sheared noise will cancel in the estimator
+$E$ but not the response.
+
+This sheared part of the correlated noise is suppressed by a factor of
+$\gamma$, but in forming the derivative another factor of $1/\gamma$ is
+applied.  Thus we expect the overall contamination $R_\eta$ to be of
+the order $f \times e^{PSF}$.
 
 \section{Corrections for Correlated Noise} \label{sec:corr}
 
