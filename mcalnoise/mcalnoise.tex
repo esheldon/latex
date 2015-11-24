@@ -32,6 +32,7 @@
 
 \newcommand{\mnras}{MNRAS}%
 \newcommand{\apj}{ApJ}%
+\newcommand{\apjs}{ApJS}%
 \newcommand{\aj}{AJ}%
 \newcommand{\pasp}{PASP}%
 \newcommand{\jcp}{J.~Chem.~Phys.}
@@ -43,6 +44,9 @@
 \newcommand{\mcalRpsfnoise}{$R^{p}_\eta$}
 \newcommand{\mcalRo}{$R_o$}
 \newcommand{\mcalRnoise}{$R_\eta$}
+
+\newcommand{\mcalRmodel}{$R^{model}$}
+\newcommand{\mcalRnoisemodel}{$R^{model}_\eta$}
 
 %\slugcomment{Last revision \today}
 %\shortauthors{Sheldon}
@@ -190,7 +194,7 @@ process:
             \item Add an appropriate amount of noise to all images, using the
                 same noise pattern $I_\eta$ for every image.
 
-            \item Measure the response for this model $R^{model}$.
+            \item Measure the response for this model \mcalRmodel.
         \end{enumerate}
 
     \item Measure the response with correlated noise
@@ -206,7 +210,7 @@ process:
             \item Perform the \mcal\ image processing steps on this noisy
                 image.
 
-            \item Measure the response for this model $R^{model}_{\eta}$.
+            \item Measure the response for this model \mcalRnoisemodel.
 
         \end{enumerate}
 
@@ -217,15 +221,16 @@ process:
 The measurement with correlated noise will be the sum of the response
 without correlated noise plus the response of the correlated noise field
 \begin{equation}
-    R^{model}_\eta = R^{model} + \mbox{\mcalRnoise}
+    \mbox{\mcalRnoisemodel} = \mbox{\mcalRmodel} + \mbox{\mcalRnoise}
 \end{equation}
-An estimate of the contribution from correlated noise can
-be calculated by averaging
+This measurement is quite noisy for a single galaxy, but we
+can estimate the mean correlated noise response for an ensemble
+of galaxies
 \begin{equation}
-    \langle \mbox{\mcalRnoise} \rangle = \langle R^{model}_\eta \rangle - \langle R^{model} \rangle.
+    \langle \mbox{\mcalRnoise} \rangle = \langle \mbox{\mcalRnoisemodel} \rangle - \langle \mbox{\mcalRmodel} \rangle.
 \end{equation}
-The construct this average, we repeat the model calculations using the
-noise properties of every galaxy in a sample.
+Each entry used in this average corresponds to the best fit model
+and noise properties for a galaxy in the sample.
 
 The response \mcalRnoise\ can be subtracted to recover an estimate of the mean
 response without correlated noise
@@ -236,7 +241,7 @@ response without correlated noise
 \subsection{Corrections to \mcalRpsf}
 
 A similar correction may exist for the PSF response term, which is
-calculated by shearing the PSF image instead of the galaxy image
+calculated by shearing the PSF image instead of the galaxy image \citep{HuffMcal}
 \begin{equation}
     \mbox{\mcalRpsf} = \frac{E(+\gamma^{p}) - E(-\gamma^{p})}{2 \gamma^{p}},
 \end{equation}
@@ -257,10 +262,12 @@ $\langle$\mcalRpsfnoise$ \times e^{p}\rangle$.
 
 \section{Cancellation in Ring Configurations}
 
-This bias does not seem to appear in GREAT3, which uses a ring configuration
-for galaxies.  I would not expect \mcalRnoise\ to cancel for 90 degree rotated
-pairs of galaxies unless the noise maps for the rotated galaxies
-were also identical and rotated.
+This bias was not seen by \cite{HuffMcal} using the GREAT3 simulations
+\citep{great3}.  This could be because galaxies for GREAT3 were generated in a
+``ring configuration'', with galaxy pairs placed at right angles to cancel
+shape noise. It is not clear to me that \mcalRnoise\ should cancel in a ring
+configuration unless the noise maps for the rotated galaxies were also
+identical and rotated.
 
 \section{Application to Realistic Image Simulations}
 
