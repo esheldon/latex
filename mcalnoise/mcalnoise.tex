@@ -29,9 +29,6 @@
 \newcommand{\desreq}{$4\times 10^{-3}$}
 \newcommand{\lsstreq}{$2\times 10^{-3}$}
 
-\newcommand{\sersic}{S\'{e}rsic}
-
-\newcommand{\lognormscatt}{30}
 
 \newcommand{\mnras}{MNRAS}%
 \newcommand{\apj}{ApJ}%
@@ -42,6 +39,10 @@
 \newcommand{\mcal}{metacalibration}
 \newcommand{\Mcal}{Metacalibration}
 \newcommand{\mcalR}{$R$}
+\newcommand{\mcalRpsf}{$R^{p}$}
+\newcommand{\mcalRpsfnoise}{$R^{p}_\eta$}
+\newcommand{\mcalRo}{$R_o$}
+\newcommand{\mcalRnoise}{$R_\eta$}
 
 %\slugcomment{Last revision \today}
 %\shortauthors{Sheldon}
@@ -77,14 +78,15 @@ I derive corrections for correlated noise effects in \mcal.
 Suppose we have a biased shear estimator $E$.  We can expand this estimator
 in a Taylor series around the true shear
 \begin{eqnarray}
-    E(\gamma) & = & E(0) + \gamma ~ \frac{ \partial E }{ \partial \gamma }\bigg|_{\gamma=0}  + ... \nonumber \\
+    E(\gamma) & = & E(\gamma=0) + \gamma ~ \frac{ \partial E }{ \partial \gamma }\bigg|_{\gamma=0}  + ... \nonumber \\
       & \approx & \gamma ~ \frac{ \partial E }{ \partial \gamma } \bigg|_{\gamma=0}  \\
-      & \equiv & \gamma ~ R \nonumber
+      & \equiv & \gamma ~ \mbox{\mcalR} \nonumber
 \end{eqnarray}
-where $\gamma$ is denotes the true gravitational shear.
+where $\gamma$ is denotes the true gravitational shear.  We call \mcalR\
+the shear response.
 
 The essence of \mcal\ \citep{HuffMcal} is to estimate the shear response
-\mcalR\ for a shear estimator $E$ from image data.  This is accomplished using
+\mcalR\ for a shear estimator $E$ directly from image data.  This is accomplished using
 a numerical derivative.  The original image $I$ is de-convolved from the point
 spread function (PSF), sheared, and re-convolved with a slightly larger PSF.  A
 slightly larger PSF is used to suppress the amplified noise at high
@@ -116,31 +118,34 @@ introduce no additive errors.
 
 \section{Contamination of the Response by Correlated Noise} \label{sec:contam}
 
-In presence of noise, the \mcal\ images will contain
+In the presence of noise, the observed image can be written $I_o=I+\eta$, where $\eta$
+is the ``noise image``.  The \mcal\ sheared images $I_o(\gamma)$ will contain
 contributions from de-convolved, sheared and re-convolved noise:
 \begin{eqnarray}
-    I^{\prime}(\gamma) & = & (I + I_\eta) \Asterisk P^{-1} \oplus \gamma \Asterisk P_{d} \nonumber \\
-    & = & I(\gamma) + I_\eta(\gamma),
+    I_{o}(\gamma) & = & (I + \eta) \Asterisk P^{-1} \oplus \gamma \Asterisk P_{d} \nonumber \\
+    & = & I(\gamma) + \eta(\gamma).
 \end{eqnarray}
-where $I_\eta$ is the ``noise image''.  The de-convolution correlates the noise
+The de-convolution correlates the noise
 across the image.  This correlated noise is sheared, and then re-convolved by
-the dilated PSF.
+the dilated PSF, producing the sheared correlated noise image $\eta(\gamma)$.
 
 We expect the sheared correlated noise to partly cancel in the estimator in
 equation \ref{eq:estimator}, because the effect is averaged over both positive
-and negative shears.  The correlated noise part will be different
-for different galaxies, and should also cancel at some level in the
-shear estimator.
+and negative shears. This quantity is further averaged over many galaxies.
 
 However, the sheared correlated noise term will not cancel when calculating the
 response, which is the difference of positive and negative shears.  This
-remainder is amplified due to division by $2 \gamma$.  We thus expect a
-contamination in the measured response
+remainder is amplified due to division by $2 \gamma$ to form the central
+derivative.  We thus expect the observed response \mcalRo\ to be contaminated
+by the response of the correlated, sheared noise \mcalRnoise\
 \begin{equation}
-    R^{\prime}  =  R + R_{\eta}.
+    \mbox{\mcalRo}  =  R + \mbox{\mcalRnoise}
 \end{equation}
 
+\begin{comment}
 \subsection{Expected Level of Contamination}
+
+I think the following is not correct.
 
 The correlated noise is produced by de-convolving and re-convolving by the psf,
 so it may be correlated with the PSF ellipticity at some level.  Let's assume
@@ -157,12 +162,14 @@ $\gamma$, but in forming the derivative another factor of $1/\gamma$ is
 applied.  Thus we expect the overall contamination $R_\eta$ to be of
 the order $f \times e^{PSF}$.
 
+\end{comment}
+
 \section{Corrections for Correlated Noise} \label{sec:corr}
 
-We propose to simulate the effects of the correlated noise on the measurement
-of the response.  We generate images with the right noise level and then
-measure the response of this noise to a shear.  We then subtract the mean noise
-response from the mean measured response, averaged over all galaxies.
+We propose to simulate the effects of the correlated noise on the measured
+response.  We generate images with the right noise level and then measure the
+response of this noise to a shear.  We then subtract the mean noise response
+from the mean measured response, averaged over some set of galaxy images.
 
 For shear estimators based on raw moments, without any form of iteration or
 fitting, it would be sufficient to simply measure the moments of the resulting
@@ -203,49 +210,55 @@ process:
 
         \end{enumerate}
 
+    \item Subtract the correlated noise response
+
 \end{enumerate}
 
 The measurement with correlated noise will be the sum of the response
 without correlated noise plus the response of the correlated noise field
 \begin{equation}
-    R^{model}_\eta = R^{model} + R_\eta
+    R^{model}_\eta = R^{model} + \mbox{\mcalRnoise}
 \end{equation}
 An estimate of the contribution from correlated noise can
-be calculated by averaging over many galaxies
+be calculated by averaging
 \begin{equation}
-    \langle R_\eta \rangle = \langle R^{model}_\eta \rangle - \langle R^{model} \rangle,
+    \langle \mbox{\mcalRnoise} \rangle = \langle R^{model}_\eta \rangle - \langle R^{model} \rangle.
 \end{equation}
-which can be subtracted to recover an estimate of the mean response without
-correlated noise
+The construct this average, we repeat the model calculations using the
+noise properties of every galaxy in a sample.
+
+The response \mcalRnoise\ can be subtracted to recover an estimate of the mean
+response without correlated noise
 \begin{equation}
-    \langle R \rangle = \langle R^\prime \rangle - \langle R_\eta \rangle.
+    \langle \mbox{\mcalR} \rangle = \langle \mbox{\mcalRo} \rangle - \langle \mbox{\mcalRnoise} \rangle.
 \end{equation}
 
-\subsection{Corrections to $R^{PSF}$}
+\subsection{Corrections to \mcalRpsf}
 
 A similar correction may exist for the PSF response term, which is
 calculated by shearing the PSF image instead of the galaxy image
 \begin{equation}
-    R^{PSF} = \frac{E(+\gamma^{PSF}) - E(-\gamma^{PSF})}{2 \gamma^{PSF}},
+    \mbox{\mcalRpsf} = \frac{E(+\gamma^{p}) - E(-\gamma^{p})}{2 \gamma^{p}},
 \end{equation}
-which adds to the estimator multiplied by the PSF shape
+where $\gamma^{p}$ is the shear applied to the PSF.  This
+term adds to the estimator, multiplied by the PSF shape
 \begin{equation}
-    E = \gamma \times R + e^{PSF} \times R^{PSF}.
+    E = \gamma \mbox{\mcalR} + e^{p} \mbox{\mcalRpsf}
 \end{equation}
 This term can be subtracted to approximately correct for additive PSF errors.
 
-In calculating $R^{PSF}$, the image is de-convolved and re-convolved by these
-sheared PSFs. The noise is thus correlated by these convolutions, but in
-slightly different ways due to the differently sheared PSFs.  We thus to not
-expect this effect to cancel in calculating $R^{PSF}$. The resulting correlated
-noise contamination term we may denote $R^{PSF}_\eta$.  However, if the PSF
-ellipticity is small, we do expect this contamination to be suppressed in the
-product $\langle R^{PSF}_\eta\times e^{PSF}\rangle$.
+In calculating \mcalRpsf, the image is de-convolved and re-convolved by these
+sheared PSFs. The noise is thus correlated by convolutions, but in slightly
+different ways due to the differently sheared PSFs.  We thus do not expect this
+effect to cancel in calculating \mcalRpsf. The resulting correlated noise
+contamination term we may denote \mcalRpsfnoise.  We expect this correction to
+be sub-dominant to \mcalRnoise, as \mcalRpsfnoise\ is suppressed the product
+$\langle$\mcalRpsfnoise$ \times e^{p}\rangle$.
 
 \section{Cancellation in Ring Configurations}
 
 This bias does not seem to appear in GREAT3, which uses a ring configuration
-for galaxies.  I would not expect $R_\eta$ to cancel for 90 degree rotated
+for galaxies.  I would not expect \mcalRnoise\ to cancel for 90 degree rotated
 pairs of galaxies unless the noise maps for the rotated galaxies
 were also identical and rotated.
 
