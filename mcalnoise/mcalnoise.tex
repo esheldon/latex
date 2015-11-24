@@ -53,7 +53,7 @@
 %\shorttitle{Bayesian Shear Estimation}
 
 
-\title{Correlated Noise Effects in \Mcal\ Lensing Shear Estimation}
+\title{Correction for Correlated Noise Effects in \Mcal\ Lensing Shear Estimation}
 
 \author[Erin S. Sheldon]{Erin S. Sheldon\thanks{E-mail: erin.sheldon@gmail.com}\\
 Brookhaven National Laboratory, Bldg 510, Upton, New York 11973}
@@ -81,11 +81,11 @@ I derive corrections for correlated noise effects in \mcal.
 
 Suppose we have a biased shear estimator $E$.  We can expand this estimator
 in a Taylor series around the true shear
-\begin{align*}
+\begin{align}
     E(\gamma) &= E(\gamma=0) + \gamma ~ \frac{ \partial E }{ \partial \gamma }\bigg|_{\gamma=0}  + ... \nonumber \\
       & \approx  \gamma ~ \frac{ \partial E }{ \partial \gamma } \bigg|_{\gamma=0}  \\
       & \equiv  \gamma ~ \mbox{\mcalR} \nonumber
-\end{align*}
+\end{align}
 where $\gamma$ is denotes the true gravitational shear.  We call \mcalR\
 the shear response.
 
@@ -110,25 +110,30 @@ amount $\gamma$
 \begin{equation} \label{eq:Rnum}
     R = \frac{E(+\gamma) - E(-\gamma)}{2 \gamma}.
 \end{equation}
-The shear estimator is also derived from the re-convolved
+The shear estimator can also be derived from the re-convolved
 images
 \begin{equation} \label{eq:estimator}
     E = \frac{E(+\gamma) + E(-\gamma)}{2}.
 \end{equation}
-One could also use an unsheared, re-convolved image for the
-shear estimator, but it should be
-equivalent to equation \ref{eq:estimator} if the \mcal\ steps
-introduce no additive errors.
+
+For a constant shear, the response and shear estimators can be averaged
+separately and combined to recover the mean shear:
+\begin{equation}
+    \gamma = \frac{ \langle E \rangle }{\langle \mbox{\mcalR} \rangle}.
+\end{equation}
+In \cite{HuffMcal} a more sophisticated inference was used, in order to deal
+with the relatively large variance in \mcalR\ associated with the particular
+estimator used therein.
 
 \section{Contamination of the Response by Correlated Noise} \label{sec:contam}
 
 In the presence of noise, the observed image can be written $I_o=I+\eta$, where $\eta$
 is the ``noise image``.  The \mcal\ sheared images $I_o(\gamma)$ will contain
 contributions from de-convolved, sheared and re-convolved noise:
-\begin{align*}
+\begin{align}
     I_{o}(\gamma) &= (I + \eta) \Asterisk P^{-1} \oplus \gamma \Asterisk P_{d} \nonumber \\
     &= I(\gamma) + \eta(\gamma).
-\end{align*}
+\end{align}
 The de-convolution correlates the noise
 across the image.  This correlated noise is sheared, and then re-convolved by
 the dilated PSF, producing the sheared correlated noise image $\eta(\gamma)$.
@@ -240,7 +245,7 @@ response without correlated noise
 
 \subsection{Corrections to \mcalRpsf}
 
-A similar correction may exist for the PSF response term, which is
+A correction may also be calculated for the PSF response term, which is
 calculated by shearing the PSF image instead of the galaxy image \citep{HuffMcal}
 \begin{equation}
     \mbox{\mcalRpsf} = \frac{E(+\gamma^{p}) - E(-\gamma^{p})}{2 \gamma^{p}},
@@ -248,7 +253,7 @@ calculated by shearing the PSF image instead of the galaxy image \citep{HuffMcal
 where $\gamma^{p}$ is the shear applied to the PSF.  This
 term adds to the estimator, multiplied by the PSF shape
 \begin{equation}
-    E = \gamma \mbox{\mcalR} + e^{p} \mbox{\mcalRpsf}
+    E = \mbox{\mcalR} \gamma + \mbox{\mcalRpsf} e^{p} 
 \end{equation}
 This term can be subtracted to approximately correct for additive PSF errors.
 
@@ -256,17 +261,19 @@ In calculating \mcalRpsf, the image is de-convolved and re-convolved by these
 sheared PSFs. The noise is thus correlated by convolutions, but in slightly
 different ways due to the differently sheared PSFs.  We thus do not expect this
 effect to cancel in calculating \mcalRpsf. The resulting correlated noise
-contamination term we may denote \mcalRpsfnoise.  We expect this correction to
-be sub-dominant to \mcalRnoise, as \mcalRpsfnoise\ is suppressed the product
-$\langle$\mcalRpsfnoise$ \times e^{p}\rangle$.
+contamination term we may denote \mcalRpsfnoise.
+
+We expect this correction to be sub-dominant to \mcalRnoise, as \mcalRpsfnoise\
+is suppressed in the product $\langle$\mcalRpsfnoise$ \times e^{p}\rangle$.
 
 \section{Cancellation in Ring Configurations}
 
 This bias was not seen by \cite{HuffMcal} using the GREAT3 simulations
 \citep{great3}.  This could be because galaxies for GREAT3 were generated in a
-``ring configuration'', with galaxy pairs placed at right angles to cancel
-shape noise. It is not clear to me that \mcalRnoise\ should cancel in a ring
-configuration unless the noise maps for the rotated galaxies were also
+``ring configuration''.  The simulation included two identical images each
+galaxy, rotated by 90 degrees with respect to a one another, in order to cancel
+shape noise.  However, it is not clear to me that \mcalRnoise\ should cancel in
+a ring configuration, unless the noise maps for the rotated galaxies were also
 identical and rotated.
 
 \section{Application to Realistic Image Simulations}
