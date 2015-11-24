@@ -77,11 +77,11 @@ I derive corrections for correlated noise effects in \mcal.
 
 Suppose we have a biased shear estimator $E$.  We can expand this estimator
 in a Taylor series around the true shear
-\begin{eqnarray}
-    E(\gamma) & = & E(\gamma=0) + \gamma ~ \frac{ \partial E }{ \partial \gamma }\bigg|_{\gamma=0}  + ... \nonumber \\
-      & \approx & \gamma ~ \frac{ \partial E }{ \partial \gamma } \bigg|_{\gamma=0}  \\
-      & \equiv & \gamma ~ \mbox{\mcalR} \nonumber
-\end{eqnarray}
+\begin{align*}
+    E(\gamma) &= E(\gamma=0) + \gamma ~ \frac{ \partial E }{ \partial \gamma }\bigg|_{\gamma=0}  + ... \nonumber \\
+      & \approx  \gamma ~ \frac{ \partial E }{ \partial \gamma } \bigg|_{\gamma=0}  \\
+      & \equiv  \gamma ~ \mbox{\mcalR} \nonumber
+\end{align*}
 where $\gamma$ is denotes the true gravitational shear.  We call \mcalR\
 the shear response.
 
@@ -121,10 +121,10 @@ introduce no additive errors.
 In the presence of noise, the observed image can be written $I_o=I+\eta$, where $\eta$
 is the ``noise image``.  The \mcal\ sheared images $I_o(\gamma)$ will contain
 contributions from de-convolved, sheared and re-convolved noise:
-\begin{eqnarray}
-    I_{o}(\gamma) & = & (I + \eta) \Asterisk P^{-1} \oplus \gamma \Asterisk P_{d} \nonumber \\
-    & = & I(\gamma) + \eta(\gamma).
-\end{eqnarray}
+\begin{align*}
+    I_{o}(\gamma) &= (I + \eta) \Asterisk P^{-1} \oplus \gamma \Asterisk P_{d} \nonumber \\
+    &= I(\gamma) + \eta(\gamma).
+\end{align*}
 The de-convolution correlates the noise
 across the image.  This correlated noise is sheared, and then re-convolved by
 the dilated PSF, producing the sheared correlated noise image $\eta(\gamma)$.
