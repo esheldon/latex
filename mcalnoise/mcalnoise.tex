@@ -175,18 +175,48 @@ the order $f \times e^{PSF}$.
 
 \section{Correction for Sheared, Correlated Noise} \label{sec:corr}
 
-We propose to simulate the effects of the sheared, correlated noise on the
-measured response.  We generate images with the right noise level for a given
-galaxy, and then measure the response of this noise the convolutions and shears
-used in \mcal.  We then subtract the mean sheared noise response from the mean
-measured response, averaged over some set of galaxy images.
+\subsection{Raw Moments}
 
 For shear estimators based on raw moments, without any form of iteration or
-fitting, it would be sufficient to simply measure the moments of the resulting
-sheared correlated noise field.
+fitting, it would be sufficient to simply measure the moments of example
+sheared correlated noise fields and subtract the mean response from the
+responses measured on the real images.
 
-For shear estimators based on non-linear fitting, we propose the following
-process:
+\subsection{Nonlinear Fitting}
+
+For non-linear fitting, we propose two methods to correct for the effects of
+the sheared, correlated noise on the measured response.  The first is based on
+subtracting a sheared, correlated noise field that has been sheared with the
+opposite sign.  The second is based on simulating the effect on modeled images.
+
+\subsubsection{Subtracting a Sheared, Correlated Random Noise Field}
+
+In this method, we generate example random noise fields sheared with the
+opposite sign of those used in the \mcal\ procedure:
+\begin{equation}
+    \tilde{\eta}(-\gamma) = \tilde{\eta} \Asterisk P^{-1} \oplus (-\gamma) \Asterisk P_{d}.
+\end{equation}
+This noise image can then be subtracted from the $I(\gamma)$ images to
+statistically remove the effects of sheared, correlated noise.
+\begin{equation}
+    \tilde{I}(\gamma) = I(\gamma) - \tilde{\eta}(-\gamma).
+\end{equation}
+It is important that the random noise field be subtracted after the \mcal\
+procedures have been applied, not before.
+
+This procedure increases the noise by a factor of $\sqrt 2$.  If this
+is unacceptable, many realizations of the noise field can be generated
+and fit simultaneously.  This will improve the precision of the fit,
+at the cost of increased computation time.
+
+
+\subsubsection{Simulating Models}
+
+In this method, we generate model images with the right noise level for a
+given galaxy, and then measure the response of the noise due to the
+convolutions and shears used in \mcal.  We then subtract the mean sheared noise
+response from the mean measured response, averaged over some set of galaxy
+images. The process is as follows:
 \begin{enumerate}[label=\arabic*.]
 
     \item Measure the response without correlated noise
