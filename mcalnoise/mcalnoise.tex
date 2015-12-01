@@ -186,24 +186,24 @@ for each galaxy to increase precision.
 
 For non-linear fitting, we propose two methods to correct for the effects of
 the sheared, correlated noise on the measured response.  The first is based on
-subtracting a sheared, correlated noise field that has been sheared with the
+adding a sheared, correlated noise field that has been sheared with the
 opposite sign.  The second is based on simulating the effect on modeled images.
 
 \subsubsection{Subtracting a Sheared, Correlated Random Noise Field}
 
-In this method, we generate example random noise fields sheared with the
-opposite sign of those used in the \mcal\ procedure:
+In this method, we generate example random noise fields $\tilde{\eta}$, sheared
+with the opposite sign of those used in the \mcal\ procedure:
 \begin{equation}
     \tilde{\eta}(-\gamma) = \tilde{\eta} \Asterisk P^{-1} \oplus (-\gamma) \Asterisk P_{d}.
 \end{equation}
-This noise image can then be subtracted from the $I(\gamma)_o$ images to
-statistically remove the effects of sheared, correlated noise.
+This noise image can then be added to the $I(\gamma)_o$ images to
+statistically remove the effects of sheared, correlated noise:
 \begin{equation}
     \tilde{I}(\gamma) = I_o(\gamma) - \tilde{\eta}(-\gamma),
 \end{equation}
 where $\tilde{I}(\gamma)$ is an approximation for the desired image
-$I(\gamma)$.    When used in a large ensemble, these $\tilde{I}(\gamma)$
-can be used to measure the correct \mcal\ for the population.
+$I(\gamma)$.    These $\tilde{I}(\gamma)$
+can be used to measure the correct \mcal\ for a large population.
 It is important that the random noise field be subtracted after
 the \mcal\ procedures have been applied, not before.
 
