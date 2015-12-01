@@ -196,18 +196,23 @@ opposite sign of those used in the \mcal\ procedure:
 \begin{equation}
     \tilde{\eta}(-\gamma) = \tilde{\eta} \Asterisk P^{-1} \oplus (-\gamma) \Asterisk P_{d}.
 \end{equation}
-This noise image can then be subtracted from the $I(\gamma)$ images to
+This noise image can then be subtracted from the $I(\gamma)_o$ images to
 statistically remove the effects of sheared, correlated noise.
 \begin{equation}
-    \tilde{I}(\gamma) = I(\gamma) - \tilde{\eta}(-\gamma).
+    \tilde{I}(\gamma) = I_o(\gamma) - \tilde{\eta}(-\gamma),
 \end{equation}
-It is important that the random noise field be subtracted after the \mcal\
-procedures have been applied, not before.
+where $\tilde{I}(\gamma)$ is an approximation for the desired image
+$I(\gamma)$.    When used in a large ensemble, these $\tilde{I}(\gamma)$
+can be used to measure the correct \mcal\ for the population.
+It is important that the random noise field be subtracted after
+the \mcal\ procedures have been applied, not before.
 
-This procedure increases the noise by a factor of $\sqrt 2$.  If this
-is unacceptable, many realizations of the noise field can be generated
-and fit simultaneously.  This will improve the precision of the fit,
-at the cost of increased computation time.
+This procedure increases the noise by a factor of $\sqrt 2$.  Thus, both the
+response and estimator should be measured on the $\tilde{I}(\gamma)$ images, so
+that the response is representative of the correct noise level.  To reduce the
+noise in the fits, many random fields can be generated and subtracted from the
+original images, and these can all then be fit simultaneously.  This will
+improve the precision of the fit, at the cost of increased computation time.
 
 
 \subsubsection{Simulating Models}
