@@ -90,13 +90,12 @@ where $\gamma$ is denotes the true gravitational shear.  We call \mcalR\
 the shear response.
 
 The essence of \mcal\ \citep{HuffMcal} is to estimate the shear response
-\mcalR\ for a shear estimator $E$ directly from image data.  This is accomplished using
-a numerical derivative.  The original image $I$ is de-convolved from the point
-spread function (PSF), sheared, and re-convolved with a slightly larger PSF.  A
-slightly larger PSF is used to suppress the amplified noise at high
-frequency.  This \mcal\ process is repeated for a positive and negative
-shear, which can be used to form a central derivative.  We can represent this
-as a series of operations on the observed image $I$:
+\mcalR\ for a shear estimator $E$ directly from image data.  This is
+accomplished using a numerical derivative.  The original image $I$ is
+de-convolved from the point spread function (PSF), sheared, and re-convolved
+with a slightly larger PSF.  This \mcal\ process is repeated for a
+positive and negative shear, which can be used to form a central derivative.
+We can represent this as a series of operations on the observed image $I$:
 \begin{equation}
     I(\gamma) = I \Asterisk P^{-1} \oplus \gamma \Asterisk P_{d}
 \end{equation}
@@ -180,7 +179,8 @@ the order $f \times e^{PSF}$.
 For shear estimators based on raw moments, without any form of iteration or
 fitting, it would be sufficient to simply measure the moments of example
 sheared correlated noise fields and subtract the mean response from the
-responses measured on the real images.
+responses measured on the real images.  Many realizations can be generated
+for each galaxy to increase precision.
 
 \subsection{Nonlinear Fitting}
 
