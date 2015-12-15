@@ -295,11 +295,14 @@
 {
     \frametitle{Detrending Correction for Correlated Noise}
 
+    {\color{gold} $\Delta R_{\mathrm{noise}} = A \Delta n^2$ }
+
     \begin{figure}
-        \includegraphics[width=0.65\textwidth]{run-bd13mcal-dt01-Rnoise-detrend-neg.png}
+        \includegraphics[width=0.6\textwidth]{run-bd13mcal-dt01-Rnoise-detrend-neg.png}
     \end{figure}
 
-    Note offset is not zero
+    Note offset is not zero.  Use 
+    {\color{lightskyblue} $R_{\mathrm{noise}} = A n^2 - \mathrm{offset}$}
 }
 
 \frame
@@ -311,14 +314,18 @@
     \setbeamerfont*{itemize/enumerate subsubbody}{parent=itemize/enumerate body}
  
     \begin{itemize}
-        \item Simulations with complex galaxies bulge+disk, with large
-            offsets between bulge and disk centers.
+        \item Simulations with complex galaxies:
+            \begin{itemize}
+                \item bulge+disk
+                \item Large offsets between bulge and disk centers.
+            \end{itemize}
 
-        \item Fit a simple gaussian, which normally results in a large ``model bias'',
-            of order 10\%.
+        \item I fit a simple gaussian, which normally results in a large
+            ``model bias'', of order 10\%.
             
-         \item Signal-to-noise ratio $\gtrsim$10, realistic distribution, 
-             induces ordinary noise bias of order 10\%
+         \item Signal-to-noise ratio distribution matched to real data, with
+             lower bound $\gtrsim$10.  Induces ordinary noise bias of order
+             10\%
 
     \end{itemize}
 
@@ -344,7 +351,7 @@
 
 
          \item With correlated noise corrections, the biases are reduced
-             by at lease two orders of magnitude
+             by at least two orders of magnitude
 
         {\color{gold} 
             \begin{eqnarray}
@@ -373,10 +380,10 @@
         \item Metacalibration is a new idea for shear recovery from
             Eric Huff
 
-        \item Promising new bias corrections that work {\color{gold} {\em without the need
+        \item Promising new correlated noise corrections that work {\color{gold} {\em without the need
             for expensive deep data} }
 
-        \item On tests so far, the bias is within statistical error.
+        \item On tests so far, the bias is within statistical error.  More simulations are running.
         
     \end{itemize}
 
