@@ -35,7 +35,7 @@
 
 
 
-\title{Correction for Correlated Noise in Metacalibration}
+\title{Update on Metacalibration for Weak Lensing Shear Measurement}
 \author{Erin Sheldon}
 \institute{Brookhaven National Laboratory}
 
@@ -155,9 +155,9 @@
  
     \begin{itemize}
         
-        \item Should correct for modeling biases
+        \item Corrects for modeling biases
 
-        \item Should correct for {\em ordinary} noise-related biases
+        \item Corrects for {\em ordinary} noise-related biases
 
         \item Works well at high shear.
 
@@ -177,13 +177,15 @@
  
     \begin{itemize}
 
-        \item These convolutions and shears involved in the metacal process
-            results in {\em {\color{gold} correlated noise}}
+        \item These convolutions and shears result in {\em {\color{gold} correlated noise}}
             
-        \item Fluctuations due to noise are no longer independent after convolution.
+        \begin{itemize}
+            \item After convolution, fluctuations due to noise are no longer
+                independent between pixels
 
-        \item Fluctuations due to noise are no longer independent after shear, due
-            to interpolation.
+            \item Shearing involves interpolation, so in a similar way fluctuations
+                due to noise are no longer independent
+        \end{itemize}
 
         \item Can result in bias of order $5-10$\% for very faint galaxies.
 
@@ -240,14 +242,18 @@
  
     \begin{itemize}
 
-        \item Originally I was using deeper data to correct: degrade to the
+        \item Originally I was using deeper data to avoid the
+            correlated noise: degrade to the
             noise level of the shallow data, but adding noise {\em after}
             performing metacal convolutions/shear.
 
-        \item Deep data is {\color{brightred} expensive} to acquire
+        \item This has significant drawbacks
+            \begin{itemize}
+                \item Deep data is {\color{brightred} expensive} to acquire
 
-        \item Great care must be taken that the deep data is well matched
-            to the shallow data
+                \item Great care must be taken that the deep data is well matched
+                    to the shallow data
+            \end{itemize}
 
     \end{itemize}
 
@@ -306,7 +312,7 @@
  
     \begin{itemize}
         \item Simulations with complex galaxies bulge+disk, with large
-            offsets between centers.
+            offsets between bulge and disk centers.
 
         \item Fit a simple gaussian, which normally results in a large ``model bias'',
             of order 10\%.
@@ -337,7 +343,8 @@
         }
 
 
-         \item With correlated noise corrections
+         \item With correlated noise corrections, the biases are reduced
+             by at lease two orders of magnitude
 
         {\color{gold} 
             \begin{eqnarray}
