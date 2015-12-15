@@ -48,6 +48,9 @@
 \newcommand{\mcalRmodel}{$R^{model}$}
 \newcommand{\mcalRnoisemodel}{$R^{model}_\eta$}
 
+\newcommand{\Aslope}{$-0.097 \pm 0.002$}
+\newcommand{\Aoffset}{$-0.0018 \pm 0.0004$}
+
 %\slugcomment{Last revision \today}
 %\shortauthors{Sheldon}
 %\shorttitle{Bayesian Shear Estimation}
@@ -182,12 +185,14 @@ sheared correlated noise fields and subtract the mean response from the
 responses measured on the real images.  Multiple realizations can be generated
 for each galaxy to increase precision.
 
+
 \subsection{Nonlinear Fitting}
 
-For non-linear fitting, we propose two methods to correct for the effects of
+For non-linear fitting, we propose three methods to correct for the effects of
 the sheared, correlated noise on the measured response.  The first is based on
 adding a sheared, correlated noise field that has been sheared with the
 opposite sign.  The second is based on simulating the effect on modeled images.
+The third is based on de-trending the effects of correlated noise.
 
 \subsubsection{Adding a Sheared, Correlated Random Noise Field}
 
@@ -283,6 +288,46 @@ independent noise in both \mcalRo\ and \mcalRnoise.  To increase
 precision, the procedure can be repeated for different noise fields
 and averaged, at the cost of increased computation time.
 
+\subsection{Detrending the Correlated Noise Bias}
+
+The bias in \mcalR\ due to correlated noise should scale with the 
+noise correlation function, and thus the square of the noise level
+in the image $n^2$ \citep{HirataCorrNoise}.
+\begin{align} \label{eq:scaling}
+    \mbox{\mcalRo} &= R + \mbox{\mcalRnoise}  \nonumber \\
+                   &= R + A n^2
+\end{align}
+We can add a little bit of noise $\Delta n$ to the image, run the new image
+through the \mcal\ process, and measure $R^{\mathrm{before}}$.  We can also
+add this noise {\em after} the original image  has been run through \mcal, and
+measure $R^{\mathrm{after}}$.  The difference between is
+then approximately
+\begin{align}
+    \Delta R &\equiv R^{\mathrm{before}} - R^{\mathrm{after}}  \nonumber \\
+             &\simeq A \Delta n^2
+\end{align}
+where $\Delta n^2 \equiv (n + \Delta n)^2 - n^2$.
+Given $A$, we can estimate the contamination by correlated noise
+\begin{align}
+    \mbox{\mcalRnoise} \simeq A n^2
+\end{align}
+In practice, the \mcal\ processing steps move the noise around, so we do not
+necessarily expect the \mcalR\ appearing in equation \ref{eq:scaling} to
+equal the exact response of the estimator in the absence of
+correlated noise.  We may thus find a difference between the inferred
+\mcalRnoise\ and the true value.  If this offset is sufficiently constant over
+the range of noise used for detrending, we can determine it from a linear fit
+between $\Delta R$ and
+$\Delta n^2$:
+\begin{align}
+    \Delta R &= A \Delta n^2 \nonumber + \Delta R(n=0) \\
+    \Rightarrow \mbox{\mcalRnoise} &\simeq A n^2 - \Delta R(n=0).
+\end{align}
+It is not yet clear if subtracting this offset is needed.
+
+
+
+
 \subsection{Corrections to \mcalRpsf}
 
 A correction may also be calculated for the PSF response term, which is
@@ -307,6 +352,58 @@ We expect this correction to be sub-dominant to \mcalRnoise, as \mcalRpsfnoise\
 is suppressed in the product $\langle$\mcalRpsfnoise$ \times e^{p}\rangle$.
 
 \section{Application to Realistic Image Simulations}
+
+\subsection{Detrending Corrections}
+
+We apply the de-trending technique to image simulations.  These simulations
+make use of parametric models.  The galaxies are bulge+disk models with both
+components having the same ellipticity and half light radius, drawn from a
+log-normal distribution centered at 0.7 arcsec, with scatter of 0.13 arcsec.
+The bulges are offset uniformly up to a scale length.  The ellipticities
+were drawn from the simple model presented in \cite{ba14}, with $\sigma=0.2$.
+The PSF is an elliptical
+Gaussian with FWHM 0.9 arcsec.  The pixel scale was set to 0.265 arcsec.  The S/N
+distribution matches real DES data, with $S/N \gtrapprox 10$.  Galaxies
+were sheared with 300 different shears, ranging from 0.01 to 0.08 in amplitude.
+
+The images were fit with a single Gaussian galaxy model and Gaussian PSF model.
+Using this simple galaxy model results a large model bias. A maximum likelihood
+fit was used, with smooth priors on all parameters to produce a stable fit.
+These priors were not tuned to the true galaxy parameters; priors on flux and
+size were deliberately wider than truth by 20\%, and that on ellipticity used
+$\sigma=0.3$ instead of the true $0.2$.  We furthermore expect large {\em
+ordinary} noise bias at these low S/N levels.
+
+The results showing $\Delta R$ vs $\Delta n^2$ are shown in figure
+\ref{fig:detrend}.  The trend is linear in $\Delta n^2$ as expected, with a
+slope $A = $\Aslope.  A significant offset is measured, $\Delta R(n=0) =
+$\Aoffset.
+
+\begin{figure}
+    \includegraphics[scale=0.45]{run-bd13mcal-dt01-Rnoise-detrend.eps}
+
+    \caption{Trend of $\Delta R$ with noise squared, relative to the original
+    noise level in the image.  The trend is linear in $\Delta n ^2$ as
+predicted, with slope \Aslope. A significant offset at
+$\Delta (n=0)$ is detected.}
+
+\label{fig:detrend}
+\end{figure}
+
+Applying these corrections to $R$, we recover the shear within the
+noise.  Without subtracting the offset, we find
+\begin{align}
+    m &=  (-1.0 \pm 2.0) \times 10^{-3} \nonumber \\
+    c &=  (-3.4 \pm 7.0) \times 10^{-5}.
+\end{align}
+Subtracting the offset we find
+\begin{align}
+    m &=  (1.5 \pm 2.0) \times 10^{-3} \nonumber \\
+    c &=  (-3.4 \pm 7.0) \times 10^{-5}.
+\end{align}
+Larger and more complex simulations are needed to assess if subtraction of the
+offset is needed.  A larger simulation, using COSMOS galaxies and realistic DES
+PSF is running.
 
 \section{Cancellation in Ring Configurations}
 
