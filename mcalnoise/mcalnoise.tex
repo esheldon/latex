@@ -309,7 +309,7 @@ measure $R^{\mathrm{after}}$.  The response when adding noise before
 %&\simeq R + A n^2 + \frac{\partial (An^2)}{\partial n} \Delta n + ... \nonumber \\
 where we have dropped terms of order $(\Delta n)^2$ and higher.  In equation
 \ref{eq:Rbefore}, \mcalR\ is the response at noise $n+\Delta n$ in the absence
-of correlated noise errors.  The response when adding noise after \mcal\ does
+of correlated noise.  The response when adding noise after \mcal\ does
 not suffer any additional bias due to correlated noise:
 \begin{align}
     R_o^{\mathrm{after}} &= R + A n^2.
@@ -354,9 +354,9 @@ contamination term we may denote \mcalRpsfnoise.
 We expect this correction to be sub-dominant to \mcalRnoise, as \mcalRpsfnoise\
 is suppressed in the product $\langle$\mcalRpsfnoise$ \times e^{p}\rangle$.
 
-\section{Application to Realistic Image Simulations}
+\section{Application to Image Simulations}
 
-We apply each correction scheme to a set of image simulations.  These
+We apply each correction scheme to a set of image simulations.  The first
 simulations make use of parametric models.  The galaxies are bulge+disk models
 with both components having the same ellipticity and half light radius, drawn
 from a log-normal distribution centered at 0.7 arcsec, with scatter of 0.13
@@ -366,6 +366,8 @@ $\sigma=0.2$.  The PSF is an elliptical Gaussian with FWHM 0.9 arcsec.  The
 pixel scale was set to 0.265 arcsec.  The S/N distribution matches real DES
 data, with $S/N \gtrapprox 10$.  Galaxies were sheared with 300 different
 shears, ranging from 0.01 to 0.08 in amplitude.
+
+Describe egret sims here, to be processed.
 
 The images were fit with a single Gaussian galaxy model and Gaussian PSF model.
 Using this simple galaxy model results a large model bias. A maximum likelihood
