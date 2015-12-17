@@ -48,8 +48,7 @@
 \newcommand{\mcalRmodel}{$R^{model}$}
 \newcommand{\mcalRnoisemodel}{$R^{model}_\eta$}
 
-\newcommand{\Aslope}{$-0.097 \pm 0.002$}
-\newcommand{\Aoffset}{$-0.0018 \pm 0.0004$}
+\newcommand{\Aslope}{$TODO$}
 
 %\slugcomment{Last revision \today}
 %\shortauthors{Sheldon}
@@ -300,32 +299,34 @@ in the image $n^2$ \citep{HirataCorrNoise}.
 We can add a small amount of noise $\Delta n$ to the image, run the new image
 through the \mcal\ process, and measure $R^{\mathrm{before}}$.  We can also
 add this noise {\em after} the original image  has been run through \mcal, and
-measure $R^{\mathrm{after}}$.  The difference between is
-then 
+measure $R^{\mathrm{after}}$.  These response when adding noise before
+\mcal\ is given by
+\begin{align}
+    R^{\mathrm{before}} &= R(n + \Delta n) + A (n + \Delta n)^2 \nonumber \\
+       &\simeq R(n + \Delta n) + A n^2 + \frac{\partial (An^2)}{\partial n} \Delta n + ... \nonumber \\
+       &\simeq R(n + \Delta n) + A n^2 + 2 A n \Delta n
+\end{align}
+where we have dropped terms of order $(\Delta n)^2$ and higher.
+The response when adding noise after \mcal\ does not suffer any additional
+bias due to correlated noise:
+\begin{align}
+    R^{\mathrm{after}} &= R(n + \Delta n) + A n^2.
+\end{align}
+The difference between these responses is then 
 \begin{align}
     \Delta R &\equiv R^{\mathrm{before}} - R^{\mathrm{after}}  \nonumber \\
-             &\simeq A \Delta n^2
+             &\simeq 2 A n \Delta n.
 \end{align}
-where $\Delta n^2 \equiv (n + \Delta n)^2 - n^2$.
-Given $A$, we can estimate the contamination by correlated noise
-\begin{align}
-    \mbox{\mcalRnoise} \simeq A n^2
-\end{align}
-In practice, the \mcal\ processing steps move the noise around, so we do not
-necessarily expect the \mcalR\ appearing in equation \ref{eq:scaling} to
-equal the exact response of the estimator in the absence of
-correlated noise.  We may thus find a difference between the inferred
-\mcalRnoise\ and the true value.  If this offset is sufficiently constant over
-the range of noise used for detrending, we can determine it from a linear fit
-between $\Delta R$ and
-$\Delta n^2$:
-\begin{align}
-    \Delta R &= A \Delta n^2 \nonumber + \Delta R(n=0) \\
-    \Rightarrow \mbox{\mcalRnoise} &\simeq A n^2 - \Delta R(n=0).
-\end{align}
-It is not yet clear if subtracting this offset is needed.
 
-
+The procedure is to average $\Delta R$ over all objects for a set of noise offsets $\Delta
+n$, and perform a linear fit to $\Delta R$ vs. $2 n \Delta n$ to find the
+coefficient $A$.  The mean correction for correlated noise is then given by
+\begin{align}
+    \mbox{\mcalRnoise} \simeq A n^2.
+\end{align}
+If the noise varies between observations, we can apply a 
+correction based on the mean variance $A
+\langle n^2 \rangle$.
 
 
 \subsection{Corrections to \mcalRpsf}
@@ -353,18 +354,16 @@ is suppressed in the product $\langle$\mcalRpsfnoise$ \times e^{p}\rangle$.
 
 \section{Application to Realistic Image Simulations}
 
-\subsection{Detrending Corrections}
-
-We apply the de-trending technique to image simulations.  These simulations
-make use of parametric models.  The galaxies are bulge+disk models with both
-components having the same ellipticity and half light radius, drawn from a
-log-normal distribution centered at 0.7 arcsec, with scatter of 0.13 arcsec.
-The bulges are offset uniformly up to a scale length.  The ellipticities
-were drawn from the simple model presented in \cite{ba14}, with $\sigma=0.2$.
-The PSF is an elliptical
-Gaussian with FWHM 0.9 arcsec.  The pixel scale was set to 0.265 arcsec.  The S/N
-distribution matches real DES data, with $S/N \gtrapprox 10$.  Galaxies
-were sheared with 300 different shears, ranging from 0.01 to 0.08 in amplitude.
+We apply each correction scheme to a set of image simulations.  These
+simulations make use of parametric models.  The galaxies are bulge+disk models
+with both components having the same ellipticity and half light radius, drawn
+from a log-normal distribution centered at 0.7 arcsec, with scatter of 0.13
+arcsec.  The bulges are offset uniformly up to a scale length.  The
+ellipticities were drawn from the simple model presented in \cite{ba14}, with
+$\sigma=0.2$.  The PSF is an elliptical Gaussian with FWHM 0.9 arcsec.  The
+pixel scale was set to 0.265 arcsec.  The S/N distribution matches real DES
+data, with $S/N \gtrapprox 10$.  Galaxies were sheared with 300 different
+shears, ranging from 0.01 to 0.08 in amplitude.
 
 The images were fit with a single Gaussian galaxy model and Gaussian PSF model.
 Using this simple galaxy model results a large model bias. A maximum likelihood
@@ -374,20 +373,18 @@ size were deliberately wider than truth by 20\%, and that on ellipticity used
 $\sigma=0.3$ instead of the true $0.2$.  We furthermore expect large {\em
 ordinary} noise bias at these low S/N levels.
 
-The measurement of $\Delta R$ vs $\Delta n^2$ is shown in figure
-\ref{fig:detrend}.  The trend is linear in $\Delta n^2$ as expected, with a
-slope $A = $\Aslope.  A significant offset is measured, $\Delta R(n=0) =
-$\Aoffset.  It is not clear, however, if this is just an offset to the
-line or if there is actually some curvature in this plot.  Another run
-using smaller noise differences may clarify this point.
+\subsection{Detrending Corrections}
+
+The measurement of $\Delta R$ vs $2 n \Delta n$ is shown in figure
+\ref{fig:detrend}.  The trend is well-fit by a linear model, as expected, with
+a slope $A = $\Aslope.  
 
 \begin{figure}
     \includegraphics[scale=0.45]{run-bd13mcal-dt01-Rnoise-detrend.eps}
 
-    \caption{Trend of $\Delta R$ with noise squared, relative to the original
-    noise level in the image.  The trend is linear in $\Delta n ^2$ as
-predicted, with slope \Aslope. A significant offset at
-$\Delta (n=0)$ is detected.}
+    \caption{Trend of $\Delta R$ with $2 n \Delta n$, where $n$ is the original
+    noise level and $\Delta n$ is the additional noise added.  The trend is
+    linear  as predicted.}
 
 \label{fig:detrend}
 \end{figure}
