@@ -48,8 +48,8 @@
 \newcommand{\mcalRmodel}{$R^{model}$}
 \newcommand{\mcalRnoisemodel}{$R^{model}_\eta$}
 
-\newcommand{\Aslope}{$TODO$}
-
+\newcommand{\Aslope}{$-0.127$}
+\newcommand{\Rcorr}{$-0.062$}
 %\slugcomment{Last revision \today}
 %\shortauthors{Sheldon}
 %\shorttitle{Bayesian Shear Estimation}
@@ -291,7 +291,8 @@ and averaged, at the cost of increased computation time.
 
 The bias in \mcalR\ due to correlated noise should scale with the 
 noise correlation function, and thus the square of the noise level
-in the image $n^2$ \citep{HirataCorrNoise}.
+in the image $n^2$ \citep{HirataCorrNoise}.  The observed \mcalRo\
+is given by
 \begin{align} \label{eq:scaling}
     \mbox{\mcalRo} &= R + \mbox{\mcalRnoise}  \nonumber \\
                    &= R + A n^2
@@ -299,22 +300,23 @@ in the image $n^2$ \citep{HirataCorrNoise}.
 We can add a small amount of noise $\Delta n$ to the image, run the new image
 through the \mcal\ process, and measure $R^{\mathrm{before}}$.  We can also
 add this noise {\em after} the original image  has been run through \mcal, and
-measure $R^{\mathrm{after}}$.  These response when adding noise before
+measure $R^{\mathrm{after}}$.  The response when adding noise before
 \mcal\ is given by
-\begin{align}
-    R^{\mathrm{before}} &= R(n + \Delta n) + A (n + \Delta n)^2 \nonumber \\
-       &\simeq R(n + \Delta n) + A n^2 + \frac{\partial (An^2)}{\partial n} \Delta n + ... \nonumber \\
-       &\simeq R(n + \Delta n) + A n^2 + 2 A n \Delta n
+\begin{align}\label{eq:Rbefore}
+    R_o^{\mathrm{before}} &= R + A (n + \Delta n)^2 \nonumber \\
+       &\simeq R + A n^2 + 2 A n \Delta n
 \end{align}
-where we have dropped terms of order $(\Delta n)^2$ and higher.
-The response when adding noise after \mcal\ does not suffer any additional
-bias due to correlated noise:
+%&\simeq R + A n^2 + \frac{\partial (An^2)}{\partial n} \Delta n + ... \nonumber \\
+where we have dropped terms of order $(\Delta n)^2$ and higher.  In equation
+\ref{eq:Rbefore}, \mcalR\ is the response at noise $n+\Delta n$ in the absence
+of correlated noise errors.  The response when adding noise after \mcal\ does
+not suffer any additional bias due to correlated noise:
 \begin{align}
-    R^{\mathrm{after}} &= R(n + \Delta n) + A n^2.
+    R_o^{\mathrm{after}} &= R + A n^2.
 \end{align}
 The difference between these responses is then 
 \begin{align}
-    \Delta R &\equiv R^{\mathrm{before}} - R^{\mathrm{after}}  \nonumber \\
+    \Delta R &\equiv R_o^{\mathrm{before}} - R_o^{\mathrm{after}}  \nonumber \\
              &\simeq 2 A n \Delta n.
 \end{align}
 
@@ -377,14 +379,15 @@ ordinary} noise bias at these low S/N levels.
 
 The measurement of $\Delta R$ vs $2 n \Delta n$ is shown in figure
 \ref{fig:detrend}.  The trend is well-fit by a linear model, as expected, with
-a slope $A = $\Aslope.  
+a slope $A \simeq $\Aslope, implying a correction $A n^2 \simeq$ \Rcorr\ for this
+simulation.
 
 \begin{figure}
-    \includegraphics[scale=0.45]{run-bd13mcal-dt01-Rnoise-detrend.eps}
+    \includegraphics[scale=0.45]{run-bd13mcal-dt02-Rnoise-detrend-R11.eps}
 
-    \caption{Trend of $\Delta R$ with $2 n \Delta n$, where $n$ is the original
-    noise level and $\Delta n$ is the additional noise added.  The trend is
-    linear  as predicted.}
+    \caption{Trend of $\Delta R_{1,1}$ with $2 n \Delta n$, where $n$ is the
+    original noise level and $\Delta n$ is the additional noise added.  The
+trend is linear  as predicted.}
 
 \label{fig:detrend}
 \end{figure}
@@ -392,8 +395,10 @@ a slope $A = $\Aslope.
 Applying these corrections to $R$, we recover the shear within the
 measurement error
 \begin{align}
-    m &=  (-1.0 \pm 2.0) \times 10^{-3} \nonumber \\
-    c &=  (-3.4 \pm 7.0) \times 10^{-5}.
+    m_1 &= ( 2.4 \pm 2.3) \times 10^{-3} \nonumber \\
+    m_2 &= ( 1.9 \pm 2.3) \times 10^{-3} \nonumber \\
+    c_1 &= (-2.1 \pm 8.1) \times 10^{-5} \nonumber \\
+    c_2 &= (-7.7 \pm 8.1) \times 10^{-5} \nonumber
 \end{align}
 
 \section{Cancellation in Ring Configurations}
