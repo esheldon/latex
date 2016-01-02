@@ -412,16 +412,16 @@ for these simulations.
 
 The detrending parameters are precisely measured relative to the shear itself.
 Here we explore the precision of the recovered shear using subsets of
-the objects to measure detrending.  The following table shows the
+the objects to measure detrending.  Table \ref{tab:subsets} shows the
 shear recovery parameters for various subset sizes, for the same simulation
 described in \S \ref{sec:detrendsim}
 
-\begin{table}[h]
+\begin{table}[h] 
     \centering
     \caption{Additional variance in the recovered shear using the
         detrending method, using different sized subsets to
         estimate the correctios.  Values are obtained
-        from 100 bootstrap samples.}
+        from 100 bootstrap samples. \label{tab:subsets}}
     \begin{tabular}{| c | c |}
         Subset Size & Extra Error \\
         \hline
@@ -435,15 +435,15 @@ described in \S \ref{sec:detrendsim}
 %        10\% & 8\% \\
 
 
-These numbers assume the extra uncertainty can be added quadratically with the
-measured uncertainty; e.g adding approximately 30\% quadratically with the
-measured uncertainty, resulted in the net increase of 4.4\% shown in the first
-row of the table.
+To calculate these numbers we have assumed the extra uncertainty is added
+quadratically with the measured uncertainty; e.g for the first row, we have
+added approximately 30\% quadratically with the measured uncertainty, resulting
+in a net increase of 4.4\%.
 
-Note, it is important that the subset if a truly random subset of the
-population, including junk detections and stellar contamination.  If
-a particular measurement applies a selection, this selection must
-also be applied to the random subset.
+Note, it is important to use a truly random subset of the population, including
+whatever junk detections and stars contaminate the sample.  If a particular
+measurement applies a selection, this selection must also be applied to the
+random subset.
 
 \section{Cancellation in Ring Configurations}
 
@@ -453,12 +453,8 @@ This bias was not seen by \cite{HuffMcal} using the GREAT3 simulations
 The only substantial difference between the GREAT3 sims and our sims is that
 GREAT3 galaxies were generated in a ``ring configuration''.  The simulation
 included two identical images of each galaxy, rotated by 90 degrees with
-respect to a one another, in order to cancel shape noise.
-
-It is not clear to me that \mcalRnoise\ should cancel in a ring configuration,
-unless the noise maps for the rotated galaxies were also identical and rotated.
-
-
+respect to a one another, in order to cancel shape noise.  In this configuration,
+the correlated noise also appears to cancel at some level.
 
 \bibliographystyle{mn2e}
 % Bib database
