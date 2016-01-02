@@ -380,7 +380,7 @@ size were deliberately wider than truth by 20\%, and that on ellipticity used
 $\sigma=0.3$ instead of the true $0.2$.  We furthermore expect large {\em
 ordinary} noise bias at these low S/N levels.
 
-\subsection{Detrending Corrections}
+\subsection{Detrending Corrections} \label{sec:detrendsim}
 
 The measurement of $\Delta R$ vs $2 n \Delta n$ is shown in figure
 \ref{fig:detrend}.  The trend is well-fit by a linear model, as expected, with
@@ -399,7 +399,7 @@ trend is linear  as predicted.}
 
 Applying these corrections to $R$, we recover the shear within the
 measurement error
-\begin{align}
+\begin{align} \label{eq:detrendres}
     m_1 &= ( 6.1 \pm 6.1) \times 10^{-4} \nonumber \\
     m_2 &= ( 3.1 \pm 6.4) \times 10^{-4} \nonumber \\
     c_1 &= (-3.1 \pm 2.1) \times 10^{-5} \nonumber \\
@@ -408,6 +408,42 @@ measurement error
 Without correction, the multiplicative bias $m$ is $\simeq$ 10\%
 for these simulations.
 
+\subsubsection{Using a Random Subset To Calculate Detrending Corrections}
+
+The detrending parameters are precisely measured relative to the shear itself.
+Here we explore the precision of the recovered shear using subsets of
+the objects to measure detrending.  The following table shows the
+shear recovery parameters for various subset sizes, for the same simulation
+described in \S \ref{sec:detrendsim}
+
+\begin{table}[h]
+    \centering
+    \caption{Additional variance in the recovered shear using the
+        detrending method, using different sized subsets to
+        estimate the correctios.  Values are obtained
+        from 100 bootstrap samples.}
+    \begin{tabular}{| c | c |}
+        Subset Size & Extra Error \\
+        \hline
+        1\% & 4.4\% \\
+        5\% & 0.8\% \\
+        10\% & 0.3\% \\
+    \end{tabular}
+\end{table}
+%        1\% & 30\% \\
+%        5\% & 13\% \\
+%        10\% & 8\% \\
+
+
+These numbers assume the extra uncertainty can be added quadratically with the
+measured uncertainty; e.g adding approximately 30\% quadratically with the
+measured uncertainty, resulted in the net increase of 4.4\% shown in the first
+row of the table.
+
+Note, it is important that the subset if a truly random subset of the
+population, including junk detections and stellar contamination.  If
+a particular measurement applies a selection, this selection must
+also be applied to the random subset.
 
 \section{Cancellation in Ring Configurations}
 
