@@ -293,9 +293,22 @@ as a baseline reference.  The S/N distribution matches real DES data, with $S/N
 \gtrapprox 10$.  Galaxies were sheared with 300 different randomly chosen
 shears, ranging from 0.01 to 0.08 in amplitude.
 
+In some simulations we included stars.  These stars were simply drawn
+as PSFs, with the same flux distribution as used for the galaxies.
+
+In another set of simulations, we masked parts of the data in order to mimic
+certain effects in real images. In order simulate these effects realistically,
+we chose real ``uberseg'' images used in Dark Energy Survey shear analysis
+\citep{DESSVShear}.  These include masking of bad pixels, bad columns, and
+masking for neighbors.  Pixels were masked for neighbors if they were closer to
+the neighbor's SExtractor segmentation map than they were to the central
+galaxy.  Note our simulation did not include actual neighbors, so we will only
+test our ability to deal with masked data, not the efficacy of the masking
+strategy itself.
+
 \begin{table*}
     \centering
-    \caption{Description of the image simulations.}
+    \caption{Description of the image simulations. \label{tab:sims}}
     \begin{tabular}{ | c | c | c | c | c | c | c | c | c |}
         Sim        & Galaxy Model & PSF Model & Gal Shape $\sigma$ & PSF Shape  & \# Galaxies & \# Stars    & Masking & Selection  \\
         \hline
@@ -322,18 +335,6 @@ furthermore expect large {\em ordinary} noise bias at these low S/N levels.
 
 \section{Results} \label{sec:detrendsim}
 
-\begin{table*}
-    \centering
-    \caption{\mcal\ results for each image simulation.}
-    \begin{tabular}{ | c | c | c | c | c | c | c | c | c | c | c | c |}
-        Sim & $m_1 \times 10^4$ & $m_2 \times 10^4 $ & $c_1 \times 10^5$ & $c_2 \times 10^5$ \\
-        \hline
-        BD          & $6.1 \pm 6.1$ & $3.1 \pm 6.4$ & $-3.1 \pm 2.1$ & $-2.2 \pm 2.1$   \\
-        BDStar      & $6.1 \pm 6.1$ & $3.1 \pm 6.4$ & $-3.1 \pm 2.1$ & $-2.2 \pm 2.1$   \\
-        BDStarMask  & $6.1 \pm 6.1$ & $3.1 \pm 6.4$ & $-3.1 \pm 2.1$ & $-2.2 \pm 2.1$   \\
-    \end{tabular}
-\end{table*}
-
 
 The measurement of $\Delta R$ vs $2 n \Delta n$ is shown in figure
 \ref{fig:detrend}.  The trend is well-fit by a linear model, as expected, with
@@ -351,20 +352,29 @@ trend is linear  as predicted.}
 \end{figure}
 
 Applying these corrections to $R$, we recover the shear within the
-measurement error
-\begin{align} \label{eq:detrendres}
-    m_1 &= ( 6.1 \pm 6.1) \times 10^{-4} \nonumber \\
-    m_2 &= ( 3.1 \pm 6.4) \times 10^{-4} \nonumber \\
-    c_1 &= (-3.1 \pm 2.1) \times 10^{-5} \nonumber \\
-    c_2 &= (-2.2 \pm 2.1) \times 10^{-5}. \nonumber
-\end{align}
+measurement error. These basic results are shown for the ``BD'' simulation
+in table \ref{tab:results}
+
+\begin{table*}
+    \centering
+    \caption{\mcal\ results for each image simulation. \label{tab:results}}
+    \begin{tabular}{ | c | c | c | c | c | c | c | c | c | c | c | c |}
+        Sim & $m_1 \times 10^4$ & $m_2 \times 10^4 $ & $c_1 \times 10^5$ & $c_2 \times 10^5$ \\
+        \hline
+        BD          & $6.1 \pm 6.1$ & $3.1 \pm 6.4$ & $-3.1 \pm 2.1$ & $-2.2 \pm 2.1$   \\
+        BDStar      & $6.1 \pm 6.1$ & $3.1 \pm 6.4$ & $-3.1 \pm 2.1$ & $-2.2 \pm 2.1$   \\
+        BDStarMask  & $6.1 \pm 6.1$ & $3.1 \pm 6.4$ & $-3.1 \pm 2.1$ & $-2.2 \pm 2.1$   \\
+    \end{tabular}
+\end{table*}
+
 Without correction, the multiplicative bias $m$ is $\simeq$ 10\%
 for these simulations.
 
 \subsection{Stellar Contamination} \label{sec:stars}
 
-We included an additional \nsimNstar\ stellar objects, drawn simply as a
-PSF with noise added.
+As indicated in table \ref{tab:sims}, for the ``Star'' type simulations, we
+included an additional \nsimNstar\ stellar objects, drawn simply as a PSF with
+noise added.
 
 \subsection{Masking Effects} \label{sec:masking}
 
