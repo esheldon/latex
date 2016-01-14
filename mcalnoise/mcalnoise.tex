@@ -208,22 +208,27 @@ for each galaxy to increase precision.
 
 The coefficient $A$ in Equation \ref{eq:scaling} can be calculated in simple
 scenarios, as shown in \cite{HirataCorrNoise}.  However, the calculation is
-more complex when forward-modeling the PSF, as we do in this work.  There are
-advantages to forward modeling which we would like to retain: the noise in
-\mcalR\ using our forward-modeling approach is an order of magnitude smaller
-than that seen for the re-gaussianization approach in \cite{HuffMcal}. This
-reduction in noise facilitates the simple inference method outlined in section
-\ref{sec:algo}.  For this reason we explore a simple empirical correction in
-the following section.  We outline some alternative methods in the appendix.
+more complex when forward-modeling the PSF, as we do in this work.
+
+There are advantages to forward modeling which we would like to retain: the
+noise in \mcalR\ using our forward-modeling approach is an order of magnitude
+smaller than that seen for the re-gaussianization approach in \cite{HuffMcal}.
+In particular we find that applying smooth priors on the model parameters
+stabilizes the fit and results in a large reduction in variance.  This
+reduction in noise facilitates the simple inference method outlined in \S
+\ref{sec:algo}.  The failure rate is also dramatically decreased when applying
+smooth priors:  we find a failure rate of $\sim$0.002\%, as opposed to
+$\sim$6\% for the re-gaussianization implemented in the GALSIM package
+\citep{GALSIM2015}.  For these reasons we explore a simple empirical correction
+in the following section.  We outline some alternative methods in the appendix.
 
 \subsection{Detrending the Correlated Noise Bias} \label{sec:detrend}
 
-As mentioned in Section \ref{sec:scaling}, we expect the bias in \mcalR\ due to
-correlated noise to scale with the noise in the image $n^2$.  We can add a
-small amount of noise to the image such that $n \rightarrow n + \Delta n$. We
-then run the new image through the \mcal\ process, and measure
-$R^{\mathrm{before}}$.  We can also add identical noise {\em after} the
-original image  has been run through \mcal, and measure $R^{\mathrm{after}}$.
+As mentioned in \S \ref{sec:scaling}, we expect the bias in \mcalR\ due to
+correlated noise to scale with the square of the noise in the image $n^2$.  We
+can add a small amount of noise to the image such that $n \rightarrow n +
+\Delta n$. We then run the new image through the \mcal\ process, and measure
+$R^{\mathrm{before}}$.
 The response when adding noise before \mcal\ is given by
 \begin{align}\label{eq:Rbefore}
     R_o^{\mathrm{before}} &= R + A (n + \Delta n)^2 \nonumber \\
@@ -232,8 +237,11 @@ The response when adding noise before \mcal\ is given by
 %&\simeq R + A n^2 + \frac{\partial (An^2)}{\partial n} \Delta n + ... \nonumber \\
 where we have dropped terms of order $(\Delta n)^2$ and higher.  In equation
 \ref{eq:Rbefore}, \mcalR\ is the response at noise $n+\Delta n$ in the absence
-of correlated noise.  The response when adding noise after \mcal\ does
-not suffer any additional bias due to correlated noise:
+of correlated noise.  
+
+We can also add identical noise {\em after} the original image  has been run
+through \mcal, and measure $R^{\mathrm{after}}$.  The response when adding
+noise after \mcal\ does not suffer any additional bias due to correlated noise:
 \begin{align}
     R_o^{\mathrm{after}} &= R + A n^2.
 \end{align}
@@ -243,7 +251,7 @@ The difference between these responses is then
              &\simeq 2 A n \Delta n.
 \end{align}
 
-The procedure we propose is 
+We propose the following procedure to correct for correlated noise:
 \begin{enumerate}
     \item Calculate $\Delta R$ for a series of noise offsets $\Delta n$.
     \item Average $\Delta R$ over all objects.
