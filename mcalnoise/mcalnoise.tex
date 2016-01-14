@@ -36,6 +36,7 @@
 \newcommand{\aj}{AJ}%
 \newcommand{\pasp}{PASP}%
 \newcommand{\jcp}{J.~Chem.~Phys.}
+\newcommand{\aaps}{AASP}
 
 \newcommand{\mcal}{metacalibration}
 \newcommand{\Mcal}{Metacalibration}
@@ -85,7 +86,7 @@ explore the effects of stellar contamination and masking.
 
 \section{Introduction} \label{sec:intro}
 
-\section{\Mcal} \label{sec:algo}
+\section{Metacalibration} \label{sec:algo}
 
 Suppose we have a biased shear estimator $E$.  We can expand this estimator
 in a Taylor series around the true shear
@@ -184,63 +185,46 @@ A correction is also required for the PSF response term \mcalRpsf.  We find
 this correction is similar in magnitude to the correction for \mcalR, although
 it is somewhat suppressed in the final estimator due to multiplication by $e^p$.
 
-
-\begin{comment}
-\subsection{Expected Level of Contamination}
-
-I think the following is not correct.
-
-The correlated noise is produced by de-convolving and re-convolving by the psf,
-so it may be correlated with the PSF ellipticity at some level.  Let's assume
-the induced ellipticity is $f \times e^{PSF}$ in the absence of shearing, with
-$f$ small.  We expect this to cancel in the response calculation, due to the
-subtraction, but add to the estimator $E$.  This should, however, be
-partly dealt with by subtracting $R^{PSF}$ (see below).
-
-If we introduce shearing, then the sheared noise will cancel in the estimator
-$E$ but not the response.
-
-This sheared part of the correlated noise is suppressed by a factor of
-$\gamma$, but in forming the derivative another factor of $1/\gamma$ is
-applied.  Thus we expect the overall contamination $R_\eta$ to be of
-the order $f \times e^{PSF}$.
-
-\end{comment}
-
-\section{Correction for Sheared, Correlated Noise} \label{sec:corr}
-
-For shear estimators based on raw moments, without any form of iteration or
-fitting, it would be sufficient to simply measure the moments of example
-sheared correlated noise fields and subtract the mean response from the
-responses measured on the real images.  Multiple realizations can be generated
-for each galaxy to increase precision.
-
-For non-linear fitting, we propose three methods to correct for the effects of
-the sheared, correlated noise on the measured response.  The first is based on
-de-trending the effects of correlated noise, which we find accurate and well
-motivated theoretically.  We discuss this method in detail in \S
-\ref{sec:detrend}.  The second is based on adding a sheared, correlated noise
-field that has been sheared with the opposite sign.  The third is based on
-simulating the effect on modeled images.  We discuss methods two and three in
-the appendix.
-
-
-\subsection{Detrending the Correlated Noise Bias} \label{sec:detrend}
+\subsection{Expected Scaling of the Bias with Noise Level} \label{sec:scaling}
 
 The bias in \mcalR\ due to correlated noise should scale with the 
 noise correlation function, and thus the square of the noise level
 in the image $n^2$ \citep{HirataCorrNoise}.  The observed \mcalRo\
-is given by
+is thus given by
 \begin{align} \label{eq:scaling}
     \mbox{\mcalRo} &= R + \mbox{\mcalRnoise}  \nonumber \\
-                   &= R + A n^2
+                   &= R + A n^2.
 \end{align}
-We can add a small amount of noise to the image
-such that $n \rightarrow n + \Delta n$. We then run the new image
-through the \mcal\ process, and measure $R^{\mathrm{before}}$.  We can also
-add identical noise {\em after} the original image  has been run through \mcal, and
-measure $R^{\mathrm{after}}$.  The response when adding noise before
-\mcal\ is given by
+
+\section{Correction for Sheared, Correlated Noise} \label{sec:corr}
+
+\begin{comment}
+For shear estimators based on raw moments, without any form of iteration
+or fitting, it would be sufficient to simply measure the moments of example
+sheared correlated noise fields and subtract the mean response from the
+responses measured on the real images.  Multiple realizations can be generated
+for each galaxy to increase precision.
+\end{comment}
+
+The coefficient $A$ in Equation \ref{eq:scaling} can be calculated in simple
+scenarios, as shown in \cite{HirataCorrNoise}.  However, the calculation is
+more complex when forward-modeling the PSF, as we do in this work.  There are
+advantages to forward modeling which we would like to retain: the noise in
+\mcalR\ using our forward-modeling approach is an order of magnitude smaller
+than that seen for the re-gaussianization approach in \cite{HuffMcal}. This
+reduction in noise facilitates the simple inference method outlined in section
+\ref{sec:algo}.  For this reason we explore a simple empirical correction in
+the following section.  We outline some alternative methods in the appendix.
+
+\subsection{Detrending the Correlated Noise Bias} \label{sec:detrend}
+
+As mentioned in Section \ref{sec:scaling}, we expect the bias in \mcalR\ due to
+correlated noise to scale with the noise in the image $n^2$.  We can add a
+small amount of noise to the image such that $n \rightarrow n + \Delta n$. We
+then run the new image through the \mcal\ process, and measure
+$R^{\mathrm{before}}$.  We can also add identical noise {\em after} the
+original image  has been run through \mcal, and measure $R^{\mathrm{after}}$.
+The response when adding noise before \mcal\ is given by
 \begin{align}\label{eq:Rbefore}
     R_o^{\mathrm{before}} &= R + A (n + \Delta n)^2 \nonumber \\
        &\simeq R + A n^2 + 2 A n \Delta n
@@ -262,7 +246,7 @@ The difference between these responses is then
 The procedure we propose is 
 \begin{enumerate}
     \item Calculate $\Delta R$ for a series of noise offsets $\Delta n$.
-    \item Average $\Delta R$ over all objects
+    \item Average $\Delta R$ over all objects.
     \item Perform a linear fit to $\Delta R$ vs. $2 n \Delta n$ to find the 
         coefficient $A$.
     \item Apply a mean correction for correlated noise given by
@@ -301,7 +285,7 @@ certain effects in real images. In order simulate these effects realistically,
 we chose real ``uberseg'' images used in Dark Energy Survey shear analysis
 \citep{DESSVShear}.  These include masking of bad pixels, bad columns, and
 masking for neighbors.  Pixels were masked for neighbors if they were closer to
-the neighbor's SExtractor segmentation map than they were to the central
+the neighbor's SExtractor \citep{Bertin96} segmentation map than they were to the central
 galaxy.  Note our simulation did not include actual neighbors, so we will only
 test our ability to deal with masked data, not the efficacy of the masking
 strategy itself.
