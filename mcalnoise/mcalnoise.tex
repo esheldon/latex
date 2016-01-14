@@ -293,10 +293,23 @@ certain effects in real images. In order simulate these effects realistically,
 we chose real ``uberseg'' images used in Dark Energy Survey shear analysis
 \citep{DESSVShear}.  These include masking of bad pixels, bad columns, and
 masking for neighbors.  Pixels were masked for neighbors if they were closer to
-the neighbor's SExtractor \citep{Bertin96} segmentation map than they were to the central
-galaxy.  Note our simulation did not include actual neighbors, so we will only
-test our ability to deal with masked data, not the efficacy of the masking
-strategy itself.
+the neighbor's SExtractor \citep{Bertin96} segmentation map than they were to
+the central galaxy.  An example image and mask are shown in figure
+\ref{fig:mask}.  Note our simulation did not include actual neighbors, so we
+will only test our ability to deal with masked data, not the efficacy of the
+masking strategy itself.
+
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.45]{DES0514-5622-uberseg-011527.eps}
+
+    \caption{Example DES image cutout and ``uberseg'' mask.  The black wedge in
+the lower right masks a nearby object, and the vertical black stripe masks a
+bad column. }
+
+\label{fig:mask}
+\end{figure}
+
 
 \begin{table*}
     \centering
