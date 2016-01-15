@@ -314,16 +314,18 @@ consistent with zero, and thus not bias the shear estimate.  The stars were
 simply drawn as PSFs, with the same flux distribution as used for the galaxies.
 
 We also masked parts of the data in order to mimic certain effects in real
-images. Masking is important to test, because the Fourier transforms
-used to perform the \mcal\ convolutions cannot accomidate missing data.  In
-order simulate these effects realistically, we chose real ``\uberseg'' masks
-used in Dark Energy Survey shear analysis \citep{DESSVShear}.  These include
-masking of bad pixels, bad columns, and masking for neighbors.  Pixels were
-masked for neighbors if they were closer to the neighbor's SExtractor
-\citep{Bertin96} segmentation map than they were to the central galaxy.  An
-example image and mask are shown in figure \ref{fig:mask}.  Note our simulation
-did not include actual neighbors, so we will only test our ability to deal with
-masked data, not the efficacy of the masking strategy itself.
+images. Masking is important to test, because the Fourier transforms used to
+perform the \mcal\ convolutions cannot accomidate missing data.  In order
+simulate these effects realistically, we chose a sample of real ``\uberseg''
+masks used in Dark Energy Survey shear analysis \citep{DESSVShear}.  These
+include masking of bad pixels, bad columns, and masking for neighbors.  Pixels
+were masked for neighbors if they were closer to the neighbor's SExtractor
+\citep{Bertin96} segmentation map than they were to the central galaxy.  A
+random sample of $\sim 1200$ masks was selected to have a masked fraction less than
+30\%, to avoid extreme cases.  An example image and mask are shown in figure
+\ref{fig:mask}.  Note our simulation did not include actual neighbors, so we
+will only test our ability to deal with masked data, not the efficacy of the
+masking strategy itself.
 
 \begin{figure}
     \centering
