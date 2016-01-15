@@ -19,6 +19,8 @@
 \newcommand{\fsn}{$(S/N)_{\textrm{flux}}$}
 \newcommand{\hlr}{$r_{50}$}
 
+\newcommand{\uberseg}{{\"u}berseg}
+
 % stolen from the BA14 source
 \newcommand{\vecg}{\mbox{\boldmath $g$}}
 \newcommand{\vecD}{\mbox{\boldmath $D$}}
@@ -274,10 +276,10 @@ correction based on the mean variance $A
 We apply the de-trending correction scheme to a set of image simulations.  The
 first simulations make use of parametric models, and are designed to be similar
 to that used in \citet{bfd2015}.  The galaxies models were bulge+disk.  Both
-components had the same ellipticity and half light radius \hlr. The \hlr\ was
+components had the same ellipticity and half light radius \hlr. The \hlr\ were
 drawn from a log-normal distribution centered at 2.0 pixels, with scatter of
-0.5 pixels.  The bulges were offset in a random direction from the disk, with
-offsets drawn from a uniform distribution between zero and the \hlr.  The
+0.5 pixels.  The bulges were offset in a random direction from the disk center, with
+offsets drawn from a uniform distribution between zero and \hlr.  The
 ellipticities were drawn from the simple model presented in \cite{ba14}
 \begin{align}
     P(e) &\propto \left[1-(e)^2\right]^2 \exp\left[-e^2/2\sigma^2\right],
@@ -306,13 +308,15 @@ the full distribution of $\log_{10}(S/N)$}
 
 
 
-We included ``stars'' in the simulations.  These stars were simply drawn as
-PSFs, with the same flux distribution as used for the galaxies.
+We included ``stars'' in the simulations.  This is a useful test of the
+robustness of \mcal\ to stellar contamination, since stars should have \mcalR\
+consistent with zero, and thus not bias the shear estimate.  The stars were
+simply drawn as PSFs, with the same flux distribution as used for the galaxies.
 
 We also masked parts of the data in order to mimic certain effects in real
-images. This is an important effect to simulate, because the Fourier transforms
+images. Masking is important to test, because the Fourier transforms
 used to perform the \mcal\ convolutions cannot accomidate missing data.  In
-order simulate these effects realistically, we chose real ``uberseg'' masks
+order simulate these effects realistically, we chose real ``\uberseg'' masks
 used in Dark Energy Survey shear analysis \citep{DESSVShear}.  These include
 masking of bad pixels, bad columns, and masking for neighbors.  Pixels were
 masked for neighbors if they were closer to the neighbor's SExtractor
@@ -325,7 +329,7 @@ masked data, not the efficacy of the masking strategy itself.
     \centering
     \includegraphics[scale=0.45]{DES0508-5540-uberseg-013916.eps}
 
-    \caption{Example DES image cutout and ``uberseg'' mask.  The black wedge in
+    \caption{Example DES image cutout and \uberseg\ mask.  The black wedge in
 the lower right masks a nearby object, and the vertical black stripe masks a
 bad column. }
 
@@ -335,7 +339,10 @@ bad column. }
 
 \begin{table*}
     \centering
-    \caption{Description of the image simulations. \label{tab:sims}}
+    \caption{Description of the image simulations. The BDStar
+    simulation shared the same galaxy images with the BD simulation, but with additional star
+images included. The galaxy images used in the BDStarMask simulation are
+independent of those used in BD.   \label{tab:sims}}
     \begin{tabular}{ | c | c | c | c | c | c | c | c | c |}
         Sim        & Galaxy Model & PSF Model & Gal Shape $\sigma$ & PSF Shape  & \# Galaxies & \# Stars    & Masking & Selection  \\
         \hline
@@ -350,6 +357,9 @@ bad column. }
 
 Describe egret sims here.
 
+
+\section{Results} \label{sec:detrendsim}
+
 The images were fit with a single Gaussian galaxy model and Gaussian PSF model.
 Naively using these simple galaxy and PSF model results in a large model bias,
 and large uncorrected PSF anisotropy.
@@ -359,8 +369,6 @@ produce a stable fit.  These priors were not tuned to the true galaxy
 parameters; priors on flux and size were deliberately wider than truth by 20\%,
 and that on ellipticity used $\sigma=0.3$ instead of the true $0.2$.  We
 furthermore expect large {\em ordinary} noise bias at these low S/N levels.
-
-\section{Results} \label{sec:detrendsim}
 
 
 The measurement of $\Delta R$ vs $2 n \Delta n$ is shown in figure
@@ -384,12 +392,12 @@ in table \ref{tab:results}
 
 \begin{table*}
     \centering
-    \caption{\mcal\ results for each image simulation. \label{tab:results}}
+    \caption{\Mcal\ results for each image simulation. \label{tab:results}}
     \begin{tabular}{ | c | c | c | c | c | c | c | c | c | c | c | c |}
         Sim & $m_1 \times 10^4$ & $m_2 \times 10^4 $ & $c_1 \times 10^5$ & $c_2 \times 10^5$ \\
         \hline
         BD          & $6.1 \pm 6.1$ & $3.1 \pm 6.4$ & $-3.1 \pm 2.1$ & $-2.2 \pm 2.1$   \\
-        BDStar      & $6.1 \pm 6.1$ & $3.1 \pm 6.4$ & $-3.1 \pm 2.1$ & $-2.2 \pm 2.1$   \\
+        BDStar      & $6.1 \pm 6.5$ & $3.4 \pm 6.7$ & $-2.4 \pm 2.3$ & $ 2.4 \pm 2.2$   \\
         BDStarMask  & $6.1 \pm 6.1$ & $3.1 \pm 6.4$ & $-3.1 \pm 2.1$ & $-2.2 \pm 2.1$   \\
     \end{tabular}
 \end{table*}
@@ -401,11 +409,34 @@ for these simulations.
 
 As indicated in table \ref{tab:sims}, for the ``Star'' type simulations, we
 included an additional \nsimNstar\ stellar objects, drawn simply as a PSF with
-noise added.
+noise added.  The results are shown in table \ref{tab:results} for the ``Star''
+type simulations.  We find that a stellar contamination of 
+\nsimNstarperc\ does not introduce any significant bias, but does
+increase the uncertainty by $\sim$5\%.
 
 \subsection{Masking Effects} \label{sec:masking}
 
-%\subsection{Selection Effects} \label{sec:selection}
+The Fourier transforms used for the \mcal\ convolutions cannot accommodate
+missing data.  We must replace the masked pixel values with good proxies.  In
+particular we wish to avoid any artifacts in the transformed images that would
+mimic an additional ``response'' to the applied \mcal\ shear.
+
+As an baseline extreme case, we replaced the masked pixels simply with noise.
+This resulted in few percent calibration biases.
+
+A better alternative is to replace the missing data with our best model.  We
+performed an initial maximum likelihood fit, before performing any \mcal\
+operations, and replaced the masked data with the value from the PSF convolved
+model.  We are using a Gaussian model for both PSF and Galaxy, which is far
+from the ``best model''; we consider this a worst case scenario as a model
+replacement. 
+
+The results using the model replacement method are shown in table
+\ref{tab:results} for the Mask type simulations.  XXX discuss results when they
+are available.
+
+
+\subsection{Selection Effects} \label{sec:selection}
 
 \subsection{Using a Random Subset To Calculate Detrending Corrections}
 
