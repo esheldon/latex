@@ -17,6 +17,7 @@
 \newcommand{\Msn}{$(S/N)_{\textrm{matched}}$}
 \newcommand{\Tsn}{$(S/N)_{\textrm{size}}$}
 \newcommand{\fsn}{$(S/N)_{\textrm{flux}}$}
+\newcommand{\hlr}{$r_{50}$}
 
 % stolen from the BA14 source
 \newcommand{\vecg}{\mbox{\boldmath $g$}}
@@ -272,32 +273,53 @@ correction based on the mean variance $A
 
 We apply the de-trending correction scheme to a set of image simulations.  The
 first simulations make use of parametric models, and are designed to be similar
-to that used in \citet{bfd2015}.  The galaxies are bulge+disk models with both
-components having the same ellipticity and half light radius, drawn from a
-log-normal distribution centered at 2.0 pixels, with scatter of 0.5 pixels.
-The bulges are offset uniformly up to a scale length.  The ellipticities were
-drawn from the simple model presented in \cite{ba14}, with $\sigma=0.2$.  The
-PSF is an elliptical Moffat profile (ref?), with $r_{50} = 1.5$ pixels. The PSF
-ellipticity was drawn from a double Gaussian with width 0.018, designed to
-match that measured for the Dark Energy Survey \citep{DESSVShear}. The mean in
-$e_2$ was set to 0.007, also matching DES, but the mean in $e_1$ was set to 0.0
-as a baseline reference.  The S/N distribution matches real DES data, with $S/N
-\gtrapprox 10$.  Galaxies were sheared with 300 different randomly chosen
-shears, ranging from 0.01 to 0.08 in amplitude.
+to that used in \citet{bfd2015}.  The galaxies models were bulge+disk.  Both
+components had the same ellipticity and half light radius \hlr. The \hlr\ was
+drawn from a log-normal distribution centered at 2.0 pixels, with scatter of
+0.5 pixels.  The bulges were offset in a random direction from the disk, with
+offsets drawn from a uniform distribution between zero and the \hlr.  The
+ellipticities were drawn from the simple model presented in \cite{ba14}
+\begin{align}
+    P(e) &\propto \left[1-(e)^2\right]^2 \exp\left[-e^2/2\sigma^2\right],
+\end{align}
+with $\sigma=0.2$.  The PSF was an elliptical Moffat profile (XXX ref), with
+\hlr\ = 1.5 pixels. The PSF ellipticity was drawn from a double Gaussian with
+width 0.018, designed to match that the PSF shape distribution measured
+in the Dark Energy Survey
+\citep{DESSVShear}. The mean in $e_2$ was set to 0.007, also matching DES, but
+the mean in $e_1$ was set to 0.0 as a baseline reference.  The S/N distribution,
+show in figure \ref{fig:s2n},
+was also designed to match real DES data, with $S/N \gtrsim 10$.  Galaxies
+were sheared with 300 different randomly chosen shears, with amplitude chosen
+uniformly in the range 0.01 to 0.08, with uniform random orientations.
 
-In some simulations we included stars.  These stars were simply drawn
-as PSFs, with the same flux distribution as used for the galaxies.
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.45]{run-bd21mcal-dt01-s2n-hist.eps}
 
-In another set of simulations, we masked parts of the data in order to mimic
-certain effects in real images. In order simulate these effects realistically,
-we chose real ``uberseg'' images used in Dark Energy Survey shear analysis
-\citep{DESSVShear}.  These include masking of bad pixels, bad columns, and
-masking for neighbors.  Pixels were masked for neighbors if they were closer to
-the neighbor's SExtractor \citep{Bertin96} segmentation map than they were to
-the central galaxy.  An example image and mask are shown in figure
-\ref{fig:mask}.  Note our simulation did not include actual neighbors, so we
-will only test our ability to deal with masked data, not the efficacy of the
-masking strategy itself.
+    \caption{Distribution of S/N in the Bulge+Disk simulations. The
+    left panel is a zoom-in around the mode.  The right panel is
+the full distribution of $\log_{10}(S/N)$}
+
+\label{fig:s2n}
+\end{figure}
+
+
+
+We included ``stars'' in the simulations.  These stars were simply drawn as
+PSFs, with the same flux distribution as used for the galaxies.
+
+We also masked parts of the data in order to mimic certain effects in real
+images. This is an important effect to simulate, because the Fourier transforms
+used to perform the \mcal\ convolutions cannot accomidate missing data.  In
+order simulate these effects realistically, we chose real ``uberseg'' masks
+used in Dark Energy Survey shear analysis \citep{DESSVShear}.  These include
+masking of bad pixels, bad columns, and masking for neighbors.  Pixels were
+masked for neighbors if they were closer to the neighbor's SExtractor
+\citep{Bertin96} segmentation map than they were to the central galaxy.  An
+example image and mask are shown in figure \ref{fig:mask}.  Note our simulation
+did not include actual neighbors, so we will only test our ability to deal with
+masked data, not the efficacy of the masking strategy itself.
 
 \begin{figure}
     \centering
