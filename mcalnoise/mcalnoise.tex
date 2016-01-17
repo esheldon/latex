@@ -292,14 +292,15 @@ ellipticities were drawn from the simple model presented in \cite{ba14}
 \end{align}
 with $\sigma=0.2$.
 
-The PSF was an elliptical Moffat profile \citep{Moffat1969}, with \hlr\ = 1.5
-pixels.  We drew the PSF shapes from a distribution designed to match that
-measured in the Dark Energy Survey \citep[][(DES)]{DESSVShear}.  The DES PSF
-shape distribution is well fit by a double Gaussian with width 0.18 in each
-dimension, but with different mean for $e_1$ and $e_2$.  For the first set
-of sims, ``BD'', we set the mean to $(0,0)$.  For the second set ``BDMask'',
-we set the mean in $e_2$ to $0.007$, matching that in DES, but leave the
-mean in $e_1$ zero in order to control for the effects of masking (see below).
+We convolved the galaxy images with a PSF modeled as a Moffat profile
+\citep{Moffat1969}, with \hlr\ = 1.5 pixels.  We drew the PSF shapes from a
+distribution designed to match that measured in the Dark Energy Survey
+\citep[][(DES)]{DESSVShear}.  The DES PSF shape distribution is well fit by a
+double Gaussian with width 0.18 in each dimension, but with different mean for
+$e_1$ and $e_2$.  For the first set of sims, ``BD'', we set the mean to
+$(0,0)$.  For the second set ``BDMask'', we set the mean in $e_2$ to $0.007$,
+matching that in DES, but leave the mean in $e_1$ zero in order to control for
+the effects of masking (see below).
 
 The S/N distribution, show in figure \ref{fig:s2n}, was also designed to match
 the real DES galaxy catalog after ``good galaxies`` pre-selection
@@ -321,12 +322,11 @@ the full distribution of $\log_{10}(S/N)$}
 \end{figure}
 
 
-
-We included ``stars'' in the simulations.  Ideally, stars should have \mcalR\
-consistent with zero, and thus not bias the shear estimate.  This is thus a
-useful test of the robustness of \mcal\ to stellar contamination. The stars
-were simply drawn as PSFs, with the same flux distribution as used for the
-galaxies.
+Ideally, the \mcalR\ measured for stars should be consistent with zero in the
+mean, and thus not bias the ensemble shear estimate.  In order to test the
+robustness of \mcal\ to stellar contamination, we included $\sim$\nsimNstarperc\ stars
+in each simulation.  The stars were simply drawn as PSFs, with the same flux
+distribution as used for the galaxies.
 
 For the ``BDMask'' simulations, we masked parts of the data in order to mimic
 certain effects in real images. Masking is important to test, because the
@@ -421,18 +421,21 @@ in table \ref{tab:results}
     reduces multiplicative bias to $\lesssim 10^{-3}$, and reduces the additive
     bias by a factor of 5.  Image masking and stellar contamination have negligible
     effect on the recovered shear.  \label{tab:results}}
-    \begin{tabular}{ | l    | r | r | r   | r | r | r |}
+    \begin{tabular}{ | c    | c | r | r   | c | r | r |}
         \hline
         & \multicolumn{3}{c}{Uncorrected} & \multicolumn{3}{c}{Corrected} \\
-        Sim & $m \times 10^4$ & $c_1 \times 10^4$ & $c_2 \times 10^4$ & $m \times 10^4$ & $c_1 \times 10^4$ & $c_2 \times 10^4$ \\
+        %Sim & $m$ & $c_1 \times 10^4$ & $c_2 \times 10^4$ & $m \times 10^4$ & $c_1 \times 10^4$ & $c_2 \times 10^4$ \\
+        Sim & $m$ & $c_1 \times 10^4$ & $c_2 \times 10^4$ & $m$ & $c_1 \times 10^4$ & $c_2 \times 10^4$ \\
         \hline
-        BD              & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$  \\
-        BDStar          & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$  \\
-        BDMask          & $1045 \pm 5.3$ & $0.0 \pm 0.3$ & $-5.6 \pm 0.3$ & $-7.6 \pm 4.9$ & $0.0 \pm 0.2$ & $1.2 \pm 0.2$  \\
-        BDMaskStar      & $1045 \pm 5.3$ & $0.0 \pm 0.3$ & $-5.6 \pm 0.3$ & $-7.6 \pm 4.9$ & $0.0 \pm 0.2$ & $1.2 \pm 0.2$  \\
-        BDSN10          & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$  \\
-        BDSN15          & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$  \\
-        BDSN20          & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$  \\
+        %BD              & $0.1 \pm 0.0$ & $-0.3 \pm 0.2$ & $0.2 \pm 0.2$ & $4.7 \pm 4.4$ & $-0.3 \pm 0.2$ & $0.2 \pm 0.2$  \\
+        BD              & $0.1 \pm 0.0$ & $-0.3 \pm 0.2$ & $0.2 \pm 0.2$ & $(+4.7 \pm 4.4)\times 10^{-4}$ & $-0.3 \pm 0.2$ & $0.2 \pm 0.2$  \\
+        BDStar          & $0.1 \pm 0.0$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $(+4.8 \pm 4.7)\times 10^{-4}$ & $-0.2 \pm 0.2$ & $0.2 \pm 0.2$  \\
+        %BDMask          & $0.1 \pm 0.0$ & $0.0 \pm 0.3$ & $-5.6 \pm 0.3$ & $-7.6 \pm 4.9$ & $0.0 \pm 0.2$ & $1.2 \pm 0.2$  \\
+        BDMask          & $0.1 \pm 0.0$ & $0.0 \pm 0.3$ & $-5.6 \pm 0.3$ & $(-7.6 \pm 4.9)\times 10^{-4}$ & $0.0 \pm 0.2$ & $1.2 \pm 0.2$  \\
+        BDMaskStar      & $0.1 \pm 0.0$ & $0.0 \pm 0.3$ & $-5.6 \pm 0.3$ & $-7.6 \pm 4.9$ & $0.0 \pm 0.2$ & $1.2 \pm 0.2$  \\
+        BDSN10          & $0.1 \pm 0.0$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$  \\
+        BDSN15          & $0.1 \pm 0.0$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$  \\
+        BDSN20          & $0.1 \pm 0.0$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$  \\
     \end{tabular}
 \end{table*}
 % value is -0.02 for 
@@ -475,10 +478,9 @@ are available.
 
 \subsection{Using a Random Subset To Calculate Detrending Corrections}
 
-The detrending parameters are precisely measured relative to the shear itself.
-Here we explore the precision of the recovered shear using subsets of
-the objects to measure detrending.  In Table \ref{tab:subsets} we 
-have shown the
+The detrending parameters are more precisely measured than the shear itself.
+Here we explore the precision of the recovered shear using subsets of the
+objects to measure detrending.  In Table \ref{tab:subsets} we have shown the
 shear recovery parameters for various subset sizes, for the same simulation
 described in \S \ref{sec:detrendsim}
 
@@ -502,12 +504,13 @@ described in \S \ref{sec:detrendsim}
 
 
 To calculate these numbers we have assumed the extra uncertainty is added
-quadratically with the measured uncertainty; e.g for the first row, we have
-added approximately 30\% quadratically with the measured uncertainty, resulting
-in a net increase of 4.4\%.
+quadratically with the uncertainty measured using all galaxies to estimate the
+detrending parameters; e.g for the first row, we have added approximately 30\%
+quadratically with the measured uncertainty, resulting in a net increase of
+4.4\%.
 
 It is important to use a truly random subset of the population, including a
-fair sample of stars contaminate the sample, and a representative level of
+fair sample of stars contaminating the sample, and a representative amount of
 pixel level masking.  If a particular aggregate shear measurement involves a
 selection, this selection must also be applied to the random subset.
 
