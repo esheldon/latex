@@ -40,6 +40,7 @@
 \newcommand{\pasp}{PASP}%
 \newcommand{\jcp}{J.~Chem.~Phys.}
 \newcommand{\aaps}{AASP}
+\newcommand{\aap}{AAP}
 
 \newcommand{\mcal}{metacalibration}
 \newcommand{\Mcal}{Metacalibration}
@@ -62,7 +63,10 @@
 \newcommand{\nsimNstar}{$10^7$}
 \newcommand{\nsimNstarperc}{10\%}
 
-\newcommand{\psfdist}{$(0.000,0.007) \pm 0.018$}
+%\newcommand{\psfdist}{$(0.000,0.007) \pm 0.018$}
+%\newcommand{\psfdist}{$(0.0,0.7) \pm 1.8$}
+\newcommand{\psfdist}{$(0.0 \pm 1.8,0.7 \pm 1.8)$}
+\newcommand{\rpsfdist}{$(0.0 \pm 1.8,0.0 \pm 1.8)$}
 
 \title{Noise Effects in \Mcal\ Weak Lensing Shear Estimation}
 
@@ -271,7 +275,7 @@ correction based on the mean variance $A
 \langle n^2 \rangle$.
 
 
-\section{Image Simulations}
+\section{Image Simulations} \label{sec:sims}
 
 We apply the de-trending correction scheme to a set of image simulations.  The
 first simulations make use of parametric models, and are designed to be similar
@@ -284,16 +288,24 @@ ellipticities were drawn from the simple model presented in \cite{ba14}
 \begin{align}
     P(e) &\propto \left[1-(e)^2\right]^2 \exp\left[-e^2/2\sigma^2\right],
 \end{align}
-with $\sigma=0.2$.  The PSF was an elliptical Moffat profile (XXX ref), with
-\hlr\ = 1.5 pixels. The PSF ellipticity was drawn from a double Gaussian with
-width 0.018, designed to match that the PSF shape distribution measured
-in the Dark Energy Survey
-\citep{DESSVShear}. The mean in $e_2$ was set to 0.007, also matching DES, but
-the mean in $e_1$ was set to 0.0 as a baseline reference.  The S/N distribution,
-show in figure \ref{fig:s2n},
-was also designed to match real DES data, with $S/N \gtrsim 10$.  Galaxies
-were sheared with 300 different randomly chosen shears, with amplitude chosen
-uniformly in the range 0.01 to 0.08, with uniform random orientations.
+with $\sigma=0.2$.
+
+The PSF was an elliptical Moffat profile \citep{Moffat1969}, with \hlr\ = 1.5
+pixels.  We drew the PSF shapes from a distribution designed to match that
+measured in the Dark Energy Survey \citep[][(DES)]{DESSVShear}.  The DES PSF
+shape distribution is well fit by a double Gaussian with width 0.18 in each
+dimension, but with different mean for $e_1$ and $e_2$.  For the first set
+of sims, ``BD'', we set the mean to $(0,0)$.  For the second set ``BDMask'',
+we set the mean in $e_2$ to $0.007$, matching that in DES, but leave the
+mean in $e_1$ zero in order to control for the effects of masking (see below).
+
+The S/N distribution, show in figure \ref{fig:s2n}, was also designed to match
+the real DES galaxy catalog after ``good galaxies`` pre-selection
+\citep{DESSVShear}, but with no explicit S/N cut applied based on the model
+fitting. We adjust the distribution slightly to give a distribution with
+mode $\sim10$.  Galaxies were sheared by 300 different randomly chosen
+values, with amplitude chosen uniformly in the range 0.01 to 0.08, and uniform
+random orientations.
 
 \begin{figure}
     \centering
@@ -313,19 +325,19 @@ robustness of \mcal\ to stellar contamination, since stars should have \mcalR\
 consistent with zero, and thus not bias the shear estimate.  The stars were
 simply drawn as PSFs, with the same flux distribution as used for the galaxies.
 
-We also masked parts of the data in order to mimic certain effects in real
-images. Masking is important to test, because the Fourier transforms used to
-perform the \mcal\ convolutions cannot accomidate missing data.  In order
-simulate these effects realistically, we chose a sample of real ``\uberseg''
-masks used in Dark Energy Survey shear analysis \citep{DESSVShear}.  These
-include masking of bad pixels, bad columns, and masking for neighbors.  Pixels
-were masked for neighbors if they were closer to the neighbor's SExtractor
-\citep{Bertin96} segmentation map than they were to the central galaxy.  A
-random sample of $\sim 1200$ masks was selected to have a masked fraction less than
-30\%, to avoid extreme cases.  An example image and mask are shown in figure
-\ref{fig:mask}.  Note our simulation did not include actual neighbors, so we
-will only test our ability to deal with masked data, not the efficacy of the
-masking strategy itself.
+For the ``BDMask'' simulations, we masked parts of the data in order to mimic
+certain effects in real images. Masking is important to test, because the
+Fourier transforms used to perform the \mcal\ convolutions cannot accommodate
+missing data.  In order simulate these effects realistically, we chose a sample
+of real ``\uberseg'' masks used in Dark Energy Survey shear analysis
+\citep{DESSVShear}.  These include masking of bad pixels, bad columns, and
+masking for neighbors.  Pixels were masked for neighbors if they were closer to
+the neighbor's SExtractor \citep{Bertin96} segmentation map than they were to
+the central galaxy.  A random sample of $\sim 1200$ masks was selected to have
+a masked fraction less than 30\%, to avoid extreme cases.  An example image and
+mask are shown in figure \ref{fig:mask}.  Note our simulation did not include
+actual neighbors, so we will only test our ability to deal with masked data,
+not the efficacy of the masking strategy itself.
 
 \begin{figure}
     \centering
@@ -341,19 +353,21 @@ bad column. }
 
 \begin{table*}
     \centering
-    \caption{Description of the image simulations. The BDStar
-    simulation shared the same galaxy images with the BD simulation, but with additional star
-images included. The galaxy images used in the BDStarMask simulation are
+    \caption{Description of the image simulations. For common characteristics of these simulations,
+        see \S \ref{sec:sims}.  The ``Star''
+    simulation shared the same galaxy images with the simulation of similar name, but with additional star
+images included. The images used in the BDMask simulation are
 independent of those used in BD.   \label{tab:sims}}
-    \begin{tabular}{ | c | c | c | c | c | c | c | c | c |}
-        Sim        & Galaxy Model & PSF Model & Gal Shape $\sigma$ & PSF Shape  & \# Galaxies & \# Stars    & Masking & Selection  \\
+    \begin{tabular}{ | l | c | c | c | c | c | c | c |}
+        Sim        & Galaxy Model & PSF Model & PSF Shape$\times 10^2$ & \# Galaxies & \# Stars    & Masking & Selection  \\
         \hline
-        BD         & Bulge+Disk   & Moffat    & 0.2                & \psfdist & \nsimNgal   & None        & None    & None  \\
-        BDStar     & Bulge+Disk   & Moffat    & 0.2                & \psfdist & \nsimNgal   & \nsimNstar  & None    & None  \\
-        BDStarMask & Bulge+Disk   & Moffat    & 0.2                & \psfdist & \nsimNgal   & \nsimNstar  & DES     & None  \\
-        BDStarMaskSN10 & Bulge+Disk   & Moffat    & 0.2            & \psfdist & \nsimNgal   & \nsimNstar  & DES     & $(S/N) > 10$ \\
-        BDStarMaskSN15 & Bulge+Disk   & Moffat    & 0.2            & \psfdist & \nsimNgal   & \nsimNstar  & DES     & $(S/N) > 15$ \\
-        BDStarMaskSN20 & Bulge+Disk   & Moffat    & 0.2            & \psfdist & \nsimNgal   & \nsimNstar  & DES     & $(S/N) > 20$ \\
+        BD         & Bulge+Disk   & Moffat    & \rpsfdist     &  \nsimNgal   & None        & None    & None  \\
+        BDStar     & Bulge+Disk   & Moffat    & \rpsfdist     &  \nsimNgal   & \nsimNstar  & None    & None  \\
+        BDMask     & Bulge+Disk   & Moffat    & \psfdist  &  \nsimNgal   & None        & DES     & None  \\
+        BDMaskStar & Bulge+Disk   & Moffat    & \psfdist  &  \nsimNgal   & \nsimNstar  & DES     & None  \\
+        BDSN10     & Bulge+Disk   & Moffat    & \rpsfdist     &  \nsimNgal   & None        & None    & $(S/N) > 10$ \\
+        BDSN15     & Bulge+Disk   & Moffat    & \rpsfdist     &  \nsimNgal   & None        & None    & $(S/N) > 15$ \\
+        BDSN20     & Bulge+Disk   & Moffat    & \rpsfdist     &  \nsimNgal   & None        & None    & $(S/N) > 20$ \\
     \end{tabular}
 \end{table*}
 
@@ -394,14 +408,27 @@ in table \ref{tab:results}
 
 \begin{table*}
     \centering
-    \caption{\Mcal\ results for each image simulation. \label{tab:results}}
+    \caption{\Mcal\ results for each image simulation.  Complex galaxy models
+        and non-Gaussian PSFs were used in each simulation.  Significant
+        portions of the images were masked.  A single Gaussian was used
+    to fit both galaxy and PSF, resulting in significant multiplicative 
+    bias $m$ and additive biases $c$.  Results with and without correction
+    for correlated noise are shown.  \Mcal, with corrections for correlated noise,
+    reduces multiplicative bias to $\lesssim 10^{-3}$, and reduces the additive
+    bias by a factor of 5.  Image masking and stellar contamination have negligible
+    effect on the recovered shear.  \label{tab:results}}
     \begin{tabular}{ | l    | r | r | r   | r | r | r |}
         \hline
         & \multicolumn{3}{c}{Uncorrected} & \multicolumn{3}{c}{Corrected} \\
         Sim & $m \times 10^4$ & $c_1 \times 10^4$ & $c_2 \times 10^4$ & $m \times 10^4$ & $c_1 \times 10^4$ & $c_2 \times 10^4$ \\
         \hline
-        BD          & $1045 \pm 5.3$ & $0.0 \pm 0.3$ & $-5.6 \pm 0.3$ & $-7.6 \pm 4.9$ & $0.0 \pm 0.2$ & $1.2 \pm 0.2$  \\
-        BDStar      & $1045 \pm 5.3$ & $0.0 \pm 0.3$ & $-5.6 \pm 0.3$ & $-7.6 \pm 4.9$ & $0.0 \pm 0.2$ & $1.2 \pm 0.2$  \\
+        BD              & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$  \\
+        BDStar          & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$  \\
+        BDMask          & $1045 \pm 5.3$ & $0.0 \pm 0.3$ & $-5.6 \pm 0.3$ & $-7.6 \pm 4.9$ & $0.0 \pm 0.2$ & $1.2 \pm 0.2$  \\
+        BDMaskStar      & $1045 \pm 5.3$ & $0.0 \pm 0.3$ & $-5.6 \pm 0.3$ & $-7.6 \pm 4.9$ & $0.0 \pm 0.2$ & $1.2 \pm 0.2$  \\
+        BDSN10          & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$  \\
+        BDSN15          & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$  \\
+        BDSN20          & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$  \\
     \end{tabular}
 \end{table*}
 % value is -0.02 for 
