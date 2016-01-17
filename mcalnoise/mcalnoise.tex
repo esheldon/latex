@@ -219,15 +219,17 @@ more complex when forward-modeling the PSF, as we do in this work.
 
 There are advantages to forward modeling which we would like to retain: the
 noise in \mcalR\ using our forward-modeling approach is an order of magnitude
-smaller than that seen for the re-gaussianization approach in \cite{HuffMcal}.
-In particular we find that applying smooth priors on the model parameters
-stabilizes the fit and results in a large reduction in variance.  This
-reduction in noise facilitates the simple inference method outlined in \S
-\ref{sec:algo}.  The failure rate is also dramatically decreased when applying
-smooth priors:  we find a failure rate of $\sim$0.002\%, as opposed to
-$\sim$6\% for the re-gaussianization implemented in the GALSIM package
-\citep{GALSIM2015}.  For these reasons we explore a simple empirical correction
-in the following section.  We outline some alternative methods in the appendix.
+smaller than that seen for the re-Gaussianization approach in \cite{HuffMcal}.
+In particular we find that applying smooth priors on the model parameters,
+which natural in a forward-modeling approach, stabilizes the fit and results in
+a large reduction in variance.  This reduction in noise facilitates the simple
+inference method outlined in \S \ref{sec:algo}.  The failure rate is also
+dramatically decreased when applying smooth priors:  we find a failure rate of
+$\sim$0.002\%, as opposed to $\sim$6\% for the re-Gaussianization code
+implemented in the GALSIM package \citep{GALSIM2015}.  For these reasons we
+explore a simple empirical correction in the following section.
+
+%We outline some alternative methods in the appendix.
 
 \subsection{Detrending the Correlated Noise Bias} \label{sec:detrend}
 
@@ -261,7 +263,7 @@ The difference between these responses is then
 We propose the following procedure to correct for correlated noise:
 \begin{enumerate}
     \item Calculate $\Delta R$ for a series of noise offsets $\Delta n$.
-    \item Average $\Delta R$ over all objects.
+    \item Average $\Delta R$ over all objects for each noise offset.
     \item Perform a linear fit to $\Delta R$ vs. $2 n \Delta n$ to find the 
         coefficient $A$.
     \item Apply a mean correction for correlated noise given by
@@ -320,10 +322,11 @@ the full distribution of $\log_{10}(S/N)$}
 
 
 
-We included ``stars'' in the simulations.  This is a useful test of the
-robustness of \mcal\ to stellar contamination, since stars should have \mcalR\
-consistent with zero, and thus not bias the shear estimate.  The stars were
-simply drawn as PSFs, with the same flux distribution as used for the galaxies.
+We included ``stars'' in the simulations.  Ideally, stars should have \mcalR\
+consistent with zero, and thus not bias the shear estimate.  This is thus a
+useful test of the robustness of \mcal\ to stellar contamination. The stars
+were simply drawn as PSFs, with the same flux distribution as used for the
+galaxies.
 
 For the ``BDMask'' simulations, we masked parts of the data in order to mimic
 certain effects in real images. Masking is important to test, because the
@@ -355,9 +358,10 @@ bad column. }
     \centering
     \caption{Description of the image simulations. For common characteristics of these simulations,
         see \S \ref{sec:sims}.  The ``Star''
-    simulation shared the same galaxy images with the simulation of similar name, but with additional star
+    simulations shared the same galaxy images with the preceding simulation of similar name, but with additional star
 images included. The images used in the BDMask simulation are
-independent of those used in BD.   \label{tab:sims}}
+independent of those used in BD.   The PSF ellipticity was drawn from a 
+double Gaussian with the specified mean and width in each dimension.  \label{tab:sims}}
     \begin{tabular}{ | l | c | c | c | c | c | c | c |}
         Sim        & Galaxy Model & PSF Model & PSF Shape$\times 10^2$ & \# Galaxies & \# Stars    & Masking & Selection  \\
         \hline
@@ -518,6 +522,8 @@ included two identical images of each galaxy, rotated by 90 degrees with
 respect to a one another, in order to cancel shape noise.  In this configuration,
 the correlated noise also appears to cancel at some level.
 
+\begin{comment} 
+
 \appendix
 
 \section{Additional Correction Methods}
@@ -616,6 +622,7 @@ independent noise in both \mcalRo\ and \mcalRnoise.  To increase
 precision, the procedure can be repeated for different noise fields
 and averaged, at the cost of increased computation time.
 
+\end{comment}
 
 \bibliographystyle{mn2e}
 % Bib database
