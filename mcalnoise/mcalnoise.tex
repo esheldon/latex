@@ -63,10 +63,10 @@
 \newcommand{\nsimNstar}{$10^7$}
 \newcommand{\nsimNstarperc}{10\%}
 
-%\newcommand{\psfdist}{$(0.000,0.007) \pm 0.018$}
-%\newcommand{\psfdist}{$(0.0,0.7) \pm 1.8$}
-\newcommand{\psfdist}{$(0.0 \pm 1.8,0.7 \pm 1.8)$}
-\newcommand{\rpsfdist}{$(0.0 \pm 1.8,0.0 \pm 1.8)$}
+\newcommand{\psfdist}{$(0.0,0.7) \pm 1.8$}
+\newcommand{\rpsfdist}{$(0.0,0.0) \pm 1.8$}
+%\newcommand{\psfdist}{$(0.0 \pm 1.8,0.7 \pm 1.8)$}
+%\newcommand{\rpsfdist}{$(0.0 \pm 1.8,0.0 \pm 1.8)$}
 
 \title{Noise Effects in \Mcal\ Weak Lensing Shear Estimation}
 
@@ -369,9 +369,6 @@ double Gaussian with the specified mean and width in each dimension.  \label{tab
         BDStar     & Bulge+Disk   & Moffat    & \rpsfdist     &  \nsimNgal   & \nsimNstar  & None    & None  \\
         BDMask     & Bulge+Disk   & Moffat    & \psfdist  &  \nsimNgal   & None        & DES     & None  \\
         BDMaskStar & Bulge+Disk   & Moffat    & \psfdist  &  \nsimNgal   & \nsimNstar  & DES     & None  \\
-        BDSN10     & Bulge+Disk   & Moffat    & \rpsfdist     &  \nsimNgal   & None        & None    & $(S/N) > 10$ \\
-        BDSN15     & Bulge+Disk   & Moffat    & \rpsfdist     &  \nsimNgal   & None        & None    & $(S/N) > 15$ \\
-        BDSN20     & Bulge+Disk   & Moffat    & \rpsfdist     &  \nsimNgal   & None        & None    & $(S/N) > 20$ \\
     \end{tabular}
 \end{table*}
 
@@ -423,7 +420,7 @@ in table \ref{tab:results}
     recovered shear.  Stellar contamination at the level of \nsimNstarperc\ increase
     the noise in the recovered shear by about $\sim$5\% but do not substantially
     increase the bias.  \label{tab:results}}
-    \begin{tabular}{ | c    | r | r | r   | r | r | r |}
+    \begin{tabular}{ |c|  r|r|r|  r|r|r|}
         \hline
         & \multicolumn{3}{c}{Uncorrected} & \multicolumn{3}{c}{Corrected} \\
         %Sim & $m$ & $c_1 \times 10^4$ & $c_2 \times 10^4$ & $m \times 10^4$ & $c_1 \times 10^4$ & $c_2 \times 10^4$ \\
@@ -433,12 +430,29 @@ in table \ref{tab:results}
         BDStar          & $0.12 \pm 0.0$ & $-0.3 \pm 0.3$ & $0.3 \pm 0.3$ & $ 4.8 \pm 4.7$ & $-0.2 \pm 0.2$ & $0.2 \pm 0.2$  \\
         BDMask          & $0.10 \pm 0.0$ & $0.0 \pm 0.3$ & $-5.6 \pm 0.3$ & $-7.6 \pm 4.9$ & $0.0 \pm 0.2$ & $1.2 \pm 0.2$  \\
         BDMaskStar      & $0.12 \pm 0.0$ & $0.0 \pm 0.3$ & $-6.3 \pm 0.3$ & $-7.0 \pm 5.0$ & $0.0 \pm 0.3$ & $1.3 \pm 0.2$  \\
-        BDSN10          & $0.1 \pm 0.0$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$  \\
-        BDSN15          & $0.1 \pm 0.0$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$  \\
-        BDSN20          & $0.1 \pm 0.0$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$  \\
+        %BDSN10          & $0.1 \pm 0.0$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$  \\
+        %BDSN15          & $0.1 \pm 0.0$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$  \\
+        %BDSN20          & $0.1 \pm 0.0$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$  \\
     \end{tabular}
 \end{table*}
-% value is -0.02 for 
+
+
+\begin{table*}
+    \centering
+    \caption{\Mcal\ results when applying selections on the signal-to-noise ratio (S/N) to the BD simulations. Selections
+    were applied to an initially unbiased sample; i.e. no {\em detection}
+    bias was present in the sample. \label{tab:selresults}}
+    \begin{tabular}{ |c| r|r|r|  r|r|r|}
+        \hline
+        & \multicolumn{3}{c}{Uncorrected for Selection} & \multicolumn{3}{c}{Corrected for Selection} \\
+        Selection & $m \times 10{^4} $ & $c_1 \times 10^4$ & $c_2 \times 10^4$ & $m \times 10^{4}$ & $c_1 \times 10^4$ & $c_2 \times 10^4$ \\
+        \hline
+        $(S/N) > 10$  & $-15.2 \pm 4.5$ & $-0.3 \pm 0.2$ & $0.2 \pm 0.2$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$  \\
+        $(S/N) > 15$  & $-23.2 \pm 5.3$ & $0.0 \pm 0.3$ & $0.0 \pm 0.3$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$  \\
+        $(S/N) > 20$  & $-26.6 \pm 5.9$ & $-0.3 \pm 0.3$ & $-0.2\pm 0.3$ & $-8.7 \pm 5.9$ & $-0.3 \pm 0.3$ & $-0.2 \pm 0.3$  \\
+    \end{tabular}
+\end{table*}
+
 
 Without correction, the multiplicative bias $m$ is $\simeq$ 0.1
 for these simulations.
@@ -488,7 +502,7 @@ described in \S \ref{sec:detrendsim}
     \centering
     \caption{Additional variance in the recovered shear using the
         detrending method, using different sized subsets to
-        estimate the correctios.  Values are obtained
+        estimate the correctios.  Values were obtained
         from 100 bootstrap samples. \label{tab:subsets}}
     \begin{tabular}{| c | c |}
         Subset Size & Extra Error \\
