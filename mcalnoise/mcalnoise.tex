@@ -68,6 +68,9 @@
 %\newcommand{\psfdist}{$(0.0 \pm 1.8,0.7 \pm 1.8)$}
 %\newcommand{\rpsfdist}{$(0.0 \pm 1.8,0.0 \pm 1.8)$}
 
+\newcommand{\detrend}{de-trending}
+\newcommand{\Detrend}{De-trending}
+
 \title{Noise Effects in \Mcal\ Weak Lensing Shear Estimation}
 
 \author[Erin S. Sheldon]{Erin S. Sheldon\thanks{E-mail: erin.sheldon@gmail.com}\\
@@ -356,18 +359,22 @@ bad column. }
 
 \begin{table*}
     \centering
-    \caption{Description of the image simulations. For common characteristics of these simulations,
-        see \S \ref{sec:sims}.  The ``Star''
+    \caption{Description of the image simulations.  The Bulge and Disk
+        had the same ellipticity and \hlr, but were
+        offset uniformly up to \hlr, in a random direction. The ``Star''
     simulations shared the same galaxy images with the preceding simulation of similar name, but with additional star
 images included. The images used in the BDMask simulation are
-independent of those used in BD.   The PSF ellipticity was drawn from a 
-double Gaussian with the specified mean and width in each dimension.  \label{tab:sims}}
+independent of those used in BD.   The BDMask2 simulation is another run of
+the BDMask simulation with a different random seed. The PSF had \hlr=1.5 pixels, and the ellipticity was drawn from a 
+double Gaussian with the specified mean and width in each dimension.  
+For more details of these simulations, see \S \ref{sec:sims}.  \label{tab:sims}}
     \begin{tabular}{ | l | c | c | c | c | c | c | c |}
         Sim        & Galaxy Model & PSF Model & PSF Shape$\times 10^2$ & \# Galaxies & \# Stars    & Masking & Selection  \\
         \hline
         BD         & Bulge+Disk   & Moffat    & \rpsfdist     &  \nsimNgal   & None        & None    & None  \\
         BDStar     & Bulge+Disk   & Moffat    & \rpsfdist     &  \nsimNgal   & \nsimNstar  & None    & None  \\
         BDMask     & Bulge+Disk   & Moffat    & \psfdist  &  \nsimNgal   & None        & DES     & None  \\
+        BDMask2    & Bulge+Disk   & Moffat    & \psfdist  &  \nsimNgal   & None        & DES     & None  \\
         BDMaskStar & Bulge+Disk   & Moffat    & \psfdist  &  \nsimNgal   & \nsimNstar  & DES     & None  \\
     \end{tabular}
 \end{table*}
@@ -416,23 +423,27 @@ in table \ref{tab:results}
     bias $m$ and additive biases $c$.  Results with and without correction
     for correlated noise are shown.  \Mcal, with corrections for correlated noise,
     reduces multiplicative bias to $\lesssim 10^{-3}$, and reduces the additive
-    bias by a factor of 5.  Image masking appears to have a small affect on the
-    recovered shear.  Stellar contamination at the level of \nsimNstarperc\ increase
-    the noise in the recovered shear by about $\sim$5\% but do not substantially
-    increase the bias.  \label{tab:results}}
-    \begin{tabular}{ |c|  r|r|r|  r|r|r|}
+    bias by a factor of 5.  
+    Stellar contamination at the level of \nsimNstarperc\ increases
+    the noise in the recovered shear by $\sim$5\% but does not introduce 
+    a significant bias.  
+    Our simple scheme to correct for masking is to
+    replace the masked pixels with the value of the Gaussian model, which is generally
+    a poor fit.  Our results suggest this method may bias the recovered shear low.
+    For BDMask2 a double Gaussian PSF model was used, which we may expect reduce any biases, but
+    more statistics are needed to detect improvement.
+    \label{tab:results}}
+    \begin{tabular}{ |l|  |c| r|r|r|  r|r|r|}
         \hline
-        & \multicolumn{3}{c}{Uncorrected} & \multicolumn{3}{c}{Corrected} \\
+        & & \multicolumn{3}{c}{Uncorrected} & \multicolumn{3}{c}{Corrected} \\
         %Sim & $m$ & $c_1 \times 10^4$ & $c_2 \times 10^4$ & $m \times 10^4$ & $c_1 \times 10^4$ & $c_2 \times 10^4$ \\
-    Sim & $m$ & $c_1 \times 10^4$ & $c_2 \times 10^4$ & $m \times 10^{4}$ & $c_1 \times 10^4$ & $c_2 \times 10^4$ \\
+        Sim & PSF Model & $m$ & $c_1 \times 10^4$ & $c_2 \times 10^4$ & $m \times 10^{4}$ & $c_1 \times 10^4$ & $c_2 \times 10^4$ \\
         \hline
-        BD              & $0.10 \pm 0.0$ & $-0.3 \pm 0.2$ & $0.2 \pm 0.2$ & $ 4.7 \pm 4.4$ & $-0.3 \pm 0.2$ & $0.2 \pm 0.2$  \\
-        BDStar          & $0.12 \pm 0.0$ & $-0.3 \pm 0.3$ & $0.3 \pm 0.3$ & $ 4.8 \pm 4.7$ & $-0.2 \pm 0.2$ & $0.2 \pm 0.2$  \\
-        BDMask          & $0.10 \pm 0.0$ & $0.0 \pm 0.3$ & $-5.6 \pm 0.3$ & $-7.6 \pm 4.9$ & $0.0 \pm 0.2$ & $1.2 \pm 0.2$  \\
-        BDMaskStar      & $0.12 \pm 0.0$ & $0.0 \pm 0.3$ & $-6.3 \pm 0.3$ & $-7.0 \pm 5.0$ & $0.0 \pm 0.3$ & $1.3 \pm 0.2$  \\
-        %BDSN10          & $0.1 \pm 0.0$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$  \\
-        %BDSN15          & $0.1 \pm 0.0$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$  \\
-        %BDSN20          & $0.1 \pm 0.0$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$  \\
+        BD              & 1 Gauss & $0.10 \pm 0.0$ & $-0.3 \pm 0.2$ & $0.2 \pm 0.2$ & $ 4.7 \pm 4.4$ & $-0.3 \pm 0.2$ & $0.2 \pm 0.2$  \\
+        BDStar          & 1 Gauss & $0.12 \pm 0.0$ & $-0.3 \pm 0.3$ & $0.3 \pm 0.3$ & $ 4.8 \pm 4.7$ & $-0.2 \pm 0.2$ & $0.2 \pm 0.2$  \\
+        BDMask          & 1 Gauss & $0.10 \pm 0.0$ & $0.0 \pm 0.3$ & $-5.6 \pm 0.3$ & $-7.6 \pm 4.9$ & $0.0 \pm 0.2$ & $1.2 \pm 0.2$  \\
+        BDMask2         & 2 Gauss & $0.11 \pm 0.0$ & $-0.5 \pm 0.3$ & $-6.1 \pm 0.3$ & $-3.3 \pm 4.9$ & $-0.5 \pm 0.2$ & $0.9 \pm 0.2$  \\
+        BDMaskStar      & 1 Gauss & $0.12 \pm 0.0$ & $0.0 \pm 0.3$ & $-6.3 \pm 0.3$ & $-7.0 \pm 5.0$ & $0.0 \pm 0.3$ & $1.3 \pm 0.2$  \\
     \end{tabular}
 \end{table*}
 
@@ -448,6 +459,7 @@ in table \ref{tab:results}
         Selection & $m \times 10{^4} $ & $c_1 \times 10^4$ & $c_2 \times 10^4$ & $m \times 10^{4}$ & $c_1 \times 10^4$ & $c_2 \times 10^4$ \\
         \hline
         $(S/N) > 5$  & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $3.3 \pm 4.4$ & $-0.3 \pm 0.2$ & $0.2 \pm 0.2$  \\
+        $(S/N) > 7.5$  & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $-5.5 \pm 4.4$ & $-0.3 \pm 0.2$ & $0.2 \pm 0.2$  \\
         $(S/N) > 10$  & $-15.2 \pm 4.5$ & $-0.3 \pm 0.2$ & $0.2 \pm 0.2$ & $-10.4 \pm 4.5$ & $-0.3 \pm 0.2$ & $0.2 \pm 0.2$  \\
         $(S/N) > 15$  & $-23.2 \pm 5.3$ & $0.0 \pm 0.3$ & $0.0 \pm 0.3$ & $-9.1 \pm 5.3$ & $0.0 \pm 0.3$ & $0.0 \pm 0.3$  \\
         $(S/N) > 20$  & $-26.6 \pm 5.9$ & $-0.3 \pm 0.3$ & $-0.2\pm 0.3$ & $-8.7 \pm 5.9$ & $-0.3 \pm 0.3$ & $-0.2 \pm 0.3$  \\
@@ -491,19 +503,19 @@ are available.
 
 \subsection{Selection Effects} \label{sec:selection}
 
-\subsection{Using a Random Subset To Calculate Detrending Corrections}
+\subsection{Using a Random Subset To Calculate \Detrend\ Corrections}
 
-The detrending parameters are more precisely measured than the shear itself.
+The \detrend\ parameters are more precisely measured than the shear itself.
 Here we explore the precision of the recovered shear using subsets of the
-objects to measure detrending.  In Table \ref{tab:subsets} we have shown the
+objects to measure \detrend.  In Table \ref{tab:subsets} we have shown the
 shear recovery parameters for various subset sizes, for the same simulation
 described in \S \ref{sec:detrendsim}
 
 \begin{table*}
     \centering
     \caption{Additional variance in the recovered shear using the
-        detrending method, using different sized subsets to
-        estimate the correctios.  Values were obtained
+        de-trending method, using different sized subsets to
+        estimate the corrections.  Values were obtained
         from 100 bootstrap samples. \label{tab:subsets}}
     \begin{tabular}{| c | c |}
         Subset Size & Extra Error \\
@@ -520,7 +532,7 @@ described in \S \ref{sec:detrendsim}
 
 To calculate these numbers we have assumed the extra uncertainty is added
 quadratically with the uncertainty measured using all galaxies to estimate the
-detrending parameters; e.g for the first row, we have added approximately 30\%
+\detrend\ parameters; e.g for the first row, we have added approximately 30\%
 quadratically with the measured uncertainty, resulting in a net increase of
 4.4\%.
 
