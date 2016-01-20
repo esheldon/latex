@@ -448,24 +448,6 @@ in table \ref{tab:results}
 \end{table*}
 
 
-\begin{table*}
-    \centering
-    \caption{\Mcal\ results when applying selections on the signal-to-noise ratio (S/N) to the BD simulations. Selections
-    were applied to an initially unbiased sample; i.e. no {\em detection}
-    bias was present in the sample. \label{tab:selresults}}
-    \begin{tabular}{ |l| r|r|r|  r|r|r|}
-        \hline
-        & \multicolumn{3}{c}{Uncorrected for Selection} & \multicolumn{3}{c}{Corrected for Selection} \\
-        Selection & $m \times 10{^4} $ & $c_1 \times 10^4$ & $c_2 \times 10^4$ & $m \times 10^{4}$ & $c_1 \times 10^4$ & $c_2 \times 10^4$ \\
-        \hline
-        $(S/N) > 5$  & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $3.3 \pm 4.4$ & $-0.3 \pm 0.2$ & $0.2 \pm 0.2$  \\
-        $(S/N) > 7.5$  & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $-5.5 \pm 4.4$ & $-0.3 \pm 0.2$ & $0.2 \pm 0.2$  \\
-        $(S/N) > 10$  & $-15.2 \pm 4.5$ & $-0.3 \pm 0.2$ & $0.2 \pm 0.2$ & $-10.4 \pm 4.5$ & $-0.3 \pm 0.2$ & $0.2 \pm 0.2$  \\
-        $(S/N) > 15$  & $-23.2 \pm 5.3$ & $0.0 \pm 0.3$ & $0.0 \pm 0.3$ & $-9.1 \pm 5.3$ & $0.0 \pm 0.3$ & $0.0 \pm 0.3$  \\
-        $(S/N) > 20$  & $-26.6 \pm 5.9$ & $-0.3 \pm 0.3$ & $-0.2\pm 0.3$ & $-8.7 \pm 5.9$ & $-0.3 \pm 0.3$ & $-0.2 \pm 0.3$  \\
-    \end{tabular}
-\end{table*}
-
 
 Without correction, the multiplicative bias $m$ is $\simeq$ 0.1
 for these simulations.
@@ -502,6 +484,51 @@ are available.
 
 
 \subsection{Selection Effects} \label{sec:selection}
+
+There are two main types of selection: detection effects and ordinary selection
+effects.
+
+Detection effects occur when placing a detection threshold, for example a
+minimum S/N, which will preferably select galaxies with lower ellipticity.
+Determining this effect will most likely require prior information on the
+properties of galaxies. We do not address detection effects in this paper.
+
+Ordinary selection affects induce additional bias for an existing population of
+detected objects.
+
+To test selection effects, we make a series of cuts on S/N in the BD
+simulation.  We use the ``round'' S/N definition in order to avoid the first
+order effect \citep{DESSVShear}. As indicated in table \ref{tab:selresults},
+these cut lead to a small (few tenths of a percent) monotonic change in the
+recovered calibration.
+
+\begin{table*}
+    \centering
+    \caption{\Mcal\ results when applying selections on the signal-to-noise ratio (S/N) to the BD simulations. Selections
+    were applied to an initially unbiased sample; i.e. no {\em detection}
+    bias was present in the sample. \label{tab:selresults}}
+    \begin{tabular}{ |l| r|r|r|  r|r|r|}
+        \hline
+        & \multicolumn{3}{c}{Uncorrected for Selection} & \multicolumn{3}{c}{Corrected for Selection} \\
+        Selection & $m \times 10{^4} $ & $c_1 \times 10^4$ & $c_2 \times 10^4$ & $m \times 10^{4}$ & $c_1 \times 10^4$ & $c_2 \times 10^4$ \\
+        \hline
+        $(S/N) > 5$  & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $3.3 \pm 4.4$ & $-0.3 \pm 0.2$ & $0.2 \pm 0.2$  \\
+        $(S/N) > 7.5$  & $xxx \pm xxx$ & $xxx \pm xxx$ & $xxx \pm xxx$ & $-5.5 \pm 4.4$ & $-0.3 \pm 0.2$ & $0.2 \pm 0.2$  \\
+        $(S/N) > 10$  & $-15.2 \pm 4.5$ & $-0.3 \pm 0.2$ & $0.2 \pm 0.2$ & $-10.4 \pm 4.5$ & $-0.3 \pm 0.2$ & $0.2 \pm 0.2$  \\
+        $(S/N) > 15$  & $-23.2 \pm 5.3$ & $0.0 \pm 0.3$ & $0.0 \pm 0.3$ & $-9.1 \pm 5.3$ & $0.0 \pm 0.3$ & $0.0 \pm 0.3$  \\
+        $(S/N) > 20$  & $-26.6 \pm 5.9$ & $-0.3 \pm 0.3$ & $-0.2\pm 0.3$ & $-8.7 \pm 5.9$ & $-0.3 \pm 0.3$ & $-0.2 \pm 0.3$  \\
+    \end{tabular}
+\end{table*}
+
+We implement a simple correction assuming the initial population of
+ellipticities represents an unbiased sample.  We simply shear the population
+with a fake shear using the measured responses \mcalR, and estimate the shear
+using our \mcal\ mechanism before and after selection.  The ratio can then be
+used as a correction factor.  These are shown in table \ref{tab:selresults} in
+the ``Corrected for Selection'' column.  The correction is not perfect, but
+does reduce the bias to $\lesssim 10^{-3}$.  We will explore the topic of
+selections more in a future work.
+
 
 \subsection{Using a Random Subset To Calculate \Detrend\ Corrections}
 
