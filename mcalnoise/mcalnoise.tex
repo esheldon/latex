@@ -120,7 +120,7 @@ We can represent this as a series of operations on the observed image $I$:
 \end{equation}
 where $\Asterisk$ represents convolution, $\oplus$ represents shearing,
 and $P$ represents the point spread function.  De-convolution
-is represented as ``inverse``, $P^{-1}$.  The slightly larger PSF, or
+is represented as ``inverse'', $P^{-1}$.  The slightly larger PSF, or
 dilated PSF, is represented by $P_{d}$.
 
 To form the central derivative we shear by a small positive and negative
@@ -168,7 +168,7 @@ In practice we calculate mean responses, factoring out the response term:
 \section{Contamination of the Response by Correlated Noise} \label{sec:contam}
 
 In the presence of noise, the observed image can be written $I_o=I+\eta$, where $\eta$
-is the ``noise image``.  The \mcal\ sheared images $I_o(\gamma)$ will contain
+is the ``noise image''.  The \mcal\ sheared images $I_o(\gamma)$ will contain
 contributions from de-convolved, sheared and re-convolved noise:
 \begin{align}
     I_{o}(\gamma) &= (I + \eta) \Asterisk P^{-1} \oplus \gamma \Asterisk P_{d} \nonumber \\
@@ -197,10 +197,11 @@ it is somewhat suppressed in the final estimator due to multiplication by $e^p$.
 
 \subsection{Expected Scaling of the Bias with Noise Level} \label{sec:scaling}
 
-The bias in \mcalR\ due to correlated noise should scale with the 
-noise correlation function, and thus the square of the noise level
-in the image $n^2$ \citep{HirataCorrNoise}.  The observed \mcalRo\
-is thus given by
+The bias in the ellipticity due to correlated noise should scale
+with the noise correlation function, and thus the square of the noise level in
+the image $n^2$ \citep{HirataCorrNoise}.  As stated above, this same bias will
+propagate into the response.  We can write the observed \mcalRo\ as a contribution
+from both the actual response \mcalR\ and a noise term \mcalRnoise\
 \begin{align} \label{eq:scaling}
     \mbox{\mcalRo} &= R + \mbox{\mcalRnoise}  \nonumber \\
                    &= R + A n^2.
@@ -224,7 +225,7 @@ There are advantages to forward modeling which we would like to retain: the
 noise in \mcalR\ using our forward-modeling approach is an order of magnitude
 smaller than that seen for the re-Gaussianization approach in \cite{HuffMcal}.
 In particular we find that applying smooth priors on the model parameters,
-which natural in a forward-modeling approach, stabilizes the fit and results in
+which is natural in a forward-modeling approach, stabilizes the fit and results in
 a large reduction in variance.  This reduction in noise facilitates the simple
 inference method outlined in \S \ref{sec:algo}.  The failure rate is also
 dramatically decreased when applying smooth priors:  we find a failure rate of
@@ -284,7 +285,9 @@ correction based on the mean variance $A
 
 We apply the de-trending correction scheme to a set of image simulations.  The
 first simulations make use of parametric models, and are designed to be similar
-to that used in \citet{bfd2015}.  The galaxies models were bulge+disk.  Both
+to that used in \citet{bfd2015}.  The galaxies models were bulge+disk, with
+offsets between the bulge and disk components, such that the total image
+is not described by a single ellipse.  Both
 components had the same ellipticity and half light radius \hlr. The \hlr\ were
 drawn from a log-normal distribution centered at 2.0 pixels, with scatter of
 0.5 pixels.  The bulges were offset in a random direction from the disk center, with
@@ -433,17 +436,17 @@ in table \ref{tab:results}
     For BDMask2 a double Gaussian PSF model was used, which we may expect reduce any biases, but
     more statistics are needed to detect improvement.
     \label{tab:results}}
-    \begin{tabular}{ |l|  |c| r|r|r|  r|r|r|}
+    \begin{tabular}{ |l|  |c| c|r|r|  r|r|r|}
         \hline
         & & \multicolumn{3}{c}{Uncorrected} & \multicolumn{3}{c}{Corrected} \\
         %Sim & $m$ & $c_1 \times 10^4$ & $c_2 \times 10^4$ & $m \times 10^4$ & $c_1 \times 10^4$ & $c_2 \times 10^4$ \\
         Sim & PSF Model & $m$ & $c_1 \times 10^4$ & $c_2 \times 10^4$ & $m \times 10^{4}$ & $c_1 \times 10^4$ & $c_2 \times 10^4$ \\
         \hline
-        BD              & 1 Gauss & $0.10 \pm 0.0$ & $-0.3 \pm 0.2$ & $0.2 \pm 0.2$ & $ 4.7 \pm 4.4$ & $-0.3 \pm 0.2$ & $0.2 \pm 0.2$  \\
-        BDStar          & 1 Gauss & $0.12 \pm 0.0$ & $-0.3 \pm 0.3$ & $0.3 \pm 0.3$ & $ 4.8 \pm 4.7$ & $-0.2 \pm 0.2$ & $0.2 \pm 0.2$  \\
-        BDMask          & 1 Gauss & $0.10 \pm 0.0$ & $0.0 \pm 0.3$ & $-5.6 \pm 0.3$ & $-7.6 \pm 4.9$ & $0.0 \pm 0.2$ & $1.2 \pm 0.2$  \\
-        BDMask2         & 2 Gauss & $0.11 \pm 0.0$ & $-0.5 \pm 0.3$ & $-6.1 \pm 0.3$ & $-3.3 \pm 4.9$ & $-0.5 \pm 0.2$ & $0.9 \pm 0.2$  \\
-        BDMaskStar      & 1 Gauss & $0.12 \pm 0.0$ & $0.0 \pm 0.3$ & $-6.3 \pm 0.3$ & $-7.0 \pm 5.0$ & $0.0 \pm 0.3$ & $1.3 \pm 0.2$  \\
+        BD              & 1 Gauss & $0.10 \pm 0.00$ & $-0.3 \pm 0.2$ & $0.2 \pm 0.2$ & $ 4.7 \pm 4.4$ & $-0.3 \pm 0.2$ & $0.2 \pm 0.2$  \\
+        BDStar          & 1 Gauss & $0.12 \pm 0.00$ & $-0.3 \pm 0.3$ & $0.3 \pm 0.3$ & $ 4.8 \pm 4.7$ & $-0.2 \pm 0.2$ & $0.2 \pm 0.2$  \\
+        BDMask          & 1 Gauss & $0.10 \pm 0.00$ & $0.0 \pm 0.3$ & $-5.6 \pm 0.3$ & $-7.6 \pm 4.9$ & $0.0 \pm 0.2$ & $1.2 \pm 0.2$  \\
+        BDMask2         & 2 Gauss & $0.11 \pm 0.00$ & $-0.5 \pm 0.3$ & $-6.1 \pm 0.3$ & $-3.3 \pm 4.9$ & $-0.5 \pm 0.2$ & $0.9 \pm 0.2$  \\
+        BDMaskStar      & 1 Gauss & $0.12 \pm 0.00$ & $0.0 \pm 0.3$ & $-6.3 \pm 0.3$ & $-7.0 \pm 5.0$ & $0.0 \pm 0.3$ & $1.3 \pm 0.2$  \\
     \end{tabular}
 \end{table*}
 
