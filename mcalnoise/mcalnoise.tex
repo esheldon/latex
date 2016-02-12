@@ -60,6 +60,7 @@
 %\shorttitle{Bayesian Shear Estimation}
 
 \newcommand{\nsimNgal}{$10^8$}
+\newcommand{\nsimNgaltwo}{$2 \times 10^8$}
 \newcommand{\nsimNstar}{$10^7$}
 \newcommand{\nsimNstarperc}{10\%}
 
@@ -364,21 +365,21 @@ bad column. }
     \centering
     \caption{Description of the image simulations.  The Bulge and Disk
         had the same ellipticity and \hlr, but were
-        offset uniformly up to \hlr, in a random direction. The ``Star''
-    simulations shared the same galaxy images with the preceding simulation of similar name, but with additional star
-images included. The images used in the BDMask simulation are
-independent of those used in BD.   The BDMask2 simulation is another run of
-the BDMask simulation with a different random seed. The PSF had \hlr=1.5 pixels, and the ellipticity was drawn from a 
+        offset uniformly up to \hlr, in a random direction. The ``BDStar''
+    simulation shared the same galaxy images with the ``BD'' simulation, but with additional star
+images included.  The ``Mask'' simulation had masking for bad columns, bad pixels, and
+neighbor galaxies drawn from DES imaging.  The PSF had \hlr=1.5 pixels, and the ellipticity was drawn from a 
 double Gaussian with the specified mean and width in each dimension.  
 For more details of these simulations, see \S \ref{sec:sims}.  \label{tab:sims}}
     \begin{tabular}{ | l | c | c | c | c | c | c | c |}
-        Sim        & Galaxy Model & PSF Model & PSF Shape$\times 10^2$ & \# Galaxies & \# Stars    & Masking & Selection  \\
+        Sim          & Galaxy Model & PSF Model & PSF Shape$\times 10^2$ & \# Galaxies & \# Stars    & Masking & Selection  \\
         \hline
-        BD         & Bulge+Disk   & Moffat    & \rpsfdist     &  \nsimNgal   & None        & None    & None  \\
-        BDStar     & Bulge+Disk   & Moffat    & \rpsfdist     &  \nsimNgal   & \nsimNstar  & None    & None  \\
-        BDMask     & Bulge+Disk   & Moffat    & \psfdist  &  \nsimNgal   & None        & DES     & None  \\
-        BDMask2    & Bulge+Disk   & Moffat    & \psfdist  &  \nsimNgal   & None        & DES     & None  \\
-        BDMaskStar & Bulge+Disk   & Moffat    & \psfdist  &  \nsimNgal   & \nsimNstar  & DES     & None  \\
+        BD           & Bulge+Disk   & Moffat    & \rpsfdist     &  \nsimNgal   & None        & None    & None  \\
+        BDStar       & Bulge+Disk   & Moffat    & \rpsfdist     &  \nsimNgal   & \nsimNstar  & None    & None  \\
+        BDEllip      & Bulge+Disk   & Moffat    & \psfdist  &  \nsimNgaltwo   & None        & None     & None  \\
+        BDEllipMask  & Bulge+Disk   & Moffat    & \psfdist  &  \nsimNgaltwo   & None        & DES     & None  \\
+        %BDMask2    & Bulge+Disk   & Moffat    & \psfdist  &  \nsimNgal   & None        & DES     & None  \\
+        %BDMaskStar & Bulge+Disk   & Moffat    & \psfdist  &  \nsimNgal   & \nsimNstar  & DES     & None  \\
     \end{tabular}
 \end{table*}
 
@@ -442,11 +443,12 @@ in table \ref{tab:results}
         %Sim & $m$ & $c_1 \times 10^4$ & $c_2 \times 10^4$ & $m \times 10^4$ & $c_1 \times 10^4$ & $c_2 \times 10^4$ \\
         Sim & PSF Model & $m$ & $c_1 \times 10^4$ & $c_2 \times 10^4$ & $m \times 10^{4}$ & $c_1 \times 10^4$ & $c_2 \times 10^4$ \\
         \hline
-        BD              & 1 Gauss & $0.10 \pm 0.00$ & $-0.3 \pm 0.2$ & $0.2 \pm 0.2$ & $ 4.7 \pm 4.4$ & $-0.3 \pm 0.2$ & $0.2 \pm 0.2$  \\
-        BDStar          & 1 Gauss & $0.12 \pm 0.00$ & $-0.3 \pm 0.3$ & $0.3 \pm 0.3$ & $ 4.8 \pm 4.7$ & $-0.2 \pm 0.2$ & $0.2 \pm 0.2$  \\
-        BDMask          & 1 Gauss & $0.10 \pm 0.00$ & $0.0 \pm 0.3$ & $-5.6 \pm 0.3$ & $-7.6 \pm 4.9$ & $0.0 \pm 0.2$ & $1.2 \pm 0.2$  \\
-        BDMask2         & 2 Gauss & $0.11 \pm 0.00$ & $-0.5 \pm 0.3$ & $-6.1 \pm 0.3$ & $-3.3 \pm 4.9$ & $-0.5 \pm 0.2$ & $0.9 \pm 0.2$  \\
-        BDMaskStar      & 1 Gauss & $0.12 \pm 0.00$ & $0.0 \pm 0.3$ & $-6.3 \pm 0.3$ & $-7.0 \pm 5.0$ & $0.0 \pm 0.3$ & $1.3 \pm 0.2$  \\
+        BD              & 1 Gauss & $0.10 \pm 0.00$ & $-0.3 \pm 0.2$ & $0.2 \pm 0.2$    & $ 4.7 \pm 4.4$ & $-0.3 \pm 0.2$ & $0.2 \pm 0.2$  \\
+        BDStar          & 1 Gauss & $0.12 \pm 0.00$ & $-0.3 \pm 0.3$ & $0.3 \pm 0.3$    & $ 4.8 \pm 4.7$ & $-0.2 \pm 0.2$ & $0.2 \pm 0.2$  \\
+        BDEllip         & 1 Gauss & $0.10 \pm 0.00$ & $0.0 \pm 0.3$ & $-5.6 \pm 0.3$    & $-1.7 \pm 3.4$ & $0.2 \pm 0.2$ & $1.1 \pm 0.2$  \\
+        BDEllipMask     & 1 Gauss & $0.10 \pm 0.00$ & $0.0 \pm 0.3$ & $-5.6 \pm 0.3$    & $-4.9 \pm 3.4$ & $0.0 \pm 0.2$ & $1.0 \pm 0.2$  \\
+        %BDMask2         & 2 Gauss & $0.11 \pm 0.00$ & $-0.5 \pm 0.3$ & $-6.1 \pm 0.3$  & $-3.3 \pm 4.9$ & $-0.5 \pm 0.2$ & $0.9 \pm 0.2$  \\
+        %BDMaskStar      & 1 Gauss & $0.12 \pm 0.00$ & $0.0 \pm 0.3$ & $-6.3 \pm 0.3$   & $-7.0 \pm 5.0$ & $0.0 \pm 0.3$ & $1.3 \pm 0.2$  \\
     \end{tabular}
 \end{table*}
 
