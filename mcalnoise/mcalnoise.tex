@@ -230,7 +230,7 @@ which is natural in a forward-modeling approach, stabilizes the fit and results 
 a large reduction in variance.  This reduction in noise facilitates the simple
 inference method outlined in \S \ref{sec:algo}.  The failure rate is also
 dramatically decreased when applying smooth priors:  we find a failure rate of
-$\sim$0.002\%, as opposed to $\sim$6\% for the re-Gaussianization code
+$\sim$0.003\%, as opposed to $\sim$6\% for the re-Gaussianization code
 implemented in the GALSIM package \citep{GALSIM2015}.  For these reasons we
 explore a simple empirical correction in the following section.
 
@@ -283,6 +283,8 @@ correction based on the mean variance $A
 
 
 \section{Image Simulations} \label{sec:sims}
+
+\subsection{Parameteric Models}
 
 We apply the de-trending correction scheme to a set of image simulations.  The
 first simulations make use of parametric models, and are designed to be similar
@@ -361,6 +363,36 @@ bad column. }
 \end{figure}
 
 
+\subsection{COSMOS Simulations}
+
+The second set of simulations are similar to the real-galaxy simulations used
+in GREAT3 challenge \citep{great3}.  There are two important differences: 
+the PSF has an optical and an atmospheric component.  The atmospheric component
+is a Kolmogorov model with FWHM = 0.9 arscec, similar to GREAT3.  The optical
+model introduces aberrations consistent with those found in the Dark Energy
+Survey data \footnote{Aaron Roodman, private communication}.  The components
+have variances shown in table \ref{tab:aberr}.
+
+\begin{table*}
+    \centering
+    \caption{Variations for the aberrations in the optical model, derived
+    from Dark Energy Survey data. \label{tab:aberr}}
+    \begin{tabular}{ | l | c | c | c | c | c | c | }
+        Sim          & Galaxy Model & PSF Model & PSF Shape$\times 10^2$ & \# Galaxies & \# Stars    & Masking   \\
+        \hline
+        BD           & Bulge+Disk   & Moffat    & \rpsfdist     &  \nsimNgal   & None        & None      \\
+        BDStar       & Bulge+Disk   & Moffat    & \rpsfdist     &  \nsimNgal   & \nsimNstar  & None      \\
+        BDEllip      & Bulge+Disk   & Moffat    & \psfdist  &  \nsimNgaltwo   & None        & None      \\
+        BDEllipMask  & Bulge+Disk   & Moffat    & \psfdist  &  \nsimNgaltwo   & None        & DES       \\
+        %BDMask2    & Bulge+Disk   & Moffat    & \psfdist  &  \nsimNgal   & None        & DES       \\
+        %BDMaskStar & Bulge+Disk   & Moffat    & \psfdist  &  \nsimNgal   & \nsimNstar  & DES      \\
+        RG           & COSMOS      & DES Optical & Optical Variations &  \nsimNgal   & None        & None      \\
+    \end{tabular}
+\end{table*}
+
+
+
+
 \begin{table*}
     \centering
     \caption{Description of the image simulations.  The Bulge and Disk
@@ -371,19 +403,18 @@ images included.  The ``Mask'' simulation had masking for bad columns, bad pixel
 neighbor galaxies drawn from DES imaging.  The PSF had \hlr=1.5 pixels, and the ellipticity was drawn from a 
 double Gaussian with the specified mean and width in each dimension.  
 For more details of these simulations, see \S \ref{sec:sims}.  \label{tab:sims}}
-    \begin{tabular}{ | l | c | c | c | c | c | c | c |}
-        Sim          & Galaxy Model & PSF Model & PSF Shape$\times 10^2$ & \# Galaxies & \# Stars    & Masking & Selection  \\
+    \begin{tabular}{ | l | c | c | c | c | c | c | }
+        Sim          & Galaxy Model & PSF Model & PSF Shape$\times 10^2$ & \# Galaxies & \# Stars    & Masking   \\
         \hline
-        BD           & Bulge+Disk   & Moffat    & \rpsfdist     &  \nsimNgal   & None        & None    & None  \\
-        BDStar       & Bulge+Disk   & Moffat    & \rpsfdist     &  \nsimNgal   & \nsimNstar  & None    & None  \\
-        BDEllip      & Bulge+Disk   & Moffat    & \psfdist  &  \nsimNgaltwo   & None        & None     & None  \\
-        BDEllipMask  & Bulge+Disk   & Moffat    & \psfdist  &  \nsimNgaltwo   & None        & DES     & None  \\
-        %BDMask2    & Bulge+Disk   & Moffat    & \psfdist  &  \nsimNgal   & None        & DES     & None  \\
-        %BDMaskStar & Bulge+Disk   & Moffat    & \psfdist  &  \nsimNgal   & \nsimNstar  & DES     & None  \\
+        BD           & Bulge+Disk   & Moffat    & \rpsfdist     &  \nsimNgal   & None        & None      \\
+        BDStar       & Bulge+Disk   & Moffat    & \rpsfdist     &  \nsimNgal   & \nsimNstar  & None      \\
+        BDEllip      & Bulge+Disk   & Moffat    & \psfdist  &  \nsimNgaltwo   & None        & None      \\
+        BDEllipMask  & Bulge+Disk   & Moffat    & \psfdist  &  \nsimNgaltwo   & None        & DES       \\
+        %BDMask2    & Bulge+Disk   & Moffat    & \psfdist  &  \nsimNgal   & None        & DES       \\
+        %BDMaskStar & Bulge+Disk   & Moffat    & \psfdist  &  \nsimNgal   & \nsimNstar  & DES      \\
+        RG           & COSMOS      & DES Optical & Optical Variations &  \nsimNgal   & None        & None      \\
     \end{tabular}
 \end{table*}
-
-Describe egret sims here.
 
 
 \section{Results} \label{sec:detrendsim}
@@ -441,14 +472,15 @@ in table \ref{tab:results}
         \hline
         & & \multicolumn{3}{c}{Uncorrected} & \multicolumn{3}{c}{Corrected} \\
         %Sim & $m$ & $c_1 \times 10^4$ & $c_2 \times 10^4$ & $m \times 10^4$ & $c_1 \times 10^4$ & $c_2 \times 10^4$ \\
-        Sim & PSF Model & $m$ & $c_1 \times 10^4$ & $c_2 \times 10^4$ & $m \times 10^{4}$ & $c_1 \times 10^4$ & $c_2 \times 10^4$ \\
+        Sim & PSF Model & $m$ & $c_1 \times 10^4$ & $c_2 \times 10^4$ & $m \times 10^{3}$ & $c_1 \times 10^4$ & $c_2 \times 10^4$ \\
         \hline
-        BD              & 1 Gauss & $0.10 \pm 0.00$ & $-0.3 \pm 0.2$ & $0.2 \pm 0.2$    & $ 4.7 \pm 4.4$ & $-0.3 \pm 0.2$ & $0.2 \pm 0.2$  \\
-        BDStar          & 1 Gauss & $0.12 \pm 0.00$ & $-0.3 \pm 0.3$ & $0.3 \pm 0.3$    & $ 4.8 \pm 4.7$ & $-0.2 \pm 0.2$ & $0.2 \pm 0.2$  \\
-        BDEllip         & 1 Gauss & $0.10 \pm 0.00$ & $0.0 \pm 0.3$ & $-5.6 \pm 0.3$    & $-1.7 \pm 3.4$ & $0.2 \pm 0.2$ & $1.1 \pm 0.2$  \\
-        BDEllipMask     & 1 Gauss & $0.10 \pm 0.00$ & $0.0 \pm 0.3$ & $-5.6 \pm 0.3$    & $-4.9 \pm 3.4$ & $0.0 \pm 0.2$ & $1.0 \pm 0.2$  \\
-        %BDMask2         & 2 Gauss & $0.11 \pm 0.00$ & $-0.5 \pm 0.3$ & $-6.1 \pm 0.3$  & $-3.3 \pm 4.9$ & $-0.5 \pm 0.2$ & $0.9 \pm 0.2$  \\
-        %BDMaskStar      & 1 Gauss & $0.12 \pm 0.00$ & $0.0 \pm 0.3$ & $-6.3 \pm 0.3$   & $-7.0 \pm 5.0$ & $0.0 \pm 0.3$ & $1.3 \pm 0.2$  \\
+        BD              & 1 Gauss & $0.10 \pm 0.00$ & $-0.3 \pm 0.2$ & $0.2 \pm 0.2$    & $ 0.5 \pm 0.4$ & $-0.3 \pm 0.2$ & $0.2 \pm 0.2$  \\
+        BDStar          & 1 Gauss & $0.12 \pm 0.00$ & $-0.3 \pm 0.3$ & $0.3 \pm 0.3$    & $ 0.5 \pm 0.5$ & $-0.2 \pm 0.2$ & $0.2 \pm 0.2$  \\
+        BDEllip         & 1 Gauss & $0.10 \pm 0.00$ & $0.0 \pm 0.3$ & $-5.6 \pm 0.3$    & $-0.2 \pm 0.3$ & $0.2 \pm 0.2$ & $1.1 \pm 0.2$  \\
+        BDEllipMask     & 1 Gauss & $0.10 \pm 0.00$ & $0.0 \pm 0.3$ & $-5.6 \pm 0.3$    & $-0.5 \pm 0.3$ & $0.0 \pm 0.2$ & $1.0 \pm 0.2$  \\
+        %BDMask2         & 2 Gauss & $0.11 \pm 0.00$ & $-0.5 \pm 0.3$ & $-6.1 \pm 0.3$  & $-0.33 \pm 0.49$ & $-0.5 \pm 0.2$ & $0.9 \pm 0.2$  \\
+        %BDMaskStar      & 1 Gauss & $0.12 \pm 0.00$ & $0.0 \pm 0.3$ & $-6.3 \pm 0.3$   & $-0.70 \pm 0.50$ & $0.0 \pm 0.3$ & $1.3 \pm 0.2$  \\
+        RG              & 1 Gauss & $0.12 \pm 0.00$ & $-0.3 \pm 0.3$ & $0.0 \pm 0.3$      & $-1.6 \pm 0.5$ & $-0.3 \pm 0.3$ & $0.1 \pm 0.3$  \\
     \end{tabular}
 \end{table*}
 
@@ -544,9 +576,9 @@ described in \S \ref{sec:detrendsim}
 
 \begin{table*}
     \centering
-    \caption{Additional variance in the recovered shear using the
-        de-trending method, using different sized subsets to
-        estimate the corrections.  Values were obtained
+    \caption{Additional variance in the recovered shear 
+        using different sized subsets to
+        estimate the detrending corrections.  Values were obtained
         from 100 bootstrap samples. \label{tab:subsets}}
     \begin{tabular}{| c | c |}
         Subset Size & Extra Error \\
@@ -684,6 +716,13 @@ precision, the procedure can be repeated for different noise fields
 and averaged, at the cost of increased computation time.
 
 \end{comment}
+
+\section*{Acknowledgments}
+
+ES is supported by DOE grant DE-AC02-98CH10886.
+
+We thank Aaron Roodman for providing the variation of the optical aberrations
+measured in DES data.
 
 \bibliographystyle{mn2e}
 % Bib database
