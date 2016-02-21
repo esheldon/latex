@@ -366,27 +366,36 @@ bad column. }
 \subsection{COSMOS Simulations}
 
 The second set of simulations are similar to the real-galaxy simulations used
-in GREAT3 challenge \citep{great3}.  There are two important differences: 
-the PSF has an optical and an atmospheric component.  The atmospheric component
-is a Kolmogorov model with FWHM = 0.9 arscec, similar to GREAT3.  The optical
-model introduces aberrations consistent with those found in the Dark Energy
-Survey data \footnote{Aaron Roodman, private communication}.  The components
-have variances shown in table \ref{tab:aberr}.
+in GREAT3 challenge \citep{great3}.  There are two important differences.
+First, the galaxies are oriented randomly rather than being placed in a ring
+configuration.  Random orientations avoids cancellation of systematics such as
+some selection effects \citep{DESSVShear}, and the correlated noise effects we
+are trying to correct.  Second, the PSF has optical aberrations consistent with
+those found in the Dark Energy Survey data \footnote{Aaron Roodman, private
+communication}.  The atmospheric component is a Kolmogorov model with FWHM =
+0.9 arscec.  Similar to GREAT3, the aberrations were varied as Gaussian around
+a fiducial value. These root-mean-squared variations, in units of waves in the
+Noll convention are given in table \ref{tab:aberr}.  The code used to generate
+these simulations began as a fork of the great3 public code base, and is freely
+available online\footnote{https://github.com/esheldon/egret}.
 
 \begin{table*}
     \centering
-    \caption{Variations for the aberrations in the optical model, derived
+    \caption{Root-mean-squared variation for the aberrations in the optical model,
+        in units of waves in the Noll convention, derived 
     from Dark Energy Survey data. \label{tab:aberr}}
-    \begin{tabular}{ | l | c | c | c | c | c | c | }
-        Sim          & Galaxy Model & PSF Model & PSF Shape$\times 10^2$ & \# Galaxies & \# Stars    & Masking   \\
+    \begin{tabular}{ | l | l | }
+        Zernike Component  & RMS Variation \\
         \hline
-        BD           & Bulge+Disk   & Moffat    & \rpsfdist     &  \nsimNgal   & None        & None      \\
-        BDStar       & Bulge+Disk   & Moffat    & \rpsfdist     &  \nsimNgal   & \nsimNstar  & None      \\
-        BDEllip      & Bulge+Disk   & Moffat    & \psfdist  &  \nsimNgaltwo   & None        & None      \\
-        BDEllipMask  & Bulge+Disk   & Moffat    & \psfdist  &  \nsimNgaltwo   & None        & DES       \\
-        %BDMask2    & Bulge+Disk   & Moffat    & \psfdist  &  \nsimNgal   & None        & DES       \\
-        %BDMaskStar & Bulge+Disk   & Moffat    & \psfdist  &  \nsimNgal   & \nsimNstar  & DES      \\
-        RG           & COSMOS      & DES Optical & Optical Variations &  \nsimNgal   & None        & None      \\
+        Defocus & 0.13 \\
+        Astigmatism in Y & 0.13 \\
+        Astigmatism in X & 0.14 \\
+        Coma in Y & 0.06 \\
+        Coma in X & 0.06 \\
+        Trefoil in Y & 0.05 \\
+        Trefoil in X & 0.06 \\
+        Spherical & 0.03 \\
+
     \end{tabular}
 \end{table*}
 
