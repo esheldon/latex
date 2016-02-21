@@ -532,21 +532,22 @@ are available.
 \subsection{Selection Effects} \label{sec:selection}
 
 There are two main types of selection: detection effects and ordinary selection
-effects.
+effects.  Detection effects occur when placing a detection threshold, for
+example a minimum S/N, which will preferably select galaxies with lower
+ellipticity.  Ordinary selection on an initially unbiased detected sample can
+induce additional bias via the same mechanism.
 
-Detection effects occur when placing a detection threshold, for example a
-minimum S/N, which will preferably select galaxies with lower ellipticity.
-Determining this effect will most likely require prior information on the
-properties of galaxies. We do not address detection effects in this paper.
-
-Ordinary selection affects induce additional bias for an existing population of
-detected objects.
+Determining detection effects requires prior information on the properties of
+the galaxies in the sample, including those that do not make the detection
+threshold.  Ordinary selection effects can in principle be determined without
+prior information if the initial detections were unbiased, but this is unlikely
+to be the case.
 
 To test selection effects, we make a series of cuts on S/N in the BD
 simulation.  We use the ``round'' S/N definition in order to avoid the first
 order effect \citep{DESSVShear}. As indicated in table \ref{tab:selresults},
 these cuts lead to a small (few tenths of a percent) monotonic change in the
-recovered calibration.
+recovered shear.
 
 \begin{table*}
     \centering
