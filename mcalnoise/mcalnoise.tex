@@ -53,11 +53,6 @@
 \newcommand{\mcalRmodel}{$R^{model}$}
 \newcommand{\mcalRnoisemodel}{$R^{model}_\eta$}
 
-\newcommand{\Aslope}{$-0.127$}
-\newcommand{\Rcorr}{$-0.062$}
-%\slugcomment{Last revision \today}
-%\shortauthors{Sheldon}
-%\shorttitle{Bayesian Shear Estimation}
 
 \newcommand{\nsimNgal}{$10^8$}
 \newcommand{\nsimNgaltwo}{$2 \times 10^8$}
@@ -71,6 +66,11 @@
 
 \newcommand{\detrend}{de-trending}
 \newcommand{\Detrend}{De-trending}
+
+
+\newcommand{\Aslope}{$-0.111$}
+\newcommand{\Rcorr}{$-0.0694$}
+\newcommand{\rgbias}{$(-1.6 \pm 0.5) \times 10^{-3}$}
 
 \title{Noise Effects in \Mcal\ Weak Lensing Shear Estimation}
 
@@ -372,11 +372,11 @@ configuration.  Random orientations avoids cancellation of systematics such as
 some selection effects \citep{DESSVShear}, and the correlated noise effects we
 are trying to correct.  Second, the PSF has optical aberrations consistent with
 those found in the Dark Energy Survey data \footnote{Aaron Roodman, private
-communication}.  The atmospheric component is a Kolmogorov model with FWHM =
+communication}.  The atmospheric component is a Kolmogorov model with mean FWHM =
 0.9 arscec.  Similar to GREAT3, the aberrations were varied as Gaussian around
 a fiducial value. These root-mean-squared variations, in units of waves in the
 Noll convention are given in table \ref{tab:aberr}.  The code used to generate
-these simulations began as a fork of the great3 public code base, and is freely
+these simulations began as a fork of the GREAT3 public code base, and is freely
 available online\footnote{https://github.com/esheldon/egret}.
 
 \begin{table*}
@@ -428,6 +428,8 @@ For more details of these simulations, see \S \ref{sec:sims}.  \label{tab:sims}}
 
 \section{Results} \label{sec:detrendsim}
 
+\subsection{Measurements of the Correlated Noise Effect}
+
 The images were fit with a single Gaussian galaxy model and Gaussian PSF model.
 Naively using these simple galaxy and PSF model results in a large model bias,
 and large uncorrected PSF anisotropy.
@@ -438,25 +440,30 @@ parameters; priors on flux and size were deliberately wider than truth by 20\%,
 and that on ellipticity used $\sigma=0.3$ instead of the true $0.2$.  We
 furthermore expect large {\em ordinary} noise bias at these low S/N levels.
 
-
-The measurement of $\Delta R$ vs $2 n \Delta n$ is shown in figure
-\ref{fig:detrend}.  The trend is well-fit by a linear model, as expected, with
-a slope $A \simeq $\Aslope, implying a correction $A n^2 \simeq$ \Rcorr\ for this
-simulation.
+The measurement of $\Delta R$ vs $2 n \Delta n$, for the RG simulation, is
+shown in figure \ref{fig:detrend}.  The trend is well-fit by a linear model, as
+expected, with a slope $A \simeq $\Aslope, implying a correction $A n^2 \simeq$
+\Rcorr\ for this simulation.
 
 \begin{figure}
-    \includegraphics[scale=0.45]{run-bd13mcal-dt02-Rnoise-detrend-R11.eps}
+    \includegraphics[scale=0.45]{mcal-v14s01-Rnoise-detrend-R11.eps}
 
-    \caption{Trend of $\Delta R_{1,1}$ with $2 n \Delta n$, where $n$ is the
+    \caption{Trend of $\Delta R_{1,1}$ with $2 n \Delta n$ for the
+        real galaxy simulation.   $n$ is the
     original noise level and $\Delta n$ is the additional noise added.  The
-trend is linear  as predicted.}
+    trend is linear as predicted.}
 
 \label{fig:detrend}
 \end{figure}
 
-Applying these corrections to $R$, we recover the shear within the
-measurement error. These basic results are shown for the ``BD'' simulation
-in table \ref{tab:results}
+\subsection{Shear Recovery}
+
+In table \ref{tab:results} we show for shear recovery in our simulations, with
+and without applying \detrend\ correlated noise corrections.  Without
+correction, the multiplicative bias $m$ is $\simeq$ 0.1 for these simulations.
+With the \detrend\ method, we recover the the true shear within errors for the
+parameter BD simulation. For the real galaxy RG simulation we detect remaining
+multiplicative bias of approximately \rgbias.
 
 \begin{table*}
     \centering
@@ -493,10 +500,7 @@ in table \ref{tab:results}
     \end{tabular}
 \end{table*}
 
-
-
-Without correction, the multiplicative bias $m$ is $\simeq$ 0.1
-for these simulations.
+XXX Discuss sims with psf anisotropy
 
 \subsection{Stellar Contamination} \label{sec:stars}
 
@@ -557,13 +561,13 @@ recovered shear.
     \begin{tabular}{ |l| r|r|r|  r|r|r|}
         \hline
         & \multicolumn{3}{c}{Uncorrected for Selection} & \multicolumn{3}{c}{Corrected for Selection} \\
-        Selection & $m \times 10{^4} $ & $c_1 \times 10^4$ & $c_2 \times 10^4$ & $m \times 10^{4}$ & $c_1 \times 10^4$ & $c_2 \times 10^4$ \\
+        Selection & $m \times 10{^3} $ & $c_1 \times 10^4$ & $c_2 \times 10^4$ & $m \times 10^{3}$ & $c_1 \times 10^4$ & $c_2 \times 10^4$ \\
         \hline
-        $(S/N) > 5$    & $3.0 \pm 4.4$ & $-0.3 \pm 0.2$ & $0.2 \pm 0.2$ & $3.3 \pm 4.4$ & $-0.3 \pm 0.2$ & $0.2 \pm 0.2$  \\
-        $(S/N) > 7.5$  & $-7.1 \pm 4.4$ & $-0.3 \pm 0.2$ & $0.2 \pm 0.2$ & $-5.5 \pm 4.4$ & $-0.3 \pm 0.2$ & $0.2 \pm 0.2$  \\
-        $(S/N) > 10$   & $-15.2 \pm 4.5$ & $-0.3 \pm 0.2$ & $0.2 \pm 0.2$ & $-10.4 \pm 4.5$ & $-0.3 \pm 0.2$ & $0.2 \pm 0.2$  \\
-        $(S/N) > 15$   & $-23.2 \pm 5.3$ & $0.0 \pm 0.3$ & $0.0 \pm 0.3$ & $-9.1 \pm 5.3$ & $0.0 \pm 0.3$ & $0.0 \pm 0.3$  \\
-        $(S/N) > 20$   & $-26.6 \pm 5.9$ & $-0.3 \pm 0.3$ & $-0.2\pm 0.3$ & $-8.7 \pm 5.9$ & $-0.3 \pm 0.3$ & $-0.2 \pm 0.3$  \\
+        %$(S/N) > 5$    & $3.0 \pm 4.4$ & $-0.3 \pm 0.2$ & $0.2 \pm 0.2$ & $3.3 \pm 4.4$ & $-0.3 \pm 0.2$ & $0.2 \pm 0.2$  \\
+        $(S/N) > 7.5$  & $-0.7 \pm 0.4$ & $-0.3 \pm 0.2$ & $0.2 \pm 0.2$ & $-0.6 \pm 0.4$ & $-0.3 \pm 0.2$ & $0.2 \pm 0.2$  \\
+        $(S/N) > 10$   & $-1.5 \pm 0.5$ & $-0.3 \pm 0.2$ & $0.2 \pm 0.2$ & $-1.0 \pm 0.5$ & $-0.3 \pm 0.2$ & $0.2 \pm 0.2$  \\
+        $(S/N) > 15$   & $-2.3 \pm 0.5$ & $0.0 \pm 0.3$ & $0.0 \pm 0.3$ & $-0.9 \pm 0.5$ & $0.0 \pm 0.3$ & $0.0 \pm 0.3$  \\
+        $(S/N) > 20$   & $-2.7 \pm 0.6$ & $-0.3 \pm 0.3$ & $-0.2\pm 0.3$ & $-0.9 \pm 0.6$ & $-0.3 \pm 0.3$ & $-0.2 \pm 0.3$  \\
     \end{tabular}
 \end{table*}
 

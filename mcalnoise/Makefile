@@ -1,6 +1,6 @@
 
 texfile := mcalnoise
-default: pdf
+default: dvi
 
 # just run it
 bib: 
