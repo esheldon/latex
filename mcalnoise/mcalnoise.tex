@@ -379,7 +379,7 @@ Noll convention are given in table \ref{tab:aberr}.  The code used to generate
 these simulations began as a fork of the GREAT3 public code base, and is freely
 available online\footnote{https://github.com/esheldon/egret}.
 
-\begin{table*}
+\begin{table}
     \centering
     \caption{Root-mean-squared variation for the aberrations in the optical model,
         in units of waves in the Noll convention, derived 
@@ -397,9 +397,10 @@ available online\footnote{https://github.com/esheldon/egret}.
         Spherical & 0.03 \\
 
     \end{tabular}
-\end{table*}
+\end{table}
 
 
+XXX add s/n plot for COSMOS
 
 
 \begin{table*}
@@ -460,10 +461,9 @@ expected, with a slope $A \simeq $\Aslope, implying a correction $A n^2 \simeq$
 
 In table \ref{tab:results} we show for shear recovery in our simulations, with
 and without applying \detrend\ correlated noise corrections.  Without
-correction, the multiplicative bias $m$ is $\simeq$ 0.1 for these simulations.
-With the \detrend\ method, we recover the the true shear within errors for the
-parameter BD simulation. For the real galaxy RG simulation we detect remaining
-multiplicative bias of approximately \rgbias.
+correction, the multiplicative bias $m$ is $\simeq$ 0.1 for all simulations.
+For simulations with a net PSF anisotropy, we also found a significant
+remaining additive bias.
 
 \begin{table*}
     \centering
@@ -474,7 +474,7 @@ multiplicative bias of approximately \rgbias.
     bias $m$ and additive biases $c$.  Results with and without correction
     for correlated noise are shown.  \Mcal, with corrections for correlated noise,
     reduces multiplicative bias to $\lesssim 10^{-3}$, and reduces the additive
-    bias by a factor of 5.  
+    bias by a factor of five.  
     Stellar contamination at the level of \nsimNstarperc\ increases
     the noise in the recovered shear by $\sim$5\% but does not introduce 
     a significant bias.  
@@ -500,7 +500,13 @@ multiplicative bias of approximately \rgbias.
     \end{tabular}
 \end{table*}
 
-XXX Discuss sims with psf anisotropy
+After applying correlated noise corrections, we found the multiplicative bias
+to be consistent with zero within errors for the parameteric simulations. For
+the real galaxy RG simulation we detect remaining multiplicative bias of
+approximately \rgbias.  For the BDEllip parameteric simulations, which have a
+net psf anisotropy, we still detected a small remaining additive bias, but it
+was reduced by a factor of five in amplitied, as compared to results without
+correlated noise corrections.
 
 \subsection{Stellar Contamination} \label{sec:stars}
 
@@ -513,24 +519,25 @@ increase the uncertainty by $\sim$5\%.
 
 \subsection{Masking Effects} \label{sec:masking}
 
-The Fourier transforms used for the \mcal\ convolutions cannot accommodate
-missing data.  We must replace the masked pixel values with good proxies.  In
-particular we wish to avoid any artifacts in the transformed images that would
-mimic an additional ``response'' to the applied \mcal\ shear.
+In order to perform the Fourier transforms used for the \mcal\ convolutions, we
+must replace any missing data due to masked pixel values.  In particular we
+wish to avoid any artifacts in the transformed images that would mimic an
+additional ``response'' to the applied \mcal\ shear.
 
 As an baseline extreme case, we replaced the masked pixels simply with noise.
 This resulted in few percent calibration biases.
 
-A better alternative is to replace the missing data with our best model.  We
-performed an initial maximum likelihood fit, before performing any \mcal\
-operations, and replaced the masked data with the value from the PSF convolved
-model.  We are using a Gaussian model for both PSF and Galaxy, which is far
-from the ``best model''; we consider this a worst case scenario as a model
-replacement. 
+A better alternative is to replace the missing data with the result of a model
+fit.  We performed an initial maximum likelihood fit, before performing any
+\mcal\ operations, and replaced the masked data with the value from the PSF
+convolved model.  We used a Gaussian model for both PSF and Galaxy, which is a
+poor representation of the data; we consider this a worst case scenario as a
+model replacement. 
 
 The results using the model replacement method are shown in table
-\ref{tab:results} for the Mask type simulations.  XXX discuss results when they
-are available.
+\ref{tab:results} for the BDEllipMask simulation.  The measured bias did not
+change significantly compared to the measurements on BDEllip, which is the
+unmasked version of this simulation.
 
 
 \subsection{Selection Effects} \label{sec:selection}
@@ -541,17 +548,17 @@ example a minimum S/N, which will preferably select galaxies with lower
 ellipticity.  Ordinary selection on an initially unbiased detected sample can
 induce additional bias via the same mechanism.
 
-Determining detection effects requires prior information on the properties of
-the galaxies in the sample, including those that do not exceed the detection
+Determining detection effects requires prior information about the properties of
+the galaxies in the sample, including those galaxies that do not exceed the detection
 threshold.  Ordinary selection effects can in principle be determined without
-prior information if the initial detections were unbiased, but this is unlikely
-to be the case.
+prior information if the initial detections were unbiased, but unbiased
+detection of faint galaxies is unlikely to be feasible.
 
 To test selection effects, we make a series of cuts on S/N in the BD
 simulation.  We use the ``round'' S/N definition in order to avoid the first
 order effect \citep{DESSVShear}. As indicated in table \ref{tab:selresults},
-these cuts lead to a small (few tenths of a percent) monotonic change in the
-recovered shear.
+these cuts lead to a monotonic change in the recovered shear, with a few
+tenths of a percent bias for a $S/N > 20$ cut.
 
 \begin{table*}
     \centering
@@ -571,22 +578,35 @@ recovered shear.
     \end{tabular}
 \end{table*}
 
-We implement a simple correction.  We shear the population of ellipticities
-with a fake shear using the measured responses \mcalR, and estimate the shear
-using our \mcal\ mechanism before and after selection.  The ratio can then be
-used as a correction factor.  These are shown in table \ref{tab:selresults} in
-the ``Corrected for Selection'' column.  The correction is not perfect, but
-does reduce the bias to $\lesssim 10^{-3}$.  We will further explore the topic
-of selections in a future work.
+We implemented a simple correction based on our \mcal\ measurements.  We
+sheared the population of ellipticities with a fake shear using the measured
+responses \mcalR, and estimated the shear using our \mcal\ mechanism before and
+after selection.  We then used the ratio of these numbers as a correction
+factor.  We sow the results in table \ref{tab:selresults} in the ``Corrected
+for Selection'' column.  This simple correction reduced the bias approximately
+$10^{-3}$ in all cases.
+
+In real data, a simple correction scheme like the above will probably require
+prior information.  One approach would be to take deep imaging data and add
+noise such that the distribution of $S/N$ for the galaxy sample is similar to a
+shallower data set.  The noisy ellipticity measurements could then be sheared
+artificially and selected as above to derive a correction.  Multiple noise
+realizations could be used to increase the precision of the correction.
 
 
 \subsection{Using a Random Subset To Calculate \Detrend\ Corrections}
 
-The \detrend\ parameters are more precisely measured than the shear itself.
-Here we explore the precision of the recovered shear using subsets of the
-objects to measure \detrend.  In Table \ref{tab:subsets} we have shown the
-shear recovery parameters for various subset sizes, for the same simulation
-described in \S \ref{sec:detrendsim}
+Measuring the \detrend\ parameters requires extra computations, at least a
+factor of three to fit the linear parameters given in \S \ref{sec:detrend}, and
+a factor of four if an additional point is used to check for possible
+non-linearity. These extra computations could be expensive for large surveys.  
+
+However, the \detrend\ parameters are more precisely measured than the shear
+itself.  Here we explore the precision of the recovered shear using smaller
+subsets of the object catalog to measure the \detrend\ parameters, and
+applying the corrections to the full sample.  In Table \ref{tab:subsets}
+we show the shear recovery parameters for various subset sizes, for the
+BD simulation described in \S \ref{sec:detrendsim}
 
 \begin{table*}
     \centering
@@ -618,17 +638,18 @@ quadratically with the uncertainty measured using all galaxies to estimate the
 quadratically with the measured uncertainty, resulting in a net increase of
 4.4\%.
 
-It is important to use a truly random subset of the population, including a
-fair sample of stars contaminating the sample, and a representative amount of
-pixel level masking.  If a particular aggregate shear measurement involves a
-selection, this selection must also be applied to the random subset.
+It is important to use a truly random subset of the population to determine the
+corrections, including a fair sample of stars and other contaminants, and a
+representative amount of pixel level masking.  If a particular aggregate shear
+measurement involves a selection, this selection must also be applied to the
+random subset.
 
 \section{Cancellation in Ring Configurations}
 
 This bias was not seen by \cite{HuffMcal} using the GREAT3 simulations
 \citep{great3}.
 
-The only substantial difference between the GREAT3 sims and our sims is that
+The most important difference between the GREAT3 sims and our sims is that
 GREAT3 galaxies were generated in a ``ring configuration''.  The simulation
 included two identical images of each galaxy, rotated by 90 degrees with
 respect to a one another, in order to cancel shape noise.  In this configuration,
