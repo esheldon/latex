@@ -13,10 +13,7 @@
 
 \def\eps@scaling{1.0}% 
 
-\newcommand{\sn}{$S/N$}
-\newcommand{\Msn}{$(S/N)_{\textrm{matched}}$}
-\newcommand{\Tsn}{$(S/N)_{\textrm{size}}$}
-\newcommand{\fsn}{$(S/N)_{\textrm{flux}}$}
+\newcommand{\snr}{$S/N$}
 \newcommand{\hlr}{$r_{50}$}
 
 \newcommand{\uberseg}{{\"u}berseg}
@@ -366,11 +363,11 @@ bad column. }
 \subsection{COSMOS Simulations}
 
 The second set of simulations are similar to the real-galaxy simulations used
-in GREAT3 challenge \citep{great3}.  There are two important differences.
+in GREAT3 challenge \citep{great3}, with galaxy images draw from
+COSMOS data.  There are two important differences.
 First, the galaxies are oriented randomly rather than being placed in a ring
-configuration.  Random orientations avoids cancellation of systematics such as
-some selection effects \citep{DESSVShear}, and the correlated noise effects we
-are trying to correct.  Second, the PSF has optical aberrations consistent with
+configuration.  Using random orientations avoids cancellation of systematics such as
+some selection effects \citep{DESSVShear}.  Second, the PSF has optical aberrations consistent with
 those found in the Dark Energy Survey data \footnote{Aaron Roodman, private
 communication}.  The atmospheric component is a Kolmogorov model with mean FWHM =
 0.9 arscec.  Similar to GREAT3, the aberrations were varied as Gaussian around
@@ -398,6 +395,17 @@ available online\footnote{https://github.com/esheldon/egret}.
 
     \end{tabular}
 \end{table}
+
+In figure \ref{fig:cosmos} we show the distribution of measured \snr\ for the
+COSMOS simulations.  The mode of the distribution is somewhat higher than that
+of the parametric simulations, about 12 instead of 10.  Also shown is the
+distribution of the half-light-radius \hlr, measured
+from the \sersic\ model fits distributed with the COSMOS catalog as part
+of the GREAT3 challenge.  The mean \hlr\ for these simulations
+is about $1.8 +/- 0.8$, somewhat smaller than the
+log-normal $2.0 \pm 0.5$ for the parametric simulations, and with tails to larger
+and smaller sizes.
+
 
 \begin{figure}
     \centering
