@@ -402,19 +402,19 @@ of the parametric simulations, about 12 instead of 10.  Also shown is the
 distribution of the half-light-radius \hlr, measured
 from the \sersic\ model fits distributed with the COSMOS catalog as part
 of the GREAT3 challenge.  The mean \hlr\ for these simulations
-is about $1.8 +/- 0.8$, somewhat smaller than the
-log-normal $2.0 \pm 0.5$ for the parametric simulations, and with tails to larger
-and smaller sizes.
+is about $1.8 \pm 0.8$, somewhat smaller than the
+log-normal $2.0 \pm 0.5$ for the parametric simulations, but with a tail to larger
+size.
 
 
 \begin{figure}
     \centering
     \includegraphics[scale=0.45]{mcal-v14s01-s2n-and-r50.eps}
 
-    \caption{Distribution of S/N and half-light-radius in the COSMOS real galaxy simulations. The
-    left panel contains the measured S/N, while the right panel contains
-    the half-light-radius from the cosmos catalog for the input
-    galaxies.  Overplotted in the dot-dashed line is the input half-light-radius
+    \caption{Distribution of properties in the COSMOS real galaxy simulations. The
+    left panel contains the distribution of measured S/N, while the right panel contains
+    the distribution of half-light-radius from the cosmos catalog for the input
+    galaxies.  Overplotted as a dot-dashed line is the input half-light-radius
     for the bulge+disk simulations.}
 
 \label{fig:cosmos}
@@ -665,16 +665,26 @@ representative amount of pixel level masking.  If a particular aggregate shear
 measurement involves a selection, this selection must also be applied to the
 random subset.
 
-\section{Cancellation in Ring Configurations}
+\section{Bias on GREAT3 Simulations}
 
-This bias was not seen by \cite{HuffMcal} using the GREAT3 simulations
-\citep{great3}.
+The correlated noise bias was not seen by \cite{HuffMcal} using the GREAT3
+simulations \citep{great3}.  At this time, we do not yet understand why this
+was the case.  The correlated noise effect scales with the square of the noise,
+and the simulations used for GREAT3 contain significantly higher S/N than
+the simulations used here.  However, we found the correlated noise was still
+detectable in simulations we ran with similar properties to GREAT3, with
+correlated noise bias at the 2\% level rather than the 12\% we saw in our RG
+simulations.  We checked that the code used to perform the metacal procedures
+for the \cite{HuffMcal} work and ours give identical results.  We also ran the
+re-gaussianization code on our simulations and saw the correlated noise
+effect.
 
-The most important difference between the GREAT3 sims and our sims is that
+Another important difference between the GREAT3 sims and our sims is that
 GREAT3 galaxies were generated in a ``ring configuration''.  The simulation
 included two identical images of each galaxy, rotated by 90 degrees with
-respect to a one another, in order to cancel shape noise.  In this configuration,
-the correlated noise also appears to cancel at some level.
+respect to a one another, in order to cancel shape noise.  However, we ran one
+of our simulations in a ring configuration and saw the same level of correlated
+noise bias.
 
 \begin{comment} 
 
