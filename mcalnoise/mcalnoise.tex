@@ -731,49 +731,18 @@ noise in the fits, multiple random fields can be generated and added to the
 original image, and these can all then be fit simultaneously.  This will
 improve the precision of the fit, at the cost of increased computation time.
 
+In our tests, this method did not perform as well as the \detrend\ method; the
+bias in the RG simulation was about twice as large. It may be that using many
+random realization to mitigate the extra noise would improve performance, but
+this would come with significant extra computing cost.  Without any strong
+theoretical preference for this method, we did not pursue it any further.
+
 \subsubsection{Simulating Models}
 
-In this method, we generate model images with the right noise level for a
-given galaxy, and then measure the response of the noise due to the
-convolutions and shears used in \mcal.  We then subtract the mean sheared noise
-response from the mean measured response, averaged over some set of galaxy
-images. The process is as follows:
-\begin{enumerate}[label=\arabic*.]
-
-    \item Measure the response without correlated noise
-    
-        \begin{enumerate}[label*=\arabic*.]
-            \item Render the best fit model, including convolution by the point-spread
-                function
-
-            \item Perform the \mcal\ image processing steps, without noise added.
-
-            \item Add an appropriate amount of noise to all images, using the
-                same noise pattern $I_\eta$ for every image.
-
-            \item Measure the response for this model \mcalRmodel.
-        \end{enumerate}
-
-    \item Measure the response with correlated noise
-    
-        \begin{enumerate}[label*=\arabic*.]
-            \item Render the best fit model, including convolution by the point-spread
-                function
-
-            \item Add an appropriate noise pattern $I_\eta$ to the image, the
-                same pattern used for measuring the response without correlated
-                noise.
-
-            \item Perform the \mcal\ image processing steps on this noisy
-                image.
-
-            \item Measure the response for this model \mcalRnoisemodel.
-
-        \end{enumerate}
-
-    \item Subtract the correlated noise response
-
-\end{enumerate}
+In this method, we generated model images with the correct noise level corresponding
+to each real imag.  We then measured the response of the noise due to the
+convolutions and shears used in \mcal, with noise added before and
+after the \mcal\ procedure.
 
 The measurement with correlated noise will be the sum of the response
 without correlated noise plus the response of the correlated noise field
