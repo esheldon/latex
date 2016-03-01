@@ -686,29 +686,43 @@ respect to a one another, in order to cancel shape noise.  However, we ran one
 of our simulations in a ring configuration and saw the same level of correlated
 noise bias.
 
-\begin{comment} 
+\section*{Acknowledgments}
+
+ES is supported by DOE grant DE-AC02-98CH10886.
+
+We thank Aaron Roodman for providing the variation of the optical aberrations
+measured in DES data.
+
+
 
 \appendix
 
 \section{Additional Correction Methods}
 
+\subsubsection{Correction using GALSIM}
+
+With guidance from the GALSIM developers, we attempted to use the GALSIM noise
+isotropization and whitening functionality to correct the correlated noise.
+Isotropization enforces four fold symmetry, introducing minimal extra noise,
+and whitening completely whitens the image, introducing significant extra
+noise. Neither of these methods had any noticeable effect on the correlated
+noise bias.
+
 \subsubsection{Adding a Sheared, Correlated Random Noise Field}
 
-In this method, we generate example random noise fields $\tilde{\eta}$, sheared
+For this method, we generated example random noise fields $\tilde{\eta}$, sheared
 with the opposite sign of those used in the \mcal\ procedure:
 \begin{equation}
     \tilde{\eta}(-\gamma) = \tilde{\eta} \Asterisk P^{-1} \oplus (-\gamma) \Asterisk P_{d}.
 \end{equation}
-This noise image can then be added to the $I(\gamma)_o$ images to
+We added these noise images to the $I(\gamma)_o$ images to
 statistically remove the effects of sheared, correlated noise:
 \begin{equation}
     \tilde{I}(\gamma) = I_o(\gamma) + \tilde{\eta}(-\gamma),
 \end{equation}
 where $\tilde{I}(\gamma)$ is an approximation for the desired image
-$I(\gamma)$.    These $\tilde{I}(\gamma)$
-can be used to measure the correct \mcal\ for a large population.
-It is important that the random noise field be added after
-the \mcal\ procedures have been applied, not before.
+$I(\gamma)$.    We used these $\tilde{I}(\gamma)$
+to measure the correct \mcal\ for a large population.
 
 This procedure increases the noise by a factor of $\sqrt 2$.  Thus, both the
 response and estimator should be measured on the $\tilde{I}(\gamma)$ images, so
@@ -716,7 +730,6 @@ that the response is representative of the correct noise level.  To reduce the
 noise in the fits, multiple random fields can be generated and added to the
 original image, and these can all then be fit simultaneously.  This will
 improve the precision of the fit, at the cost of increased computation time.
-
 
 \subsubsection{Simulating Models}
 
@@ -786,14 +799,6 @@ independent noise in both \mcalRo\ and \mcalRnoise.  To increase
 precision, the procedure can be repeated for different noise fields
 and averaged, at the cost of increased computation time.
 
-\end{comment}
-
-\section*{Acknowledgments}
-
-ES is supported by DOE grant DE-AC02-98CH10886.
-
-We thank Aaron Roodman for providing the variation of the optical aberrations
-measured in DES data.
 
 \bibliographystyle{mn2e}
 % Bib database
