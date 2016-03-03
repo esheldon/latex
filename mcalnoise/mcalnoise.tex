@@ -64,6 +64,8 @@
 \newcommand{\detrend}{de-trending}
 \newcommand{\Detrend}{De-trending}
 
+\newcommand{\fixnoise}{fixnoise}
+
 
 \newcommand{\Aslope}{$-1.11$}
 \newcommand{\Rcorr}{$-0.0694$}
@@ -251,20 +253,26 @@ simpler approach to correcting the noise.
 
 \subsection{Adding a Sheared, Correlated Random Noise Field} \label{sec:addn}
 
-For this method, we generated example random noise fields $\tilde{\eta}$, sheared
-with the opposite sign of those used in the \mcal\ procedure:
+This method, which we refer to as ``\fixnoise'', is designed to statistically
+cancel the effects correlated noise caused by the \mcal\ procedure.  For each
+image that was passed through the convolution and shearing steps, producing
+an image $I(\gamma)_o$, we generated a random noise field
+$\tilde{\eta}$, and applied the same operations but using a shear with
+the opposite sign:
 \begin{equation}
     \tilde{\eta}(-\gamma) = \tilde{\eta} \Asterisk P^{-1} \oplus (-\gamma) \Asterisk P_{d}.
 \end{equation}
-We added these noise images to the $I(\gamma)_o$ images to
-statistically remove the effects of sheared, correlated noise.  The
-result, $\tilde{I}(\gamma)$, is an approximation for the image
+We then added this image to the $I(\gamma)_o$ image.
+The result, $\tilde{I}(\gamma)$, is an approximation for the image
 without correlated noise:
 \begin{equation}
-    \tilde{I}(\gamma) = I_o(\gamma) + \tilde{\eta}(-\gamma),
+    \tilde{I}(\gamma) = I_o(\gamma) + \tilde{\eta}(-\gamma).
 \end{equation}
-We used these $\tilde{I}(\gamma)$
-to measure the shapes and responses used in shear recovery.
+We used these $\tilde{I}(\gamma)$ to measure the shapes and responses used in
+shear recovery.  For a single image, this procedure will not exactly cancel the
+correlated noise, because the original and added noise fields are not
+identical; rather the effect should cancel when averaged over a large ensemble
+of galaxies.
 
 This procedure necessarily increases the noise in the shear recovery.  Thus,
 both the response and estimator should be measured on the $\tilde{I}(\gamma)$
@@ -562,7 +570,7 @@ remaining additive bias.
         BDEllip     & $0.10 \pm 0.00$ & $0.0 \pm 0.3$     & $-5.6 \pm 0.3$    & detrend  & $-0.2 \pm 0.3$    & $0.2 \pm 0.2$     & $1.1 \pm 0.2$  \\
         BDEllipMask & $0.10 \pm 0.00$ & $0.0 \pm 0.3$     & $-5.6 \pm 0.3$    & detrend  & $-0.5 \pm 0.3$    & $0.0 \pm 0.2$     & $1.0 \pm 0.2$  \\
         RG          & $0.12 \pm 0.00$ & $-0.3 \pm 0.3$    & $0.0 \pm 0.3$     & detrend  & $-1.6 \pm 0.5$    & $-0.3 \pm 0.3$    & $0.1 \pm 0.3$  \\
-        RG          & $0.12 \pm 0.00$ & $-0.3 \pm 0.3$    & $0.0 \pm 0.3$     & noise    & $0.5 \pm 0.6$     & $-0.4 \pm 0.3$    & $0.6 \pm 0.3$ \\
+        RG          & $0.12 \pm 0.00$ & $-0.3 \pm 0.3$    & $0.0 \pm 0.3$     & fixnoise & $0.5 \pm 0.6$     & $-0.4 \pm 0.3$    & $0.6 \pm 0.3$ \\
     \end{tabular}
 \end{table*}
 
