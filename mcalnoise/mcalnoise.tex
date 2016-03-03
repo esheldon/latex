@@ -66,6 +66,8 @@
 
 \newcommand{\fixnoise}{fixnoise}
 
+\newcommand{\ngmix}{\texttt{ngmix}}
+
 
 \newcommand{\Aslope}{$-1.11$}
 \newcommand{\Rcorr}{$-0.0694$}
@@ -221,8 +223,8 @@ for each galaxy to increase precision.
 
 The coefficient $A$ in Equation \ref{eq:scaling} can be calculated in simple
 scenarios, as shown in \cite{HirataCorrNoise}.  However, the calculation is
-more complex when modeling the effect of the PSF.  We instead explore
-empirical corrections.
+more complex when modeling the effect of the PSF.  We instead explored three
+different empirical corrections, described in the following sections.
 
 \begin{comment}
 There are advantages to forward modeling which we would like to retain: the
@@ -352,9 +354,8 @@ distribution designed to match that measured in the Dark Energy Survey
 \citep[][(DES)]{DESSVShear}.  The DES PSF shape distribution is well fit by a
 double Gaussian with width 0.18 in each dimension, but with different mean for
 $e_1$ and $e_2$.  For the first set of sims, ``BD'', we set the mean to
-$(0,0)$.  For the second set ``BDMask'', we set the mean in $e_2$ to $0.007$,
-matching that in DES, but leave the mean in $e_1$ zero in order to control for
-the effects of masking (see below).
+$(0,0)$.  For the second set ``BDEllip'', we set the mean in $e_2$ to $0.007$,
+matching that in DES, but leave the mean in $e_1$ zero as a control.
 
 We designed the galaxy S/N distribution, shown in figure \ref{fig:s2n}, to
 match the real DES galaxy catalog after a pre-selection of ``good galaxies''
@@ -380,7 +381,9 @@ Ideally, the \mcalR\ measured for stars should be consistent with zero in the
 mean, and thus not bias the ensemble shear estimate.  In order to test the
 robustness of \mcal\ to stellar contamination, we included $\sim$\nsimNstarperc\ stars
 in each simulation.  The stars were simply drawn as PSFs, with the same flux
-distribution as used for the galaxies.
+distribution as used for the galaxies.  We refer to the simulations with
+stars as ``BDStar''; the BD simulation is identical but with the stars
+removed.
 
 For the ``BDMask'' simulations, we masked parts of the data in order to mimic
 certain effects in real images. Masking is important to test, because the
@@ -502,17 +505,25 @@ For more details of these simulations, see \S \ref{sec:sims}.  \label{tab:sims}}
 
 \section{Results} \label{sec:detrendsim}
 
-We fit the images with a single Gaussian galaxy model and Gaussian PSF model,
-grossly incorrect models for all of our simulations.  Naively using these
-incorrect models results in a large model bias, and large uncorrected PSF
-anisotropy.  We furthermore expect large {\em ordinary} noise bias at the low
-S/N levels used in the simulations.
+We fit the images with a single Gaussian galaxy model and Gaussian PSF model
+using the \ngmix\ code\footnote{https://github.com/esheldon/ngmix}.  All \mcal\
+operations were performed using the \texttt{metacal} module from \ngmix.
+
+Naively using these grossly incorrect models resulted in a large model bias,
+and large uncorrected PSF anisotropy.  In addition there was significant {\em
+ordinary} noise bias at the low S/N levels used in the simulations.  We used
+the \mcal\ procedure, coupled with the above correlated noise fixes,
+to derive corrections for these biases.
 
 We used a maximum likelihood fit, with smooth priors on all parameters to
-produce a stable fit.  These priors were not tuned to the true galaxy
-parameters.  For the flux and size we deliberately used priors that were wider
-than truth by 20\%.  For the ellipticity we used $\sigma=0.3$ instead of the
-true $\sigma=0.2$.
+produce a stable fit; for most simulations we had not a single failure. The
+failures occurred when using the \detrend\ method, which included no correction
+for correlated noise during the fitting process itself, which seems to havew
+destabilized a small number of the fits.  Even so, the failure rates for the
+\detrend\ method was about 0.003\%.  These priors were not tuned to the true
+galaxy parameters.  For the flux and size we deliberately used priors that were
+wider than truth by 20\%.  For the ellipticity we used $\sigma=0.3$ instead of
+the true $\sigma=0.2$.
 
 \subsection{Measurements of the \detrend\ Parameters}
 
@@ -536,10 +547,9 @@ simulation.
 \subsection{Shear Recovery}
 
 In table \ref{tab:results} we show for shear recovery in our simulations, with
-and without applying \detrend\ correlated noise corrections.  Without
-correction, the multiplicative bias $m$ is $\simeq$ 0.1 for all simulations.
-For simulations with a net PSF anisotropy, we also found a significant
-remaining additive bias.
+and without applying correlated noise corrections.  Without correction, the
+multiplicative bias $m$ is of order 0.1 for all simulations.  For simulations
+with a net PSF anisotropy, we also found a significant remaining additive bias.
 
 \begin{table*}
     \centering
@@ -573,6 +583,8 @@ remaining additive bias.
         RG          & $0.12 \pm 0.00$ & $-0.3 \pm 0.3$    & $0.0 \pm 0.3$     & fixnoise & $0.5 \pm 0.6$     & $-0.4 \pm 0.3$    & $0.6 \pm 0.3$ \\
     \end{tabular}
 \end{table*}
+
+XXX describe both kinds of corrections
 
 After applying correlated noise corrections, we found the multiplicative bias
 to be consistent with zero within errors for the parameteric simulations. For
