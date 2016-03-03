@@ -71,8 +71,10 @@
 
 \title{Noise Effects in \Mcal\ Weak Lensing Shear Estimation}
 
-\author[Erin S. Sheldon]{Erin S. Sheldon\thanks{E-mail: erin.sheldon@gmail.com}\\
-Brookhaven National Laboratory, Bldg 510, Upton, New York 11973}
+\author[Sheldon et al.]{Erin S. Sheldon$^1$, Matthew R. Becker$^2$ \\
+$^1$Brookhaven National Laboratory, Bldg 510, Upton, New York 11973\\
+$^2$Department of Physics, Stanford University, 382 Via Pueblo Mall, Stanford, CA 94305, USA}
+
 
 \begin{document}
 
@@ -80,7 +82,7 @@ Brookhaven National Laboratory, Bldg 510, Upton, New York 11973}
 
 \begin{abstract}
 
-I implement corrections for sheared correlated noise effects in \mcal, and
+We implement corrections for sheared correlated noise effects in \mcal. We
 explore the effects of stellar contamination and masking.   
 
 \end{abstract}
@@ -217,8 +219,10 @@ for each galaxy to increase precision.
 
 The coefficient $A$ in Equation \ref{eq:scaling} can be calculated in simple
 scenarios, as shown in \cite{HirataCorrNoise}.  However, the calculation is
-more complex when forward-modeling the PSF, as we do in this work.
+more complex when modeling the effect of the PSF.  We instead explore
+empirical corrections.
 
+\begin{comment}
 There are advantages to forward modeling which we would like to retain: the
 noise in \mcalR\ using our forward-modeling approach is an order of magnitude
 smaller than that seen for the re-Gaussianization approach in \cite{HuffMcal}.
@@ -230,17 +234,53 @@ dramatically decreased when applying smooth priors:  we find a failure rate of
 $\sim$0.003\%, as opposed to $\sim$6\% for the re-Gaussianization code
 implemented in the GALSIM package \citep{GALSIM2015}.  For these reasons we
 explore a simple empirical correction in the following section.
+\end{comment}
 
 %We outline some alternative methods in the appendix.
 
+\subsection{Correction using GALSIM}
+
+With guidance from the GALSIM developers, we attempted to use the GALSIM noise
+isotropization and whitening functionality to correct the correlated noise.
+Isotropization enforces four fold symmetry, introducing minimal extra noise,
+and whitening completely whitens the image, introducing significant extra
+noise.  However, neither of these methods improved the shear recovery in our
+simulations.  It may be that some aspects of the \mcal\ procedure invalidate
+the assumptions these correction methods.  In \S \ref{sec:addn} we explore a
+simpler approach to correcting the noise.
+
+\subsection{Adding a Sheared, Correlated Random Noise Field} \label{sec:addn}
+
+For this method, we generated example random noise fields $\tilde{\eta}$, sheared
+with the opposite sign of those used in the \mcal\ procedure:
+\begin{equation}
+    \tilde{\eta}(-\gamma) = \tilde{\eta} \Asterisk P^{-1} \oplus (-\gamma) \Asterisk P_{d}.
+\end{equation}
+We added these noise images to the $I(\gamma)_o$ images to
+statistically remove the effects of sheared, correlated noise.  The
+result, $\tilde{I}(\gamma)$, is an approximation for the image
+without correlated noise:
+\begin{equation}
+    \tilde{I}(\gamma) = I_o(\gamma) + \tilde{\eta}(-\gamma),
+\end{equation}
+We used these $\tilde{I}(\gamma)$
+to measure the shapes and responses used in shear recovery.
+
+This procedure necessarily increases the noise in the shear recovery.  Thus,
+both the response and estimator should be measured on the $\tilde{I}(\gamma)$
+images, so that the response is representative of the correct noise level.  To
+reduce the noise in the fits, multiple randomized noise fields could be
+generated and fit, and the results averaged.  This would improve the precision,
+at the cost of increased computation time.
+
 \subsection{Detrending the Correlated Noise Bias} \label{sec:detrend}
 
-As mentioned in \S \ref{sec:scaling}, we expect the bias in \mcalR\ due to
-correlated noise to scale with the square of the noise in the image $n^2$.  We
-can add a small amount of noise to the image such that $n \rightarrow n +
-\Delta n$. We then run the new image through the \mcal\ process, and measure
-$R^{\mathrm{before}}$.
-The response when adding noise before \mcal\ is given by
+We expect the bias in \mcalR\ due to correlated noise to scale with the square
+of the noise in the image $n^2$ (see \S \ref{sec:scaling}).  We can add a small
+amount of noise to the image such that $n \rightarrow n + \Delta n$.  If we
+then run the new image through the \mcal\ process, we can measure
+$R^{\mathrm{before}}$, a response that will include correlated noise effects.
+We can write this observed response as
 \begin{align}\label{eq:Rbefore}
     R_o^{\mathrm{before}} &= R + A (n + \Delta n)^2 \nonumber \\
        &\simeq R + A n^2 + 2 A n \Delta n
@@ -281,18 +321,18 @@ correction based on the mean variance $A
 
 \section{Image Simulations} \label{sec:sims}
 
-\subsection{Parameteric Models}
+\subsection{Simulations with Parameteric Models}
 
-We apply the de-trending correction scheme to a set of image simulations.  The
-first simulations make use of parametric models, and are designed to be similar
-to that used in \citet{bfd2015}.  The galaxies models were bulge+disk, with
-offsets between the bulge and disk components, such that the total image
-is not described by a single ellipse.  Both
-components had the same ellipticity and half light radius \hlr. The \hlr\ were
-drawn from a log-normal distribution centered at 2.0 pixels, with scatter of
-0.5 pixels.  The bulges were offset in a random direction from the disk center, with
-offsets drawn from a uniform distribution between zero and \hlr.  The
-ellipticities were drawn from the simple model presented in \cite{ba14}
+We applied \mcal\ to a set of image simulations.  For the first set of
+simulations we used parametric models, designed to be similar to that used in
+\citet{bfd2015}.  We modeled galaxies as a bulge and disk, with offsets between the
+bulge and disk components, such that the total image was not described by a
+single ellipse.  Both components had the same ellipticity and half light radius
+\hlr. The \hlr\ were drawn from a log-normal distribution centered at 2.0
+pixels, with scatter of 0.5 pixels.  The bulges were offset in a random
+direction from the disk center, with offsets drawn from a uniform distribution
+between zero and \hlr.  The ellipticities were drawn from the simple model
+presented in \cite{ba14}
 \begin{align}
     P(e) &\propto \left[1-(e)^2\right]^2 \exp\left[-e^2/2\sigma^2\right],
 \end{align}
@@ -308,17 +348,17 @@ $(0,0)$.  For the second set ``BDMask'', we set the mean in $e_2$ to $0.007$,
 matching that in DES, but leave the mean in $e_1$ zero in order to control for
 the effects of masking (see below).
 
-The S/N distribution, show in figure \ref{fig:s2n}, was also designed to match
-the real DES galaxy catalog after ``good galaxies`` pre-selection
+We designed the galaxy S/N distribution, shown in figure \ref{fig:s2n}, to
+match the real DES galaxy catalog after a pre-selection of ``good galaxies''
 \citep{DESSVShear}, but with no explicit S/N cut applied based on the model
-fitting. We adjust the distribution slightly to give a distribution with
-mode $\sim10$.  Galaxies were sheared by 300 different randomly chosen
-values, with amplitude chosen uniformly in the range 0.01 to 0.08, and uniform
-random orientations.
+fitting.  We adjusted the distribution slightly to give a distribution with
+mode $\sim10$.  We sheared the galaxies with 1000 different randomly chosen values,
+with amplitudes chosen uniformly in the range 0.01 to 0.08, and uniform random
+orientations.
 
 \begin{figure}
     \centering
-    \includegraphics[scale=0.45]{run-bd21mcal-dt01-s2n-hist.eps}
+    \includegraphics[scale=0.45]{s2n-bd16.eps}
 
     \caption{Distribution of S/N in the Bulge+Disk simulations. The
     left panel is a zoom-in around the mode.  The right panel is
@@ -362,19 +402,23 @@ bad column. }
 
 \subsection{COSMOS Simulations}
 
-The second set of simulations are similar to the real-galaxy simulations used
-in GREAT3 challenge \citep{great3}, with galaxy images draw from
-COSMOS data.  There are two important differences.
-First, the galaxies are oriented randomly rather than being placed in a ring
-configuration.  Using random orientations avoids cancellation of systematics such as
-some selection effects \citep{DESSVShear}.  Second, the PSF has optical aberrations consistent with
-those found in the Dark Energy Survey data \footnote{Aaron Roodman, private
-communication}.  The atmospheric component is a Kolmogorov model with mean FWHM =
-0.9 arscec.  Similar to GREAT3, the aberrations were varied as Gaussian around
-a fiducial value. These root-mean-squared variations, in units of waves in the
-Noll convention are given in table \ref{tab:aberr}.  The code used to generate
-these simulations began as a fork of the GREAT3 public code base, and is freely
-available online\footnote{https://github.com/esheldon/egret}.
+We designed a second set of simulations to mimic the ``real-galaxy'' simulations
+used in GREAT3 challenge \citep{great3}, using galaxy images draw from COSMOS
+data.  We implemented two important changes.  First, we oriented the galaxies
+randomly rather than placing them in pairs to cancel shape bias.  Using random
+orientations avoids cancellation of systematics such as some selection effects
+\citep{DESSVShear}.  Second, we used optical aberrations in the PSF designed to
+match that seen in the Dark Energy Survey data \footnote{Aaron Roodman, private
+communication}.  Similar to GREAT3, we varied the aberrations were varied as
+Gaussian around a fiducial value. These root-mean-squared variations, in units
+of waves in the Noll convention are given in table \ref{tab:aberr}.  We used a
+Kolmogorov model for the atmospheric component, with mean FWHM = 0.9 arscec.
+For this configuration there are significant variations in the PSF ellipticity,
+but relatively little net ellipticity across the entire
+ensemble of realizations.
+The code used to generate these simulations began as a fork of the GREAT3
+public code base, and is freely available
+online\footnote{https://github.com/esheldon/egret}.
 
 \begin{table}
     \centering
@@ -450,22 +494,25 @@ For more details of these simulations, see \S \ref{sec:sims}.  \label{tab:sims}}
 
 \section{Results} \label{sec:detrendsim}
 
-\subsection{Measurements of the Correlated Noise Effect}
+We fit the images with a single Gaussian galaxy model and Gaussian PSF model,
+grossly incorrect models for all of our simulations.  Naively using these
+incorrect models results in a large model bias, and large uncorrected PSF
+anisotropy.  We furthermore expect large {\em ordinary} noise bias at the low
+S/N levels used in the simulations.
 
-The images were fit with a single Gaussian galaxy model and Gaussian PSF model.
-Naively using these simple galaxy and PSF model results in a large model bias,
-and large uncorrected PSF anisotropy.
-
-A maximum likelihood fit was used, with smooth priors on all parameters to
+We used a maximum likelihood fit, with smooth priors on all parameters to
 produce a stable fit.  These priors were not tuned to the true galaxy
-parameters; priors on flux and size were deliberately wider than truth by 20\%,
-and that on ellipticity used $\sigma=0.3$ instead of the true $0.2$.  We
-furthermore expect large {\em ordinary} noise bias at these low S/N levels.
+parameters.  For the flux and size we deliberately used priors that were wider
+than truth by 20\%.  For the ellipticity we used $\sigma=0.3$ instead of the
+true $\sigma=0.2$.
 
-The measurement of $\Delta R$ vs $2 n \Delta n$, for the RG simulation, is
-shown in figure \ref{fig:detrend}.  The trend is well-fit by a linear model, as
-expected, with a slope $A \simeq $\Aslope, implying a correction $A n^2 \simeq$
-\Rcorr\ for this simulation.
+\subsection{Measurements of the \detrend\ Parameters}
+
+For the \detrend\ method, we measured $\Delta R$ vs $2 n \Delta n$ to find the
+coefficient $A$.  In figure \ref{fig:detrend}, we show this fit for the RG
+simulation.  The trend is well-fit by a linear model, as expected, with a slope
+$A \simeq $\Aslope, implying a correction $A n^2 \simeq$ \Rcorr\ for this
+simulation.
 
 \begin{figure}
     \includegraphics[scale=0.45]{mcal-v14s01-Rnoise-detrend-R11.eps}
@@ -665,75 +712,43 @@ random subset.
 
 \section{Bias on GREAT3 Simulations}
 
-The correlated noise bias was not seen by \cite{HuffMcal} using the GREAT3
-simulations \citep{great3}.  At this time, we do not yet understand why this
-was the case.  The correlated noise effect scales with the square of the noise,
-and the simulations used for GREAT3 contain significantly higher S/N than
-the simulations used here.  However, we found the correlated noise was still
-detectable in simulations we ran with similar properties to GREAT3, with
-correlated noise bias at the 2\% level rather than the 12\% we saw in our RG
-simulations.  We checked that the code used to perform the metacal procedures
-for the \cite{HuffMcal} work and ours give identical results.  We also ran the
-re-gaussianization code on our simulations and saw the correlated noise
-effect.
+Relatively little bias was seen by \cite{HuffMcal} using the GREAT3
+simulations \citep{great3}.  We checked that our code used to perform
+the metacal procedures for the \cite{HuffMcal} work and ours give identical
+results\footnote{Eric Huff, private communication}, so this is most likely not
+a software error.  Rather, we suspect that the higher S/N and better modeling
+used in \cite{HuffMcal} resulted in reduced bias.
+
+The correlated noise effect scales with the square of the noise, and the
+simulations used for GREAT3 contain significantly higher S/N than the
+simulations used in this work.  Indeed, we found the correlated noise was still
+detectable in simulations we ran with similar properties to GREAT3, but with
+correlated noise bias at the 1-2\% level rather than the 12\% we saw in our RG
+simulations.  We also ran the re-gaussianization code on our simulations, and
+did see a bias, but about a factor of two lower than we saw for our
+intentionally bad Gaussian PSF and Galaxy models.
 
 Another important difference between the GREAT3 sims and our sims is that
 GREAT3 galaxies were generated in a ``ring configuration''.  The simulation
 included two identical images of each galaxy, rotated by 90 degrees with
 respect to a one another, in order to cancel shape noise.  However, we ran one
 of our simulations in a ring configuration and saw the same level of correlated
-noise bias.
+noise bias.  This is not surprising; the correlated noise effect adds coherently
+to the response, and should not cancel due to such imposed symmetries in the
+underlying galaxy population.
 
 \section*{Acknowledgments}
 
 ES is supported by DOE grant DE-AC02-98CH10886.
 
 We thank Aaron Roodman for providing the variation of the optical aberrations
-measured in DES data.
-
+measured in DES data.  Thanks to Mike Jarvis for guidance on use of the GALSIM
+package, especially concerning use of the isotropization and whitening features.
 
 
 \appendix
 
 \section{Additional Correction Methods}
-
-\subsubsection{Correction using GALSIM}
-
-With guidance from the GALSIM developers, we attempted to use the GALSIM noise
-isotropization and whitening functionality to correct the correlated noise.
-Isotropization enforces four fold symmetry, introducing minimal extra noise,
-and whitening completely whitens the image, introducing significant extra
-noise. Neither of these methods had any noticeable effect on the correlated
-noise bias.
-
-\subsubsection{Adding a Sheared, Correlated Random Noise Field}
-
-For this method, we generated example random noise fields $\tilde{\eta}$, sheared
-with the opposite sign of those used in the \mcal\ procedure:
-\begin{equation}
-    \tilde{\eta}(-\gamma) = \tilde{\eta} \Asterisk P^{-1} \oplus (-\gamma) \Asterisk P_{d}.
-\end{equation}
-We added these noise images to the $I(\gamma)_o$ images to
-statistically remove the effects of sheared, correlated noise:
-\begin{equation}
-    \tilde{I}(\gamma) = I_o(\gamma) + \tilde{\eta}(-\gamma),
-\end{equation}
-where $\tilde{I}(\gamma)$ is an approximation for the desired image
-$I(\gamma)$.    We used these $\tilde{I}(\gamma)$
-to measure the correct \mcal\ for a large population.
-
-This procedure increases the noise by a factor of $\sqrt 2$.  Thus, both the
-response and estimator should be measured on the $\tilde{I}(\gamma)$ images, so
-that the response is representative of the correct noise level.  To reduce the
-noise in the fits, multiple random fields can be generated and added to the
-original image, and these can all then be fit simultaneously.  This will
-improve the precision of the fit, at the cost of increased computation time.
-
-In our tests, this method did not perform as well as the \detrend\ method; the
-bias in the RG simulation was about twice as large. It may be that using many
-random realization to mitigate the extra noise would improve performance, but
-this would come with significant extra computing cost.  Without any strong
-theoretical preference for this method, we did not pursue it any further.
 
 \subsubsection{Simulating Models}
 
