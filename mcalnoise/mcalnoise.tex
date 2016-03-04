@@ -1,8 +1,12 @@
 \documentclass[usegraphicx,usenatbib]{mn2e}
-%\documentclass[useAMS,usegraphicx,usenatbib]{mn2e}
 
+%\usepackage[letterpaper]{geometry}
+%\usepackage{draftwatermark}
+
+\usepackage{graphicx}
 \usepackage{verbatim}
 \usepackage{color}
+\usepackage{xcolor}
 \usepackage[normalem]{ulem} % for striking out with \sout
 \usepackage{amsmath} % for boldsymbol
 \usepackage{times}
@@ -73,11 +77,14 @@
 \newcommand{\Rcorr}{$-0.0694$}
 \newcommand{\rgbias}{$(-1.6 \pm 0.5) \times 10^{-3}$}
 
+
 \title{Noise Effects in \Mcal\ Weak Lensing Shear Estimation}
 
-\author[Sheldon et al.]{Erin S. Sheldon$^1$, Matthew R. Becker$^2$ \\
-$^1$Brookhaven National Laboratory, Bldg 510, Upton, New York 11973\\
-$^2$Department of Physics, Stanford University, 382 Via Pueblo Mall, Stanford, CA 94305, USA}
+\author[Sheldon et al.]{Erin S. Sheldon$^1$, et al.\\
+$^1$Brookhaven National Laboratory, Bldg 510, Upton, New York 11973}
+%\author[Sheldon et al.]{Erin S. Sheldon$^1$, Matthew R. Becker$^2$ \\
+%$^1$Brookhaven National Laboratory, Bldg 510, Upton, New York 11973\\
+%$^2$Department of Physics, Stanford University, 382 Via Pueblo Mall, Stanford, CA 94305, USA}
 
 
 \begin{document}
@@ -518,7 +525,7 @@ to derive corrections for these biases.
 We used a maximum likelihood fit, with smooth priors on all parameters to
 produce a stable fit; for most simulations we had not a single failure. The
 failures occurred when using the \detrend\ method, which included no correction
-for correlated noise during the fitting process itself, which seems to havew
+for correlated noise during the fitting process itself, which seems to have
 destabilized a small number of the fits.  Even so, the failure rates for the
 \detrend\ method was about 0.003\%.  These priors were not tuned to the true
 galaxy parameters.  For the flux and size we deliberately used priors that were
@@ -544,7 +551,26 @@ simulation.
 \label{fig:detrend}
 \end{figure}
 
+\subsection{\mcal\ Responses}
+
 \subsection{Shear Recovery}
+
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.45]{mcal-v14s01-v14s02-compare-R.eps}
+
+    \caption{Distribution of \mcal\ responses for the real galaxy
+    simulation, with and without the ``\fixnoise'' corrections
+    for correlated noise.  For the \fixnoise\ correction, we
+    added a convolved, sheared noise field designed to statistically
+    cancel the effects of correlated noise.  The extra noise
+    broadens the distribution but also results in a more symmetric
+    distribution.  The top panels represent the multiplicative
+    response \mcalR\ and the bottom panels represent the PSF response \mcalRpsf.} 
+
+\label{fig:Rdist}
+\end{figure}
+
 
 In table \ref{tab:results} we show for shear recovery in our simulations, with
 and without applying correlated noise corrections.  Without correction, the
