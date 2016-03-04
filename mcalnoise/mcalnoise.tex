@@ -532,6 +532,27 @@ galaxy parameters.  For the flux and size we deliberately used priors that were
 wider than truth by 20\%.  For the ellipticity we used $\sigma=0.3$ instead of
 the true $\sigma=0.2$.
 
+\subsection{\mcal\ Responses}
+
+R skewness -1.26 no fixnoise,  -0.30 with fixnoise
+
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.45]{mcal-v14s01-v14s02-compare-R.eps}
+
+    \caption{Distribution of \mcal\ responses for the real galaxy
+    simulation, with and without the ``\fixnoise'' corrections
+    for correlated noise.  For the \fixnoise\ correction, we
+    added a convolved, sheared noise field designed to statistically
+    cancel the effects of correlated noise.  The extra noise
+    broadens the distribution, but the correction results in a more symmetric
+    distribution.  The top panels represent the multiplicative
+    response \mcalR\ and the bottom panels represent the PSF response \mcalRpsf.} 
+
+\label{fig:Rdist}
+\end{figure}
+
+
 \subsection{Measurements of the \detrend\ Parameters}
 
 For the \detrend\ method, we measured $\Delta R$ vs $2 n \Delta n$ to find the
@@ -551,25 +572,8 @@ simulation.
 \label{fig:detrend}
 \end{figure}
 
-\subsection{\mcal\ Responses}
 
 \subsection{Shear Recovery}
-
-\begin{figure}
-    \centering
-    \includegraphics[scale=0.45]{mcal-v14s01-v14s02-compare-R.eps}
-
-    \caption{Distribution of \mcal\ responses for the real galaxy
-    simulation, with and without the ``\fixnoise'' corrections
-    for correlated noise.  For the \fixnoise\ correction, we
-    added a convolved, sheared noise field designed to statistically
-    cancel the effects of correlated noise.  The extra noise
-    broadens the distribution but also results in a more symmetric
-    distribution.  The top panels represent the multiplicative
-    response \mcalR\ and the bottom panels represent the PSF response \mcalRpsf.} 
-
-\label{fig:Rdist}
-\end{figure}
 
 
 In table \ref{tab:results} we show for shear recovery in our simulations, with
