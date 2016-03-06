@@ -60,10 +60,12 @@
 \newcommand{\nsimNstar}{$10^7$}
 \newcommand{\nsimNstarperc}{10\%}
 
-\newcommand{\psfdist}{$(0.0,0.7) \pm 1.8$}
-\newcommand{\rpsfdist}{$(0.0,0.0) \pm 1.8$}
-%\newcommand{\psfdist}{$(0.0 \pm 1.8,0.7 \pm 1.8)$}
-%\newcommand{\rpsfdist}{$(0.0 \pm 1.8,0.0 \pm 1.8)$}
+%\newcommand{\psfedist}{$(0.0,0.7) \pm 1.8$}
+\newcommand{\psfeonedist}{$0.000  \pm 0.018$}
+\newcommand{\psfetwodist}{$0.007 \pm 0.018$}
+
+%\newcommand{\psfrdist}{log-normal $(3.66 \pm 0.38)$}
+\newcommand{\psfrdist}{$3.66 \pm 0.38$}
 
 \newcommand{\detrend}{de-trending}
 \newcommand{\Detrend}{De-trending}
@@ -254,11 +256,11 @@ explore a simple empirical correction in the following section.
 With guidance from the GALSIM developers, we attempted to use the GALSIM noise
 isotropization and whitening functionality to correct the correlated noise.
 Isotropization enforces four fold symmetry, introducing minimal extra noise,
-and whitening completely whitens the image, introducing significant extra
+while whitening completely whitens the image, introducing significant extra
 noise.  However, neither of these methods improved the shear recovery in our
 simulations.  It may be that some aspects of the \mcal\ procedure invalidate
-the assumptions these correction methods.  In \S \ref{sec:fixnoise} we explore a
-simpler approach to correcting the noise.
+the assumptions behind these correction methods.  In \S \ref{sec:fixnoise} we
+explore a simpler approach to correcting the noise.
 
 \subsection{Adding a Canceling Correlated Random Noise Field} \label{sec:fixnoise}
 
@@ -488,24 +490,29 @@ size.
 
 \begin{table*}
     \centering
-    \caption{Description of the image simulations.  The Bulge and Disk
-        had the same ellipticity and \hlr, but were
-        offset uniformly up to \hlr, in a random direction. The ``BDStar''
-    simulation shared the same galaxy images with the ``BD'' simulation, but with additional star
-images included.  The ``Mask'' simulation had masking for bad columns, bad pixels, and
-neighbor galaxies drawn from DES imaging.  The PSF had \hlr=1.5 pixels, and the ellipticity was drawn from a 
-double Gaussian with the specified mean and width in each dimension.  
-For more details of these simulations, see \S \ref{sec:sims}.  \label{tab:sims}}
-    \begin{tabular}{ | l | c | c | c | c | c | c | }
-        Sim          & Galaxy Model & PSF Model & PSF Shape$\times 10^2$ & \# Galaxies & \# Stars    & Masking   \\
+    \caption{Description of the image simulations.  For the ``BD'' simulations,
+        the Bulge and Disk had the same ellipticity and \hlr, but were offset
+        uniformly up to \hlr, in a random direction.  The PSF ellipticity was
+        drawn from a double Gaussian with the specified mean and width in each
+        dimension.  The PSF \hlr\ was drawn from a log-normal distribution with
+        the indicated mean and scatter.  The ``BDStar'' simulation shared the
+        same galaxy images with the ``BD'' simulation, but with additional star
+        images included.  The ``BDMask'' simulation had masking for bad columns,
+        bad pixels, and neighbor galaxies drawn from DES imaging. For the RG
+        simulation, an atmospheric PSF of the given size was used,
+        with additonal variations from the optics \label{tab:sims}}
+    \begin{tabular}{ | l | c | c | c | c | c | c | c | c |}
+        Sim          & Galaxy Model & PSF Model & PSF \hlr & PSF $e_1$      & PSF $e_2$           & \# Galaxies & \# Stars    & Masking   \\
+                     &              &           & (pixels)  &                &                     &             &             &  \\
         \hline
-        BD           & Bulge+Disk   & Moffat    & \rpsfdist     &  \nsimNgal   & None        & None      \\
-        BDStar       & Bulge+Disk   & Moffat    & \rpsfdist     &  \nsimNgal   & \nsimNstar  & None      \\
-        BDEllip      & Bulge+Disk   & Moffat    & \psfdist  &  \nsimNgaltwo   & None        & None      \\
-        BDEllipMask  & Bulge+Disk   & Moffat    & \psfdist  &  \nsimNgaltwo   & None        & DES       \\
-        %BDMask2    & Bulge+Disk   & Moffat    & \psfdist  &  \nsimNgal   & None        & DES       \\
-        %BDMaskStar & Bulge+Disk   & Moffat    & \psfdist  &  \nsimNgal   & \nsimNstar  & DES      \\
-        RG           & COSMOS      & DES Optical & Optical Variations &  \nsimNgal   & None        & None      \\
+        BD           & Bulge+Disk   & Moffat    & \psfrdist & \psfeonedist  &\psfetwodist   &  \nsimNgaltwo   & None        & None      \\
+        %BDOLD           & Bulge+Disk   & Moffat    & \rpsfedist     &  \nsimNgal   & None        & None      \\
+        %BDOLDStar       & Bulge+Disk   & Moffat    & \rpsfedist     &  \nsimNgal   & \nsimNstar  & None      \\
+        %BDOLDEllip      & Bulge+Disk   & Moffat    & \psfedist  &  \nsimNgaltwo   & None        & None      \\
+        %BDOLDEllipMask  & Bulge+Disk   & Moffat    & \psfedist  &  \nsimNgaltwo   & None        & DES       \\
+        %BDMask2    & Bulge+Disk   & Moffat    & \psfedist  &  \nsimNgal   & None        & DES       \\
+        %BDMaskStar & Bulge+Disk   & Moffat    & \psfedist  &  \nsimNgal   & \nsimNstar  & DES      \\
+        RG           & COSMOS      & DES Optical & 3.40 + Optical  & Optical  & Optical  &  \nsimNgal   & None        & None      \\
     \end{tabular}
 \end{table*}
 
@@ -583,34 +590,34 @@ with a net PSF anisotropy, we also found a significant remaining additive bias.
 
 \begin{table*}
     \centering
-    \caption{\Mcal\ results for each image simulation.  Complex galaxy models
-        and non-Gaussian PSFs were used in each simulation.  Significant
-        portions of the images were masked.  A single Gaussian was used
+    \caption{\Mcal\ results for each image simulation described in
+        \S \ref{sec:sims} and table \ref{tab:sims}.  A single Gaussian was used
     to fit both galaxy and PSF, resulting in significant multiplicative 
-    bias $m$ and additive biases $c$.  Results with and without correction
-    for correlated noise are shown.  \Mcal, with corrections for correlated noise,
-    reduces multiplicative bias to $\lesssim 10^{-3}$, and reduces the additive
-    bias by a factor of five.  
+    bias $m$ and additive biases $c$ before applying the \mcal\ response
+    terms. Results with and without correction
+    for correlated noise are shown.  After applying corrections for
+    correlated noise, the biases are all reduced to within accepable limits.
     Stellar contamination at the level of \nsimNstarperc\ increases
     the noise in the recovered shear by $\sim$5\% but does not introduce 
     a significant bias.  
     Our simple scheme to correct for masking is to
-    replace the masked pixels with the value of the Gaussian model, which is generally
-    a poor fit.  Our results suggest this method may bias the recovered shear low.
-    For BDMask2 a double Gaussian PSF model was used, which we may expect reduce any biases, but
-    more statistics are needed to detect improvement.
+    replace the masked pixels with the value of the Gaussian model.  XXX Describe
+    result here.
     \label{tab:results}}
-    \begin{tabular}{ |l|  r|r|r| |c|  r|r|r|}
+    \begin{tabular}{ |l|  c|c|c|  c|c|c|}
         \hline
-        & & \multicolumn{3}{c}{Uncorrected} & \multicolumn{3}{c}{Corrected} \\
-        Sim         & $m$             & $c_1 \times 10^4$ & $c_2 \times 10^4$ & method   & $m \times 10^{3}$ & $c_1 \times 10^4$ & $c_2 \times 10^4$ \\
+        & \multicolumn{3}{c}{Uncorrected} & \multicolumn{3}{c}{Corrected} \\
+        %Sim         & $m$             & $c_1 \times 10^4$ & $c_2 \times 10^4$ & $m \times 10^{3}$ & $c_1 \times 10^4$ & $c_2 \times 10^4$ \\
+        Sim         & $m$             & $c_1$             & $c_2$            & $m$             & $c_1$         & $c_2$ \\
+                    &                 & $[10^{-4}]$       & $[10^{-4}]$      & $[10^{-3}]$     & $[10^{-4}]$   & $[10^{-4}]$ \\
         \hline
-        BD          & $0.10 \pm 0.00$ & $-0.3 \pm 0.2$    & $0.2 \pm 0.2$     & detrend  & $ 0.5 \pm 0.4$    & $-0.3 \pm 0.2$    & $0.2 \pm 0.2$  \\
-        BDStar      & $0.12 \pm 0.00$ & $-0.3 \pm 0.3$    & $0.3 \pm 0.3$     & detrend  & $ 0.5 \pm 0.5$    & $-0.2 \pm 0.2$    & $0.2 \pm 0.2$  \\
-        BDEllip     & $0.10 \pm 0.00$ & $0.0 \pm 0.3$     & $-5.6 \pm 0.3$    & detrend  & $-0.2 \pm 0.3$    & $0.2 \pm 0.2$     & $1.1 \pm 0.2$  \\
-        BDEllipMask & $0.10 \pm 0.00$ & $0.0 \pm 0.3$     & $-5.6 \pm 0.3$    & detrend  & $-0.5 \pm 0.3$    & $0.0 \pm 0.2$     & $1.0 \pm 0.2$  \\
-        RG          & $0.12 \pm 0.00$ & $-0.3 \pm 0.3$    & $0.0 \pm 0.3$     & detrend  & $-1.6 \pm 0.5$    & $-0.3 \pm 0.3$    & $0.1 \pm 0.3$  \\
-        RG          & $0.12 \pm 0.00$ & $-0.3 \pm 0.3$    & $0.0 \pm 0.3$     & fixnoise & $0.5 \pm 0.6$     & $-0.4 \pm 0.3$    & $0.6 \pm 0.3$ \\
+        BD          & $0.10 \pm 0.00$ & $-0.3 \pm 0.2$    & $-5.6 \pm 0.2$   & $ -0.4 \pm 0.5$ & $+0.0 \pm 0.2$ & $+1.0 \pm 0.2$  \\
+        %BDOLD          & $0.10 \pm 0.00$ & $-0.3 \pm 0.2$    & $0.2 \pm 0.2$  & detrend  & $ 0.5 \pm 0.4$    & $-0.3 \pm 0.2$    & $0.2 \pm 0.2$  \\
+        %BDOLDStar      & $0.12 \pm 0.00$ & $-0.3 \pm 0.3$    & $0.3 \pm 0.3$  & detrend  & $ 0.5 \pm 0.5$    & $-0.2 \pm 0.2$    & $0.2 \pm 0.2$  \\
+        %BDEllip     & $0.10 \pm 0.00$ & $0.0 \pm 0.3$     & $-5.6 \pm 0.3$    & detrend  & $-0.2 \pm 0.3$    & $0.2 \pm 0.2$     & $1.1 \pm 0.2$  \\
+        %BDEllipMask & $0.10 \pm 0.00$ & $0.0 \pm 0.3$     & $-5.6 \pm 0.3$    & detrend  & $-0.5 \pm 0.3$    & $0.0 \pm 0.2$     & $1.0 \pm 0.2$  \\
+        %RG          & $0.12 \pm 0.00$ & $-0.3 \pm 0.3$    & $0.0 \pm 0.3$     & detrend  & $-1.6 \pm 0.5$    & $-0.3 \pm 0.3$    & $0.1 \pm 0.3$  \\
+        RG          & $0.12 \pm 0.00$ & $-0.3 \pm 0.3$    & $+0.0 \pm 0.3$     & $+0.5 \pm 0.6$     & $-0.4 \pm 0.3$    & $+0.6 \pm 0.3$ \\
     \end{tabular}
 \end{table*}
 
