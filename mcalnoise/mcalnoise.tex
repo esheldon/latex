@@ -56,8 +56,9 @@
 
 
 \newcommand{\nsimNgal}{$10^8$}
-\newcommand{\nsimNgaltwo}{$2 \times 10^8$}
-\newcommand{\nsimNstar}{$10^7$}
+\newcommand{\nsimNgalTwo}{$2 \times 10^8$}
+\newcommand{\nsimNStar}{$10^7$}
+\newcommand{\nsimNStarTwo}{$2 \times 10^7$}
 \newcommand{\nsimNstarperc}{10\%}
 
 %\newcommand{\psfedist}{$(0.0,0.7) \pm 1.8$}
@@ -66,6 +67,8 @@
 
 %\newcommand{\psfrdist}{log-normal $(3.66 \pm 0.38)$}
 \newcommand{\psfrdist}{$3.66 \pm 0.38$}
+
+\newcommand{\galrdist}{$1.54 \pm 1.00$}
 
 \newcommand{\detrend}{de-trending}
 \newcommand{\Detrend}{De-trending}
@@ -492,27 +495,32 @@ size.
     \centering
     \caption{Description of the image simulations.  For the ``BD'' simulations,
         the Bulge and Disk had the same ellipticity and \hlr, but were offset
-        uniformly up to \hlr, in a random direction.  The PSF ellipticity was
+        uniformly up to \hlr, in a random direction.  The galaxy \hlr\ was drawn
+        from a log-normal distribution with the specified mean and width, designed
+        to roughly match the COSMOS galaxies.  The PSF ellipticity was
         drawn from a double Gaussian with the specified mean and width in each
         dimension.  The PSF \hlr\ was drawn from a log-normal distribution with
         the indicated mean and scatter.  The ``BDStar'' simulation shared the
         same galaxy images with the ``BD'' simulation, but with additional star
         images included.  The ``BDMask'' simulation had masking for bad columns,
         bad pixels, and neighbor galaxies drawn from DES imaging. For the RG
-        simulation, an atmospheric PSF of the given size was used,
+        simulation, real COSMOS images were used for the galaxies. For
+        the PSF, a  Kolmogorov atmospheric turbulence model was used,
+        with the indicated size,
         with additonal variations from the optics \label{tab:sims}}
-    \begin{tabular}{ | l | c | c | c | c | c | c | c | c |}
-        Sim          & Galaxy Model & PSF Model & PSF \hlr & PSF $e_1$      & PSF $e_2$           & \# Galaxies & \# Stars    & Masking   \\
-                     &              &           & (pixels)  &                &                     &             &             &  \\
+    \begin{tabular}{ | l | c | c | c | c | c | c | c | c | c |}
+        Sim          & Galaxy Model & Galaxy \hlr & PSF Model & PSF FWHM & PSF $e_1$      & PSF $e_2$           & \# Galaxies & \# Stars    & Masking   \\
+                     &              & [pixels]    &           & [pixels]  &                &                     &             &             &  \\
         \hline
-        BD           & Bulge+Disk   & Moffat    & \psfrdist & \psfeonedist  &\psfetwodist   &  \nsimNgaltwo   & None        & None      \\
+        BD           & Bulge+Disk   & \galrdist   & Moffat    & \psfrdist & \psfeonedist  &\psfetwodist   &  \nsimNgalTwo   & None          & None      \\
+        BDStar       & Bulge+Disk   & \galrdist   & Moffat    & \psfrdist & \psfeonedist  &\psfetwodist   &  \nsimNgalTwo   & \nsimNStarTwo & None      \\
+        BDMask       & Bulge+Disk   & \galrdist   & Moffat    & \psfrdist & \psfeonedist  &\psfetwodist   &  \nsimNgalTwo   & None          & DES      \\
         %BDOLD           & Bulge+Disk   & Moffat    & \rpsfedist     &  \nsimNgal   & None        & None      \\
-        %BDOLDStar       & Bulge+Disk   & Moffat    & \rpsfedist     &  \nsimNgal   & \nsimNstar  & None      \\
-        %BDOLDEllip      & Bulge+Disk   & Moffat    & \psfedist  &  \nsimNgaltwo   & None        & None      \\
-        %BDOLDEllipMask  & Bulge+Disk   & Moffat    & \psfedist  &  \nsimNgaltwo   & None        & DES       \\
-        %BDMask2    & Bulge+Disk   & Moffat    & \psfedist  &  \nsimNgal   & None        & DES       \\
-        %BDMaskStar & Bulge+Disk   & Moffat    & \psfedist  &  \nsimNgal   & \nsimNstar  & DES      \\
-        RG           & COSMOS      & DES Optical & 3.40 + Optical  & Optical  & Optical  &  \nsimNgal   & None        & None      \\
+        %BDOLDStar       & Bulge+Disk   & Moffat    & \rpsfedist     &  \nsimNgal   & \nsimNStar  & None      \\
+        %BDOLDEllip      & Bulge+Disk   & Moffat    & \psfedist  &  \nsimNgalTwo   & None        & None      \\
+        %BDOLDEllipMask  & Bulge+Disk   & Moffat    & \psfedist  &  \nsimNgalTwo   & None        & DES       \\
+        %BDMaskStar & Bulge+Disk   & Moffat    & \psfedist  &  \nsimNgal   & \nsimNStar  & DES      \\
+        RG           & COSMOS      & COSMOS       & Kolm./Optical & 3.40 + Optical  & Optical  & Optical  &  \nsimNgal   & None        & None      \\
     \end{tabular}
 \end{table*}
 
@@ -606,7 +614,7 @@ with a net PSF anisotropy, we also found a significant remaining additive bias.
     \label{tab:results}}
     \begin{tabular}{ |l|  c|c|c|  c|c|c|}
         \hline
-        & \multicolumn{3}{c}{Uncorrected} & \multicolumn{3}{c}{Corrected} \\
+        & \multicolumn{3}{c}{\Mcal\ Uncorrected} & \multicolumn{3}{c}{\Mcal\ Corrected} \\
         %Sim         & $m$             & $c_1 \times 10^4$ & $c_2 \times 10^4$ & $m \times 10^{3}$ & $c_1 \times 10^4$ & $c_2 \times 10^4$ \\
         Sim         & $m$             & $c_1$             & $c_2$            & $m$             & $c_1$         & $c_2$ \\
                     &                 & $[10^{-4}]$       & $[10^{-4}]$      & $[10^{-3}]$     & $[10^{-4}]$   & $[10^{-4}]$ \\
@@ -634,7 +642,7 @@ correlated noise corrections.
 \subsection{Stellar Contamination} \label{sec:stars}
 
 As indicated in table \ref{tab:sims}, for the ``Star'' type simulations, we
-included an additional \nsimNstar\ stellar objects, drawn simply as a PSF with
+included an additional \nsimNStarTwo\ stellar objects, drawn simply as a PSF with
 noise added.  The results are shown in table \ref{tab:results} for the ``Star''
 type simulations.  We find that a stellar contamination of 
 \nsimNstarperc\ does not introduce any significant bias, but does
