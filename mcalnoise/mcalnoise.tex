@@ -70,6 +70,8 @@
 
 \newcommand{\galrdist}{$1.54 \pm 1.00$}
 
+\newcommand{\cosmosname}{COSMOS 23.5}
+
 \newcommand{\detrend}{de-trending}
 \newcommand{\Detrend}{De-trending}
 
@@ -499,15 +501,16 @@ size.
         from a log-normal distribution with the specified mean and width, designed
         to roughly match the COSMOS galaxies.  The PSF ellipticity was
         drawn from a double Gaussian with the specified mean and width in each
-        dimension.  The PSF \hlr\ was drawn from a log-normal distribution with
-        the indicated mean and scatter.  The ``BDStar'' simulation shared the
+        dimension.  The PSF FWHM was drawn from a log-normal distribution with
+        the indicated mean and scatter, designed to roughly match
+        that in DES data.  The ``BDStar'' simulation shared the
         same galaxy images with the ``BD'' simulation, but with additional star
         images included.  The ``BDMask'' simulation had masking for bad columns,
         bad pixels, and neighbor galaxies drawn from DES imaging. For the RG
         simulation, real COSMOS images were used for the galaxies. For
         the PSF, a  Kolmogorov atmospheric turbulence model was used,
         with the indicated size,
-        with additonal variations from the optics \label{tab:sims}}
+        plus contributions from an optical model matched to DES. \label{tab:sims}}
     \begin{tabular}{ | l | c | c | c | c | c | c | c | c | c |}
         Sim          & Galaxy Model & Galaxy \hlr & PSF Model & PSF FWHM & PSF $e_1$      & PSF $e_2$           & \# Galaxies & \# Stars    & Masking   \\
                      &              & [pixels]    &           & [pixels]  &                &                     &             &             &  \\
@@ -520,7 +523,7 @@ size.
         %BDOLDEllip      & Bulge+Disk   & Moffat    & \psfedist  &  \nsimNgalTwo   & None        & None      \\
         %BDOLDEllipMask  & Bulge+Disk   & Moffat    & \psfedist  &  \nsimNgalTwo   & None        & DES       \\
         %BDMaskStar & Bulge+Disk   & Moffat    & \psfedist  &  \nsimNgal   & \nsimNStar  & DES      \\
-        RG           & COSMOS      & COSMOS       & Kolm./Optical & 3.40 + Optical  & Optical  & Optical  &  \nsimNgal   & None        & None      \\
+        RG           & \cosmosname & \cosmosname & Kolm. + Optical & 3.40 + Optical  & Optical  & Optical  &  \nsimNgal   & None        & None      \\
     \end{tabular}
 \end{table*}
 
@@ -599,8 +602,8 @@ with a net PSF anisotropy, we also found a significant remaining additive bias.
 \begin{table*}
     \centering
     \caption{\Mcal\ results for each image simulation described in
-        \S \ref{sec:sims} and table \ref{tab:sims}.  A single Gaussian was used
-    to fit both galaxy and PSF, resulting in significant multiplicative 
+        \S \ref{sec:sims} and table \ref{tab:sims}.  A single Gaussian was fit
+    to both galaxy and PSF, resulting in significant multiplicative 
     bias $m$ and additive biases $c$ before applying the \mcal\ response
     terms. Results with and without correction
     for correlated noise are shown.  After applying corrections for
@@ -612,20 +615,19 @@ with a net PSF anisotropy, we also found a significant remaining additive bias.
     replace the masked pixels with the value of the Gaussian model.  XXX Describe
     result here.
     \label{tab:results}}
-    \begin{tabular}{ |l|  c|c|c|  c|c|c|}
+    \begin{tabular}{ |l|  c|c|c|  c|c|c|  c|c|c|}
         \hline
-        & \multicolumn{3}{c}{\Mcal\ Uncorrected} & \multicolumn{3}{c}{\Mcal\ Corrected} \\
-        %Sim         & $m$             & $c_1 \times 10^4$ & $c_2 \times 10^4$ & $m \times 10^{3}$ & $c_1 \times 10^4$ & $c_2 \times 10^4$ \\
-        Sim         & $m$             & $c_1$             & $c_2$            & $m$             & $c_1$         & $c_2$ \\
-                    &                 & $[10^{-4}]$       & $[10^{-4}]$      & $[10^{-3}]$     & $[10^{-4}]$   & $[10^{-4}]$ \\
+        & \multicolumn{3}{c}{Maximum Likelihood} & \multicolumn{3}{c}{\Mcal\ Uncorrected} & \multicolumn{3}{c}{\Mcal\ Corrected} \\
+        Sim  & $m$             & $c_1$         & $c_2$         & $m$             & $c_1$          & $c_2$          & $m$            & $c_1$           & $c_2$ \\
+             &                 & $[10^{-4}]$   & $[10^{-4}]$   &                 & $[10^{-4}]$    & $[10^{-4}]$    & $[10^{-3}]$    & $[10^{-4}]$     & $[10^{-4}]$ \\
         \hline
-        BD          & $0.10 \pm 0.00$ & $-0.3 \pm 0.2$    & $-5.6 \pm 0.2$   & $ -0.4 \pm 0.5$ & $+0.0 \pm 0.2$ & $+1.0 \pm 0.2$  \\
+        BD   & $XXX \pm XXX$   & $XXX \pm XXX$ & $XXX \pm XXX$ & $0.10 \pm 0.00$ & $-0.3 \pm 0.2$ & $-5.6 \pm 0.2$ & $-0.4 \pm 0.5$  & $+0.0 \pm 0.2$ & $+1.0 \pm 0.2$  \\
+        RG   & $XXX \pm XXX$   & $XXX \pm XXX$ & $XXX \pm XXX$ & $0.12 \pm 0.00$ & $-0.3 \pm 0.3$ & $+0.0 \pm 0.3$ & $+0.5 \pm 0.6$  & $-0.4 \pm 0.3$ & $+0.6 \pm 0.3$ \\
         %BDOLD          & $0.10 \pm 0.00$ & $-0.3 \pm 0.2$    & $0.2 \pm 0.2$  & detrend  & $ 0.5 \pm 0.4$    & $-0.3 \pm 0.2$    & $0.2 \pm 0.2$  \\
         %BDOLDStar      & $0.12 \pm 0.00$ & $-0.3 \pm 0.3$    & $0.3 \pm 0.3$  & detrend  & $ 0.5 \pm 0.5$    & $-0.2 \pm 0.2$    & $0.2 \pm 0.2$  \\
         %BDEllip     & $0.10 \pm 0.00$ & $0.0 \pm 0.3$     & $-5.6 \pm 0.3$    & detrend  & $-0.2 \pm 0.3$    & $0.2 \pm 0.2$     & $1.1 \pm 0.2$  \\
         %BDEllipMask & $0.10 \pm 0.00$ & $0.0 \pm 0.3$     & $-5.6 \pm 0.3$    & detrend  & $-0.5 \pm 0.3$    & $0.0 \pm 0.2$     & $1.0 \pm 0.2$  \\
         %RG          & $0.12 \pm 0.00$ & $-0.3 \pm 0.3$    & $0.0 \pm 0.3$     & detrend  & $-1.6 \pm 0.5$    & $-0.3 \pm 0.3$    & $0.1 \pm 0.3$  \\
-        RG          & $0.12 \pm 0.00$ & $-0.3 \pm 0.3$    & $+0.0 \pm 0.3$     & $+0.5 \pm 0.6$     & $-0.4 \pm 0.3$    & $+0.6 \pm 0.3$ \\
     \end{tabular}
 \end{table*}
 
