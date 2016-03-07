@@ -359,40 +359,44 @@
     \end{itemize}
 }
 
+
+
 \frame
 {
-    \frametitle{Performance on Simulations}
+    \frametitle{Performance on Parametric Simulations}
 
     \setbeamerfont*{itemize/enumerate body}{size=\large}
     \setbeamerfont*{itemize/enumerate subbody}{parent=itemize/enumerate body}
     \setbeamerfont*{itemize/enumerate subsubbody}{parent=itemize/enumerate body}
  
     \begin{itemize}
-            
-            
-         \item Model the bias as a multiplicative and an additive part
-        {\color{lightskyblue} 
-            \begin{equation}
-                \gamma = (1 + m ) \times \gamma_{true} + c \nonumber
-            \end{equation}
-        }
 
+        \item Model the bias as a multiplicative and an additive part
+            {\color{lightskyblue} 
+                \begin{equation}
+                    \gamma = (1 + m ) \times \gamma_{true} + c \nonumber
+                \end{equation}
+            }
 
-         \item COSMOS simulations
+        \item Without \mcal\ we get {\color{brightred} $m = -0.5$!}
 
-        {\color{gold} 
-            \begin{eqnarray}
-                m & = & (+0.5 \pm 0.6) \times 10^{-3} \nonumber \\
-              c_1 & = & (-0.4 \pm 0.3) \times 10^{-4} \nonumber \\
-              c_2 & = & (+0.6 \pm 0.3) \times 10^{-4} \nonumber
-            \end{eqnarray}
-        }
-         \item No detected bias at the level required for LSST.
+        \item Using \mcal:
+
+            {\color{gold} 
+                \begin{eqnarray}
+                    m & = & (-0.4 \pm 0.5) \times 10^{-3} \nonumber \\
+                  c_1 & = & (+0.0 \pm 0.2) \times 10^{-4} \nonumber \\
+                  c_2 & = & (+0.9 \pm 0.2) \times 10^{-4} \nonumber
+                \end{eqnarray}
+            }
+
+        \item No detected multiplicative bias.
+        \item Some remaining PSF leakage, below LSST requirements.  \mcal\
+            reduced this by a factor of 5!
 
     \end{itemize}
 
 }
-
 
 \frame
 {
@@ -411,34 +415,6 @@
 }
 
 
-
-\frame
-{
-    \frametitle{Performance on Simulations}
-
-    \setbeamerfont*{itemize/enumerate body}{size=\large}
-    \setbeamerfont*{itemize/enumerate subbody}{parent=itemize/enumerate body}
-    \setbeamerfont*{itemize/enumerate subsubbody}{parent=itemize/enumerate body}
- 
-    \begin{itemize}
-            
-
-         \item Parametric simulations
-             {\color{gold} 
-                 \begin{eqnarray}
-                     m & = & (-0.4 \pm 0.5) \times 10^{-3} \nonumber \\
-                   c_1 & = & (+0.0 \pm 0.2) \times 10^{-4} \nonumber \\
-                   c_2 & = & (+0.9 \pm 0.2) \times 10^{-4} \nonumber
-                 \end{eqnarray}
-             }
-
-         \item No detected multiplicative bias.
-         \item Some remaining PSF leakage, below LSST requirements.  \mcal\
-             reduced this by a factor of 5!
-
-    \end{itemize}
-
-}
 
 \frame
 {
@@ -504,6 +480,34 @@
 
          \item FFTs not biased by replacing masked pixels with model
 
+    \end{itemize}
+
+}
+
+\frame
+{
+    \frametitle{Performance on Simulations: COSMOS Sims}
+
+    \setbeamerfont*{itemize/enumerate body}{size=\large}
+    \setbeamerfont*{itemize/enumerate subbody}{parent=itemize/enumerate body}
+    \setbeamerfont*{itemize/enumerate subsubbody}{parent=itemize/enumerate body}
+ 
+    \begin{itemize}
+            
+            
+
+         \item COSMOS simulations
+
+
+         \item With \mcal:
+        {\color{gold} 
+            \begin{eqnarray}
+                m & = & (+0.5 \pm 0.6) \times 10^{-3} \nonumber \\
+              c_1 & = & (-0.4 \pm 0.3) \times 10^{-4} \nonumber \\
+              c_2 & = & (+0.6 \pm 0.3) \times 10^{-4} \nonumber
+            \end{eqnarray}
+        }
+         \item No detected bias at the level required for LSST.
     \end{itemize}
 
 }
