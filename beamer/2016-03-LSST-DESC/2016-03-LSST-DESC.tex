@@ -1,0 +1,471 @@
+\documentclass{beamer}
+
+\usepackage{beamerthemesplit}
+\usepackage{verbatim}
+
+\usepackage{xcolor}
+
+\definecolor{gold}{rgb}{1.,0.84,0.}
+\definecolor{brightred}{rgb}{1.,0.4,0.4}
+\definecolor{mygray}{RGB}{200,200,200}
+\definecolor{lightsteelblue}{RGB}{176,196,222}
+\definecolor{lightskyblue}{RGB}{135,206,250}
+\definecolor{cadetblue}{RGB}{95,158,160}
+
+\usetheme{default}
+\usecolortheme{mule}
+
+\usefonttheme{serif}
+
+%\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+
+
+\newcommand{\mcal}{metacalibration}
+\newcommand{\Mcal}{Metacalibration}
+
+\newcommand{\prelim}{{\bf{\it Preliminary}}}
+
+
+
+\title{Metacalibration for Weak Lensing Shear Measurement}
+\author{Erin Sheldon}
+\institute{Brookhaven National Laboratory}
+
+% http://texblog.net/latex-archive/plaintex/beamer-footline-frame-number/
+% to add the page (frame ) number and not screw up the bottom line
+% works for split themes?
+\expandafter\def\expandafter\insertshorttitle\expandafter{%
+      \insertshorttitle\hfill%
+        \insertframenumber\,/\,\inserttotalframenumber}
+
+% suppress navigation bar
+\beamertemplatenavigationsymbolsempty
+\setbeamertemplate{footline}{}
+
+\begin{document}
+
+\frame{\titlepage}
+
+
+\setbeamertemplate{background canvas}[vertical shading][bottom=mgray,top=mblack]
+
+\frame
+{
+    \frametitle{Outline}
+
+    \setbeamerfont*{itemize/enumerate body}{size=\Large}
+    \setbeamerfont*{itemize/enumerate subbody}{parent=itemize/enumerate body}
+    \setbeamerfont*{itemize/enumerate subsubbody}{parent=itemize/enumerate body}
+ 
+    \begin{itemize}
+
+        %\item The Primary Goal is to Study Dark Energy
+        \item Metacalibration
+
+        \item Correlated Noise
+
+        \item Correction for Correlated Noise
+
+        \item Performance on Simulations
+
+    \end{itemize}
+
+}
+
+\frame
+{
+    \frametitle{Shear Accuracy Requirements}
+
+    \setbeamerfont*{itemize/enumerate body}{size=\Large}
+    \setbeamerfont*{itemize/enumerate subbody}{parent=itemize/enumerate body}
+    \setbeamerfont*{itemize/enumerate subsubbody}{parent=itemize/enumerate body}
+ 
+    \begin{itemize}
+
+        \item In order to measure the Dark Energy equation of state
+            to the desired accuracy for DES/LSST, we must measure
+            shear with exquisite accuracy.
+
+        \item Shear calibration errors
+            \begin{itemize}
+            
+                \item {\color{lightskyblue} DES}:~ $\Delta \gamma/\gamma \lesssim 0.004$
+                \item {\color{brightred} LSST}: $\Delta \gamma/\gamma \lesssim 0.001$
+
+            \end{itemize}
+
+        \item Additive errors
+            \begin{itemize}
+            
+                \item {\color{lightskyblue} DES}: ~ $\lesssim ? \times 10^{-4}$
+                \item {\color{brightred} LSST}: $\lesssim 2 \times 10^{-4}$
+
+            \end{itemize}
+
+
+    \end{itemize}
+
+}
+
+
+
+\frame
+{
+    \frametitle{Metacalibration Idea from Eric Huff}
+
+    \setbeamerfont*{itemize/enumerate body}{size=\Large}
+    \setbeamerfont*{itemize/enumerate subbody}{parent=itemize/enumerate body}
+    \setbeamerfont*{itemize/enumerate subsubbody}{parent=itemize/enumerate body}
+ 
+    \begin{itemize}
+
+        \item Say we have a biased shear estimator {\color{gold} $E$}.  Then we can write
+            {\color{gold}
+                \begin{eqnarray}
+                    E & = & E(\gamma=0) + \frac{\partial E}{\partial \gamma} \gamma + ... \nonumber \\
+                      & \sim &  \frac{\partial E}{\partial \gamma} \gamma \equiv R \gamma \nonumber 
+                \end{eqnarray}
+            } 
+    \end{itemize}
+}
+
+\frame
+{
+    \frametitle{Metacalibration Idea from Eric Huff}
+
+    \setbeamerfont*{itemize/enumerate body}{size=\large}
+    \setbeamerfont*{itemize/enumerate subbody}{parent=itemize/enumerate body}
+    \setbeamerfont*{itemize/enumerate subsubbody}{parent=itemize/enumerate body}
+
+    \begin{itemize}
+
+        \item Use image manipulation to estimate the derivative of the
+            estimator with respect to shear
+            {\color{gold}
+                \begin{equation}
+                    R = \frac{E(+\Delta\gamma) - E(-\Delta\gamma)}{2 \Delta \gamma} \nonumber 
+                \end{equation}
+            }
+            \begin{itemize}
+                \item Deconvolve the PSF
+                \item Shear the image by a small amount
+                \item Reconvolve by the PSF.  Use a slightly larger PSF to suppress
+                    the noise amplification
+            \end{itemize}
+
+            \item These operations can be done with GALSIM
+            \item Insensitive to applied shear $\gamma$.  {\color{gold} No tunable parameters}
+
+
+    \end{itemize}
+
+}
+
+\frame
+{
+    \frametitle{Metacalibration Idea from Eric Huff}
+
+    \setbeamerfont*{itemize/enumerate body}{size=\Large}
+    \setbeamerfont*{itemize/enumerate subbody}{parent=itemize/enumerate body}
+    \setbeamerfont*{itemize/enumerate subsubbody}{parent=itemize/enumerate body}
+ 
+    \begin{itemize}
+        
+        \item Corrects for {\color{gold} model bias}
+
+        \item Corrects for {\em ordinary} {\color{gold} noise bias}
+
+        \item Works well at {\color{gold} high shear $\gamma \sim 0.08$}.
+
+    \end{itemize}
+
+}
+
+
+
+\frame
+{
+    \frametitle{Correlated Noise}
+
+    \setbeamerfont*{itemize/enumerate body}{size=\large}
+    \setbeamerfont*{itemize/enumerate subbody}{parent=itemize/enumerate body}
+    \setbeamerfont*{itemize/enumerate subsubbody}{parent=itemize/enumerate body}
+ 
+    \begin{itemize}
+
+        \item These convolutions and shears result in {\em {\color{gold} correlated noise}}
+            
+        \begin{itemize}
+            \item After convolution, fluctuations due to noise are no longer
+                independent between pixels
+
+            \item Shearing involves interpolation, so in a similar way fluctuations
+                due to noise are no longer independent
+        \end{itemize}
+
+    \item Effect goes as {\color{gold} square} of the noise (Hirata 2016, in prep)
+
+        \item Results from Huff \& Mandelbaum on GREAT3 affected little, as
+            $S/N \gtrsim 20$ in that sim.
+
+        \item I found bias of order 10\% for galaxies at $S/N \sim 5-10$.
+
+
+
+    \end{itemize}
+
+}
+
+
+%\frame
+%{
+%    \frametitle{Correlated Noise}
+%    \begin{itemize}
+%
+%        \item Approximately cancels from mean estimator
+%            {\color{lightskyblue}
+%                \begin{equation}
+%                    E = \frac{E(+\Delta \gamma) + E(-\Delta\gamma)}{2} \nonumber
+%                \end{equation}
+%            }
+%
+%        \item Does not cancel from the response $R$
+%            {\color{gold}
+%                \begin{equation}
+%                    R = \frac{E(+\Delta\gamma) - E(-\Delta\gamma)}{2 \Delta \gamma} \nonumber 
+%                \end{equation}
+%            }
+%
+%    \end{itemize}
+%
+%}
+
+
+\frame
+{
+    \frametitle{Correction for Correlated Noise}
+
+    \setbeamerfont*{itemize/enumerate body}{size=\large}
+    \setbeamerfont*{itemize/enumerate subbody}{parent=itemize/enumerate body}
+    \setbeamerfont*{itemize/enumerate subsubbody}{parent=itemize/enumerate body}
+ 
+    \begin{itemize}
+
+        \item Best correction involves adding extra noise.
+
+        \item Run the image through the \mcal\ procedure with
+            shear $\gamma$.
+
+        \item Create a Gaussian noise field, run through \mcal\ steps with
+            opposite shear $-\gamma$.
+
+        \item Add the noise image before fitting galaxy model.
+
+    \end{itemize}
+
+}
+
+
+
+%\frame
+%{
+%    \frametitle{Detrending Correction for Correlated Noise}
+
+%    {\color{gold} $\Delta R_{\mathrm{noise}} = A \Delta n^2$ } where $\Delta R$
+%    is {\color{gold} $R (\mathrm{noise~added~before}) - R(\mathrm{noise~added~after})$ }
+
+%    \begin{figure}
+%        \includegraphics[width=0.6\textwidth]{run-bd13mcal-dt01-Rnoise-detrend-neg.png}
+%    \end{figure}
+
+%    Note offset is not zero.  Use 
+%    {\color{lightskyblue} $R_{\mathrm{noise}} = A n^2 - \mathrm{offset}$}
+%}
+
+\frame
+{
+    \frametitle{COSMOS Simulations}
+
+    \setbeamerfont*{itemize/enumerate body}{size=\large}
+    \setbeamerfont*{itemize/enumerate subbody}{parent=itemize/enumerate body}
+    \setbeamerfont*{itemize/enumerate subsubbody}{parent=itemize/enumerate body}
+ 
+    \begin{itemize}
+        \item Similar to {\color{gold} GREAT3 RGC}
+
+        \item COSMOS galaxies sheared and smeared by PSF
+
+        \item Optical model from DES, plus constant Kolmogrov
+        \item {\color{gold} No ring} configuration
+        \item Mode of {\color{gold} $S/N \sim 10$}.
+        \item $10^8$ galaxies
+    \end{itemize}
+
+}
+\frame
+{
+    \frametitle{Parametric Simulations}
+
+    \setbeamerfont*{itemize/enumerate body}{size=\large}
+    \setbeamerfont*{itemize/enumerate subbody}{parent=itemize/enumerate body}
+    \setbeamerfont*{itemize/enumerate subsubbody}{parent=itemize/enumerate body}
+ 
+    \begin{itemize}
+
+        \item {\color{gold} bulge+disk}
+
+        \item half-light radius matched to COSMOS
+
+        \item Large offsets between bulge and disk centers:
+            {\color{gold} not described by an ellipse}.
+
+        \item Moffat PSF with size and shape distribution
+            matched to DES.  PSF $e_2$ Not round on average.
+
+        \item Signal-to-noise ratio distribution matched to real DES
+            data, with {\color{gold} mode $S/N \sim$10}.  Induces ordinary noise
+            bias of order 10\%
+        
+        \item Include 10\% {\color{gold} stars} and realistic pixel
+            {\color{gold} masking} from DES
+
+        \item $2 \times 10^8$ galaxies
+
+
+    \end{itemize}
+
+}
+
+\frame
+{
+    \frametitle{Performance on Simulations}
+
+    \setbeamerfont*{itemize/enumerate body}{size=\large}
+    \setbeamerfont*{itemize/enumerate subbody}{parent=itemize/enumerate body}
+    \setbeamerfont*{itemize/enumerate subsubbody}{parent=itemize/enumerate body}
+ 
+    \begin{itemize}
+        \item Intentionally fit terrible models.
+
+        \item Fit single Gaussian to PSF: large errors in
+            PSF correction without \mcal.
+
+        \item Fit a single gaussian to galaxy.  Without
+            \mcal, results in a large ``model bias'', of order 10\%.
+            
+        \item Low S/N means lots of noise bias.
+
+    \end{itemize}
+}
+
+\frame
+{
+    \frametitle{Performance on Simulations}
+
+    \setbeamerfont*{itemize/enumerate body}{size=\large}
+    \setbeamerfont*{itemize/enumerate subbody}{parent=itemize/enumerate body}
+    \setbeamerfont*{itemize/enumerate subsubbody}{parent=itemize/enumerate body}
+ 
+    \begin{itemize}
+            
+            
+         \item Model the bias as a multiplicative and an additive part
+        {\color{lightskyblue} 
+            \begin{equation}
+                \gamma = (1 + m ) \times \gamma_{true} + c \nonumber
+            \end{equation}
+        }
+
+
+         \item COSMOS simulations
+
+        {\color{gold} 
+            \begin{eqnarray}
+                m & = & (+0.5 \pm 0.6) \times 10^{-3} \nonumber \\
+              c_1 & = & (-0.4 \pm 0.3) \times 10^{-4} \nonumber \\
+              c_2 & = & (+0.6 \pm 0.3) \times 10^{-4} \nonumber
+            \end{eqnarray}
+        }
+         \item No detected bias at the level required for LSST.
+
+    \end{itemize}
+
+}
+
+
+\frame
+{
+    \frametitle{Performance on Simulations}
+
+    \setbeamerfont*{itemize/enumerate body}{size=\large}
+    \setbeamerfont*{itemize/enumerate subbody}{parent=itemize/enumerate body}
+    \setbeamerfont*{itemize/enumerate subsubbody}{parent=itemize/enumerate body}
+ 
+    \begin{itemize}
+            
+
+         \item Parametric simulations
+             {\color{gold} 
+                 \begin{eqnarray}
+                     m & = & (-0.4 \pm 0.5) \times 10^{-3} \nonumber \\
+                   c_1 & = & (+0.0 \pm 0.2) \times 10^{-4} \nonumber \\
+                   c_2 & = & (+1.0 \pm 0.2) \times 10^{-4} \nonumber
+                 \end{eqnarray}
+             }
+
+         \item No detected multiplicative bias.
+         \item Some remaining PSF leakage, below LSST requirements.  \mcal
+             reduced this by a factor of 5!
+
+    \end{itemize}
+
+}
+
+\frame
+{
+    \frametitle{Future Work}
+
+    \setbeamerfont*{itemize/enumerate body}{size=\large}
+    \setbeamerfont*{itemize/enumerate subbody}{parent=itemize/enumerate body}
+    \setbeamerfont*{itemize/enumerate subsubbody}{parent=itemize/enumerate body}
+ 
+    \begin{itemize}
+            
+
+         \item Selection Effects:
+             \begin{itemize}
+                 \item Detection effects:  Requires prior information.
+                 \item Ordinary selections.  
+             \end{itemize}
+
+         \item Variable shear inference
+
+    \end{itemize}
+
+}
+
+
+
+\frame
+{
+    \frametitle{Summary}
+
+    \setbeamerfont*{itemize/enumerate body}{size=\large}
+    \setbeamerfont*{itemize/enumerate subbody}{parent=itemize/enumerate body}
+    \setbeamerfont*{itemize/enumerate subsubbody}{parent=itemize/enumerate body}
+ 
+    \begin{itemize}
+        \item Metacalibration is a new idea for shear recovery from
+            Eric Huff
+
+        \item No tunable parameters.
+
+        \item New correlated noise corrections.
+
+        \item On tests so far, the bias is within LSST requirements.
+        
+    \end{itemize}
+
+}
+
+\end{document}
