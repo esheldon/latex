@@ -356,6 +356,13 @@
 
         \item Correct for these with \mcal.
 
+        \item Model the bias as a multiplicative and an additive part
+            {\color{lightskyblue} 
+                \begin{equation}
+                    \gamma = (1 + m ) \times \gamma_{true} + c \nonumber
+                \end{equation}
+            }
+
     \end{itemize}
 }
 
@@ -371,14 +378,16 @@
  
     \begin{itemize}
 
-        \item Model the bias as a multiplicative and an additive part
-            {\color{lightskyblue} 
-                \begin{equation}
-                    \gamma = (1 + m ) \times \gamma_{true} + c \nonumber
-                \end{equation}
+
+        \item Maximum Likelihood 
+            {\color{brightred} 
+                \begin{eqnarray}
+                    m & = & -0.5  \nonumber \\
+                  c_1 & = & (+0.1 \pm 0.1) \times 10^{-4} \nonumber \\
+                  c_2 & = & (+15.1 \pm 0.2) \times 10^{-4} \nonumber
+                \end{eqnarray}
             }
 
-        \item Without \mcal\ we get {\color{brightred} $m = -0.5$!}
 
         \item Using \mcal:
 
@@ -391,8 +400,7 @@
             }
 
         \item No detected multiplicative bias.
-        \item Some remaining PSF leakage, below LSST requirements.  \mcal\
-            reduced this by a factor of 5!
+        \item Some remaining PSF leakage, below LSST requirements.
 
     \end{itemize}
 
