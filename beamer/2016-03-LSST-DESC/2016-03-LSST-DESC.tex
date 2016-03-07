@@ -154,7 +154,7 @@
             \end{itemize}
 
             \item These operations can be done with GALSIM
-            \item Insensitive to applied shear $\gamma$.  {\color{lightskyblue} No tunable parameters}
+            \item Insensitive to applied shear $\Delta \gamma$.  {\color{lightskyblue} No tunable parameters}
 
 
     \end{itemize}
@@ -259,7 +259,7 @@
         \item Create a Gaussian noise field, run through \mcal\ steps with
             opposite shear $-\gamma$.
 
-        \item Add the noise image before fitting galaxy model.
+        \item Add ths noise image to cancel the effect
 
     \end{itemize}
 
@@ -284,6 +284,40 @@
 
 \frame
 {
+    \frametitle{Parametric Simulations}
+
+    \setbeamerfont*{itemize/enumerate body}{size=\large}
+    \setbeamerfont*{itemize/enumerate subbody}{parent=itemize/enumerate body}
+    \setbeamerfont*{itemize/enumerate subsubbody}{parent=itemize/enumerate body}
+ 
+    \begin{itemize}
+
+        \item {\color{gold} Bulge+Disk}
+
+        \item half-light radius distribution matched to COSMOS
+
+        \item Large offsets between bulge and disk centers:
+            {\color{green} not described by an ellipse}.
+
+        \item Moffat PSF with size and shape distribution
+            matched to DES.  PSF $e_2$ not round on average.
+
+        \item Signal-to-noise ratio distribution matched to real DES
+            data, with {\color{lightskyblue} mode $S/N \sim$10}.  Induces ordinary noise
+            bias of order 10\%
+        
+        \item Include 10\% {\color{brightred} stars} and realistic pixel
+            {\color{orange} masking} from DES
+
+        \item $2 \times 10^8$ galaxies
+
+
+    \end{itemize}
+
+}
+
+\frame
+{
     \frametitle{COSMOS Simulations}
 
     \setbeamerfont*{itemize/enumerate body}{size=\large}
@@ -302,43 +336,10 @@
     \end{itemize}
 
 }
-\frame
-{
-    \frametitle{Parametric Simulations}
-
-    \setbeamerfont*{itemize/enumerate body}{size=\large}
-    \setbeamerfont*{itemize/enumerate subbody}{parent=itemize/enumerate body}
-    \setbeamerfont*{itemize/enumerate subsubbody}{parent=itemize/enumerate body}
- 
-    \begin{itemize}
-
-        \item {\color{gold} bulge+disk}
-
-        \item half-light radius matched to COSMOS
-
-        \item Large offsets between bulge and disk centers:
-            {\color{green} not described by an ellipse}.
-
-        \item Moffat PSF with size and shape distribution
-            matched to DES.  PSF $e_2$ Not round on average.
-
-        \item Signal-to-noise ratio distribution matched to real DES
-            data, with {\color{lightskyblue} mode $S/N \sim$10}.  Induces ordinary noise
-            bias of order 10\%
-        
-        \item Include 10\% {\color{brightred} stars} and realistic pixel
-            {\color{orange} masking} from DES
-
-        \item $2 \times 10^8$ galaxies
-
-
-    \end{itemize}
-
-}
 
 \frame
 {
-    \frametitle{Performance on Simulations}
+    \frametitle{Performance on Simulations: Fitting}
 
     \setbeamerfont*{itemize/enumerate body}{size=\large}
     \setbeamerfont*{itemize/enumerate subbody}{parent=itemize/enumerate body}
@@ -350,7 +351,7 @@
         \item Fit single Gaussian to PSF: large errors in
             PSF correction.
 
-        \item Fit a single gaussian to galaxy. Large ``model bias''.
+        \item Fit a single Gaussian to galaxy. Large ``model bias''.
             
         \item Low S/N means lots of noise bias.
 
@@ -400,7 +401,8 @@
             }
 
         \item No detected multiplicative bias.
-        \item Some remaining PSF leakage, below LSST requirements.
+        \item Some remaining PSF leakage, below LSST requirements: Use
+            better PSF correction!
 
     \end{itemize}
 
@@ -444,7 +446,7 @@
              }
 
          \item Including stars introduces additional noise, but no
-             additional bias: Stars have zero $R$.
+             additional bias: Stars have zero response {\color{gold} $R$}.
 
     \end{itemize}
 
@@ -504,7 +506,7 @@
             
             
 
-         \item COSMOS simulations
+         \item COSMOS simulations with real galaxies and DES optical model.
 
 
          \item With \mcal:
