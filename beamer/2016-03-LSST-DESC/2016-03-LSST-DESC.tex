@@ -350,7 +350,7 @@
         \item Fit single Gaussian to PSF: large errors in
             PSF correction.
 
-        \item Fit a single gaussian to galaxy. Large ``model bias'', of order 10\%.
+        \item Fit a single gaussian to galaxy. Large ``model bias''.
             
         \item Low S/N means lots of noise bias.
 
@@ -433,20 +433,49 @@
     \begin{itemize}
             
 
-         \item Parametric simulations with 10\% stars
+        \item Parametric simulations with {\color{gold} 10\% stars}
              {\color{lightskyblue} 
                  \begin{eqnarray}
-                     m & = & (0.5 \pm 0.5) \times 10^{-3} \nonumber \\
+                     m & = & (+0.5 \pm 0.5) \times 10^{-3} \nonumber \\
                    c_1 & = & (-0.2 \pm 0.2) \times 10^{-4} \nonumber \\
                    c_2 & = & (+1.0 \pm 0.2) \times 10^{-4} \nonumber
                  \end{eqnarray}
              }
 
-         \item Including stars introduces no bias: Stars have zero $R$.
+         \item Including stars introduces no additional bias: Stars have zero $R$.
 
     \end{itemize}
 
 }
+
+\frame
+{
+    \frametitle{Performance on Simulations}
+
+    \setbeamerfont*{itemize/enumerate body}{size=\large}
+    \setbeamerfont*{itemize/enumerate subbody}{parent=itemize/enumerate body}
+    \setbeamerfont*{itemize/enumerate subsubbody}{parent=itemize/enumerate body}
+ 
+    \begin{itemize}
+            
+
+        \item Parametric simulations with {\color{brightred} masking based on DES}
+         \item Replace masked pixels with the best fit model
+
+             {\color{lightsteelblue} 
+                 \begin{eqnarray}
+                     m & = & (-0.5 \pm 0.3) \times 10^{-3} \nonumber \\
+                   c_1 & = & (+0.0 \pm 0.2) \times 10^{-4} \nonumber \\
+                   c_2 & = & (+1.1 \pm 0.2) \times 10^{-4} \nonumber
+                 \end{eqnarray}
+             }
+
+         \item FFTs not biased by replacing masked pixels with model
+
+    \end{itemize}
+
+}
+
 
 
 \frame
@@ -488,9 +517,9 @@
 
         \item No tunable parameters.
 
-        \item New correlated noise corrections.
+        \item Straightforward correction for correlated noise.
 
-        \item On tests so far, the bias is within LSST requirements.
+        \item Bias on simulations is within LSST requirements.
         
     \end{itemize}
 
