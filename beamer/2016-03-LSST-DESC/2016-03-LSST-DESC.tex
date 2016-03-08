@@ -89,15 +89,17 @@
         \item Shear calibration errors
             \begin{itemize}
             
-                \item {\color{lightskyblue} DES}:~ $\Delta \gamma/\gamma \lesssim 0.004$
-                \item {\color{brightred} LSST}: $\Delta \gamma/\gamma \lesssim 0.001$
+                %\item {\color{lightskyblue} DES}:~ $\Delta \gamma/\gamma \lesssim 0.004$
+                %\item {\color{brightred} LSST}: $\Delta \gamma/\gamma \lesssim 0.001$
+                \item {\color{lightskyblue} DES}:~ $\Delta \gamma/\gamma \lesssim few \times 10^{-3}$
+                \item {\color{brightred} LSST}: $\Delta \gamma/\gamma \lesssim 10^{-3}$
 
             \end{itemize}
 
         \item Additive errors
             \begin{itemize}
             
-                \item {\color{lightskyblue} DES}: ~ $\lesssim ? \times 10^{-4}$
+                \item {\color{lightskyblue} DES}: ~$\lesssim 4 \times 10^{-4}$
                 \item {\color{brightred} LSST}: $\lesssim 2 \times 10^{-4}$
 
             \end{itemize}
@@ -143,7 +145,7 @@
             estimator with respect to shear
             {\color{gold}
                 \begin{equation}
-                    R = \frac{E(+\Delta\gamma) - E(-\Delta\gamma)}{2 \Delta \gamma} \nonumber 
+                    R = \frac{E(+\gamma) - E(-\gamma)}{2 \gamma} \nonumber 
                 \end{equation}
             }
             \begin{itemize}
@@ -154,7 +156,7 @@
             \end{itemize}
 
             \item These operations can be done with GALSIM
-            \item Insensitive to applied shear $\Delta \gamma$.  {\color{lightskyblue} No tunable parameters}
+            \item Insensitive to applied shear $\gamma$.  {\color{lightskyblue} No tunable parameters}
 
 
     \end{itemize}
@@ -208,7 +210,7 @@
         \item Results from Huff \& Mandelbaum on GREAT3 affected little, as
             $S/N \gtrsim 20$ in that sim.
 
-        \item I found bias of order 10\% for galaxies at $S/N \sim 5-10$.
+        \item I found bias of order 10\% for galaxies at $S/N \sim 10$.
 
 
 
@@ -259,7 +261,7 @@
         \item Create a Gaussian noise field, run through \mcal\ steps with
             opposite shear $-\gamma$.
 
-        \item Add ths noise image to cancel the effect
+        \item Add this noise image to cancel the effect
 
     \end{itemize}
 
@@ -327,9 +329,9 @@
     \begin{itemize}
         \item Similar to {\color{lightskyblue} GREAT3 RGC}
 
-        \item COSMOS galaxies sheared and smeared by PSF
+        \item COSMOS galaxies sheared; smeared by PSF
 
-        \item Optical model from DES, plus constant Kolmogrov
+        \item Optical model from DES, plus Kolmogrov atmosphere
         \item {\color{gold} No ring} configuration
         \item Mode of {\color{orange} $S/N \sim 10$}.
         \item $10^8$ galaxies
@@ -352,7 +354,9 @@
             PSF correction.
 
         \item Fit a single Gaussian to galaxy: large ``model bias''.
-            
+
+        \item Apply strong prior on shape for stability: more bias
+
         \item Low S/N means lots of noise bias.
 
         \item Correct for these with \mcal.
@@ -395,11 +399,19 @@
 
             {\color{gold} 
                 \begin{eqnarray}
-                    m & = & (-0.4 \pm 0.5) \times 10^{-3} \nonumber \\
+                    m & = & (-4 \pm 5) \times 10^{-4} \nonumber \\
                   c_1 & = & (+0.0 \pm 0.2) \times 10^{-4} \nonumber \\
                   c_2 & = & (+0.9 \pm 0.2) \times 10^{-4} \nonumber
                 \end{eqnarray}
             }
+            %{\color{gold} 
+            %    \begin{eqnarray}
+            %        m & = & (-0.4 \pm 0.5) \times 10^{-3} \nonumber \\
+            %      c_1 & = & (+0.0 \pm 0.2) \times 10^{-4} \nonumber \\
+            %      c_2 & = & (+0.9 \pm 0.2) \times 10^{-4} \nonumber
+            %    \end{eqnarray}
+            %}
+
 
         \item No detected multiplicative bias.
         \item Some remaining PSF leakage, below LSST requirements: Use
@@ -440,8 +452,10 @@
         \item Parametric simulation with and without {\color{gold} 10\% stars}
              {\color{lightskyblue} 
                  \begin{eqnarray}
-                     m        & = & (+0.5 \pm 0.4) \times 10^{-3} \nonumber \\
-                     m(stars) & = & (+0.5 \pm 0.5) \times 10^{-3} \nonumber
+                     %m        & = & (+0.5 \pm 0.4) \times 10^{-3} \nonumber \\
+                     %m(stars) & = & (+0.5 \pm 0.5) \times 10^{-3} \nonumber
+                     m        & = & (5 \pm 4) \times 10^{-4} \nonumber \\
+                     m(stars) & = & (5 \pm 5) \times 10^{-4} \nonumber
                  \end{eqnarray}
              }
 
@@ -482,7 +496,8 @@
 
              {\color{lightsteelblue} 
                  \begin{eqnarray}
-                     m & = & (-0.5 \pm 0.3) \times 10^{-3} \nonumber \\
+                     %m & = & (-0.5 \pm 0.3) \times 10^{-3} \nonumber \\
+                     m & = & (-5 \pm 3) \times 10^{-4} \nonumber \\
                    c_1 & = & (+0.0 \pm 0.2) \times 10^{-4} \nonumber \\
                    c_2 & = & (+1.1 \pm 0.2) \times 10^{-4} \nonumber
                  \end{eqnarray}
@@ -512,7 +527,8 @@
          \item With \mcal:
         {\color{gold} 
             \begin{eqnarray}
-                m & = & (+0.5 \pm 0.6) \times 10^{-3} \nonumber \\
+                %m & = & (+0.5 \pm 0.6) \times 10^{-3} \nonumber \\
+                m & = & (5 \pm 6) \times 10^{-4} \nonumber \\
               c_1 & = & (-0.4 \pm 0.3) \times 10^{-4} \nonumber \\
               c_2 & = & (+0.6 \pm 0.3) \times 10^{-4} \nonumber
             \end{eqnarray}
