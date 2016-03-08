@@ -62,9 +62,11 @@
         %\item The Primary Goal is to Study Dark Energy
         \item Metacalibration
 
-        \item Correction for Correlated Noise
+            \begin{itemize}
+                \item Correction for Correlated Noise
 
-        \item Performance on Simulations
+                \item Performance on Very Large Simulations
+            \end{itemize}
 
     \end{itemize}
 
@@ -103,16 +105,17 @@
  
 
     {\Large
-        Say we have a biased shear point estimator {\color{gold} $E$}.  We can write a taylor
-        expansion
-        %{\color{gold}
-        {\color{mygray}
-            \begin{eqnarray}
-                E & = & E(\gamma=0) + \frac{\partial E}{\partial \gamma} \gamma + ... \nonumber \\
-                  & \sim &  \frac{\partial E}{\partial \gamma} \gamma \equiv R \gamma \nonumber 
-            \end{eqnarray}
-        } 
-        {\color{gold} $R$} is the {\em response} of the estimator $E$ to a shear.
+        \begin{itemize}
+            \item Say we have a biased shear point estimator {\color{gold} $E$}.  We can write a taylor expansion
+                {\color{mygray}
+                    \begin{eqnarray}
+                        E & = & E(\gamma=0) + \gamma \frac{\partial E}{\partial \gamma} \bigg|_{\gamma=0} + ... \nonumber \\
+                          & \sim &  \gamma \frac{\partial E}{\partial \gamma}\bigg|_{\gamma=0}  \equiv \gamma R \nonumber 
+                    \end{eqnarray}
+                } 
+            \item {\color{gold} $R$} is the {\em response} of the estimator $E$ to a shear.
+            \item Can write a similar response to the PSF shape $R^p$.
+        \end{itemize}
     }
 }
 
@@ -157,12 +160,16 @@
     \setbeamerfont*{itemize/enumerate subsubbody}{parent=itemize/enumerate body}
  
     \begin{itemize}
-        
+        \item Final estimator
+            \begin{equation}
+                \gamma = \frac{\langle E \rangle }{ \langle R \rangle} \nonumber
+            \end{equation}
+       
         \item Corrects for {\color{lightskyblue} model bias}
 
         \item Corrects for {\em ordinary} {\color{gold} noise bias}
 
-        \item Works well at {\color{lightsteelblue} high shear $\gamma \sim 0.08$}.
+        \item Works well at {\color{lightsteelblue} high shear $\gamma \sim 0.08$}
 
     \end{itemize}
 
@@ -293,10 +300,14 @@
 
         \item COSMOS galaxies sheared; smeared by PSF
 
-        \item Optical model from DES, plus Kolmogrov atmosphere
+        \item Optical model from DES (Aaron Roodman), plus Kolmogrov atmosphere
         \item {\color{gold} No ring} configuration
-        \item Mode of {\color{orange} $S/N \sim 10$}.
+        \item Mode of {\color{orange} $S/N \sim 10$}
         \item $10^8$ galaxies
+
+        \item {\color{gold} \texttt{egret}} code from Matt Becker, fork of \texttt{great3-public} repo
+            https://github.com/esheldon/egret
+
     \end{itemize}
 
 }
@@ -502,7 +513,7 @@
 
              {\color{mygray} 
                  \begin{equation}
-                     R = \frac{\sum e_{gals} + \sum e_{stars}}{\sum R_{gals} + \sum R_{star}} \nonumber
+                     \gamma = \frac{\sum e_{gals} + \sum e_{stars}}{\sum R_{gals} + \sum R_{star}} \nonumber
                  \end{equation}
              }
 
