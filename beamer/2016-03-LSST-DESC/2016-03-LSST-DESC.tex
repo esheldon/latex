@@ -162,16 +162,32 @@
     \begin{itemize}
         \item Final estimator
             \begin{equation}
-                \gamma = \frac{\langle E \rangle }{ \langle R \rangle} \nonumber
+                \gamma = \frac{\langle E \rangle - \langle E^p \rangle \langle R^p \rangle }{ \langle R \rangle} \nonumber
             \end{equation}
        
+
         \item Corrects for {\color{lightskyblue} model bias}
 
         \item Corrects for {\em ordinary} {\color{gold} noise bias}
 
         \item Works well at {\color{lightsteelblue} high shear $\gamma \sim 0.08$}
 
+        \item (Huff \& Mandelbaum use a more complex estimator to deal with noisy
+            $R$ for regauss)
+
     \end{itemize}
+
+}
+
+\frame
+{
+    \frametitle{Correlated Noise}
+ 
+    \begin{center}
+        \includegraphics[scale=1]{metacal_noise_images_neg_crop.png}
+        \newline
+    \end{center}
+    {\small Image: Eric Huff}
 
 }
 
@@ -207,17 +223,6 @@
 
 
     \end{itemize}
-
-}
-\frame
-{
-    \frametitle{Correlated Noise}
- 
-    \begin{center}
-        \includegraphics[scale=1]{metacal_noise_images_neg_crop.png}
-        \newline
-    \end{center}
-    {\small Image: Eric Huff}
 
 }
 
@@ -462,7 +467,7 @@
 
         \item Using \mcal:
 
-            {\color{green} 
+            {\color{gold} 
                 \begin{eqnarray}
                     m & = & (-4 \pm 5) \times 10^{-4} \nonumber \\
                   c_1 & = & (+0.0 \pm 0.2) \times 10^{-4} \nonumber \\
