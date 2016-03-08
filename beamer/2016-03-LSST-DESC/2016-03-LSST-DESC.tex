@@ -62,8 +62,6 @@
         %\item The Primary Goal is to Study Dark Energy
         \item Metacalibration
 
-        \item Correlated Noise
-
         \item Correction for Correlated Noise
 
         \item Performance on Simulations
@@ -82,29 +80,13 @@
  
     \begin{itemize}
 
-        \item In order to measure the Dark Energy equation of state
-            to the desired accuracy for DES/LSST, we must measure
-            shear with exquisite accuracy.
+        \item In order to measure the properties of Dark Energy to our desired
+            precision, we must measure shear with exquisite accuracy.
 
-        \item Shear calibration errors
             \begin{itemize}
-            
-                %\item {\color{lightskyblue} DES}:~ $\Delta \gamma/\gamma \lesssim 0.004$
-                %\item {\color{brightred} LSST}: $\Delta \gamma/\gamma \lesssim 0.001$
-                \item {\color{lightskyblue} DES}:~ $\Delta \gamma/\gamma \lesssim few \times 10^{-3}$
-                \item {\color{brightred} LSST}: $\Delta \gamma/\gamma \lesssim 10^{-3}$
-
+                \item Shear calibration errors: {\color{brightred} $\Delta \gamma/\gamma \lesssim 10^{-3}$}
+                \item Additive errors: {\color{brightred} $\Delta \gamma \lesssim 2 \times 10^{-4}$}
             \end{itemize}
-
-        \item Additive errors
-            \begin{itemize}
-            
-                \item {\color{lightskyblue} DES}: ~$\lesssim 4 \times 10^{-4}$
-                \item {\color{brightred} LSST}: $\lesssim 2 \times 10^{-4}$
-
-            \end{itemize}
-
-
     \end{itemize}
 
 }
@@ -119,16 +101,19 @@
     \setbeamerfont*{itemize/enumerate subbody}{parent=itemize/enumerate body}
     \setbeamerfont*{itemize/enumerate subsubbody}{parent=itemize/enumerate body}
  
-    \begin{itemize}
 
-        \item Say we have a biased shear estimator {\color{gold} $E$}.  Then we can write
-            {\color{gold}
-                \begin{eqnarray}
-                    E & = & E(\gamma=0) + \frac{\partial E}{\partial \gamma} \gamma + ... \nonumber \\
-                      & \sim &  \frac{\partial E}{\partial \gamma} \gamma \equiv R \gamma \nonumber 
-                \end{eqnarray}
-            } 
-    \end{itemize}
+    {\Large
+        Say we have a biased shear point estimator {\color{gold} $E$}.  We can write a taylor
+        expansion
+        %{\color{gold}
+        {\color{mygray}
+            \begin{eqnarray}
+                E & = & E(\gamma=0) + \frac{\partial E}{\partial \gamma} \gamma + ... \nonumber \\
+                  & \sim &  \frac{\partial E}{\partial \gamma} \gamma \equiv R \gamma \nonumber 
+            \end{eqnarray}
+        } 
+        {\color{gold} $R$} is the {\em response} of the estimator $E$ to a shear.
+    }
 }
 
 \frame
@@ -217,6 +202,17 @@
     \end{itemize}
 
 }
+\frame
+{
+    \frametitle{Correlated Noise}
+ 
+    \begin{center}
+        \includegraphics[scale=1]{metacal_noise_images_neg_crop.png}
+        \newline
+    \end{center}
+    {\small Image: Eric Huff}
+
+}
 
 
 %\frame
@@ -258,8 +254,8 @@
         \item Run the image through the \mcal\ procedure with
             shear $\gamma$.
 
-        \item Create a Gaussian noise field, run through \mcal\ steps with
-            opposite shear $-\gamma$.
+        \item Create a noise field, run through the same \mcal\ steps but with
+            the {\color{lightskyblue} opposite shear} $-\gamma$.
 
         \item Add this noise image to cancel the effect
 
@@ -286,40 +282,6 @@
 
 \frame
 {
-    \frametitle{Parametric Simulations}
-
-    \setbeamerfont*{itemize/enumerate body}{size=\large}
-    \setbeamerfont*{itemize/enumerate subbody}{parent=itemize/enumerate body}
-    \setbeamerfont*{itemize/enumerate subsubbody}{parent=itemize/enumerate body}
- 
-    \begin{itemize}
-
-        \item {\color{gold} Bulge+Disk}
-
-        \item Half-light radius distribution matched to COSMOS
-
-        \item Large offsets between bulge and disk centers:
-            {\color{green} not described by an ellipse}.
-
-        \item Moffat PSF with size and shape distribution
-            matched to DES.  PSF $e_2$ not round on average.
-
-        \item Signal-to-noise ratio distribution matched to real DES
-            data, with {\color{lightskyblue} mode $S/N \sim$10}.  Induces ordinary noise
-            bias of order 10\%
-        
-        \item Include 10\% {\color{brightred} stars} and realistic pixel
-            {\color{orange} masking} from DES
-
-        \item $2 \times 10^8$ galaxies
-
-
-    \end{itemize}
-
-}
-
-\frame
-{
     \frametitle{COSMOS Simulations}
 
     \setbeamerfont*{itemize/enumerate body}{size=\large}
@@ -341,6 +303,41 @@
 
 \frame
 {
+    \frametitle{Parametric Simulations}
+
+    \setbeamerfont*{itemize/enumerate body}{size=\large}
+    \setbeamerfont*{itemize/enumerate subbody}{parent=itemize/enumerate body}
+    \setbeamerfont*{itemize/enumerate subsubbody}{parent=itemize/enumerate body}
+ 
+    \begin{itemize}
+
+        \item {\color{gold} Bulge+Disk}
+
+        \item Half-light radius distribution matched to COSMOS
+
+        \item Large offsets between bulge and disk centers:
+            {\color{lightskyblue} not described by an ellipse}.
+
+        \item Moffat PSF with size and shape distribution
+            matched to DES.  PSF $e_2$ not round on average.
+
+        \item Signal-to-noise ratio distribution matched to real DES
+            data, with {\color{lightskyblue} mode $S/N \sim$10}.  Induces ordinary noise
+            bias of order 10\%
+        
+        \item Include 10\% {\color{brightred} stars} and realistic pixel
+            {\color{orange} masking} from DES
+
+        \item $2 \times 10^8$ galaxies
+
+
+    \end{itemize}
+
+}
+
+
+\frame
+{
     \frametitle{Performance on Simulations: Fitting}
 
     \setbeamerfont*{itemize/enumerate body}{size=\large}
@@ -355,10 +352,12 @@
 
         \item Fit a single Gaussian to galaxy: large ``model bias''.
 
-        \item Apply strong prior on shape for stability: more bias
+        \item Apply strong prior on the shape: good for stability but
+            introduces a large shear bias
 
         \item Low S/N means lots of noise bias.
 
+        ~
         \item Correct for these with \mcal.
 
         ~
@@ -371,6 +370,61 @@
 
     \end{itemize}
 }
+
+\frame
+{
+    \frametitle{Performance on Simulations: COSMOS Sims}
+
+    \setbeamerfont*{itemize/enumerate body}{size=\large}
+    \setbeamerfont*{itemize/enumerate subbody}{parent=itemize/enumerate body}
+    \setbeamerfont*{itemize/enumerate subsubbody}{parent=itemize/enumerate body}
+ 
+    \begin{itemize}
+            
+            
+
+         \item COSMOS simulations with real galaxies and DES optical model.
+
+        \item Maximum Likelihood 
+            {\color{brightred} 
+                \begin{eqnarray}
+                    m & = & -0.4  \nonumber \\
+                  c_1 & = & (-0.2 \pm 0.2) \times 10^{-4} \nonumber \\
+                  c_2 & = & (+0.3 \pm 0.2) \times 10^{-4} \nonumber
+                \end{eqnarray}
+            }
+
+
+         \item Using \mcal:
+        {\color{gold} 
+            \begin{eqnarray}
+                %m & = & (+0.5 \pm 0.6) \times 10^{-3} \nonumber \\
+                m & = & (5 \pm 6) \times 10^{-4} \nonumber \\
+              c_1 & = & (-0.4 \pm 0.3) \times 10^{-4} \nonumber \\
+              c_2 & = & (+0.6 \pm 0.3) \times 10^{-4} \nonumber
+            \end{eqnarray}
+        }
+         \item No detected bias at the level required for LSST.
+    \end{itemize}
+
+}
+
+\frame
+{
+    \frametitle{Performance on Simulations}
+ 
+    {\normalsize Maximum Likelihood}
+    \begin{center}
+        \includegraphics[width=0.65\textwidth]{run-bd29mcal01-fit-m-c-nocorr-icolor.pdf}
+    \end{center}
+
+    {\normalsize Metacalibration}
+    \begin{center}
+        \includegraphics[width=0.65\textwidth]{run-bd29mcal01-fit-m-c-icolor.pdf}
+    \end{center}
+
+}
+
 
 
 
@@ -390,7 +444,7 @@
                 \begin{eqnarray}
                     m & = & -0.5  \nonumber \\
                   c_1 & = & (+0.1 \pm 0.1) \times 10^{-4} \nonumber \\
-                  c_2 & = & (+15.1 \pm 0.2) \times 10^{-4} \nonumber
+                  c_2 & = & (+15.1 \pm 0.1) \times 10^{-4} \nonumber
                 \end{eqnarray}
             }
 
@@ -414,26 +468,10 @@
 
 
         \item No detected multiplicative bias.
-        \item Some remaining PSF leakage, below LSST requirements: Use
-            better PSF correction!
+        \item Some remaining PSF leakage: Just use
+            better PSF correction than a Gaussian!
 
     \end{itemize}
-
-}
-
-\frame
-{
-    \frametitle{Performance on Simulations}
- 
-    {\normalsize Maximum Likelihood}
-    \begin{center}
-        \includegraphics[width=0.65\textwidth]{run-bd29mcal01-fit-m-c-nocorr-icolor.pdf}
-    \end{center}
-
-    {\normalsize Metacalibration}
-    \begin{center}
-        \includegraphics[width=0.65\textwidth]{run-bd29mcal01-fit-m-c-icolor.pdf}
-    \end{center}
 
 }
 
@@ -460,7 +498,14 @@
              }
 
          \item Including stars introduces additional noise, but no
-             additional bias: Stars have zero response {\color{gold} $R$}.
+             additional bias: In the mean, stars have zero response {\color{gold} $R$}.
+
+             {\color{mygray} 
+                 \begin{equation}
+                     R = \frac{\sum e_{gals} + \sum e_{stars}}{\sum R_{gals} + \sum R_{star}} \nonumber
+                 \end{equation}
+             }
+
 
     \end{itemize}
 
@@ -508,36 +553,6 @@
     \end{itemize}
 
 }
-
-\frame
-{
-    \frametitle{Performance on Simulations: COSMOS Sims}
-
-    \setbeamerfont*{itemize/enumerate body}{size=\large}
-    \setbeamerfont*{itemize/enumerate subbody}{parent=itemize/enumerate body}
-    \setbeamerfont*{itemize/enumerate subsubbody}{parent=itemize/enumerate body}
- 
-    \begin{itemize}
-            
-            
-
-         \item COSMOS simulations with real galaxies and DES optical model.
-
-
-         \item With \mcal:
-        {\color{gold} 
-            \begin{eqnarray}
-                %m & = & (+0.5 \pm 0.6) \times 10^{-3} \nonumber \\
-                m & = & (5 \pm 6) \times 10^{-4} \nonumber \\
-              c_1 & = & (-0.4 \pm 0.3) \times 10^{-4} \nonumber \\
-              c_2 & = & (+0.6 \pm 0.3) \times 10^{-4} \nonumber
-            \end{eqnarray}
-        }
-         \item No detected bias at the level required for LSST.
-    \end{itemize}
-
-}
-
 
 
 \frame
