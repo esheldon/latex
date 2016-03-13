@@ -19,7 +19,13 @@
 
 \newcommand{\snr}{$S/N$}
 \newcommand{\hlr}{$r_{50}$}
+\newcommand{\hlrmean}{1.54}
+\newcommand{\hlrwidth}{1.00}
 
+\newcommand{\psffwhmmean}{3.660}
+\newcommand{\psffwhmwidth}{0.377}
+
+\newcommand{\nmasks}{1400}
 \newcommand{\uberseg}{{\"u}berseg}
 
 % stolen from the BA14 source
@@ -345,24 +351,42 @@ simulations we used parametric models, designed to be similar to that used in
 \citet{bfd2015}.  We modeled galaxies as a bulge and disk, with offsets between the
 bulge and disk components, such that the total image was not described by a
 single ellipse.  Both components had the same ellipticity and half light radius
-\hlr. The \hlr\ were drawn from a log-normal distribution centered at 2.0
-pixels, with scatter of 0.5 pixels.  The bulges were offset in a random
+\hlr. We drew the \hlr\ from a log-normal distribution centered at \hlrmean\
+pixels, with scatter of \hlrwidth\ pixels.  The bulges were offset in a random
 direction from the disk center, with offsets drawn from a uniform distribution
 between zero and \hlr.  The ellipticities were drawn from the simple model
-presented in \cite{ba14}
+used in \cite{ba14}
 \begin{align}
     P(e) &\propto \left[1-(e)^2\right]^2 \exp\left[-e^2/2\sigma^2\right],
 \end{align}
 with $\sigma=0.2$.
 
 We convolved the galaxy images with a PSF modeled as a Moffat profile
-\citep{Moffat1969}, with \hlr\ = 1.5 pixels.  We drew the PSF shapes from a
-distribution designed to match that measured in the Dark Energy Survey
-\citep[][(DES)]{DESSVShear}.  The DES PSF shape distribution is well fit by a
-double Gaussian with width 0.18 in each dimension, but with different mean for
-$e_1$ and $e_2$.  For the first set of sims, ``BD'', we set the mean to
-$(0,0)$.  For the second set ``BDEllip'', we set the mean in $e_2$ to $0.007$,
-matching that in DES, but leave the mean in $e_1$ zero as a control.
+\citep{Moffat1969}, with FWHM drawn from a log-normal distribution with mean
+\psffwhmmean\ pixels, and scatter \psffwhmwidth.  This distribution roughly
+matches that of the Dark Energy Survey science verification data
+\citep[][(DES)]{DESSVShear}, but with less of a tail to large FWHM.
+
+In figure \ref{fig:psimhlrcompare} we show the distribution of \hlr\ for the
+bulge and disk galaxies, along with the \hlr\ distribution for the PSF,
+converted from FWHM.
+
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.45]{sim-bd29-r50.eps}
+
+    \caption{Distribution of half-light-radius \hlr\ in the Bulge+Disk simulations,
+        for both galaxies and PSF.}
+
+\label{fig:psimhlrcompare}
+\end{figure}
+
+
+We drew the PSF ellipticities from a distribution also designed to match that
+measured in DES.  The DES PSF shape distribution is well fit by a double
+Gaussian with width 0.18 in each dimension, but with different mean for $e_1$
+and $e_2$.  We set the mean in $e_2$ to $0.007$, matching that in DES, but set
+the mean in $e_1$ to zero as a control.
 
 We designed the galaxy S/N distribution, shown in figure \ref{fig:s2n}, to
 match the real DES galaxy catalog after a pre-selection of ``good galaxies''
@@ -374,7 +398,7 @@ orientations.
 
 \begin{figure}
     \centering
-    \includegraphics[scale=0.45]{s2n-bd16.eps}
+    \includegraphics[scale=0.45]{s2n-bd29.eps}
 
     \caption{Distribution of S/N in the Bulge+Disk simulations. The
     left panel is a zoom-in around the mode.  The right panel is
@@ -392,26 +416,26 @@ distribution as used for the galaxies.  We refer to the simulations with
 stars as ``BDStar''; the BD simulation is identical but with the stars
 removed.
 
-For the ``BDMask'' simulations, we masked parts of the data in order to mimic
-certain effects in real images. Masking is important to test, because the
-Fourier transforms used to perform the \mcal\ convolutions cannot accommodate
-missing data.  In order simulate these effects realistically, we chose a sample
-of real ``\uberseg'' masks used in Dark Energy Survey shear analysis
-\citep{DESSVShear}.  These include masking of bad pixels, bad columns, and
-masking for neighbors.  Pixels were masked for neighbors if they were closer to
-the neighbor's SExtractor \citep{Bertin96} segmentation map than they were to
-the central galaxy.  A random sample of $\sim 1200$ masks was selected to have
-a masked fraction less than 30\%, to avoid extreme cases.  An example image and
-mask are shown in figure \ref{fig:mask}.  Note our simulation did not include
-actual neighbors, so we will only test our ability to deal with masked data,
-not the efficacy of the masking strategy itself.
+The Fourier transforms used to perform the \mcal\ convolutions cannot
+accommodate missing data.  But in real data, ``bad pixels'' must be masked in
+order to prevent biased measurements. For the FFTs, these masked pixels must be
+replaced with some value that does not cause a bias in the statistics measured
+on the transformed images.
+
+We created another set of simulations, called ``BDMask'', in which we masked
+parts of the data in order to mimic certain effects in real images.  In order
+simulate these effects realistically, we chose a sample of real bit mask planes
+used in Dark Energy Survey shear analysis \citep{DESSVShear}.  These include
+masking of bad pixels, bad columns, and other image artifacts.   A random
+sample of \nmasks\ masks were selected, removing those for which a masked pixel
+fell within 4 pixels of the image center.  An example image and mask are shown
+in figure \ref{fig:mask}.
 
 \begin{figure}
     \centering
-    \includegraphics[scale=0.45]{DES0508-5540-uberseg-013916.eps}
+    \includegraphics[scale=0.45]{DES2117+0126-bmask-021223.eps}
 
-    \caption{Example DES image cutout and \uberseg\ mask.  The black wedge in
-the lower right masks a nearby object, and the vertical black stripe masks a
+    \caption{Example DES image cutout and bitmask.  The vertical black stripe masks a
 bad column. }
 
 \label{fig:mask}
@@ -476,7 +500,7 @@ size.
     \caption{Distribution of properties in the COSMOS real galaxy simulations. The
     left panel contains the distribution of measured S/N, while the right panel contains
     the distribution of half-light-radius from the cosmos catalog for the input
-    galaxies.  Overplotted as a dot-dashed line is the input half-light-radius
+    galaxies.  Overplotted as a red dashed line is the input half-light-radius
     for the bulge+disk simulations.}
 
 \label{fig:cosmos}
