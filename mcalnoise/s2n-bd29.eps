@@ -1,0 +1,8423 @@
+%!PS-Adobe-3.0 EPSF-3.0
+%%Creator: GNU libplot drawing library 4.4
+%%Title: PostScript plot
+%%CreationDate: Sun Mar 13 11:20:20 2016
+%%DocumentData: Clean7Bit
+%%LanguageLevel: 1
+%%Pages: 1
+%%PageOrder: Ascend
+%%Orientation: Portrait
+%%BoundingBox: 62 262 549 530
+%%DocumentNeededResources: 
+%%DocumentSuppliedResources: procset GNU_libplot 1.1 0
+%%EndComments
+
+%%BeginDefaults
+%%PageResources: 
+%%EndDefaults
+
+%%BeginProlog
+%%EndProlog
+
+%%BeginSetup
+/DrawDict 50 dict def
+DrawDict begin
+%%BeginResource: procset GNU_libplot 1.1 0
+/none null def
+/numGraphicParameters 17 def
+/stringLimit 65535 def
+/arrowHeight 8 def
+/eoFillRule true def
+
+/Begin { save numGraphicParameters dict begin } def
+/End { end restore } def
+
+/SetB {
+dup type /nulltype eq {
+pop
+false /brushRightArrow idef
+false /brushLeftArrow idef
+true /brushNone idef
+} {
+/brushDashOffset idef
+/brushDashArray idef
+0 ne /brushRightArrow idef
+0 ne /brushLeftArrow idef
+/brushWidth idef
+false /brushNone idef
+} ifelse
+} def
+
+/SetCFg {
+/fgblue idef
+/fggreen idef
+/fgred idef
+} def
+
+/SetCBg {
+/bgblue idef
+/bggreen idef
+/bgred idef
+} def
+
+/SetF {
+/printSize idef
+/printFont idef
+} def
+
+/SetP {
+dup type /nulltype eq {
+pop true /patternNone idef
+} {
+/patternGrayLevel idef
+patternGrayLevel -1 eq {
+/patternString idef
+} if
+false /patternNone idef
+} ifelse
+} def
+
+/BSpl {
+0 begin
+storexyn
+newpath
+n 1 gt {
+0 0 0 0 0 0 1 1 true subspline
+n 2 gt {
+0 0 0 0 1 1 2 2 false subspline
+1 1 n 3 sub {
+/i exch def
+i 1 sub dup i dup i 1 add dup i 2 add dup false subspline
+} for
+n 3 sub dup n 2 sub dup n 1 sub dup 2 copy false subspline
+} if
+n 2 sub dup n 1 sub dup 2 copy 2 copy false subspline
+patternNone not brushLeftArrow not brushRightArrow not and and { ifill } if
+brushNone not { istroke } if
+0 0 1 1 leftarrow
+n 2 sub dup 1 sub dup rightarrow
+} if
+end
+} dup 0 4 dict put def
+
+/Circ {
+newpath
+0 360 arc
+closepath
+patternNone not { ifill } if
+brushNone not { istroke } if
+} def
+
+/CBSpl {
+0 begin
+dup 2 gt {
+storexyn
+newpath
+n 1 sub dup 0 0 1 1 2 2 true subspline
+1 1 n 3 sub {
+/i exch def
+i 1 sub dup i dup i 1 add dup i 2 add dup false subspline
+} for
+n 3 sub dup n 2 sub dup n 1 sub dup 0 0 false subspline
+n 2 sub dup n 1 sub dup 0 0 1 1 false subspline
+patternNone not { ifill } if
+brushNone not { istroke } if
+} {
+Poly
+} ifelse
+end
+} dup 0 4 dict put def
+
+/Elli {
+0 begin
+newpath
+4 2 roll
+translate
+scale
+0 0 1 0 360 arc
+closepath
+patternNone not { ifill } if
+brushNone not { istroke } if
+end
+} dup 0 1 dict put def
+
+/Line {
+0 begin
+2 storexyn
+newpath
+x 0 get y 0 get moveto
+x 1 get y 1 get lineto
+brushNone not { istroke } if
+0 0 1 1 leftarrow
+0 0 1 1 rightarrow
+end
+} dup 0 4 dict put def
+
+/MLine {
+0 begin
+storexyn
+newpath
+n 1 gt {
+x 0 get y 0 get moveto
+1 1 n 1 sub {
+/i exch def
+x i get y i get lineto
+} for
+patternNone not brushLeftArrow not brushRightArrow not and and { ifill } if
+brushNone not { istroke } if
+0 0 1 1 leftarrow
+n 2 sub dup n 1 sub dup rightarrow
+} if
+end
+} dup 0 4 dict put def
+
+/Poly {
+3 1 roll
+newpath
+moveto
+-1 add
+{ lineto } repeat
+closepath
+patternNone not { ifill } if
+brushNone not { istroke } if
+} def
+
+/Rect {
+0 begin
+/t exch def
+/r exch def
+/b exch def
+/l exch def
+newpath
+l b moveto
+l t lineto
+r t lineto
+r b lineto
+closepath
+patternNone not { ifill } if
+brushNone not { istroke } if
+end
+} dup 0 4 dict put def
+
+/Text {
+ishow
+} def
+
+/idef {
+dup where { pop pop pop } { exch def } ifelse
+} def
+
+/ifill {
+0 begin
+gsave
+patternGrayLevel -1 ne {
+fgred bgred fgred sub patternGrayLevel mul add
+fggreen bggreen fggreen sub patternGrayLevel mul add
+fgblue bgblue fgblue sub patternGrayLevel mul add setrgbcolor
+eoFillRule { eofill } { fill } ifelse
+} {
+eoFillRule { eoclip } { clip } ifelse
+originalCTM setmatrix
+pathbbox /t exch def /r exch def /b exch def /l exch def
+/w r l sub ceiling cvi def
+/h t b sub ceiling cvi def
+/imageByteWidth w 8 div ceiling cvi def
+/imageHeight h def
+bgred bggreen bgblue setrgbcolor
+eoFillRule { eofill } { fill } ifelse
+fgred fggreen fgblue setrgbcolor
+w 0 gt h 0 gt and {
+l b translate w h scale
+w h true [w 0 0 h neg 0 h] { patternproc } imagemask
+} if
+} ifelse
+grestore
+end
+} dup 0 8 dict put def
+
+/istroke {
+gsave
+brushDashOffset -1 eq {
+[] 0 setdash
+1 setgray
+} {
+brushDashArray brushDashOffset setdash
+fgred fggreen fgblue setrgbcolor
+} ifelse
+brushWidth setlinewidth
+originalCTM setmatrix
+stroke
+grestore
+} def
+
+/ishow {
+0 begin
+gsave
+fgred fggreen fgblue setrgbcolor
+/fontDict printFont findfont printSize scalefont dup setfont def
+/descender fontDict begin 0 /FontBBox load 1 get FontMatrix end
+transform exch pop def
+/vertoffset 1 printSize sub descender sub def {
+0 vertoffset moveto show
+/vertoffset vertoffset printSize sub def
+} forall
+grestore
+end
+} dup 0 3 dict put def
+
+/patternproc {
+0 begin
+/patternByteLength patternString length def
+/patternHeight patternByteLength 8 mul sqrt cvi def
+/patternWidth patternHeight def
+/patternByteWidth patternWidth 8 idiv def
+/imageByteMaxLength imageByteWidth imageHeight mul
+stringLimit patternByteWidth sub min def
+/imageMaxHeight imageByteMaxLength imageByteWidth idiv patternHeight idiv
+patternHeight mul patternHeight max def
+/imageHeight imageHeight imageMaxHeight sub store
+/imageString imageByteWidth imageMaxHeight mul patternByteWidth add string def
+0 1 imageMaxHeight 1 sub {
+/y exch def
+/patternRow y patternByteWidth mul patternByteLength mod def
+/patternRowString patternString patternRow patternByteWidth getinterval def
+/imageRow y imageByteWidth mul def
+0 patternByteWidth imageByteWidth 1 sub {
+/x exch def
+imageString imageRow x add patternRowString putinterval
+} for
+} for
+imageString
+end
+} dup 0 12 dict put def
+
+/min {
+dup 3 2 roll dup 4 3 roll lt { exch } if pop
+} def
+
+/max {
+dup 3 2 roll dup 4 3 roll gt { exch } if pop
+} def
+
+/midpoint {
+0 begin
+/y1 exch def
+/x1 exch def
+/y0 exch def
+/x0 exch def
+x0 x1 add 2 div
+y0 y1 add 2 div
+end
+} dup 0 4 dict put def
+
+/thirdpoint {
+0 begin
+/y1 exch def
+/x1 exch def
+/y0 exch def
+/x0 exch def
+x0 2 mul x1 add 3 div
+y0 2 mul y1 add 3 div
+end
+} dup 0 4 dict put def
+
+/subspline {
+0 begin
+/movetoNeeded exch def
+y exch get /y3 exch def
+x exch get /x3 exch def
+y exch get /y2 exch def
+x exch get /x2 exch def
+y exch get /y1 exch def
+x exch get /x1 exch def
+y exch get /y0 exch def
+x exch get /x0 exch def
+x1 y1 x2 y2 thirdpoint
+/p1y exch def
+/p1x exch def
+x2 y2 x1 y1 thirdpoint
+/p2y exch def
+/p2x exch def
+x1 y1 x0 y0 thirdpoint
+p1x p1y midpoint
+/p0y exch def
+/p0x exch def
+x2 y2 x3 y3 thirdpoint
+p2x p2y midpoint
+/p3y exch def
+/p3x exch def
+movetoNeeded { p0x p0y moveto } if
+p1x p1y p2x p2y p3x p3y curveto
+end
+} dup 0 17 dict put def
+
+/storexyn {
+/n exch def
+/y n array def
+/x n array def
+n 1 sub -1 0 {
+/i exch def
+y i 3 2 roll put
+x i 3 2 roll put
+} for
+} def
+
+/arrowhead {
+0 begin
+transform originalCTM itransform
+/taily exch def
+/tailx exch def
+transform originalCTM itransform
+/tipy exch def
+/tipx exch def
+/dy tipy taily sub def
+/dx tipx tailx sub def
+/angle dx 0 ne dy 0 ne or { dy dx atan } { 90 } ifelse def
+gsave
+originalCTM setmatrix
+tipx tipy translate
+angle rotate
+newpath
+arrowHeight neg arrowWidth 2 div moveto
+0 0 lineto
+arrowHeight neg arrowWidth 2 div neg lineto
+patternNone not {
+originalCTM setmatrix
+/padtip arrowHeight 2 exp 0.25 arrowWidth 2 exp mul add sqrt brushWidth mul
+arrowWidth div def
+/padtail brushWidth 2 div def
+tipx tipy translate
+angle rotate
+padtip 0 translate
+arrowHeight padtip add padtail add arrowHeight div dup scale
+arrowheadpath
+ifill
+} if
+brushNone not {
+originalCTM setmatrix
+tipx tipy translate
+angle rotate
+arrowheadpath
+istroke
+} if
+grestore
+end
+} dup 0 9 dict put def
+
+/arrowheadpath {
+newpath
+arrowHeight neg arrowWidth 2 div moveto
+0 0 lineto
+arrowHeight neg arrowWidth 2 div neg lineto
+} def
+
+/leftarrow {
+0 begin
+y exch get /taily exch def
+x exch get /tailx exch def
+y exch get /tipy exch def
+x exch get /tipx exch def
+brushLeftArrow { tipx tipy tailx taily arrowhead } if
+end
+} dup 0 4 dict put def
+
+/rightarrow {
+0 begin
+y exch get /tipy exch def
+x exch get /tipx exch def
+y exch get /taily exch def
+x exch get /tailx exch def
+brushRightArrow { tipx tipy tailx taily arrowhead } if
+end
+} dup 0 4 dict put def
+%%EndResource
+%%EndSetup
+
+%%Page: 1 1
+%%PageResources: 
+%%PageBoundingBox: 62 262 549 530
+%%BeginPageSetup
+%I Idraw 8
+
+Begin
+%I b u
+%I cfg u
+%I cbg u
+%I f u
+%I p u
+%I t
+[ 1 0 0 1 0 0 ] concat
+/originalCTM matrix currentmatrix def
+/trueoriginalCTM matrix currentmatrix def
+%%EndPageSetup
+
+Begin %I MLine
+[0.4826718 0 0 0.4826718 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 190
+5623 3513
+5669 3513
+5714 3513
+5714 3514
+5760 3514
+5805 3514
+5851 3514
+5851 3516
+5896 3516
+5896 3517
+5942 3517
+5942 3518
+5987 3518
+5987 3520
+6033 3520
+6033 3524
+6078 3524
+6078 3530
+6124 3530
+6124 3540
+6169 3540
+6169 3552
+6215 3552
+6215 3579
+6260 3579
+6260 3606
+6306 3606
+6306 3663
+6352 3663
+6352 3741
+6397 3741
+6397 3870
+6443 3870
+6443 4059
+6488 4059
+6488 4329
+6534 4329
+6534 4705
+6579 4705
+6579 5193
+6625 5193
+6625 5806
+6670 5806
+6670 6489
+6716 6489
+6716 7077
+6761 7077
+6761 7537
+6807 7537
+6807 7650
+6852 7650
+6852 7525
+6898 7525
+6898 7254
+6943 7254
+6943 6916
+6989 6916
+6989 6623
+7034 6623
+7034 6373
+7080 6373
+7080 6122
+7125 6122
+7125 5926
+7171 5926
+7171 5757
+7216 5757
+7216 5599
+7262 5599
+7262 5421
+7307 5421
+7307 5284
+7353 5284
+7353 5138
+7398 5138
+7398 5013
+7444 5013
+7444 4892
+7489 4892
+7489 4776
+7535 4776
+7535 4690
+7580 4690
+7580 4584
+7626 4584
+7626 4508
+7671 4508
+7671 4432
+7717 4432
+7717 4340
+7762 4340
+7762 4283
+7808 4283
+7808 4220
+7853 4220
+7853 4164
+7899 4164
+7899 4099
+7944 4099
+7944 4056
+7990 4056
+7990 4001
+8035 4001
+8035 3962
+8081 3962
+8081 3917
+8126 3917
+8126 3880
+8172 3880
+8172 3848
+8217 3848
+8217 3820
+8263 3820
+8263 3795
+8308 3795
+8308 3771
+8354 3771
+8354 3745
+8399 3745
+8399 3717
+8445 3717
+8445 3698
+8490 3698
+8490 3677
+8536 3677
+8536 3666
+8581 3666
+8581 3652
+8627 3652
+8627 3640
+8672 3640
+8672 3621
+8718 3621
+8718 3613
+8763 3613
+8763 3601
+8809 3601
+8809 3589
+8854 3589
+8854 3585
+8900 3585
+8900 3575
+8945 3575
+8945 3565
+8991 3565
+8991 3563
+9036 3563
+9036 3556
+9082 3556
+9082 3552
+9127 3552
+9127 3546
+9173 3546
+9173 3541
+9218 3541
+9218 3540
+9264 3540
+9264 3534
+9309 3534
+9309 3530
+9355 3530
+9355 3527
+9400 3527
+9400 3525
+9446 3525
+9446 3524
+9491 3524
+9491 3521
+9537 3521
+9582 3521
+9582 3520
+9628 3520
+9628 3518
+9673 3518
+9673 3517
+9719 3517
+9719 3516
+9765 3516
+9765 3515
+9810 3515
+9810 3514
+9856 3514
+9901 3514
+9947 3514
+9947 3513
+9992 3513
+10038 3513
+10083 3513
+10129 3513
+10174 3513
+190 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+10174 3513
+10126 3513
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+10174 3655
+10126 3655
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+10174 3798
+10126 3798
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+10174 3941
+10126 3941
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+10174 4084
+10126 4084
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+10174 4227
+10126 4227
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+10174 4370
+10126 4370
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+10174 4513
+10126 4513
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+10174 4656
+10126 4656
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+10174 4799
+10126 4799
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+10174 4941
+10126 4941
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+10174 5084
+10126 5084
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+10174 5227
+10126 5227
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+10174 5370
+10126 5370
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+10174 5513
+10126 5513
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+10174 5656
+10126 5656
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+10174 5799
+10126 5799
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+10174 5942
+10126 5942
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+10174 6084
+10126 6084
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+10174 6227
+10126 6227
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+10174 6370
+10126 6370
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+10174 6513
+10126 6513
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+10174 6656
+10126 6656
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+10174 6799
+10126 6799
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+10174 6942
+10126 6942
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+10174 7085
+10126 7085
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+10174 7228
+10126 7228
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+10174 7370
+10126 7370
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+10174 7513
+10126 7513
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+10174 7656
+10126 7656
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+10174 7799
+10126 7799
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+10174 7942
+10126 7942
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+10174 3513
+10078 3513
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+10174 4084
+10078 4084
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+10174 4656
+10078 4656
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+10174 5227
+10078 5227
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+10174 5799
+10078 5799
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+10174 6370
+10078 6370
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+10174 6942
+10078 6942
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+10174 7513
+10078 7513
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+10174 3513
+10174 8063
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5623 8063
+5623 8015
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5851 8063
+5851 8015
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+6078 8063
+6078 8015
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+6306 8063
+6306 8015
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+6534 8063
+6534 8015
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+6761 8063
+6761 8015
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+6989 8063
+6989 8015
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+7216 8063
+7216 8015
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+7444 8063
+7444 8015
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+7671 8063
+7671 8015
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+7899 8063
+7899 8015
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+8126 8063
+8126 8015
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+8354 8063
+8354 8015
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+8581 8063
+8581 8015
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+8809 8063
+8809 8015
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+9036 8063
+9036 8015
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+9264 8063
+9264 8015
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+9491 8063
+9491 8015
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+9719 8063
+9719 8015
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+9947 8063
+9947 8015
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+10174 8063
+10174 8015
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5623 8063
+5623 7967
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+6761 8063
+6761 7967
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+7899 8063
+7899 7967
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+9036 8063
+9036 7967
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+10174 8063
+10174 7967
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5623 8063
+10174 8063
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5623 3513
+5672 3513
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5623 3655
+5672 3655
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5623 3798
+5672 3798
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5623 3941
+5672 3941
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5623 4084
+5672 4084
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5623 4227
+5672 4227
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5623 4370
+5672 4370
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5623 4513
+5672 4513
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5623 4656
+5672 4656
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5623 4799
+5672 4799
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5623 4941
+5672 4941
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5623 5084
+5672 5084
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5623 5227
+5672 5227
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5623 5370
+5672 5370
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5623 5513
+5672 5513
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5623 5656
+5672 5656
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5623 5799
+5672 5799
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5623 5942
+5672 5942
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5623 6084
+5672 6084
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5623 6227
+5672 6227
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5623 6370
+5672 6370
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5623 6513
+5672 6513
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5623 6656
+5672 6656
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5623 6799
+5672 6799
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5623 6942
+5672 6942
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5623 7085
+5672 7085
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5623 7228
+5672 7228
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5623 7370
+5672 7370
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5623 7513
+5672 7513
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5623 7656
+5672 7656
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5623 7799
+5672 7799
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5623 7942
+5672 7942
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5623 3513
+5720 3513
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5623 4084
+5720 4084
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5623 4656
+5720 4656
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5623 5227
+5720 5227
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5623 5799
+5720 5799
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5623 6370
+5720 6370
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5623 6942
+5720 6942
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5623 7513
+5720 7513
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5623 3513
+5623 8063
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5623 3513
+5623 3561
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5851 3513
+5851 3561
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+6078 3513
+6078 3561
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+6306 3513
+6306 3561
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+6534 3513
+6534 3561
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+6761 3513
+6761 3561
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+6989 3513
+6989 3561
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+7216 3513
+7216 3561
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+7444 3513
+7444 3561
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+7671 3513
+7671 3561
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+7899 3513
+7899 3561
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+8126 3513
+8126 3561
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+8354 3513
+8354 3561
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+8581 3513
+8581 3561
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+8809 3513
+8809 3561
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+9036 3513
+9036 3561
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+9264 3513
+9264 3561
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+9491 3513
+9491 3561
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+9719 3513
+9719 3561
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+9947 3513
+9947 3561
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+10174 3513
+10174 3561
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5623 3513
+5623 3609
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+6761 3513
+6761 3609
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+7899 3513
+7899 3609
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+9036 3513
+9036 3609
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+10174 3513
+10174 3609
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5623 3513
+10174 3513
+2 MLine
+End
+
+Begin %I Poly
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 16
+5633 3374
+5660 3365
+5679 3337
+5688 3291
+5688 3263
+5679 3217
+5660 3189
+5633 3180
+5614 3180
+5586 3189
+5568 3217
+5559 3263
+5559 3291
+5568 3337
+5586 3365
+5614 3374
+16 Poly
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 10
+5614 3374
+5596 3365
+5586 3356
+5577 3337
+5568 3291
+5568 3263
+5577 3217
+5586 3198
+5596 3189
+5614 3180
+10 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 10
+5633 3180
+5651 3189
+5660 3198
+5670 3217
+5679 3263
+5679 3291
+5670 3337
+5660 3356
+5651 3365
+5633 3374
+10 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 4
+6724 3337
+6743 3347
+6770 3374
+6770 3180
+4 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+6761 3365
+6761 3180
+2 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+6724 3180
+6807 3180
+2 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 20
+7843 3337
+7852 3328
+7843 3319
+7834 3328
+7834 3337
+7843 3356
+7852 3365
+7880 3374
+7917 3374
+7945 3365
+7954 3356
+7964 3337
+7964 3319
+7954 3300
+7927 3282
+7880 3263
+7862 3254
+7843 3236
+7834 3208
+7834 3180
+20 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 8
+7917 3374
+7936 3365
+7945 3356
+7954 3337
+7954 3319
+7945 3300
+7917 3282
+7880 3263
+8 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 7
+7834 3198
+7843 3208
+7862 3208
+7908 3189
+7936 3189
+7954 3198
+7964 3208
+7 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 6
+7862 3208
+7908 3180
+7945 3180
+7954 3189
+7964 3208
+7964 3226
+6 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 15
+8981 3337
+8990 3328
+8981 3319
+8972 3328
+8972 3337
+8981 3356
+8990 3365
+9018 3374
+9055 3374
+9083 3365
+9092 3347
+9092 3319
+9083 3300
+9055 3291
+9027 3291
+15 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 6
+9055 3374
+9073 3365
+9083 3347
+9083 3319
+9073 3300
+9055 3291
+6 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 16
+9055 3291
+9073 3282
+9092 3263
+9101 3245
+9101 3217
+9092 3198
+9083 3189
+9055 3180
+9018 3180
+8990 3189
+8981 3198
+8972 3217
+8972 3226
+8981 3236
+8990 3226
+8981 3217
+16 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 6
+9083 3273
+9092 3245
+9092 3217
+9083 3198
+9073 3189
+9055 3180
+6 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+10193 3356
+10193 3180
+2 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+10202 3374
+10202 3180
+2 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 3
+10202 3374
+10100 3236
+10248 3236
+3 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+10165 3180
+10230 3180
+2 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+7172 3005
+7172 2810
+2 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+7181 3005
+7181 2810
+2 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+7144 3005
+7181 3005
+2 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+7144 2810
+7209 2810
+2 MLine
+End
+
+Begin %I Poly
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 16
+7329 2940
+7357 2930
+7376 2912
+7385 2884
+7385 2866
+7376 2838
+7357 2819
+7329 2810
+7311 2810
+7283 2819
+7265 2838
+7255 2866
+7255 2884
+7265 2912
+7283 2930
+7311 2940
+16 Poly
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 8
+7311 2940
+7292 2930
+7274 2912
+7265 2884
+7265 2866
+7274 2838
+7292 2819
+7311 2810
+8 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 8
+7329 2810
+7348 2819
+7366 2838
+7376 2866
+7376 2884
+7366 2912
+7348 2930
+7329 2940
+8 MLine
+End
+
+Begin %I Poly
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 16
+7505 2940
+7524 2930
+7533 2921
+7542 2903
+7542 2884
+7533 2866
+7524 2856
+7505 2847
+7487 2847
+7468 2856
+7459 2866
+7450 2884
+7450 2903
+7459 2921
+7468 2930
+7487 2940
+16 Poly
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 4
+7468 2930
+7459 2912
+7459 2875
+7468 2856
+4 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 4
+7524 2856
+7533 2875
+7533 2912
+7524 2930
+4 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 5
+7533 2921
+7542 2930
+7561 2940
+7561 2930
+7542 2930
+5 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 9
+7459 2866
+7450 2856
+7441 2838
+7441 2829
+7450 2810
+7478 2801
+7524 2801
+7552 2792
+7561 2782
+9 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 15
+7441 2829
+7450 2819
+7478 2810
+7524 2810
+7552 2801
+7561 2782
+7561 2773
+7552 2755
+7524 2745
+7468 2745
+7441 2755
+7431 2773
+7431 2782
+7441 2801
+7468 2810
+15 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 4
+7622 2826
+7633 2832
+7650 2849
+7650 2732
+4 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+7644 2843
+7644 2732
+2 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+7622 2732
+7672 2732
+2 MLine
+End
+
+Begin %I Poly
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 16
+7761 2849
+7777 2843
+7789 2826
+7794 2799
+7794 2782
+7789 2754
+7777 2737
+7761 2732
+7750 2732
+7733 2737
+7722 2754
+7716 2782
+7716 2799
+7722 2826
+7733 2843
+7750 2849
+16 Poly
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 10
+7750 2849
+7739 2843
+7733 2837
+7727 2826
+7722 2799
+7722 2782
+7727 2754
+7733 2743
+7739 2737
+7750 2732
+10 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 10
+7761 2732
+7772 2737
+7777 2743
+7783 2754
+7789 2782
+7789 2799
+7783 2826
+7777 2837
+7772 2843
+7761 2849
+10 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 10
+7913 3042
+7894 3023
+7876 2995
+7857 2958
+7848 2912
+7848 2875
+7857 2829
+7876 2792
+7894 2764
+7913 2745
+10 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 8
+7894 3023
+7876 2986
+7866 2958
+7857 2912
+7857 2875
+7866 2829
+7876 2801
+7894 2764
+8 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 16
+8088 2977
+8098 3005
+8098 2949
+8088 2977
+8070 2995
+8042 3005
+8014 3005
+7987 2995
+7968 2977
+7968 2958
+7977 2940
+7987 2930
+8005 2921
+8061 2903
+8079 2893
+8098 2875
+16 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 16
+7968 2958
+7987 2940
+8005 2930
+8061 2912
+8079 2903
+8088 2893
+8098 2875
+8098 2838
+8079 2819
+8051 2810
+8024 2810
+7996 2819
+7977 2838
+7968 2866
+7968 2810
+7977 2838
+16 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+8311 3042
+8144 2745
+2 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+8375 3005
+8375 2810
+2 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+8385 3005
+8496 2829
+2 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+8385 2986
+8496 2810
+2 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+8496 3005
+8496 2810
+2 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+8348 3005
+8385 3005
+2 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+8468 3005
+8524 3005
+2 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+8348 2810
+8403 2810
+2 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 10
+8570 3042
+8588 3023
+8607 2995
+8625 2958
+8635 2912
+8635 2875
+8625 2829
+8607 2792
+8588 2764
+8570 2745
+10 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 8
+8588 3023
+8607 2986
+8616 2958
+8625 2912
+8625 2875
+8616 2829
+8607 2801
+8588 2764
+8 MLine
+End
+
+Begin %I MLine
+[0.4850922 0 0 0.4850922 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 201
+540 3501
+540 3506
+586 3506
+586 3510
+631 3510
+631 3514
+677 3514
+677 3522
+723 3522
+723 3526
+769 3526
+769 3532
+814 3532
+814 3540
+860 3540
+860 3550
+906 3550
+906 3572
+952 3572
+952 3595
+997 3595
+997 3611
+1043 3611
+1043 3640
+1089 3640
+1089 3699
+1135 3699
+1135 3712
+1180 3712
+1180 3750
+1226 3750
+1226 3816
+1272 3816
+1272 3872
+1317 3872
+1317 3940
+1363 3940
+1363 4023
+1409 4023
+1409 4093
+1455 4093
+1455 4206
+1500 4206
+1500 4318
+1546 4318
+1546 4416
+1592 4416
+1592 4557
+1638 4557
+1638 4671
+1683 4671
+1683 4808
+1729 4808
+1729 4967
+1775 4967
+1775 5153
+1821 5153
+1821 5302
+1866 5302
+1866 5423
+1912 5423
+1912 5582
+1958 5582
+1958 5769
+2004 5769
+2004 5923
+2049 5923
+2049 6103
+2095 6103
+2095 6271
+2141 6271
+2141 6402
+2186 6402
+2186 6569
+2232 6569
+2232 6819
+2278 6819
+2278 6875
+2324 6875
+2324 7072
+2369 7072
+2369 7141
+2415 7141
+2415 7221
+2461 7221
+2461 7382
+2507 7382
+2507 7373
+2552 7373
+2552 7476
+2598 7476
+2598 7580
+2644 7580
+2644 7533
+2690 7533
+2690 7602
+2735 7602
+2735 7588
+2781 7588
+2781 7597
+2827 7597
+2827 7659
+2872 7659
+2872 7531
+2918 7531
+2918 7523
+2964 7523
+2964 7435
+3010 7435
+3010 7440
+3055 7440
+3055 7321
+3101 7321
+3101 7145
+3147 7145
+3147 7143
+3193 7143
+3193 7053
+3238 7053
+3238 6974
+3284 6974
+3284 6914
+3330 6914
+3330 6890
+3376 6890
+3376 6755
+3421 6755
+3421 6645
+3467 6645
+3467 6639
+3513 6639
+3513 6567
+3559 6567
+3559 6415
+3604 6415
+3604 6359
+3650 6359
+3650 6282
+3696 6282
+3696 6160
+3741 6160
+3741 6120
+3787 6120
+3787 6053
+3833 6053
+3833 5926
+3879 5926
+3879 5912
+3924 5912
+3924 5847
+3970 5847
+3970 5886
+4016 5886
+4016 5761
+4062 5761
+4062 5680
+4107 5680
+4107 5618
+4153 5618
+4153 5616
+4199 5616
+4199 5544
+4245 5544
+4245 5509
+4290 5509
+4290 5488
+4336 5488
+4336 5380
+4382 5380
+4382 5362
+4427 5362
+4427 5366
+4473 5366
+4473 5304
+4519 5304
+4519 5265
+4565 5265
+4565 5258
+4610 5258
+4610 5183
+4656 5183
+4656 5191
+4702 5191
+4702 5121
+4748 5121
+4748 5084
+4793 5084
+4793 5061
+4839 5061
+4839 4984
+4885 4984
+4885 5008
+4931 5008
+4931 4930
+4976 4930
+4976 4948
+5022 4948
+5022 4901
+5068 4901
+5068 4922
+5113 4922
+201 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5113 3501
+5065 3501
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5113 3702
+5065 3702
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5113 3903
+5065 3903
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5113 4104
+5065 4104
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5113 4304
+5065 4304
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5113 4505
+5065 4505
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5113 4706
+5065 4706
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5113 4906
+5065 4906
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5113 5107
+5065 5107
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5113 5308
+5065 5308
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5113 5508
+5065 5508
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5113 5709
+5065 5709
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5113 5910
+5065 5910
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5113 6111
+5065 6111
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5113 6311
+5065 6311
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5113 6512
+5065 6512
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5113 6713
+5065 6713
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5113 6913
+5065 6913
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5113 7114
+5065 7114
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5113 7315
+5065 7315
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5113 7515
+5065 7515
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5113 7716
+5065 7716
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5113 7917
+5065 7917
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5113 3501
+5016 3501
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5113 4304
+5016 4304
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5113 5107
+5016 5107
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5113 5910
+5016 5910
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5113 6713
+5016 6713
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5113 7515
+5016 7515
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5113 3501
+5113 8075
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+540 8075
+540 8026
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+779 8075
+779 8026
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+1019 8075
+1019 8026
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+1258 8075
+1258 8026
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+1498 8075
+1498 8026
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+1737 8075
+1737 8026
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+1977 8075
+1977 8026
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+2216 8075
+2216 8026
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+2456 8075
+2456 8026
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+2695 8075
+2695 8026
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+2934 8075
+2934 8026
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+3174 8075
+3174 8026
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+3413 8075
+3413 8026
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+3653 8075
+3653 8026
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+3892 8075
+3892 8026
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+4132 8075
+4132 8026
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+4371 8075
+4371 8026
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+4611 8075
+4611 8026
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+4850 8075
+4850 8026
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5090 8075
+5090 8026
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+1498 8075
+1498 7978
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+2695 8075
+2695 7978
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+3892 8075
+3892 7978
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5090 8075
+5090 7978
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+540 8075
+5113 8075
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+540 3501
+589 3501
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+540 3702
+589 3702
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+540 3903
+589 3903
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+540 4104
+589 4104
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+540 4304
+589 4304
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+540 4505
+589 4505
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+540 4706
+589 4706
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+540 4906
+589 4906
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+540 5107
+589 5107
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+540 5308
+589 5308
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+540 5508
+589 5508
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+540 5709
+589 5709
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+540 5910
+589 5910
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+540 6111
+589 6111
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+540 6311
+589 6311
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+540 6512
+589 6512
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+540 6713
+589 6713
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+540 6913
+589 6913
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+540 7114
+589 7114
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+540 7315
+589 7315
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+540 7515
+589 7515
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+540 7716
+589 7716
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+540 7917
+589 7917
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+540 3501
+637 3501
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+540 4304
+637 4304
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+540 5107
+637 5107
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+540 5910
+637 5910
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+540 6713
+637 6713
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+540 7515
+637 7515
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+540 3501
+540 8075
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+540 3501
+540 3550
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+779 3501
+779 3550
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+1019 3501
+1019 3550
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+1258 3501
+1258 3550
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+1498 3501
+1498 3550
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+1737 3501
+1737 3550
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+1977 3501
+1977 3550
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+2216 3501
+2216 3550
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+2456 3501
+2456 3550
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+2695 3501
+2695 3550
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+2934 3501
+2934 3550
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+3174 3501
+3174 3550
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+3413 3501
+3413 3550
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+3653 3501
+3653 3550
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+3892 3501
+3892 3550
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+4132 3501
+4132 3550
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+4371 3501
+4371 3550
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+4611 3501
+4611 3550
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+4850 3501
+4850 3550
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5090 3501
+5090 3550
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+1498 3501
+1498 3599
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+2695 3501
+2695 3599
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+3892 3501
+3892 3599
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+5090 3501
+5090 3599
+2 MLine
+End
+
+Begin %I MLine
+[0.5 0 0 0.5 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+0 setlinecap 0 setlinejoin 10.43 setmiterlimit
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+540 3501
+5113 3501
+2 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+1452 3363
+1433 3270
+2 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 19
+1433 3270
+1452 3289
+1479 3298
+1507 3298
+1535 3289
+1553 3270
+1563 3242
+1563 3224
+1553 3196
+1535 3178
+1507 3168
+1479 3168
+1452 3178
+1442 3187
+1433 3205
+1433 3215
+1442 3224
+1452 3215
+1442 3205
+19 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 8
+1507 3298
+1526 3289
+1544 3270
+1553 3242
+1553 3224
+1544 3196
+1526 3178
+1507 3168
+8 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+1452 3363
+1544 3363
+2 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 3
+1452 3354
+1498 3354
+1544 3363
+3 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 4
+2565 3326
+2584 3335
+2612 3363
+2612 3168
+4 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+2602 3354
+2602 3168
+2 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+2565 3168
+2649 3168
+2 MLine
+End
+
+Begin %I Poly
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 16
+2797 3363
+2825 3354
+2843 3326
+2852 3280
+2852 3252
+2843 3205
+2825 3178
+2797 3168
+2778 3168
+2751 3178
+2732 3205
+2723 3252
+2723 3280
+2732 3326
+2751 3354
+2778 3363
+16 Poly
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 10
+2778 3363
+2760 3354
+2751 3344
+2741 3326
+2732 3280
+2732 3252
+2741 3205
+2751 3187
+2760 3178
+2778 3168
+10 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 10
+2797 3168
+2815 3178
+2825 3187
+2834 3205
+2843 3252
+2843 3280
+2834 3326
+2825 3344
+2815 3354
+2797 3363
+10 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 4
+3763 3326
+3781 3335
+3809 3363
+3809 3168
+4 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+3800 3354
+3800 3168
+2 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+3763 3168
+3846 3168
+2 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+3939 3363
+3920 3270
+2 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 19
+3920 3270
+3939 3289
+3966 3298
+3994 3298
+4022 3289
+4040 3270
+4050 3242
+4050 3224
+4040 3196
+4022 3178
+3994 3168
+3966 3168
+3939 3178
+3929 3187
+3920 3205
+3920 3215
+3929 3224
+3939 3215
+3929 3205
+19 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 8
+3994 3298
+4013 3289
+4031 3270
+4040 3242
+4040 3224
+4031 3196
+4013 3178
+3994 3168
+8 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+3939 3363
+4031 3363
+2 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 3
+3939 3354
+3985 3354
+4031 3363
+3 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 20
+4941 3326
+4951 3317
+4941 3307
+4932 3317
+4932 3326
+4941 3344
+4951 3354
+4978 3363
+5015 3363
+5043 3354
+5053 3344
+5062 3326
+5062 3307
+5053 3289
+5025 3270
+4978 3252
+4960 3242
+4941 3224
+4932 3196
+4932 3168
+20 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 8
+5015 3363
+5034 3354
+5043 3344
+5053 3326
+5053 3307
+5043 3289
+5015 3270
+4978 3252
+8 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 7
+4932 3187
+4941 3196
+4960 3196
+5006 3178
+5034 3178
+5053 3187
+5062 3196
+7 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 6
+4960 3196
+5006 3168
+5043 3168
+5053 3178
+5062 3196
+5062 3215
+6 MLine
+End
+
+Begin %I Poly
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 16
+5191 3363
+5219 3354
+5238 3326
+5247 3280
+5247 3252
+5238 3205
+5219 3178
+5191 3168
+5173 3168
+5145 3178
+5127 3205
+5117 3252
+5117 3280
+5127 3326
+5145 3354
+5173 3363
+16 Poly
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 10
+5173 3363
+5154 3354
+5145 3344
+5136 3326
+5127 3280
+5127 3252
+5136 3205
+5145 3187
+5154 3178
+5173 3168
+10 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 10
+5191 3168
+5210 3178
+5219 3187
+5228 3205
+5238 3252
+5238 3280
+5228 3326
+5219 3344
+5210 3354
+5191 3363
+10 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 10
+2579 3030
+2560 3011
+2542 2983
+2523 2946
+2514 2900
+2514 2863
+2523 2817
+2542 2780
+2560 2752
+2579 2733
+10 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 8
+2560 3011
+2542 2974
+2532 2946
+2523 2900
+2523 2863
+2532 2817
+2542 2789
+2560 2752
+8 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 16
+2755 2965
+2764 2993
+2764 2937
+2755 2965
+2736 2983
+2708 2993
+2681 2993
+2653 2983
+2634 2965
+2634 2946
+2644 2928
+2653 2919
+2671 2909
+2727 2891
+2745 2882
+2764 2863
+16 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 16
+2634 2946
+2653 2928
+2671 2919
+2727 2900
+2745 2891
+2755 2882
+2764 2863
+2764 2826
+2745 2808
+2718 2798
+2690 2798
+2662 2808
+2644 2826
+2634 2854
+2634 2798
+2644 2826
+16 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+2977 3030
+2810 2733
+2 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+3042 2993
+3042 2798
+2 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+3051 2993
+3162 2817
+2 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+3051 2974
+3162 2798
+2 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+3162 2993
+3162 2798
+2 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+3014 2993
+3051 2993
+2 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+3134 2993
+3190 2993
+2 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 2
+3014 2798
+3069 2798
+2 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 10
+3236 3030
+3254 3011
+3273 2983
+3291 2946
+3301 2900
+3301 2863
+3291 2817
+3273 2780
+3254 2752
+3236 2733
+10 MLine
+End
+
+Begin %I MLine
+[0.6572236 0 0 0.6572236 0 0 ] trueoriginalCTM originalCTM
+concatmatrix pop
+1 setlinecap 1 setlinejoin
+/eoFillRule true def
+%I b 65535
+1 0 0 [ ] 0 SetB
+%I cfg Black
+0 0 0 SetCFg
+%I cbg White
+1 1 1 SetCBg
+%I p
+none SetP
+%I t
+[0.05 0 0 0.05 36 126 ] concat
+%I 8
+3254 3011
+3273 2974
+3282 2946
+3291 2900
+3291 2863
+3282 2817
+3273 2789
+3254 2752
+8 MLine
+End
+
+%%PageTrailer
+End %I eop
+showpage
+
+%%Trailer
+end
+%%EOF
