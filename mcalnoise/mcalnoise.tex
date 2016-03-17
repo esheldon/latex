@@ -63,8 +63,10 @@
 
 \newcommand{\nsimNgal}{$10^8$}
 \newcommand{\nsimNgalTwo}{$2 \times 10^8$}
+\newcommand{\nsimNgalFour}{$4 \times 10^8$}
 \newcommand{\nsimNStar}{$10^7$}
 \newcommand{\nsimNStarTwo}{$2 \times 10^7$}
+\newcommand{\nsimNStarFour}{$4 \times 10^7$}
 \newcommand{\nsimNstarperc}{10\%}
 
 %\newcommand{\psfedist}{$(0.0,0.7) \pm 1.8$}
@@ -540,8 +542,8 @@ size.
         Sim          & Galaxy Model & Galaxy \hlr & PSF Model & PSF FWHM & PSF $e_1$      & PSF $e_2$           & \# Galaxies & \# Stars    & Masking   \\
                      &              & [pixels]    &           & [pixels]  &                &                     &             &             &  \\
         \hline
-        BD           & Bulge+Disk   & \galrdist   & Moffat    & \psfrdist & \psfeonedist  &\psfetwodist   &  \nsimNgalTwo   & None          & None      \\
-        BDStar       & Bulge+Disk   & \galrdist   & Moffat    & \psfrdist & \psfeonedist  &\psfetwodist   &  \nsimNgalTwo   & \nsimNStarTwo & None      \\
+        BD           & Bulge+Disk   & \galrdist   & Moffat    & \psfrdist & \psfeonedist  &\psfetwodist   &  \nsimNgalFour   & None          & None      \\
+        BDStar       & Bulge+Disk   & \galrdist   & Moffat    & \psfrdist & \psfeonedist  &\psfetwodist   &  \nsimNgalFour   & \nsimNStarFour & None      \\
         BDMask       & Bulge+Disk   & \galrdist   & Moffat    & \psfrdist & \psfeonedist  &\psfetwodist   &  \nsimNgalTwo   & None          & DES      \\
         %BDOLD           & Bulge+Disk   & Moffat    & \rpsfedist     &  \nsimNgal   & None        & None      \\
         %BDOLDStar       & Bulge+Disk   & Moffat    & \rpsfedist     &  \nsimNgal   & \nsimNStar  & None      \\
@@ -630,30 +632,32 @@ with a net PSF anisotropy, we also found a significant remaining additive bias.
         \S \ref{sec:sims} and table \ref{tab:sims}.  A single Gaussian was fit
     to both galaxy and PSF, resulting in significant multiplicative 
     bias $m$ and additive biases $c$ before applying the \mcal\ response
-    terms. Results with and without correction
-    for correlated noise are shown.  After applying corrections for
-    correlated noise, the biases are all reduced to within accepable limits.
+    terms. With \mcal, No multiplicative bias was detected in any case. 
+    Some remaining additive bias in $g_2$ was detected, due to the use of
+    intentionally poor psf correction, but \mcal\ reduced the
+    bias by a factor of 13.
     Stellar contamination at the level of \nsimNstarperc\ increases
     the noise in the recovered shear by $\sim$5\% but does not introduce 
-    a significant bias.  
-    Our simple scheme to correct for masking is to
-    replace the masked pixels with the value of the Gaussian model.  XXX Describe
-    result here.
+    a significant bias.  Replacing bad pixels and columns with the best fit model
+    did not introduce any detected bias.
     \label{tab:results}}
-    \begin{tabular}{ |l|  c|c|c|  c|c|c|  c|c|c|}
+    \begin{tabular}{ |l|  c|c|c|  c|c|c|}
         \hline
-        & \multicolumn{3}{c}{Maximum Likelihood} & \multicolumn{3}{c}{\Mcal\ Uncorrected} & \multicolumn{3}{c}{\Mcal\ Corrected} \\
-        Sim    & $m$              & $c_1$         & $c_2$         & $m$             & $c_1$          & $c_2$          & $m$            & $c_1$           & $c_2$ \\
-               & $[10^{-3}]$      & $[10^{-4}]$   & $[10^{-4}]$   & $[10^{-3}]$     & $[10^{-4}]$    & $[10^{-4}]$    & $[10^{-3}]$    & $[10^{-4}]$     & $[10^{-4}]$ \\
+        & \multicolumn{3}{c}{Maximum Likelihood}                     & \multicolumn{3}{c}{\Mcal} \\
+        Sim    & $m$              & $c_1$         & $c_2$            & $m$               & $c_1$           & $c_2$ \\
+               & $[10^{-3}]$      & $[10^{-4}]$   & $[10^{-4}]$      & $[10^{-3}]$       & $[10^{-4}]$     & $[10^{-4}]$ \\
         \hline
-        BD     & $-495.6 \pm 0.2$ & $+0.1 \pm 0.1$ & $15.1 \pm 0.1$  & $104.5 \pm 0.5$ & $-0.3 \pm 0.2$ & $-5.6 \pm 0.2$ & $-0.4 \pm 0.5$  & $+0.0 \pm 0.2$ & $+0.9 \pm 0.2$  \\
-        BDStar & $-541.1 \pm 0.2$ & $+0.1 \pm 0.1$ & $18.3 \pm 0.1$  & --              & --             & --             & $-0.2 \pm 0.5$  & $+0.0 \pm 0.2$ & $+1.0 \pm 0.2$  \\
-        RG     & $-435.6 \pm 0.3$ & $-0.2 \pm 0.2$ & $~~0.3 \pm 0.2$ & $125.3 \pm 0.5$ & $-0.3 \pm 0.3$ & $+0.0 \pm 0.3$ & $+0.5 \pm 0.6$  & $-0.4 \pm 0.3$ & $+0.6 \pm 0.3$ \\
-        %BDOLD          & $0.10 \pm 0.00$ & $-0.3 \pm 0.2$    & $0.2 \pm 0.2$  & detrend  & $ 0.5 \pm 0.4$    & $-0.3 \pm 0.2$    & $0.2 \pm 0.2$  \\
-        %BDOLDStar      & $0.12 \pm 0.00$ & $-0.3 \pm 0.3$    & $0.3 \pm 0.3$  & detrend  & $ 0.5 \pm 0.5$    & $-0.2 \pm 0.2$    & $0.2 \pm 0.2$  \\
-        %BDEllip     & $0.10 \pm 0.00$ & $0.0 \pm 0.3$     & $-5.6 \pm 0.3$    & detrend  & $-0.2 \pm 0.3$    & $0.2 \pm 0.2$     & $1.1 \pm 0.2$  \\
-        %BDEllipMask & $0.10 \pm 0.00$ & $0.0 \pm 0.3$     & $-5.6 \pm 0.3$    & detrend  & $-0.5 \pm 0.3$    & $0.0 \pm 0.2$     & $1.0 \pm 0.2$  \\
-        %RG          & $0.12 \pm 0.00$ & $-0.3 \pm 0.3$    & $0.0 \pm 0.3$     & detrend  & $-1.6 \pm 0.5$    & $-0.3 \pm 0.3$    & $0.1 \pm 0.3$  \\
+        BD     & $-495.6 \pm 0.2$ & $+0.1 \pm 0.1$ & $15.1 \pm 0.1$  & $-0.27 \pm 0.34$  & $+0.00 \pm 0.17$ & $+1.12 \pm 0.17$  \\
+        BDStar & $-541.1 \pm 0.2$ & $+0.1 \pm 0.1$ & $18.3 \pm 0.1$  & $-0.2 \pm 0.5$    & $+0.0 \pm 0.2$ & $+1.0 \pm 0.2$  \\
+        BDMask & $-541.1 \pm 0.2$ & $+0.1 \pm 0.1$ & $18.3 \pm 0.1$  & $-0.60 \pm 0.46$  & $-0.17 \pm 0.23$ & $+0.73 \pm 0.23$  \\
+        RG     & $-435.6 \pm 0.3$ & $-0.2 \pm 0.2$ & $~~0.3 \pm 0.2$ & $+0.5 \pm 0.6$    & $-0.4 \pm 0.3$ & $+0.6 \pm 0.3$ \\
+        %& \multicolumn{3}{c}{Maximum Likelihood}                     & \multicolumn{3}{c}{\Mcal\ Uncorrected}            & \multicolumn{3}{c}{\Mcal\ Corrected} \\
+        %Sim    & $m$              & $c_1$         & $c_2$            & $m$             & $c_1$          & $c_2$          & $m$            & $c_1$           & $c_2$ \\
+        %       & $[10^{-3}]$      & $[10^{-4}]$   & $[10^{-4}]$      & $[10^{-3}]$     & $[10^{-4}]$    & $[10^{-4}]$    & $[10^{-3}]$    & $[10^{-4}]$     & $[10^{-4}]$ \\
+        %\hline
+        %BD     & $-495.6 \pm 0.2$ & $+0.1 \pm 0.1$ & $15.1 \pm 0.1$  & $104.5 \pm 0.5$ & $-0.3 \pm 0.2$ & $-5.6 \pm 0.2$ & $-0.4 \pm 0.5$  & $+0.0 \pm 0.2$ & $+0.9 \pm 0.2$  \\
+        %BDStar & $-541.1 \pm 0.2$ & $+0.1 \pm 0.1$ & $18.3 \pm 0.1$  & --              & --             & --             & $-0.2 \pm 0.5$  & $+0.0 \pm 0.2$ & $+1.0 \pm 0.2$  \\
+        %RG     & $-435.6 \pm 0.3$ & $-0.2 \pm 0.2$ & $~~0.3 \pm 0.2$ & $125.3 \pm 0.5$ & $-0.3 \pm 0.3$ & $+0.0 \pm 0.3$ & $+0.5 \pm 0.6$  & $-0.4 \pm 0.3$ & $+0.6 \pm 0.3$ \\
     \end{tabular}
 \end{table*}
 
