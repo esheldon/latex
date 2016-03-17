@@ -546,26 +546,6 @@ R skewness -1.26 no fixnoise,  -0.30 with fixnoise
 \end{figure}
 
 
-\subsection{Measurements of the \detrend\ Parameters}
-
-For the \detrend\ method, we measured $\Delta R$ vs $2 n \Delta n$ to find the
-coefficient $A$.  In figure \ref{fig:detrend}, we show this fit for the RG
-simulation.  The trend is well-fit by a linear model, as expected, with a slope
-$A \simeq $\Aslope, implying a correction $A n^2 \simeq$ \Rcorr\ for this
-simulation.
-
-\begin{figure}
-    \includegraphics[scale=0.45]{mcal-v14s01-Rnoise-detrend-R11.eps}
-
-    \caption{Trend of $\Delta R_{1,1}$ with $2 n \Delta n$ for the
-        real galaxy simulation.   $n$ is the
-    original noise level and $\Delta n$ is the additional noise added.  The
-    trend is linear as predicted.}
-
-\label{fig:detrend}
-\end{figure}
-
-
 \subsection{Shear Recovery}
 
 
@@ -827,6 +807,27 @@ We propose the following procedure to correct for correlated noise:
 If the noise varies between observations, we can apply a 
 correction based on the mean variance $A
 \langle n^2 \rangle$.
+
+\subsubsection{Measurements of the \detrend\ Parameters}
+
+For the \detrend\ method, we measured $\Delta R$ vs $2 n \Delta n$ to find the
+coefficient $A$.  In figure \ref{fig:detrend}, we show this fit for the RG
+simulation.  The trend is well-fit by a linear model, as expected, with a slope
+$A \simeq $\Aslope, implying a correction $A n^2 \simeq$ \Rcorr\ for this
+simulation.
+
+\begin{figure}
+    \includegraphics[scale=0.45]{mcal-v14s01-Rnoise-detrend-R11.eps}
+
+    \caption{Trend of $\Delta R_{1,1}$ with $2 n \Delta n$ for the
+        real galaxy simulation.   $n$ is the
+    original noise level and $\Delta n$ is the additional noise added.  The
+    trend is linear as predicted.}
+
+\label{fig:detrend}
+\end{figure}
+
+
 
 
 \subsubsection{Using a Random Subset To Calculate \Detrend\ Corrections}
