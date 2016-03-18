@@ -163,7 +163,7 @@ images
 
 For a constant shear, the response and shear estimators can be averaged
 separately and combined to recover the mean shear:
-\begin{equation}
+\begin{equation} \label{eq:basicestimator}
     \gamma = \frac{ \langle E \rangle }{\langle \mbox{\mcalR} \rangle}.
 \end{equation}
 In \cite{HuffMcal} a more sophisticated inference was used, in order to deal
@@ -576,7 +576,7 @@ with a net PSF anisotropy, we also found a significant remaining additive bias.
                & $[10^{-3}]$ & $[10^{-4}]$      & $[10^{-4}]$       & $[10^{-3}]$       & $[10^{-4}]$      & $[10^{-4}]$ \\
         \hline
         BD     & $-496$      & $+0.05 \pm 0.07$ & $15.21 \pm 0.07$  & $-0.27 \pm 0.34$  & $+0.00 \pm 0.17$ & $+1.12 \pm 0.17$  \\
-        BDStar & $-541$      & $+0.1 \pm 0.1$   & $18.3 \pm 0.1$    & $-0.2 \pm 0.5$    & $+0.0 \pm 0.2$   & $+1.0 \pm 0.2$  \\
+        BDStar & $-541$      & $+0.1 \pm 0.1$   & $18.3 \pm 0.1$    & $-0.21 \pm 0.36$  & $+0.03 \pm 0.18$ & $+1.21 \pm 0.18$  \\
         BDMask & $-496$      & $+0.09 \pm 0.10$ & $15.07 \pm 0.10$  & $-0.60 \pm 0.46$  & $-0.17 \pm 0.23$ & $+0.73 \pm 0.23$  \\
         RG     & $-436$      & $-0.2 \pm 0.2$   & $~~0.3 \pm 0.2$   & $+0.53 \pm 0.58$  & $-0.42 \pm 0.29$ & $+0.59 \pm 0.29$ \\
         %& \multicolumn{3}{c}{Maximum Likelihood}                     & \multicolumn{3}{c}{\Mcal\ Uncorrected}            & \multicolumn{3}{c}{\Mcal\ Corrected} \\
@@ -602,25 +602,56 @@ correlated noise corrections.
 \subsection{Stellar Contamination} \label{sec:stars}
 
 As indicated in table \ref{tab:sims}, for the ``Star'' type simulations, we
-included an additional \nsimNStarTwo\ stellar objects, drawn simply as a PSF
-with noise added.  The results are shown in table \ref{tab:results} for the
-``Star'' type simulations.  We find that a stellar contamination of
-\nsimNstarperc\ does not introduce any multiplicative significant bias, but
-does increase the uncertainty by $\sim$5\%.  This is because stars have mean
-response of zero, and also contribute zero to the shear in the absence
-of additive errors.
+included an additional \nsimNStarTwo\ stellar objects, \nsimNstarperc, drawn simply as a PSF
+with noise added.  The galaxy images were the same as used in the BD
+simulation.  The results are shown in table \ref{tab:results} for the BDStar
+type simulation.  We did not detect any multiplicative bias due to
+including the stars.
+
+\Mcal\ is robust to stellar contamination as long as the PSF is well
+known.  Images consistent with a PSF will not, in the mean, respond to the shear
+applied during the \mcal\ process.  They also yield zero average shape, as
+long as the PSF correction is sufficiently accurate:
+\begin{align}
+    \gamma &= \frac{ \langle e_{gal} \rangle + \langle e_{star} \rangle - \langle R^p_{gal} + R^p_{star} \rangle \langle e^p \rangle }{ \langle R^{gal} \rangle + \langle R^{star} \rangle}.
+\end{align}
+In figure \ref{fig:Rstars} we show the measured response \mcalR\ for stars
+and galaxies.  Indeed we see that \mcalR\ is noisy but conistent with
+zero for the stars.
 
 \begin{figure}
     \centering
     \includegraphics[scale=0.45]{R-bd29-bd29stars.eps}
 
-    \caption{Distribution responses for galaxies and stars in
+    \caption{Distribution of \mcal\ responses for galaxies and stars in
     the BDStar simulation.  Stars have mean response close to zero,
     and thus do not bias the overall shear calibration.}
 
 \label{fig:Rstars}
 \end{figure}
 
+We used a very poor psf correction, based on a single gaussian, yet we did
+not detect any significant additional bias.  However, including \nsimNstarperc\ stars
+did increase the bias but about 5\%.
+
+If the additional variance is tolerable, it may be useful to include stars in a
+shear analysis.  Attempting to remove faint stars from a sample is a noisy
+procedure, likely to induce selection effects: for example stars that are
+included in the sample after a size cut will have fluctuated to larger size due
+to noise, and will also likely have fluctuated to higher response \mcalR,
+biasing the recovered shear.
+
+For accurate interpretation of the signal, it is still important that any
+redshift estimates for the stars are consistent with zero, in the mean.  Stars
+could also be down-weighted using an appropriate weighting scheme.  We can
+rewrite equation \ref{eq:basicestimator} as
+\begin{align}
+    \langle \gamma \rangle &= \frac{ \sum E }{\sum \mbox{\mcalR}} = \frac{ \sum \mbox{\mcalR}^{true} \gamma }{\sum \mbox{\mcalR}},
+\end{align}
+which would look like a weighted average if the measured \mcalR\ were equal to
+the true response $\mbox{\mcalR}^{true}$.  The measured \mcalR\ could be used
+to weight the redshift estimates as well, although one must be careful as the
+\mcalR\ are not strictly positive.
 
 \subsection{Masking Effects} \label{sec:masking}
 
