@@ -75,6 +75,7 @@
 \newcommand{\psfrdist}{$3.66 \pm 0.38$}
 
 \newcommand{\galrdist}{$1.54 \pm 1.00$}
+\newcommand{\cosmosrdist}{$1.8 \pm 0.8$}
 
 %\newcommand{\cosmosname}{COSMOS 23.5}
 \newcommand{\cosmosname}{COSMOS}
@@ -95,7 +96,7 @@
 \newcommand{\bdstar}{\texttt{BD+Stars}}
 \newcommand{\bdmask}{\texttt{Mask}}
 \newcommand{\rgsim}{\texttt{RG}}
-\newcommand{\pimprovement}{13}
+\newcommand{\pimprovement}{14}
 
 \title{Noise Effects in \Mcal\ Weak Lensing Shear Estimation}
 
@@ -374,17 +375,16 @@ the full distribution of $\log_{10}(S/N)$}
 
 Ideally, the \mcalR\ measured for stars should be consistent with zero in the
 mean, and thus not bias the ensemble shear estimate.  In order to test the
-robustness of \mcal\ to stellar contamination, we included $\sim$\nsimNstarperc\ stars
-in each simulation.  The stars were simply drawn as PSFs, with the same flux
-distribution as used for the galaxies.  We refer to the simulations with
-stars as \bdstar; the \bdsim\ simulation is identical but with the stars
-removed.
+robustness of \mcal\ to stellar contamination, we included
+$\sim$\nsimNstarperc\ stars in the \bdsim\ simulation.  The stars were simply
+drawn as PSFs, with the same flux distribution as used for the galaxies.  We
+refer to the simulation with stars as \bdstar; the \bdsim\ simulation is
+identical but with the stars removed.
 
 The Fourier transforms used to perform the \mcal\ convolutions cannot
 accommodate missing data.  But in real data, ``bad pixels'' must be masked in
 order to prevent biased measurements. For the FFTs, these masked pixels must be
-replaced with some value that does not cause a bias in the statistics measured
-on the transformed images.
+replaced with some value that does not bias the shear recovery.
 
 We created another set of simulations, called \bdmask, in which we masked
 parts of the data in order to mimic certain effects in real images.  In order
@@ -408,22 +408,22 @@ bad column. }
 
 \subsection{COSMOS Simulations}
 
-We designed a second set of simulations to mimic the ``real-galaxy'' simulations
-used in GREAT3 challenge \citep{great3}, using galaxy images draw from COSMOS
-data.  We implemented two important changes.  First, we oriented the galaxies
-randomly rather than placing them in pairs to cancel shape bias.  Using random
-orientations avoids cancellation of systematics such as some selection effects
-\citep{DESSVShear}.  Second, we used optical aberrations in the PSF designed to
-match that seen in the Dark Energy Survey data \footnote{Aaron Roodman, private
-communication}.  Similar to GREAT3, we varied the aberrations were varied as
-Gaussian around a fiducial value. These root-mean-squared variations, in units
-of waves in the Noll convention are given in table \ref{tab:aberr}.  We used a
-Kolmogorov model for the atmospheric component, with mean FWHM = 0.9 arscec.
+We designed a second set of simulations to mimic the ``real-galaxy''
+simulations used in GREAT3 challenge \citep{great3}, using galaxy images drawn
+from COSMOS data.  We implemented two important changes.  First, we oriented
+the galaxies randomly rather than placing them in pairs to cancel shape bias.
+Using random orientations avoids cancellation of systematics such as some
+selection effects \citep{DESSVShear}.  Second, we used optical aberrations in
+the PSF designed to match that seen in the Dark Energy Survey
+data\footnote{Aaron Roodman, private communication}.  Similar to GREAT3, we
+varied the aberrations as Gaussian around a fiducial value. These
+root-mean-squared variations, in units of waves in the Noll convention are
+given in table \ref{tab:aberr}.  We used a Kolmogorov model for the atmospheric
+component, with mean FWHM = 3.40 pixels (0.9 arscec for 0.265 arcsec pixels).
 For this configuration there are significant variations in the PSF ellipticity,
-but relatively little net ellipticity across the entire
-ensemble of realizations.
-The code used to generate these simulations began as a fork of the GREAT3
-public code base, and is freely available
+but relatively little net ellipticity across the entire ensemble of
+realizations.  The code used to generate these simulations began as a fork of
+the GREAT3 public code base, and is freely available
 online\footnote{https://github.com/esheldon/egret}.
 
 \begin{table}
@@ -452,9 +452,8 @@ of the parametric simulations, about 12 instead of 10.  Also shown is the
 distribution of the half-light-radius \hlr, measured
 from the \sersic\ model fits distributed with the COSMOS catalog as part
 of the GREAT3 challenge.  The mean \hlr\ for these simulations
-is about $1.8 \pm 0.8$, somewhat smaller than the
-log-normal $2.0 \pm 0.5$ for the parametric simulations, but with a tail to larger
-size.
+is about \cosmosrdist, somewhat larger than the
+log-normal \galrdist\ for the parametric simulations.
 
 
 \begin{figure}
@@ -512,16 +511,18 @@ operations were performed using the \texttt{metacal} module from \ngmix.
 
 Naively using these grossly incorrect models resulted in a large model bias,
 and large uncorrected PSF anisotropy.  In addition there was significant {\em
-ordinary} noise bias at the low S/N levels used in the simulations.  We used
-the \mcal\ procedure, coupled with the above correlated noise fixes,
-to derive corrections for these biases.
+ordinary} noise bias at the low S/N levels used in the simulations.
 
 We used a maximum likelihood fit, with smooth priors on all parameters to
-produce a stable fit. For all images our entire set of simulations we had not a
+produce a stable fit; for all images our entire set of simulations we had not a
 single failure in the fitting process.  These priors were not tuned to the true
 galaxy parameters.  For the flux and size we deliberately used priors that were
 wider than truth by 20\%.  For the ellipticity we used $\sigma=0.3$ instead of
-the true $\sigma=0.2$.
+the true $\sigma=0.2$.  Application of the centrally concentrated prior on the
+shape resulted in a large multiplicative bias.
+
+We used the \mcal\ procedure, coupled with the above correlated noise fixes, to
+derive corrections for these biases.
 
 \subsection{\Mcal\ Responses}
 
@@ -530,7 +531,8 @@ the real-galaxy \rgsim\ simulations.  The values are shown with
 and without correcting for the correlated noise using the \fixnoise\
 method.  As the \fixnoise\ method involves adding extra noise, the
 distributions are generally broader.  But the correction also reduces
-the skewness dramatically from -1.26 to -0.30.
+the skewness: for the $R_{1,1}$ component the skewness was reduced
+from -1.26 to -0.30.
 
 \begin{figure}
     \centering
@@ -589,7 +591,7 @@ remaining additive bias.
 
 
 Using \mcal\ we found the multiplicative bias to be consistent with zero within
-errors for the all simulations. For the parameteric simulations, which had a
+errors for all simulations. For the parameteric simulations, which had a
 net PSF anisotropy in the $g_2$ component, we detected a remaining
 additive bias, but it was reduced by a factor of \pimprovement\ in amplitude
 compared to the maximum likelihood shear estimator.  This small remaining
@@ -602,15 +604,18 @@ was about $0.1$ for all simulations, implying a large over-correction.
 
 \subsection{Stellar Contamination} \label{sec:stars}
 
-As indicated in table \ref{tab:sims}, for the \bdstar\  type simulations, we
-included an additional \nsimNStar\ stellar objects, \nsimNstarperc, drawn
-simply as a PSF with noise added.  The galaxy images were the same as used in
-the \bdsim\ simulation.  The results are shown in table \ref{tab:results}.  We
-did not detect any additional bias due to including stars.
+Results including \nsimNstarperc\ stars in the \bdstar\ simulation are shown in
+table \ref{tab:results}. We did not detect any additional bias due to including
+stars, but the noise did increase by $\sim 5$\%.
+
+%As indicated in table \ref{tab:sims}, for the \bdstar\  type simulations, we
+%included an additional \nsimNStar\ stellar objects, \nsimNstarperc, drawn
+%simply as a PSF with noise added.  The galaxy images were the same as used in
+%the \bdsim\ simulation.  The results are shown in table \ref{tab:results}.  
 
 \Mcal\ is robust to stellar contamination if the PSF is well
 characterized.  Images consistent with a PSF will not, in the mean, respond to the shear
-applied during the \mcal\ process.  They also yield zero average shape, as
+applied during the \mcal\ process.  Measurement on stars also yields zero average shape, as
 long as the PSF correction is sufficiently accurate:
 \begin{align}
     \gamma &= \frac{ \langle e_{gal} \rangle + \langle e_{star} \rangle - \langle R^p_{gal} + R^p_{star} \rangle \langle e^p \rangle }{ \langle R^{gal} \rangle + \langle R^{star} \rangle}.
@@ -635,7 +640,8 @@ detect any significant additional bias beyond that already in the simulation
 without stars, indicating that for \nsimNstarperc\ stellar contamination
 any additionial bias was negligible.
 
-Including \nsimNstarperc\ stars did noise the bias by about 5\%.  If the
+%Including \nsimNstarperc\ stars did noise the bias by about 5\%.
+If the
 additional variance is tolerable, it may be useful to include stars in a shear
 analysis.  Attempting to remove faint stars from a sample is a noisy procedure,
 likely to induce selection effects. For example, stars that are included in the
@@ -645,7 +651,7 @@ the recovered shear.
 
 For accurate interpretation of the signal, it is still important that any
 redshift estimates for the stars are consistent with zero, in the mean.  Stars
-could also be down-weighted using an appropriate weighting scheme, any
+could also be down-weighted using an appropriate weighting scheme, but note any
 weighting will generally cause a selection bias: weighting is just a smooth
 selection.
 
@@ -664,7 +670,7 @@ to weight the redshift estimates as well, although one must be careful as the
 \subsection{Masking Effects} \label{sec:masking}
 
 Here we discuss the results for the \bdmask\ simulation, introduced in \S
-\ref{sec:bdsim}.  In these simulations, we masked ``bad'' pixels and columns,
+\ref{sec:bdsim}.  In this simulation, we masked ``bad'' pixels and columns,
 with masks drawn from real DES data.
 
 As a baseline extreme case, we replaced the masked pixels simply with noise.
