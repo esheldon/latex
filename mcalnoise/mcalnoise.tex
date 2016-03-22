@@ -64,9 +64,7 @@
 \newcommand{\nsimNgal}{$10^8$}
 \newcommand{\nsimNgalTwo}{$2 \times 10^8$}
 \newcommand{\nsimNgalFour}{$4 \times 10^8$}
-\newcommand{\nsimNStar}{$10^7$}
-\newcommand{\nsimNStarTwo}{$2 \times 10^7$}
-\newcommand{\nsimNStarFour}{$4 \times 10^7$}
+\newcommand{\nsimNStar}{$4 \times 10^7$}
 \newcommand{\nsimNstarperc}{10\%}
 
 %\newcommand{\psfedist}{$(0.0,0.7) \pm 1.8$}
@@ -495,13 +493,13 @@ size.
         with the indicated size,
         plus contributions from an optical model matched to DES. \label{tab:sims}}
     \begin{tabular}{ | l | c | c | c | c | c | c | c | c | c |}
-        Sim          & Galaxy Model & Galaxy \hlr & PSF Model & PSF FWHM & PSF $e_1$      & PSF $e_2$           & \# Galaxies & \# Stars    & Masking   \\
-                     &              & [pixels]    &           & [pixels]  &                &                     &             &             &  \\
+        Sim          & Galaxy Model & Galaxy \hlr & PSF Model       & PSF FWHM        & PSF $e_1$    & PSF $e_2$   & \# Galaxies    & \# Stars   & Masking   \\
+                     &              & [pixels]    &                 & [pixels]        &              &             &                &            &  \\
         \hline
-        \bdsim       & Bulge+Disk   & \galrdist   & Moffat    & \psfrdist & \psfeonedist  &\psfetwodist   &  \nsimNgalFour   & None          & None      \\
-        \bdstar      & Bulge+Disk   & \galrdist   & Moffat    & \psfrdist & \psfeonedist  &\psfetwodist   &  \nsimNgalFour   & \nsimNStarFour & None      \\
-        \bdmask      & Bulge+Disk   & \galrdist   & Moffat    & \psfrdist & \psfeonedist  &\psfetwodist   &  \nsimNgalTwo   & None          & DES      \\
-        \rgsim       & \cosmosname  & \cosmosname & Kolm. + Optical & 3.40 + Optical  & Optical  & Optical  &  \nsimNgal   & None        & None      \\
+        \bdsim       & Bulge+Disk   & \galrdist   & Moffat          & \psfrdist       & \psfeonedist &\psfetwodist &  \nsimNgalFour & None       & None      \\
+        \bdstar      & Bulge+Disk   & \galrdist   & Moffat          & \psfrdist       & \psfeonedist &\psfetwodist &  \nsimNgalFour & \nsimNStar & None      \\
+        \bdmask      & Bulge+Disk   & \galrdist   & Moffat          & \psfrdist       & \psfeonedist &\psfetwodist &  \nsimNgalTwo  & None       & DES      \\
+        \rgsim       & \cosmosname  & \cosmosname & Kolm. + Optical & 3.40 + Optical  & Optical      & Optical     &  \nsimNgal     & None       & None      \\
     \end{tabular}
 \end{table*}
 
@@ -605,12 +603,12 @@ was about $0.1$ for all simulations, implying a large over-correction.
 \subsection{Stellar Contamination} \label{sec:stars}
 
 As indicated in table \ref{tab:sims}, for the \bdstar\  type simulations, we
-included an additional \nsimNStarTwo\ stellar objects, \nsimNstarperc, drawn
+included an additional \nsimNStar\ stellar objects, \nsimNstarperc, drawn
 simply as a PSF with noise added.  The galaxy images were the same as used in
 the \bdsim\ simulation.  The results are shown in table \ref{tab:results}.  We
 did not detect any additional bias due to including stars.
 
-\Mcal\ is robust to stellar contamination as long as the PSF is well
+\Mcal\ is robust to stellar contamination if the PSF is well
 characterized.  Images consistent with a PSF will not, in the mean, respond to the shear
 applied during the \mcal\ process.  They also yield zero average shape, as
 long as the PSF correction is sufficiently accurate:
@@ -618,8 +616,8 @@ long as the PSF correction is sufficiently accurate:
     \gamma &= \frac{ \langle e_{gal} \rangle + \langle e_{star} \rangle - \langle R^p_{gal} + R^p_{star} \rangle \langle e^p \rangle }{ \langle R^{gal} \rangle + \langle R^{star} \rangle}.
 \end{align}
 In figure \ref{fig:Rstars} we show the measured response \mcalR\ for stars
-and galaxies.  Indeed we see that \mcalR\ is noisy but consistent with
-zero for the stars.
+and galaxies.  Indeed we see that, for stars, the \mcalR\ is noisy but consistent with
+zero.
 
 \begin{figure}
     \centering
@@ -633,21 +631,23 @@ zero for the stars.
 \end{figure}
 
 We used a very poor PSF correction, based on a single Gaussian, yet we did not
-detect any significant additional bias.  However, including \nsimNstarperc\
-stars did increase the bias by about 5\%.
+detect any significant additional bias beyond that already in the simulation
+without stars, indicating that for \nsimNstarperc\ stellar contamination
+any additionial bias was negligible.
 
-If the additional variance is tolerable, it may be useful to include stars in a
-shear analysis.  Attempting to remove faint stars from a sample is a noisy
-procedure, likely to induce selection effects. For example, stars that are
-included in the sample after a size cut will have fluctuated to larger measured
-size due to noise, and will also likely have fluctuated to higher response
-\mcalR, biasing the recovered shear.
+Including \nsimNstarperc\ stars did noise the bias by about 5\%.  If the
+additional variance is tolerable, it may be useful to include stars in a shear
+analysis.  Attempting to remove faint stars from a sample is a noisy procedure,
+likely to induce selection effects. For example, stars that are included in the
+sample after a size cut will have fluctuated to larger measured size due to
+noise, and will also likely have fluctuated to higher response \mcalR, biasing
+the recovered shear.
 
 For accurate interpretation of the signal, it is still important that any
 redshift estimates for the stars are consistent with zero, in the mean.  Stars
-could also be down-weighted using an appropriate weighting scheme, but it
-should be noted that weighting will generally cause a bias: weighting
-is just a smooth selection.
+could also be down-weighted using an appropriate weighting scheme, any
+weighting will generally cause a selection bias: weighting is just a smooth
+selection.
 
 \begin{comment}
 .  We can
@@ -664,11 +664,11 @@ to weight the redshift estimates as well, although one must be careful as the
 \subsection{Masking Effects} \label{sec:masking}
 
 Here we discuss the results for the \bdmask\ simulation, introduced in \S
-\ref{sec:bdsim}.  In these simulations, we masked bas pixels and bad columns,
+\ref{sec:bdsim}.  In these simulations, we masked ``bad'' pixels and columns,
 with masks drawn from real DES data.
 
 As a baseline extreme case, we replaced the masked pixels simply with noise.
-This resulted in few percent calibration biases.
+This resulted in significant calibration bias.
 
 %In order to perform the Fourier transforms used for the \mcal\ convolutions, we
 %must replace any missing data with an appropriate value.  For example, some
@@ -699,8 +699,11 @@ via the same mechanism.
 Determining detection effects may require prior information about the
 properties of the galaxies in the sample, including those galaxies that do not
 exceed the detection threshold.  Ordinary selection effects can in principle be
-determined without prior information if the initial detections were unbiased,
-but unbiased detection of faint galaxies is unlikely to be feasible.
+determined from the noisy data, without prior information. If the initial
+detections were unbiased, one can examine how shearing galaxies changes their
+probability of selection near the threshold.  A similar technique can be
+applied even in the presence of a biased detection if the additional selection
+is relatively stringent, so that the original detection cut can be ignored,
 
 To test selection effects, we made a series of cuts on S/N in the \bdsim\
 simulation.  We used the ``round'' \snr\ definition in order to avoid the first
@@ -710,9 +713,9 @@ bias increased monotonically with the cut on \snr, reaching a bias of $\sim
 for future surveys.
 
 The detection bias could potentially be even larger than what we found, since
-the cut would be applied to a distribution of intrinsic \snr\ that is
-approximately a power law shape, rather than one with a cutoff, as we had in
-our simulations. We will explore how to miticate these important selection
+the cut would be applied to a distribution of intrinsic \snr\ that ha
+an approximately power law shape, rather than one with a cutoff, as we had in
+our simulations. We will explore how to mitigate these important selection
 effects in a future work.
 
 \begin{comment}
@@ -760,17 +763,18 @@ realizations could be used to increase the precision of the correction.
 Relatively little bias was seen by \cite{HuffMcal} using the GREAT3 simulations
 \citep{great3}.  We checked that our code used to perform the metacal
 procedures gives identical results to that used in \cite{HuffMcal}, so this is
-most likely not a software error.  Rather, we suspect that the higher S/N and
-better modeling used in \cite{HuffMcal} resulted in reduced bias.
+most likely not a software error.  We
+suspect that the higher S/N of the GREAT3 simulations, and better modeling used
+in \cite{HuffMcal} resulted in reduced bias.
 
 The correlated noise effect scales with the square of the noise, and the
 simulations used for GREAT3 contain significantly higher S/N galaxies than the
 simulations used in this work.  Indeed, we found the correlated noise was still
 detectable in simulations we ran with similar properties to GREAT3, but with
-correlated noise bias at the 1-2\% level rather than the 12\% we saw in our \rgsim\
-simulations.  We also ran the re-gaussianization code on our simulations, and
-did see a bias, but about a factor of two lower than we saw for our
-intentionally bad Gaussian PSF and Galaxy models.
+correlated noise bias at the 1-2\% level rather than the 12\% we saw in our
+\rgsim\ simulations.  We also ran the re-gaussianization code on our
+simulations, and did see a bias, but about a factor of two lower than we saw
+for our intentionally bad Gaussian PSF and Galaxy models.
 
 Another important difference between the GREAT3 sims and our sims is that
 GREAT3 galaxies were generated in pairs, rotated by 90 degrees with respect to
