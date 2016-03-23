@@ -140,7 +140,7 @@
                 \item Deconvolve the PSF
                 \item Shear the image by a small amount
                 \item Reconvolve by the PSF.  Use a slightly larger PSF to suppress
-                    the noise amplification
+                    modes exposed by the applied shear.
             \end{itemize}
 
             \item These operations can be done with GALSIM
@@ -215,10 +215,10 @@
 
     \item Effect goes as {\color{orange} square} of the noise (Hirata 2016, in prep)
 
-        \item Results from Huff \& Mandelbaum on GREAT3 affected little, as
+        \item Results from Huff \& Mandelbaum on GREAT3 affected little, because
             $S/N \gtrsim 20$ in that sim.
 
-        \item I found bias of order 10\% for galaxies at $S/N \sim 10$.
+        \item I found bias of order 10\% for galaxies at $S/N \lesssim 10$.
 
 
 
@@ -497,7 +497,7 @@
 
         \item No detected multiplicative bias.
         \item Some remaining PSF leakage: Just use
-            better PSF correction than a Gaussian!
+            a better PSF correction than a Gaussian!
 
     \end{itemize}
 
@@ -509,7 +509,8 @@
     \frametitle{Performance on Simulations: Stars}
  
     \begin{center}
-        \includegraphics[width=0.7\textwidth]{R-dt-with-stars-icolor.pdf}
+        %\includegraphics[width=0.7\textwidth]{R-dt-with-stars-icolor.pdf}
+        \includegraphics[width=0.65\textwidth]{R-bd29-bd29stars-icolor.eps}
         \newline
         {\large Response for stars and galaxies}
     \end{center}

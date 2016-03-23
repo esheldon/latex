@@ -63,8 +63,8 @@
 
 \newcommand{\nsimNgal}{$10^8$}
 \newcommand{\nsimNgalTwo}{$2 \times 10^8$}
-\newcommand{\nsimNStar}{$10^7$}
-\newcommand{\nsimNStarTwo}{$2 \times 10^7$}
+\newcommand{\nsimNgalFour}{$4 \times 10^8$}
+\newcommand{\nsimNStar}{$4 \times 10^7$}
 \newcommand{\nsimNstarperc}{10\%}
 
 %\newcommand{\psfedist}{$(0.0,0.7) \pm 1.8$}
@@ -75,6 +75,7 @@
 \newcommand{\psfrdist}{$3.66 \pm 0.38$}
 
 \newcommand{\galrdist}{$1.54 \pm 1.00$}
+\newcommand{\cosmosrdist}{$1.8 \pm 0.8$}
 
 %\newcommand{\cosmosname}{COSMOS 23.5}
 \newcommand{\cosmosname}{COSMOS}
@@ -91,6 +92,11 @@
 \newcommand{\Rcorr}{$-0.0694$}
 \newcommand{\rgbias}{$(-1.6 \pm 0.5) \times 10^{-3}$}
 
+\newcommand{\bdsim}{\texttt{BD}}
+\newcommand{\bdstar}{\texttt{BD+Stars}}
+\newcommand{\bdmask}{\texttt{Mask}}
+\newcommand{\rgsim}{\texttt{RG}}
+\newcommand{\pimprovement}{14}
 
 \title{Noise Effects in \Mcal\ Weak Lensing Shear Estimation}
 
@@ -161,9 +167,12 @@ images
 
 For a constant shear, the response and shear estimators can be averaged
 separately and combined to recover the mean shear:
-\begin{equation}
+\begin{equation} \label{eq:basicestimator}
     \gamma = \frac{ \langle E \rangle }{\langle \mbox{\mcalR} \rangle}.
 \end{equation}
+Note the estimator $E$ has two-components, and the response \mcalR\ is
+a $2 \times 2$ matrix, although generally the off-diagonal components
+are relatively small.
 In \cite{HuffMcal} a more sophisticated inference was used, in order to deal
 with the relatively large variance in \mcalR\ associated with the particular
 estimator used therein.
@@ -245,7 +254,8 @@ for each galaxy to increase precision.
 The coefficient $A$ in Equation \ref{eq:scaling} can be calculated in simple
 scenarios, as shown in \cite{HirataCorrNoise}.  However, the calculation is
 more complex when modeling the effect of the PSF.  We instead explored three
-different empirical corrections, described in the following sections.
+different empirical corrections.  We describe our favored method
+below; the others are described in appendix \ref{sec:altcorr}.
 
 \begin{comment}
 There are advantages to forward modeling which we would like to retain: the
@@ -260,19 +270,6 @@ $\sim$0.003\%, as opposed to $\sim$6\% for the re-Gaussianization code
 implemented in the GALSIM package \citep{GALSIM2015}.  For these reasons we
 explore a simple empirical correction in the following section.
 \end{comment}
-
-%We outline some alternative methods in the appendix.
-
-\subsection{Correction using GALSIM}
-
-With guidance from the GALSIM developers, we attempted to use the GALSIM noise
-isotropization and whitening functionality to correct the correlated noise.
-Isotropization enforces four fold symmetry, introducing minimal extra noise,
-while whitening completely whitens the image, introducing significant extra
-noise.  However, neither of these methods improved the shear recovery in our
-simulations.  It may be that some aspects of the \mcal\ procedure invalidate
-the assumptions behind these correction methods.  In \S \ref{sec:fixnoise} we
-explore a simpler approach to correcting the noise.
 
 \subsection{Adding a Canceling Correlated Random Noise Field} \label{sec:fixnoise}
 
@@ -304,55 +301,15 @@ reduce the noise in the fits, multiple randomized noise fields could be
 generated and fit, and the results averaged.  This would improve the precision,
 at the cost of increased computation time.
 
-\subsection{Detrending the Correlated Noise Bias} \label{sec:detrend}
-
-We expect the bias in \mcalR\ due to correlated noise to scale with the square
-of the noise in the image $n^2$ (see \S \ref{sec:scaling}).  We can add a small
-amount of noise to the image such that $n \rightarrow n + \Delta n$.  If we
-then run the new image through the \mcal\ process, we can measure
-$R^{\mathrm{before}}$, a response that will include correlated noise effects.
-We can write this observed response as
-\begin{align}\label{eq:Rbefore}
-    R_o^{\mathrm{before}} &= R + A (n + \Delta n)^2 \nonumber \\
-       &\simeq R + A n^2 + 2 A n \Delta n
-\end{align}
-%&\simeq R + A n^2 + \frac{\partial (An^2)}{\partial n} \Delta n + ... \nonumber \\
-where we have dropped terms of order $(\Delta n)^2$ and higher.  In equation
-\ref{eq:Rbefore}, \mcalR\ is the response at noise $n+\Delta n$ in the absence
-of correlated noise.  
-
-We can also add identical noise {\em after} the original image  has been run
-through \mcal, and measure $R^{\mathrm{after}}$.  The response when adding
-noise after \mcal\ does not suffer any additional bias due to correlated noise:
-\begin{align}
-    R_o^{\mathrm{after}} &= R + A n^2.
-\end{align}
-The difference between these responses is then 
-\begin{align}
-    \Delta R &\equiv R_o^{\mathrm{before}} - R_o^{\mathrm{after}}  \nonumber \\
-             &\simeq 2 A n \Delta n.
-\end{align}
-
-We propose the following procedure to correct for correlated noise:
-\begin{enumerate}
-    \item Calculate $\Delta R$ for a series of noise offsets $\Delta n$.
-    \item Average $\Delta R$ over all objects for each noise offset.
-    \item Perform a linear fit to $\Delta R$ vs. $2 n \Delta n$ to find the 
-        coefficient $A$.
-    \item Apply a mean correction for correlated noise given by
-        \begin{align}
-            \mbox{\mcalRnoise} & \simeq A n^2.
-        \end{align}
-        with a similar correction for \mcalRpsf.
-\end{enumerate}
-If the noise varies between observations, we can apply a 
-correction based on the mean variance $A
-\langle n^2 \rangle$.
-
+An alternative version of this method is to shear the noise exactly as the
+original image is sheared, but then rotate by 90 degrees before
+adding\footnote{M. Jarvis, private communication}.  This version has the
+advantage of working even when the transformation between sky and image is
+complex. We will explore this method in a future work.
 
 \section{Image Simulations} \label{sec:sims}
 
-\subsection{Simulations with Parameteric Models}
+\subsection{Simulations with Parameteric Models} \label{sec:bdsim}
 
 We applied \mcal\ to a set of image simulations.  For the first set of
 simulations we used parametric models, designed to be similar to that used in
@@ -418,19 +375,18 @@ the full distribution of $\log_{10}(S/N)$}
 
 Ideally, the \mcalR\ measured for stars should be consistent with zero in the
 mean, and thus not bias the ensemble shear estimate.  In order to test the
-robustness of \mcal\ to stellar contamination, we included $\sim$\nsimNstarperc\ stars
-in each simulation.  The stars were simply drawn as PSFs, with the same flux
-distribution as used for the galaxies.  We refer to the simulations with
-stars as ``BDStar''; the BD simulation is identical but with the stars
-removed.
+robustness of \mcal\ to stellar contamination, we included
+$\sim$\nsimNstarperc\ stars in the \bdsim\ simulation.  The stars were simply
+drawn as PSFs, with the same flux distribution as used for the galaxies.  We
+refer to the simulation with stars as \bdstar; the \bdsim\ simulation is
+identical but with the stars removed.
 
 The Fourier transforms used to perform the \mcal\ convolutions cannot
 accommodate missing data.  But in real data, ``bad pixels'' must be masked in
 order to prevent biased measurements. For the FFTs, these masked pixels must be
-replaced with some value that does not cause a bias in the statistics measured
-on the transformed images.
+replaced with some value that does not bias the shear recovery.
 
-We created another set of simulations, called ``BDMask'', in which we masked
+We created another set of simulations, called \bdmask, in which we masked
 parts of the data in order to mimic certain effects in real images.  In order
 simulate these effects realistically, we chose a sample of real bit mask planes
 used in Dark Energy Survey shear analysis \citep{DESSVShear}.  These include
@@ -452,22 +408,22 @@ bad column. }
 
 \subsection{COSMOS Simulations}
 
-We designed a second set of simulations to mimic the ``real-galaxy'' simulations
-used in GREAT3 challenge \citep{great3}, using galaxy images draw from COSMOS
-data.  We implemented two important changes.  First, we oriented the galaxies
-randomly rather than placing them in pairs to cancel shape bias.  Using random
-orientations avoids cancellation of systematics such as some selection effects
-\citep{DESSVShear}.  Second, we used optical aberrations in the PSF designed to
-match that seen in the Dark Energy Survey data \footnote{Aaron Roodman, private
-communication}.  Similar to GREAT3, we varied the aberrations were varied as
-Gaussian around a fiducial value. These root-mean-squared variations, in units
-of waves in the Noll convention are given in table \ref{tab:aberr}.  We used a
-Kolmogorov model for the atmospheric component, with mean FWHM = 0.9 arscec.
+We designed a second set of simulations to mimic the ``real-galaxy''
+simulations used in GREAT3 challenge \citep{great3}, using galaxy images drawn
+from COSMOS data.  We implemented two important changes.  First, we oriented
+the galaxies randomly rather than placing them in pairs to cancel shape bias.
+Using random orientations avoids cancellation of systematics such as some
+selection effects \citep{DESSVShear}.  Second, we used optical aberrations in
+the PSF designed to match that seen in the Dark Energy Survey
+data\footnote{Aaron Roodman, private communication}.  Similar to GREAT3, we
+varied the aberrations as Gaussian around a fiducial value. These
+root-mean-squared variations, in units of waves in the Noll convention are
+given in table \ref{tab:aberr}.  We used a Kolmogorov model for the atmospheric
+component, with mean FWHM = 3.40 pixels (0.9 arscec for 0.265 arcsec pixels).
 For this configuration there are significant variations in the PSF ellipticity,
-but relatively little net ellipticity across the entire
-ensemble of realizations.
-The code used to generate these simulations began as a fork of the GREAT3
-public code base, and is freely available
+but relatively little net ellipticity across the entire ensemble of
+realizations.  The code used to generate these simulations began as a fork of
+the GREAT3 public code base, and is freely available
 online\footnote{https://github.com/esheldon/egret}.
 
 \begin{table}
@@ -496,9 +452,8 @@ of the parametric simulations, about 12 instead of 10.  Also shown is the
 distribution of the half-light-radius \hlr, measured
 from the \sersic\ model fits distributed with the COSMOS catalog as part
 of the GREAT3 challenge.  The mean \hlr\ for these simulations
-is about $1.8 \pm 0.8$, somewhat smaller than the
-log-normal $2.0 \pm 0.5$ for the parametric simulations, but with a tail to larger
-size.
+is about \cosmosrdist, somewhat larger than the
+log-normal \galrdist\ for the parametric simulations.
 
 
 \begin{figure}
@@ -520,7 +475,7 @@ size.
 
 \begin{table*}
     \centering
-    \caption{Description of the image simulations.  For the ``BD'' simulations,
+    \caption{Description of the image simulations.  For the \bdsim\ simulations,
         the Bulge and Disk had the same ellipticity and \hlr, but were offset
         uniformly up to \hlr, in a random direction.  The galaxy \hlr\ was drawn
         from a log-normal distribution with the specified mean and width, designed
@@ -528,27 +483,22 @@ size.
         drawn from a double Gaussian with the specified mean and width in each
         dimension.  The PSF FWHM was drawn from a log-normal distribution with
         the indicated mean and scatter, designed to roughly match
-        that in DES data.  The ``BDStar'' simulation shared the
-        same galaxy images with the ``BD'' simulation, but with additional star
-        images included.  The ``BDMask'' simulation had masking for bad columns,
-        bad pixels, and other artifacts, drawn from DES imaging. For the RG
+        that in DES data.  The \bdstar\ simulation shared the
+        same galaxy images with the \bdsim\ simulation, but with additional star
+        images included.  The \bdmask\ simulation had masking for bad columns,
+        bad pixels, and other artifacts drawn from DES data. For the \rgsim\
         simulation, real COSMOS images were used for the galaxies. For
         the PSF, a  Kolmogorov atmospheric turbulence model was used,
         with the indicated size,
         plus contributions from an optical model matched to DES. \label{tab:sims}}
     \begin{tabular}{ | l | c | c | c | c | c | c | c | c | c |}
-        Sim          & Galaxy Model & Galaxy \hlr & PSF Model & PSF FWHM & PSF $e_1$      & PSF $e_2$           & \# Galaxies & \# Stars    & Masking   \\
-                     &              & [pixels]    &           & [pixels]  &                &                     &             &             &  \\
+        Sim          & Galaxy Model & Galaxy \hlr & PSF Model       & PSF FWHM        & PSF $e_1$    & PSF $e_2$   & \# Galaxies    & \# Stars   & Masking   \\
+                     &              & [pixels]    &                 & [pixels]        &              &             &                &            &  \\
         \hline
-        BD           & Bulge+Disk   & \galrdist   & Moffat    & \psfrdist & \psfeonedist  &\psfetwodist   &  \nsimNgalTwo   & None          & None      \\
-        BDStar       & Bulge+Disk   & \galrdist   & Moffat    & \psfrdist & \psfeonedist  &\psfetwodist   &  \nsimNgalTwo   & \nsimNStarTwo & None      \\
-        BDMask       & Bulge+Disk   & \galrdist   & Moffat    & \psfrdist & \psfeonedist  &\psfetwodist   &  \nsimNgalTwo   & None          & DES      \\
-        %BDOLD           & Bulge+Disk   & Moffat    & \rpsfedist     &  \nsimNgal   & None        & None      \\
-        %BDOLDStar       & Bulge+Disk   & Moffat    & \rpsfedist     &  \nsimNgal   & \nsimNStar  & None      \\
-        %BDOLDEllip      & Bulge+Disk   & Moffat    & \psfedist  &  \nsimNgalTwo   & None        & None      \\
-        %BDOLDEllipMask  & Bulge+Disk   & Moffat    & \psfedist  &  \nsimNgalTwo   & None        & DES       \\
-        %BDMaskStar & Bulge+Disk   & Moffat    & \psfedist  &  \nsimNgal   & \nsimNStar  & DES      \\
-        RG           & \cosmosname & \cosmosname & Kolm. + Optical & 3.40 + Optical  & Optical  & Optical  &  \nsimNgal   & None        & None      \\
+        \bdsim       & Bulge+Disk   & \galrdist   & Moffat          & \psfrdist       & \psfeonedist &\psfetwodist &  \nsimNgalFour & None       & None      \\
+        \bdstar      & Bulge+Disk   & \galrdist   & Moffat          & \psfrdist       & \psfeonedist &\psfetwodist &  \nsimNgalFour & \nsimNStar & None      \\
+        \bdmask      & Bulge+Disk   & \galrdist   & Moffat          & \psfrdist       & \psfeonedist &\psfetwodist &  \nsimNgalTwo  & None       & DES      \\
+        \rgsim       & \cosmosname  & \cosmosname & Kolm. + Optical & 3.40 + Optical  & Optical      & Optical     &  \nsimNgal     & None       & None      \\
     \end{tabular}
 \end{table*}
 
@@ -561,23 +511,28 @@ operations were performed using the \texttt{metacal} module from \ngmix.
 
 Naively using these grossly incorrect models resulted in a large model bias,
 and large uncorrected PSF anisotropy.  In addition there was significant {\em
-ordinary} noise bias at the low S/N levels used in the simulations.  We used
-the \mcal\ procedure, coupled with the above correlated noise fixes,
-to derive corrections for these biases.
+ordinary} noise bias at the low S/N levels used in the simulations.
 
 We used a maximum likelihood fit, with smooth priors on all parameters to
-produce a stable fit; for most simulations we had not a single failure. The
-failures occurred when using the \detrend\ method, which included no correction
-for correlated noise during the fitting process itself, which seems to have
-destabilized a small number of the fits.  Even so, the failure rates for the
-\detrend\ method was about 0.003\%.  These priors were not tuned to the true
+produce a stable fit; for all images our entire set of simulations we had not a
+single failure in the fitting process.  These priors were not tuned to the true
 galaxy parameters.  For the flux and size we deliberately used priors that were
 wider than truth by 20\%.  For the ellipticity we used $\sigma=0.3$ instead of
-the true $\sigma=0.2$.
+the true $\sigma=0.2$.  Application of the centrally concentrated prior on the
+shape resulted in a large multiplicative bias.
 
-\subsection{\mcal\ Responses}
+We used the \mcal\ procedure, coupled with the above correlated noise fixes, to
+derive corrections for these biases.
 
-R skewness -1.26 no fixnoise,  -0.30 with fixnoise
+\subsection{\Mcal\ Responses}
+
+In figure \ref{fig:Rdist} we show the measured \mcal\ responses for
+the real-galaxy \rgsim\ simulations.  The values are shown with
+and without correcting for the correlated noise using the \fixnoise\
+method.  As the \fixnoise\ method involves adding extra noise, the
+distributions are generally broader.  But the correction also reduces
+the skewness: for the $R_{1,1}$ component the skewness was reduced
+from -1.26 to -0.30.
 
 \begin{figure}
     \centering
@@ -589,40 +544,22 @@ R skewness -1.26 no fixnoise,  -0.30 with fixnoise
     added a convolved, sheared noise field designed to statistically
     cancel the effects of correlated noise.  The extra noise
     broadens the distribution, but the correction results in a more symmetric
-    distribution.  The top panels represent the multiplicative
-    response \mcalR\ and the bottom panels represent the PSF response \mcalRpsf.} 
+    distribution.  The top panels represent the diagonal elements
+    of the multiplicative
+    response matrix \mcalR\ and the bottom panels represent the PSF response \mcalRpsf.} 
 
 \label{fig:Rdist}
-\end{figure}
-
-
-\subsection{Measurements of the \detrend\ Parameters}
-
-For the \detrend\ method, we measured $\Delta R$ vs $2 n \Delta n$ to find the
-coefficient $A$.  In figure \ref{fig:detrend}, we show this fit for the RG
-simulation.  The trend is well-fit by a linear model, as expected, with a slope
-$A \simeq $\Aslope, implying a correction $A n^2 \simeq$ \Rcorr\ for this
-simulation.
-
-\begin{figure}
-    \includegraphics[scale=0.45]{mcal-v14s01-Rnoise-detrend-R11.eps}
-
-    \caption{Trend of $\Delta R_{1,1}$ with $2 n \Delta n$ for the
-        real galaxy simulation.   $n$ is the
-    original noise level and $\Delta n$ is the additional noise added.  The
-    trend is linear as predicted.}
-
-\label{fig:detrend}
 \end{figure}
 
 
 \subsection{Shear Recovery}
 
 
-In table \ref{tab:results} we show for shear recovery in our simulations, with
-and without applying correlated noise corrections.  Without correction, the
-multiplicative bias $m$ is of order 0.1 for all simulations.  For simulations
-with a net PSF anisotropy, we also found a significant remaining additive bias.
+In table \ref{tab:results} we show results for shear recovery in our
+simulations, with and without using the \mcal\ procedure.  Without using
+\mcal\, the multiplicative bias $m$ is of order 50\% for all simulations.
+For simulations with a net PSF anisotropy, we also found a significant
+remaining additive bias.
 
 \begin{table*}
     \centering
@@ -630,112 +567,171 @@ with a net PSF anisotropy, we also found a significant remaining additive bias.
         \S \ref{sec:sims} and table \ref{tab:sims}.  A single Gaussian was fit
     to both galaxy and PSF, resulting in significant multiplicative 
     bias $m$ and additive biases $c$ before applying the \mcal\ response
-    terms. Results with and without correction
-    for correlated noise are shown.  After applying corrections for
-    correlated noise, the biases are all reduced to within accepable limits.
+    terms. With \mcal, no multiplicative bias was detected in any case. 
+    Some remaining additive bias in $g_2$ was detected, due to the use of
+    intentionally poor psf correction, but \mcal\ reduced the
+    bias by a factor of \pimprovement.
     Stellar contamination at the level of \nsimNstarperc\ increases
     the noise in the recovered shear by $\sim$5\% but does not introduce 
-    a significant bias.  
-    Our simple scheme to correct for masking is to
-    replace the masked pixels with the value of the Gaussian model.  XXX Describe
-    result here.
+    a significant bias.  Replacing bad pixels and columns with the best fit model
+    did not introduce any detected bias.
     \label{tab:results}}
-    \begin{tabular}{ |l|  c|c|c|  c|c|c|  c|c|c|}
+    \begin{tabular}{ |l|  c|c|c|  c|c|c|}
         \hline
-        & \multicolumn{3}{c}{Maximum Likelihood} & \multicolumn{3}{c}{\Mcal\ Uncorrected} & \multicolumn{3}{c}{\Mcal\ Corrected} \\
-        Sim    & $m$              & $c_1$         & $c_2$         & $m$             & $c_1$          & $c_2$          & $m$            & $c_1$           & $c_2$ \\
-               & $[10^{-3}]$      & $[10^{-4}]$   & $[10^{-4}]$   & $[10^{-3}]$     & $[10^{-4}]$    & $[10^{-4}]$    & $[10^{-3}]$    & $[10^{-4}]$     & $[10^{-4}]$ \\
+        & \multicolumn{3}{c}{Maximum Likelihood}                    & \multicolumn{3}{c}{\Mcal} \\
+        Sim    & $m$         & $c_1$            & $c_2$             & $m$               & $c_1$            & $c_2$ \\
+               & $[10^{-3}]$ & $[10^{-4}]$      & $[10^{-4}]$       & $[10^{-3}]$       & $[10^{-4}]$      & $[10^{-4}]$ \\
         \hline
-        BD     & $-495.6 \pm 0.2$ & $+0.1 \pm 0.1$ & $15.1 \pm 0.1$  & $104.5 \pm 0.5$ & $-0.3 \pm 0.2$ & $-5.6 \pm 0.2$ & $-0.4 \pm 0.5$  & $+0.0 \pm 0.2$ & $+0.9 \pm 0.2$  \\
-        BDStar & $-541.1 \pm 0.2$ & $+0.1 \pm 0.1$ & $18.3 \pm 0.1$  & --              & --             & --             & $-0.2 \pm 0.5$  & $+0.0 \pm 0.2$ & $+1.0 \pm 0.2$  \\
-        RG     & $-435.6 \pm 0.3$ & $-0.2 \pm 0.2$ & $~~0.3 \pm 0.2$ & $125.3 \pm 0.5$ & $-0.3 \pm 0.3$ & $+0.0 \pm 0.3$ & $+0.5 \pm 0.6$  & $-0.4 \pm 0.3$ & $+0.6 \pm 0.3$ \\
-        %BDOLD          & $0.10 \pm 0.00$ & $-0.3 \pm 0.2$    & $0.2 \pm 0.2$  & detrend  & $ 0.5 \pm 0.4$    & $-0.3 \pm 0.2$    & $0.2 \pm 0.2$  \\
-        %BDOLDStar      & $0.12 \pm 0.00$ & $-0.3 \pm 0.3$    & $0.3 \pm 0.3$  & detrend  & $ 0.5 \pm 0.5$    & $-0.2 \pm 0.2$    & $0.2 \pm 0.2$  \\
-        %BDEllip     & $0.10 \pm 0.00$ & $0.0 \pm 0.3$     & $-5.6 \pm 0.3$    & detrend  & $-0.2 \pm 0.3$    & $0.2 \pm 0.2$     & $1.1 \pm 0.2$  \\
-        %BDEllipMask & $0.10 \pm 0.00$ & $0.0 \pm 0.3$     & $-5.6 \pm 0.3$    & detrend  & $-0.5 \pm 0.3$    & $0.0 \pm 0.2$     & $1.0 \pm 0.2$  \\
-        %RG          & $0.12 \pm 0.00$ & $-0.3 \pm 0.3$    & $0.0 \pm 0.3$     & detrend  & $-1.6 \pm 0.5$    & $-0.3 \pm 0.3$    & $0.1 \pm 0.3$  \\
+        \bdsim & $-496$      & $+0.05 \pm 0.07$ & $ 15.21 \pm 0.07$ & $-0.27 \pm 0.34$  & $+0.00 \pm 0.17$ & $+1.12 \pm 0.17$  \\
+        \bdstar& $-542$      & $+0.07 \pm 0.07$ & $ 18.40 \pm 0.07$ & $-0.21 \pm 0.36$  & $+0.03 \pm 0.18$ & $+1.21 \pm 0.18$  \\
+        \bdmask& $-496$      & $+0.09 \pm 0.10$ & $ 15.07 \pm 0.10$ & $-0.60 \pm 0.46$  & $-0.17 \pm 0.23$ & $+0.73 \pm 0.23$  \\
+        \rgsim & $-436$      & $-0.23 \pm 0.16$ & $~~0.32 \pm 0.16$ & $+0.53 \pm 0.58$  & $-0.42 \pm 0.29$ & $+0.59 \pm 0.29$ \\
     \end{tabular}
 \end{table*}
 
-XXX describe both kinds of corrections
 
-After applying correlated noise corrections, we found the multiplicative bias
-to be consistent with zero within errors for the parameteric simulations. For
-the real galaxy RG simulation we detect remaining multiplicative bias of
-approximately \rgbias.  For the BDEllip parameteric simulations, which have a
-net psf anisotropy, we still detected a small remaining additive bias, but it
-was reduced by a factor of five in amplitied, as compared to results without
-correlated noise corrections.
+Using \mcal\ we found the multiplicative bias to be consistent with zero within
+errors for all simulations. For the parameteric simulations, which had a
+net PSF anisotropy in the $g_2$ component, we detected a remaining
+additive bias, but it was reduced by a factor of \pimprovement\ in amplitude
+compared to the maximum likelihood shear estimator.  This small remaining
+additive bias is due to our use of a very poor PSF correction scheme based
+on a single Gaussian fit; we advise using a better model.
+
+The multiplicative bias without applying corrections for correlated noise
+was about $0.1$ for all simulations, implying a large over-correction.
+
 
 \subsection{Stellar Contamination} \label{sec:stars}
 
-As indicated in table \ref{tab:sims}, for the ``Star'' type simulations, we
-included an additional \nsimNStarTwo\ stellar objects, drawn simply as a PSF
-with noise added.  The results are shown in table \ref{tab:results} for the
-``Star'' type simulations.  We find that a stellar contamination of
-\nsimNstarperc\ does not introduce any multiplicative significant bias, but
-does increase the uncertainty by $\sim$5\%.  This is because stars have mean
-response of zero, and also contribute zero to the shear in the absence
-of additive errors.
+Results including \nsimNstarperc\ stars in the \bdstar\ simulation are shown in
+table \ref{tab:results}. We did not detect any additional bias due to including
+stars, but the noise did increase by $\sim 5$\%.
+
+%As indicated in table \ref{tab:sims}, for the \bdstar\  type simulations, we
+%included an additional \nsimNStar\ stellar objects, \nsimNstarperc, drawn
+%simply as a PSF with noise added.  The galaxy images were the same as used in
+%the \bdsim\ simulation.  The results are shown in table \ref{tab:results}.  
+
+\Mcal\ is robust to stellar contamination if the PSF is well
+characterized.  Images consistent with a PSF will not, in the mean, respond to the shear
+applied during the \mcal\ process.  Measurement on stars also yields zero average shape, as
+long as the PSF correction is sufficiently accurate:
+\begin{align}
+    \gamma &= \frac{ \langle e_{gal} \rangle + \langle e_{star} \rangle - \langle R^p_{gal} + R^p_{star} \rangle \langle e^p \rangle }{ \langle R^{gal} \rangle + \langle R^{star} \rangle}.
+\end{align}
+In figure \ref{fig:Rstars} we show the measured response \mcalR\ for stars
+and galaxies.  Indeed we see that, for stars, the \mcalR\ is noisy but consistent with
+zero.
 
 \begin{figure}
     \centering
     \includegraphics[scale=0.45]{R-bd29-bd29stars.eps}
 
-    \caption{Distribution responses for galaxies and stars in
-    the BDStar simulation.  Stars have mean response close to zero,
+    \caption{Distribution of \mcal\ responses for galaxies and stars in
+    the \bdstar\ simulation.  Stars have mean response close to zero,
     and thus do not bias the overall shear calibration.}
 
 \label{fig:Rstars}
 \end{figure}
 
+We used a very poor PSF correction, based on a single Gaussian, yet we did not
+detect any significant additional bias beyond that already in the simulation
+without stars, indicating that for \nsimNstarperc\ stellar contamination
+any additionial bias was negligible.
+
+%Including \nsimNstarperc\ stars did noise the bias by about 5\%.
+If the
+additional variance is tolerable, it may be useful to include stars in a shear
+analysis.  Attempting to remove faint stars from a sample is a noisy procedure,
+likely to induce selection effects. For example, stars that are included in the
+sample after a size cut will have fluctuated to larger measured size due to
+noise, and will also likely have fluctuated to higher response \mcalR, biasing
+the recovered shear.
+
+For accurate interpretation of the signal, it is still important that any
+redshift estimates for the stars are consistent with zero, in the mean.  Stars
+could also be down-weighted using an appropriate weighting scheme, but note any
+weighting will generally cause a selection bias: weighting is just a smooth
+selection.
+
+\begin{comment}
+.  We can
+rewrite equation \ref{eq:basicestimator} as
+\begin{align}
+    \langle \gamma \rangle &= \frac{ \sum E }{\sum \mbox{\mcalR}} = \frac{ \sum \mbox{\mcalR}^{true} \gamma }{\sum \mbox{\mcalR}},
+\end{align}
+which would look like a weighted average if the measured \mcalR\ were equal to
+the true response $\mbox{\mcalR}^{true}$.  The measured \mcalR\ could be used
+to weight the redshift estimates as well, although one must be careful as the
+\mcalR\ are not strictly positive.
+\end{comment}
 
 \subsection{Masking Effects} \label{sec:masking}
 
-In order to perform the Fourier transforms used for the \mcal\ convolutions, we
-must replace any missing data due to masked pixel values.  In particular we
-wish to avoid any artifacts in the transformed images that would mimic an
-additional ``response'' to the applied \mcal\ shear.
+Here we discuss the results for the \bdmask\ simulation, introduced in \S
+\ref{sec:bdsim}.  In this simulation, we masked ``bad'' pixels and columns,
+with masks drawn from real DES data.
 
-As an baseline extreme case, we replaced the masked pixels simply with noise.
-This resulted in few percent calibration biases.
+As a baseline extreme case, we replaced the masked pixels simply with noise.
+This resulted in significant calibration bias.
 
-A better alternative is to replace the missing data with the result of a model
-fit.  We performed an initial maximum likelihood fit, before performing any
-\mcal\ operations, and replaced the masked data with the value from the PSF
-convolved model.  We used a Gaussian model for both PSF and Galaxy, which is a
-poor representation of the data; we consider this a worst case scenario as a
+%In order to perform the Fourier transforms used for the \mcal\ convolutions, we
+%must replace any missing data with an appropriate value.  For example, some
+%pixels may be marked as ``bad'', and masked in the data reduction pipeline.  In
+%particular we wish to avoid any artifacts in the transformed images that would
+%mimic an additional ``response'' to the applied \mcal\ shear.
+
+A better alternative is to replace the missing data with the result of our
+model fit.  Since we used a Gaussian model for both PSF and Galaxy, which is a
+poor representation of the data, we consider this a worst case scenario as a
 model replacement. 
 
 The results using the model replacement method are shown in table
-\ref{tab:results} for the BDEllipMask simulation.  The measured bias did not
-change significantly compared to the measurements on BDEllip, which is the
-unmasked version of this simulation.
-
+\ref{tab:results} for the \bdmask\ simulation.  The measured bias did not
+change significantly compared to the measurements on the independent \bdsim\
+simulation.
 
 \subsection{Selection Effects} \label{sec:selection}
 
 There are two main types of selection: detection effects and ordinary selection
-effects.  Detection effects occur when placing a detection threshold, for
-example a minimum S/N, which will preferably select galaxies with lower
-ellipticity.  Ordinary selection on an initially unbiased detected sample can
-induce additional bias via the same mechanism.
+effects.  Detection effects occur when placing a detection threshold on a
+quantity that correlates with galaxy shape. One example is \snr: cutting to
+objects greater than some value of \snr\ will preferentially remove galaxies
+with higher ellipticity, and thus reduce the inferred shear.  Ordinary
+selection on an initially unbiased detected sample can induce additional bias
+via the same mechanism.
 
-Determining detection effects requires prior information about the properties of
-the galaxies in the sample, including those galaxies that do not exceed the detection
-threshold.  Ordinary selection effects can in principle be determined without
-prior information if the initial detections were unbiased, but unbiased
-detection of faint galaxies is unlikely to be feasible.
+Determining detection effects may require prior information about the
+properties of the galaxies in the sample, including those galaxies that do not
+exceed the detection threshold.  Ordinary selection effects can in principle be
+determined from the noisy data, without prior information. If the initial
+detections were unbiased, one can examine how shearing galaxies changes their
+probability of selection near the threshold.  A similar technique can be
+applied even in the presence of a biased detection if the additional selection
+is relatively stringent, so that the original detection cut can be ignored,
 
-To test selection effects, we make a series of cuts on S/N in the BD
-simulation.  We use the ``round'' S/N definition in order to avoid the first
-order effect \citep{DESSVShear}. As indicated in table \ref{tab:selresults},
+To test selection effects, we made a series of cuts on S/N in the \bdsim\
+simulation.  We used the ``round'' \snr\ definition in order to avoid the first
+order effect \citep{DESSVShear}.  We found the magnitude of the multiplicative
+bias increased monotonically with the cut on \snr, reaching a bias of $\sim
+-2.5 \times 10^{-3}$ for $S/N > 20$.  This bias is larger than the requirements
+for future surveys.
+
+The detection bias could potentially be even larger than what we found, since
+the cut would be applied to a distribution of intrinsic \snr\ that ha
+an approximately power law shape, rather than one with a cutoff, as we had in
+our simulations. We will explore how to mitigate these important selection
+effects in a future work.
+
+\begin{comment}
+As indicated in table \ref{tab:selresults},
 these cuts lead to a monotonic change in the recovered shear, with a few
 tenths of a percent bias for a $S/N > 20$ cut.
 
 \begin{table*}
     \centering
-    \caption{\Mcal\ results when applying selections on the signal-to-noise ratio (S/N) to the BD simulations. Selections
+    \caption{\Mcal\ results when applying selections on the signal-to-noise ratio (S/N) to the \bdsim\ simulations. Selections
     were applied to an initially unbiased sample; i.e. no {\em detection}
     bias was present in the sample. \label{tab:selresults}}
     \begin{tabular}{ |l| r|r|r|  r|r|r|}
@@ -765,9 +761,127 @@ noise such that the distribution of $S/N$ for the galaxy sample is similar to a
 shallower data set.  The noisy ellipticity measurements could then be sheared
 artificially and selected as above to derive a correction.  Multiple noise
 realizations could be used to increase the precision of the correction.
+\end{comment}
 
 
-\subsection{Using a Random Subset To Calculate \Detrend\ Corrections}
+\section{Bias in GREAT3 Simulations}
+
+Relatively little bias was seen by \cite{HuffMcal} using the GREAT3 simulations
+\citep{great3}.  We checked that our code used to perform the metacal
+procedures gives identical results to that used in \cite{HuffMcal}, so this is
+most likely not a software error.  We
+suspect that the higher S/N of the GREAT3 simulations, and better modeling used
+in \cite{HuffMcal} resulted in reduced bias.
+
+The correlated noise effect scales with the square of the noise, and the
+simulations used for GREAT3 contain significantly higher S/N galaxies than the
+simulations used in this work.  Indeed, we found the correlated noise was still
+detectable in simulations we ran with similar properties to GREAT3, but with
+correlated noise bias at the 1-2\% level rather than the 12\% we saw in our
+\rgsim\ simulations.  We also ran the re-gaussianization code on our
+simulations, and did see a bias, but about a factor of two lower than we saw
+for our intentionally bad Gaussian PSF and Galaxy models.
+
+Another important difference between the GREAT3 sims and our sims is that
+GREAT3 galaxies were generated in pairs, rotated by 90 degrees with respect to
+a one another, in order to cancel shape noise.  However, we ran one of our
+simulations in such a configuration and saw the same level of correlated noise
+bias.  This is not surprising; the correlated noise effect adds coherently to
+the response, and should not cancel due to such imposed symmetries in the
+underlying galaxy population.
+
+\section*{Acknowledgments}
+
+ES is supported by DOE grant DE-AC02-98CH10886.
+
+We thank Aaron Roodman for providing the variation of the optical aberrations
+measured in DES data.  Thanks to Mike Jarvis for guidance on use of the GALSIM
+package, especially concerning use of the isotropization and whitening features.
+
+
+\appendix
+
+\section{Additional Correction Methods} \label{sec:altcorr}
+
+\subsection{Correction using GALSIM}
+
+With guidance from the GALSIM developers, we attempted to use the GALSIM noise
+isotropization and whitening functionality to correct the correlated noise.
+Isotropization enforces four fold symmetry, introducing minimal extra noise,
+while whitening completely whitens the image, introducing significant extra
+noise.  However, neither of these methods improved the shear recovery in our
+simulations.  It may be that some aspects of the \mcal\ procedure invalidate
+the assumptions behind these correction methods.
+
+
+\subsection{Detrending the Correlated Noise Bias} \label{sec:detrend}
+
+We expect the bias in \mcalR\ due to correlated noise to scale with the square
+of the noise in the image $n^2$ (see \S \ref{sec:scaling}).  We can add a small
+amount of noise to the image such that $n \rightarrow n + \Delta n$.  If we
+then run the new image through the \mcal\ process, we can measure
+$R^{\mathrm{before}}$, a response that will include correlated noise effects.
+We can write this observed response as
+\begin{align}\label{eq:Rbefore}
+    R_o^{\mathrm{before}} &= R + A (n + \Delta n)^2 \nonumber \\
+       &\simeq R + A n^2 + 2 A n \Delta n
+\end{align}
+%&\simeq R + A n^2 + \frac{\partial (An^2)}{\partial n} \Delta n + ... \nonumber \\
+where we have dropped terms of order $(\Delta n)^2$ and higher.  In equation
+\ref{eq:Rbefore}, \mcalR\ is the response at noise $n+\Delta n$ in the absence
+of correlated noise.  
+
+We can also add identical noise {\em after} the original image  has been run
+through \mcal, and measure $R^{\mathrm{after}}$.  The response when adding
+noise after \mcal\ does not suffer any additional bias due to correlated noise:
+\begin{align}
+    R_o^{\mathrm{after}} &= R + A n^2.
+\end{align}
+The difference between these responses is then 
+\begin{align}
+    \Delta R &\equiv R_o^{\mathrm{before}} - R_o^{\mathrm{after}}  \nonumber \\
+             &\simeq 2 A n \Delta n.
+\end{align}
+
+We propose the following procedure to correct for correlated noise:
+\begin{enumerate}
+    \item Calculate $\Delta R$ for a series of noise offsets $\Delta n$.
+    \item Average $\Delta R$ over all objects for each noise offset.
+    \item Perform a linear fit to $\Delta R$ vs. $2 n \Delta n$ to find the 
+        coefficient $A$.
+    \item Apply a mean correction for correlated noise given by
+        \begin{align}
+            \mbox{\mcalRnoise} & \simeq A n^2.
+        \end{align}
+        with a similar correction for \mcalRpsf.
+\end{enumerate}
+If the noise varies between observations, we can apply a 
+correction based on the mean variance $A
+\langle n^2 \rangle$.
+
+\subsubsection{Measurements of the \detrend\ Parameters}
+
+For the \detrend\ method, we measured $\Delta R$ vs $2 n \Delta n$ to find the
+coefficient $A$.  In figure \ref{fig:detrend}, we show this fit for the \rgsim\
+simulation.  The trend is well-fit by a linear model, as expected, with a slope
+$A \simeq $\Aslope, implying a correction $A n^2 \simeq$ \Rcorr\ for this
+simulation.
+
+\begin{figure}
+    \includegraphics[scale=0.45]{mcal-v14s01-Rnoise-detrend-R11.eps}
+
+    \caption{Trend of $\Delta R_{1,1}$ with $2 n \Delta n$ for the
+        real galaxy simulation.   $n$ is the
+    original noise level and $\Delta n$ is the additional noise added.  The
+    trend is linear as predicted.}
+
+\label{fig:detrend}
+\end{figure}
+
+
+
+
+\subsubsection{Using a Random Subset To Calculate \Detrend\ Corrections}
 
 Measuring the \detrend\ parameters requires extra computations, at least a
 factor of three to fit the linear parameters given in \S \ref{sec:detrend}, and
@@ -779,7 +893,7 @@ itself.  Here we explore the precision of the recovered shear using smaller
 subsets of the object catalog to measure the \detrend\ parameters, and
 applying the corrections to the full sample.  In Table \ref{tab:subsets}
 we show the shear recovery parameters for various subset sizes, for the
-BD simulation described in \S \ref{sec:detrendsim}
+\bdsim\ simulation described in \S \ref{sec:detrendsim}
 
 \begin{table*}
     \centering
@@ -817,47 +931,13 @@ representative amount of pixel level masking.  If a particular aggregate shear
 measurement involves a selection, this selection must also be applied to the
 random subset.
 
-\section{Bias on GREAT3 Simulations}
+\subsubsection{Performance of the \detrend\ method}
 
-Relatively little bias was seen by \cite{HuffMcal} using the GREAT3
-simulations \citep{great3}.  We checked that our code used to perform
-the metacal procedures for the \cite{HuffMcal} work and ours give identical
-results\footnote{Eric Huff, private communication}, so this is most likely not
-a software error.  Rather, we suspect that the higher S/N and better modeling
-used in \cite{HuffMcal} resulted in reduced bias.
+We found this method did not work as well as the \fixnoise\ method
+described in \S \ref{sec:fixnoise}.  We detected a remaining bias
+of $m \sim 2 \times 10^{-3}$ in both the \bdsim\ and \rgsim\ simulations.
 
-The correlated noise effect scales with the square of the noise, and the
-simulations used for GREAT3 contain significantly higher S/N than the
-simulations used in this work.  Indeed, we found the correlated noise was still
-detectable in simulations we ran with similar properties to GREAT3, but with
-correlated noise bias at the 1-2\% level rather than the 12\% we saw in our RG
-simulations.  We also ran the re-gaussianization code on our simulations, and
-did see a bias, but about a factor of two lower than we saw for our
-intentionally bad Gaussian PSF and Galaxy models.
-
-Another important difference between the GREAT3 sims and our sims is that
-GREAT3 galaxies were generated in a ``ring configuration''.  The simulation
-included two identical images of each galaxy, rotated by 90 degrees with
-respect to a one another, in order to cancel shape noise.  However, we ran one
-of our simulations in a ring configuration and saw the same level of correlated
-noise bias.  This is not surprising; the correlated noise effect adds coherently
-to the response, and should not cancel due to such imposed symmetries in the
-underlying galaxy population.
-
-\section*{Acknowledgments}
-
-ES is supported by DOE grant DE-AC02-98CH10886.
-
-We thank Aaron Roodman for providing the variation of the optical aberrations
-measured in DES data.  Thanks to Mike Jarvis for guidance on use of the GALSIM
-package, especially concerning use of the isotropization and whitening features.
-
-
-\appendix
-
-\section{Additional Correction Methods}
-
-\subsubsection{Simulating Models}
+\subsection{Simulating Models}
 
 In this method, we generated model images with the correct noise level corresponding
 to each real imag.  We then measured the response of the noise due to the
@@ -887,6 +967,9 @@ These responses will be noisier than the original images, due to the
 independent noise in both \mcalRo\ and \mcalRnoise.  To increase
 precision, the procedure can be repeated for different noise fields
 and averaged, at the cost of increased computation time.
+
+We found this method performed poorly.  We detected a remaining bias of  $m
+\sim 4 \times 10^{-3}$ in both the \bdsim\ and \rgsim\ simulations.
 
 
 \bibliographystyle{mn2e}
