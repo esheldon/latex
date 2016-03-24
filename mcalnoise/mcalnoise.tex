@@ -158,7 +158,7 @@ dilated PSF, is represented by $P_{d}$.
 To form the central derivative we shear by a small positive and negative
 amount $\gamma$
 \begin{equation} \label{eq:Rnum}
-    R = \frac{E(+\gamma) - E(-\gamma)}{2 \gamma}.
+    R = \frac{E(+\gamma) - E(-\gamma)}{\Delta \gamma}.
 \end{equation}
 The shear estimator can also be derived from the re-convolved
 images
@@ -182,7 +182,7 @@ Another correction can be derived for errors in the correction for
 PSF anisotropy.  This correction involves shearing the PSF rather
 than the galaxy:
 \begin{equation}
-    \mbox{\mcalRpsf} = \frac{E(+\gamma^{p}) - E(-\gamma^{p})}{2 \gamma^{p}},
+    \mbox{\mcalRpsf} = \frac{E(+\gamma^{p}) - E(-\gamma^{p})}{\Delta \gamma^{p}},
 \end{equation}
 where $\gamma^{p}$ is a shear applied to the PSF.  This
 term adds to the estimator $E$, multiplied by the PSF shape
@@ -344,7 +344,9 @@ converted from FWHM.
     \includegraphics[scale=0.45]{sim-bd29-r50.eps}
 
     \caption{Distribution of half-light-radius \hlr\ in the Bulge+Disk simulations,
-        for both galaxies and PSF.}
+        for both galaxies and PSF.  The distribution of PSF \hlr\ 
+        was chosen to be similar to that in the 
+        Dark Energy Survey}
 
 \label{fig:psimhlrcompare}
 \end{figure}
@@ -702,29 +704,30 @@ simulation.
 
 \subsection{Selection Effects} \label{sec:selection}
 
-Consider a selection that modifies the distribution of ellipticities; for
-shorthand we will write this as $S(E)$, although the selection may be indirect,
-for example a cut on \snr.
-Ignoring additive biases, we can rewrite equation \ref{eq:basicestimator} as
+Consider a selection that modifies the distribution of the estimator $E$ (
+which could be some measure of ellipticity). For shorthand we will write this
+selection function as $S(E)$, although the selection may be indirect, for
+example a cut on \snr.  Ignoring additive biases, we can rewrite equation
+\ref{eq:basicestimator} as
 \begin{align}
-    \langle E \rangle &\approx \gamma \int dE S(E) \frac{\partial  E P(E)  }{\partial \gamma} \nonumber \\
-                      &= \gamma \int dE P(E) S(E) \frac{\partial E }{\partial \gamma} + \gamma \int dE E S(E) \frac{\partial P(E) }{\partial \gamma} \nonumber \\
-                      &\approx \gamma \left[ \langle R \rangle + \int dE E S(E) \frac{P(+\gamma) - P(-\gamma)}{\Delta \gamma} \right] \nonumber \\
+    \langle E \rangle &\approx \gamma \int S(E) \frac{\partial  P(E) E  }{\partial \gamma} dE \nonumber \\
+                      &= \gamma \int S(E) P(E) \frac{\partial E }{\partial \gamma} dE + \gamma \int S(E) E \frac{\partial P(E) }{\partial \gamma} dE \nonumber \\
+                      &\approx \gamma \left[ \langle R \rangle + \int S(E) E \left( \frac{P(+\gamma) - P(-\gamma)}{\Delta \gamma}\right) dE \right] \nonumber \\
                       &= \gamma \left[ \langle R \rangle + \frac{\langle E \rangle^+ - \langle E \rangle^-}{\Delta \gamma} \right] \nonumber \\
                       &\equiv \gamma [ \langle R \rangle + \langle \mbox{\mcalRS} \rangle],
 \end{align}
 where we have defined the selection response \mcalRS. The $\langle E
-\rangle^+$ indicates the mean of the estimator based on the sheared probability
-distribution, and $\langle E \rangle^-$ is the mean over the negatively
+\rangle^+$ represents the mean of the estimator based on the sheared probability
+distribution, and $\langle E \rangle^-$ represents the mean over the negatively
 sheared distribution.  The first term
-$\langle R \rangle$ is an integral over the unsheared distribution.  In practice,
+$\langle R \rangle$ is the normal \mcal\ response, averaged over the unsheared distribution.  In practice,
 we simply store the parameters used to measure \mcalR, and perform
 separate selections and statistics on those values to compute \mcalRS.
 
-In real data, a selection may directly or indirectly select the redshift
-of the sources, which means the true shear is will be different with
-and without the selection.  This must be taken into account separately. We will
-ignore this effect in what follows.
+In real data, a selection may directly or indirectly select the redshift of the
+sources, which means the true shear is will be different even with out any
+selection bias.  This must be taken into account separately. We will not
+treat this effect in what follows.
 
 Do some tests.
 
@@ -839,7 +842,7 @@ package, especially concerning use of the isotropization and whitening features.
 
 \section{Additional Correction Methods} \label{sec:altcorr}
 
-\subsection{Correction using GALSIM}
+\subsection{Correction using GALSIM Methods}
 
 With guidance from the GALSIM developers, we attempted to use the GALSIM noise
 isotropization and whitening functionality to correct the correlated noise.
