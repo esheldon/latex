@@ -56,6 +56,7 @@
 \newcommand{\mcalRpsfnoise}{$R^{p}_\eta$}
 \newcommand{\mcalRo}{$R_o$}
 \newcommand{\mcalRnoise}{$R_\eta$}
+\newcommand{\mcalRS}{$R_{S}$}
 
 \newcommand{\mcalRmodel}{$R^{model}$}
 \newcommand{\mcalRnoisemodel}{$R^{model}_\eta$}
@@ -83,7 +84,7 @@
 \newcommand{\detrend}{de-trending}
 \newcommand{\Detrend}{De-trending}
 
-\newcommand{\fixnoise}{fixnoise}
+\newcommand{\fixnoise}{\texttt{fixnoise}}
 
 \newcommand{\ngmix}{\texttt{ngmix}}
 
@@ -253,7 +254,7 @@ for each galaxy to increase precision.
 
 The coefficient $A$ in Equation \ref{eq:scaling} can be calculated in simple
 scenarios, as shown in \cite{HirataCorrNoise}.  However, the calculation is
-more complex when modeling the effect of the PSF.  We instead explored three
+more complex when modeling the effect of the PSF.  We instead explored four
 different empirical corrections.  We describe our favored method
 below; the others are described in appendix \ref{sec:altcorr}.
 
@@ -302,17 +303,17 @@ generated and fit, and the results averaged.  This would improve the precision,
 at the cost of increased computation time.
 
 An alternative version of this method is to shear the noise exactly as the
-original image is sheared, but then rotate by 90 degrees before
-adding\footnote{M. Jarvis, private communication}.  This version has the
-advantage of working even when the transformation between sky and image is
-complex. We will explore this method in a future work.
+original image is sheared, but then rotate by 90 degrees before adding.  This
+version has the advantage of working even when the transformation between sky
+and image involves a shear of the coordinate system\footnote{M. Jarvis, private
+communication}. We will explore this method in a future work.
 
 \section{Image Simulations} \label{sec:sims}
 
 \subsection{Simulations with Parameteric Models} \label{sec:bdsim}
 
 We applied \mcal\ to a set of image simulations.  For the first set of
-simulations we used parametric models, designed to be similar to that used in
+simulations we used parametric models, inspired by those used in
 \citet{bfd2015}.  We modeled galaxies as a bulge and disk, with offsets between the
 bulge and disk components, such that the total image was not described by a
 single ellipse.  Both components had the same ellipticity and half light radius
@@ -324,11 +325,13 @@ used in \cite{ba14}
 \begin{align}
     P(e) &\propto \left[1-(e)^2\right]^2 \exp\left[-e^2/2\sigma^2\right],
 \end{align}
-with $\sigma=0.2$.
+with $\sigma=0.2$.  We use the ``reduced-shear'' style ellipticity,
+which differs by roughly a factor of two compared to the ellipticity used
+in \citet{bfd2015}.
 
 We convolved the galaxy images with a PSF modeled as a Moffat profile
 \citep{Moffat1969}, with FWHM drawn from a log-normal distribution with mean
-\psffwhmmean\ pixels, and scatter \psffwhmwidth.  This distribution roughly
+\psffwhmmean\ pixels, and scatter \psffwhmwidth. This distribution roughly
 matches that of the Dark Energy Survey science verification data
 \citep[][(DES)]{DESSVShear}, but with less of a tail to large FWHM.
 
@@ -349,9 +352,10 @@ converted from FWHM.
 
 We drew the PSF ellipticities from a distribution also designed to match that
 measured in DES.  The DES PSF shape distribution is well fit by a double
-Gaussian with width 0.18 in each dimension, but with different mean for $e_1$
-and $e_2$.  We set the mean in $e_2$ to $0.007$, matching that in DES, but set
-the mean in $e_1$ to zero as a control.
+Gaussian with width 0.18 in each dimension, but with different mean for \eone\
+and \etwo.  We set the mean in \etwo\ to $0.007$, matching that in DES, but set
+the mean in \eone\ to zero as a control.  These ellipticities are in the
+reduced-shear convention.  
 
 We designed the galaxy S/N distribution, shown in figure \ref{fig:s2n}, to
 match the real DES galaxy catalog after a pre-selection of ``good galaxies''
@@ -372,14 +376,18 @@ the full distribution of $\log_{10}(S/N)$}
 \label{fig:s2n}
 \end{figure}
 
+\subsubsection{Simulated Stars}
 
-Ideally, the \mcalR\ measured for stars should be consistent with zero in the
-mean, and thus not bias the ensemble shear estimate.  In order to test the
-robustness of \mcal\ to stellar contamination, we included
-$\sim$\nsimNstarperc\ stars in the \bdsim\ simulation.  The stars were simply
-drawn as PSFs, with the same flux distribution as used for the galaxies.  We
-refer to the simulation with stars as \bdstar; the \bdsim\ simulation is
-identical but with the stars removed.
+Ideally, the ellipticity and \mcalR\ measured for stars should both be
+consistent with zero in the mean, and thus not bias the ensemble shear
+estimate.  In order to test the robustness of \mcal\ to stellar contamination,
+we included $\sim$\nsimNstarperc\ stars in the \bdsim\ simulation.  The stars
+were simply drawn as PSFs, with the same flux distribution as used for the
+galaxies.  We refer to the simulation with stars as \bdstar; the
+galaxies are identical to those in the \bdsim\ simulation, but stars
+were then included in the analysis.
+
+\subsubsection{Simulated Masking}
 
 The Fourier transforms used to perform the \mcal\ convolutions cannot
 accommodate missing data.  But in real data, ``bad pixels'' must be masked in
@@ -390,8 +398,8 @@ We created another set of simulations, called \bdmask, in which we masked
 parts of the data in order to mimic certain effects in real images.  In order
 simulate these effects realistically, we chose a sample of real bit mask planes
 used in Dark Energy Survey shear analysis \citep{DESSVShear}.  These include
-masking of bad pixels, bad columns, and other image artifacts.   A random
-sample of \nmasks\ masks were selected, removing those for which a masked pixel
+masking of bad pixels, bad columns, and other image artifacts.   We chose a random
+random sample of \nmasks\ masks, after removing those for which a masked pixel
 fell within 4 pixels of the image center.  An example image and mask are shown
 in figure \ref{fig:mask}.
 
@@ -411,20 +419,20 @@ bad column. }
 We designed a second set of simulations to mimic the ``real-galaxy''
 simulations used in GREAT3 challenge \citep{great3}, using galaxy images drawn
 from COSMOS data.  We implemented two important changes.  First, we oriented
-the galaxies randomly rather than placing them in pairs to cancel shape bias.
-Using random orientations avoids cancellation of systematics such as some
-selection effects \citep{DESSVShear}.  Second, we used optical aberrations in
-the PSF designed to match that seen in the Dark Energy Survey
-data\footnote{Aaron Roodman, private communication}.  Similar to GREAT3, we
-varied the aberrations as Gaussian around a fiducial value. These
-root-mean-squared variations, in units of waves in the Noll convention are
-given in table \ref{tab:aberr}.  We used a Kolmogorov model for the atmospheric
-component, with mean FWHM = 3.40 pixels (0.9 arscec for 0.265 arcsec pixels).
-For this configuration there are significant variations in the PSF ellipticity,
-but relatively little net ellipticity across the entire ensemble of
-realizations.  The code used to generate these simulations began as a fork of
-the GREAT3 public code base, and is freely available
-online\footnote{https://github.com/esheldon/egret}.
+the galaxies randomly, whereas in GREAT3 the galaxies were placed in pairs
+rotated by 90 degrees, in order cancel shape noise.  Using paired galaxies has
+the undesired effect of cancelling some biases that we want to
+explore \citep{DESSVShear}.  Second, we used optical aberrations in the PSF
+designed to match that seen in the Dark Energy Survey data\footnote{Aaron
+Roodman, private communication}.  Similar to GREAT3, we varied the aberrations
+as Gaussian random variables around a fiducial value. These root-mean-squared variations, in
+units of waves in the Noll convention, are given in table \ref{tab:aberr}.  We
+used a Kolmogorov model for the atmospheric component, with mean FWHM = 3.40
+pixels (0.9 arscec for 0.265 arcsec pixels).  For this configuration there are
+significant variations in the PSF ellipticity, but relatively little net
+ellipticity across the entire ensemble of realizations.  The code used to
+generate these simulations began as a fork of the GREAT3 public code base, and
+is freely available online\footnote{https://github.com/esheldon/egret}.
 
 \begin{table}
     \centering
@@ -449,11 +457,11 @@ online\footnote{https://github.com/esheldon/egret}.
 In figure \ref{fig:cosmos} we show the distribution of measured \snr\ for the
 COSMOS simulations.  The mode of the distribution is somewhat higher than that
 of the parametric simulations, about 12 instead of 10.  Also shown is the
-distribution of the half-light-radius \hlr, measured
-from the \sersic\ model fits distributed with the COSMOS catalog as part
-of the GREAT3 challenge.  The mean \hlr\ for these simulations
-is about \cosmosrdist, somewhat larger than the
-log-normal \galrdist\ for the parametric simulations.
+distribution of the half-light-radius \hlr, measured from the \sersic\ model
+fits distributed with the COSMOS catalog as part of the GREAT3 challenge,
+including the selections applied for the simulation.  The mean \hlr\ for these
+simulations is about \cosmosrdist, somewhat larger than the log-normal
+\galrdist\ for the parametric simulations.
 
 
 \begin{figure}
@@ -514,7 +522,7 @@ and large uncorrected PSF anisotropy.  In addition there was significant {\em
 ordinary} noise bias at the low S/N levels used in the simulations.
 
 We used a maximum likelihood fit, with smooth priors on all parameters to
-produce a stable fit; for all images our entire set of simulations we had not a
+produce a stable fit; for all images in our entire set of simulations we had not a
 single failure in the fitting process.  These priors were not tuned to the true
 galaxy parameters.  For the flux and size we deliberately used priors that were
 wider than truth by 20\%.  For the ellipticity we used $\sigma=0.3$ instead of
@@ -592,11 +600,11 @@ remaining additive bias.
 
 Using \mcal\ we found the multiplicative bias to be consistent with zero within
 errors for all simulations. For the parameteric simulations, which had a
-net PSF anisotropy in the $g_2$ component, we detected a remaining
+net PSF anisotropy in the \etwo\ component, we detected a remaining
 additive bias, but it was reduced by a factor of \pimprovement\ in amplitude
 compared to the maximum likelihood shear estimator.  This small remaining
 additive bias is due to our use of a very poor PSF correction scheme based
-on a single Gaussian fit; we advise using a better model.
+on a single Gaussian fit.
 
 The multiplicative bias without applying corrections for correlated noise
 was about $0.1$ for all simulations, implying a large over-correction.
@@ -670,8 +678,8 @@ to weight the redshift estimates as well, although one must be careful as the
 \subsection{Masking Effects} \label{sec:masking}
 
 Here we discuss the results for the \bdmask\ simulation, introduced in \S
-\ref{sec:bdsim}.  In this simulation, we masked ``bad'' pixels and columns,
-with masks drawn from real DES data.
+\ref{sec:bdsim}.  In this simulation, we mocked up masking of ``bad'' pixels,
+columns, and other artifacts using masks drawn from real DES data.
 
 As a baseline extreme case, we replaced the masked pixels simply with noise.
 This resulted in significant calibration bias.
@@ -694,6 +702,24 @@ simulation.
 
 \subsection{Selection Effects} \label{sec:selection}
 
+Consider a selection that modifies the distribution of ellipticities; for
+shorthand we will write this as $S(E)$, although the selection may be indirect,
+for example a cut on \snr.
+Ignoring additive biases, we can rewrite equation \ref{eq:basicestimator} as
+\begin{align}
+    \langle E \rangle &\approx \gamma \int dE S(E) \frac{\partial  E P(E)  }{\partial \gamma} \nonumber \\
+                      &= \gamma \int dE P(E) S(E) \frac{\partial E }{\partial \gamma} + \gamma \int dE E S(E) \frac{\partial P(E) }{\partial \gamma} \nonumber \\
+                      &\approx \gamma \left[ \langle R \rangle + \int dE E S(E) \frac{P(+\gamma) - P(-\gamma)}{\Delta \gamma} \right] \nonumber \\
+                      &= \gamma \left[ \langle R \rangle + \frac{\langle E \rangle^+ - \langle E \rangle^-}{\Delta \gamma} \right] \nonumber \\
+                      &\equiv \gamma [ \langle R \rangle + \langle \mbox{\mcalRS} \rangle],
+\end{align}
+where we have defined the selection response \mcalRS. The $\langle E
+\rangle^+$ indicates the mean of the estimator based on the sheared probability
+distribution, and $\langle E \rangle^-$ is the mean over the negatively
+sheared distribution.  The first term
+$\langle R \rangle$ is an integral over the unsheared distribution.
+
+\begin{comment}
 There are two main types of selection: detection effects and ordinary selection
 effects.  Detection effects occur when placing a detection threshold on a
 quantity that correlates with galaxy shape. One example is \snr: cutting to
@@ -723,6 +749,7 @@ the cut would be applied to a distribution of intrinsic \snr\ that ha
 an approximately power law shape, rather than one with a cutoff, as we had in
 our simulations. We will explore how to mitigate these important selection
 effects in a future work.
+\end{comment}
 
 \begin{comment}
 As indicated in table \ref{tab:selresults},
