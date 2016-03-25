@@ -733,13 +733,17 @@ We can approximate the derivative using a finite difference:
                       &\equiv \langle R \rangle + \langle \mbox{\mcalRS} \rangle,
 \end{align}
 where we have defined the selection response \mcalRS. The $\langle E \rangle^+$
-represents the mean of the estimator with selection on the sheared parameters. The $\langle E
-\rangle^-$ represents the mean after selection on the negatively sheared
+represents the mean of the estimator, with selection placed on the sheared parameters. The $\langle E
+\rangle^-$ represents the mean with selection placed on the negatively sheared
 parameters.  The
-first term $\langle R \rangle$ is the normal \mcal\ response, averaged over the
-unsheared distribution.  In practice, we can simply store the parameters used to
+first term $\langle R \rangle$ is the normal \mcal\ response, with
+selection placed on the unsheared distribution.  In practice, we can simply store the parameters used to
 measure \mcalR, and perform separate selections and statistics on those values
 to compute \mcalRS.
+
+It is important that the selections be placed well above any detection
+thresholds, such that, after shearing, detected objects can move into and out
+of the selected sample.
 
 In real data, a selection may directly or indirectly select the redshift of the
 sources, which means the true shear will be different after selection, even
