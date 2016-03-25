@@ -702,25 +702,25 @@ The results using the model replacement method are shown in table
 change significantly compared to the measurements on the independent \bdsim\
 simulation.
 
-\subsection{Selection Effects} \label{sec:selection}
+\section{Selection Effects} \label{sec:selection}
 
-Consider a selection that modifies the distribution of the measurement $E$ (
-which could be some measure of ellipticity). For shorthand we will write this
+Consider a selection that modifies the distribution of the measurement $E$
+(which could be some measure of ellipticity). For shorthand we will write this
 selection function as $S(E)$, the probability of selecting an object with
-measurement $E$, although the selection may be indirect, for
-example a cut on \snr.  The mean ellipticity over an ensemble can then
-be written as 
+measurement $E$, although the selection may be indirect, for example a cut on
+\snr.  The mean ellipticity over an ensemble can then be written as 
 \begin{align}
     \langle E \rangle = \int S(E) P(E) E dE,
 \end{align}
 where $P(E) = d N / d E$ is the normalized probability
-distribution of the measurement.
-To leading order, we can write the multiplicative response of the mean as
+distribution for the measurement.
+To leading order, we can write the multiplicative response of the mean to
+an applied shear as
 \begin{align}
     \frac{\partial \langle E \rangle}{\partial \gamma}\bigg|_{\gamma=0} 
     &= \int \frac{\partial S(E) P(E) E  }{\partial \gamma}\bigg|_{\gamma=0} dE \nonumber \\
     &= \int \left[ S(E) \frac{\partial  P(E) E  }{\partial \gamma}\bigg|_{\gamma=0} + E P(E) \frac{\partial S(E)}{\partial \gamma}\bigg|_{\gamma=0} \right] dE \nonumber \\
-    &= \langle R \rangle + \int E P(E) \frac{\partial S(E)}{\partial \gamma}\bigg|_{\gamma=0}. dE \nonumber \\
+    &= \langle R \rangle + \int E P(E) \frac{\partial S(E)}{\partial \gamma}\bigg|_{\gamma=0} dE \nonumber \\
 \end{align}
 %By symmetry, we expect the mean derivative of the distribution 
 %$\partial P / \partial \gamma|_{\gamma=0}$ to vanish.  However,
@@ -728,31 +728,37 @@ To leading order, we can write the multiplicative response of the mean as
 We can approximate the derivative using a finite difference:
 \begin{align}
     \frac{\partial \langle E \rangle}{\partial \gamma}\bigg|_{\gamma=0} &\approx
-                      \langle R \rangle + \int P(E) E \left( \frac{S(+\gamma) - S(-\gamma)}{\Delta \gamma}\right) dE  \nonumber \\
-                      &= \langle R \rangle + \frac{\langle E \rangle^+ - \langle E \rangle^-}{\Delta \gamma} \nonumber \\
-                      &\equiv \langle R \rangle + \langle \mbox{\mcalRS} \rangle,
+                      \langle R \rangle + \int P(E) E \left( \frac{S(+\gamma) - S(-\gamma)}{\Delta \gamma}\right) dE,  \\
+\end{align}
+where $S(\gamma)$ is the probability of selection after a small shear is
+applied to the image.  We can thus interpret the integral over $S(+\gamma)$
+and $S(-\gamma)$ as the mean
+of the measurement under positive and negative shear,
+\begin{align}
+\frac{\partial \langle E \rangle}{\partial \gamma}\bigg|_{\gamma=0} &\approx
+       \langle R \rangle + \frac{\langle E \rangle^+ - \langle E \rangle^-}{\Delta \gamma} \nonumber \\
+       &\equiv \langle R \rangle + \langle \mbox{\mcalRS} \rangle,
 \end{align}
 where we have defined the selection response \mcalRS. The $\langle E \rangle^+$
-represents the mean of the sheared measurements, with selection placed on the sheared parameters. The $\langle E
-\rangle^-$ represents the mean of the negatively sheared measurements,
-with selection placed on the negatively sheared
-parameters.  The
-first term $\langle R \rangle$ is the normal \mcal\ response, with
-selection placed on the unsheared parameters.  In practice, we can simply store the parameters used to
-measure \mcalR, and perform separate selections and statistics on those values
-to compute \mcalRS.
+represents the mean of the sheared measurements, with selection placed on the
+sheared parameters. The $\langle E \rangle^-$ represents the mean of the
+negatively sheared measurements, with selection placed on the negatively
+sheared parameters.  The first term $\langle R \rangle$ is the normal \mcal\
+response, with selection placed on the unsheared parameters.  In practice, we
+can store the sheared parameters used to measure \mcalR, and perform separate
+selections and statistics on those values to compute \mcalRS.
 
 It is important that the selections be placed well above any detection
 thresholds, such that, after shearing, detected objects can move into and out
-of the selected sample.  If the selection were close to a detection threshold,
-some objects would be missed that would move into the sample after shearing.
+of the selected sample.  If the selection were too close to a detection
+threshold, some objects would be missed whose measurements would  have
+met the selection criteria after shearing.
 
 In real data, a selection may directly or indirectly select the redshift of the
 sources, which means the true shear will be different after selection, even
 in the absence of selection biases.  This must be taken into account separately. We
 will not treat this effect in what follows.
 
-Do some tests.
 
 \begin{comment}
 There are two main types of selection: detection effects and ordinary selection
