@@ -141,7 +141,8 @@ to estimate the mean shear:
 \begin{align}
     \langle E \rangle &= \langle E \rangle |_{\gamma=0} + \langle \gamma \frac{ \partial E }{ \partial \gamma } \rangle \bigg|_{\gamma=0} + ...
 \end{align}
-For constant shear, and assuming the estimator gives zero for $\gamma=0$, we can rewrite this as
+For constant shear, assuming the estimator gives zero for $\gamma=0$, and
+dropping higher order terms, we can rewrite this as
 \begin{align}
 \langle E \rangle &\approx  \gamma ~ \langle \frac{ \partial E }{ \partial \gamma } \rangle \bigg|_{\gamma=0}  \\
       & \equiv  \gamma ~ \langle \mbox{\mcalR} \rangle \nonumber
@@ -149,7 +150,7 @@ For constant shear, and assuming the estimator gives zero for $\gamma=0$, we can
 We call \mcalR\ the shear response.
 
 The essence of \mcal\ \citep{HuffMcal} is to estimate the shear response
-\mcalR\ for a shear estimator $E$ directly from image data.  This is
+\mcalR\ for a measurement $E$ directly from image data.  This is
 accomplished using a numerical derivative.  The original image $I$ is
 de-convolved from the point spread function (PSF), sheared, and re-convolved
 by the PSF.  A slightly larger PSF is used in order to suppress modes 
@@ -185,8 +186,9 @@ In \cite{HuffMcal} a more sophisticated inference was used, in order to deal
 with the relatively large variance in \mcalR\ associated with the particular
 estimator used therein.
 
-Another response can be derived for errors in the correction for PSF
-anisotropy, resulting in a non-zero value for $\langle E \rangle|_{\gamma=0}$.  This
+If the PSF correction is not perfect, the leading term $\langle E \rangle|_{\gamma=0}$
+will not be zero.  We can derive another response, the response of the
+measurement to the PSF ellipticity, to correct this effect.  This
 correction involves shearing the PSF rather than the galaxy:
 \begin{equation}
     \mbox{\mcalRpsf} = \frac{E(+\gamma^{p}) - E(-\gamma^{p})}{\Delta \gamma^{p}},
@@ -200,7 +202,7 @@ In practice we calculate mean responses, factoring out the response term:
 \begin{equation}
     \gamma = \frac{\langle E \rangle - \langle \mbox{\mcalRpsf} \rangle \langle e^{p} \rangle}{ \langle \mbox{\mcalR} \rangle}.
 \end{equation}
-Finally, the estimator $E$ has two-components, and the response \mcalR\ is
+Finally, the measurement $E$ has two-components, and the response \mcalR\ is
 a $2 \times 2$ matrix. Thus the full solution is given by the matrix
 equation
 \begin{align}
@@ -227,7 +229,7 @@ and negative shears. This quantity is further averaged over many galaxies.
 
 However, the sheared correlated noise term will not cancel when calculating the
 response, which is the difference of positive and negative shears.  This
-remainder is amplified due to division by $2 \gamma$ to form the central
+remainder is amplified due to division by $\Delta \gamma$ to form the central
 derivative.  We thus expect the observed response \mcalRo\ to be contaminated
 by the response of the correlated, sheared noise \mcalRnoise\
 \begin{equation}
