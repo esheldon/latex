@@ -711,16 +711,16 @@ measurement $E$, although the selection may be indirect, for
 example a cut on \snr.  The mean ellipticity over an ensemble can then
 be written as 
 \begin{align}
-    \langle E \rangle = \int S(E) P(E) E dE
+    \langle E \rangle = \int S(E) P(E) E dE,
 \end{align}
 where $P(E) = d N / d E$ is the normalized probability
-distribution of the estimator.
-To leading order, we can write the multiplicative response of the ensemble as
+distribution of the measurement.
+To leading order, we can write the multiplicative response of the mean as
 \begin{align}
     \frac{\partial \langle E \rangle}{\partial \gamma}\bigg|_{\gamma=0} 
     &= \int \frac{\partial S(E) P(E) E  }{\partial \gamma}\bigg|_{\gamma=0} dE \nonumber \\
     &= \int \left[ S(E) \frac{\partial  P(E) E  }{\partial \gamma}\bigg|_{\gamma=0} + E P(E) \frac{\partial S(E)}{\partial \gamma}\bigg|_{\gamma=0} \right] dE \nonumber \\
-    &= \langle R \rangle + \int E P(E) \frac{\partial S(E)}{\partial \gamma}\bigg|_{\gamma=0} dE \nonumber \\
+    &= \langle R \rangle + \int E P(E) \frac{\partial S(E)}{\partial \gamma}\bigg|_{\gamma=0}. dE \nonumber \\
 \end{align}
 %By symmetry, we expect the mean derivative of the distribution 
 %$\partial P / \partial \gamma|_{\gamma=0}$ to vanish.  However,
@@ -733,8 +733,9 @@ We can approximate the derivative using a finite difference:
                       &\equiv \langle R \rangle + \langle \mbox{\mcalRS} \rangle,
 \end{align}
 where we have defined the selection response \mcalRS. The $\langle E \rangle^+$
-represents the mean of the estimator, with selection placed on the sheared parameters. The $\langle E
-\rangle^-$ represents the mean with selection placed on the negatively sheared
+represents the mean of the sheared measurements, with selection placed on the sheared parameters. The $\langle E
+\rangle^-$ represents the mean of the negatively sheared measurements,
+with selection placed on the negatively sheared
 parameters.  The
 first term $\langle R \rangle$ is the normal \mcal\ response, with
 selection placed on the unsheared distribution.  In practice, we can simply store the parameters used to
