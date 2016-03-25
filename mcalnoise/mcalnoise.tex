@@ -138,7 +138,9 @@ in a Taylor series around the true shear
       & \equiv  \gamma ~ \mbox{\mcalR} \nonumber
 \end{align}
 where $\gamma$ is denotes the true gravitational shear.  We call \mcalR\
-the shear response.
+the shear response.  We have assumed $E(\gamma=0)=0$ vanishes, but this may not
+be the case in the presence of residual PSF anisotropy; we will address this
+below.
 
 The essence of \mcal\ \citep{HuffMcal} is to estimate the shear response
 \mcalR\ for a shear estimator $E$ directly from image data.  This is
@@ -179,7 +181,7 @@ with the relatively large variance in \mcalR\ associated with the particular
 estimator used therein.
 
 Another correction can be derived for errors in the correction for 
-PSF anisotropy.  This correction involves shearing the PSF rather
+PSF anisotropy, in the case that $E(\gamma=0)$ is not zero.  This correction involves shearing the PSF rather
 than the galaxy:
 \begin{equation}
     \mbox{\mcalRpsf} = \frac{E(+\gamma^{p}) - E(-\gamma^{p})}{\Delta \gamma^{p}},
@@ -187,7 +189,7 @@ than the galaxy:
 where $\gamma^{p}$ is a shear applied to the PSF.  This
 term adds to the estimator $E$, multiplied by the PSF shape
 \begin{equation}
-    E = \mbox{\mcalR} \gamma + \mbox{\mcalRpsf} e^{p} 
+    E =   \mbox{\mcalRpsf} e^{p} + \mbox{\mcalR} \gamma
 \end{equation}
 This term can be subtracted to approximately correct for additive PSF errors:
 \begin{equation}
