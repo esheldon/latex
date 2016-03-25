@@ -130,23 +130,31 @@ explore the effects of stellar contamination and masking.
 
 \section{Metacalibration} \label{sec:algo}
 
-Suppose we have a biased shear estimator $E$.  We can expand this estimator
+Suppose we have a biased shear observable $E$.  This may be some estimate
+of ellipticity.  We can expand this observable
 in a Taylor series around the true shear
 \begin{align} \label{eq:Eexpand}
-    E(\gamma) &= E(\gamma=0) + \gamma ~ \frac{ \partial E }{ \partial \gamma }\bigg|_{\gamma=0}  + ... \nonumber \\
-      & \approx  \gamma ~ \frac{ \partial E }{ \partial \gamma } \bigg|_{\gamma=0}  \\
-      & \equiv  \gamma ~ \mbox{\mcalR} \nonumber
+    E(\gamma) &= E|_{\gamma=0} + \gamma ~ \frac{ \partial E }{ \partial \gamma }\bigg|_{\gamma=0}  + ... \\
 \end{align}
-where $\gamma$ is denotes the true gravitational shear.  We call \mcalR\
-the shear response.  We have assumed $E(\gamma=0)=0$ vanishes, but this may not
-be the case in the presence of residual PSF anisotropy; we will address this
-below.
+We can use the ensemble mean of such measurements over a large number of objects
+to estimate the mean shear:
+\begin{align}
+    \langle E \rangle &= \langle E \rangle |_{\gamma=0} + \langle \gamma \frac{ \partial E }{ \partial \gamma } \rangle \bigg|_{\gamma=0} + ...
+\end{align}
+For constant shear, and assuming the estimator gives zero for $\gamma=0$, we can rewrite this as
+\begin{align}
+\langle E \rangle &\approx  \gamma ~ \langle \frac{ \partial E }{ \partial \gamma } \rangle \bigg|_{\gamma=0}  \\
+      & \equiv  \gamma ~ \langle \mbox{\mcalR} \rangle \nonumber
+\end{align}
+We call \mcalR\ the shear response.
 
 The essence of \mcal\ \citep{HuffMcal} is to estimate the shear response
 \mcalR\ for a shear estimator $E$ directly from image data.  This is
 accomplished using a numerical derivative.  The original image $I$ is
 de-convolved from the point spread function (PSF), sheared, and re-convolved
-with a slightly larger PSF.  This \mcal\ process is repeated for a
+by the PSF.  A slightly larger PSF is used in order to suppress modes 
+exposed by the shearing that were previously hidden in the finite
+resolution of the original image.  This \mcal\ process is repeated for a
 positive and negative shear, which can be used to form a central derivative.
 We can represent this as a series of operations on the observed image $I$:
 \begin{equation}
@@ -162,45 +170,43 @@ amount $\gamma$
 \begin{equation} \label{eq:Rnum}
     R = \frac{E(+\gamma) - E(-\gamma)}{\Delta \gamma}.
 \end{equation}
-The shear estimator can also be derived from the re-convolved
-images
+The shear estimator can be derived from a reconvolved, but not sheared image,
+or from the average of the sheared images
 \begin{equation} \label{eq:estimator}
     E = \frac{E(+\gamma) + E(-\gamma)}{2}.
 \end{equation}
 
-For a constant shear, the response and shear estimators can be averaged
-separately and combined to recover the mean shear:
-\begin{equation} \label{eq:basicestimator}
-    \gamma = \frac{ \langle E \rangle }{\langle \mbox{\mcalR} \rangle}.
-\end{equation}
-Note the estimator $E$ has two-components, and the response \mcalR\ is
-a $2 \times 2$ matrix, although generally the off-diagonal components
-are relatively small.
+
+The unbiased estimator is then given by
+\begin{align}
+    \gamma = \frac{\langle E \rangle}{\langle \mbox{\mcalR} \rangle}.
+\end{align}
 In \cite{HuffMcal} a more sophisticated inference was used, in order to deal
 with the relatively large variance in \mcalR\ associated with the particular
 estimator used therein.
 
-Another correction can be derived for errors in the correction for 
-PSF anisotropy, in the case that $E(\gamma=0)$ is not zero.  This correction involves shearing the PSF rather
-than the galaxy:
+Another response can be derived for errors in the correction for PSF
+anisotropy, resulting in a non-zero value for $\langle E \rangle|_{\gamma=0}$.  This
+correction involves shearing the PSF rather than the galaxy:
 \begin{equation}
     \mbox{\mcalRpsf} = \frac{E(+\gamma^{p}) - E(-\gamma^{p})}{\Delta \gamma^{p}},
 \end{equation}
-where $\gamma^{p}$ is a shear applied to the PSF.  This
-term adds to the estimator $E$, multiplied by the PSF shape
-\begin{equation}
-    E =   \mbox{\mcalRpsf} e^{p} + \mbox{\mcalR} \gamma
-\end{equation}
+where $\gamma^{p}$ is a shear applied to the PSF.  
 This term can be subtracted to approximately correct for additive PSF errors:
 \begin{equation}
-    \gamma = \frac{ \langle E \rangle - \langle \mbox{\mcalRpsf} e^{p} \rangle }{\langle \mbox{\mcalR} \rangle}.
+    \gamma = \frac{\langle E \rangle - \langle \mbox{\mcalRpsf} e^{p} \rangle}{ \langle \mbox{\mcalR} \rangle}.
 \end{equation}
 In practice we calculate mean responses, factoring out the response term:
 \begin{equation}
-    \gamma = \frac{ \langle E \rangle - 
-            \langle \mbox{\mcalRpsf}\rangle \langle e^{p} \rangle }{\langle \mbox{\mcalR} \rangle}.
+    \gamma = \frac{\langle E \rangle - \langle \mbox{\mcalRpsf} \rangle \langle e^{p} \rangle}{ \langle \mbox{\mcalR} \rangle}.
 \end{equation}
-
+Finally, the estimator $E$ has two-components, and the response \mcalR\ is
+a $2 \times 2$ matrix. Thus the full solution is given by the matrix
+equation
+\begin{align}
+    \gamma &= 
+    \langle \mbox{\mcalR} \rangle^{-1} \left[ \langle E \rangle - \langle \mbox{\mcalRpsf} \rangle \langle e^{p} \rangle \right].
+\end{align}
 
 \section{Contamination of the Response by Correlated Noise} \label{sec:contam}
 
