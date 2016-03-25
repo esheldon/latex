@@ -738,13 +738,14 @@ represents the mean of the sheared measurements, with selection placed on the sh
 with selection placed on the negatively sheared
 parameters.  The
 first term $\langle R \rangle$ is the normal \mcal\ response, with
-selection placed on the unsheared distribution.  In practice, we can simply store the parameters used to
+selection placed on the unsheared parameters.  In practice, we can simply store the parameters used to
 measure \mcalR, and perform separate selections and statistics on those values
 to compute \mcalRS.
 
 It is important that the selections be placed well above any detection
 thresholds, such that, after shearing, detected objects can move into and out
-of the selected sample.
+of the selected sample.  If the selection were close to a detection threshold,
+some objects would be missed that would move into the sample after shearing.
 
 In real data, a selection may directly or indirectly select the redshift of the
 sources, which means the true shear will be different after selection, even
