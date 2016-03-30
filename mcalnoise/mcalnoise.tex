@@ -720,49 +720,50 @@ selection function as $S(E)$, the probability of selecting an object with
 measurement $E$, although the selection may be indirect, for example a cut on
 \snr.  The mean ellipticity over an ensemble can then be written as 
 \begin{align}
-    \langle E \rangle = \int S(E) P(E) E dE,
+    \langle E \rangle = \int S(E)~P(E)~E~dE,
 \end{align}
-where $P(E) = d N / d E$ is the normalized probability
+where $P(E)$ is the normalized probability
 distribution for the measurement.
 To leading order, we can write the multiplicative response of the mean to
 an applied shear as
 \begin{align}
     \frac{\partial \langle E \rangle}{\partial \gamma}\bigg|_{\gamma=0} 
     &= \int \frac{\partial S(E) P(E) E  }{\partial \gamma}\bigg|_{\gamma=0} dE \nonumber \\
-    &= \int \left[ S(E) \frac{\partial  P(E) E  }{\partial \gamma}\bigg|_{\gamma=0} + E P(E) \frac{\partial S(E)}{\partial \gamma}\bigg|_{\gamma=0} \right] dE \nonumber \\
-    &= \langle R \rangle + \int E P(E) \frac{\partial S(E)}{\partial \gamma}\bigg|_{\gamma=0} dE \nonumber \\
+    &= \int \left[ S(E) \frac{\partial  P(E) E  }{\partial \gamma}\bigg|_{\gamma=0} + E P(E) \frac{\partial S(E)}{\partial \gamma}\bigg|_{\gamma=0} \right] dE \\
+    %&= \langle R \rangle + \int E P(E) \frac{\partial S(E)}{\partial \gamma}\bigg|_{\gamma=0} dE \nonumber \\
 \end{align}
-%By symmetry, we expect the mean derivative of the distribution 
-%$\partial P / \partial \gamma|_{\gamma=0}$ to vanish.  However,
-%after a selection this symmetry may be broken.
-We can approximate the derivative using a finite difference:
+The first term is the response \mcalR\ derived in section \ref{sec:algo}, with
+selections applied to the unsheared parameters.  The second term is the
+response of the measurement to selections.  We can approximate the derivative
+using a finite difference:
 \begin{align}
-    \frac{\partial \langle E \rangle}{\partial \gamma}\bigg|_{\gamma=0} &\approx
-                      \langle R \rangle + \int P(E) E \left( \frac{S(+\gamma) - S(-\gamma)}{\Delta \gamma}\right) dE,  \\
+    \frac{\partial \langle E \rangle}{\partial \gamma}\bigg|_{\gamma=0}
+    &\approx
+    \langle \mbox{\mcalR} \rangle + \int E~P(E) \left[ \frac{ S^+ - S^- }{\Delta \gamma}\right] dE,
 \end{align}
-where $S(\gamma)$ is the probability of selection after a small shear is
-applied to the image.  We can thus interpret the integral over $S(+\gamma)$
-and $S(-\gamma)$ as the mean
-of the measurement under positive and negative shear,
+where $S^+$ is the probability of selection after a small shear is applied to
+the image, and $S^-$ is the probability of selection after a small negative
+shear is applied.  We can thus rewrite this in terms of the mean measurement
+when selections are applied to sheared parameters:
 \begin{align}
 \frac{\partial \langle E \rangle}{\partial \gamma}\bigg|_{\gamma=0} &\approx
-       \langle R \rangle + \frac{\langle E \rangle^+ - \langle E \rangle^-}{\Delta \gamma} \nonumber \\
+    \langle R \rangle + \frac{\langle E \rangle^{S+} - \langle E \rangle^{S-}}{\Delta \gamma} \nonumber \\
        &\equiv \langle R \rangle + \langle \mbox{\mcalRS} \rangle,
 \end{align}
-where we have defined the selection response \mcalRS. The $\langle E \rangle^+$
-represents the mean of the sheared measurements, with selection placed on the
-sheared parameters. The $\langle E \rangle^-$ represents the mean of the
-negatively sheared measurements, with selection placed on the negatively
-sheared parameters.  The first term $\langle R \rangle$ is the normal \mcal\
-response, with selection placed on the unsheared parameters.  In practice, we
-can store the sheared parameters used to measure \mcalR, and perform separate
-selections and statistics on those values to compute \mcalRS.
+where we have defined the selection response \mcalRS. The $\langle E \rangle^{S+}$
+represents the mean of the unsheared measurements, with selection placed on the
+sheared parameters. The $\langle E \rangle^{S-}$ represents the mean of the
+unsheared sheared measurements, with selection placed on the negatively
+sheared parameters.  In practice, we
+can store the sheared and unsheared parameters and perform separate
+selections and statistics on those values to compute the various 
+ensemble averages.
 
 It is important that the selections be placed well above any detection
 thresholds, such that, after shearing, detected objects can move into and out
 of the selected sample.  If the selection were too close to a detection
-threshold, some objects would be missed whose measurements would  have
-met the selection criteria after shearing.
+threshold, some object measurements that should become detectable after
+a shear would not be included.
 
 In real data, a selection may directly or indirectly select the redshift of the
 sources, which means the true shear will be different after selection, even
