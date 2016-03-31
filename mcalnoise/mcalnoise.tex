@@ -104,9 +104,11 @@
 
 \title{Noise Effects in \Mcal\ Weak Lensing Shear Estimation}
 
-\author[Sheldon et al.]{Erin S. Sheldon$^1$, et al.\\
-$^1$Brookhaven National Laboratory, Bldg 510, Upton, New York 11973}
-%\author[Sheldon et al.]{Erin S. Sheldon$^1$, Matthew R. Becker$^2$ \\
+\author[Sheldon et al.]{Erin S. Sheldon$^1$, Eric M. Huff$^2$\\
+$^1$Brookhaven National Laboratory, Bldg 510, Upton, New York 11973\\
+$^2$Center for Cosmology and Astroparticle Physics, Department of Physics, The Ohio State University, OH 43210, USA }
+    
+%Matthew R. Becker$^2$ \\
 %$^1$Brookhaven National Laboratory, Bldg 510, Upton, New York 11973\\
 %$^2$Department of Physics, Stanford University, 382 Via Pueblo Mall, Stanford, CA 94305, USA}
 
@@ -117,8 +119,8 @@ $^1$Brookhaven National Laboratory, Bldg 510, Upton, New York 11973}
 
 \begin{abstract}
 
-We implement corrections for sheared correlated noise effects in \mcal. We
-explore the effects of stellar contamination and masking.   
+We implement corrections for sheared correlated noise and selections effects in
+\mcal. We explore the effects of stellar contamination and masking.   
 
 \end{abstract}
 
@@ -228,11 +230,11 @@ The de-convolution correlates the noise
 across the image.  This correlated noise is sheared, and then re-convolved by
 the dilated PSF, producing the sheared correlated noise image $\eta(\gamma)$.
 
-We expect the sheared correlated noise to partly cancel in the estimator in
-equation \ref{eq:estimator}, because the effect is averaged over both positive
-and negative shears. This quantity is further averaged over many galaxies.
+%We expect the sheared correlated noise to partly cancel in the estimator in
+%equation \ref{eq:estimator}, because the effect is averaged over both positive
+%and negative shears. This quantity is further averaged over many galaxies.
 
-However, the sheared correlated noise term will not cancel when calculating the
+The sheared correlated noise term will not cancel when calculating the
 response, which is the difference of positive and negative shears.  This
 remainder is amplified due to division by $\Delta \gamma$ to form the central
 derivative.  We thus expect the observed response \mcalRo\ to be contaminated
