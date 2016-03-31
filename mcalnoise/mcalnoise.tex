@@ -49,6 +49,9 @@
 \newcommand{\aaps}{AASP}
 \newcommand{\aap}{AAP}
 
+\newcommand{\est}{$e$}
+\newcommand{\mest}{e}
+
 \newcommand{\mcal}{metacalibration}
 \newcommand{\Mcal}{Metacalibration}
 \newcommand{\mcalR}{$R$}
@@ -130,27 +133,27 @@ explore the effects of stellar contamination and masking.
 
 \section{Metacalibration} \label{sec:algo}
 
-Suppose we have a biased shear observable $E$.  This may be some estimate
-of ellipticity.  We can expand this observable
-in a Taylor series around the true shear
+Suppose we have a biased shear observable \est, which may be some estimate of
+an objects ellipticity. We can expand this observable in a Taylor
+series around the true shear
 \begin{align} \label{eq:Eexpand}
-    E(\gamma) &= E|_{\gamma=0} + \gamma ~ \frac{ \partial E }{ \partial \gamma }\bigg|_{\gamma=0}  + ... \\
+    \mest(\gamma) &= \mest|_{\gamma=0} + \gamma ~ \frac{ \partial \mest }{ \partial \gamma }\bigg|_{\gamma=0}  + ... \\
 \end{align}
 We can use the ensemble mean of such measurements over a large number of objects
 to estimate the mean shear:
 \begin{align}
-    \langle E \rangle &= \langle E \rangle |_{\gamma=0} + \langle \gamma \frac{ \partial E }{ \partial \gamma } \rangle \bigg|_{\gamma=0} + ...
+    \langle \mest \rangle &= \langle \mest \rangle |_{\gamma=0} + \langle \gamma \frac{ \partial \mest }{ \partial \gamma } \rangle \bigg|_{\gamma=0} + ...
 \end{align}
 For constant shear, assuming the estimator gives zero for $\gamma=0$, and
 dropping higher order terms, we can rewrite this as
 \begin{align}
-\langle E \rangle &\approx  \gamma ~ \langle \frac{ \partial E }{ \partial \gamma } \rangle \bigg|_{\gamma=0}  \\
+    \langle \mest \rangle &\approx  \gamma ~ \langle \frac{ \partial \mest }{ \partial \gamma } \rangle \bigg|_{\gamma=0}  \\
       & \equiv  \gamma ~ \langle \mbox{\mcalR} \rangle \nonumber
 \end{align}
 We call \mcalR\ the shear response.
 
 The essence of \mcal\ \citep{HuffMcal} is to estimate the shear response
-\mcalR\ for a measurement $E$ directly from image data.  This is
+\mcalR\ for a measurement \est\ directly from image data.  This is
 accomplished using a numerical derivative.  The original image $I$ is
 de-convolved from the point spread function (PSF), sheared, and re-convolved
 by the PSF.  A slightly larger PSF is used in order to suppress modes 
@@ -169,45 +172,45 @@ dilated PSF, is represented by $P_{d}$.
 To form the central derivative we shear by a small positive and negative
 amount $\gamma$
 \begin{equation} \label{eq:Rnum}
-    R = \frac{E(+\gamma) - E(-\gamma)}{\Delta \gamma}.
+    R = \frac{\mest(+\gamma) - \mest(-\gamma)}{\Delta \gamma}.
 \end{equation}
 The shear estimator can be derived from a reconvolved, but not sheared image,
-or from the average of the sheared images
-\begin{equation} \label{eq:estimator}
-    E = \frac{E(+\gamma) + E(-\gamma)}{2}.
-\end{equation}
+or from the average of the sheared images.
+%\begin{equation} \label{eq:estimator}
+%    \mest = \frac{\mest(+\gamma) + \mest(-\gamma)}{2}.
+%\end{equation}
 
 
 The unbiased estimator is then given by
 \begin{align}
-    \gamma = \frac{\langle E \rangle}{\langle \mbox{\mcalR} \rangle}.
+    \gamma = \frac{\langle \mest \rangle}{\langle \mbox{\mcalR} \rangle}.
 \end{align}
 In \cite{HuffMcal} a more sophisticated inference was used, in order to deal
 with the relatively large variance in \mcalR\ associated with the particular
 estimator used therein.
 
-If the PSF correction is not perfect, the leading term $\langle E \rangle|_{\gamma=0}$
+If the PSF correction is not perfect, the leading term $\langle \mest \rangle|_{\gamma=0}$
 will not be zero.  We can derive another response, the response of the
 measurement to the PSF ellipticity, to correct this effect.  This
 correction involves shearing the PSF rather than the galaxy:
 \begin{equation}
-    \mbox{\mcalRpsf} = \frac{E(+\gamma^{p}) - E(-\gamma^{p})}{\Delta \gamma^{p}},
+    \mbox{\mcalRpsf} = \frac{\mest(+\gamma^{p}) - \mest(-\gamma^{p})}{\Delta \gamma^{p}},
 \end{equation}
 where $\gamma^{p}$ is a shear applied to the PSF.  
 This term can be subtracted to approximately correct for additive PSF errors:
 \begin{equation}
-    \gamma = \frac{\langle E \rangle - \langle \mbox{\mcalRpsf} e^{p} \rangle}{ \langle \mbox{\mcalR} \rangle}.
+    \gamma = \frac{\langle \mest \rangle - \langle \mbox{\mcalRpsf} e^{p} \rangle}{ \langle \mbox{\mcalR} \rangle}.
 \end{equation}
 In practice we calculate mean responses, factoring out the response term:
 \begin{equation}
-    \gamma = \frac{\langle E \rangle - \langle \mbox{\mcalRpsf} \rangle \langle e^{p} \rangle}{ \langle \mbox{\mcalR} \rangle}.
+    \gamma = \frac{\langle \mest \rangle - \langle \mbox{\mcalRpsf} \rangle \langle e^{p} \rangle}{ \langle \mbox{\mcalR} \rangle}.
 \end{equation}
-Finally, the measurement $E$ has two-components, and the response \mcalR\ is
+Finally, the measurement \est\ has two-components, and the response \mcalR\ is
 a $2 \times 2$ matrix. Thus the full solution is given by the matrix
 equation
 \begin{align}
     \gamma &= 
-    \langle \mbox{\mcalR} \rangle^{-1} \left[ \langle E \rangle - \langle \mbox{\mcalRpsf} \rangle \langle e^{p} \rangle \right].
+    \langle \mbox{\mcalR} \rangle^{-1} \left[ \langle \mest \rangle - \langle \mbox{\mcalRpsf} \rangle \langle e^{p} \rangle \right].
 \end{align}
 We generally find that the off-diagonal terms of this matrix are negligible
 and can be ignored.
@@ -323,50 +326,54 @@ communication}. We will explore this method in a future work.
 
 \section{Correction Selection Effects} \label{sec:selection}
 
-Consider a selection that modifies the distribution of the measurement $E$,
+Consider a selection that modifies the distribution of the measurement \est,
 which we can, without loss of generality, refer to as the ellipticity.  As
-a shorthand we will write this selection function as $S(E)$, the probability of
-selecting an object with ellipticity $E$, although the selection may be
+a shorthand we will write this selection function as $S(\mest)$, the probability of
+selecting an object with ellipticity \est, although the selection may be
 indirect, for example a cut on \snr.  The mean ellipticity over an ensemble can
 then be written as 
 \begin{align}
-    \langle E \rangle = \int S(E)~P(E)~E~dE,
+    \langle \mest \rangle = \int S(\mest)~P(\mest)~\mest~d\mest,
 \end{align}
-where $P(E)$ is the normalized probability
+where $P(\mest)$ is the normalized probability
 distribution for the measurement.
-To leading order, we can write the multiplicative response of $\langle E \rangle$ 
+To leading order, we can write the multiplicative response of $\langle \mest \rangle$ 
 to an applied shear as
 \begin{align}
-    \frac{\partial \langle E \rangle}{\partial \gamma}\bigg|_{\gamma=0} 
-    &= \int \frac{\partial S(E) P(E) E  }{\partial \gamma}\bigg|_{\gamma=0} dE \nonumber \\
-    &= \int \left[ S(E) \frac{\partial  P(E) E  }{\partial \gamma}\bigg|_{\gamma=0} + E P(E) \frac{\partial S(E)}{\partial \gamma}\bigg|_{\gamma=0} \right] dE \\
-    %&= \langle R \rangle + \int E P(E) \frac{\partial S(E)}{\partial \gamma}\bigg|_{\gamma=0} dE \nonumber \\
+    \frac{\partial \langle \mest \rangle}{\partial \gamma}\bigg|_{\gamma=0} 
+    &= \int \frac{\partial S(\mest) P(\mest) \mest  }{\partial \gamma}\bigg|_{\gamma=0} d\mest \nonumber \\
+    &= \int \left[ S(\mest) \frac{\partial  P(\mest) \mest  }{\partial \gamma}\bigg|_{\gamma=0} + \mest P(\mest) \frac{\partial S(\mest)}{\partial \gamma}\bigg|_{\gamma=0} \right] d\mest \\
+    %&= \langle R \rangle + \int \mest P(\mest) \frac{\partial S(\mest)}{\partial \gamma}\bigg|_{\gamma=0} d\mest \nonumber \\
 \end{align}
 The first term is the response \mcalR\ derived in section \ref{sec:algo}, with
 selections based on the unsheared object parameters.  The second term is the
 response of the ellipticity to selections.  We can approximate the derivative
 using a finite difference:
 \begin{align}
-    \frac{\partial \langle E \rangle}{\partial \gamma}\bigg|_{\gamma=0}
+    \frac{\partial \langle \mest \rangle}{\partial \gamma}\bigg|_{\gamma=0}
     &\approx
-    \langle \mbox{\mcalR} \rangle + \int E~P(E) \left[ \frac{ S^+ - S^- }{\Delta \gamma}\right] dE,
+    \langle \mbox{\mcalR} \rangle + \int \mest~P(\mest) \left[ \frac{ S^+ - S^- }{\Delta \gamma}\right] d\mest,
 \end{align}
 where $S^+$ is the probability of selection after a small shear is applied to
 the image, and $S^-$ is the probability of selection after a small negative
 shear is applied.  We can thus rewrite this in terms of the mean ellipticity
 when selections are based on the sheared parameters:
 \begin{align}
-\frac{\partial \langle E \rangle}{\partial \gamma}\bigg|_{\gamma=0} &\approx
-    \langle R \rangle + \frac{\langle E \rangle^{S+} - \langle E \rangle^{S-}}{\Delta \gamma} \nonumber \\
+\frac{\partial \langle \mest \rangle}{\partial \gamma}\bigg|_{\gamma=0} &\approx
+    \langle R \rangle + \frac{\langle \mest \rangle^{S+} - \langle \mest \rangle^{S-}}{\Delta \gamma} \nonumber \\
        &\equiv \langle R \rangle + \langle \mbox{\mcalRS} \rangle,
 \end{align}
-where we have defined the selection response \mcalRS. The $\langle E
+where we have defined the selection response \mcalRS. The $\langle \mest
 \rangle^{S+}$ represents the mean of the unsheared ellipticities, with
-selection based on the sheared parameters. The $\langle E \rangle^{S-}$
+selection based on the sheared parameters. The $\langle \mest \rangle^{S-}$
 represents the mean of the unsheared ellipticities, with selection based on the
 negatively sheared parameters.  In practice, we can store the sheared and
 unsheared measurements and perform separate selections and statistics on those
 values to compute the various ensemble averages.
+
+A similar correction can be derived for the PSF response \mcalRpsf.  For this
+term, the psf shape in the product $\mbox{\mcalRpsf} e^p$ should be calculated
+from the unsheared data.
 
 It is important that the selections be placed well above any detection
 thresholds, such that, after shearing, detected objects can move into and out
@@ -700,7 +707,7 @@ characterized.  Images consistent with a PSF will not, in the mean, respond to t
 applied during the \mcal\ process.  Measurement on stars also yields zero average shape, as
 long as the PSF correction is sufficiently accurate:
 \begin{align}
-    \gamma &= \frac{ \langle e_{gal} \rangle + \langle e_{star} \rangle - \langle R^p_{gal} + R^p_{star} \rangle \langle e^p \rangle }{ \langle R^{gal} \rangle + \langle R^{star} \rangle}.
+    \gamma &= \frac{ \langle \mest_{gal} \rangle + \langle \mest_{star} \rangle - \langle R^p_{gal} + R^p_{star} \rangle \langle \mest^p \rangle }{ \langle R^{gal} \rangle + \langle R^{star} \rangle}.
 \end{align}
 In figure \ref{fig:Rstars} we show the measured response \mcalR\ for stars
 and galaxies.  Indeed we see that, for stars, the \mcalR\ is noisy but consistent with
