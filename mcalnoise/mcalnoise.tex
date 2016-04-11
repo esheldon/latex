@@ -396,7 +396,7 @@ will not treat this effect in what follows.
 
 \section{Image Simulations} \label{sec:sims}
 
-\subsection{Simulations with Parameteric Models} \label{sec:bdsim}
+\subsection{Simulations with Parametric Models} \label{sec:bdsim}
 
 We applied \mcal\ to a set of image simulations.  For the first set of
 simulations we used parametric models, inspired by those used in
@@ -423,7 +423,11 @@ matches that of the Dark Energy Survey science verification data
 
 In figure \ref{fig:psimhlrcompare} we show the distribution of \hlr\ for the
 bulge and disk galaxies, along with the \hlr\ distribution for the PSF,
-converted from FWHM.
+converted from FWHM.  The galaxy \hlr\ distribution was designed to include
+smaller galaxies than the COSMOS simulation presented in \S \ref{sec:cosmosim}.
+We show a comparison between the \hlr\ in these simulations and the COSMOS
+simulations in figure \ref{fig:cosmos}.
+
 
 \begin{figure}
     \centering
@@ -458,7 +462,7 @@ orientations.
     \includegraphics[scale=0.45]{s2n-bd36.eps}
 
     \caption{Distribution of S/N in the Bulge+Disk simulations. The
-    left panel is a zoom-in around the mode.  The right panel is
+    left panel is a zoom-in around the mode in linear $S/N$.  The right panel is
 the full distribution of $\log_{10}(S/N)$}
 
 \label{fig:s2n}
@@ -502,7 +506,7 @@ bad column. }
 \end{figure}
 
 
-\subsection{COSMOS Simulations}
+\subsection{COSMOS Simulations} \label{sec:cosmosim}
 
 We designed a second set of simulations to mimic the ``real-galaxy''
 simulations used in GREAT3 challenge \citep{great3}, using galaxy images drawn
@@ -656,6 +660,23 @@ simulations, with and without using the \mcal\ procedure.  Without using
 \mcal\, the multiplicative bias $m$ is of order 50\% for all simulations.
 For simulations with a net PSF anisotropy, we also found a significant
 remaining additive bias.
+
+\begin{table*}
+    \centering
+    \caption{\Mcal\ results for the \bdsim\ simulation with various
+        cuts on \snr. 
+    \label{tab:results_sel}}
+    \begin{tabular}{ |c|  c|c|c|  c|c|c|}
+        \hline
+        & \multicolumn{3}{c}{Uncorrected for Selection}                    & \multicolumn{3}{c}{Corrected for Selection} \\
+        Selection    & $m$             & $c_1$            & $c_2$           & $m$               & $c_1$            & $c_2$ \\
+                     & $[10^{-3}]$     & $[10^{-4}]$      & $[10^{-4}]$     & $[10^{-3}]$       & $[10^{-4}]$      & $[10^{-4}]$ \\
+        \hline
+        \snr$ > 7$   & $2.53 \pm 0.19$ & $-0.05 \pm 0.10$ & $0.93 \pm 0.1$  & $-0.15 \pm 0.19$  & $-0.05 \pm 0.10$ & $+0.17 \pm 0.10$  \\
+
+    \end{tabular}
+\end{table*}
+
 
 \begin{table*}
     \centering
