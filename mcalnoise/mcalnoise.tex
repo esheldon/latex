@@ -68,7 +68,8 @@
 \newcommand{\nsimNgal}{$10^8$}
 \newcommand{\nsimNgalTwo}{$2 \times 10^8$}
 \newcommand{\nsimNgalFour}{$4 \times 10^8$}
-\newcommand{\nsimNStar}{$4 \times 10^7$}
+\newcommand{\nsimNgalEight}{$8 \times 10^8$}
+\newcommand{\nsimNStar}{$8 \times 10^7$}
 \newcommand{\nsimNstarperc}{10\%}
 
 %\newcommand{\psfedist}{$(0.0,0.7) \pm 1.8$}
@@ -595,8 +596,8 @@ simulations is about \cosmosrdist, somewhat larger than the log-normal
         Sim          & Galaxy Model & Galaxy \hlr & PSF Model       & PSF FWHM        & PSF $e_1$    & PSF $e_2$   & \# Galaxies    & \# Stars   & Masking   \\
                      &              & [pixels]    &                 & [pixels]        &              &             &                &            &  \\
         \hline
-        \bdsim       & Bulge+Disk   & \galrdist   & Moffat          & \psfrdist       & \psfeonedist &\psfetwodist &  \nsimNgalFour & None       & None      \\
-        \bdstar      & Bulge+Disk   & \galrdist   & Moffat          & \psfrdist       & \psfeonedist &\psfetwodist &  \nsimNgalFour & \nsimNStar & None      \\
+        \bdsim       & Bulge+Disk   & \galrdist   & Moffat          & \psfrdist       & \psfeonedist &\psfetwodist &  \nsimNgalEight & None       & None      \\
+        \bdstar      & Bulge+Disk   & \galrdist   & Moffat          & \psfrdist       & \psfeonedist &\psfetwodist &  \nsimNgalEight & \nsimNStar & None      \\
         \bdmask      & Bulge+Disk   & \galrdist   & Moffat          & \psfrdist       & \psfeonedist &\psfetwodist &  \nsimNgalTwo  & None       & DES      \\
         \rgsim       & \cosmosname  & \cosmosname & Kolm. + Optical & 3.40 + Optical  & Optical      & Optical     &  \nsimNgal     & None       & None      \\
     \end{tabular}
@@ -661,27 +662,6 @@ simulations, with and without using the \mcal\ procedure.  Without using
 For simulations with a net PSF anisotropy, we also found a significant
 remaining additive bias.
 
-\begin{table*}
-    \centering
-    \caption{\Mcal\ results for the \bdsim\ simulation with various
-        cuts on \snr.   Results are shown with and without corrections
-        for selection effects.
-    \label{tab:results_sel}}
-    \begin{tabular}{ |l| |c| c|c|c|  c|c|c|}
-        \hline
-        & & \multicolumn{3}{c}{Uncorrected for Selection}                      & \multicolumn{3}{c}{Corrected for Selection} \\
-        Selection    & Fraction Kept & $m$             & $c_1$            & $c_2$            & $m$               & $c_1$            & $c_2$ \\
-                     &          & $[10^{-3}]$     & $[10^{-4}]$      & $[10^{-4}]$      & $[10^{-3}]$       & $[10^{-4}]$      & $[10^{-4}]$ \\
-        \hline
-        \snr$ > 0$   & 1.00     & -               & -                & -                & $-0.91 \pm 0.19$  & $-0.04 \pm 0.09$ & $0.17 \pm 0.09$  \\
-        \snr$ > 7$   & 0.83     & $2.53 \pm 0.19$ & $-0.05 \pm 0.10$ & $0.93 \pm 0.10$  & $-0.15 \pm 0.19$  & $-0.05 \pm 0.10$ & $0.17 \pm 0.10$  \\
-        \snr$ > 10$  & 0.60     & $3.48 \pm 0.20$ & $-0.00 \pm 0.10$ & $0.81 \pm 0.10$  & $-0.10 \pm 0.20$  & $-0.00 \pm 0.10$ & $0.15 \pm 0.10$  \\
-        \snr$ > 13$  & 0.46     & $2.61 \pm 0.20$ & $+0.04 \pm 0.10$ & $0.58 \pm 0.10$  & $-0.09 \pm 0.20$  & $+0.04 \pm 0.10$ & $0.13 \pm 0.10$  \\
-        \snr$ > 16$  & 0.39     & $1.85 \pm 0.21$ & $+0.07 \pm 0.11$ & $0.49 \pm 0.11$  & $-0.04 \pm 0.21$  & $+0.07 \pm 0.11$ & $0.14 \pm 0.11$  \\
-
-    \end{tabular}
-\end{table*}
-
 
 \begin{table*}
     \centering
@@ -708,6 +688,28 @@ remaining additive bias.
         \bdstar& $-542$      & $+0.07 \pm 0.07$ & $ 18.40 \pm 0.07$ & $-0.21 \pm 0.36$  & $+0.03 \pm 0.18$ & $+1.21 \pm 0.18$  \\
         \bdmask& $-496$      & $+0.09 \pm 0.10$ & $ 15.07 \pm 0.10$ & $-0.60 \pm 0.46$  & $-0.17 \pm 0.23$ & $+0.73 \pm 0.23$  \\
         \rgsim & $-436$      & $-0.23 \pm 0.16$ & $~~0.32 \pm 0.16$ & $+0.53 \pm 0.58$  & $-0.42 \pm 0.29$ & $+0.59 \pm 0.29$ \\
+    \end{tabular}
+\end{table*}
+
+\begin{table*}
+    \centering
+    \caption{\Mcal\ results for the \bdsim\ simulation with various
+        cuts on \snr.   Results are shown with and without corrections
+        for selection effects.
+    \label{tab:results_sel}}
+    \begin{tabular}{ |l| |c| c|c|c|  c|c|c|}
+        \hline
+        & & \multicolumn{3}{c}{Uncorrected for Selection}                      & \multicolumn{3}{c}{Corrected for Selection} \\
+        Selection    & Fraction Kept & $m$             & $c_1$            & $c_2$            & $m$               & $c_1$            & $c_2$ \\
+                     &          & $[10^{-3}]$     & $[10^{-4}]$      & $[10^{-4}]$      & $[10^{-3}]$       & $[10^{-4}]$      & $[10^{-4}]$ \\
+        \hline
+        \snr$ > 0$   & 1.00     & -               & -                & -                & $-0.91 \pm 0.19$  & $-0.04 \pm 0.09$ & $0.17 \pm 0.09$  \\
+        \snr$ > 7$   & 0.83     & $2.53 \pm 0.19$ & $-0.05 \pm 0.10$ & $0.93 \pm 0.10$  & $-0.15 \pm 0.19$  & $-0.05 \pm 0.10$ & $0.17 \pm 0.10$  \\
+        \snr$ > 10$  & 0.60     & $3.48 \pm 0.20$ & $-0.00 \pm 0.10$ & $0.81 \pm 0.10$  & $-0.10 \pm 0.20$  & $-0.00 \pm 0.10$ & $0.15 \pm 0.10$  \\
+        \snr$ > 13$  & 0.46     & $2.61 \pm 0.20$ & $+0.04 \pm 0.10$ & $0.58 \pm 0.10$  & $-0.09 \pm 0.20$  & $+0.04 \pm 0.10$ & $0.13 \pm 0.10$  \\
+        \snr$ > 16$  & 0.39     & $1.85 \pm 0.21$ & $+0.07 \pm 0.11$ & $0.49 \pm 0.11$  & $-0.04 \pm 0.21$  & $+0.07 \pm 0.11$ & $0.14 \pm 0.11$  \\
+        \snr$ > 19$  & 0.33     & $0.98 \pm 0.22$ & $+0.03 \pm 0.11$ & $0.42 \pm 0.11$  & $-0.23 \pm 0.22$  & $+0.03 \pm 0.11$ & $0.12 \pm 0.11$  \\
+
     \end{tabular}
 \end{table*}
 
@@ -917,8 +919,9 @@ underlying galaxy population.
 ES is supported by DOE grant DE-AC02-98CH10886.
 
 We thank Aaron Roodman for providing the variation of the optical aberrations
-measured in DES data.  Thanks to Mike Jarvis for guidance on use of the GALSIM
-package, especially concerning use of the isotropization and whitening features.
+measured in DES data.  Thanks to Mike Jarvis and Rachel Mandelbaum for guidance
+on use of the GALSIM package, especially concerning use of the isotropization
+and whitening features.
 
 
 \appendix
