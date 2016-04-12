@@ -2,6 +2,7 @@
 
 \usepackage{beamerthemesplit}
 \usepackage{verbatim}
+\usepackage[normalem]{ulem}
 
 \usepackage{xcolor}
 
@@ -79,7 +80,8 @@
 
         \item Selection Effects
 
-        \item Additive Bias correction
+        \item \sout{Additive Bias correction}  I improvied this by a factor of
+            10, but cut from this talk for sake of brevity.
 
     \end{itemize}
 
@@ -99,10 +101,16 @@
             to the desired accuracy for DES/LSST, we must measure
             shear with exquisite accuracy.
 
+            {\color{lightskyblue}
+                \begin{equation}
+                    \gamma = (1 + m ) \times \gamma_{true} + c \nonumber
+                \end{equation}
+            } 
+
         \item LSST Requirements
             \begin{itemize}
-                \item Multiplicative errors: {\color{gold} $\Delta \gamma/\gamma \lesssim 0.001$}
-                \item Additive errors: {\color{brightred} $\Delta \gamma \lesssim 0.0001$}
+                \item Multiplicative errors: {\color{gold} $m \lesssim 0.001$}
+                \item Additive errors: {\color{brightred} $c \lesssim 0.0001$}
             \end{itemize}
 
 
