@@ -9,9 +9,10 @@
 \usepackage{xcolor}
 \usepackage[normalem]{ulem} % for striking out with \sout
 \usepackage{amsmath} % for boldsymbol
-\usepackage{times}
-\usepackage{mathabx}
+%\usepackage{amsfonts}
 \usepackage{enumitem}
+
+%\usepackage{palatino}
 
 \input{newcommands.tex}
 
@@ -68,8 +69,8 @@
 \newcommand{\nsimNgal}{$10^8$}
 \newcommand{\nsimNgalTwo}{$2 \times 10^8$}
 \newcommand{\nsimNgalFour}{$4 \times 10^8$}
-\newcommand{\nsimNgalBD}{$1.2 \times 10^9$}
-\newcommand{\nsimNStar}{$8 \times 10^7$}
+\newcommand{\nsimNgalBD}{$12 \times 10^8$}
+\newcommand{\nsimNStar}{$12 \times 10^7$}
 \newcommand{\nsimNstarperc}{10\%}
 
 %\newcommand{\psfedist}{$(0.0,0.7) \pm 1.8$}
@@ -102,6 +103,9 @@
 \newcommand{\bdmask}{\texttt{Mask}}
 \newcommand{\rgsim}{\texttt{RG}}
 \newcommand{\pimprovement}{90}
+
+%\renewcommand*\rmdefault{cmr}
+%\usepackage{default}
 
 \title{Noise Effects in \Mcal\ Weak Lensing Shear Estimation}
 
@@ -165,9 +169,9 @@ resolution of the original image.  This \mcal\ process is repeated for a
 positive and negative shear, which can be used to form a central derivative.
 We can represent this as a series of operations on the observed image $I$:
 \begin{equation}
-    I(\gamma) = I \Asterisk P^{-1} \oplus \gamma \Asterisk P_{d}
+    I(\gamma) = I \ast P^{-1} \oplus \gamma \ast P_{d}
 \end{equation}
-where $\Asterisk$ represents convolution, $\oplus$ represents shearing,
+where $\ast $ represents convolution, $\oplus$ represents shearing,
 and $P$ represents the point spread function.  De-convolution
 is represented as ``inverse'', $P^{-1}$.  The slightly larger PSF, or
 dilated PSF, is represented by $P_{d}$.
@@ -224,7 +228,7 @@ In the presence of noise, the observed image can be written $I_o=I+\eta$, where 
 is the ``noise image''.  The \mcal\ sheared images $I_o(\gamma)$ will contain
 contributions from de-convolved, sheared and re-convolved noise:
 \begin{align}
-    I_{o}(\gamma) &= (I + \eta) \Asterisk P^{-1} \oplus \gamma \Asterisk P_{d} \nonumber \\
+    I_{o}(\gamma) &= (I + \eta) \ast P^{-1} \oplus \gamma \ast P_{d} \nonumber \\
     &= I(\gamma) + \eta(\gamma).
 \end{align}
 The de-convolution correlates the noise
@@ -299,7 +303,7 @@ an image $I(\gamma)_o$, we generated a random noise field
 $\tilde{\eta}$, and applied the same operations but using a shear with
 the opposite sign:
 \begin{equation}
-    \tilde{\eta}(-\gamma) = \tilde{\eta} \Asterisk P^{-1} \oplus (-\gamma) \Asterisk P_{d}.
+    \tilde{\eta}(-\gamma) = \tilde{\eta} \ast P^{-1} \oplus (-\gamma) \ast P_{d}.
 \end{equation}
 We then added this image to the $I(\gamma)_o$ image.
 The result, $\tilde{I}(\gamma)$, is an approximation for the image
@@ -592,6 +596,7 @@ simulations is about \cosmosrdist, somewhat larger than the log-normal
         the PSF, a  Kolmogorov atmospheric turbulence model was used,
         with the indicated size,
         plus contributions from an optical model matched to DES. \label{tab:sims}}
+    %\scriptsize
     \begin{tabular}{ | l | c | c | c | c | c | c | c | c | c |}
         Sim          & Galaxy Model & Galaxy \hlr & PSF Model       & PSF FWHM        & PSF $e_1$    & PSF $e_2$   & \# Galaxies    & \# Stars   & Masking   \\
                      &              & [pixels]    &                 & [pixels]        &              &             &                &            &  \\
@@ -599,7 +604,8 @@ simulations is about \cosmosrdist, somewhat larger than the log-normal
         \bdsim       & Bulge+Disk   & \galrdist   & Moffat          & \psfrdist       & \psfeonedist &\psfetwodist &  \nsimNgalBD & None       & None      \\
         \bdstar      & Bulge+Disk   & \galrdist   & Moffat          & \psfrdist       & \psfeonedist &\psfetwodist &  \nsimNgalBD & \nsimNStar & None      \\
         \bdmask      & Bulge+Disk   & \galrdist   & Moffat          & \psfrdist       & \psfeonedist &\psfetwodist &  \nsimNgalTwo  & None       & DES      \\
-        \rgsim       & \cosmosname  & \cosmosname & Kolm. + Optical & 3.40 + Optical  & Optical      & Optical     &  \nsimNgal     & None       & None      \\
+        %\rgsim       & \cosmosname  & \cosmosname & Kolm./Optical & 3.40/Optical  & Optical      & Optical     &  \nsimNgal     & None       & None      \\
+        \rgsim       & \cosmosname  & \cosmosname & Kolm./Opt.      & 3.40/Opt.       & Optical      & Optical     &  \nsimNgal     & None       & None      \\
     \end{tabular}
 \end{table*}
 
@@ -697,7 +703,7 @@ remaining additive bias.
         cuts on \snr.   Results are shown with and without corrections
         for selection effects.
     \label{tab:results_sel}}
-    \begin{tabular}{ |c| |c| c|c|c|  c|c|c|}
+    \begin{tabular}{ |l| |c| c|c|c|  c|c|c|}
         \hline
         & & \multicolumn{3}{c}{Uncorrected for Selection}                      & \multicolumn{3}{c}{Corrected for Selection} \\
         Selection           & Fraction Kept & $m$             & $c_1$            & $c_2$            & $m$               & $c_1$            & $c_2$ \\
@@ -710,10 +716,14 @@ remaining additive bias.
         $\mbox{\snr} > 16$  & 0.39     & $+1.85 \pm 0.21$ & $+0.07 \pm 0.11$ & $0.49 \pm 0.11$  & $-0.04 \pm 0.21$  & $+0.07 \pm 0.11$ & $0.14 \pm 0.11$  \\
         $\mbox{\snr} > 19$  & 0.33     & $+0.98 \pm 0.22$ & $+0.03 \pm 0.11$ & $0.42 \pm 0.11$  & $-0.23 \pm 0.22$  & $+0.03 \pm 0.11$ & $0.12 \pm 0.11$  \\
 
-        $7 < \mbox{\snr} < 10.84$      & 0.27     & $-0.37 \pm 0.55$ & $-0.38 \pm 0.27$ & $1.78 \pm 0.27$  & $-0.11 \pm 0.55$  & $-0.38 \pm 0.27$ & $0.27 \pm 0.27$  \\
-        $10.84 < \mbox{\snr} < 22.73$  & 0.27     & $+7.44 \pm 0.37$ & $-0.03 \pm 0.18$ & $1.16 \pm 0.18$  & $-0.41 \pm 0.37$  & $-0.03 \pm 0.18$ & $0.09 \pm 0.18$  \\
+        %$7 < \mbox{\snr} < 10.84$      & 0.27     & $-0.37 \pm 0.55$ & $-0.38 \pm 0.27$ & $1.78 \pm 0.27$  & $-0.11 \pm 0.55$  & $-0.38 \pm 0.27$ & $0.27 \pm 0.27$  \\
+        %$10.84 < \mbox{\snr} < 22.73$  & 0.27     & $+7.44 \pm 0.37$ & $-0.03 \pm 0.18$ & $1.16 \pm 0.18$  & $-0.41 \pm 0.37$  & $-0.03 \pm 0.18$ & $0.09 \pm 0.18$  \\
+        %$\mbox{\snr} > 22.73$          & 0.27     & $+0.47 \pm 0.23$ & $+0.05 \pm 0.12$ & $0.46 \pm 0.12$  & $-0.02 \pm 0.23$  & $+0.05 \pm 0.12$ & $0.20 \pm 0.12$  \\
 
+        $\mbox{\snr} \in [7, 10.84]$      & 0.27     & $-0.37 \pm 0.55$ & $-0.38 \pm 0.27$ & $1.78 \pm 0.27$  & $-0.11 \pm 0.55$  & $-0.38 \pm 0.27$ & $0.27 \pm 0.27$  \\
+        $\mbox{\snr} \in [10.84, 22.73]$  & 0.27     & $+7.44 \pm 0.37$ & $-0.03 \pm 0.18$ & $1.16 \pm 0.18$  & $-0.41 \pm 0.37$  & $-0.03 \pm 0.18$ & $0.09 \pm 0.18$  \\
         $\mbox{\snr} > 22.73$          & 0.27     & $+0.47 \pm 0.23$ & $+0.05 \pm 0.12$ & $0.46 \pm 0.12$  & $-0.02 \pm 0.23$  & $+0.05 \pm 0.12$ & $0.20 \pm 0.12$  \\
+
 
     \end{tabular}
 \end{table*}
