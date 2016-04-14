@@ -740,6 +740,35 @@ on a single Gaussian fit.
 The multiplicative bias without applying corrections for correlated noise
 was about $0.1$ for all simulations, implying a large over-correction.
 
+\begin{figure*}
+    \centering
+    \includegraphics[width=0.9\textwidth]{mc-select-bias-thresh.eps}
+
+    \caption{Bias in the \bdsim\ simulation after applying
+        threshold selections in \snr.  The left panel represents
+        the multiplicative bias $m$ and the right panel the additive
+        bias $c$.  The bias without correction for
+        selection effects is represented as as red diamonds. The bias after
+        correction for selection effects is represented as blue circles.  } 
+
+\label{fig:s2nthresh}
+\end{figure*}
+
+\begin{figure*}
+    \centering
+    \includegraphics[width=0.9\textwidth]{mc-select-bias-range.eps}
+
+    \caption{Bias in the \bdsim\ simulation after applying
+        range selections in \snr.  The left panel represents
+        the multiplicative bias $m$ and the right panel the additive
+        bias $c$.  The bias without correction for
+        selection effects is represented as as red diamonds. The bias after
+        correction for selection effects is represented as blue circles.  } 
+
+\label{fig:s2nrange}
+\end{figure*}
+
+
 
 \subsection{Stellar Contamination} \label{sec:stars}
 
@@ -779,14 +808,12 @@ detect any significant additional bias beyond that already in the simulation
 without stars, indicating that for \nsimNstarperc\ stellar contamination
 any additionial bias was negligible.
 
-%Including \nsimNstarperc\ stars did noise the bias by about 5\%.
-If the
-additional variance is tolerable, it may be useful to include stars in a shear
-analysis.  Attempting to remove faint stars from a sample is a noisy procedure,
-likely to induce selection effects. For example, stars that are included in the
-sample after a size cut will have fluctuated to larger measured size due to
-noise, and will also likely have fluctuated to higher response \mcalR, biasing
-the recovered shear.
+If the additional variance is tolerable, it may be useful to include stars in a
+shear analysis if the expected stellar fraction is low.  Attempting to remove
+faint stars from a sample is a noisy procedure, likely to induce selection
+effects. For example, stars that are included in the sample after a size cut
+will have fluctuated to larger measured size due to noise, and will also likely
+have fluctuated to higher response \mcalR, biasing the recovered shear.
 
 For accurate interpretation of the signal, it is still important that any
 redshift estimates for the stars are consistent with zero, in the mean.  Stars
