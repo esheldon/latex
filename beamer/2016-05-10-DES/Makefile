@@ -1,5 +1,5 @@
 
-texfile := 2016-05-10-DES.tex
+texfile := 2016-05-10-DES
 
 default: pdf
 
