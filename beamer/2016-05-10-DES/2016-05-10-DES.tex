@@ -81,6 +81,8 @@
 
         \item Selection Effects
 
+        \item Metacal and BFD on Real Data
+
         \item Metacal on Y1
 
     \end{itemize}
@@ -229,9 +231,12 @@
  
     \begin{itemize}
 
-        \item Say we have a selection functin $S$
+        \item If we have a selection function $S$ that has some dependence
+            on elliticity, then the mean ellipticity
+            can be biased
+
             \begin{align}
-                \langle \mest \rangle = \int S(\mest)~P(\mest)~\mest~d\mest,
+                {\color{gold} \langle \mest S \rangle = \int S(\mest)~P(\mest)~\mest~d\mest},
             \end{align}
 
 
@@ -241,7 +246,7 @@
             \begin{align}
                 \frac{\partial \langle \mest \rangle}{\partial \gamma}\bigg|_{\gamma=0} &\approx
                 \langle R \rangle + \frac{\langle \mest S^+ \rangle - \langle \mest S^- \rangle}{2 \Delta \gamma} \nonumber \\
-                &\equiv \langle R \rangle + \langle \mbox{\mcalRS} \rangle,
+                &\equiv {\color{gold} \langle R \rangle + \langle \mbox{\mcalRS} \rangle},
             \end{align}
 
             Where $\langle e S^+ \rangle$ represents the mean unsheared shape, with selection
@@ -299,9 +304,9 @@
 
 \frame
 {
-    \frametitle{Issues for Metacal on Real Data}
+    \frametitle{Issues for Metacal and BFD on Real Data}
 
-    \setbeamerfont*{itemize/enumerate body}{size=\Large}
+    \setbeamerfont*{itemize/enumerate body}{size=\large}
     \setbeamerfont*{itemize/enumerate subbody}{parent=itemize/enumerate body}
     \setbeamerfont*{itemize/enumerate subsubbody}{parent=itemize/enumerate body}
  
@@ -309,12 +314,24 @@
 
         \item For FFTs need to replace bad pixels and masked regions.
             
-        \item I've shown that using the best-fit model works fine as long as
+
+        \item I've shown that using the best-fit model to replace bad pixels
+            works fine as long as
             the mask fraction isn't too high. E.g. epochs in which
             an object is near an edge should be removed.
 
-        \item To perform null tests, the terms to correct for selection effects
+        
+        \item For both Metacal and BFD, to perform null tests, the terms to correct for selection effects
             must be applied
+
+        \item BFD is moment based, can't use uberseg, so need to subtract neighbors
+            \begin{itemize}
+                \item Use the multi-object fitting catalogs to do this
+                \item See my talk at the Science Release sessions on Wed. for details
+                    on the multi-object fitting
+                \item Might be an improvement over uberseg for any code, but we need
+                    to test
+            \end{itemize}
 
     \end{itemize}
 
@@ -363,7 +380,8 @@
                     \texttt{DESDATA}=\url{http://www.cosmo.bnl.gov/Private/gpfs/workarea/desdata}
             \end{itemize}
 
-        \item Example code for doing null tests can be found at
+        \item Example code for doing null tests, including corrections
+            for selections, can be found at
             \begin{itemize}
                 \item \url{https://github.com/esheldon/ngmixer\_tests}.
                 \item See the \texttt{ngmix\_tests.averaging} module
