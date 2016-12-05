@@ -152,7 +152,7 @@ We implement corrections for sheared correlated noise and selections effects in
 
 \section{Introduction} \label{sec:intro}
 
-\section{Metacalibration} \label{sec:algo}
+\section{Metacalibration} \label{sec:mcal}
 
 Suppose we have a biased shear observable \est, which may be some estimate of
 an objects ellipticity. We can expand this observable in a Taylor
@@ -193,8 +193,9 @@ dilated PSF, is represented by $P_{d}$.
 To form the central derivative we shear by a small positive and negative
 amount $\gamma$
 \begin{equation} \label{eq:Rnum}
-    R = \frac{\mest(+\gamma) - \mest(-\gamma)}{\Delta \gamma}.
+    R = \frac{\mest(+\gamma) - \mest(-\gamma)}{\Delta \gamma},
 \end{equation}
+where $\Delta \gamma = 2\gamma$.
 The shear estimator can be derived from a reconvolved, but not sheared image,
 or from the average of the sheared images.
 %\begin{equation} \label{eq:estimator}
@@ -235,6 +236,126 @@ equation
 \end{align}
 We generally find that the off-diagonal terms of this matrix are negligible
 and can be ignored.
+
+\section{Full Formalism} \label{sec:selection}
+
+%  ['%.1f' % (sqrt(2)*s,) for s in [7,10,13,16,19]]
+%    ['9.9', '14.1', '18.4', '22.6', '26.9']
+
+In this section we derive the full metacal formalism, including selection
+effects. 
+
+Consider a selection that modifies the distribution of the measurement \est,
+which we can, without loss of generality, refer to as the ellipticity.  As
+a shorthand we will write this selection function as $S(\mest)$, the probability of
+selecting an object with ellipticity \est, although the selection may be
+indirect, for example a cut on \snr.  This selection function could also
+represent some kind of weighting scheme.
+
+We introduce the following notation regarding the shear estimator and the
+selection function:  We write the sheared version of the ellipticity as
+$\mest^+$ and $\mest^-$, for measurements on positive and negatively sheared
+images respectively.  Similarly, we can select objects based on sheared
+parameters, which we denote $S^+$ and $S^-$, the probability of
+selection after a positive or negative shear is applied, respectively.
+
+\subsection{Response for the Mean Shear} \label{sec:Rmean}
+
+The mean ellipticity over an ensemble can be written as 
+\begin{align}
+    \langle \mest \rangle = \int P(\mest)~\mest~d\mest,
+\end{align}
+where $P(\mest)$ is the probability distribution.  If we introduce
+a selection, the mean becomes
+\begin{align}
+    \langle \mest S \rangle = \int S(\mest)~P(\mest)~\mest~d\mest.
+\end{align}
+We will assume the
+integral over the product $P(\mest) S(\mest)$ is normalized to unity.
+
+Assuming constant shear, , we wish to derive the response
+of the estimator to a shear by taking the derivative about
+zero shear (see \S \ref{sec:mcal}):
+\begin{align}
+    \frac{\partial \langle \mest \rangle}{\partial \gamma}\bigg|_{\gamma=0} 
+    &= \int \frac{\partial S(\mest) P(\mest) \mest  }{\partial \gamma}\bigg|_{\gamma=0} d\mest \nonumber \\
+    &= \int \left[ S(\mest) \frac{\partial  P(\mest) \mest  }{\partial \gamma}\bigg|_{\gamma=0} + \mest P(\mest) \frac{\partial S(\mest)}{\partial \gamma}\bigg|_{\gamma=0} \right] d\mest \\
+\end{align}
+We can approximate the derivatives using finite differences in the shear.
+Using the notation for measurements on sheared images, we get
+\begin{align}
+    \frac{\partial \langle \mest \rangle}{\partial \gamma}\bigg|_{\gamma=0}
+    &\approx
+    \int d\mest \left [ S \left( \frac{ \mest^+ P^+ - \mest^- P^- }{\Delta \gamma}\right) + \mest P \left( \frac{ S^+ - S^- }{\Delta \gamma}\right) \right] d\mest \nonumber \\
+    &=\frac{\langle \mest^+ S \rangle - \langle \mest^- S \rangle}{\Delta \gamma} + 
+\frac{\langle \mest S^+ \rangle - \langle \mest S^- \rangle}{\Delta \gamma} \nonumber \\
+       &\equiv \langle R \rangle + \langle \mbox{\mcalRS} \rangle.
+\end{align}
+The first term is the response of the mean ellipticity to a shear, \mcalR, as
+discussed in section \ref{sec:mcal}, with selections based on the unsheared
+object parameters.  The second term is the response of the mean ellipticity to
+selections.  
+
+The $\langle \mest^+ S \rangle$ represents the mean of the positively sheared
+ellipticities, with selection based on the unsheared parameters. The $\langle
+\mest^- S \rangle$ represents the mean of the negatively sheared ellipticities,
+with selection based on the unsheared parameters.  Similarly, the $\langle
+\mest S^+ \rangle$ represents the mean of the unsheared ellipticities, with
+selection based on the sheared parameters, and $\langle \mest S^- \rangle$
+represents the mean of the unsheared ellipticities, with selection based on the
+negatively sheared parameters.  In practice, we recommend storing all the
+sheared and unsheared measurements and perform separate selections and
+statistics on those values to compute any ensemble averages needed for a
+particular inference (see e.g. \S \ref{sec:Rtwopt} where these quantities are
+used differently).
+
+It is important that the selections be placed well above any detection
+thresholds, such that, after shearing, detected objects can move into and out
+of the selected sample.  If the selection were too close to a detection
+threshold, some objects that should become detectable after
+a shear would not be included.
+
+In real data, a selection may directly or indirectly select the redshift of the
+sources, which means the true shear will be different after selection, even in
+the absence of selection biases.  This must be taken into account separately.
+We will not treat this effect in what follows.  TODO estimate size of this
+effect
+
+Similar corrections can be derived for the PSF response \mcalRpsf.  For these
+terms, the psf shape in the product $\mbox{\mcalRpsf} e^p$ should be calculated
+from the unsheared data.
+
+
+
+\subsection{Response for 2-point Functions} \label{sec:Rtwopt}
+
+We can extend this formalism to 2-point functions.  Consider a function
+in which we correlate two components of a shear estimator $\mest_\alpha$
+and $\mest_\beta$.  We can write the estimator, including 
+selection, as
+\begin{align}
+    \xi &= \langle S_{\alpha\beta} \mest_\alpha \mest_\beta \rangle \nonumber \\
+        &= \int P(\mest_\alpha \cdot \mest_\beta) S(\mest_\alpha, \mest_\beta) \mest_\alpha \mest_\beta  d\mest_\alpha d\mest_\beta  
+\end{align}
+In what follows, we will shorten the notation to simply $P$ and $S$,
+with the understanding that these apply to both $\alpha$ and $\beta$.
+Differentiating with respect to shear in one of the components, we find
+\begin{align}
+    \frac{ \partial \xi}{\partial \gamma}\bigg|_{\gamma=0} &= \int \frac{\partial P S \mest_\alpha \mest_\beta}{\partial \gamma}\bigg|_{\gamma=0} d\mest_\alpha d\mest_\beta \nonumber \\
+    &= \int \left[ S \frac{\partial P \mest_\alpha \mest_\beta}{\partial \gamma}\bigg|_{\gamma=0} + P \mest_\alpha \mest_\beta \frac{\partial S}{\partial \gamma}\bigg|_{\gamma=0}  \right] d\mest_\alpha d\mest_\beta \nonumber \\
+\end{align}
+Approximating the derivatives using finite difference, and  using the
+notation for sheared quantities and averages introduced above, we can rewrite this as
+\begin{align}
+    \frac{\partial \xi}{\partial \gamma}\bigg|_{\gamma=0}
+    &\approx
+    \frac{\langle \mest_\alpha^+ \mest_\beta^+ S \rangle - \langle \mest_\alpha^- \mest_\beta^- S \rangle}{\Delta \gamma} + 
+\frac{\langle \mest_\alpha \mest_\beta S^+ \rangle - \langle \mest_\alpha \mest_\beta S^- \rangle}{\Delta \gamma} \nonumber \\
+    &\equiv R^{2pt} + R^{2pt}_S.
+\end{align}
+The first term is the response of the 2-point function to a shear $R^{2pt}$,
+and the second term is the response of the 2-point function to selections $R^{2pt}_S$.
+
 
 \section{Contamination of the Response by Correlated Noise} \label{sec:contam}
 
@@ -301,7 +422,7 @@ smaller than that seen for the re-Gaussianization approach in \cite{HuffMcal}.
 In particular we find that applying smooth priors on the model parameters,
 which is natural in a forward-modeling approach, stabilizes the fit and results in
 a large reduction in variance.  This reduction in noise facilitates the simple
-inference method outlined in \S \ref{sec:algo}.  The failure rate is also
+inference method outlined in \S \ref{sec:mcal}.  The failure rate is also
 dramatically decreased when applying smooth priors:  we find a failure rate of
 $\sim$0.003\%, as opposed to $\sim$6\% for the re-Gaussianization code
 implemented in the GALSIM package \citep{GALSIM2015}.  For these reasons we
@@ -344,78 +465,6 @@ version has the advantage of working even when the transformation between sky
 and image involves a shear of the coordinate system\footnote{M. Jarvis, private
 communication}. We will explore this method in a future work.
 
-
-\section{Selection Effects} \label{sec:selection}
-
-%  ['%.1f' % (sqrt(2)*s,) for s in [7,10,13,16,19]]
-%    ['9.9', '14.1', '18.4', '22.6', '26.9']
-
-Consider a selection that modifies the distribution of the measurement \est,
-which we can, without loss of generality, refer to as the ellipticity.  As
-a shorthand we will write this selection function as $S(\mest)$, the probability of
-selecting an object with ellipticity \est, although the selection may be
-indirect, for example a cut on \snr.  This selection function could also
-represent some kind of weighting scheme.
-
-The mean ellipticity over an ensemble can then be written as 
-\begin{align}
-    \langle \mest \rangle = \int P(\mest)~\mest~d\mest,
-\end{align}
-where $P(\mest)$ is the probability distribution.  If we introduce
-a selection, the mean becomes
-\begin{align}
-    \langle \mest S \rangle = \int S(\mest)~P(\mest)~\mest~d\mest.
-\end{align}
-We will assume the
-integral over the product $P(\mest) S(\mest)$ is normalized to unity.
-To leading order, we can write the response of $\langle \mest \rangle$ 
-to an applied shear as
-\begin{align}
-    \frac{\partial \langle \mest \rangle}{\partial \gamma}\bigg|_{\gamma=0} 
-    &= \int \frac{\partial S(\mest) P(\mest) \mest  }{\partial \gamma}\bigg|_{\gamma=0} d\mest \nonumber \\
-    &= \int \left[ S(\mest) \frac{\partial  P(\mest) \mest  }{\partial \gamma}\bigg|_{\gamma=0} + \mest P(\mest) \frac{\partial S(\mest)}{\partial \gamma}\bigg|_{\gamma=0} \right] d\mest \\
-    %&= \langle R \rangle + \int \mest P(\mest) \frac{\partial S(\mest)}{\partial \gamma}\bigg|_{\gamma=0} d\mest \nonumber \\
-\end{align}
-The first term is the response \mcalR\ derived in section \ref{sec:algo}, with
-selections based on the unsheared object parameters.  The second term is the
-response of the mean ellipticity to selections.  We can approximate the derivative
-using a finite difference:
-\begin{align}
-    \frac{\partial \langle \mest \rangle}{\partial \gamma}\bigg|_{\gamma=0}
-    &\approx
-    \langle \mbox{\mcalR} \rangle + \int \mest~P(\mest) \left[ \frac{ S^+ - S^- }{\Delta \gamma}\right] d\mest,
-\end{align}
-where $S^+$ is the probability of selection after a small shear is applied to
-the image, and $S^-$ is the probability of selection after a small negative
-shear is applied.  We can thus rewrite this in terms of the mean ellipticity
-when selections are based on the sheared parameters:
-\begin{align}
-\frac{\partial \langle \mest \rangle}{\partial \gamma}\bigg|_{\gamma=0} &\approx
-    \langle R \rangle + \frac{\langle \mest S^+ \rangle - \langle \mest S^- \rangle}{\Delta \gamma} \nonumber \\
-       &\equiv \langle R \rangle + \langle \mbox{\mcalRS} \rangle,
-\end{align}
-where we have defined the selection response \mcalRS. The $\langle \mest
-S^+ \rangle$ represents the mean of the unsheared ellipticities, with
-selection based on the sheared parameters. The $\langle \mest S^- \rangle$
-represents the mean of the unsheared ellipticities, with selection based on the
-negatively sheared parameters.  In practice, we can store the sheared and
-unsheared measurements and perform separate selections and statistics on those
-values to compute the various ensemble averages.
-
-A similar correction can be derived for the PSF response \mcalRpsf.  For this
-term, the psf shape in the product $\mbox{\mcalRpsf} e^p$ should be calculated
-from the unsheared data.
-
-It is important that the selections be placed well above any detection
-thresholds, such that, after shearing, detected objects can move into and out
-of the selected sample.  If the selection were too close to a detection
-threshold, some objects that should become detectable after
-a shear would not be included.
-
-In real data, a selection may directly or indirectly select the redshift of the
-sources, which means the true shear will be different after selection, even
-in the absence of selection biases.  This must be taken into account separately. We
-will not treat this effect in what follows.
 
 
 \section{Image Simulations} \label{sec:sims}
