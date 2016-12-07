@@ -2,18 +2,18 @@
 
 
 % only needed for draft watermark
-%\usepackage[
-%    paperwidth=8.3in,
-%    paperheight=11.7in,
-%    left=0.5in,
-%    right=0.5in,
-%    top=1.5in,
-%    bottom=1.0in,
-%    hmarginratio=1:1]{geometry}
+\usepackage[
+    paperwidth=8.3in,
+    paperheight=11.7in,
+    left=0.5in,
+    right=0.5in,
+    top=1.5in,
+    bottom=1.0in,
+    hmarginratio=1:1]{geometry}
 
-%\usepackage{draftwatermark}
-%\SetWatermarkScale{5}
-%\SetWatermarkLightness{0.8}
+\usepackage{draftwatermark}
+\SetWatermarkScale{5}
+\SetWatermarkLightness{0.8}
 
 
 \usepackage{graphicx}
@@ -158,20 +158,27 @@ Suppose we have a biased shear observable \est, which may be some estimate of
 an objects ellipticity. We can expand this observable in a Taylor
 series around the true shear
 \begin{align} \label{eq:Eexpand}
-    \mest(\gamma) &= \mest|_{\gamma=0} + \gamma ~ \frac{ \partial \mest }{ \partial \gamma }\bigg|_{\gamma=0}  + ... \\
+    \mest(\gamma) &= \mest|_{\gamma=0} + \gamma ~ \frac{ \partial \mest }{ \partial \gamma }\bigg|_{\gamma=0}  + ... \nonumber \\
+                  &= \mest|_{\gamma=0} + \gamma \mbox{\mcalR} + ...
 \end{align}
-We can use the ensemble mean of such measurements over a large number of objects
-to estimate the mean shear:
+where we have defined the shear response:
 \begin{align}
-    \langle \mest \rangle &= \langle \mest \rangle |_{\gamma=0} + \langle \gamma \frac{ \partial \mest }{ \partial \gamma } \rangle \bigg|_{\gamma=0} + ...
+    \mbox{\mcalR} &\equiv \frac{\partial \mest}{\partial \gamma} \bigg|_{\gamma=0}.
 \end{align}
-For constant shear, assuming the estimator gives zero for $\gamma=0$, and
-dropping higher order terms, we can rewrite this as
+We can use the ensemble mean of such measurements as a shear estimator:
 \begin{align}
-    \langle \mest \rangle &\approx  \gamma ~ \langle \frac{ \partial \mest }{ \partial \gamma } \rangle \bigg|_{\gamma=0}  \\
-      & \equiv  \gamma ~ \langle \mbox{\mcalR} \rangle \nonumber
+    \langle \mest \rangle &= \langle \mest \rangle |_{\gamma=0} + \langle \gamma \mbox{\mcalR} \rangle + ... \nonumber \\
+                          &\approx \langle \gamma \mbox{\mcalR} \rangle
 \end{align}
-We call \mcalR\ the shear response.
+where we have assumed the intrinsic ellipticities of galaxies are
+randomly oriented such that $\langle \mest \rangle |_{\gamma=0} = 0$.
+If we have estimates of the values of \mcalR\ for each galaxy, we
+can form a weighted average:
+\begin{align}
+    \langle \gamma \rangle &\approx \frac{\langle \mest \rangle}{\langle \mbox{\mcalR} \rangle} = \frac{\langle R \gamma \rangle}{\langle \mbox{\mcalR} \rangle}
+\end{align}
+Note the special case of constant shear, where $\gamma$ factors out
+of the right hand side.
 
 The essence of \mcal\ \citep{HuffMcal} is to estimate the shear response
 \mcalR\ for a measurement \est\ directly from image data.  This is
@@ -203,13 +210,10 @@ or from the average of the sheared images.
 %\end{equation}
 
 
-The unbiased estimator is then given by
-\begin{align}
-    \gamma = \frac{\langle \mest \rangle}{\langle \mbox{\mcalR} \rangle}.
-\end{align}
-In \cite{HuffMcal} a more sophisticated inference was used, in order to deal
-with the relatively large variance in \mcalR\ associated with the particular
-estimator used therein.
+%The unbiased estimator is then given by
+%\begin{align}
+%    \gamma = \frac{\langle \mest \rangle}{\langle \mbox{\mcalR} \rangle}.
+%\end{align}
 
 If the PSF correction is not perfect, the leading term $\langle \mest \rangle|_{\gamma=0}$
 will not be zero.  We can derive another response, the response of the
@@ -223,10 +227,13 @@ This term can be subtracted to approximately correct for additive PSF errors:
 \begin{equation}
     \gamma = \frac{\langle \mest \rangle - \langle \mbox{\mcalRpsf} e^{p} \rangle}{ \langle \mbox{\mcalR} \rangle}.
 \end{equation}
-In practice we calculate mean responses, factoring out the response term:
+In practice one can calculate mean responses, factoring out the response term:
 \begin{equation}
     \gamma = \frac{\langle \mest \rangle - \langle \mbox{\mcalRpsf} \rangle \langle e^{p} \rangle}{ \langle \mbox{\mcalR} \rangle}.
 \end{equation}
+In this work we instead correct for any PSF anisotropy by re-convolving by
+a circular PSF.
+
 Finally, the measurement \est\ has two-components, and the response \mcalR\ is
 a $2 \times 2$ matrix. Thus the full solution is given by the matrix
 equation
@@ -236,6 +243,13 @@ equation
 \end{align}
 We generally find that the off-diagonal terms of this matrix are negligible
 and can be ignored.
+
+In \cite{HuffMcal} a sophisticated inference was used, rather than simple
+averages, in order to deal with the relatively large variance in \mcalR\
+associated with the particular estimator used therein.  For the estimator
+we use in this work, we find simple averages suffice.
+
+
 
 \section{Full Formalism} \label{sec:selection}
 
@@ -273,9 +287,9 @@ a selection, the mean becomes
 We will assume the
 integral over the product $P(\mest) S(\mest)$ is normalized to unity.
 
-Assuming constant shear, , we wish to derive the response
+Following \S \ref{sec:mcal}, we wish to derive the response
 of the estimator to a shear by taking the derivative about
-zero shear (see \S \ref{sec:mcal}):
+zero shear:
 \begin{align}
     \frac{\partial \langle \mest \rangle}{\partial \gamma}\bigg|_{\gamma=0} 
     &= \int \frac{\partial S(\mest) P(\mest) \mest  }{\partial \gamma}\bigg|_{\gamma=0} d\mest \nonumber \\
@@ -292,7 +306,7 @@ Using the notation for measurements on sheared images, we get
        &\equiv \langle R \rangle + \langle \mbox{\mcalRS} \rangle.
 \end{align}
 The first term is the response of the mean ellipticity to a shear, \mcalR, as
-discussed in section \ref{sec:mcal}, with selections based on the unsheared
+discussed in \S \ref{sec:mcal}, with selections based on the unsheared
 object parameters.  The second term is the response of the mean ellipticity to
 selections.  
 
