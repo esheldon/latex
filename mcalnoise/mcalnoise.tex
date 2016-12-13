@@ -361,13 +361,13 @@ where the selections are independent on each component.
 Assuming ellipticities are not correlated in the absence of shear,
 the leading surviving term in the taylor expansion is a second derivative
 \begin{align}
-    \xi \approx \frac{1}{2!} \left< \frac{\partial^2 \xi}{\partial \gamma_\alpha \gamma_\beta} \gamma_\alpha \gamma_\beta \right>
+    \xi \approx \frac{1}{2!} \left< \frac{\partial^2 \xi}{\partial \gamma_\alpha \partial \gamma_\beta} \gamma_\alpha \gamma_\beta \right>
 \end{align}
 As with the mean shear, this equation looks like the true correlation function has
 been weighted by a response.  We can expand this response as
 \begin{align} \label{eq:twoptres1}
     \frac{1}{2} \frac{\partial^2 \xi}{\partial \gamma_\alpha \partial \gamma_\beta} =
-        \frac{1}{2} \int d e_\alpha d e_\beta \biggl[ & \frac{\partial S_\alpha}{\partial \gamma_\alpha} \frac{\partial S_\beta}{\partial \gamma_\beta} P_{\alpha \beta} e_\alpha e_\beta  \nonumber \\
+        \frac{1}{2} \int d e_\alpha  de_\beta & \biggl[ \frac{\partial S_\alpha}{\partial \gamma_\alpha} \frac{\partial S_\beta}{\partial \gamma_\beta} P_{\alpha \beta} e_\alpha e_\beta  \nonumber \\
         & + S_\alpha \frac{\partial S_\beta}{\partial \gamma_\beta} \frac{\partial P_{\alpha\beta} e_\alpha e_\beta}{\partial \gamma_\alpha} \nonumber  \\
         & + S_\beta \frac{\partial S_\alpha}{\partial \gamma_\alpha} \frac{\partial P_{\alpha\beta} e_\alpha e_\beta}{\partial \gamma_\beta} \nonumber  \\
         & + S_\alpha S_\beta \frac{\partial^2 P_{\alpha\beta} e_\alpha e_\beta}{\partial \gamma_\alpha \gamma_\beta}  \biggr].
@@ -537,78 +537,88 @@ and image involves a shear of the coordinate system\footnote{M. Jarvis, private
 communication}. We will explore this method in a future work.
 
 
-\newpage
-
 \section{Image Simulations} \label{sec:sims}
 
 \subsection{Simulations with Parametric Models} \label{sec:bdsim}
 
 We applied \mcal\ to a set of image simulations.  For the first set of
-simulations we used parametric models, inspired by those used in
-\citet{bfd2015}.  We modeled galaxies as a bulge and disk, with offsets between the
-bulge and disk components, such that the total image was not described by a
-single ellipse.  Both components had the same ellipticity and half light radius
-\hlr. We drew the \hlr\ from a log-normal distribution centered at \hlrmean\
-pixels, with scatter of \hlrwidth\ pixels.  The bulges were offset in a random
-direction from the disk center, with offsets drawn from a uniform distribution
-between zero and \hlr.  The ellipticities were drawn from the simple model
-used in \cite{ba14}
+simulations we used complex parametric models.  We modeled galaxies as a bulge
+and disk, with additional knots of star formation.  We used different
+ellipticities for the bulge and disk components, but gave both bulge
+and disk the same half light radius \hlr.
+
+We drew the \hlr\ and flux from fits to the 25.2 magnitude limited
+sample from the COSMOS data, as distributed with the GALSIM simulation package
+\citep{GALSIM2015}.  In order to avoid repeating the exact parameters, we
+interpolated the joint \hlr-flux distribution using a kernel density 
+estimator.
+
+The ellipticities were drawn from the simple model used in \cite{ba14}
 \begin{align}
     P(e) &\propto \left[1-(e)^2\right]^2 \exp\left[-e^2/2\sigma^2\right],
 \end{align}
-with $\sigma=0.2$.  We use the ``reduced-shear'' style ellipticity,
-which differs by roughly a factor of two compared to the ellipticity used
-in \citet{bfd2015}.
+with $\sigma=0.2$ for the disk and $\sigma=0.1$ for the bulge.  Note, we use
+the ``reduced-shear'' style ellipticity, which differs by roughly a factor of
+two compared to the ellipticity used in \citet{bfd2015}.
+
+For the simulated knots of star formation, we distributed 100 point sources
+according to a random walk starting at the disk centroid, with each point
+taking 40 steps.  We then sheared this distribution using the same ellipticity
+assigned to the disk; but note this does not result in a purely elliptical
+distribution of point sources\footnote{This random walk method was inspired by
+\cite{Zhang2008FourierQuadI}, but was implemented from scratch by the authors
+as a GALSIM object class \texttt{galsim.RandomWalk}}.
+
+The fraction of the flux in the bulge was drawn uniformly between zero and
+unity.  The fraction of the disk flux assigned to knots of star formation
+was then also chosen uniformly between zero and unity.  The resulting 
+objects range from pure bulge, bulge+disk, pure disks, bulges+disk+knots, 
+to pure knots, which resemble elliptical galaxies.
+
+The entire composite bulge, disk, knots object was sheared with $g1=0.02$ in
+reduced shear units.
 
 We convolved the galaxy images with a PSF modeled as a Moffat profile
-\citep{Moffat1969}, with FWHM drawn from a log-normal distribution with mean
-\psffwhmmean\ pixels, and scatter \psffwhmwidth. This distribution roughly
-matches that of the Dark Energy Survey science verification data
-\citep[][(DES)]{DESSVShear}, but with less of a tail to large FWHM.
+\citep{Moffat1969}, with $\beta=3.5$ and FWHM=0.9 arcsec, with 0.263 arcsec
+pixels. The PSF ellipticity was set to $g_2 = 0.025$ in reduced shear units ($e_2 =
+0.05$ in units of distortion). 
+
+These convolved objects were rendered onto a pixel grid and constant Gaussian
+noise was added, with the same noise level used for all images.
 
 In figure \ref{fig:psimhlrcompare} we show the distribution of \hlr\ for the
-bulge and disk galaxies, along with the \hlr\ distribution for the PSF,
-converted from FWHM.  The galaxy \hlr\ distribution was designed to include
-smaller galaxies than the COSMOS simulation presented in \S \ref{sec:cosmosim}.
-We show a comparison between the \hlr\ in these simulations and the COSMOS
-simulations in figure \ref{fig:cosmos}.
-
+parametric galaxies, along with the \hlr\ for the PSF,
+converted from FWHM.  Note most objects had \hlr\ significantly smaller than
+the PSF.
 
 \begin{figure}
     \centering
     \includegraphics[width=\columnwidth]{run-bdj03mcal01-r50.eps}
 
-    \caption{Distribution of half-light-radius \hlr\ in the Bulge+Disk simulations,
-        for both galaxies and PSF.  The distribution of PSF \hlr\ 
-        was chosen to be similar to that in the 
-        Dark Energy Survey}
+    \caption{Distribution of half-light-radius \hlr\ in the parametric simulations,
+        for both galaxies and PSF.  These \hlr\ were draw from fits
+        to COSMOS data.  Also shown is the \hlr\ for objects that survived
+		the initial $S/N > 5$ cut.}
 
 \label{fig:psimhlrcompare}
 \end{figure}
 
-
-We drew the PSF ellipticities from a distribution also designed to match that
-measured in DES.  The DES PSF shape distribution is well fit by a double
-Gaussian with width 0.18 in each dimension, but with different mean for \eone\
-and \etwo.  We set the mean in \etwo\ to $0.007$, matching that in DES, but set
-the mean in \eone\ to zero as a control.  These ellipticities are in the
-reduced-shear convention.  
-
-We designed the galaxy S/N distribution, shown in figure \ref{fig:s2n}, to
-match the real DES galaxy catalog after a pre-selection of ``good galaxies''
-\citep{DESSVShear}, but with no explicit S/N cut applied based on the model
-fitting.  We adjusted the distribution slightly to give a distribution with
-mode $\sim10$.  We sheared the galaxies with 1000 different randomly chosen values,
-with amplitudes chosen uniformly in the range 0.01 to 0.08, and uniform random
-orientations.
+In figure \ref{fig:s2n} we show the distribution of \snr\ for the
+parametric galaxies.  Shown are both the true input \snr\ and the
+distrubtion of true \snr\ after applying a cut at {\it measured}
+\snr$ > 5$.  The measured \snr\ is noisy and biased, being
+based off a single-gaussian, resulting in a smooth rolloff
+in the true \snr.
 
 \begin{figure}
     \centering
     \includegraphics[width=\columnwidth]{run-bdj03mcal01-s2n.eps}
 
-    \caption{Distribution of S/N in the Bulge+Disk simulations. The
-    left panel is a zoom-in around the mode in linear $S/N$.  The right panel is
-the full distribution of $\log_{10}(S/N)$}
+    \caption{Distribution of S/N in the parametric simulations. The
+    solid curve represents the true input distribution, the dashed curve 
+	represents the objects that passed the initial cut on {\it measured}
+    \snr$ > 5$. the measured \snr\ is biased and noisy,
+    resulting in a smooth selection on true \snr.}
 
 \label{fig:s2n}
 \end{figure}
@@ -624,6 +634,7 @@ galaxies.  We refer to the simulation with stars as \bdstar; the
 galaxies are identical to those in the \bdsim\ simulation, but stars
 were then included in the analysis.
 
+\begin{comment}
 \subsubsection{Simulated Masking}
 
 The Fourier transforms used to perform the \mcal\ convolutions cannot
@@ -649,22 +660,26 @@ bad column. }
 
 \label{fig:mask}
 \end{figure}
+\end{comment}
 
 
-\subsection{COSMOS Simulations} \label{sec:cosmosim}
+\subsection{Real Galaxy Simulations} \label{sec:cosmosim}
 
 We designed a second set of simulations to mimic the ``real-galaxy''
 simulations used in GREAT3 challenge \citep{great3}, using galaxy images drawn
-from COSMOS data.  We implemented two important changes.  First, we oriented
+from 23.5 magnitude limited COSMOS data.
+
+We implemented two important changes as compared to GREAT3.  First, we oriented
 the galaxies randomly, whereas in GREAT3 the galaxies were placed in pairs
 rotated by 90 degrees, in order cancel shape noise.  Using paired galaxies has
-the undesired effect of cancelling some biases that we want to
-explore \citep{DESSVShear}.  Second, we used optical aberrations in the PSF
-designed to match that seen in the Dark Energy Survey data\footnote{Aaron
-Roodman, private communication}.  Similar to GREAT3, we varied the aberrations
-as Gaussian random variables around a fiducial value. These root-mean-squared variations, in
-units of waves in the Noll convention, are given in table \ref{tab:aberr}.  We
-used a Kolmogorov model for the atmospheric component, with mean FWHM = 3.40
+the undesired effect of cancelling some biases that we want to explore
+\citep{DESSVShear}.  Second, we used optical aberrations in the PSF designed to
+match that seen in the Dark Energy Survey data\footnote{Aaron Roodman, private
+communication}.  Similar to GREAT3, we varied the aberrations as Gaussian
+random variables around a fiducial value. These root-mean-squared variations,
+in units of waves in the Noll convention, are given in table \ref{tab:aberr}.
+We used a Kolmogorov model for the atmospheric component, such that
+the overall mean FWHM $\sim$ 3.40
 pixels (0.9 arscec for 0.265 arcsec pixels).  For this configuration there are
 significant variations in the PSF ellipticity, but relatively little net
 ellipticity across the entire ensemble of realizations.  The code used to
@@ -692,10 +707,10 @@ is freely available online\footnote{https://github.com/esheldon/egret}.
 \end{table}
 
 In figure \ref{fig:cosmos} we show the distribution of measured \snr\ for the
-COSMOS simulations.  The mode of the distribution is somewhat higher than that
-of the parametric simulations, about 12 instead of 10.  Also shown is the
+COSMOS simulations.  The mode of the distribution is significantly higher than that
+of the parametric simulations, about 12 instead of 2.  Also shown is the
 distribution of the half-light-radius \hlr, measured from the \sersic\ model
-fits distributed with the COSMOS catalog as part of the GREAT3 challenge,
+fits distributed with the 23.5 COSMOS catalog as part of the GREAT3 challenge,
 including the selections applied for the simulation.  The mean \hlr\ for these
 simulations is about \cosmosrdist, somewhat larger than the log-normal
 \galrdist\ for the parametric simulations.
@@ -714,7 +729,12 @@ simulations is about \cosmosrdist, somewhat larger than the log-normal
 \label{fig:cosmos}
 \end{figure}
 
-
+Note the parametric sims presented in \S \ref{sec:bdsim} used the fainter, and
+smaller, 25.2 magnitude limited sample.  We thus do not expect the real galaxy
+simulation to be more challenging than the parametric sim in every aspect. We
+include it to directly address any additional complexities in real galaxies
+that may not appear in our bulge+disk+knots simulation, and to test shear
+recovery using a more realistic PSF.
 
 
 
@@ -752,24 +772,29 @@ simulations is about \cosmosrdist, somewhat larger than the log-normal
 
 \section{Results} \label{sec:detrendsim}
 
-We fit the images with a single Gaussian galaxy model and Gaussian PSF model
-using the \ngmix\ code\footnote{https://github.com/esheldon/ngmix}.  All \mcal\
-operations were performed using the \texttt{metacal} module from \ngmix.
+We fit the images with a single Gaussian galaxy model using the \ngmix\
+code\footnote{https://github.com/esheldon/ngmix}.  To perform the fit we use an
+implementation of the ``adaptive moments'' algorithm originally presented in
+\cite{bern02}.   We applied no PSF correction.  We expect this estimator to
+respond poorly to a shear, but we will measure this weak response using \mcal.
 
-Naively using these grossly incorrect models resulted in a large model bias,
-and large uncorrected PSF anisotropy.  In addition there was significant {\em
-ordinary} noise bias at the low S/N levels used in the simulations.
 
-We used a maximum likelihood fit, with smooth priors on all parameters to
-produce a stable fit; for all images in our entire set of simulations we had not a
-single failure in the fitting process.  These priors were not tuned to the true
-galaxy parameters.  For the flux and size we deliberately used priors that were
-wider than truth by 20\%.  For the ellipticity we used $\sigma=0.3$ instead of
-the true $\sigma=0.2$.  Application of the centrally concentrated prior on the
-shape resulted in a large multiplicative bias.
+In order to correct for PSF anisotropy, we had two choices:  we could apply
+corrections using the \mcal\ PSF response terms, or we could reconvolve using a
+round PSF.  In what follows we discuss only the latter, but note we also have
+recovered the shear accurately in these sims using the former.
 
-We used the \mcal\ procedure, coupled with the above correlated noise fixes, to
-derive corrections for these biases.
+To create a round, symmetrized version of the PSF, we added the PSF image to
+itself, rotated by 90, 120, and 180 degrees.  We further dilate this
+symmetrized PSF by a factor $1+2*e$, where e is the measured ellipticity, to
+ensure that the final PSF is larger than the original in all directions.
+
+
+All \mcal\ operations were performed using the \texttt{metacal} module from
+\ngmix, which in turn uses GALSIM to perform most image manipulations.
+We added a noise field designed to correct for correlated noise, as discussed
+in \S \ref{sec:fixnoise}
+
 
 \subsection{\Mcal\ Responses}
 
