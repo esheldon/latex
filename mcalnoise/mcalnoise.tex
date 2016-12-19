@@ -590,17 +590,25 @@ We convolved the galaxy images with a PSF modeled as a Moffat profile
 These convolved objects were rendered onto 0.263 arcsec pixels and constant
 Gaussian noise was added, with the same noise level used for all images.
 
-In figure \ref{fig:parametricgals} we show some example simulated galaxies with a range
-of parameters.  These galaxies are larger than any galaxies in the actual
-simualtions we ran, otherwise the interesting structure would be smeared
-out by the PSF.
+In figure \ref{fig:parametricgals} we show some example simulated galaxies with
+a range of parameters.  In order to show detailed internal structure, these
+models were created to be larger than any models in the actual simulations we
+ran for testing, which were mostly smaller than the PSF.
 
 
 \begin{figure*}
     \centering
     \includegraphics[]{example-gals-007.eps}
 
-    \caption{Example simulated galaxy images.}
+    \caption{Example simulated galaxy images.  Each image is composite of a
+    bulge and disk, plus knots of star formation.  The half light radius is the
+    same for all components, while the fraction of light in each component
+    varies.  In the upper left and upper right we show pure bulge and pure disk
+    models, respectively.  In the lower left we show a disk with half the light
+    in knots, and in the lower right we show a pure ``irregular'' galaxy
+    composed entirely of knots.  For demonstration purposes, we here sow very
+    large models to make the detailed structure visible; the galaxies used for
+    our shear tests are typically much smaller than the PSF. }
 
 	\label{fig:parametricgals}
 
