@@ -350,53 +350,58 @@ as
     \xi &= \langle e_\alpha e_\beta \rangle \nonumber \\
         &= \int P(e_\alpha e_\beta) e_\alpha e_\beta d e_\alpha d e_\beta
 \end{align}
-where the indices $\alpha, \beta$ indicated two different components of
-the ellipticity. Note the probability distribution $P$ is joint the
-the two ellipticity components. Including selection effects, this becomes
+where the indices $\alpha, \beta$ indicate the ellipticity for two different
+objects or regions of sky. Note the probability distribution $P(e_\alpha e_\beta)$ is joint in
+the two ellipticities. Including selection effects, this becomes
 \begin{align}
         \xi &= \int P(e_\alpha e_\beta) S_\alpha S_\beta e_\alpha e_\beta d e_\alpha d e_\beta
 \end{align}
-where the selections are independent on each component.
+where the selections are independent on each object.
 
 Assuming ellipticities are not correlated in the absence of shear,
 the leading surviving term in the taylor expansion is a second derivative
 \begin{align}
-    \xi \approx \left< \frac{\partial^2 \xi}{\partial \gamma_\alpha \partial \gamma_\beta} \gamma_\alpha \gamma_\beta \right>
+    \xi \approx \left< \frac{\partial^2 \xi}{\partial \gamma_\alpha \partial \gamma_\beta} \gamma_\alpha \gamma_\beta \bigg|_{\gamma=0} \right>
 \end{align}
 As with the mean shear, this equation looks like the true correlation function has
 been weighted by a response.  We can expand this response as
 \begin{align} \label{eq:twoptres1}
-     \frac{\partial^2 \xi}{\partial \gamma_\alpha \partial \gamma_\beta} =
-         \int d e_\alpha  de_\beta & \biggl[ \frac{\partial S_\alpha}{\partial \gamma_\alpha} \frac{\partial S_\beta}{\partial \gamma_\beta} P_{\alpha \beta} e_\alpha e_\beta  \nonumber \\
+     \left < \frac{\partial^2 \xi}{\partial \gamma_\alpha \partial \gamma_\beta}\bigg|_{\gamma=0} \right> =
+         & \int d e_\alpha  de_\beta  \biggl[ \nonumber \\
+         & \frac{\partial S_\alpha}{\partial \gamma_\alpha} \frac{\partial S_\beta}{\partial \gamma_\beta} P_{\alpha \beta} e_\alpha e_\beta  \nonumber \\
         & + S_\alpha \frac{\partial S_\beta}{\partial \gamma_\beta} \frac{\partial P_{\alpha\beta} e_\alpha e_\beta}{\partial \gamma_\alpha} \nonumber  \\
         & + S_\beta \frac{\partial S_\alpha}{\partial \gamma_\alpha} \frac{\partial P_{\alpha\beta} e_\alpha e_\beta}{\partial \gamma_\beta} \nonumber  \\
-        & + S_\alpha S_\beta \frac{\partial^2 P_{\alpha\beta} e_\alpha e_\beta}{\partial \gamma_\alpha \gamma_\beta}  \biggr].
+        & + S_\alpha S_\beta \frac{\partial^2 P_{\alpha\beta} e_\alpha e_\beta}{\partial \gamma_\alpha \partial \gamma_\beta}  \biggr]\bigg|_{\gamma=0},
 \end{align}
-Note the second and third terms are equal under swapping of the indices
-and thus can be combined.
+where the trailing evaluation at $\gamma=0$ is meant to apply to all the
+derivatives within the brackets. Note the second and third terms are equal
+under swapping of the indices and thus can be combined.
 
 The first term in equation \ref{eq:twoptres1} represents the effects of independent
-selections in each component.  The last term represents the response of the
+selections in each object.  The last term represents the response of the
 estimator to shearing.  The cross terms represent the response to shearing
-in one component and selection in another.
+in one object and selection in another.
 
 We can compute these terms using the sheared measurements, and using selections
 on sheared measurements. The first term we can calculate using finite differences,
 by repeating the measurement when selecting on sheared parameters
 \begin{align}
-    \int d e_\alpha & d e_\beta  \frac{\partial S_\alpha}{\partial \gamma_\alpha} \frac{\partial S_\beta}{\partial \gamma_\beta}  P_{\alpha \beta} e_\alpha e_\beta \approx \nonumber \\
+    \int d e_\alpha & d e_\beta  \frac{\partial S_\alpha}{\partial \gamma_\alpha} \frac{\partial S_\beta}{\partial \gamma_\beta}  P_{\alpha \beta} e_\alpha e_\beta \bigg|_{\gamma=0} \approx \nonumber \\
     & \frac{1}{\Delta \gamma^2} \Big< \left(S_\alpha^+ - S_\alpha^- \right) \left(S_\beta^+ - S_\beta^- \right) e_\alpha e_\beta  \Big> = \nonumber \\
     & \frac{1}{\Delta \gamma^2} \Big( \left< S_\alpha^+ S_\beta^+ e_\alpha e_\beta \right> - 2 \left< S_\alpha^- S_\beta^+ e_\alpha e_\beta \right> + \left< S_\alpha^- S_\beta^- e_\alpha e_\beta \right>     \Big)
 \end{align}
-These are three separate measurements to be made:  The first and last are auto-correlations where selections
-are placed on the positively and negatively sheared parameters, respectively.
-The second is a cross correlation between one catalog selected using positively
-sheared quantities, the other using negatively sheared quantities.
+As discussed in \S \ref{sec:Rmean}, $S^+$ and $S^-$ mean selection on
+quantities measured from positively sheared and negatively sheared images,
+respectively.  These are three separate measurements to be made:  the first and
+last are auto-correlations where selections are placed on the positively and
+negatively sheared parameters, respectively.  The second is a cross correlation
+between one catalog selected using positively sheared quantities, the other
+using negatively sheared quantities.
 
 We can follow the same procedure for the cross term, expanding the deriviatives as
 finite differences:
 \begin{align}
-    \int d e_\alpha  d e_\beta  2 S_\alpha \frac{\partial S_\beta}{\partial \gamma_\beta} & \frac{\partial P_{\alpha\beta} e_\alpha e_\beta}{\partial \gamma_\alpha} \approx \nonumber  \\
+    \int d e_\alpha  d e_\beta  2 S_\alpha \frac{\partial S_\beta}{\partial \gamma_\beta} & \frac{\partial P_{\alpha\beta} e_\alpha e_\beta}{\partial \gamma_\alpha} \bigg|_{\gamma=0} \approx \nonumber  \\
     \frac{2}{\Delta \gamma^2} \Bigl( & \left< S_\alpha S_\beta^+ e_\alpha^+ e_\beta \right> - \left< S_\alpha S_\beta^+ e_\alpha^- e_\beta \right> \nonumber \\
     & - \left< S_\alpha S_\beta^- e_\alpha^+ e_\beta \right> + \left< S_\alpha S_\beta^- e_\alpha^- e_\beta \right> \Bigr).
 \end{align}
@@ -405,7 +410,7 @@ the catalogs selected on sheared or unsheared parameters.  {\color{blue} TODO It
 can be simplified in terms of the finite shape difference for each object
 $R_\alpha = (e_\alpha^+ - e_\alpha^-)/\Delta \gamma$.
 \begin{align}
-    \int d e_\alpha  d e_\beta  2 S_\alpha \frac{\partial S_\beta}{\partial \gamma_\beta} & \frac{\partial P_{\alpha\beta} e_\alpha e_\beta}{\partial \gamma_\alpha} \approx \nonumber  \\
+    \int d e_\alpha  d e_\beta  2 S_\alpha \frac{\partial S_\beta}{\partial \gamma_\beta} & \frac{\partial P_{\alpha\beta} e_\alpha e_\beta}{\partial \gamma_\alpha} \bigg|_{\gamma=0} \approx \nonumber  \\
     \frac{2}{\Delta \gamma} \Bigl( & \left< S_\alpha S_\beta^+ e_\beta R_\alpha \right> - \left< S_\alpha S_\beta^- e_\beta R_\alpha \right> \Bigr).
 \end{align}
 If so, then this term is calculated from two cross-correlations, with one of
@@ -414,7 +419,7 @@ the catalogs selected on sheared or unsheared parameters.
 
 The last term in equation \ref{eq:twoptres1} is a second derivitive
 \begin{align}
-    \int d e_\alpha  d e_\beta S_\alpha S_\beta & \frac{\partial^2 P_{\alpha\beta} e_\alpha e_\beta}{\partial \gamma_\alpha \gamma_\beta} \approx \nonumber \\
+    \int d e_\alpha  d e_\beta S_\alpha S_\beta & \frac{\partial^2 P_{\alpha\beta} e_\alpha e_\beta}{\partial \gamma_\alpha \gamma_\beta} \bigg|_{\gamma=0} \approx \nonumber \\
     \frac{1}{\Delta \gamma^2} \Bigl(  & \left< S_\alpha S_\beta e_\alpha^+ e_\beta^+ \right> - \left< S_\alpha S_\beta e_\alpha^+ e_\beta^- \right> \nonumber \\
                                     - & \left< S_\alpha S_\beta e_\alpha^- e_\beta^+ \right> + \left< S_\alpha S_\beta e_\alpha^- e_\beta^- \right> \Bigr)
 \end{align}
@@ -423,7 +428,7 @@ two auto-correlations and one cross-correlation.  {\color{blue}
 TODO Again, it may be we can simplify
 this in terms of the individual $R$ values as
 \begin{align}
-    \int d e_\alpha  d e_\beta S_\alpha S_\beta \frac{\partial^2 P_{\alpha\beta} e_\alpha e_\beta}{\partial \gamma_\alpha \gamma_\beta} \approx 
+    \int d e_\alpha  d e_\beta S_\alpha S_\beta \frac{\partial^2 P_{\alpha\beta} e_\alpha e_\beta}{\partial \gamma_\alpha \gamma_\beta} \bigg|_{\gamma=0} \approx 
     \langle S_\alpha S_\beta R_\alpha R_\beta \rangle.
 \end{align}
 }
@@ -551,7 +556,7 @@ We drew the \hlr\ and flux from fits to the 25.2 magnitude limited
 sample from the COSMOS data, as distributed with the GALSIM simulation package
 \citep{GALSIM2015}.  In order to avoid repeating the exact parameters, we
 interpolated the joint \hlr-flux distribution using a kernel density 
-estimator.
+estimate.
 
 The ellipticities were drawn from the simple model used in \cite{ba14}
 \begin{align}
@@ -573,18 +578,33 @@ The fraction of the flux in the bulge was drawn uniformly between zero and
 unity.  The fraction of the disk flux assigned to knots of star formation
 was then also chosen uniformly between zero and unity.  The resulting 
 objects range from pure bulge, bulge+disk, pure disks, bulges+disk+knots, 
-to pure knots, which resemble elliptical galaxies.
+to pure knots, which resemble irregular galaxies.
 
-The entire composite bulge, disk, knots object was sheared with $g1=0.02$ in
-reduced shear units.
+Finally, the entire composite bulge, disk, knots object was sheared with
+$g1=0.02$ in reduced shear units.
 
 We convolved the galaxy images with a PSF modeled as a Moffat profile
-\citep{Moffat1969}, with $\beta=3.5$ and FWHM=0.9 arcsec, with 0.263 arcsec
-pixels. The PSF ellipticity was set to $g_2 = 0.025$ in reduced shear units ($e_2 =
+\citep{Moffat1969}, with $\beta=3.5$ and FWHM=0.9 arcsec. The PSF ellipticity was set to $g_2 = 0.025$ in reduced shear units ($e_2 =
 0.05$ in units of distortion). 
 
-These convolved objects were rendered onto a pixel grid and constant Gaussian
-noise was added, with the same noise level used for all images.
+These convolved objects were rendered onto 0.263 arcsec pixels and constant
+Gaussian noise was added, with the same noise level used for all images.
+
+In figure \ref{fig:parametricgals} we show some example simulated galaxies with a range
+of parameters.  These galaxies are larger than any galaxies in the actual
+simualtions we ran, otherwise the interesting structure would be smeared
+out by the PSF.
+
+
+\begin{figure*}
+    \centering
+    \includegraphics[]{example-gals-007.eps}
+
+    \caption{Example simulated galaxy images.}
+
+	\label{fig:parametricgals}
+
+\end{figure*}
 
 In figure \ref{fig:psimhlrcompare} we show the distribution of \hlr\ for the
 parametric galaxies, along with the \hlr\ for the PSF,
