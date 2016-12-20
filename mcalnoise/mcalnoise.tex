@@ -235,7 +235,7 @@ If the PSF correction is not perfect, the leading term $\langle \mest
 response, the response of the measurement to the PSF ellipticity, to correct
 this effect.  In this work we instead reconvolve the image by a symmetrized
 version of the PSF, which removes any additive effects from the PSF  (see \S
-\ref{sec:results}).
+\ref{sec:modelfit}).
 
 
 \begin{comment}
@@ -561,6 +561,21 @@ version has the advantage of working even when the transformation between sky
 and image involves a shear of the coordinate system\footnote{M. Jarvis, private
 communication}. We will explore this method in a future work.
 
+\section{Weighted Averages for Associated Parameters} \label{sec:weighting}
+
+As discussed in \S \ref{sec:mcal}, if a shear estimator has
+non-unity response, the mean shear (or 2-point function) is effectively
+weighted.  If we know the responses we can form a weighted average.
+
+This means that associated quantities, such as average redshift, should also be
+weighted by these responses.  For example, a quantity $x$ would be averaged
+as
+\begin{align}
+    \left< x \right> = \frac{\sum_i R_i x_i}{\sum R_i}.
+\end{align}
+The responses are not scalar, but it is probably sufficient
+to use the average of the two diagonal components of the $R$ matrix
+for this purpose.
 
 \section{Image Simulations} \label{sec:sims}
 
@@ -711,6 +726,23 @@ bad column. }
 \end{figure}
 \end{comment}
 
+\subsubsection{Pre-selection} \label{sec:preselect}
+
+We generated images with \snr\ down to $\sim 2$, as shown in figure
+\ref{fig:s2n}, but we did not fit all these images to models.  In real data,
+detections at these very low \snr\ can be spurious, so in practice a threshold
+must be placed to produce what are considered reliable detections.  This type
+of selection will result in a bias in the population of galaxy shapes, since
+smaller objects are higher \snr\ than larger objects with the same flux,
+and galaxies oriented in the same direction as the PSF have higher \snr\
+than objects otherwise oriented.  This effect will in turn bias
+the shear recovery.
+
+If this selection might occur before \mcal\ and object fitting, the corrections
+for selection effects presented in \S \ref{sec:selection} cannot be used.
+We apply a pre-selection at \snr$ > 5$.  In order to avoid this bias,
+we will apply further cuts on the \snr\ above this threshold.
+
 
 \subsection{Real Galaxy Simulations} \label{sec:cosmosim}
 
@@ -815,31 +847,37 @@ recovery using a more realistic PSF.
     \end{tabular}
 \end{table*}
 
+\section{Model Fitting and Metacalibration Operations} \label{sec:modelfit}
 
-\section{Results} \label{sec:results}
-
-We fit the images with a single Gaussian galaxy model using the \ngmix\
-code\footnote{https://github.com/esheldon/ngmix}.  To perform the fit we use an
+We fit the images with a single Gaussian model using the \ngmix\
+code\footnote{https://github.com/esheldon/ngmix}.  To perform the fit we used an
 implementation of the ``adaptive moments'' algorithm originally presented in
 \cite{bern02}.   We applied no PSF correction.  We expect this estimator to
 respond poorly to a shear, but we will measure this weak response using \mcal.
 
+Rather than attempt to correct for psf anisotropy using \mcal\ ``psf response''
+as was done in \cite{HuffMcal}, we instead reconvolved by a symmetrized version
+of the PSF. We created this PSF by added the PSF image to itself, rotated by
+90, 120, and 180 degrees.  This averaging can result in a PSF that is smaller
+in some dimensions than the original, so we further dilated this symmetrized
+PSF.  The dilation factor was taken to be $1+2*\delta$, where
+\begin{align}
+    %\delta = \frac{E}{0.5 (<x^2> + <y^2>)}
+    \delta = \frac{E}{T/2}
+\end{align}
+Here $E$ is the maximum eigenvalue from the covariance matrix of the best-fit
+Gaussian, divided by half the trace $T$, which is the mean extent of the
+object.  For a purely elliptical PSF, a factor of $1+\delta$ would be
+sufficient; we conservatively increase the factor to $1+2\delta$ in case the
+Gaussian fit does not completely capture the asymmetries of the true PSF.
 
-In order to correct for PSF anisotropy, we had two choices:  we could apply
-corrections using the \mcal\ PSF response terms, or we could reconvolve using a
-round PSF.  In what follows we discuss only the latter, but note we also have
-recovered the shear accurately in these sims using the former.
-
-To create a round, symmetrized version of the PSF, we added the PSF image to
-itself, rotated by 90, 120, and 180 degrees.  We further dilate this
-symmetrized PSF by a factor $1+2*e$, where e is the measured ellipticity, to
-ensure that the final PSF is larger than the original in all directions.
+All \mcal\ image operations were performed using the \texttt{metacal} module
+from \ngmix, which in turn uses GALSIM to perform most image manipulations.
+Before fitting, we added a noise field designed to correct for correlated
+noise, as discussed in \S \ref{sec:fixnoise}
 
 
-All \mcal\ operations were performed using the \texttt{metacal} module from
-\ngmix, which in turn uses GALSIM to perform most image manipulations.
-We added a noise field designed to correct for correlated noise, as discussed
-in \S \ref{sec:fixnoise}
+\section{Results} \label{sec:results}
 
 
 \subsection{\Mcal\ Responses}
@@ -847,7 +885,7 @@ in \S \ref{sec:fixnoise}
 In figure \ref{fig:Rstars} we show the measured \mcal\ responses for
 the \bdsim\  simulations.  Also shown is the response with stars included.
 The distrubution of \mcalR\ is quite symmetric in the absence of stellar
-contamination.
+contamination.  We will discuss the affect of stars in \S \ref{sec:stars}.
 
 \begin{figure}
     \centering
@@ -866,12 +904,17 @@ contamination.
 \subsection{Shear Recovery}
 
 
-In table \ref{tab:results} we show results for shear recovery in our
-simulations, with and without using the \mcal\ procedure.  Without using
-\mcal\, the multiplicative bias $m$ is of order 50\% for all simulations.
-For simulations with a net PSF anisotropy, we also found a significant
-remaining additive bias.
+In table \ref{tab:results} we show results for shear recovery in each of our
+simulations.  As was discussed in \S \ref{sec:preselect}, we applied a
+pre-selection to the \bdsim\ simulation at \snr$ > 5$, which imposes a
+selection bias.  We thus placed cuts at higher \snr\ than this threshold, so
+that the corrections for selection effects presented in \S \ref{sec:selection}
+could be used accurately.  In this table we show results for \snr$ > 10$.  
+For the \rgsim\ simulation we did not apply a pre-selection.
 
+Using \mcal\ we found no significant multiplicative or additive biases in any
+case.  Without applying the \mcal\ responses, the multiplicative bias $m$ is of
+order 50\% for all simulations.
 
 \begin{table*}
     \centering
@@ -892,33 +935,28 @@ remaining additive bias.
                & $[10^{-3}]$       & $[10^{-5}]$      & $[10^{-5}]$ \\
         \hline
         %\rgsim & $+0.22 \pm 0.58$  & $+0.26 \pm 0.29$ & $+0.22 \pm 0.29$ \\
-        \rgsim & $+0.22 \pm 0.58$  & $2.6 \pm 2.9$    & $+2.2 \pm 2.9$ \\
-        \bdsim & $+0.03 \pm 0.31$  & -                & $-0.15 \pm 0.62$ \\
-        \bdstar& $+0.01 \pm 0.32$  & -                & $-0.08 \pm 0.63$
+        \rgsim & $0.22 \pm 0.58$  & $2.6 \pm 2.9$    & $2.2 \pm 2.9$ \\
+        \bdsim & $0.03 \pm 0.31$  & -                & $-0.15 \pm 0.62$ \\
+        \bdstar& $0.01 \pm 0.32$  & -                & $-0.08 \pm 0.63$
     \end{tabular}
 \end{table*}
 
 %        \bdmask& $-496$      & $+0.09 \pm 0.10$ & $ 15.07 \pm 0.10$ & $-0.60 \pm 0.46$  & $-0.17 \pm 0.23$ & $0.73 \pm 0.23$  \\
 
-Using \mcal\ we found the multiplicative bias to be consistent with zero within
-errors for all simulations. For the parameteric simulations, which had a
-net PSF anisotropy in the \etwo\ component, we detected a remaining
-additive bias, but it was reduced by a factor of \pimprovement\ in amplitude
-compared to the maximum likelihood shear estimator.  This small remaining
-additive bias is due to our use of a very poor PSF correction scheme based
-on a single Gaussian fit.
-
-The multiplicative bias without applying corrections for correlated noise
-was about $0.1$ for all simulations, implying a large over-correction.
 
 \subsubsection{Results with Selection Effects}
 
-We show the results for shear recover with and without corrections for
-selection effects table \ref{tab:results_sel}.  These results are also shown
-graphically in figures \ref{fig:s2nthresh} and \ref{fig:s2nthresh_nocorr}.
+Inn table \ref{tab:results_sel}, we show the results for different \snr\
+threshold cuts in the \bdsim\ simulations.  We show the recovered bias with and
+without corrections for selection effects.  These results are also shown
+graphically in figures \ref{fig:s2nthresh} and \ref{fig:s2nthresh_nocorr}.  The
+cuts were all placed above the pre-selection at \snr$ > 5$, to guarantee the
+validity of the corrections.
 
-TODO discuss
-
+We find significant multiplicative selection effects cutting on \snr\
+thresholds.  These biases are well above the requirements for current and
+future experiments, and thus must be corrected.  We find \mcal\ corrects
+these biases to within the requirements of future surveys in all cases.
 
 \begin{table*}
     \centering
@@ -1026,7 +1064,7 @@ $\mbox{\snr} > 19 $ & $-8.33 \pm 0.36$ & $+0.17 \pm 0.73$ & $+0.05 \pm 0.37$ & $
 
 Results including \nsimNstarperc\ stars in the \bdstar\ simulation are shown in
 table \ref{tab:results}. We did not detect any additional bias due to including
-stars, but the noise did increase by $\sim 5$\%.
+stars, but the noise did increase by \starnoiseincrease.
 
 %As indicated in table \ref{tab:sims}, for the \bdstar\  type simulations, we
 %included an additional \nsimNStar\ stellar objects, \nsimNstarperc, drawn
@@ -1036,29 +1074,27 @@ stars, but the noise did increase by $\sim 5$\%.
 \Mcal\ is robust to stellar contamination if the PSF is well
 characterized.  Images consistent with a PSF will not, in the mean, respond to the shear
 applied during the \mcal\ process.  Measurement on stars also yields zero average shape, as
-long as the PSF correction is sufficiently accurate:
-\begin{align}
-    \gamma &= \frac{ \langle \mest_{gal} \rangle + \langle \mest_{star} \rangle - \langle R^p_{gal} + R^p_{star} \rangle \langle \mest^p \rangle }{ \langle R^{gal} \rangle + \langle R^{star} \rangle}.
-\end{align}
-In figure \ref{fig:Rstars} we show the measured response \mcalR\ for stars
-and galaxies.  Indeed we see that, for stars, the \mcalR\ is noisy but consistent with
-zero.
-
-We used a very poor PSF correction, based on a single Gaussian, yet we did not
-detect any significant additional bias beyond that already in the simulation
-without stars, indicating that for \nsimNstarperc\ stellar contamination
-any additionial bias was negligible.
+long as the PSF correction is sufficiently accurate: our use of a symmetrized
+PSF (see \S \ref{sec:modelfit}) appears to be sufficient in this case.
+In figure \ref{fig:Rstars} we show the measured response \mcalR\ for stars and
+galaxies.  Indeed we see that, for stars, the \mcalR\ is noisy but consistent
+with zero.
 
 If the additional variance is tolerable, it may be useful to include stars in a
-shear analysis if the expected stellar fraction is low.  Attempting to remove
+shear analysis if the PSF is sufficiently well known.  Attempting to remove
 faint stars from a sample is a noisy procedure, likely to induce selection
-effects. For example, stars that are included in the sample after a size cut
-will have fluctuated to larger measured size due to noise, and will also likely
-have fluctuated to higher response \mcalR, biasing the recovered shear.
+effects.  These can be controlled using the corrections derived in \S
+\ref{sec:selection}, but only if the selection is based on quantities
+measured on sheared images.  If the selection must be performed
+outside of the \mcal\ process, bit may be better to avoid it altogether.
 
 For accurate interpretation of the signal, it is still important that any
-redshift estimates for the stars are consistent with zero, in the mean.  Stars
-could also be down-weighted using an appropriate weighting scheme.
+redshift estimates for the stars are consistent with zero, in the mean. It
+is also important to weight by the \mcal\ response terms in order to
+get the correct mean; see \S \ref{sec:weighting} for more discussion
+of weighted means.
+
+
 
 \begin{comment}
 .  We can
