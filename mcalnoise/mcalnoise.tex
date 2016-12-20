@@ -80,22 +80,22 @@
 \newcommand{\mcalRnoisemodel}{$R^{model}_\eta$}
 
 
+\newcommand{\nsimShear}{0.02,0.00}
 \newcommand{\nsimNgal}{$10^8$}
 \newcommand{\nsimNgalTwo}{$2 \times 10^8$}
 \newcommand{\nsimNgalFour}{$4 \times 10^8$}
-\newcommand{\nsimNgalBD}{$12 \times 10^8$}
-\newcommand{\nsimNStar}{$12 \times 10^7$}
+\newcommand{\nsimNgalBD}{$5.6 \times 10^9$}
+\newcommand{\nsimNStar}{$5.6 \times 10^8$}
 \newcommand{\nsimNstarperc}{10\%}
-\newcommand{\starnoiseincrease}{4\%}
+\newcommand{\starnoiseincrease}{$\sim 2-3$\%}
 
 %\newcommand{\psfedist}{$(0.0,0.7) \pm 1.8$}
-\newcommand{\psfeonedist}{$0 \pm 0.018$}
-\newcommand{\psfetwodist}{$0.007 \pm 0.018$}
+\newcommand{\nsimPSFShape}{$0.000,0.025$}
 
 %\newcommand{\psfrdist}{log-normal $(3.66 \pm 0.38)$}
-\newcommand{\psfrdist}{$3.66 \pm 0.38$}
+\newcommand{\psfrdist}{0.9}
 
-\newcommand{\galrdist}{$1.54 \pm 1.00$}
+\newcommand{\galrdist}{COSMOS Fits}
 \newcommand{\cosmosrdist}{$1.8 \pm 0.8$}
 
 %\newcommand{\cosmosname}{COSMOS 23.5}
@@ -113,11 +113,15 @@
 \newcommand{\Rcorr}{$-0.0694$}
 \newcommand{\rgbias}{$(-1.6 \pm 0.5) \times 10^{-3}$}
 
-\newcommand{\bdsim}{\texttt{BD}}
-\newcommand{\bdstar}{\texttt{BD+Stars}}
+\newcommand{\bdsim}{\texttt{BDK}}
+\newcommand{\bdstar}{\texttt{BDK+Stars}}
 \newcommand{\bdmask}{\texttt{Mask}}
 \newcommand{\rgsim}{\texttt{RG}}
 \newcommand{\pimprovement}{90}
+
+\newcommand{\RR}{$\left<RR\right>$}
+\newcommand{\RS}{$\left<RS\right>$}
+\newcommand{\SSs}{$\left<SS\right>$}
 
 %\renewcommand*\rmdefault{cmr}
 %\usepackage{default}
@@ -216,9 +220,26 @@ or from the average of the sheared images.
 %    \gamma = \frac{\langle \mest \rangle}{\langle \mbox{\mcalR} \rangle}.
 %\end{align}
 
-If the PSF correction is not perfect, the leading term $\langle \mest \rangle|_{\gamma=0}$
-will not be zero.  We can derive another response, the response of the
-measurement to the PSF ellipticity, to correct this effect.  This
+The measurement \est\ has two-components, and the response \mcalR\ is
+a $2 \times 2$ matrix. Thus the mean shear is given by the matrix
+equation
+\begin{align}
+    \gamma &= 
+    \langle \mbox{\mcalR} \rangle^{-1} \left[ \langle \mest \rangle - \langle \mbox{\mcalRpsf} \rangle \langle e^{p} \rangle \right].
+\end{align}
+We generally find that the off-diagonal terms of this matrix are negligible
+and can be ignored.
+
+If the PSF correction is not perfect, the leading term $\langle \mest
+\rangle|_{\gamma=0}$ will not be zero.  \cite{HuffMcal} discussed another
+response, the response of the measurement to the PSF ellipticity, to correct
+this effect.  In this work we instead reconvolve the image by a symmetrized
+version of the PSF, which removes any additive effects from the PSF  (see \S
+\ref{sec:results}).
+
+
+\begin{comment}
+This
 correction involves shearing the PSF rather than the galaxy:
 \begin{equation}
     \mbox{\mcalRpsf} = \frac{\mest(+\gamma^{p}) - \mest(-\gamma^{p})}{\Delta \gamma^{p}},
@@ -232,24 +253,12 @@ In practice one can calculate mean responses, factoring out the response term:
 \begin{equation}
     \gamma = \frac{\langle \mest \rangle - \langle \mbox{\mcalRpsf} \rangle \langle e^{p} \rangle}{ \langle \mbox{\mcalR} \rangle}.
 \end{equation}
-In this work we instead correct for any PSF anisotropy by re-convolving by
-a circular PSF.
-
-Finally, the measurement \est\ has two-components, and the response \mcalR\ is
-a $2 \times 2$ matrix. Thus the full solution is given by the matrix
-equation
-\begin{align}
-    \gamma &= 
-    \langle \mbox{\mcalR} \rangle^{-1} \left[ \langle \mest \rangle - \langle \mbox{\mcalRpsf} \rangle \langle e^{p} \rangle \right].
-\end{align}
-We generally find that the off-diagonal terms of this matrix are negligible
-and can be ignored.
+\end{comment}
 
 In \cite{HuffMcal} a sophisticated inference was used, rather than simple
 averages, in order to deal with the relatively large variance in \mcalR\
 associated with the particular estimator used therein.  For the estimator
 we use in this work, we find simple averages suffice.
-
 
 
 \section{Full Formalism} \label{sec:selection}
@@ -366,72 +375,83 @@ the leading surviving term in the taylor expansion is a second derivative
 As with the mean shear, this equation looks like the true correlation function has
 been weighted by a response.  We can expand this response as
 \begin{align} \label{eq:twoptres1}
-     \left < \frac{\partial^2 \xi}{\partial \gamma_\alpha \partial \gamma_\beta}\bigg|_{\gamma=0} \right> =
-         & \int d e_\alpha  de_\beta  \biggl[ \nonumber \\
-         & \frac{\partial S_\alpha}{\partial \gamma_\alpha} \frac{\partial S_\beta}{\partial \gamma_\beta} P_{\alpha \beta} e_\alpha e_\beta  \nonumber \\
-        & + S_\alpha \frac{\partial S_\beta}{\partial \gamma_\beta} \frac{\partial P_{\alpha\beta} e_\alpha e_\beta}{\partial \gamma_\alpha} \nonumber  \\
-        & + S_\beta \frac{\partial S_\alpha}{\partial \gamma_\alpha} \frac{\partial P_{\alpha\beta} e_\alpha e_\beta}{\partial \gamma_\beta} \nonumber  \\
-        & + S_\alpha S_\beta \frac{\partial^2 P_{\alpha\beta} e_\alpha e_\beta}{\partial \gamma_\alpha \partial \gamma_\beta}  \biggr]\bigg|_{\gamma=0},
+    \bigg< \frac{\partial^2 \xi}{\partial \gamma_\alpha \partial \gamma_\beta}&\bigg|_{\gamma=0} \bigg> =
+          \int d e_\alpha  de_\beta  \biggl[S_\alpha S_\beta \frac{\partial^2 P_{\alpha\beta} e_\alpha e_\beta}{\partial \gamma_\alpha \partial \gamma_\beta}   \nonumber \\
+         & + S_\alpha \frac{\partial S_\beta}{\partial \gamma_\beta} \frac{\partial P_{\alpha\beta} e_\alpha e_\beta}{\partial \gamma_\alpha}
+         + S_\beta \frac{\partial S_\alpha}{\partial \gamma_\alpha} \frac{\partial P_{\alpha\beta} e_\alpha e_\beta}{\partial \gamma_\beta} \nonumber  \\
+         & + \frac{\partial S_\alpha}{\partial \gamma_\alpha} \frac{\partial S_\beta}{\partial \gamma_\beta} P_{\alpha \beta} e_\alpha e_\beta \biggr]\bigg|_{\gamma=0}  \nonumber \\
+     & \equiv  \left<RR\right> + 2 \left<RS\right> +  \left<SS\right>
 \end{align}
 where the trailing evaluation at $\gamma=0$ is meant to apply to all the
 derivatives within the brackets. Note the second and third terms are equal
 under swapping of the indices and thus can be combined.
 
-The first term in equation \ref{eq:twoptres1} represents the effects of independent
-selections in each object.  The last term represents the response of the
-estimator to shearing.  The cross terms represent the response to shearing
-in one object and selection in another.
+
+%\begin{align} \label{eq:twoptres1}
+%     \left < \frac{\partial^2 \xi}{\partial \gamma_\alpha \partial \gamma_\beta}\bigg|_{\gamma=0} \right> =
+%         & \int d e_\alpha  de_\beta  \biggl[ \nonumber \\
+%         & \frac{\partial S_\alpha}{\partial \gamma_\alpha} \frac{\partial S_\beta}{\partial \gamma_\beta} P_{\alpha \beta} e_\alpha e_\beta  \nonumber \\
+%        & + S_\alpha \frac{\partial S_\beta}{\partial \gamma_\beta} \frac{\partial P_{\alpha\beta} e_\alpha e_\beta}{\partial \gamma_\alpha} \nonumber  \\
+%        & + S_\beta \frac{\partial S_\alpha}{\partial \gamma_\alpha} \frac{\partial P_{\alpha\beta} e_\alpha e_\beta}{\partial \gamma_\beta} \nonumber  \\
+%        & + S_\alpha S_\beta \frac{\partial^2 P_{\alpha\beta} e_\alpha e_\beta}{\partial \gamma_\alpha \partial \gamma_\beta}  \biggr]\bigg|_{\gamma=0} \nonumber \\
+%        \equiv \left<SS\right> + 2 \left<SR\right> + \left<RR\right>
+%\end{align}
+
+
+The first term \RR\ in equation \ref{eq:twoptres1} represents the response of
+the estimator to shearing of either object in the product.  The last term \SSs\
+represents the effects of independent selections in each object.  The cross
+term \RS\ represent the response to shearing in one object and selection in another.
 
 We can compute these terms using the sheared measurements, and using selections
-on sheared measurements. The first term we can calculate using finite differences,
-by repeating the measurement when selecting on sheared parameters
+on sheared measurements. We can approximate the derivatives with
+finite differences.  The first term can be written as
 \begin{align}
-    \int d e_\alpha & d e_\beta  \frac{\partial S_\alpha}{\partial \gamma_\alpha} \frac{\partial S_\beta}{\partial \gamma_\beta}  P_{\alpha \beta} e_\alpha e_\beta \bigg|_{\gamma=0} \approx \nonumber \\
-    & \frac{1}{\Delta \gamma^2} \Big< \left(S_\alpha^+ - S_\alpha^- \right) \left(S_\beta^+ - S_\beta^- \right) e_\alpha e_\beta  \Big> = \nonumber \\
-    & \frac{1}{\Delta \gamma^2} \Big( \left< S_\alpha^+ S_\beta^+ e_\alpha e_\beta \right> - 2 \left< S_\alpha^- S_\beta^+ e_\alpha e_\beta \right> + \left< S_\alpha^- S_\beta^- e_\alpha e_\beta \right>     \Big)
+    \mbox{\RR} = \int d e_\alpha  d e_\beta S_\alpha S_\beta & \frac{\partial^2 P_{\alpha\beta} e_\alpha e_\beta}{\partial \gamma_\alpha \gamma_\beta} \bigg|_{\gamma=0} \approx \nonumber \\
+    \frac{1}{\Delta \gamma^2} \Bigl(  & \left< S_\alpha S_\beta e_\alpha^+ e_\beta^+ \right> - \left< S_\alpha S_\beta e_\alpha^+ e_\beta^- \right> \nonumber \\
+                                    - & \left< S_\alpha S_\beta e_\alpha^- e_\beta^+ \right> + \left< S_\alpha S_\beta e_\alpha^- e_\beta^- \right> \Bigr)
+\end{align}
+Note the cross terms are equal.  Also note we can write the 
+the finite difference derivative response term
+for an individual object as
+$R_\alpha = (e_\alpha^+ - e_\alpha^-)/\Delta \gamma$.
+Because all terms are selected based on the unsheared
+parameters, we can refactor this entire term as a cross-correlation
+of the individual response terms
+\begin{align}
+    \mbox{\RR} \approx \langle S_\alpha S_\beta R_\alpha R_\beta \rangle.
+\end{align}
+
+We can follow the same procedure for the cross term \RS, expanding the
+deriviatives as finite differences:
+\begin{align}
+    \mbox{RS} = \int d e_\alpha  d e_\beta  2 S_\alpha \frac{\partial S_\beta}{\partial \gamma_\beta} & \frac{\partial P_{\alpha\beta} e_\alpha e_\beta}{\partial \gamma_\alpha} \bigg|_{\gamma=0} \approx \nonumber  \\
+    \frac{2}{\Delta \gamma^2} \Bigl( & \left< S_\alpha S_\beta^+ e_\alpha^+ e_\beta \right> - \left< S_\alpha S_\beta^+ e_\alpha^- e_\beta \right> \nonumber \\
+    & - \left< S_\alpha S_\beta^- e_\alpha^+ e_\beta \right> + \left< S_\alpha S_\beta^- e_\alpha^- e_\beta \right> \Bigr).
 \end{align}
 As discussed in \S \ref{sec:Rmean}, $S^+$ and $S^-$ mean selection on
 quantities measured from positively sheared and negatively sheared images,
-respectively.  These are three separate measurements to be made:  the first and
+respectively.  This term can also be further simplified in terms of the
+individual shear responses $R_\alpha$.
+\begin{align}
+    \left< RS \right> \approx 
+    \frac{2}{\Delta \gamma} \Bigl( & \left< S_\alpha S_\beta^+ e_\beta R_\alpha \right> - \left< S_\alpha S_\beta^- e_\beta R_\alpha \right> \Bigr).
+\end{align}
+Calculation of \RS\ involves two cross-correlations, with one of
+the catalogs selected on sheared or unsheared parameters.
+
+The last term \SSs\ can be written as
+\begin{align}
+    \left<SS\right> = & \int d  e_\alpha  d e_\beta  \frac{\partial S_\alpha}{\partial \gamma_\alpha} \frac{\partial S_\beta}{\partial \gamma_\beta}  P_{\alpha \beta} e_\alpha e_\beta \bigg|_{\gamma=0} \approx \nonumber \\
+    & \frac{1}{\Delta \gamma^2} \Big< \left(S_\alpha^+ - S_\alpha^- \right) \left(S_\beta^+ - S_\beta^- \right) e_\alpha e_\beta  \Big> = \nonumber \\
+    & \frac{1}{\Delta \gamma^2} \Big( \left< S_\alpha^+ S_\beta^+ e_\alpha e_\beta \right> - 2 \left< S_\alpha^- S_\beta^+ e_\alpha e_\beta \right> + \left< S_\alpha^- S_\beta^- e_\alpha e_\beta \right>     \Big)
+\end{align}
+There are three separate measurements to be made for \SSs:  the first and
 last are auto-correlations where selections are placed on the positively and
 negatively sheared parameters, respectively.  The second is a cross correlation
 between one catalog selected using positively sheared quantities, the other
 using negatively sheared quantities.
 
-We can follow the same procedure for the cross term, expanding the deriviatives as
-finite differences:
-\begin{align}
-    \int d e_\alpha  d e_\beta  2 S_\alpha \frac{\partial S_\beta}{\partial \gamma_\beta} & \frac{\partial P_{\alpha\beta} e_\alpha e_\beta}{\partial \gamma_\alpha} \bigg|_{\gamma=0} \approx \nonumber  \\
-    \frac{2}{\Delta \gamma^2} \Bigl( & \left< S_\alpha S_\beta^+ e_\alpha^+ e_\beta \right> - \left< S_\alpha S_\beta^+ e_\alpha^- e_\beta \right> \nonumber \\
-    & - \left< S_\alpha S_\beta^- e_\alpha^+ e_\beta \right> + \left< S_\alpha S_\beta^- e_\alpha^- e_\beta \right> \Bigr).
-\end{align}
-This term is thus calculated from four cross-correlations, with one of
-the catalogs selected on sheared or unsheared parameters.  {\color{blue} TODO It may be this
-can be simplified in terms of the finite shape difference for each object
-$R_\alpha = (e_\alpha^+ - e_\alpha^-)/\Delta \gamma$.
-\begin{align}
-    \int d e_\alpha  d e_\beta  2 S_\alpha \frac{\partial S_\beta}{\partial \gamma_\beta} & \frac{\partial P_{\alpha\beta} e_\alpha e_\beta}{\partial \gamma_\alpha} \bigg|_{\gamma=0} \approx \nonumber  \\
-    \frac{2}{\Delta \gamma} \Bigl( & \left< S_\alpha S_\beta^+ e_\beta R_\alpha \right> - \left< S_\alpha S_\beta^- e_\beta R_\alpha \right> \Bigr).
-\end{align}
-If so, then this term is calculated from two cross-correlations, with one of
-the catalogs selected on sheared or unsheared parameters.
-}
-
-The last term in equation \ref{eq:twoptres1} is a second derivitive
-\begin{align}
-    \int d e_\alpha  d e_\beta S_\alpha S_\beta & \frac{\partial^2 P_{\alpha\beta} e_\alpha e_\beta}{\partial \gamma_\alpha \gamma_\beta} \bigg|_{\gamma=0} \approx \nonumber \\
-    \frac{1}{\Delta \gamma^2} \Bigl(  & \left< S_\alpha S_\beta e_\alpha^+ e_\beta^+ \right> - \left< S_\alpha S_\beta e_\alpha^+ e_\beta^- \right> \nonumber \\
-                                    - & \left< S_\alpha S_\beta e_\alpha^- e_\beta^+ \right> + \left< S_\alpha S_\beta e_\alpha^- e_\beta^- \right> \Bigr)
-\end{align}
-Note the cross terms are equal.  This term can thus be measured via
-two auto-correlations and one cross-correlation.  {\color{blue}
-TODO Again, it may be we can simplify
-this in terms of the individual $R$ values as
-\begin{align}
-    \int d e_\alpha  d e_\beta S_\alpha S_\beta \frac{\partial^2 P_{\alpha\beta} e_\alpha e_\beta}{\partial \gamma_\alpha \gamma_\beta} \bigg|_{\gamma=0} \approx 
-    \langle S_\alpha S_\beta R_\alpha R_\beta \rangle.
-\end{align}
-}
 
 \section{Contamination of the Response by Correlated Noise} \label{sec:contam}
 
@@ -548,9 +568,9 @@ communication}. We will explore this method in a future work.
 
 We applied \mcal\ to a set of image simulations.  For the first set of
 simulations we used complex parametric models.  We modeled galaxies as a bulge
-and disk, with additional knots of star formation.  We used different
-ellipticities for the bulge and disk components, but gave both bulge
-and disk the same half light radius \hlr.
+and disk, with additional knots of star formation; we label this simulation
+\bdsim.  We used different ellipticities for the bulge and disk components, but
+gave both bulge and disk the same half light radius \hlr.
 
 We drew the \hlr\ and flux from fits to the 25.2 magnitude limited
 sample from the COSMOS data, as distributed with the GALSIM simulation package
@@ -580,7 +600,7 @@ was then also chosen uniformly between zero and unity.  The resulting
 objects range from pure bulge, bulge+disk, pure disks, bulges+disk+knots, 
 to pure knots, which resemble irregular galaxies.
 
-Finally, the entire composite bulge, disk, knots object was sheared with
+Finally, the entire composite bulge+disk+knots object was sheared with
 $g1=0.02$ in reduced shear units.
 
 We convolved the galaxy images with a PSF modeled as a Moffat profile
@@ -621,12 +641,13 @@ the PSF.
 
 \begin{figure}
     \centering
-    \includegraphics[width=\columnwidth]{run-bdj03mcal01-r50.eps}
+    \includegraphics[width=\columnwidth]{run-bdj03mcal02-r50.eps}
 
-    \caption{Distribution of half-light-radius \hlr\ in the parametric simulations,
-        for both galaxies and PSF.  These \hlr\ were draw from fits
-        to COSMOS data.  Also shown is the \hlr\ for objects that survived
-		the initial $S/N > 5$ cut.}
+    \caption{Distribution of half-light-radius \hlr\ in the parametric simulations.
+        The solid line represents the distribution of input \hlr, drawn from fits
+        to COSMOS data.  The dashed line represents the \hlr\ for objects that passed
+		the initial $S/N > 5$ cut.  The \hlr\ of the PSF is shown as the vertical dotted
+        line.}
 
 \label{fig:psimhlrcompare}
 \end{figure}
@@ -640,12 +661,12 @@ in the true \snr.
 
 \begin{figure}
     \centering
-    \includegraphics[width=\columnwidth]{run-bdj03mcal01-s2n.eps}
+    \includegraphics[width=\columnwidth]{run-bdj03mcal02-s2n.eps}
 
     \caption{Distribution of S/N in the parametric simulations. The
     solid curve represents the true input distribution, the dashed curve 
 	represents the objects that passed the initial cut on {\it measured}
-    \snr$ > 5$. the measured \snr\ is biased and noisy,
+    \snr$ > 5$. The measured \snr\ was biased and noisy,
     resulting in a smooth selection on true \snr.}
 
 \label{fig:s2n}
@@ -707,8 +728,8 @@ communication}.  Similar to GREAT3, we varied the aberrations as Gaussian
 random variables around a fiducial value. These root-mean-squared variations,
 in units of waves in the Noll convention, are given in table \ref{tab:aberr}.
 We used a Kolmogorov model for the atmospheric component, such that
-the overall mean FWHM $\sim$ 3.40
-pixels (0.9 arscec for 0.265 arcsec pixels).  For this configuration there are
+the overall mean FWHM $\sim 0.9$ arcsec for 0.263 arcsec pixels.
+For this configuration there are
 significant variations in the PSF ellipticity, but relatively little net
 ellipticity across the entire ensemble of realizations.  The code used to
 generate these simulations began as a fork of the GREAT3 public code base, and
@@ -746,13 +767,13 @@ simulations is about \cosmosrdist, somewhat larger than the log-normal
 
 \begin{figure}
     \centering
-    \includegraphics[width=\columnwidth]{mcal-v14s01-s2n-and-r50.eps}
+    \includegraphics[width=\columnwidth]{mcal-v14s01-s2n-and-r50-with-nsim.eps}
 
     \caption{Distribution of properties in the COSMOS real galaxy simulations. The
     left panel contains the distribution of measured S/N, while the right panel contains
     the distribution of half-light-radius from the cosmos catalog for the input
-    galaxies.  Overplotted as a red dashed line is the input half-light-radius
-    for the bulge+disk simulations.}
+    galaxies.  For comparison, the distributions for the BDK simulations
+    are overplotted as dashed lines.}
 
 \label{fig:cosmos}
 \end{figure}
@@ -768,37 +789,34 @@ recovery using a more realistic PSF.
 
 \begin{table*}
     \centering
-    \caption{Description of the image simulations.  For the \bdsim\ simulations,
-        the Bulge and Disk had the same ellipticity and \hlr, but were offset
-        uniformly up to \hlr, in a random direction.  The galaxy \hlr\ was drawn
-        from a log-normal distribution with the specified mean and width, designed
-        to roughly match the COSMOS galaxies.  The PSF ellipticity was
-        drawn from a double Gaussian with the specified mean and width in each
-        dimension.  The PSF FWHM was drawn from a log-normal distribution with
-        the indicated mean and scatter, designed to roughly match
-        that in DES data.  The \bdstar\ simulation shared the
-        same galaxy images with the \bdsim\ simulation, but with additional star
-        images included.  The \bdmask\ simulation had masking for bad columns,
-        bad pixels, and other artifacts drawn from DES data. For the \rgsim\
-        simulation, real COSMOS images were used for the galaxies. For
-        the PSF, a  Kolmogorov atmospheric turbulence model was used,
-        with the indicated size,
-        plus contributions from an optical model matched to DES. \label{tab:sims}}
+
+    \caption{Description of the image simulations.  For the \bdsim\
+    simulations, the Bulge and Disk had independent ellipticities but the same
+    half light radius \hlr.  The galaxy \hlr\ and flux were drawn from fits to the 25.2 mag.
+    limited COSMOS sample.  Additionally, knots of ``star formation'' were added as
+    point sources distributed as a random walk in the disk.  The \bdstar\
+    simulation shared the same galaxy images with the \bdsim\ simulation, but
+    with additional star images included.  For
+    the \rgsim\ simulation, real COSMOS images were used for the galaxies. For
+    the PSF, a  Kolmogorov atmospheric turbulence model was used, 
+    plus contributions from an optical model matched to DES; the mean PSF size
+    was approximately 0.9 arcsec. The PSF ellipticity is given in the "reduced
+    shear" convention.
+    \label{tab:sims}}
+
     %\scriptsize
-    \begin{tabular}{ | l | c | c | c | c | c | c | c | c | c |}
-        Sim          & Galaxy Model & Galaxy \hlr & PSF Model       & PSF FWHM        & PSF $e_1$    & PSF $e_2$   & \# Galaxies    & \# Stars   & Masking   \\
-                     &              & [pixels]    &                 & [pixels]        &              &             &                &            &  \\
+    \begin{tabular}{ | l | c | c | c | c | c | c | c | c | }
+        Sim          & Galaxy Model      & Size \& Flux   & PSF Model   & PSF FWHM        & PSF shape     & Shear & \# Galaxies    & \# Stars     \\
+                     &                   &             &             & [arcsec]        &               &       &               &              \\
         \hline
-        \bdsim       & Bulge+Disk   & \galrdist   & Moffat          & \psfrdist       & \psfeonedist &\psfetwodist &  \nsimNgalBD & None       & None      \\
-        \bdstar      & Bulge+Disk   & \galrdist   & Moffat          & \psfrdist       & \psfeonedist &\psfetwodist &  \nsimNgalBD & \nsimNStar & None      \\
-        \bdmask      & Bulge+Disk   & \galrdist   & Moffat          & \psfrdist       & \psfeonedist &\psfetwodist &  \nsimNgalTwo  & None       & DES      \\
-        %\rgsim       & \cosmosname  & \cosmosname & Kolm./Optical & 3.40/Optical  & Optical      & Optical     &  \nsimNgal     & None       & None      \\
-        \rgsim       & \cosmosname  & \cosmosname & Kolm./Opt.      & 3.40/Opt.       & Optical      & Optical     &  \nsimNgal     & None       & None      \\
+        \rgsim       & \cosmosname       & \cosmosname & Kolm./Opt.  & \psfrdist/Opt.  & Optical       &  Variable & \nsimNgal     & None            \\
+        \bdsim       & Bulge+Disk+Knots  & \galrdist   & Moffat      & \psfrdist       & \nsimPSFShape &  \nsimShear & \nsimNgalBD & None            \\
+        \bdstar      & Bulge+Disk+Knots  & \galrdist   & Moffat      & \psfrdist       & \nsimPSFShape &  \nsimShear & \nsimNgalBD & \nsimNStar       \\
     \end{tabular}
 \end{table*}
 
 
-\section{Results} \label{sec:detrendsim}
+\section{Results} \label{sec:results}
 
 We fit the images with a single Gaussian galaxy model using the \ngmix\
 code\footnote{https://github.com/esheldon/ngmix}.  To perform the fit we use an
@@ -826,30 +844,23 @@ in \S \ref{sec:fixnoise}
 
 \subsection{\Mcal\ Responses}
 
-In figure \ref{fig:Rdist} we show the measured \mcal\ responses for
-the real-galaxy \rgsim\ simulations.  The values are shown with
-and without correcting for the correlated noise using the \fixnoise\
-method.  As the \fixnoise\ method involves adding extra noise, the
-distributions are generally broader.  But the correction also reduces
-the skewness: for the $R_{1,1}$ component the skewness was reduced
-from -1.26 to -0.30.
+In figure \ref{fig:Rstars} we show the measured \mcal\ responses for
+the \bdsim\  simulations.  Also shown is the response with stars included.
+The distrubution of \mcalR\ is quite symmetric in the absence of stellar
+contamination.
 
 \begin{figure}
     \centering
-    \includegraphics[width=\columnwidth]{mcal-v14s01-v14s02-compare-R.eps}
+    %\includegraphics[width=\columnwidth]{R-bd29-bd29stars.eps}
+    \includegraphics[width=\columnwidth]{R-bdj03-bdj03stars.eps}
 
-    \caption{Distribution of \mcal\ responses for the real galaxy
-    simulation, with and without the ``\fixnoise'' corrections
-    for correlated noise.  For the \fixnoise\ correction, we
-    added a convolved, sheared noise field designed to statistically
-    cancel the effects of correlated noise.  The extra noise
-    broadens the distribution, but the correction results in a more symmetric
-    distribution.  The top panels represent the diagonal elements
-    of the multiplicative
-    response matrix \mcalR\ and the bottom panels represent the PSF response \mcalRpsf.} 
+    \caption{Distribution of \mcal\ responses for galaxies and stars in
+    the \bdstar\ simulation.  Stars have mean response close to zero,
+    and thus do not bias the overall shear calibration.}
 
-\label{fig:Rdist}
+\label{fig:Rstars}
 \end{figure}
+
 
 
 \subsection{Shear Recovery}
@@ -865,31 +876,29 @@ remaining additive bias.
 \begin{table*}
     \centering
     \caption{\Mcal\ results for each image simulation described in
-        \S \ref{sec:sims} and table \ref{tab:sims}.  A single Gaussian was fit
-    to both galaxy and PSF, resulting in significant multiplicative 
-    bias $m$ and additive biases $c$ before applying the \mcal\ response
-    terms. With \mcal, no multiplicative bias was detected in any case. 
-    Some additive bias in $g_2$ was marginally detected, due to the use of
-    intentionally poor psf correction, but \mcal\ reduced the
-    bias by a factor of \pimprovement.
+        \S \ref{sec:sims} and table \ref{tab:sims}.  For each simulation,
+        a cut was placed at \snr$ > 10$, and corrections were applied
+        for selection effects (see table \ref{tab:results_sel} for more
+        results on selections).  A single Gaussian was fit
+    to the observed object, with no PSF correction applied.
+    No multiplicative or additive bias was detected in any case. 
     Stellar contamination at the level of \nsimNstarperc\ increases
     the noise in the recovered shear by \starnoiseincrease\ but does not introduce 
-    a significant bias.  Replacing bad pixels and columns with the best fit model
-    did not introduce any detected bias.
+    a significant bias.  
     \label{tab:results}}
     \begin{tabular}{ |l|  c|c|c|  c|c|c|}
         \hline
-        & \multicolumn{3}{c}{Maximum Likelihood}                    & \multicolumn{3}{c}{\Mcal} \\
-        Sim    & $m$         & $c_1$            & $c_2$             & $m$               & $c_1$            & $c_2$ \\
-               & $[10^{-3}]$ & $[10^{-4}]$      & $[10^{-4}]$       & $[10^{-3}]$       & $[10^{-4}]$      & $[10^{-4}]$ \\
+        Sim    & $m$               & $c_1$            & $c_2$ \\
+               & $[10^{-3}]$       & $[10^{-5}]$      & $[10^{-5}]$ \\
         \hline
-        \bdsim & $-496$      & $-0.02 \pm 0.04$ & $ 15.16 \pm 0.04$ & $-0.15 \pm 0.19$  & $-0.05 \pm 0.10$ & $0.17 \pm 0.10$  \\
-        \bdstar& $-542$      & $-0.03 \pm 0.04$ & $ 18.33 \pm 0.04$ & $-0.14 \pm 0.20$  & $-0.09 \pm 0.10$ & $0.15 \pm 0.10$  \\
-        \bdmask& $-496$      & $+0.09 \pm 0.10$ & $ 15.07 \pm 0.10$ & $-0.60 \pm 0.46$  & $-0.17 \pm 0.23$ & $0.73 \pm 0.23$  \\
-        \rgsim & $-436$      & $-0.23 \pm 0.16$ & $~~0.32 \pm 0.16$ & $+0.22 \pm 0.58$  & $+0.26 \pm 0.29$ & $0.22 \pm 0.29$ \\
+        %\rgsim & $+0.22 \pm 0.58$  & $+0.26 \pm 0.29$ & $+0.22 \pm 0.29$ \\
+        \rgsim & $+0.22 \pm 0.58$  & $2.6 \pm 2.9$    & $+2.2 \pm 2.9$ \\
+        \bdsim & $+0.03 \pm 0.31$  & -                & $-0.15 \pm 0.62$ \\
+        \bdstar& $+0.01 \pm 0.32$  & -                & $-0.08 \pm 0.63$
     \end{tabular}
 \end{table*}
 
+%        \bdmask& $-496$      & $+0.09 \pm 0.10$ & $ 15.07 \pm 0.10$ & $-0.60 \pm 0.46$  & $-0.17 \pm 0.23$ & $0.73 \pm 0.23$  \\
 
 Using \mcal\ we found the multiplicative bias to be consistent with zero within
 errors for all simulations. For the parameteric simulations, which had a
@@ -904,7 +913,11 @@ was about $0.1$ for all simulations, implying a large over-correction.
 
 \subsubsection{Results with Selection Effects}
 
-We show the effect of selections in table \ref{tab:results_sel}.
+We show the results for shear recover with and without corrections for
+selection effects table \ref{tab:results_sel}.  These results are also shown
+graphically in figures \ref{fig:s2nthresh} and \ref{fig:s2nthresh_nocorr}.
+
+TODO discuss
 
 
 \begin{table*}
@@ -928,6 +941,7 @@ $\mbox{\snr} > 19 $ & $-8.33 \pm 0.36$ & $+0.17 \pm 0.73$ & $+0.05 \pm 0.37$ & $
 \end{table*}
 
 
+\begin{comment}
 \begin{table*}
     \centering
     \caption{\Mcal\ results for the \bdsim\ simulation with various
@@ -961,8 +975,8 @@ $\mbox{\snr} > 19 $ & $-8.33 \pm 0.36$ & $+0.17 \pm 0.73$ & $+0.05 \pm 0.37$ & $
 
     \end{tabular}
 \end{table*}
+\end{comment}
 
-These results are also show graphicall in figures \ref{fig:s2nthresh} and \ref{fig:s2nrange}.
 
 \begin{figure}
     \centering
@@ -987,23 +1001,24 @@ These results are also show graphicall in figures \ref{fig:s2nthresh} and \ref{f
         correction for selection effects is represented as blue circles.  
         The filled grey region represents the target accuracy. } 
 
-\label{fig:s2nthresh}
+\label{fig:s2nthresh_nocorr}
 \end{figure}
 
-\begin{figure}
-    \centering
-    %\includegraphics[width=0.9\textwidth]{mc-select-bias-range.eps}
-    \includegraphics[width=\columnwidth]{mc-select-bias-range-pyx.eps}
 
-    \caption{Bias in the \bdsim\ simulation after applying
-        range selections in \snr.  The left panel represents
-        the multiplicative bias $m$ and the right panel the additive
-        bias $c$.  The bias without correction for
-        selection effects is represented as as red diamonds. The bias after
-        correction for selection effects is represented as blue circles.  } 
+%\begin{figure}
+%    \centering
+%    %\includegraphics[width=0.9\textwidth]{mc-select-bias-range.eps}
+%    \includegraphics[width=\columnwidth]{mc-select-bias-range-pyx.eps}
 
-\label{fig:s2nrange}
-\end{figure}
+%    \caption{Bias in the \bdsim\ simulation after applying
+%        range selections in \snr.  The left panel represents
+%        the multiplicative bias $m$ and the right panel the additive
+%        bias $c$.  The bias without correction for
+%        selection effects is represented as as red diamonds. The bias after
+%        correction for selection effects is represented as blue circles.  } 
+
+%\label{fig:s2nrange}
+%\end{figure}
 
 
 
@@ -1028,18 +1043,6 @@ long as the PSF correction is sufficiently accurate:
 In figure \ref{fig:Rstars} we show the measured response \mcalR\ for stars
 and galaxies.  Indeed we see that, for stars, the \mcalR\ is noisy but consistent with
 zero.
-
-\begin{figure}
-    \centering
-    %\includegraphics[width=\columnwidth]{R-bd29-bd29stars.eps}
-    \includegraphics[width=\columnwidth]{R-bdj03-bdj03stars.eps}
-
-    \caption{Distribution of \mcal\ responses for galaxies and stars in
-    the \bdstar\ simulation.  Stars have mean response close to zero,
-    and thus do not bias the overall shear calibration.}
-
-\label{fig:Rstars}
-\end{figure}
 
 We used a very poor PSF correction, based on a single Gaussian, yet we did not
 detect any significant additional bias beyond that already in the simulation
@@ -1069,6 +1072,7 @@ to weight the redshift estimates as well, although one must be careful as the
 \mcalR\ are not strictly positive.
 \end{comment}
 
+\begin{comment}
 \subsubsection{Results with Masking Effects} \label{sec:masking}
 
 Here we discuss the results for the \bdmask\ simulation, introduced in \S
@@ -1094,6 +1098,7 @@ The results using the model replacement method are shown in table
 change significantly compared to the measurements on the independent \bdsim\
 simulation.
 
+\end{comment}
 
 
 \begin{comment}
@@ -1167,7 +1172,7 @@ artificially and selected as above to derive a correction.  Multiple noise
 realizations could be used to increase the precision of the correction.
 \end{comment}
 
-
+\begin{comment}
 \section{Bias in GREAT3 Simulations}
 
 Relatively little bias was seen by \cite{HuffMcal} using the GREAT3 simulations
@@ -1193,6 +1198,7 @@ simulations in such a configuration and saw the same level of correlated noise
 bias.  This is not surprising; the correlated noise effect adds coherently to
 the response, and should not cancel due to such imposed symmetries in the
 underlying galaxy population.
+\end{comment}
 
 \section*{Acknowledgments}
 
@@ -1298,7 +1304,7 @@ itself.  Here we explore the precision of the recovered shear using smaller
 subsets of the object catalog to measure the \detrend\ parameters, and
 applying the corrections to the full sample.  In Table \ref{tab:subsets}
 we show the shear recovery parameters for various subset sizes, for the
-\bdsim\ simulation described in \S \ref{sec:detrendsim}
+\bdsim\ simulation described in \S \ref{sec:results}
 
 \begin{table*}
     \centering
