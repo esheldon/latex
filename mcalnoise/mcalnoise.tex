@@ -120,8 +120,8 @@
 \newcommand{\pimprovement}{90}
 
 \newcommand{\RR}{$\left<RR\right>$}
-\newcommand{\RS}{$\left<RS\right>$}
-\newcommand{\SSs}{$\left<SS\right>$}
+\newcommand{\RS}{$\left<RR_{S}\right>$}
+\newcommand{\SSs}{$\left<R_{S}R_{S}\right>$}
 
 %\renewcommand*\rmdefault{cmr}
 %\usepackage{default}
@@ -370,7 +370,7 @@ where the selections are independent on each object.
 Assuming ellipticities are not correlated in the absence of shear,
 the leading surviving term in the taylor expansion is a second derivative
 \begin{align}
-    \xi \approx \left< \frac{\partial^2 \xi}{\partial \gamma_\alpha \partial \gamma_\beta} \gamma_\alpha \gamma_\beta \bigg|_{\gamma=0} \right>
+    \xi \approx \left< \frac{\partial^2 \xi}{\partial \gamma_\alpha \partial \gamma_\beta}\bigg|_{\gamma=0} \gamma_\alpha \gamma_\beta  \right>
 \end{align}
 As with the mean shear, this equation looks like the true correlation function has
 been weighted by a response.  We can expand this response as
@@ -380,7 +380,7 @@ been weighted by a response.  We can expand this response as
          & + S_\alpha \frac{\partial S_\beta}{\partial \gamma_\beta} \frac{\partial P_{\alpha\beta} e_\alpha e_\beta}{\partial \gamma_\alpha}
          + S_\beta \frac{\partial S_\alpha}{\partial \gamma_\alpha} \frac{\partial P_{\alpha\beta} e_\alpha e_\beta}{\partial \gamma_\beta} \nonumber  \\
          & + \frac{\partial S_\alpha}{\partial \gamma_\alpha} \frac{\partial S_\beta}{\partial \gamma_\beta} P_{\alpha \beta} e_\alpha e_\beta \biggr]\bigg|_{\gamma=0}  \nonumber \\
-     & \equiv  \left<RR\right> + 2 \left<RS\right> +  \left<SS\right>
+     & \equiv  \mbox{\RR} + 2 \mbox{\RS} +  \mbox{\SSs}
 \end{align}
 where the trailing evaluation at $\gamma=0$ is meant to apply to all the
 derivatives within the brackets. Note the second and third terms are equal
@@ -425,7 +425,7 @@ of the individual response terms
 We can follow the same procedure for the cross term \RS, expanding the
 deriviatives as finite differences:
 \begin{align}
-    \mbox{RS} = \int d e_\alpha  d e_\beta  2 S_\alpha \frac{\partial S_\beta}{\partial \gamma_\beta} & \frac{\partial P_{\alpha\beta} e_\alpha e_\beta}{\partial \gamma_\alpha} \bigg|_{\gamma=0} \approx \nonumber  \\
+    \mbox{\RS} = \int d e_\alpha  d e_\beta  2 S_\alpha \frac{\partial S_\beta}{\partial \gamma_\beta} & \frac{\partial P_{\alpha\beta} e_\alpha e_\beta}{\partial \gamma_\alpha} \bigg|_{\gamma=0} \approx \nonumber  \\
     \frac{2}{\Delta \gamma^2} \Bigl( & \left< S_\alpha S_\beta^+ e_\alpha^+ e_\beta \right> - \left< S_\alpha S_\beta^+ e_\alpha^- e_\beta \right> \nonumber \\
     & - \left< S_\alpha S_\beta^- e_\alpha^+ e_\beta \right> + \left< S_\alpha S_\beta^- e_\alpha^- e_\beta \right> \Bigr).
 \end{align}
@@ -434,7 +434,7 @@ quantities measured from positively sheared and negatively sheared images,
 respectively.  This term can also be further simplified in terms of the
 individual shear responses $R_\alpha$.
 \begin{align}
-    \left< RS \right> \approx 
+    \mbox{\RS}  \approx 
     \frac{2}{\Delta \gamma} \Bigl( & \left< S_\alpha S_\beta^+ e_\beta R_\alpha \right> - \left< S_\alpha S_\beta^- e_\beta R_\alpha \right> \Bigr).
 \end{align}
 Calculation of \RS\ involves two cross-correlations, with one of
@@ -442,7 +442,7 @@ the catalogs selected on sheared or unsheared parameters.
 
 The last term \SSs\ can be written as
 \begin{align}
-    \left<SS\right> = & \int d  e_\alpha  d e_\beta  \frac{\partial S_\alpha}{\partial \gamma_\alpha} \frac{\partial S_\beta}{\partial \gamma_\beta}  P_{\alpha \beta} e_\alpha e_\beta \bigg|_{\gamma=0} \approx \nonumber \\
+    \mbox{\SSs} = & \int d  e_\alpha  d e_\beta  \frac{\partial S_\alpha}{\partial \gamma_\alpha} \frac{\partial S_\beta}{\partial \gamma_\beta}  P_{\alpha \beta} e_\alpha e_\beta \bigg|_{\gamma=0} \approx \nonumber \\
     & \frac{1}{\Delta \gamma^2} \Big< \left(S_\alpha^+ - S_\alpha^- \right) \left(S_\beta^+ - S_\beta^- \right) e_\alpha e_\beta  \Big> = \nonumber \\
     & \frac{1}{\Delta \gamma^2} \Big( \left< S_\alpha^+ S_\beta^+ e_\alpha e_\beta \right> - 2 \left< S_\alpha^- S_\beta^+ e_\alpha e_\beta \right> + \left< S_\alpha^- S_\beta^- e_\alpha e_\beta \right>     \Big)
 \end{align}
@@ -738,7 +738,7 @@ We generated images with \snr\ down to $\sim 2$, as shown in figure
 detections at these very low \snr\ can be spurious, so in practice a threshold
 must be placed to produce what are considered reliable detections.  This type
 of selection will result in a bias in the population of galaxy shapes, since
-smaller objects are higher \snr\ than larger objects with the same flux,
+a round object has higher \snr\ than if it were sheared,
 and galaxies oriented in the same direction as the PSF have higher \snr\
 than objects otherwise oriented.  This effect will in turn bias
 the shear recovery.
@@ -862,7 +862,7 @@ respond poorly to a shear, but we will measure this weak response using \mcal.
 
 Rather than attempt to correct for psf anisotropy using \mcal\ ``psf response''
 as was done in \cite{HuffMcal}, we instead reconvolved by a symmetrized version
-of the PSF. We created this PSF by added the PSF image to itself, rotated by
+of the PSF. We created this PSF by adding the PSF image to itself, rotated by
 90, 120, and 180 degrees.  This averaging can result in a PSF that is smaller
 in some dimensions than the original, so we further dilated this symmetrized
 PSF.  The dilation factor was taken to be $1+2*\delta$, where
@@ -871,7 +871,7 @@ PSF.  The dilation factor was taken to be $1+2*\delta$, where
     \delta = \frac{E}{T/2}
 \end{align}
 Here $E$ is the maximum eigenvalue from the covariance matrix of the best-fit
-Gaussian, divided by half the trace $T$, which is the mean extent of the
+Gaussian. This we divide by half the trace $T$, which is the mean extent of the
 object.  For a purely elliptical PSF, a factor of $1+\delta$ would be
 sufficient; we conservatively increase the factor to $1+2\delta$ in case the
 Gaussian fit does not completely capture the asymmetries of the true PSF.
@@ -951,17 +951,19 @@ order 50\% for all simulations.
 
 \subsubsection{Results with Selection Effects}
 
-Inn table \ref{tab:results_sel}, we show the results for different \snr\
+In table \ref{tab:results_sel}, we show the results for different \snr\
 threshold cuts in the \bdsim\ simulations.  We show the recovered bias with and
 without corrections for selection effects.  These results are also shown
 graphically in figures \ref{fig:s2nthresh} and \ref{fig:s2nthresh_nocorr}.  The
 cuts were all placed above the pre-selection at \snr$ > 5$, to guarantee the
 validity of the corrections.
 
-We find significant multiplicative selection effects cutting on \snr\
-thresholds.  These biases are well above the requirements for current and
-future experiments, and thus must be corrected.  We find \mcal\ corrects
-these biases to within the requirements of future surveys in all cases.
+We found a significant multiplicative selection bias in each case.  These
+biases are well above the requirements for current and future experiments, and
+thus must be corrected.  We find \mcal\ corrects these biases to within the
+requirements of future surveys in all cases.  We did not find any 
+additive selection biases, which suggests our procedure of reconvolving by
+a symmetrized PSFs is working as expected.
 
 \begin{table*}
     \centering
@@ -1069,7 +1071,7 @@ $\mbox{\snr} > 19 $ & $-8.33 \pm 0.36$ & $+0.17 \pm 0.73$ & $+0.05 \pm 0.37$ & $
 
 Results including \nsimNstarperc\ stars in the \bdstar\ simulation are shown in
 table \ref{tab:results}. We did not detect any additional bias due to including
-stars, but the noise did increase by \starnoiseincrease.
+stars. The noise did, however, increase by \starnoiseincrease.
 
 %As indicated in table \ref{tab:sims}, for the \bdstar\  type simulations, we
 %included an additional \nsimNStar\ stellar objects, \nsimNstarperc, drawn
@@ -1089,9 +1091,10 @@ If the additional variance is tolerable, it may be useful to include stars in a
 shear analysis if the PSF is sufficiently well known.  Attempting to remove
 faint stars from a sample is a noisy procedure, likely to induce selection
 effects.  These can be controlled using the corrections derived in \S
-\ref{sec:selection}, but only if the selection is based on quantities
-measured on sheared images.  If the selection must be performed
-outside of the \mcal\ process, bit may be better to avoid it altogether.
+\ref{sec:selection}, but only if the selection is also repeated based on
+quantities measured on sheared images, so the corrections can be calculated.
+If the selection must be performed outside of the \mcal\ process, it may be
+better to avoid it altogether.
 
 For accurate interpretation of the signal, it is still important that any
 redshift estimates for the stars are consistent with zero, in the mean. It
