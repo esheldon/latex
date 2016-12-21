@@ -70,14 +70,24 @@
 \newcommand{\mcal}{metacalibration}
 \newcommand{\Mcal}{Metacalibration}
 \newcommand{\mcalR}{$R$}
+\newcommand{\mcalRmean}{$\langle R \rangle$}
 \newcommand{\mcalRpsf}{$R^{p}$}
 \newcommand{\mcalRpsfnoise}{$R^{p}_\eta$}
 \newcommand{\mcalRo}{$R_o$}
 \newcommand{\mcalRnoise}{$R_\eta$}
+
+\newcommand{\mcalRg}{$R_{\gamma}$}
 \newcommand{\mcalRS}{$R_{S}$}
+\newcommand{\mcalRgmean}{$\langle R_{\gamma} \rangle$}
+\newcommand{\mcalRSmean}{$\langle R_{S} \rangle$}
+
+\newcommand{\mcalRtwoptmean}{$\langle R^{2pt} \rangle$}
+
 
 \newcommand{\mcalRmodel}{$R^{model}$}
 \newcommand{\mcalRnoisemodel}{$R^{model}_\eta$}
+
+\newcommand{\probe}{$P(e_\alpha e_\beta)$}
 
 
 \newcommand{\nsimShear}{0.02,0.00}
@@ -118,6 +128,7 @@
 \newcommand{\bdmask}{\texttt{Mask}}
 \newcommand{\rgsim}{\texttt{RG}}
 \newcommand{\pimprovement}{90}
+
 
 \newcommand{\RR}{$\left<RR\right>$}
 \newcommand{\RS}{$\left<RR_{S}\right>$}
@@ -301,24 +312,24 @@ Following \S \ref{sec:mcal}, we wish to derive the response
 of the estimator to a shear by taking the derivative about
 zero shear:
 \begin{align}
-    \frac{\partial \langle \mest \rangle}{\partial \gamma}\bigg|_{\gamma=0} 
+    \mbox{\mcalRmean}  = \frac{\partial \langle \mest \rangle}{\partial \gamma}\bigg|_{\gamma=0} 
     &= \int \frac{\partial S(\mest) P(\mest) \mest  }{\partial \gamma}\bigg|_{\gamma=0} d\mest \nonumber \\
     &= \int \left[ S(\mest) \frac{\partial  P(\mest) \mest  }{\partial \gamma}\bigg|_{\gamma=0} + \mest P(\mest) \frac{\partial S(\mest)}{\partial \gamma}\bigg|_{\gamma=0} \right] d\mest \\
 \end{align}
 We can approximate the derivatives using finite differences in the shear.
 Using the notation for measurements on sheared images, we get
-\begin{align}
+\begin{align} \label{eq:Rmean}
     \frac{\partial \langle \mest \rangle}{\partial \gamma}\bigg|_{\gamma=0}
     &\approx
     \int d\mest \left [ S \left( \frac{ \mest^+ P^+ - \mest^- P^- }{\Delta \gamma}\right) + \mest P \left( \frac{ S^+ - S^- }{\Delta \gamma}\right) \right] d\mest \nonumber \\
     &=\frac{\langle \mest^+ S \rangle - \langle \mest^- S \rangle}{\Delta \gamma} + 
 \frac{\langle \mest S^+ \rangle - \langle \mest S^- \rangle}{\Delta \gamma} \nonumber \\
-       &\equiv \langle R \rangle + \langle \mbox{\mcalRS} \rangle.
+       &\equiv \langle \mbox{\mcalRg} \rangle + \langle \mbox{\mcalRS} \rangle \equiv \mbox{\mcalRmean}.
 \end{align}
-The first term is the response of the mean ellipticity to a shear, \mcalR, as
-discussed in \S \ref{sec:mcal}, with selections based on the unsheared
-object parameters.  The second term is the response of the mean ellipticity to
-selections.  
+The first term \mcalRgmean\ is the response of the mean ellipticity to a shear,
+as discussed in \S \ref{sec:mcal}, with selections based on the unsheared
+object parameters.  The second term \mcalRSmean\ is the response of the mean
+ellipticity to selections.  
 
 The $\langle \mest^+ S \rangle$ represents the mean of the positively sheared
 ellipticities, with selection based on the unsheared parameters. The $\langle
@@ -357,23 +368,56 @@ We can extend this formalism to 2-point functions, which we will write
 as
 \begin{align}
     \xi &= \langle e_\alpha e_\beta \rangle \nonumber \\
-        &= \int P(e_\alpha e_\beta) e_\alpha e_\beta d e_\alpha d e_\beta
+        &= \int \mbox{\probe} e_\alpha e_\beta d e_\alpha d e_\beta
 \end{align}
 where the indices $\alpha, \beta$ indicate the ellipticity for two different
-objects or regions of sky. Note the probability distribution $P(e_\alpha e_\beta)$ is joint in
-the two ellipticities. Including selection effects, this becomes
+objects or regions of sky.  Including selection effects, this becomes
 \begin{align}
-        \xi &= \int P(e_\alpha e_\beta) S_\alpha S_\beta e_\alpha e_\beta d e_\alpha d e_\beta
+    \xi &= \int \mbox{\probe} S_\alpha S_\beta e_\alpha e_\beta d e_\alpha d e_\beta
 \end{align}
-where the selections are independent on each object.
-
-Assuming ellipticities are not correlated in the absence of shear,
-the leading surviving term in the taylor expansion is a second derivative
-\begin{align}
+where the selections are independent on each object.  Note the probability
+distribution \probe\ is joint in the two ellipticities because the shear at
+each galaxy $\alpha$ is correlated with that at galaxy $\beta$. We assume this
+distribution to be separable in the absence of shear, in other words galaxy
+shapes are not intrinsically correlated.  If we further assume the mean shear
+is zero over a large area of sky, the leading surviving term in the Taylor
+expansion is a second derivative
+\begin{align} \label{eq:basictwopt}
     \xi \approx \left< \frac{\partial^2 \xi}{\partial \gamma_\alpha \partial \gamma_\beta}\bigg|_{\gamma=0} \gamma_\alpha \gamma_\beta  \right>
 \end{align}
-As with the mean shear, this equation looks like the true correlation function has
-been weighted by a response.  We can expand this response as
+
+As with the mean shear estimator, equation \ref{eq:basictwopt}
+looks like the true correlation function has
+been weighted by a response, where the response is given by
+\begin{align}
+    \mbox{\mcalRtwoptmean} = \left< \frac{\partial^2 \xi}{\partial \gamma_\alpha \partial \gamma_\beta}\bigg|_{\gamma=0} \right> = 
+    \int d e_\alpha  de_\beta  \frac{\partial^2 S_\alpha S_\beta \mbox{\probe} e_\alpha e_\beta}{\partial \gamma_\alpha \partial \gamma_\beta}\bigg|_{\gamma=0}.
+\end{align}
+Although this response is evaluated at zero shear, the argument does not,
+generally, factor into independent parts for $\alpha$ and $\beta$.
+In particular, the derivatives of the probability distribution
+\probe\ do not necessarily exactly factor.  However, we expect the
+response to be of order unity, while any coupling between $e_\alpha$ and $e_\beta$ 
+is of order the product $\gamma_\alpha \gamma_\beta \sim 10^{-4}$.
+Thus, for purposes of the calculation of the response, we can
+factor this equation to good approximation:
+\begin{align}
+    \int d e_\alpha  de_\beta  & \frac{\partial^2 S_\alpha S_\beta \mbox{\probe} e_\alpha e_\beta}{\partial \gamma_\alpha \partial \gamma_\beta}\bigg|_{\gamma=0} 
+      \nonumber \\
+      \approx& \int d e_\alpha  \frac{\partial S_\alpha P(e_\alpha) e_\alpha}{\partial \gamma_\alpha}\bigg|_{\gamma=0} de_\beta   \frac{\partial S_\beta P(e_\beta) e_\beta}{\partial \gamma_\beta}\bigg|_{\gamma=0} \nonumber \\
+      =& \left< R_\alpha \right> \left< R_\beta \right> 
+\end{align}
+These two responses are statistically identical, and are each equal to the
+response of the mean shear given in equation \ref{eq:Rmean}.  Thus the
+response of the two-point function is approximately given by
+\begin{align}
+    \left< R^{2pt} \right> = \left< \frac{\partial^2 \xi}{\partial \gamma_\alpha \partial \gamma_\beta}\bigg|_{\gamma=0} \right> \approx \mbox{\mcalRmean}^2
+\end{align}
+
+\begin{comment}
+\subsubsection{Without the factorization}
+
+We can expand this response as
 \begin{align} \label{eq:twoptres1}
     \bigg< \frac{\partial^2 \xi}{\partial \gamma_\alpha \partial \gamma_\beta}&\bigg|_{\gamma=0} \bigg> =
           \int d e_\alpha  de_\beta  \biggl[S_\alpha S_\beta \frac{\partial^2 P_{\alpha\beta} e_\alpha e_\beta}{\partial \gamma_\alpha \partial \gamma_\beta}   \nonumber \\
@@ -451,9 +495,9 @@ last are auto-correlations where selections are placed on the positively and
 negatively sheared parameters, respectively.  The second is a cross correlation
 between one catalog selected using positively sheared quantities, the other
 using negatively sheared quantities.
+\end{comment}
 
-
-In what follows we test the formulas for mean shear.  We will explore the
+In what follows we test the formulas for mean shear.  We will test the
 response for 2-point functions in a future work.
 
 \section{Contamination of the Response by Correlated Noise} \label{sec:contam}
