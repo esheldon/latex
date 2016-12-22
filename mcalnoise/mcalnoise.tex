@@ -81,6 +81,7 @@
 \newcommand{\mcalRgmean}{$\langle R_{\gamma} \rangle$}
 \newcommand{\mcalRSmean}{$\langle R_{S} \rangle$}
 
+\newcommand{\mcalRtwopt}{$R^{2pt}$}
 \newcommand{\mcalRtwoptmean}{$\langle R^{2pt} \rangle$}
 
 
@@ -308,16 +309,29 @@ a selection, the mean becomes
 We will assume the
 integral over the product $P(\mest) S(\mest)$ is normalized to unity.
 
-Following \S \ref{sec:mcal}, we wish to derive the response
-of the estimator to a shear by taking the derivative about
-zero shear:
+Assuming galaxy orientations are random in the absence of shear, 
+the Taylor expansion about zero shear gives
+\begin{align}
+    \langle e \rangle \approx \left< \gamma \frac{\partial e}{\partial \gamma} \bigg|_{\gamma=0} \right> \equiv \left< \gamma \mbox{\mcalR} \right>
+\end{align}
+The mean shear is thus weighted by a response term \mcalR.  If
+the \mcalR\ are known, we can form a weighted average estimator
+for the shear:
+\begin{align}
+    \gamma \approx \frac{\left< e \right>}{\mbox{\mcalRmean}}
+\end{align}
+
+We can calculate this response using quantities measured on artifically
+sheared images, as presented in \S \ref{sec:mcal}.
+Expanding the equation for the mean ellipticity, we find.
 \begin{align}
     \mbox{\mcalRmean}  = \frac{\partial \langle \mest \rangle}{\partial \gamma}\bigg|_{\gamma=0} 
     &= \int \frac{\partial S(\mest) P(\mest) \mest  }{\partial \gamma}\bigg|_{\gamma=0} d\mest \nonumber \\
     &= \int \left[ S(\mest) \frac{\partial  P(\mest) \mest  }{\partial \gamma}\bigg|_{\gamma=0} + \mest P(\mest) \frac{\partial S(\mest)}{\partial \gamma}\bigg|_{\gamma=0} \right] d\mest \\
 \end{align}
 We can approximate the derivatives using finite differences in the shear.
-Using the notation for measurements on sheared images, we get
+Using the notation for measurements on sheared images, introduced
+in \S \ref{sec:selection}, we can rewrite the response as
 \begin{align} \label{eq:Rmean}
     \frac{\partial \langle \mest \rangle}{\partial \gamma}\bigg|_{\gamma=0}
     &\approx
@@ -379,7 +393,7 @@ where the selections are independent on each object.
 If we assume the mean shear is zero over a large area of sky, the leading
 surviving term in the Taylor expansion is a second derivative
 \begin{align} \label{eq:basictwopt}
-    \xi \approx \left< \frac{\partial^2 \xi}{\partial \gamma_\alpha \partial \gamma_\beta}\bigg|_{\gamma=0} \gamma_\alpha \gamma_\beta  \right>
+    \xi \approx \left< \gamma_\alpha \gamma_\beta   \frac{\partial^2 \xi}{\partial \gamma_\alpha \partial \gamma_\beta}\bigg|_{\gamma=0} \right> \equiv \left< \gamma_\alpha \gamma_\beta \mbox{\mcalRtwopt} \right>
 \end{align}
 As with the mean shear estimator, equation \ref{eq:basictwopt} looks like the
 true correlation function has been weighted by a response, where the response
@@ -392,11 +406,12 @@ is given by
 Note the probability distribution \probe\ is joint in the two ellipticities
 because the shear at each galaxy $\alpha$ is correlated with that at galaxy
 $\beta$. Assuming the shapes of galaxies are not correlated in the absence of
-shear, \probe\ is separable such that $\mbox{\probe}|_{\gamma=0} = P(e_\alpha) P(e_\beta)$.
-Given this assumption, the following identities also hold
+shear, \probe\ is separable at zero shear such that $\mbox{\probe}|_{\gamma=0}
+= P(e_\alpha) P(e_\beta)$.  Given this assumption, the following identities
+also hold
 \begin{align}
-    \frac{\partial \mbox{\probe}}{\partial \gamma_\alpha}\bigg|_{\gamma=0} &= P(e_\beta) \frac{\partial P(e_\alpha) }{\partial e_\alpha} \frac{\partial e_\alpha}{\partial \gamma_\alpha} \nonumber \\
-    \frac{\partial^2 \mbox{\probe}}{\partial \gamma_\alpha \partial \gamma_\beta}\bigg|_{\gamma=0} &= \frac{\partial P(e_\alpha) }{\partial e_\alpha} \frac{\partial P(e_\beta) }{\partial e_\beta}  \frac{\partial e_\alpha}{\partial \gamma_\alpha} \frac{\partial e_\beta}{\partial \gamma_\beta}
+    \frac{\partial \mbox{\probe}}{\partial \gamma_\alpha}\bigg|_{\gamma=0} &= P(e_\beta) \frac{\partial P(e_\alpha) }{\partial e_\alpha} \frac{\partial e_\alpha}{\partial \gamma_\alpha}\bigg|_{\gamma=0} \nonumber \\
+    \frac{\partial^2 \mbox{\probe}}{\partial \gamma_\alpha \partial \gamma_\beta}\bigg|_{\gamma=0} &= \frac{\partial P(e_\alpha) }{\partial e_\alpha} \frac{\partial P(e_\beta) }{\partial e_\beta}  \frac{\partial e_\alpha}{\partial \gamma_\alpha} \frac{\partial e_\beta}{\partial \gamma_\beta}\bigg|_{\gamma=0}
 \end{align}
 As a consequence, the response itself can be completely factored such that
 \begin{align}
@@ -405,11 +420,16 @@ As a consequence, the response itself can be completely factored such that
       \approx& \int d e_\alpha  \frac{\partial S_\alpha P(e_\alpha) e_\alpha}{\partial \gamma_\alpha}\bigg|_{\gamma=0} de_\beta   \frac{\partial S_\beta P(e_\beta) e_\beta}{\partial \gamma_\beta}\bigg|_{\gamma=0} \nonumber \\
       =& \left< R_\alpha \right> \left< R_\beta \right>
 \end{align}
-These two responses are statistically identical, and are each equal to the
+These two responses $\left< R_\alpha \right>$ and $\left< R_\beta \right>$ are statistically identical, and are each equal to the
 response of the mean shear given in equation \ref{eq:Rmean}.  Thus the
 response of the two-point function is approximately given by
 \begin{align}
-    \left< R^{2pt} \right> = \left< \frac{\partial^2 \xi}{\partial \gamma_\alpha \partial \gamma_\beta}\bigg|_{\gamma=0} \right> \approx \mbox{\mcalRmean}^2
+    \left< R^{2pt} \right> = \left< \frac{\partial^2 \xi}{\partial \gamma_\alpha \partial \gamma_\beta}\bigg|_{\gamma=0} \right> \approx \mbox{\mcalRmean}^2.
+\end{align}
+We can thus form an estimator for the 2-point function as a weighted
+average
+\begin{align}
+    \xi \approx \frac{ \langle e_\alpha e_\beta \rangle }{\mbox{\mcalRmean}^2}.
 \end{align}
 
 In what follows we test the formulas for mean shear.  We will test the
