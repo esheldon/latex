@@ -351,15 +351,22 @@ ellipticity to selections.
 The $\langle \mest^+ S \rangle$ represents the mean of the positively sheared
 ellipticities, with selection based on the unsheared parameters. The $\langle
 \mest^- S \rangle$ represents the mean of the negatively sheared ellipticities,
-with selection based on the unsheared parameters.  Similarly, the $\langle
-\mest S^+ \rangle$ represents the mean of the unsheared ellipticities, with
-selection based on the sheared parameters, and $\langle \mest S^- \rangle$
-represents the mean of the unsheared ellipticities, with selection based on the
-negatively sheared parameters.  In practice, we recommend storing all the
-sheared and unsheared measurements and perform separate selections and
-statistics on those values to compute any ensemble averages needed for a
-particular inference (see e.g. \S \ref{sec:Rtwopt} where these quantities are
-used differently).
+with selection based on the unsheared parameters.
+
+Similarly, the $\langle \mest S^+ \rangle$ represents the mean of the unsheared
+ellipticities, with selection based on the sheared parameters, and $\langle
+\mest S^- \rangle$ represents the mean of the unsheared ellipticities, with
+selection based on the negatively sheared parameters.
+
+Thus in order to produce a mean shear measurement, one must measure the average
+ellipticity $\langle e \rangle$, the mean shear response \mcalRgmean, and the
+mean ellipticity selected based on positively sheared images $\langle e S^+
+\rangle$ and negatively sheared images $\langle e S^- \rangle$.
+
+%In practice, we recommend storing all the sheared and unsheared measurements
+%and perform separate selections and statistics on those values to compute any
+%ensemble averages needed for a particular inference (see e.g. \S
+%\ref{sec:Rtwopt} where these quantities are used differently).
 
 It is important that the selections be placed well above any detection
 thresholds, such that, after shearing, detected objects can move into and out
@@ -427,7 +434,9 @@ These two responses $\left< R_\alpha \right>$ and $\left< R_\beta \right>$ are s
 response of the mean shear given in equation \ref{eq:Rmean}.  Thus the
 response of the two-point function is approximately given by
 \begin{align}
-    \left< R^{2pt} \right> = \left< \frac{\partial^2 \xi}{\partial \gamma_\alpha \partial \gamma_\beta}\bigg|_{\gamma=0} \right> \approx \mbox{\mcalRmean}^2.
+    %\left< R^{2pt} \right> = \left< \frac{\partial^2 \xi}{\partial \gamma_\alpha \partial \gamma_\beta}\bigg|_{\gamma=0} \right> \approx \mbox{\mcalRmean}^2.
+    %\left< \frac{\partial^2 \xi}{\partial \gamma_\alpha \partial \gamma_\beta}\bigg|_{\gamma=0} \right> \approx \mbox{\mcalRmean}^2.
+    \left< R^{2pt} \right> \approx \mbox{\mcalRmean}^2.
 \end{align}
 We can thus form an estimator for the 2-point function as a weighted
 average
