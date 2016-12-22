@@ -1,4 +1,4 @@
-\documentclass[usegraphicx,usenatbib]{mn2e}
+\documentclass[usegraphicx,usenatbib,referee]{mn2e}
 
 
 % only needed for draft watermark
@@ -11,9 +11,9 @@
     bottom=1.0in,
     hmarginratio=1:1]{geometry}
 
-\usepackage{draftwatermark}
-\SetWatermarkScale{5}
-\SetWatermarkLightness{0.8}
+%\usepackage{draftwatermark}
+%\SetWatermarkScale{5}
+%\SetWatermarkLightness{0.8}
 
 
 \usepackage{graphicx}
@@ -192,7 +192,7 @@ We can use the ensemble mean of such measurements as a shear estimator:
 \end{align}
 where we have assumed the intrinsic ellipticities of galaxies are
 randomly oriented such that $\langle \mest \rangle |_{\gamma=0} = 0$.
-If we have estimates of the values of \mcalR\ for each galaxy, we
+If we have estimates of \mcalR\ for each galaxy, we
 can form a weighted average:
 \begin{align}
     \langle \gamma \rangle &\approx \frac{\langle \mest \rangle}{\langle \mbox{\mcalR} \rangle} = \frac{\langle R \gamma \rangle}{\langle \mbox{\mcalR} \rangle}
@@ -309,14 +309,15 @@ a selection, the mean becomes
 \begin{align}
     \langle \mest S \rangle = \int S(\mest)~P(\mest)~\mest~d\mest.
 \end{align}
-We will assume the
-integral over the product $P(\mest) S(\mest)$ is normalized to unity.
+We will assume the $\int de P(\mest) S(\mest) = 1$.
 
 Assuming galaxy orientations are random in the absence of shear, 
-the Taylor expansion about zero shear gives
+the mean ellipticity can be rewritten, to leading order, as
 \begin{align}
-    \langle e \rangle \approx \left< \gamma \frac{\partial e}{\partial \gamma} \bigg|_{\gamma=0} \right> \equiv \left< \gamma \mbox{\mcalR} \right>
+    \langle eS \rangle \approx \int de \gamma \frac{\partial S(\mest) P(\mest) \mest  }{\partial \gamma}\bigg|_{\gamma=0} d\mest = \langle \gamma R \rangle,
 \end{align}
+where we have ignored the perturbation of the normalization $\int de P(e)S(e)$,
+because it leads to terms that are second order in the shear.
 The mean shear is thus weighted by a response term \mcalR.  If
 the \mcalR\ are known, we can form a weighted average estimator
 for the shear:
@@ -325,43 +326,43 @@ for the shear:
 \end{align}
 
 We can calculate this response using quantities measured on artifically
-sheared images, as presented in \S \ref{sec:mcal}.
-Expanding the equation for the mean ellipticity, we find.
+sheared images, as presented in \S \ref{sec:mcal}
 \begin{align}
-    \mbox{\mcalRmean}  = \frac{\partial \langle \mest \rangle}{\partial \gamma}\bigg|_{\gamma=0} 
-    &= \int \frac{\partial S(\mest) P(\mest) \mest  }{\partial \gamma}\bigg|_{\gamma=0} d\mest \nonumber \\
-    &= \int \left[ S(\mest) \frac{\partial  P(\mest) \mest  }{\partial \gamma}\bigg|_{\gamma=0} + \mest P(\mest) \frac{\partial S(\mest)}{\partial \gamma}\bigg|_{\gamma=0} \right] d\mest \\
+    \mbox{\mcalRmean}  &= \int \frac{\partial S(\mest) P(\mest) \mest  }{\partial \gamma}\bigg|_{\gamma=0} d\mest \nonumber \\
+    &= \int \left[ S(\mest) P(\mest) \frac{\partial \mest}{\partial \gamma}\bigg|_{\gamma=0} + \mest \frac{\partial P(\mest) S(\mest)}{\partial \gamma}\bigg|_{\gamma=0} \right] d\mest
 \end{align}
-We can approximate the derivatives using finite differences in the shear.
+We will approximate the derivatives using finite differences in the shear.
 Using the notation for measurements on sheared images, introduced
 in \S \ref{sec:selection}, we can rewrite the response as
 \begin{align} \label{eq:Rmean}
-    \frac{\partial \langle \mest \rangle}{\partial \gamma}\bigg|_{\gamma=0}
-    &\approx
-    \int d\mest \left [ S \left( \frac{ \mest^+ P^+ - \mest^- P^- }{\Delta \gamma}\right) + \mest P \left( \frac{ S^+ - S^- }{\Delta \gamma}\right) \right] d\mest \nonumber \\
+    \mbox{\mcalRmean} &\approx
+    \int d\mest \left [ S P \left( \frac{ \mest^+ - \mest^- }{\Delta \gamma}\right) + \mest \left( \frac{ P^+ S^+ - P^- S^- }{\Delta \gamma}\right) \right] d\mest \nonumber \\
     &=\frac{\langle \mest^+ S \rangle - \langle \mest^- S \rangle}{\Delta \gamma} + 
 \frac{\langle \mest S^+ \rangle - \langle \mest S^- \rangle}{\Delta \gamma} \nonumber \\
-       &\equiv \langle \mbox{\mcalRg} \rangle + \langle \mbox{\mcalRS} \rangle \equiv \mbox{\mcalRmean}.
+       &\equiv \langle \mbox{\mcalRg} \rangle + \langle \mbox{\mcalRS} \rangle
 \end{align}
-The first term \mcalRgmean\ is the response of the mean ellipticity to a shear,
-as discussed in \S \ref{sec:mcal}, with selections based on the unsheared
-object parameters.  The second term \mcalRSmean\ is the response of the mean
-ellipticity to selections.  
+The first term \mcalRgmean\ is average of the shear responses measured for
+individual galaxies, as discussed in  \S \ref{sec:mcal}; \mcalRgmean\
+Selections are based on the unsheared object parameters.
 
-The $\langle \mest^+ S \rangle$ represents the mean of the positively sheared
-ellipticities, with selection based on the unsheared parameters. The $\langle
-\mest^- S \rangle$ represents the mean of the negatively sheared ellipticities,
-with selection based on the unsheared parameters.
+The second term \mcalRSmean\ represents the response of the mean ellipticity to
+selections.  The $\langle \mest S^+ \rangle$ represents the mean of the
+unsheared ellipticities, with selection based on the sheared parameters, and
+$\langle \mest S^- \rangle$ represents the mean of the unsheared ellipticities,
+with selection based on the negatively sheared parameters.
 
-Similarly, the $\langle \mest S^+ \rangle$ represents the mean of the unsheared
-ellipticities, with selection based on the sheared parameters, and $\langle
-\mest S^- \rangle$ represents the mean of the unsheared ellipticities, with
-selection based on the negatively sheared parameters.
 
-Thus in order to produce a mean shear measurement, one must measure the average
-ellipticity $\langle e \rangle$, the mean shear response \mcalRgmean, and the
-mean ellipticity selected based on positively sheared images $\langle e S^+
-\rangle$ and negatively sheared images $\langle e S^- \rangle$.
+%The $\langle \mest^+ S \rangle$ represents the mean of the positively sheared
+%ellipticities, with selection based on the unsheared parameters. The $\langle
+%\mest^- S \rangle$ represents the mean of the negatively sheared ellipticities,
+%with selection based on the unsheared parameters.
+
+
+Thus in order to produce a mean shear measurement, one should measure the
+average ellipticity $\langle e S \rangle$, the mean of the individual galaxy
+shear responses \mcalRgmean, the mean ellipticity after selections based on
+positively sheared images $\langle e S^+ \rangle$,and the mean ellipticity
+after selections based on negatively sheared images $\langle e S^- \rangle$.
 
 %In practice, we recommend storing all the sheared and unsheared measurements
 %and perform separate selections and statistics on those values to compute any
@@ -380,9 +381,9 @@ the absence of selection biases.  This must be taken into account separately.
 We will not treat this effect in what follows.  TODO estimate size of this
 effect
 
-Similar corrections can be derived for the PSF response \mcalRpsf.  For these
-terms, the psf shape in the product $\mbox{\mcalRpsf} e^p$ should be calculated
-from the unsheared data.
+%Similar corrections can be derived for the PSF response \mcalRpsf.  For these
+%terms, the psf shape in the product $\mbox{\mcalRpsf} e^p$ should be calculated
+%from the unsheared data.
 
 
 
@@ -401,15 +402,17 @@ objects or regions of sky.  Including selection effects, this becomes
 \end{align}
 where the selections are independent on each object.
 If we assume the mean shear is zero over a large area of sky, the leading
-surviving term in the Taylor expansion is a second derivative
+term is a second derivative
 \begin{align} \label{eq:basictwopt}
-    \xi \approx \left< \gamma_\alpha \gamma_\beta   \frac{\partial^2 \xi}{\partial \gamma_\alpha \partial \gamma_\beta}\bigg|_{\gamma=0} \right> \equiv \left< \gamma_\alpha \gamma_\beta \mbox{\mcalRtwopt} \right>
+%    \xi \approx \left< \gamma_\alpha \gamma_\beta   \frac{\partial^2 \xi}{\partial \gamma_\alpha \partial \gamma_\beta}\bigg|_{\gamma=0} \right> \equiv \left< \gamma_\alpha \gamma_\beta \mbox{\mcalRtwopt} \right>.
+\xi \approx \int d e_\alpha  de_\beta  \gamma_\alpha \gamma_\beta \frac{\partial^2 S_\alpha S_\beta \mbox{\probe} e_\alpha e_\beta}{\partial \gamma_\alpha \partial \gamma_\beta}\bigg|_{\gamma=0}  \equiv \left< \gamma_\alpha \gamma_\beta \mbox{\mcalRtwopt} \right>.
 \end{align}
 As with the mean shear estimator, equation \ref{eq:basictwopt} looks like the
 true correlation function has been weighted by a response, where the response
 is given by
 \begin{align}
-    \mbox{\mcalRtwoptmean} = \left< \frac{\partial^2 \xi}{\partial \gamma_\alpha \partial \gamma_\beta}\bigg|_{\gamma=0} \right> = 
+%    \mbox{\mcalRtwoptmean} = \left< \frac{\partial^2 \xi}{\partial \gamma_\alpha \partial \gamma_\beta}\bigg|_{\gamma=0} \right> = 
+    \mbox{\mcalRtwoptmean}  = 
     \int d e_\alpha  de_\beta  \frac{\partial^2 S_\alpha S_\beta \mbox{\probe} e_\alpha e_\beta}{\partial \gamma_\alpha \partial \gamma_\beta}\bigg|_{\gamma=0}.
 \end{align}
 
