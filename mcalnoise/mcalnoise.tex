@@ -342,7 +342,7 @@ in \S \ref{sec:selection}, we can rewrite the response as
        &\equiv \langle \mbox{\mcalRg} \rangle + \langle \mbox{\mcalRS} \rangle
 \end{align}
 The first term \mcalRgmean\ is average of the shear responses measured for
-individual galaxies, as discussed in  \S \ref{sec:mcal}; \mcalRgmean\
+individual galaxies, as discussed in  \S \ref{sec:mcal}.
 Selections are based on the unsheared object parameters.
 
 The second term \mcalRSmean\ represents the response of the mean ellipticity to
@@ -358,7 +358,7 @@ with selection based on the negatively sheared parameters.
 %with selection based on the unsheared parameters.
 
 
-Thus in order to produce a mean shear measurement, one should measure the
+Thus in order to produce a mean shear measurement, one measures the
 average ellipticity $\langle e S \rangle$, the mean of the individual galaxy
 shear responses \mcalRgmean, the mean ellipticity after selections based on
 positively sheared images $\langle e S^+ \rangle$,and the mean ellipticity
@@ -368,18 +368,6 @@ after selections based on negatively sheared images $\langle e S^- \rangle$.
 %and perform separate selections and statistics on those values to compute any
 %ensemble averages needed for a particular inference (see e.g. \S
 %\ref{sec:Rtwopt} where these quantities are used differently).
-
-It is important that the selections be placed well above any detection
-thresholds, such that, after shearing, detected objects can move into and out
-of the selected sample.  If the selection were too close to a detection
-threshold, some objects that should become detectable after
-a shear would not be included.
-
-In real data, a selection may directly or indirectly select the redshift of the
-sources, which means the true shear will be different after selection, even in
-the absence of selection biases.  This must be taken into account separately.
-We will not treat this effect in what follows.  TODO estimate size of this
-effect
 
 %Similar corrections can be derived for the PSF response \mcalRpsf.  For these
 %terms, the psf shape in the product $\mbox{\mcalRpsf} e^p$ should be calculated
@@ -449,6 +437,23 @@ average
 
 In what follows we test the formulas for mean shear.  We will test the
 response for 2-point functions in a future work.
+
+
+\subsection{Remarks on Selections}
+
+It is important that the selections be placed well above any detection
+thresholds, such that, after shearing, detected objects can move into and out
+of the selected sample.  If the selection were too close to a detection
+threshold, some objects that should become detectable after
+a shear would not be included.
+
+In real data, a selection may directly or indirectly select the redshift of the
+sources, which means the true shear will be different after selection, even in
+the absence of selection biases.  This must be taken into account separately.
+We will not treat this effect in what follows.  TODO estimate size of this
+effect
+
+
 
 \begin{comment}
 \subsubsection{Without the factorization}
@@ -543,26 +548,21 @@ contributions from de-convolved, sheared and re-convolved noise:
     I_{o}(\gamma) &= (I + \eta) \ast P^{-1} \oplus \gamma \ast P_{d} \nonumber \\
     &= I(\gamma) + \eta(\gamma).
 \end{align}
-The de-convolution correlates the noise
-across the image.  This correlated noise is sheared, and then re-convolved by
-the dilated PSF, producing the sheared correlated noise image $\eta(\gamma)$.
-
-%We expect the sheared correlated noise to partly cancel in the estimator in
-%equation \ref{eq:estimator}, because the effect is averaged over both positive
-%and negative shears. This quantity is further averaged over many galaxies.
-
-The sheared correlated noise term will not cancel when calculating the
-response, which is the difference of positive and negative shears.  This
-remainder is amplified due to division by $\Delta \gamma$ to form the central
-derivative.  We thus expect the observed response \mcalRo\ to be contaminated
-by the response of the correlated, sheared noise \mcalRnoise\
+The de-convolution correlates the noise across the image.  This correlated
+noise is sheared, and then re-convolved by the dilated PSF, producing the
+sheared correlated noise image $\eta(\gamma)$.  The pattern of this sheared
+noise is coherent between the positively sheared and negatively sheared images.
+The effect is small, but is amplified due to division by $\Delta \gamma$ to
+form the central derivative.  We thus expect the observed response \mcalRo\ to
+be contaminated by the response of the correlated, sheared noise which
+we will denote \mcalRnoise:
 \begin{equation}
-    \mbox{\mcalRo}  =  R + \mbox{\mcalRnoise}
+    \mbox{\mcalRo}  =  R + \mbox{\mcalRnoise}.
 \end{equation}
 
-A correction is also required for the PSF response term \mcalRpsf.  We find
-this correction is similar in magnitude to the correction for \mcalR, although
-it is somewhat suppressed in the final estimator due to multiplication by $e^p$.
+%A correction is also required for the PSF response term \mcalRpsf.  We find
+%this correction is similar in magnitude to the correction for \mcalR, although
+%it is somewhat suppressed in the final estimator due to multiplication by $e^p$.
 
 \subsection{Expected Scaling of the Bias with Noise Level} \label{sec:scaling}
 
