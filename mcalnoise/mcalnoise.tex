@@ -416,10 +416,9 @@ also hold
 \end{align}
 As a consequence, the response itself can be completely factored such that
 \begin{align}
-    \int d e_\alpha  de_\beta  & \frac{\partial^2 S_\alpha S_\beta \mbox{\probe} e_\alpha e_\beta}{\partial \gamma_\alpha \partial \gamma_\beta}\bigg|_{\gamma=0} 
-      \nonumber \\
-      \approx& \int d e_\alpha  \frac{\partial S_\alpha P(e_\alpha) e_\alpha}{\partial \gamma_\alpha}\bigg|_{\gamma=0} de_\beta   \frac{\partial S_\beta P(e_\beta) e_\beta}{\partial \gamma_\beta}\bigg|_{\gamma=0} \nonumber \\
-      =& \left< R_\alpha \right> \left< R_\beta \right>
+    \int d e_\alpha  de_\beta  \frac{\partial^2 S_\alpha S_\beta \mbox{\probe} e_\alpha e_\beta}{\partial \gamma_\alpha \partial \gamma_\beta}\bigg|_{\gamma=0} 
+      &\approx \int d e_\alpha  \frac{\partial S_\alpha P(e_\alpha) e_\alpha}{\partial \gamma_\alpha}\bigg|_{\gamma=0} de_\beta   \frac{\partial S_\beta P(e_\beta) e_\beta}{\partial \gamma_\beta}\bigg|_{\gamma=0} \nonumber \\
+      &= \left< R_\alpha \right> \left< R_\beta \right>
 \end{align}
 These two responses $\left< R_\alpha \right>$ and $\left< R_\beta \right>$ are statistically identical, and are each equal to the
 response of the mean shear given in equation \ref{eq:Rmean}.  Thus the
@@ -429,8 +428,7 @@ response of the two-point function is approximately given by
     %\left< \frac{\partial^2 \xi}{\partial \gamma_\alpha \partial \gamma_\beta}\bigg|_{\gamma=0} \right> \approx \mbox{\mcalRmean}^2.
     \left< R^{2pt} \right> \approx \mbox{\mcalRmean}^2.
 \end{align}
-We can thus form an estimator for the 2-point function as a weighted
-average
+We can thus form a simple estimator for the 2-point function as:
 \begin{align}
     \xi \approx \frac{ \langle e_\alpha e_\beta \rangle }{\mbox{\mcalRmean}^2}.
 \end{align}
