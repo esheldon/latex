@@ -812,8 +812,11 @@ the shear recovery.
 
 If this selection might occur before \mcal\ and object fitting, the corrections
 for selection effects presented in \S \ref{sec:selection} cannot be used.
-We apply a pre-selection at \snr$ > 5$.  In order to avoid this bias,
-we will apply further cuts on the \snr\ above this threshold.
+
+In order to test that we can recover the shear in the presence of this effect,
+we applied a pre-selection at \snr$ > 5$, and \mcal\ was not run on the
+galaxies that were removed.  We will apply further cuts on the \snr\ above this
+threshold.  See \S \ref{sec:shear_recover} for details.
 
 
 \subsection{Real Galaxy Simulations} \label{sec:cosmosim}
@@ -974,7 +977,7 @@ contamination.  We will discuss the affect of stars in \S \ref{sec:stars}.
 
 
 
-\subsection{Shear Recovery}
+\subsection{Shear Recovery} \label{sec:shear_recover}
 
 
 In table \ref{tab:results} we show results for shear recovery in each of our
@@ -986,7 +989,7 @@ could be used accurately.  In this table we show results for \snr$ > 10$.
 For the \rgsim\ simulation we did not apply a pre-selection.
 
 Using \mcal\ we found no significant multiplicative or additive biases in any
-case.  Without applying the \mcal\ responses, the multiplicative bias $m$ is of
+case.  Without applying the \mcal\ responses, the multiplicative bias $m$ was of
 order 50\% for all simulations.
 
 \begin{table*}
@@ -1319,7 +1322,8 @@ ES is supported by DOE grant DE-AC02-98CH10886.
 We thank Aaron Roodman for providing the variation of the optical aberrations
 measured in DES data.  Thanks to Mike Jarvis and Rachel Mandelbaum for guidance
 on use of the GALSIM package, especially concerning use of the isotropization
-and whitening features.
+and whitening features.  Thanks to Gary Bernstein for pointing out a simpler
+form for the response for 2-point functions.
 
 
 \appendix
