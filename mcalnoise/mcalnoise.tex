@@ -390,13 +390,14 @@ objects or regions of sky.  Including selection effects, this becomes
     \xi &= \int \mbox{\probe} S_\alpha S_\beta e_\alpha e_\beta d e_\alpha d e_\beta
 \end{align}
 where the selections are independent on each object.
-If we assume the mean shear is zero over a large area of sky, the leading
-term is a second derivative
+If we assume the mean shear is zero over a large area of sky is small, the leading
+term in the Taylor expansion is a second derivative
 \begin{align} \label{eq:basictwopt}
 %    \xi \approx \left< \gamma_\alpha \gamma_\beta   \frac{\partial^2 \xi}{\partial \gamma_\alpha \partial \gamma_\beta}\bigg|_{\gamma=0} \right> \equiv \left< \gamma_\alpha \gamma_\beta \mbox{\mcalRtwopt} \right>.
-\xi \approx \int d e_\alpha  de_\beta  \gamma_\alpha \gamma_\beta \frac{\partial^2 S_\alpha S_\beta \mbox{\probe} e_\alpha e_\beta}{\partial \gamma_\alpha \partial \gamma_\beta}\bigg|_{\gamma=0}  \equiv \left< \gamma_\alpha \gamma_\beta \mbox{\mcalRtwopt} \right>.
+\xi \approx \int d e_\alpha  de_\beta  \gamma_\alpha \gamma_\beta \frac{\partial^2 S_\alpha S_\beta \mbox{\probe} e_\alpha e_\beta}{\partial \gamma_\alpha \partial \gamma_\beta}\bigg|_{\gamma=0}  \equiv \left< \gamma_\alpha \gamma_\beta \mbox{\mcalRtwopt} \right>,
 \end{align}
-As with the mean shear estimator, equation \ref{eq:basictwopt} looks like the
+where the next largest terms are of order $ \langle e_\alpha \rangle|_{\gamma=0} \cdot \gamma_\alpha^2$.
+In equation \ref{eq:basictwopt} the
 true correlation function has been weighted by a response, where the response
 is given by
 \begin{align}
