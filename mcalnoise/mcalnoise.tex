@@ -365,6 +365,14 @@ shear responses \mcalRgmean, the mean ellipticity after selections based on
 positively sheared images $\langle e S^+ \rangle$,and the mean ellipticity
 after selections based on negatively sheared images $\langle e S^- \rangle$.
 
+
+Note, in the above selections that produce additive effects are not addressed.
+If the PSF is symmetrized, as we will do (see \S \ref{sec:modelfit}) then
+selections on object properties will not correlated with the PSF shape, by
+construction. Note, however, that pre-selections, for example detection
+thresholds, will in general produce such biases.  We will test the importance
+of this effect using image simulations.
+
 %In practice, we recommend storing all the sheared and unsheared measurements
 %and perform separate selections and statistics on those values to compute any
 %ensemble averages needed for a particular inference (see e.g. \S
@@ -390,13 +398,16 @@ objects or regions of sky.  Including selection effects, this becomes
     \xi &= \int \mbox{\probe} S_\alpha S_\beta e_\alpha e_\beta d e_\alpha d e_\beta
 \end{align}
 where the selections are independent on each object.
-If we assume the mean shear is zero over a large area of sky is small, the leading
+
+Adopting the symmetry assumptions used in \S \ref{sec:Rmean}, and additionally that
+the mean shear is zero over a large area of sky used to measure
+the 2-point function, the leading
 term in the Taylor expansion is a second derivative
 \begin{align} \label{eq:basictwopt}
 %    \xi \approx \left< \gamma_\alpha \gamma_\beta   \frac{\partial^2 \xi}{\partial \gamma_\alpha \partial \gamma_\beta}\bigg|_{\gamma=0} \right> \equiv \left< \gamma_\alpha \gamma_\beta \mbox{\mcalRtwopt} \right>.
-\xi \approx \int d e_\alpha  de_\beta  \gamma_\alpha \gamma_\beta \frac{\partial^2 S_\alpha S_\beta \mbox{\probe} e_\alpha e_\beta}{\partial \gamma_\alpha \partial \gamma_\beta}\bigg|_{\gamma=0}  \equiv \left< \gamma_\alpha \gamma_\beta \mbox{\mcalRtwopt} \right>,
+\xi \approx \int d e_\alpha  de_\beta  \gamma_\alpha \gamma_\beta \frac{\partial^2 S_\alpha S_\beta \mbox{\probe} e_\alpha e_\beta}{\partial \gamma_\alpha \partial \gamma_\beta}\bigg|_{\gamma=0}  \equiv \left< \gamma_\alpha \gamma_\beta \mbox{\mcalRtwopt} \right>.
 \end{align}
-where the next largest terms are of order $ \langle e_\alpha \rangle|_{\gamma=0} \cdot \gamma_\alpha^2$.
+The next largest terms are of order $ \langle e_\alpha \rangle|_{\gamma=0} \gamma_\alpha^2$.
 In equation \ref{eq:basictwopt} the
 true correlation function has been weighted by a response, where the response
 is given by
@@ -405,22 +416,27 @@ is given by
     \mbox{\mcalRtwoptmean}  = 
     \int d e_\alpha  de_\beta  \frac{\partial^2 S_\alpha S_\beta \mbox{\probe} e_\alpha e_\beta}{\partial \gamma_\alpha \partial \gamma_\beta}\bigg|_{\gamma=0}.
 \end{align}
+If we know the responses, we can form an estimator for the correlation function
+that takes the form of a weighted average:
+\begin{align}
+    \xi \approx \frac{\langle \gamma_\alpha \gamma_\beta R^{2pt} \rangle}{\langle R^{2pt}\rangle}.
+\end{align}
 
 Note the probability distribution \probe\ is joint in the two ellipticities
 because the shear at each galaxy $\alpha$ is correlated with that at galaxy
 $\beta$. Assuming the shapes of galaxies are not correlated in the absence of
 shear, \probe\ is separable at zero shear such that $\mbox{\probe}|_{\gamma=0}
-= P(e_\alpha)|_{\gamma=0} P(e_\beta)|_{\gamma=0}$.  Given this assumption, the following identities
-also hold
+= P(e_\alpha)|_{\gamma=0} P(e_\beta)|_{\gamma=0}$.  The following identities
+also hold:
 \begin{align}
     \frac{\partial \mbox{\probe}}{\partial \gamma_\alpha}\bigg|_{\gamma=0} &= P(e_\beta) \frac{\partial P(e_\alpha) }{\partial e_\alpha} \frac{\partial e_\alpha}{\partial \gamma_\alpha}\bigg|_{\gamma=0} \nonumber \\
-    \frac{\partial^2 \mbox{\probe}}{\partial \gamma_\alpha \partial \gamma_\beta}\bigg|_{\gamma=0} &= \frac{\partial P(e_\alpha) }{\partial e_\alpha} \frac{\partial P(e_\beta) }{\partial e_\beta}  \frac{\partial e_\alpha}{\partial \gamma_\alpha} \frac{\partial e_\beta}{\partial \gamma_\beta}\bigg|_{\gamma=0}
+    \frac{\partial^2 \mbox{\probe}}{\partial \gamma_\alpha \partial \gamma_\beta}\bigg|_{\gamma=0} &= \frac{\partial P(e_\alpha) }{\partial e_\alpha} \frac{\partial P(e_\beta) }{\partial e_\beta}  \frac{\partial e_\alpha}{\partial \gamma_\alpha} \frac{\partial e_\beta}{\partial \gamma_\beta}\bigg|_{\gamma=0}.
 \end{align}
-As a consequence, the response itself can be completely factored such that
+It then follows that the response can be completely factored such that
 \begin{align}
     \int d e_\alpha  de_\beta  \frac{\partial^2 S_\alpha S_\beta \mbox{\probe} e_\alpha e_\beta}{\partial \gamma_\alpha \partial \gamma_\beta}\bigg|_{\gamma=0} 
       &\approx \int d e_\alpha  \frac{\partial S_\alpha P(e_\alpha) e_\alpha}{\partial \gamma_\alpha}\bigg|_{\gamma=0} de_\beta   \frac{\partial S_\beta P(e_\beta) e_\beta}{\partial \gamma_\beta}\bigg|_{\gamma=0} \nonumber \\
-      &= \left< R_\alpha \right> \left< R_\beta \right>
+      &=  \left< R_\alpha \right> \left< R_\beta \right>.
 \end{align}
 These two responses $\left< R_\alpha \right>$ and $\left< R_\beta \right>$ are statistically identical, and are each equal to the
 response of the mean shear given in equation \ref{eq:Rmean}.  Thus the
@@ -430,7 +446,7 @@ response of the two-point function is approximately given by
     %\left< \frac{\partial^2 \xi}{\partial \gamma_\alpha \partial \gamma_\beta}\bigg|_{\gamma=0} \right> \approx \mbox{\mcalRmean}^2.
     \left< R^{2pt} \right> \approx \mbox{\mcalRmean}^2.
 \end{align}
-We can thus form a simple estimator for the 2-point function as:
+We can form a simple estimator for the 2-point function as:
 \begin{align}
     \xi \approx \frac{ \langle e_\alpha e_\beta \rangle }{\mbox{\mcalRmean}^2}.
 \end{align}
@@ -645,7 +661,7 @@ communication}. We will explore this method in a future work.
 
 \section{Weighted Averages for Associated Parameters} \label{sec:weighting}
 
-As discussed in \S \ref{sec:mcal}, if a shear estimator has
+As discussed in \S \ref{sec:selection}, if a shear estimator has
 non-unity response, the mean shear (or 2-point function) is effectively
 weighted.  If we know the responses we can form a weighted average.
 
