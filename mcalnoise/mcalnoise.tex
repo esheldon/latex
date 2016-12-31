@@ -176,7 +176,7 @@ full formalism for shear measurements in \S \ref{sec:selection}.
 
 Suppose we have a biased shear observable \est, which may be some estimate of
 an objects ellipticity. We can expand this observable in a Taylor
-series around the true shear
+series about zero shear
 \begin{align} \label{eq:Eexpand}
     \mest(\gamma) &= \mest|_{\gamma=0} + \gamma ~ \frac{ \partial \mest }{ \partial \gamma }\bigg|_{\gamma=0}  + ... \nonumber \\
                   &= \mest|_{\gamma=0} + \gamma \mbox{\mcalR} + ...
@@ -223,8 +223,8 @@ amount $\gamma$
     R = \frac{\mest(+\gamma) - \mest(-\gamma)}{\Delta \gamma},
 \end{equation}
 where $\Delta \gamma = 2\gamma$.
-The shear estimator can be derived from a reconvolved, but not sheared image,
-or from the average of the sheared images.
+A re-convolved, but not sheared, image should be used
+to calculate the shear estimator \mest.
 %\begin{equation} \label{eq:estimator}
 %    \mest = \frac{\mest(+\gamma) + \mest(-\gamma)}{2}.
 %\end{equation}
@@ -243,14 +243,14 @@ equation
 %    \langle \mbox{\mcalR} \rangle^{-1} \left[ \langle \mest \rangle - \langle \mbox{\mcalRpsf} \rangle \langle e^{p} \rangle \right].
     \langle \mbox{\mcalR} \rangle^{-1} \langle \mest \rangle.
 \end{align}
-We generally find that the off-diagonal terms of this matrix are negligible
+We generally find that the off-diagonal terms of this matrix are negligible in the mean
 and can be ignored.
 
 If the PSF correction is not perfect, the leading term $\langle \mest
 \rangle|_{\gamma=0}$ will not be zero.  \cite{HuffMcal} discussed another
 response, the response of the measurement to the PSF ellipticity, to correct
 this effect.  In this work we instead reconvolve the image by a symmetrized
-version of the PSF, which removes any additive effects from the PSF  (see \S
+version of the PSF, which removes most additive effects from the PSF  (see \S
 \ref{sec:modelfit}).
 
 
@@ -273,7 +273,7 @@ In practice one can calculate mean responses, factoring out the response term:
 
 In \cite{HuffMcal} a sophisticated inference was used, rather than simple
 averages, in order to deal with the relatively large variance in \mcalR\
-associated with the particular estimator used therein.  For the estimator
+associated with the particular estimators used therein.  For the estimator
 we use in this work, we find simple averages suffice.
 
 
