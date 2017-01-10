@@ -169,100 +169,132 @@ We implement corrections for sheared correlated noise and selections effects in
 
 \section{Introduction} \label{sec:intro}
 
-Weak gravitational lensing has become an established technique for measuring
-mass in the universe (XXX refs).  Measurement of the lensing shear effect is
-core to the design of current and future imaging surveys planning to measure
-cosmological parameters (XXX refs).  In order to fulfill the goals of future
-surveys, the shear effect must be measured with an accuracy of a
-part-in-a-thousand (XXX ref).
+In our attempt to understand the universe, we have encountered two great
+mysteries: dark matter and dark energy.  Both phenomena have been understood by
+studying large scale dynamical systems:  dark matter was discovered by
+examining the internal dynamics of the Coma galaxy cluster (XXX Zwicky), and
+confirmed with higher precision by studying the dynamics in galaxies (XXX
+Rubin).  In essence, assuming standard gravity holds, there is much more mass
+than we can see, and we simply call this missing mass dark matter.  Dark energy
+was discovered by studying the dynamics of the universe itself (XXX ref).  In
+similar fashion, assuming standard gravity holds, the universe is apparently
+accelerating at late times, rather than decelerating as we would expect given
+the known mass in the universe, including dark matter, and we call the
+cause of this acceleration dark energy (XXX ref).
 
-The weak lensing shear due to a foreground lens introduces correlations in the
-shapes of background galaxies at the percent level, or less (XXX cite).  There
-have traditionally been two approaches to measuring this effect: measuring
-moments of the light distribution and fitting models.
+Weak gravitational lensing is a phenomena that can be used to study both dark
+matter and dark energy (XXX ref).  Light passing massive objects undergoes an
+apparent deflection, and the amount of this deflection depends on  all the mass
+in the ``lens'', both luminous and dark, and the effect is independent of the
+dynamical state of this mass.   This deflection distorts the apparent shape of
+extended objects such as galaxies, an effect called ``shearing'', and these
+distortions are spatially correlated.  Studying the correlations of these shape
+distortions, one can infer the distribution of matter anywhere in the universe
+in principle (XXX ref).  Because the effect depends on the geometry of the
+lens-source system, the expansion history can also be inferred if the redshifts
+of the lensing material and sources are known, and thus weak lensing is also
+sensitive to dark energy (XXX ref).
+
+Pioneered as a measurement technique in the late 1990s, weak lensing was
+quickly recognized to be complimentary to more standard dynamical techniques
+(XXX ref).  Thus far, progress in measurement has been limited by technical
+challenges, which we will outline below.  To set a scale of reference, the weak
+lensing shear due to a foreground lens typically introduces correlations in the
+shapes of background galaxies at the percent level (XXX cite).    As an
+intermediate goal in studying dark energy over the next decade using weak
+lensing, we would like to measure this percent level signal with an accuracy of
+a part in a thousand (XXX ref).
+
+There have traditionally been two approaches to measuring the effect:
+measuring moments of the light distribution and fitting models.
 
 In the model fitting approach, a parametric model is fit to the galaxy surface
-brightness profile, and the shear estimator is based on the parameters of this
-model.  This method is limited for two primary reasons:  The first is that the
-model must very accurately reproduce the underlying galaxy profile and shape in
-order for the shear inference to be accurate (XXX ref), which requires a very
-large number of parameters.  If the model cannot sufficiently reproduce the
-galaxy the estimator is said to exhibit ``model bias''.  The second is that the
-effect of noise on the non-linear fitting is significant for low
-signal-to-noise (\snr) images, and this effect is difficult to predict (XXX
-ref).  This ``noise bias'' is exacerbated by the large number of parameters
-required to represent the galaxy.
+brightness profile, convolved by an estimate of the point-spread function.  The
+shear estimator, the estimated ``shape'' of the galaxy, is then based on the
+parameters of this model.  This method is limited for two primary reasons:  The
+first is that the model must very accurately reproduce the underlying galaxy
+profile and shape in order for the shear inference to be accurate (XXX ref),
+which requires a very large number of parameters.  If the model cannot
+sufficiently reproduce the galaxy the estimator is said to exhibit ``model
+bias''.  The second is that the effect of noise on the non-linear fitting is
+significant for low signal-to-noise (\snr) images, and this effect is difficult
+to predict (XXX ref).  This ``noise bias'' is exacerbated by the large number
+of parameters required to represent the galaxy.
 
-Due to these biases, model fitting methods require calibration from some
-external source. Since there are no absolute calibration sources in the
-universe, these methods ultimately require calibration based on simulations
-(XXX ref).  These simulations must include all the relevant details of the real
-universe in order to provide an accurate calibration.  As such, the science of
-shear from model fitting is essentially that of accurately simulating
-observations of the universe.
+Due to these biases, model fitting methods require additional calibration.
+There are no absolute calibration sources in the universe that we can use to
+derive a calibration, so model-fitters have typically resorted to calibration
+based image simulations (XXX ref).  These simulations must include all the
+relevant details of the real universe in order to provide an accurate
+calibration.  As such, the science of shear from model fitting is essentially
+that of accurately simulating observations of the universe.
 
-We not turn to moment based methods. The simplest approach to measuring shear
-is to examine the unweighted second moments of the galaxy light distribution,
-after correction for the effect of the point spread function (XXX ref).
+An alternative shear estimator is based on measuring second moments of the
+galaxy light distribution, after correction for the effect of the point spread
+function (XXX ref).  The simplest estimator would use unweighted moments.
 However, in the presence of noise, the measurement error in these moments
 diverges (XXX ref).  To address this issue a radial weight function can be
 applied.
 
-There have been a few approaches to using weighted moments.  One involves
-adapting the weight function to match the object, which has the advantage of
-dramatically increasing the sensitivity of the estimator to the shear compared
-to a fixed weight (XXX ref). Such methods can be made quite accurate for high
-\snr\ images, with little model bias (XXX ref yuki).  Another method involves
-working in Fourier space, and shearing the coordinate system rather than
-adapting the moment; this method does not suffer model bias because it is the
-shear of the coordinate system that is iterated rather than a model for the
-galaxy.  However, each of these methods suffer the ``noise bias'' found in
-model fitting methods, due to the non-linear fitting involved with the
-measurement. Without further development are not accurate
-enough for current and future surveys (XXX ref).
+There have been a few approaches to using weighted moments.  One can use a
+round weight, which has the desirable property of not correlating with the
+shape of the PSF (XXX ksb).  Another involves adapting the weight function to
+match the object, which has the advantage of increasing the sensitivity of the
+estimator to the shear compared to a fixed weight (XXX ref). Such methods can
+be made quite accurate for high \snr\ images, with little model bias (XXX ref
+yuki).  Another method involves working in Fourier space, and shearing the
+coordinate system rather than adapting the moment; this method does not suffer
+model bias because it is the shear of the coordinate system that is iterated
+rather than a model for the galaxy.  However, each of these methods suffer the
+``noise bias'' found in model fitting methods, due to the non-linear fitting
+involved with the measurement. Without further development, these methods are
+not accurate at the part in a thousand level (XXX ref).
 
 Two recently introduced methods have been developed to avoid noise bias in
 moment based shear inference.  The first involves measuring the moments in
 Fourier space, after subtracting off the noise power spectrum.  A circular
 weight is used to avoid non-linear fitting issues.  These un-normalized moments
 are then summed directly to provide a shear estimator (XXX ref).  This method
-has been shown to be very accurate, but because the moments are not normalized,
-the weighting is essentially by flux, weighting to the brightest galaxies,
-which is highly sub-optimal. Attempts to use different weighting have not
-yet been demonstrated to be accurate (XXX ref).
+has proven very accurate, but because the moments are not normalized, the
+weighting is essentially by flux, weighting to the brightest galaxies, which is
+highly sub-optimal. Attempts to use different weighting have not yet been
+demonstrated to be accurate (XXX ref).
 
-A promising new moment based method was introduced by (XXX ref).  A rigorous
-Bayesian framework was developed in which prior information on galaxy images
-from a high \snr\ deep data set is combined with knowledge of how a particular
-measurement (e.g. a model fit or moments) responds to the shear in the absence
-of noise.  The method has been shown to be accurate enough for future surveys
-in a highly controlled, but unrealistic numerical experiment using model
-fitting techniques (XXX ref sheldon).  A more practical version using
-un-normalized moments in Fourier spaces, similar to (XXX ref) was tested in
-(XXX ref).  While the accuracy in that test fell somewhat short of the
+A promising new method for shear inference was introduced by (XXX ref).  A
+rigorous Bayesian framework was developed in which prior information on galaxy
+images from a high \snr\ deep data set is combined with knowledge of how a
+particular measurement (e.g. a model fit or moments) responds to the shear in
+the absence of noise.  The method has been shown to be accurate enough for
+future surveys in a highly controlled, but unrealistic numerical experiment
+using model fitting techniques (XXX ref sheldon).  A more practical version
+using un-normalized moments in Fourier spaces, similar to (XXX ref) was tested
+in (XXX ref).  While the accuracy in that test fell somewhat short of the
 part-in-a-thousand target, the method shows great promise, since the required
 prior information from deep data should in principle be available to current
 and future surveys (XXX ref).
 
 \Mcal\ \citep{HuffMcal} is a new shear measurement technique designed to
-address the shortcomings of standard shear measurement techniques.  The essence
-of \mcal\ is to directly measure how a particular measurement responds to a
-shear, eliminating both model bias and noise bias.
+address the shortcomings of standard shear measurement techniques, without
+requiring prior information.  The essence of \mcal\ is to directly measure how
+a particular measurement responds to a shear, eliminating both model bias and
+noise bias.
 
 The \mcal\ technique was shown to be accurate in controlled simulations
 \citep{HuffMcal}.  However, the simulations used in that study (based on those
 in XXX ref) used fairly high \snr\ galaxy images, and the galaxies were
 relatively large compared to the PSF size.  In a real survey, the images are
-dominated by small faint galaxies.  Additionally, for low \snr\ images the
-effects of correlated noise that arise in the \mcal\ procedure become
-important.
+dominated by small faint galaxies, many of which are too faint to be reliably
+detected or measured, requiring some kind of selection that can introduce
+significant biases.  Additionally, for low \snr\ images the effects of
+correlated noise that arise in the \mcal\ procedure, described below, become
+dominant.
 
 In this study we introduce a simple correction for this correlated noise.
 Additionally, we introduce a formalism to deal with selection effects, for
 example cuts on \snr\ and galaxy size, that are required for any practical
 analysis.  We additionally examine the effects of stellar contamination and
-missing data.  We show that, in all scenarios we tested, \mcal\ is sufficiently
-accurate for current and future studies.
+missing data.  We show that, in all scenarios we tested, \mcal\ is indeed
+accurate at the part in a thousand level.
 
 Say where things are.
 
