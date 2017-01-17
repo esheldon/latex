@@ -1122,7 +1122,7 @@ We fit the images with a single Gaussian model using the \ngmix\
 code\footnote{https://github.com/esheldon/ngmix}.  To perform the fit we used an
 implementation of the ``adaptive moments'' algorithm originally presented in
 \cite{bern02}.   We applied no PSF correction.  We expect this estimator to
-respond poorly to a shear, but we will measure this weak response using \mcal.
+respond weakly to a shear, but we will measure this weak response using \mcal.
 
 Rather than attempt to correct for psf anisotropy using \mcal\ ``psf response''
 as was done in \cite{HuffMcal}, we instead reconvolved by a symmetrized version
@@ -1222,12 +1222,12 @@ graphically in figures \ref{fig:s2nthresh} and \ref{fig:s2nthresh_nocorr}.  The
 cuts were all placed above the pre-selection at \snr$ > 5$, to guarantee the
 validity of the corrections.
 
-We found a significant multiplicative selection bias in each case.  These
-biases are well above the requirements for current and future experiments, and
-thus must be corrected.  We find \mcal\ corrects these biases to within the
-requirements of future surveys in all cases.  We did not find any 
-additive selection biases, which suggests our procedure of reconvolving by
-a symmetrized PSFs is working as expected.
+We measured and corrected for a significant multiplicative selection bias in
+each case.  These biases are generally well above our desired part in a
+thousand accuracy.  We find \mcal\ corrects these biases to better than a part
+in a thousand in all cases.  We did not find any additive selection biases,
+which suggests our procedure of reconvolving by a symmetrized PSFs worked
+as expected.
 
 \begin{table*}
     \centering
