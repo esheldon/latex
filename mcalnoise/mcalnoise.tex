@@ -184,8 +184,8 @@ and we call the cause of this acceleration dark energy (XXX ref).
 
 Weak gravitational lensing is a phenomena that can be used to study both dark
 matter and dark energy (XXX ref).  Light passing massive objects undergoes an
-apparent deflection, and the amount of this deflection depends on  all the mass
-in the ``lens'', both luminous and dark, and the effect is independent of the
+apparent deflection, and the amount of this deflection depends on all the mass
+in the ``lens'', both luminous and dark. The effect is independent of the
 dynamical state of this mass.   This deflection distorts the apparent shape of
 extended objects such as galaxies, an effect called ``shearing'', and these
 distortions are spatially correlated.  Studying the correlations of these shape
@@ -193,14 +193,16 @@ distortions, one can infer the distribution of matter anywhere in the universe
 in principle (XXX ref).  Because the effect depends on the geometry of the
 lens-source system, the expansion history can also be inferred if the redshifts
 of the lensing material and sources are known, and thus weak lensing is also
-sensitive to dark energy (XXX ref).
+sensitive to dark energy (XXX ref).  Lensing can also be used to study dark
+energy through the grown of massive structures (XXX ref).
 
-Pioneered as a measurement technique in the late 1990s, weak lensing was
-quickly recognized to be complimentary to more standard dynamical techniques
-(XXX ref).  In particular, because the effect is independent of
-the dynamical state of the lensing mass, it can be used to study the
-distribution of mass on very large scales, much larger than the typical
-regions over which systems can be said to be in dynamical equilibrium.
+Pioneered as a measurement technique in the late 1980s and 1990s, weak lensing
+was quickly recognized to be complimentary to more standard dynamical
+techniques (XXX ref, e.g. Tyson 84).  In particular, because the effect is
+independent of the dynamical state of the lensing mass, it can be used to study
+the distribution of mass on very large scales, much larger than the typical
+regions over which systems can be said to be in dynamical equilibrium (XXX ref
+fisher).
 
 Thus far, progress in measurement has been limited by technical challenges, a
 few of which we will outline below.  To set a scale of reference, the weak
@@ -279,10 +281,17 @@ principle be available to current and future surveys (XXX ref).
 
 Thirdly, \Mcal\ \citep{HuffMcal} is a new shear measurement technique designed
 to address the shortcomings of standard shear measurement techniques, without
-requiring prior information.  The essence of \mcal\ is to directly measure how
-a particular measurement responds to a shear, eliminating both model bias and
-noise bias.  \Mcal\ can in principle be applied to calibrate any shear
+requiring prior information.  The essence of \mcal\ is to directly measure
+how a particular measurement responds to a shear, eliminating both model bias
+and noise bias.  \Mcal\ can in principle be applied to calibrate any shear
 estimator, including shapes derived from model fitting or weighted moments.
+
+Note a similar idea was introduced by \cite{Kaiser2000}, which was in many ways
+ahead of its time. Much of the treatment was quite general,  but the detailed
+analysis focused on weighted second moment estimators.  The approach introduced
+by \citep{HuffMcal} is intentionally agnostic about the underlying shear
+estimator, with a focus on generic image manipulations efficiently performed on
+current computers.
 
 The \mcal\ technique was shown to be accurate in controlled simulations
 \citep{HuffMcal}.  However, the simulations used in that study (based on those
@@ -734,7 +743,7 @@ we will denote \mcalRnoise:
 
 The bias in the ellipticity due to correlated noise should scale
 with the noise correlation function, and thus the square of the noise level in
-the image $n^2$ \citep{HirataCorrNoise}.  As stated above, this same bias will
+the image $n^2$ \citep{Kaiser2000,HirataCorrNoise}.  As stated above, this same bias will
 propagate into the response.  We can write the observed \mcalRo\ as a contribution
 from both the actual response \mcalR\ and a noise term \mcalRnoise\
 \begin{align} \label{eq:scaling}
@@ -796,12 +805,19 @@ correlated noise, because the original and added noise fields are not
 identical; rather the effect should cancel when averaged over a large ensemble
 of galaxies.
 
-This procedure necessarily increases the noise in the shear recovery.  Thus,
-both the response and estimator should be measured on the $\tilde{I}(\gamma)$
-images, so that the response is representative of the correct noise level.  To
-reduce the noise in the fits, multiple randomized noise fields could be
-generated and fit, and the results averaged.  This would improve the precision,
-at the cost of increased computation time.
+This procedure necessarily increases the noise in the shear recovery.  For high
+\snr\ galaxies, where shape noise dominates, this results in a 40\% decrease in
+effective \snr. However, for faint galaxies, which dominate the sample, the
+shape measurement noise is comparable to the shape noise, so the decrease in
+effective \snr\ is a modest 20\%.  Nevertheless, it is worthwhile to explore
+corrections that do not involve adding significant noise.
+
+Because the noise is increased, it is important that both the response and
+estimator should be measured on the $\tilde{I}(\gamma)$ images, so that the
+response is representative of the correct noise level.  To reduce the noise in
+the fits, multiple randomized noise fields could be generated and fit, and the
+results averaged.  This would improve the precision, at the cost of increased
+computation time.
 
 An alternative version of this method is to shear the noise exactly as the
 original image is sheared, but then rotate by 90 degrees before adding.  This
@@ -1646,7 +1662,7 @@ of $m \sim 2 \times 10^{-3}$ in both the \bdsim\ and \rgsim\ simulations.
 \subsection{Simulating Models}
 
 In this method, we generated model images with the correct noise level corresponding
-to each real imag.  We then measured the response of the noise due to the
+to each real image.  We then measured the response of the noise due to the
 convolutions and shears used in \mcal, with noise added before and
 after the \mcal\ procedure.
 
