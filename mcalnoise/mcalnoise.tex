@@ -852,10 +852,11 @@ and disk, with additional knots of star formation; we label this simulation
 \bdsim.  We used different ellipticities for the bulge and disk components, but
 gave both bulge and disk the same half light radius \hlr.
 
-We drew the \hlr\ and flux from fits to the 25.2 magnitude limited
-sample from the COSMOS data, as distributed with the GALSIM simulation package
-\citep{GALSIM2015}.  In order to avoid repeating the exact parameters, we
-interpolated the joint \hlr-flux distribution using a kernel density 
+We drew the \hlr\ and flux from fits \citep{LacknerGunn2012} to the 25.2
+magnitude limited sample from the COSMOS data
+\citep{Scoville2007a,Scoville2007b}, as distributed with the GALSIM simulation
+package \citep{GALSIM2015}.  In order to avoid repeating the exact parameters,
+we interpolated the joint \hlr-flux distribution using a kernel density
 estimate.
 
 The ellipticities were drawn from the simple model used in \cite{ba14}
@@ -868,11 +869,13 @@ two compared to the ellipticity used in \citet{bfd2015}.
 
 For the simulated knots of star formation, we distributed 100 point sources
 according to a random walk starting at the disk centroid, with each point
-taking 40 steps.  We then sheared this distribution using the same ellipticity
-assigned to the disk; but note this does not result in a purely elliptical
-distribution of point sources\footnote{This random walk method was inspired by
+taking 40 steps\footnote{This random walk method was inspired by
 \cite{Zhang2008FourierQuadI}, but was implemented from scratch by the authors
-as a GALSIM object class \texttt{galsim.RandomWalk}}.
+and is now available as a GALSIM object class \texttt{galsim.RandomWalk}}.  We
+then sheared this distribution using the same ellipticity assigned to the disk;
+but note this does not result in a purely elliptical distribution of point
+sources.  Only in the rare case of a pure bulge, or disk with no knots, is the
+model purely elliptical.
 
 The fraction of the flux in the bulge was drawn uniformly between zero and
 unity.  The fraction of the disk flux assigned to knots of star formation
@@ -881,7 +884,7 @@ objects range from pure bulge, bulge+disk, pure disks, bulges+disk+knots,
 to pure knots, which resemble irregular galaxies.
 
 Finally, the entire composite bulge+disk+knots object was sheared with
-$g1=0.02$ in reduced shear units.
+$g_1=0.02$ in reduced shear units.
 
 We convolved the galaxy images with a PSF modeled as a Moffat profile
 \citep{Moffat1969}, with $\beta=3.5$ and FWHM=0.9 arcsec. The PSF ellipticity was set to $g_2 = 0.025$ in reduced shear units ($e_2 =
@@ -891,9 +894,9 @@ These convolved objects were rendered onto 0.263 arcsec pixels and constant
 Gaussian noise was added, with the same noise level used for all images.
 
 In figure \ref{fig:parametricgals} we show some example simulated galaxies with
-a range of parameters.  In order to show detailed internal structure, these
-models were created to be larger than any models in the actual simulations we
-ran for testing, which were mostly smaller than the PSF.
+a range of parameters.  In order to show detailed internal structure, for
+visual purposes, we created models larger than any in the actual simulations we
+ran for testing, in which were mostly smaller than the PSF.
 
 
 \begin{figure*}
@@ -932,12 +935,11 @@ the PSF.
 \label{fig:psimhlrcompare}
 \end{figure}
 
-In figure \ref{fig:s2n} we show the distribution of \snr\ for the
-parametric galaxies.  Shown are both the true input \snr\ and the
-distrubtion of true \snr\ after applying a cut at {\it measured}
-\snr$ > 5$.  The measured \snr\ is noisy and biased, being
-based off a single-gaussian, resulting in a smooth rolloff
-in the true \snr.
+In figure \ref{fig:s2n} we show the distribution of \snr\ for the parametric
+galaxies.  Shown are both the true input \snr\ and the distribution of true
+\snr\ after applying a cut at {\it measured} \snr$ > 5$.  The measured \snr\ is
+noisy and biased, being derived from a single-gaussian model, so the cut
+results in a smooth rolloff in the true \snr.
 
 \begin{figure}
     \centering
@@ -1009,7 +1011,8 @@ for selection effects presented in \S \ref{sec:selection} cannot be used.
 In order to test that we can recover the shear in the presence of this effect,
 we applied a pre-selection at \snr$ > 5$, and \mcal\ was not run on the
 galaxies that were removed.  We will apply further cuts on the \snr\ above this
-threshold.  See \S \ref{sec:shear_recover} for details.
+threshold in order to minimize the bias due to removal of these
+galaxies.  See \S \ref{sec:shear_recover} for details.
 
 
 \subsection{Real Galaxy Simulations} \label{sec:cosmosim}
@@ -1057,14 +1060,11 @@ is freely available online\footnote{https://github.com/esheldon/egret}.
 \end{table}
 
 In figure \ref{fig:cosmos} we show the distribution of measured \snr\ for the
-COSMOS simulations.  The mode of the distribution is significantly higher than that
-of the parametric simulations, about 12 instead of 2.  Also shown is the
-distribution of the half-light-radius \hlr, measured from the \sersic\ model
-fits distributed with the 23.5 COSMOS catalog as part of the GREAT3 challenge,
-including the selections applied for the simulation.  The mean \hlr\ for these
-simulations is about \cosmosrdist, somewhat larger than the log-normal
-\galrdist\ for the parametric simulations.
-
+COSMOS simulations, as well as for the bulge+disk+knots simulation
+\bdsim.  Also shown is the distribution of the half-light-radius \hlr, measured
+from the \sersic\ model fits distributed with the both the 23.5 COSMOS catalogs
+used for this sim, and the 25.2 sample used for our parametric simulations
+\citep{GALSIM2015}.
 
 \begin{figure}
     \centering
@@ -1073,7 +1073,7 @@ simulations is about \cosmosrdist, somewhat larger than the log-normal
     \caption{Distribution of properties in the COSMOS real galaxy simulations. The
     left panel contains the distribution of measured S/N, while the right panel contains
     the distribution of half-light-radius from the cosmos catalog for the input
-    galaxies.  For comparison, the distributions for the BDK simulations
+    galaxies.  For comparison, the distributions for the bulge+disk+knots \bdsim\ simulations
     are overplotted as dashed lines.}
 
 \label{fig:cosmos}
