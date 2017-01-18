@@ -433,7 +433,6 @@ associated with the particular estimators used therein.  For the estimator
 we use in this work, we find simple averages suffice.
 
 
-\newpage
 \section{Full Formalism} \label{sec:selection}
 
 %  ['%.1f' % (sqrt(2)*s,) for s in [7,10,13,16,19]]
@@ -615,7 +614,6 @@ Note for cross-correlations, the separate mean responses given in equation
 In what follows we test the formulas for mean shear.  We will test the
 response for 2-point functions in a future work.
 
-\newpage
 \subsection{Remarks on Selections}
 
 It is important that the selections be placed well above any detection
@@ -741,20 +739,8 @@ we will denote \mcalRnoise:
 %this correction is similar in magnitude to the correction for \mcalR, although
 %it is somewhat suppressed in the final estimator due to multiplication by $e^p$.
 
-\subsection{Expected Scaling of the Bias with Noise Level} \label{sec:scaling}
 
-The bias in the ellipticity due to correlated noise should scale
-with the noise correlation function, and thus the square of the noise level in
-the image $n^2$ \citep{Kaiser2000,HirataCorrNoise}.  As stated above, this same bias will
-propagate into the response.  We can write the observed \mcalRo\ as a contribution
-from both the actual response \mcalR\ and a noise term \mcalRnoise\
-\begin{align} \label{eq:scaling}
-    \mbox{\mcalRo} &= R + \mbox{\mcalRnoise}  \nonumber \\
-                   &= R + A n^2.
-\end{align}
-
-
-\section{Correction for Sheared, Correlated Noise} \label{sec:corr}
+\subsection{Correction for Sheared, Correlated Noise} \label{sec:fixnoise}
 
 \begin{comment}
 For shear estimators based on raw moments, without any form of iteration
@@ -764,11 +750,8 @@ responses measured on the real images.  Multiple realizations can be generated
 for each galaxy to increase precision.
 \end{comment}
 
-The coefficient $A$ in Equation \ref{eq:scaling} can be calculated in simple
-scenarios, as shown in \cite{HirataCorrNoise}.  However, the calculation is
-more complex when modeling the effect of the PSF.  We instead explored four
-different empirical corrections.  We describe our favored method
-below; the others are described in appendix \ref{sec:altcorr}.
+We explored four different empirical corrections.  We describe our favored
+method here; the others are described in appendix \ref{sec:altcorr}.
 
 \begin{comment}
 There are advantages to forward modeling which we would like to retain: the
@@ -784,7 +767,7 @@ implemented in the GALSIM package \citep{GALSIM2015}.  For these reasons we
 explore a simple empirical correction in the following section.
 \end{comment}
 
-\subsection{Adding a Canceling Correlated Random Noise Field} \label{sec:fixnoise}
+%\subsection{Adding a Canceling Correlated Random Noise Field} \label{sec:fixnoise}
 
 This method, which we refer to as ``\fixnoise'', is designed to statistically
 cancel the effects of correlated noise caused by the \mcal\ procedure.  For each
@@ -808,18 +791,15 @@ identical; rather the effect should cancel when averaged over a large ensemble
 of galaxies.
 
 This procedure necessarily increases the noise in the shear recovery.  For high
-\snr\ galaxies, where shape noise dominates, this results in a 40\% decrease in
+\snr\ galaxies, where intrinsic shape noise dominates, this results in a 40\% decrease in
 effective \snr. However, for faint galaxies, which dominate the sample, the
-shape measurement noise is comparable to the shape noise, so the decrease in
+shape measurement noise is comparable to the intrinsic shape noise, so the decrease in
 effective \snr\ is a modest 20\%.  Nevertheless, it is worthwhile to explore
 corrections that do not involve adding significant noise.
 
 Because the noise is increased, it is important that both the response and
 estimator should be measured on the $\tilde{I}(\gamma)$ images, so that the
-response is representative of the correct noise level.  To reduce the noise in
-the fits, multiple randomized noise fields could be generated and fit, and the
-results averaged.  This would improve the precision, at the cost of increased
-computation time.
+response is representative of the correct noise level.
 
 An alternative version of this method is to shear the noise exactly as the
 original image is sheared, but then rotate by 90 degrees before adding.  This
@@ -927,7 +907,7 @@ the PSF.
 
 \begin{figure}
     \centering
-    \includegraphics[width=\columnwidth]{run-bdj03mcal02-r50.eps}
+    \includegraphics[width=0.8\columnwidth]{run-bdj03mcal02-r50.eps}
 
     \caption{Distribution of half-light-radius \hlr\ in the parametric simulations.
         The solid line represents the distribution of input \hlr, drawn from fits
@@ -946,7 +926,7 @@ results in a smooth rolloff in the true \snr.
 
 \begin{figure}
     \centering
-    \includegraphics[width=\columnwidth]{run-bdj03mcal02-s2n.eps}
+    \includegraphics[width=0.8\columnwidth]{run-bdj03mcal02-s2n.eps}
 
     \caption{Distribution of S/N in the parametric simulations. The
     solid curve represents the true input distribution, the dashed curve 
@@ -1161,8 +1141,7 @@ contamination.  We will discuss the affect of stars in \S \ref{sec:stars}.
 
 \begin{figure}
     \centering
-    %\includegraphics[width=\columnwidth]{R-bd29-bd29stars.eps}
-    \includegraphics[width=\columnwidth]{R-bdj03-bdj03stars.eps}
+    \includegraphics[width=0.8\columnwidth]{R-bdj03-bdj03stars.eps}
 
     \caption{Distribution of \mcal\ responses for galaxies and stars in
     the \bdstar\ simulation.  Stars have mean response close to zero,
@@ -1292,7 +1271,7 @@ $\mbox{\snr} > 19 $ & $-8.33 \pm 0.36$ & $+0.17 \pm 0.73$ & $+0.05 \pm 0.37$ & $
 
 \begin{figure}
     \centering
-    \includegraphics[width=\columnwidth]{mc-select-bias-thresh.eps}
+    \includegraphics[width=0.8\columnwidth]{mc-select-bias-thresh.eps}
 
     \caption{Multiplicative (upper panel) and
 		additive bias (lower panel) in the \bdsim\ simulation after applying
@@ -1305,7 +1284,7 @@ $\mbox{\snr} > 19 $ & $-8.33 \pm 0.36$ & $+0.17 \pm 0.73$ & $+0.05 \pm 0.37$ & $
 
 \begin{figure}
     \centering
-    \includegraphics[width=\columnwidth]{mc-select-bias-thresh-with-nocorr.eps}
+    \includegraphics[width=0.8\columnwidth]{mc-select-bias-thresh-with-nocorr.eps}
 
     \caption{Multiplicative in the \bdsim\ simulation after applying
         threshold selections in \snr.  The bias without correction for
@@ -1527,7 +1506,7 @@ Thanks to Gary Bernstein for pointing out a simpler form for the response for
 
 \appendix
 
-\section{Additional Correction Methods} \label{sec:altcorr}
+\section{Alternative Methods for Correlated Noise Correction} \label{sec:altcorr}
 
 \subsection{Correction using GALSIM Methods}
 
@@ -1542,8 +1521,27 @@ the assumptions behind these correction methods.
 
 \subsection{Detrending the Correlated Noise Bias} \label{sec:detrend}
 
+\subsection{Expected Scaling of the Bias with Noise Level} \label{sec:scaling}
+
+The bias in the ellipticity due to correlated noise should scale
+with the noise correlation function, and thus the square of the noise level in
+the image $n^2$ \citep{Kaiser2000,HirataCorrNoise}.  As stated above, this same bias will
+propagate into the response.  We can write the observed \mcalRo\ as a contribution
+from both the actual response \mcalR\ and a noise term \mcalRnoise\
+\begin{align} \label{eq:scaling}
+    \mbox{\mcalRo} &= R + \mbox{\mcalRnoise}  \nonumber \\
+                   &= R + A n^2.
+\end{align}
+
+\subsection{De-trending Correction Scheme}
+
+The coefficient $A$ in Equation \ref{eq:scaling} can be calculated in simple
+scenarios, as shown in \cite{HirataCorrNoise}.  However, the calculation is
+more complex when modeling the effect of the PSF.  We explored an empirical
+correction.
+
 We expect the bias in \mcalR\ due to correlated noise to scale with the square
-of the noise in the image $n^2$ (see \S \ref{sec:scaling}).  We can add a small
+of the noise in the image $n^2$.  We can add a small
 amount of noise to the image such that $n \rightarrow n + \Delta n$.  If we
 then run the new image through the \mcal\ process, we can measure
 $R^{\mathrm{before}}$, a response that will include correlated noise effects.
@@ -1594,7 +1592,8 @@ $A \simeq $\Aslope, implying a correction $A n^2 \simeq$ \Rcorr\ for this
 simulation.
 
 \begin{figure}
-    \includegraphics[width=\columnwidth]{mcal-v14s01-Rnoise-detrend-R11.eps}
+	\centering
+    \includegraphics[width=0.5\columnwidth]{mcal-v14s01-Rnoise-detrend-R11.eps}
 
     \caption{Trend of $\Delta R_{1,1}$ with $2 n \Delta n$ for the
         real galaxy simulation.   $n$ is the
