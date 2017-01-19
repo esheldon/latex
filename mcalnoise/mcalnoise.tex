@@ -361,8 +361,8 @@ The essence of \mcal\ \citep{HuffMcal} is to estimate the shear response
 accomplished using a numerical derivative.  The original image $I$ is
 de-convolved from the point spread function (PSF), sheared, and re-convolved
 by the PSF.  A slightly larger PSF is used in order to suppress Fourier modes 
-exposed by the shearing that were previously hidden in the finite
-resolution of the original image.  This \mcal\ process is repeated for a
+exposed by the shearing, that were previously hidden in the finite
+resolution of the original image.  This process is repeated for a
 positive and negative shear, which can be used to form a central derivative.
 We can represent this as a series of operations on the observed image $I$:
 \begin{equation}
@@ -401,6 +401,8 @@ equation
 \end{align}
 We generally find that the off-diagonal terms of this matrix are negligible in the mean
 and can be ignored.
+
+\subsection{Modifications to the Shear Inference}
 
 If the PSF correction is not perfect, the leading term $\langle \mest
 \rangle|_{\gamma=0}$ will not be zero.  \cite{HuffMcal} discussed another
@@ -508,7 +510,7 @@ leading order, as
 \end{align}
 Thus, the mean shear in the presence of selections is also weighted by a
 response term \mcalR, and this response now includes the effects of the selections.
-The probability that an object is selected changes if it is sheared.  We can
+The probability that an object is selected changes after it is sheared.  We can
 also form a weighted average shear estimate including selections
 \begin{align}
     \left< \gamma \right> \approx \frac{\left< e \right>^S}{\mbox{\mcalRmean}^S}.
@@ -637,7 +639,7 @@ It then follows that the response can be completely factored such that
 \end{align}
 
 For auto-correlations, these two responses $\left< R_\alpha \right>$ and
-$\left< R_\beta \right>$ are statistically identical, and are each equal to the
+$\left< R_\beta \right>$ are identical, and are each equal to the
 response of the mean shear given in equation \ref{eq:Rmean}.  Thus the response
 of the two-point auto-correlation function is approximately given by
 \begin{align}
