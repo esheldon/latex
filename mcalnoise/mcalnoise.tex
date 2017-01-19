@@ -439,13 +439,13 @@ we use in this work, we find simple averages suffice.
 %    ['9.9', '14.1', '18.4', '22.6', '26.9']
 
 In this section we derive the full metacal formalism, including selection
-effects.  We introduce the following notation regarding the shear estimator and
-the selection function:  We write the ellipticity measured from a sheared image
-as $\mest^+$ and $\mest^-$, for measurements on positive and negatively sheared
-images respectively.  We denote the probability that an object is selected as
-$S$;  we can also select objects based on sheared parameters, which we denote
-$S^+$ and $S^-$, the probability of selection after a positive or negative
-shear is applied, respectively.
+effects. As shorthand we will, without loss of generality, refer to the shear
+estimator $\mest$ as the ellipticity. We write the ellipticity measured from a
+sheared image as $\mest^+$ and $\mest^-$, for measurements on positive and
+negatively sheared images respectively.  We denote the probability that an
+object is selected as $S$;  we can also select objects based on sheared
+parameters, which we denote $S^+$ and $S^-$, the probability of selection after
+a positive or negative shear is applied, respectively.
 
 
 \subsection{Response for the Mean Shear} \label{sec:Rmean}
@@ -459,11 +459,11 @@ where $P(\mest)$ is the probability distribution.
 Assuming each galaxy experience a small shear, and that galaxy orientations
 are random in the absence of shear, the mean ellipticity can be rewritten, to
 leading order, as
-\begin{align}
+\begin{align} \label{eq:basicR}
     \langle e \rangle \approx \int de \gamma \frac{\partial P(\mest) \mest  }{\partial \gamma}\bigg|_{\gamma=0} d\mest = \langle \gamma R \rangle,
 \end{align}
 where we have ignored the perturbation of the normalization $\int de P(e)$,
-because it leads to terms that are second order in the shear.
+because it leads to terms that are second order or higher in the shear.
 The mean shear is thus weighted by a response term \mcalR.  If
 the \mcalR\ are known, we can form a weighted average estimator
 for the mean shear:
@@ -471,12 +471,13 @@ for the mean shear:
     \left< \gamma \right> \approx \frac{\left< e \right>}{\mbox{\mcalRmean}}.
 \end{align}
 
-We can calculate this response using quantities measured on
-artifically sheared images, as presented in \S \ref{sec:mcal}.
-We will approximate the derivatives using finite differences in the shear.
-\begin{align}
+We can calculate this response using quantities measured on artifically sheared
+images, as presented in \S \ref{sec:mcal}.  We will approximate the derivatives
+using finite differences in the shear.
+\begin{align} \label{eq:basicRfinite}
     \mbox{\mcalRmean}  &= \int \frac{\partial P(\mest) \mest  }{\partial \gamma}\bigg|_{\gamma=0} d\mest
-    \approx \frac{\langle \mest^+ \rangle - \langle \mest^- \rangle}{\Delta \gamma}
+    \approx \int d\mest \left( \frac{ P^+ \mest^+ - P^- \mest^- }{\Delta \gamma}\right)  d\mest   \nonumber \\
+    &= \frac{\langle \mest^+ \rangle - \langle \mest^- \rangle}{\Delta \gamma}
 	= \langle \mbox{\mcalRg} \rangle,
 \end{align}
 where the \mcalRg\ are the shear responses measured for individual galaxies,
@@ -486,7 +487,7 @@ by averaging the individual responses.
 \subsubsection{Selection Effects for the Mean Shear}
 
 Now consider a selection that modifies the distribution of the measurement
-\est, which we can, without loss of generality, refer to as the ellipticity.
+\est.
 As a shorthand we will write this selection function as $S(\mest)$, the
 probability of selecting an object with ellipticity \est, although the
 selection may be indirect, for example a cut on \snr.  This selection function
@@ -495,9 +496,10 @@ ellipticity.
 
 After introducing a selection, the mean becomes
 \begin{align}
-    \langle \mest S \rangle = \int S(\mest)~P(\mest)~\mest~d\mest.
+    \langle \mest \rangle^S = \int S(\mest)~P(\mest)~\mest~d\mest.
 \end{align}
-We will assume the $\int de P(\mest) S(\mest) = 1$.
+We will assume the $\int de P(\mest) S(\mest) = 1$, and continue to ignore
+the higher order effect from changes in the normalization with shear.
 Again, assuming a small shear, and that galaxy orientations are random in the
 absence of shear, the mean ellipticity after selection can be rewritten, to
 leading order, as
@@ -512,27 +514,28 @@ also form a weighted average shear estimate including selections
     \left< \gamma \right> \approx \frac{\left< e \right>^S}{\mbox{\mcalRmean}^S}.
 \end{align}
 
-We can again calculate this full response using quantities measured on
-artifically sheared images. It is useful
-to examine separately the response of the estimator $\mest$ to a shear, and
-the response of selections to a shear:
+This response with selections can be calculated using quantities measured on
+artifically sheared images. It is useful to examine separately the response of
+the estimator $\mest$ to a shear, and the response of selections to a shear:
 \begin{align}
     \mbox{\mcalRmean}  &= \int \frac{\partial S(\mest) P(\mest) \mest  }{\partial \gamma}\bigg|_{\gamma=0} d\mest \nonumber \\
-    &= \int \left[ S(\mest) P(\mest) \frac{\partial \mest}{\partial \gamma}\bigg|_{\gamma=0} + \mest \frac{\partial P(\mest) S(\mest)}{\partial \gamma}\bigg|_{\gamma=0} \right] d\mest
+    &= \int \left[ S(\mest) \frac{\partial P(\mest) \mest}{\partial \gamma}\bigg|_{\gamma=0} +  P(\mest) \mest  \frac{\partial S(\mest)}{\partial \gamma}\bigg|_{\gamma=0} \right] d\mest
 \end{align}
+Note the first term is identical to the response in equation \ref{eq:basicR},
+but now with selections applied.
 We will approximate the derivatives using finite differences in the shear.
 Using the notation for measurements on sheared images, introduced
 in \S \ref{sec:selection}, we can rewrite the response as
 \begin{align} \label{eq:Rmean}
     \mbox{\mcalRmean}^S &\approx
-    \int d\mest \left [ S P \left( \frac{ \mest^+ - \mest^- }{\Delta \gamma}\right) + \mest \left( \frac{ P^+ S^+ - P^- S^- }{\Delta \gamma}\right) \right] d\mest \nonumber \\
+    \int d\mest \left [ S \left( \frac{ P^+ \mest^+ - P^- \mest^- }{\Delta \gamma}\right) + P \mest \left( \frac{ S^+ - S^- }{\Delta \gamma}\right) \right] d\mest \nonumber \\
     &=\frac{\langle \mest^+ \rangle^S - \langle \mest^- \rangle^S}{\Delta \gamma} + 
 \frac{\langle \mest \rangle^{S+} - \langle \mest \rangle^{S-}}{\Delta \gamma} \nonumber \\
        &\equiv \langle \mbox{\mcalRg} \rangle + \langle \mbox{\mcalRS} \rangle
 \end{align}
 The first term \mcalRgmean\ is average of the shear responses measured for
-individual galaxies, as discussed in  \S \ref{sec:mcal}.
-Selections are based on the unsheared object parameters.
+individual galaxies, the same as shown in equation \ref{eq:basicRfinite}, but
+now with selections applied based on the unsheared object parameters.
 
 The second term \mcalRSmean\ represents the response of the mean ellipticity to
 selections.  The $\langle \mest \rangle^{S+}$ represents the mean of the
@@ -547,15 +550,17 @@ with selection based on the negatively sheared parameters.
 %with selection based on the unsheared parameters.
 
 
-\setlist[itemize]{leftmargin=5.5mm}
+\setlist[enumerate]{leftmargin=10mm}
 
-Thus in order to produce the desired weighted mean shear measurement, one measures 
-\begin{itemize}
-	\item The average ellipticity, including selections $\langle e \rangle^S$
-	\item The mean of the ellipticity measured on sheared images $\langle e^+ \rangle^S$, $\langle e^- \rangle^S$. Alternatively, form 
-        responses for each galaxy \mcalRg\ and average those.
-    \item The mean ellipticity after selections based on positively and negatively sheared images $\langle e \rangle^{S+}$, $\langle e \rangle^{S-}$.
-\end{itemize}
+Thus in order to calculate the desired weighted mean shear, one measures the
+following:
+\begin{enumerate}
+	\item The mean ellipticity, including selections $\langle e \rangle^S$
+	\item The mean ellipticity, including selections, measured on sheared images $\langle e^+ \rangle^S$, $\langle e^- \rangle^S$. Alternatively, form 
+        responses for each galaxy \mcalRg\ and average those
+    \item The mean ellipticity after selections based on measurements
+        from positively and negatively sheared images $\langle e \rangle^{S+}$, $\langle e \rangle^{S-}$
+\end{enumerate}
 
 Note selections that produce additive effects are not addressed in the above.
 If the PSF is symmetrized, as we will do (see \S \ref{sec:modelfit}), then
