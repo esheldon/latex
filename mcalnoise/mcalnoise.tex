@@ -1,15 +1,19 @@
-\documentclass[usegraphicx,usenatbib,referee,aas_macros]{mn2e}
+%\documentclass[usegraphicx,usenatbib,referee,aas_macros]{mn2e}
+%\documentclass[usegraphicx,usenatbib,referee]{mnras}
+\documentclass[a4paper,fleqn,usenatbib]{mnras}
+%\documentclass[a4paper,fleqn,referee,usenatbib]{mnras}
+
 
 
 % only needed for draft watermark
-\usepackage[
-    paperwidth=8.3in,
-    paperheight=11.7in,
-    left=0.5in,
-    right=0.5in,
-    top=1.5in,
-    bottom=1.0in,
-    hmarginratio=1:1]{geometry}
+%\usepackage[
+%    paperwidth=8.3in,
+%    paperheight=11.7in,
+%    left=0.5in,
+%    right=0.5in,
+%    top=1.5in,
+%    bottom=1.0in,
+%    hmarginratio=1:1]{geometry}
 
 %\usepackage{draftwatermark}
 %\SetWatermarkScale{5}
@@ -57,14 +61,14 @@
 \newcommand{\lsstreq}{$2\times 10^{-3}$}
 
 
-\newcommand{\mnras}{MNRAS}%
-\newcommand{\apj}{ApJ}%
-\newcommand{\apjs}{ApJS}%
-\newcommand{\aj}{AJ}%
-\newcommand{\pasp}{PASP}%
-\newcommand{\jcp}{J.~Chem.~Phys.}
-\newcommand{\aaps}{AASP}
-\newcommand{\aap}{AAP}
+%\newcommand{\mnras}{MNRAS}%
+%\newcommand{\apj}{ApJ}%
+%\newcommand{\apjs}{ApJS}%
+%\newcommand{\aj}{AJ}%
+%\newcommand{\pasp}{PASP}%
+%\newcommand{\jcp}{J.~Chem.~Phys.}
+%\newcommand{\aaps}{AASP}
+%\newcommand{\aap}{AAP}
 
 \newcommand{\est}{$e$}
 \newcommand{\mest}{e}
@@ -643,8 +647,8 @@ also hold:
 \end{align}
 It then follows that the response can be completely factored such that
 \begin{align} \label{eq:Rseparable}
-    \int d e_\alpha  de_\beta  \frac{\partial^2 S_\alpha S_\beta \mbox{\probe} e_\alpha e_\beta}{\partial \gamma_\alpha \partial \gamma_\beta}\bigg|_{\gamma=0} 
-      &\approx \int d e_\alpha  \frac{\partial S_\alpha P(e_\alpha) e_\alpha}{\partial \gamma_\alpha}\bigg|_{\gamma=0} de_\beta   \frac{\partial S_\beta P(e_\beta) e_\beta}{\partial \gamma_\beta}\bigg|_{\gamma=0} \nonumber \\
+    \int d e_\alpha  de_\beta  & \frac{\partial^2 S_\alpha S_\beta \mbox{\probe} e_\alpha e_\beta}{\partial \gamma_\alpha \partial \gamma_\beta}\bigg|_{\gamma=0}  \nonumber \\
+      & \approx \int d e_\alpha  \frac{\partial S_\alpha P(e_\alpha) e_\alpha}{\partial \gamma_\alpha}\bigg|_{\gamma=0} de_\beta   \frac{\partial S_\beta P(e_\beta) e_\beta}{\partial \gamma_\beta}\bigg|_{\gamma=0} \nonumber \\
       &=  \left< R_\alpha \right> \left< R_\beta \right>.
 \end{align}
 
@@ -960,7 +964,7 @@ the PSF.
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\columnwidth]{run-bdj03mcal02-r50.eps}
+    \includegraphics[width=\columnwidth]{run-bdj03mcal02-r50.eps}
 
     \caption{Distribution of half-light-radius \hlr\ in the parametric simulations.
         The solid line represents the distribution of input \hlr, drawn from fits
@@ -979,7 +983,7 @@ results in a smooth rolloff in the true \snr.
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\columnwidth]{run-bdj03mcal02-s2n.eps}
+    \includegraphics[width=\columnwidth]{run-bdj03mcal02-s2n.eps}
 
     \caption{Distribution of S/N in the parametric simulations. The
     solid curve represents the true input distribution, the dashed curve 
@@ -1194,7 +1198,7 @@ contamination.  We will discuss the affect of stars in \S \ref{sec:stars}.
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\columnwidth]{R-bdj03-bdj03stars.eps}
+    \includegraphics[width=\columnwidth]{R-bdj03-bdj03stars.eps}
 
     \caption{Distribution of \mcal\ responses for galaxies and stars in
     the \bdstar\ simulation.  Stars have mean response close to zero,
@@ -1324,7 +1328,7 @@ $\mbox{\snr} > 19 $ & $-8.33 \pm 0.36$ & $+0.17 \pm 0.73$ & $+0.05 \pm 0.37$ & $
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\columnwidth]{mc-select-bias-thresh.eps}
+    \includegraphics[width=\columnwidth]{mc-select-bias-thresh.eps}
 
     \caption{Multiplicative (upper panel) and
 		additive bias (lower panel) in the \bdsim\ simulation after applying
@@ -1337,7 +1341,7 @@ $\mbox{\snr} > 19 $ & $-8.33 \pm 0.36$ & $+0.17 \pm 0.73$ & $+0.05 \pm 0.37$ & $
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\columnwidth]{mc-select-bias-thresh-with-nocorr.eps}
+    \includegraphics[width=\columnwidth]{mc-select-bias-thresh-with-nocorr.eps}
 
     \caption{Multiplicative in the \bdsim\ simulation after applying
         threshold selections in \snr.  The bias without correction for
@@ -1646,7 +1650,7 @@ simulation.
 
 \begin{figure}
 	\centering
-    \includegraphics[width=0.5\columnwidth]{mcal-v14s01-Rnoise-detrend-R11.eps}
+    \includegraphics[width=\columnwidth]{mcal-v14s01-Rnoise-detrend-R11.eps}
 
     \caption{Trend of $\Delta R_{1,1}$ with $2 n \Delta n$ for the
         real galaxy simulation.   $n$ is the
@@ -1750,7 +1754,7 @@ We found this method performed poorly.  We detected a remaining bias of  $m
 \sim 4 \times 10^{-3}$ in both the \bdsim\ and \rgsim\ simulations.
 
 
-\bibliographystyle{mn2e}
+\bibliographystyle{mnras}
 % Bib database
 \bibliography{apj-jour,astroref}
 
