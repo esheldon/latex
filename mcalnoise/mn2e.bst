@@ -1,1 +1,0 @@
-../mnras/mn2e.bst
