@@ -217,7 +217,7 @@ The shear estimator, the estimated ``shape'' of the galaxy, is then determined
 from the parameters of this model.  This method is limited for two primary
 reasons: First, in order for the shear inference to be accurate, the model
 must very accurately reproduce the galaxy profile before convolution by the
-PSF (XXX ref), which requires a large number of parameters.  If the model
+PSF, which requires a large number of parameters.  If the model
 cannot sufficiently reproduce the galaxy the estimator is said to exhibit
 ``model bias'' \citep{Bernstein2010}.  The second is that the effect of noise
 on the non-linear fitting is significant for low signal-to-noise (\snr)
@@ -228,14 +228,14 @@ by the large number of parameters required to accurately represent a galaxy.
 Due to these biases, model fitting methods require additional calibration.
 There are no absolute calibration sources in the universe that we can use to
 derive a calibration, so those fitting models have typically resorted to
-calibration based image simulations \citep[e.g.][]{Zuntz13,Miller13}.  These
+calibration using image simulations \citep[e.g.][]{Zuntz13,Miller13}.  These
 simulations must include all the relevant details of the real universe in
 order to provide an accurate calibration.
 
 An alternative shear estimator is based on measuring second moments of the
 galaxy light distribution, after correction for the effect of the point spread
 function \citep[e.g.][]{ksb95,Bernstein2010}.  These methods can be made quite
-accurate in for high \snr\ galaxy images, with little model bias
+accurate for high \snr\ galaxy images, with little model bias
 \citep{Bernstein2010,Okura2016}.  However, these methods still suffer the
 ``noise bias'' found in model fitting methods, due to the non-linear fitting
 involved with the measurement.  Without further development, these methods are
@@ -254,7 +254,7 @@ un-normalized moments are then either summed directly to provide a shear
 estimator, or the PDF of measurements is symmetrized in order to infer the
 shear, with the latter providing a more precision estimate.  This method is
 quite promising, with an accuracy in idealized simulations at the part in a
-thousand level.  However, as of yet no method is provided to deal with
+thousand level.  However, as of yet no method has been proposed to deal with
 selection effects.
 
 The second is a new method for shear inference introduced by
@@ -266,19 +266,19 @@ method for which selection effects are corrected for naturally as part of the
 method, without use of external simulations.  The method has been shown to be
 accurate in a highly controlled, but unrealistic numerical experiment using
 model fitting techniques \citep{Sheldon2014}.  A more practical version using
-un-normalized moments in Fourier space was tested in \citep{bfd2016}.  While
+un-normalized moments in Fourier space was tested in \cite{bfd2016}.  While
 the accuracy in that test fell somewhat short of the part-in-a-thousand
 target, the method shows great promise, since the required prior information
 from deep data should in principle be available to current and future surveys
 \citep{DESWhitePaper,Takada2010,IvezicLSST08,Euclid2011}.
 
-Thirdly, \Mcal\ \citep{HuffMcal} is a new shear measurement technique designed
-to address the shortcomings of standard shear measurement techniques, without
-requiring significant prior information about galaxy properties.  The essence of
-\mcal\ is to directly measure how a particular measurement responds to a shear,
-addressing both model bias and noise bias.  \Mcal\ can in principle be applied
-to calibrate any shear estimator, including shapes derived from model fitting
-or weighted moments.
+Lastly, \Mcal\ \citep{HuffMcal}, the subject of this work, is a new shear
+method designed to address the shortcomings of standard shear measurement
+techniques, without requiring significant prior information about galaxy
+properties.  The essence of \mcal\ is to directly measure how a particular
+shear estimator responds to an applied shear, addressing both model bias and
+noise bias.  \Mcal\ can in principle be applied to calibrate any shear
+estimator, including shapes derived from model fitting or weighted moments.
 
 A similar idea was introduced by \cite{Kaiser2000}.  Much of the treatment
 therein was quite general, but most of the detailed calculations focusing on
@@ -293,9 +293,10 @@ The \mcal\ technique was shown to be accurate in controlled simulations
 those used in][]{great3} used fairly high \snr\ galaxy images, and the galaxies
 were relatively large compared to the PSF size.  In a real survey, the images
 are dominated by small faint galaxies, many of which cannot be reliably
-detected or measured.  Furthermore, the statistics of the simulations was
-sufficient to constrain the accuracy of the shear recover to only about 3 parts
-in a thousand.  In this work we use a much more challenging set of simulations.
+detected or measured.  Furthermore, due to the limited number of galaxies in
+those simulations, the accuracy of the method could only bested to about 3
+parts in a thousand.  In this work we use a much more challenging set of
+simulations.
 
 We will also address other difficulties that arise in real data.  During
 estimation of a shear statistic, further selection beyond a simple detection
