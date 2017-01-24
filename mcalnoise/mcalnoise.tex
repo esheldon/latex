@@ -241,27 +241,36 @@ accurate in for high \snr\ galaxy images, with little model bias
 involved with the measurement.  Without further development, these methods are
 not accurate at the part in a thousand level.
 
-Some methods have recently been developed to avoid these biases.  The first we
-will discuss involves measuring the moments in Fourier space, after subtracting
-off an appropriate noise power spectrum.  A circular weight is used to avoid
-non-linear fitting issues.  These un-normalized moments are then summed
-directly to provide a shear estimator (XXX ref).  This method has proven very
-accurate, but because the moments are not normalized, the weighting is
-essentially by flux, weighting to the brightest galaxies, which is highly
-sub-optimal. Attempts to use different weighting have not yet been demonstrated
-to be accurate (XXX ref).
+Finally, selection effects can bias the recovered shear, but the corrections
+are typically considered as separate from the shear estimation, to be inferred
+as part of the simulation calibration effort \citep[e.g.][]{Zuntz13}.
 
-The second is a promising new method for shear inference introduced by (XXX
-ref).  A rigorous Bayesian framework was developed in which prior information
-on galaxy images from a high \snr\ deep data set is combined with knowledge of
-how a particular measurement (e.g. a model fit or moments) responds to a shear
-in the absence of noise.  The method has been shown to be accurate in a highly
-controlled, but unrealistic numerical experiment using model fitting techniques
-(XXX ref sheldon).  A more practical version using un-normalized moments in
-Fourier space was tested in (XXX ref).  While the accuracy in that test fell
-somewhat short of the part-in-a-thousand target, the method shows great
-promise, since the required prior information from deep data should in
-principle be available to current and future surveys (XXX ref).
+
+Some methods have recently been developed to avoid these biases.  The first we
+will discuss \citep{Zhang2015,Zhang2017} involves measuring the moments in
+Fourier space, after subtracting off an appropriate noise power spectrum.  A
+circular weight is used to avoid non-linear fitting issues.  These
+un-normalized moments are then either summed directly to provide a shear
+estimator, or the PDF of measurements is symmetrized in order to infer the
+shear, with the latter providing a more precision estimate.  This method is
+quite promising, with an accuracy in idealized simulations at the part in a
+thousand level.  However, as of yet no method is provided to deal with
+selection effects.
+
+The second is a new method for shear inference introduced by
+\citep{ba14,bfd2016}.  A rigorous Bayesian framework was developed in which
+prior information on galaxy images from a high \snr\ deep data set is combined
+with knowledge of how a particular measurement (e.g. a model fit or moments)
+responds to a shear in the absence of noise.  Importantly, this is the first
+method for which selection effects are corrected for naturally as part of the
+method, without use of external simulations.  The method has been shown to be
+accurate in a highly controlled, but unrealistic numerical experiment using
+model fitting techniques \citep{Sheldon2014}.  A more practical version using
+un-normalized moments in Fourier space was tested in \citep{bfd2016}.  While
+the accuracy in that test fell somewhat short of the part-in-a-thousand
+target, the method shows great promise, since the required prior information
+from deep data should in principle be available to current and future surveys
+(XXX ref).
 
 Thirdly, \Mcal\ \citep{HuffMcal} is a new shear measurement technique designed
 to address the shortcomings of standard shear measurement techniques, without
@@ -877,7 +886,7 @@ The ellipticities were drawn from the simple model used in \cite{ba14}
 \end{align}
 with $\sigma=0.2$ for the disk and $\sigma=0.1$ for the bulge.  Note, we use
 the ``reduced-shear'' style ellipticity, which differs by roughly a factor of
-two compared to the ellipticity used in \citet{bfd2015}.
+two compared to the ellipticity used in \citet{bfd2016}.
 
 For the simulated knots of star formation, we distributed 100 point sources
 according to a random walk starting at the disk centroid, with each point
