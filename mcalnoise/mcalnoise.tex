@@ -1402,6 +1402,28 @@ also important to weight by the \mcal\ response terms in order to get the
 correct redshift distribution; see \S \ref{sec:weighting} for more
 discussion of weighted means.
 
+\subsubsection{Effects of Missing Data}
+
+The Fourier transforms used to perform the \mcal\ convolutions cannot
+accommodate missing data.  But in real data, there are bad pixels and columns
+that cannot be used for object measurement.  In most surveys, this can be dealt
+with easily: because multiple exposures of a part of sky are repeated in a
+dithered fashion \citep[e.g.][]{DESWhitePaper}, it is unlikely that a large
+fraction of the images for a given object have missing data.  In that case, one
+can just ignore the small subset of images that do have missing data.
+
+If a single image is available, one may want to replace the missing data.  We
+chose to replace the missing data with the value from the best fit Gaussian
+model.  Using a better model would be preferred; this may be considered a worst
+case scenario.
+
+In order to test this method, we ran a simulation in which 10\% of the images
+had bad pixels or band columns. We found the model replacement worked well for
+single bad pixels. For bad columns we found a multiplicative bias of a few
+parts in a thousand. However, this bias disappeared if we also replaced pixels
+in a row designed to match the missing column, but at 90 degree rotation about
+the center of the image.
+
 \section{Summary}
 
 Summarize and compare with literature (or do elsewhere)
