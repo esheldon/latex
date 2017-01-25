@@ -247,13 +247,17 @@ as part of the simulation calibration effort \citep[e.g.][]{Zuntz13}.
 
 
 Some methods have recently been developed to avoid these biases.  The first we
-will discuss \citep{Zhang2015,Zhang2017} involves measuring the moments in
-Fourier space, after subtracting off an appropriate noise power spectrum.  A
-circular weight is used to avoid non-linear fitting issues.  The PDF of the
-un-normalized moments is then symmetrized in order to infer an applied shear.
-The accuracy in idealized simulations was found to be at the part in a thousand
-level.  However, as this writing no formalism has been proposed to deal with
-selection effects.
+will discuss \citep{Zhang2017} involves measuring the moments in Fourier space,
+after subtracting off an appropriate noise power spectrum to deal with noise
+effects.  A circular weight is used to avoid non-linear fitting issues.  The
+moments were then either simply summed to form a shear estimator
+\citep{Zhang2015}, or the PDF of the un-normalized moments was symmetrized in
+order to infer an applied shear \citep{Zhang2017}.  The sum method was shown to
+be accurate, at the part in a thousand level, but with unacceptably high noise.
+The PDF symmetrization method was shown to be more precise, but the simulations
+used were not large enough to determine the accuracy of the method to the part
+in a thousand level.  No formalism was yet proposed to deal with selection
+effects. 
 
 The second is a new method for shear inference introduced by
 \citep{ba14,bfd2016}.  A rigorous Bayesian framework was developed in which
@@ -261,15 +265,16 @@ prior information on galaxy images from a high \snr\ deep data set is combined
 with knowledge of how a particular measurement (e.g. a model fit or moments)
 responds to a shear in the absence of noise.  Importantly, this is the first
 method for which selection effects are corrected for naturally as part of the
-method, without use of external simulations.  The method has been shown to be
+method, without use of external simulations.  The method was shown to be
 accurate in a highly controlled, and unrealistically simple numerical
 experiment using model fitting techniques \citep{Sheldon2014}.  A more
 practical version using un-normalized moments in Fourier space was tested in
 \cite{bfd2016}, using a more challenging simulation.  In that initial study,
-the accuracy fell just short of the part-in a thousand target.  However, given
-its rigorous foundation, it may be the desired accuracy can be achieved with
-further technical development.  The required prior information from deep data
-should in principle be available to current and future surveys
+the accuracy was found to be $\sim 2 \times 10^{-3}$, just short of the part-in
+a thousand target.  However, given its rigorous foundation, it may be the
+desired accuracy can be achieved with further technical development.  The
+required prior information from deep data should in principle be available to
+current and future surveys
 \citep{DESWhitePaper,Takada2010,IvezicLSST08,Euclid2011}.
 
 \Mcal\ \citep{HuffMcal}, the subject of this work, is a new shear
