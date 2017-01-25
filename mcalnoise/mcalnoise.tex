@@ -359,13 +359,22 @@ of the right hand side.
 
 The essence of \mcal\ \citep{HuffMcal} is to estimate the shear response
 \mcalR\ for a measurement \est\ directly from image data.  This is
-accomplished using a numerical derivative.  The original image $I$ is
-de-convolved from the point spread function (PSF), sheared, and re-convolved
-by the PSF.  A slightly larger PSF is used in order to suppress Fourier modes 
-exposed by the shearing, that were previously hidden in the finite
-resolution of the original image.  This process is repeated for a
-positive and negative shear, which can be used to form a central derivative.
-We can represent this as a series of operations on the observed image $I$:
+accomplished using a numerical derivative: the measurement of
+the shear estimator \est\ is repeated on sheared versions of the galaxy
+image and these are used to form a finite-difference central derivative
+\begin{equation} \label{eq:Rnum}
+    R = \frac{\mest(+\gamma) - \mest(-\gamma)}{\Delta \gamma},
+\end{equation}
+where $\mest(+\gamma)$ is the measurement made on a positively sheared
+image, $\mest(-\gamma)$ is the measurement made on a negatively
+sheared image, and $\Delta \gamma = 2\gamma$.
+
+The shearing is accomplished via a series of image manipulations. The original
+image $I$ is de-convolved from the point spread function (PSF), sheared, and
+re-convolved by the PSF.  A slightly larger PSF is used in order to suppress
+Fourier modes exposed by the shearing, that were previously hidden in the
+finite resolution of the original image.  We can represent the series of
+operations on the observed image $I$ as
 \begin{equation}
     I(\gamma) = I \ast P^{-1} \oplus \gamma \ast P_{d}
 \end{equation}
@@ -373,14 +382,7 @@ where $\ast $ represents convolution, $\oplus$ represents shearing,
 and $P$ represents the point spread function.  De-convolution
 is represented as ``inverse'', $P^{-1}$.  The slightly larger PSF, or
 dilated PSF, is represented by $P_{d}$.
-
-To form the central derivative we shear by a small positive and negative
-amount $\gamma$
-\begin{equation} \label{eq:Rnum}
-    R = \frac{\mest(+\gamma) - \mest(-\gamma)}{\Delta \gamma},
-\end{equation}
-where $\Delta \gamma = 2\gamma$.
-A re-convolved, but not sheared, image should be used
+Note a re-convolved, but not sheared, image should be used
 to calculate the shear estimator \mest.
 %\begin{equation} \label{eq:estimator}
 %    \mest = \frac{\mest(+\gamma) + \mest(-\gamma)}{2}.
@@ -445,10 +447,10 @@ In this section we derive the full metacal formalism, including selection
 effects. As shorthand we will, without loss of generality, refer to the shear
 estimator $\mest$ as the ellipticity. We write the ellipticity measured from a
 sheared image as $\mest^+$ and $\mest^-$, for measurements on positive and
-negatively sheared images respectively.  We denote the probability that an
-object is selected as $S$;  we can also select objects based on sheared
-parameters, which we denote $S^+$ and $S^-$, the probability of selection after
-a positive or negative shear is applied, respectively.
+negatively sheared images respectively.  We denote the selection probability as
+$S$;  we can also make selections based on sheared parameters, which we denote
+$S^+$ and $S^-$, the probability of selection after a positive or negative
+shear is applied, respectively.
 
 
 \subsection{Response for the Mean Shear} \label{sec:Rmean}
@@ -568,14 +570,6 @@ following:
         from positively and negatively sheared images $\langle e \rangle^{S+}$, $\langle e \rangle^{S-}$
 \end{enumerate}
 
-Note selections that produce additive effects are not addressed in the above.
-If the PSF is symmetrized, as we will do (see \S \ref{sec:modelfit}), then
-selections on object properties will not be correlated with the PSF shape, by
-construction, and thus no net additive bias will be introduced. Note, however,
-that pre-selections, for example detection thresholds, will in general produce
-such biases.  We will test the importance of this effect using image
-simulations.
-
 %In practice, we recommend storing all the sheared and unsheared measurements
 %and perform separate selections and statistics on those values to compute any
 %ensemble averages needed for a particular inference (see e.g. \S
@@ -663,6 +657,15 @@ response for 2-point functions in a future work.
 
 \subsection{Remarks on Selections}
 
+Selections that produce additive effects are not addressed in the above.  If
+the PSF is symmetrized, as we will do (see \S \ref{sec:modelfit}), then
+selections on object properties will not be correlated with the PSF shape, by
+construction, and thus no net additive bias will be introduced. Note, however,
+that pre-selections, for example detection thresholds, will in general produce
+such biases.  We will test the importance of pre-selections with image
+simulations.
+
+
 It is important that the selections be placed well above any detection
 thresholds, such that, after shearing, detected objects can move into and out
 of the selected sample.  If the selection were too close to a detection
@@ -672,7 +675,7 @@ a shear would not be included.
 In real data, a selection may directly or indirectly select the redshift of the
 sources, which means the true shear will be different after selection, even in
 the absence of selection biases.  This must be taken into account separately.
-We will not treat this effect in what follows.  TODO estimate size of this
+We will not treat this effect in what follows.  XXX estimate size of this
 effect
 
 
@@ -838,11 +841,12 @@ identical; rather the effect should cancel when averaged over a large ensemble
 of galaxies.
 
 This procedure necessarily increases the noise in the shear recovery.  For high
-\snr\ galaxies, where intrinsic shape noise dominates, this results in a 40\% decrease in
-effective \snr. However, for faint galaxies, which dominate the sample, the
-shape measurement noise is comparable to the intrinsic shape noise, so the decrease in
-effective \snr\ is a modest 20\%.  Nevertheless, it is worthwhile to explore
-corrections that do not involve adding significant noise.
+\snr\ galaxies, where intrinsic shape noise dominates, this results in a 40\%
+decrease in effective \snr. However, for faint galaxies, which dominate the
+sample, the shape measurement noise is comparable to the intrinsic shape noise,
+so the decrease in effective \snr\ is a more modest 20\%.  Nevertheless, it is
+worthwhile to explore alternative corrections that do not involve adding
+significant noise.
 
 Because the noise is increased, it is important that both the response and
 estimator should be measured on the $\tilde{I}(\gamma)$ images, so that the
