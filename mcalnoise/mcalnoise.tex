@@ -928,9 +928,10 @@ These convolved objects were rendered onto 0.263 arcsec pixels and constant
 Gaussian noise was added, with the same noise level used for all images.
 
 In figure \ref{fig:parametricgals} we show some example simulated galaxies with
-a range of parameters.  In order to show detailed internal structure, for
-visual purposes, we created models larger than any in the actual simulations we
-ran for testing, in which were mostly smaller than the PSF.
+a range of parameters.  For visual purposes, in order to show detailed internal
+structure, we created large models, with sizes much larger than the PSF.  In
+the simulations used for shear testing, the galaxies were mostly smaller than
+the PSF.
 
 
 \begin{figure*}
@@ -1044,17 +1045,18 @@ for selection effects presented in \S \ref{sec:selection} cannot be used.
 
 In order to test that we can recover the shear in the presence of this effect,
 we applied a pre-selection at \snr$ > 5$, and \mcal\ was not run on the
-galaxies that were removed.  We will apply further cuts on the \snr\ above this
-threshold in order to minimize the bias due to removal of these
-galaxies.  See \S \ref{sec:shear_recover} for details.
+galaxies that were removed.  Then, as discussed in \S \ref{sec:shear_recover},
+we applied further cuts on the \snr\ above this threshold in order to minimize
+the bias due to removal of these galaxies.
 
 
 \subsection{Real Galaxy Simulations} \label{sec:cosmosim}
 
 We designed a second set of simulations to mimic the ``real-galaxy'' constant
-shear simulations used in GREAT3 challenge \citep{great3}, using galaxy images drawn
-from 23.5 magnitude limited COSMOS data.  All galaxies in 1000 sub-fields were
-given the same shear, ranging from 0.01 to 0.08, with random orientations.
+shear simulations used in GREAT3 challenge \citep{great3}, using galaxy images
+drawn from 23.5 magnitude limited COSMOS data.  We generated 1000 different
+fields in which galaxies were given a constant shear ranging from 0.01 to 0.08,
+with random orientations.
 
 We implemented two important changes as compared to GREAT3.  First, we oriented
 the galaxies randomly, whereas in GREAT3 the galaxies were placed in pairs
