@@ -278,22 +278,23 @@ used were not large enough to determine the accuracy of the method to the part
 in a thousand level.  No formalism was yet proposed to deal with selection
 effects. 
 
-The second is a new method for shear inference introduced by
-\citep{ba14,bfd2016}.  A rigorous Bayesian framework was developed in which
-prior information on galaxy images from a high \snr\ deep data set is combined
-with knowledge of how a particular measurement (e.g. a model fit or moments)
-responds to a shear in the absence of noise.  Importantly, this is the first
-method for which selection effects are corrected for naturally as part of the
-method, without use of external simulations.  The method was shown to be
-accurate in a highly controlled, and unrealistically simple numerical
-experiment using model fitting techniques \citep{Sheldon2014}.  A more
-practical version using un-normalized moments in Fourier space, known as the
-Bayesian Fourier Domain method (\bfd), was tested in \cite{bfd2016}, using a
-more challenging simulation.  In that initial study, the accuracy was found to
-be $\sim 2 \times 10^{-3}$, just short of the part-in a thousand target.
-However, given its rigorous foundation, it may be the desired accuracy can be
-achieved with further technical development.  The required prior information
-from deep data should in principle be available to current and future surveys
+The second is a new method for shear inference introduced by \cite{ba14} and
+further developed by \cite{bfd2016}.  A rigorous Bayesian framework was
+presented, in which prior information on galaxy images from a high \snr\ deep
+data set is combined with knowledge of how a particular measurement (e.g. a
+model fit or moments) responds to a shear in the absence of noise.
+Importantly, this is the first method for which selection effects are corrected
+for naturally as part of the method, without use of external simulations.  The
+method was shown to be accurate in a highly controlled, and unrealistically
+simple numerical experiment using model fitting techniques \citep{Sheldon2014}.
+A more practical version using un-normalized moments in Fourier space, known as
+the Bayesian Fourier Domain method (\bfd), was tested in \cite{bfd2016}, using
+a more challenging simulation.  In that initial study, a bias was detected at
+the $\sim 2 \times 10^{-3}$, falling just short of the part-in a thousand
+target.  However, given its rigorous foundation, it is possible the desired
+accuracy will be achieved with further technical development.  The required
+prior information from deep data should in principle be available to current
+and future surveys
 \citep{DESWhitePaper,TakadaHSC2010,IvezicLSST08,Euclid2011,SpergelWFIRST2015}.
 
 \Mcal\ \citep{HuffMcal}, the subject of this work, is a new shear
@@ -305,10 +306,10 @@ noise bias.  \Mcal\ can in principle be applied to calibrate any shear
 estimator, including shapes derived from model fitting or weighted moments.
 
 A similar idea was introduced by \cite{Kaiser2000}.  Much of the treatment
-therein was quite general, but most of the detailed calculations focusing on
+therein was quite general, but most of the detailed calculations focused on
 weighted second moment estimators.  The approach introduced by \citep{HuffMcal}
 is intentionally agnostic about the underlying shear estimator, with a focus on
-generic image manipulations quickly performed on current computers.  Some
+generic image manipulations quickly performed with modern computers.  Some
 of the general ideas from \citep{HuffMcal} were thus proposed much earlier by
 \cite{Kaiser2000}, but not implemented.
 
