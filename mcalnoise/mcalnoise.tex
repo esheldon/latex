@@ -1410,14 +1410,15 @@ discussion of weighted means.
 \subsubsection{Effects of Missing Data}
 
 The Fourier transforms used to perform the \mcal\ convolutions cannot
-accommodate missing data.  But in real data, there are bad pixels and columns
-that cannot be used for object measurement.  This can be dealt with easily when
-the galaxies models are fit simultaneously to postage stamps drawn from all
+accommodate missing data.  But in real data there are features in the image,
+such as bad pixels and columns, cosmic rays, and saturated pixels, that cannot
+be used for object measurement.  This can be dealt with easily when the
+galaxies models are fit simultaneously to postage stamps drawn from all
 available observing epochs and bands \citep[e.g.][]{Jarvis2016}.  In that case,
 epochs in which there is missing data can simply be left out.
 
-If a single image is available, one may want to replace the missing data.  To
-test this scenario, we chose to replace the missing data with the value from
+If only a single image is available, one may want to replace the missing data.
+To test this scenario, we chose to replace the missing data with the value from
 the best fit Gaussian model.  Using a better model would be preferred; this may
 be considered a worst case scenario.
 
