@@ -2,6 +2,7 @@
 %\documentclass[usegraphicx,usenatbib,referee]{mnras}
 \documentclass[a4paper,fleqn,usenatbib]{mnras}
 %\documentclass[a4paper,fleqn,referee,usenatbib]{mnras}
+%\pdfoutput=1
 
 
 
@@ -1162,11 +1163,10 @@ implementation of the ``adaptive moments'' algorithm originally presented in
 \cite{bj02}.   We applied no PSF correction.  We expect this estimator to
 respond weakly to a shear, but we will measure this weak response using \mcal.
 
-Rather than attempt to correct for psf anisotropy using \mcal\ ``psf response''
-as was done in \cite{HuffMcal}, we instead reconvolved by a symmetrized version
+In order to correct for psf anisotropy  we reconvolved by a symmetrized version
 of the PSF. We created this PSF by adding the PSF image to itself, rotated by
 90, 120, and 180 degrees.  This averaging can result in a PSF that is smaller
-in some dimensions than the original, so we further dilated this symmetrized
+in some dimensions than the original, so we further dilated the symmetrized
 PSF.  The dilation factor was taken to be $1+2*\delta$, where
 \begin{align}
     %\delta = \frac{E}{0.5 (<x^2> + <y^2>)}
@@ -1223,7 +1223,7 @@ Using \mcal\ we found no significant multiplicative or additive biases.
 Without applying the \mcal\ responses, the multiplicative bias $m$ was of order
 50\% for all simulations.
 
-\begin{table*}
+\begin{table}
     \centering
     \caption{\Mcal\ results for each image simulation described in
         \S \ref{sec:sims} and table \ref{tab:sims}.  For each simulation,
@@ -1246,7 +1246,7 @@ Without applying the \mcal\ responses, the multiplicative bias $m$ was of order
         \bdsim & $0.03 \pm 0.31$  & -                & $-0.15 \pm 0.62$ \\
         \bdstar& $0.01 \pm 0.32$  & -                & $-0.08 \pm 0.63$
     \end{tabular}
-\end{table*}
+\end{table}
 
 %        \bdmask& $-496$      & $+0.09 \pm 0.10$ & $ 15.07 \pm 0.10$ & $-0.60 \pm 0.46$  & $-0.17 \pm 0.23$ & $0.73 \pm 0.23$  \\
 
@@ -1426,7 +1426,14 @@ missing column, but at 90 degree rotation about the center of the image.
 
 \section{Summary}
 
-Summarize and compare with literature (or do elsewhere)
+We introduced a formalism for \mcal\ to calculate shear response corrections,
+including corrections for selection effects. We introduced a simple empirical
+correction for correlated noise.  We tested the shear recovery in simulations
+using real galaxy images, as well as very challenging parametric simulations
+that included pre-selection effects and stellar contamination.  We applied a
+range of cuts on the object \snr.  In all cases we recovered the input shear to
+better than a part in a thousand.
+
 
 \begin{comment}
 .  We can
@@ -1764,10 +1771,6 @@ response without correlated noise
 \begin{equation}
     \langle \mbox{\mcalR} \rangle = \langle \mbox{\mcalRo} \rangle - \langle \mbox{\mcalRnoise} \rangle.
 \end{equation}
-These responses will be noisier than the original images, due to the
-independent noise in both \mcalRo\ and \mcalRnoise.  To increase
-precision, the procedure can be repeated for different noise fields
-and averaged, at the cost of increased computation time.
 
 We found this method performed poorly.  We detected a remaining bias of  $m
 \sim 4 \times 10^{-3}$ in both the \bdsim\ and \rgsim\ simulations.
