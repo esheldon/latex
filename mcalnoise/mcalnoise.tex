@@ -120,6 +120,8 @@
 \newcommand{\rgsim}{\texttt{RG}}
 \newcommand{\pimprovement}{90}
 
+\newcommand{\galsim}{\texttt{GALSIM}}
+\newcommand{\balrog}{\texttt{BALROG}}
 
 \newcommand{\RR}{$\left<RR\right>$}
 \newcommand{\RS}{$\left<RR_{S}\right>$}
@@ -814,7 +816,7 @@ a large reduction in variance.  This reduction in noise facilitates the simple
 inference method outlined in \S \ref{sec:mcal}.  The failure rate is also
 dramatically decreased when applying smooth priors:  we find a failure rate of
 $\sim$0.003\%, as opposed to $\sim$6\% for the re-Gaussianization code
-implemented in the GALSIM package \citep{GALSIM2015}.  For these reasons we
+implemented in the \galsim\ package \citep{GALSIM2015}.  For these reasons we
 explore a simple empirical correction in the following section.
 \end{comment}
 
@@ -889,10 +891,10 @@ gave both bulge and disk the same half light radius \hlr.
 
 We drew the \hlr\ and flux from fits \citep{LacknerGunn2012} to the 25.2
 magnitude limited sample from the COSMOS data
-\citep{Scoville2007a,Scoville2007b}, as distributed with the GALSIM simulation
-package \citep{GALSIM2015}.  In order to avoid repeating the exact parameters,
-we interpolated the joint \hlr-flux distribution using a kernel density
-estimate.
+\citep{Scoville2007a,Scoville2007b}, as distributed with the \galsim\
+simulation package \citep{GALSIM2015}.  In order to avoid repeating the exact
+parameters, we interpolated the joint \hlr-flux distribution using a kernel
+density estimate.
 
 The ellipticities were drawn from the simple model used in \cite{ba14}
 \begin{align}
@@ -906,11 +908,11 @@ For the simulated knots of star formation, we distributed 100 point sources
 according to a random walk starting at the disk centroid, with each point
 taking 40 steps\footnote{This random walk method was inspired by
 \cite{Zhang2008FourierQuadI}, but was implemented from scratch by the authors
-and is now available as a GALSIM object class \texttt{galsim.RandomWalk}}.  We
-then sheared this distribution using the same ellipticity assigned to the disk;
-but note this does not result in a purely elliptical distribution of point
-sources.  Only in the rare case of a pure bulge, or disk with no knots, is the
-model purely elliptical.
+and is now available as a \galsim\ object class \texttt{galsim.RandomWalk}}.
+We then sheared this distribution using the same ellipticity assigned to the
+disk; but note this does not result in a purely elliptical distribution of
+point sources.  Only in the rare case of a pure bulge, or disk with no knots,
+is the model purely elliptical.
 
 The fraction of the flux in the bulge was drawn uniformly between zero and
 unity.  The fraction of the disk flux assigned to knots of star formation
@@ -1179,7 +1181,7 @@ sufficient; we conservatively increase the factor to $1+2\delta$ in case the
 Gaussian fit does not completely capture the asymmetries of the true PSF.
 
 All \mcal\ image operations were performed using the \texttt{metacal} module
-from \ngmix, which in turn uses GALSIM to perform most image manipulations.
+from \ngmix, which in turn uses \galsim\ to perform most image manipulations.
 Before fitting, we added a noise field designed to correct for correlated
 noise, as discussed in \S \ref{sec:fixnoise}
 
@@ -1424,89 +1426,39 @@ columns we found a multiplicative bias of a few parts in a thousand.  However,
 this bias disappeared if we also replaced pixels in a row designed to match the
 missing column, but at 90 degree rotation about the center of the image.
 
-\section{Summary}
+\section{Summary and Future Work}
 
 We introduced a formalism for \mcal\ to calculate shear response corrections,
 including corrections for selection effects. We introduced a simple empirical
-correction for correlated noise.  We tested the shear recovery in simulations
-using real galaxy images, as well as very challenging parametric simulations
-that included pre-selection effects and stellar contamination.  We applied a
-range of cuts on the object \snr.  In all cases we recovered the input shear to
-better than a part in a thousand.
+correction for correlated noise.  We tested this formalism in simulations using
+real galaxy images, as well as very challenging parametric simulations that
+included pre-selection effects and stellar contamination.  We applied a range
+of cuts on the object \snr, inducing significant selection affects.  In all
+cases we recovered the input shear to better than a part in a thousand.
+
+The primary remaining issues to be address to apply \mcal\ to read imaging data
+are the effects of overlapping objects and the limitations of current image
+processing techniques.
+
+The processing pipeline that determines the background, identifies unique
+detections, and assigns light to objects will potentially produce biases in the
+shear recovery.  With \mcal\ these issues can be addressed in principle. Rather
+than work on sheared postage stamps, the entire image can be sheared, and the
+full processing framework rerun to estimate the response.  The primary
+difficulties are the computational expense, and the difficulty in dealing with
+image artifacts that cannot be deconvolved.
+
+Of similar difficulty is the case where the light from multiple galaxies
+overlaps on the image.  The \Mcal\ procedure will correctly estimate the shear
+response for these "objects", but in order to interpret the signal the
+redshifts of each object must be known.  If the galaxies are so blended that
+they are considered one object by the pipeline, it is unlikely an accurate
+redshift can be determined.  This is a problem shared by any shear measurement
+pipeline, and will require some kind of external calibration.  These issues may
+be best addressed by inserting artificial galaxy images into the data using the
+recently introduced \balrog\ technique \citep{Balrog2016}.
 
 
-\begin{comment}
-.  We can
-rewrite equation \ref{eq:basicestimator} as
-\begin{align}
-    \langle \gamma \rangle &= \frac{ \sum E }{\sum \mbox{\mcalR}} = \frac{ \sum \mbox{\mcalR}^{true} \gamma }{\sum \mbox{\mcalR}},
-\end{align}
-which would look like a weighted average if the measured \mcalR\ were equal to
-the true response $\mbox{\mcalR}^{true}$.  The measured \mcalR\ could be used
-to weight the redshift estimates as well, although one must be careful as the
-\mcalR\ are not strictly positive.
-\end{comment}
-
-\begin{comment}
-\subsubsection{Results with Masking Effects} \label{sec:masking}
-
-Here we discuss the results for the \bdmask\ simulation, introduced in \S
-\ref{sec:bdsim}.  In this simulation, we mocked up masking of ``bad'' pixels,
-columns, and other artifacts using masks drawn from real DES data.
-
-As a baseline extreme case, we replaced the masked pixels simply with noise.
-This resulted in significant calibration bias.
-
-%In order to perform the Fourier transforms used for the \mcal\ convolutions, we
-%must replace any missing data with an appropriate value.  For example, some
-%pixels may be marked as ``bad'', and masked in the data reduction pipeline.  In
-%particular we wish to avoid any artifacts in the transformed images that would
-%mimic an additional ``response'' to the applied \mcal\ shear.
-
-A better alternative is to replace the missing data with the result of our
-model fit.  Since we used a Gaussian model for both PSF and Galaxy, which is a
-poor representation of the data, we consider this a worst case scenario as a
-model replacement. 
-
-The results using the model replacement method are shown in table
-\ref{tab:results} for the \bdmask\ simulation.  The measured bias did not
-change significantly compared to the measurements on the independent \bdsim\
-simulation.
-
-\end{comment}
-
-
-\begin{comment}
-There are two main types of selection: detection effects and ordinary selection
-effects.  Detection effects occur when placing a detection threshold on a
-quantity that correlates with galaxy shape. One example is \snr: cutting to
-objects greater than some value of \snr\ will preferentially remove galaxies
-with higher ellipticity, and thus reduce the inferred shear.  Ordinary
-selection on an initially unbiased detected sample can induce additional bias
-via the same mechanism.
-
-Determining detection effects may require prior information about the
-properties of the galaxies in the sample, including those galaxies that do not
-exceed the detection threshold.  Ordinary selection effects can in principle be
-determined from the noisy data, without prior information. If the initial
-detections were unbiased, one can examine how shearing galaxies changes their
-probability of selection near the threshold.  A similar technique can be
-applied even in the presence of a biased detection if the additional selection
-is relatively stringent, so that the original detection cut can be ignored,
-
-To test selection effects, we made a series of cuts on S/N in the \bdsim\
-simulation.  We used the ``round'' \snr\ definition in order to avoid the first
-order effect \citep{DESSVShear}.  We found the magnitude of the multiplicative
-bias increased monotonically with the cut on \snr, reaching a bias of $\sim
--2.5 \times 10^{-3}$ for $S/N > 20$.  This bias is larger than the requirements
-for future surveys.
-
-The detection bias could potentially be even larger than what we found, since
-the cut would be applied to a distribution of intrinsic \snr\ that ha
-an approximately power law shape, rather than one with a cutoff, as we had in
-our simulations. We will explore how to mitigate these important selection
-effects in a future work.
-\end{comment}
 
 \begin{comment}
 As indicated in table \ref{tab:selresults},
@@ -1547,33 +1499,6 @@ artificially and selected as above to derive a correction.  Multiple noise
 realizations could be used to increase the precision of the correction.
 \end{comment}
 
-\begin{comment}
-\section{Bias in GREAT3 Simulations}
-
-Relatively little bias was seen by \cite{HuffMcal} using the GREAT3 simulations
-\citep{great3}.  We checked that our code used to perform the metacal
-procedures gives identical results to that used in \cite{HuffMcal}, so this is
-most likely not a software error.  We
-suspect that the higher S/N of the GREAT3 simulations, and better modeling used
-in \cite{HuffMcal} resulted in reduced bias.
-
-The correlated noise effect scales with the square of the noise, and the
-simulations used for GREAT3 contain significantly higher S/N galaxies than the
-simulations used in this work.  Indeed, we found the correlated noise was still
-detectable in simulations we ran with similar properties to GREAT3, but with
-correlated noise bias at the 1-2\% level rather than the 12\% we saw in our
-\rgsim\ simulations.  We also ran the re-gaussianization code on our
-simulations, and did see a bias, but about a factor of two lower than we saw
-for our intentionally bad Gaussian PSF and Galaxy models.
-
-Another important difference between the GREAT3 sims and our sims is that
-GREAT3 galaxies were generated in pairs, rotated by 90 degrees with respect to
-a one another, in order to cancel shape noise.  However, we ran one of our
-simulations in such a configuration and saw the same level of correlated noise
-bias.  This is not surprising; the correlated noise effect adds coherently to
-the response, and should not cancel due to such imposed symmetries in the
-underlying galaxy population.
-\end{comment}
 
 \section*{Acknowledgments}
 
@@ -1581,8 +1506,8 @@ ES is supported by DOE grant DE-AC02-98CH10886.
 
 We thank Aaron Roodman for providing the variation of the optical aberrations
 measured in DES data.  Thanks to Mike Jarvis for many useful discussions and
-help with the GALSIM package.  Thanks to Rachel Mandelbaum for guidance
-guidance in using the GALSIM package isotropization and whitening features.
+help with the \galsim\ package.  Thanks to Rachel Mandelbaum for guidance
+guidance in using the \galsim\ package isotropization and whitening features.
 Thanks to Gary Bernstein for pointing out a simpler form for the response for
 2-point functions.
 
@@ -1591,20 +1516,20 @@ Thanks to Gary Bernstein for pointing out a simpler form for the response for
 
 \section{Alternative Methods for Correlated Noise Correction} \label{sec:altcorr}
 
-\subsection{Correction using GALSIM Methods}
+\subsection{Correction using \galsim\ Methods}
 
-With guidance from the GALSIM developers, we attempted to use the GALSIM noise
-isotropization and whitening functionality to correct the correlated noise.
-Isotropization enforces four fold symmetry, introducing minimal extra noise,
-while whitening completely whitens the image, introducing significant extra
-noise.  However, neither of these methods improved the shear recovery in our
-simulations.  It may be that some aspects of the \mcal\ procedure invalidate
-the assumptions behind these correction methods.
+With guidance from the \galsim\ developers, we attempted to use the \galsim\
+noise isotropization and whitening functionality to correct the correlated
+noise.  Isotropization enforces four fold symmetry, introducing minimal extra
+noise, while whitening completely whitens the image, introducing significant
+extra noise.  However, neither of these methods improved the shear recovery in
+our simulations.  It may be that some aspects of the \mcal\ procedure
+invalidate the assumptions behind these correction methods.
 
 
 \subsection{Detrending the Correlated Noise Bias} \label{sec:detrend}
 
-\subsection{Expected Scaling of the Bias with Noise Level} \label{sec:scaling}
+\subsubsection{Expected Scaling of the Bias with Noise Level} \label{sec:scaling}
 
 The bias in the ellipticity due to correlated noise should scale
 with the noise correlation function, and thus the square of the noise level in
@@ -1616,7 +1541,7 @@ from both the actual response \mcalR\ and a noise term \mcalRnoise\
                    &= R + A n^2.
 \end{align}
 
-\subsection{De-trending Correction Scheme}
+\subsubsection{De-trending Correction Scheme}
 
 The coefficient $A$ in Equation \ref{eq:scaling} can be calculated in simple
 scenarios, as shown in \cite{HirataCorrNoise}.  However, the calculation is
