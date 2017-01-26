@@ -840,13 +840,13 @@ correlated noise, because the original and added noise fields are not
 identical; rather the effect should cancel when averaged over a large ensemble
 of galaxies.
 
-This procedure necessarily increases the noise in the shear recovery.  For high
-\snr\ galaxies, where intrinsic shape noise dominates, this results in a 40\%
-decrease in effective \snr. However, for faint galaxies, which dominate the
-sample, the shape measurement noise is comparable to the intrinsic shape noise,
-so the decrease in effective \snr\ is a more modest 20\%.  Nevertheless, it is
-worthwhile to explore alternative corrections that do not involve adding
-significant noise.
+This procedure necessarily increases the noise in the shear recovery.  For
+faint galaxies, which dominate the sample, the shape measurement noise is
+comparable to the intrinsic shape noise, so the increase in effective noise
+about modest 20\%.  Furthermore, for correlation function measurements over
+large scales, sample variance will dominate and this small increase in shape
+noise will be unimportant.  Nevertheless, it is worthwhile to explore
+alternative corrections that do not involve adding significant noise.
 
 Because the noise is increased, it is important that both the response and
 estimator should be measured on the $\tilde{I}(\gamma)$ images, so that the
@@ -1053,10 +1053,10 @@ the bias due to removal of these galaxies.
 \subsection{Real Galaxy Simulations} \label{sec:cosmosim}
 
 We designed a second set of simulations to mimic the ``real-galaxy'' constant
-shear simulations used in GREAT3 challenge \citep{great3}, using galaxy images
-drawn from 23.5 magnitude limited COSMOS data.  We generated 1000 different
-fields in which galaxies were given a constant shear ranging from 0.01 to 0.08,
-with random orientations.
+shear simulations used in GREAT3 challenge \citep{great3}, using real galaxy
+images drawn from 23.5 magnitude limited COSMOS data.  We generated 1000
+different fields in which galaxies were given a constant shear ranging from
+0.01 to 0.08, with random orientations.
 
 We implemented two important changes as compared to GREAT3.  First, we oriented
 the galaxies randomly, whereas in GREAT3 the galaxies were placed in pairs
@@ -1115,12 +1115,14 @@ used for this sim, and the 25.2 sample used for our parametric simulations
 \label{fig:cosmos}
 \end{figure}
 
-Note the parametric sims presented in \S \ref{sec:bdsim} used the fainter, and
-smaller, 25.2 magnitude limited sample.  We thus do not expect the real galaxy
-simulation to be more challenging than the parametric sim in every aspect. We
-include it to directly address any special properties of real galaxies that may
-not appear in our bulge+disk+knots simulation, and to test shear recovery using
-a more realistic PSF.
+Note the parametric sims presented in \S \ref{sec:bdsim} used much fainter and
+smaller galaxies than the \rgsim\ simulation.  Also note the \rgsim\ simulation
+was very expensive compared to the parametric simulations, so we generated
+fewer galaxies and did not implement any pre-selection.  We thus do not expect
+the real galaxy simulation to be more challenging than the parametric sim in
+every aspect. We include it to directly address any special properties of real
+galaxies that may not appear in our bulge+disk+knots simulation, and to test
+shear recovery using a more realistic PSF.  
 
 
 
@@ -1406,23 +1408,21 @@ discussion of weighted means.
 
 The Fourier transforms used to perform the \mcal\ convolutions cannot
 accommodate missing data.  But in real data, there are bad pixels and columns
-that cannot be used for object measurement.  In most surveys, this can be dealt
-with easily: because multiple exposures of a part of sky are repeated in a
-dithered fashion \citep[e.g.][]{DESWhitePaper}, it is unlikely that a large
-fraction of the images for a given object have missing data.  In that case, one
-can just ignore the small subset of images that do have missing data.
+that cannot be used for object measurement.  This can be dealt with easily when
+the galaxies models are fit simultaneously to postage stamps drawn from all
+available observing epochs and bands \citep[e.g.][]{Jarvis2016}.  In that case,
+epochs in which there is missing data can simply be left out.
 
-If a single image is available, one may want to replace the missing data.  We
-chose to replace the missing data with the value from the best fit Gaussian
-model.  Using a better model would be preferred; this may be considered a worst
-case scenario.
+If a single image is available, one may want to replace the missing data.  To
+test this scenario, we chose to replace the missing data with the value from
+the best fit Gaussian model.  Using a better model would be preferred; this may
+be considered a worst case scenario.
 
-In order to test this method, we ran a simulation in which 10\% of the images
-had bad pixels or band columns. We found the model replacement worked well for
-single bad pixels. For bad columns we found a multiplicative bias of a few
-parts in a thousand. However, this bias disappeared if we also replaced pixels
-in a row designed to match the missing column, but at 90 degree rotation about
-the center of the image.
+We ran a simulation in which 10\% of the images had bad pixels or bad columns.
+We found the model replacement worked well for single bad pixels. For bad
+columns we found a multiplicative bias of a few parts in a thousand.  However,
+this bias disappeared if we also replaced pixels in a row designed to match the
+missing column, but at 90 degree rotation about the center of the image.
 
 \section{Summary}
 
