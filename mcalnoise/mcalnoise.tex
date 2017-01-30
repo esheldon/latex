@@ -1216,9 +1216,10 @@ respond weakly to a shear, but we will measure this weak response using \mcal.
 
 In order to correct for psf anisotropy  we reconvolved by a symmetrized version
 of the PSF. We created this PSF by adding the PSF image to itself, rotated by
-90, 120, and 180 degrees.  This averaging can result in a PSF that is smaller
-in some dimensions than the original, so we further dilated the symmetrized
-PSF.  The dilation factor was taken to be $1+2*\delta$, where
+90, 120, and 180 degrees.  This averaging can result in a Fourier space image
+that is larger in some dimensions than the original, so we further shrunk
+the symmetrized PSF in Fourier space.  The shrink factor was taken to be
+$1+2*\delta$, where
 \begin{align}
     %\delta = \frac{E}{0.5 (<x^2> + <y^2>)}
     \delta = \frac{E}{T/2}
@@ -1250,8 +1251,11 @@ same definition used in the GREAT3 simulations \citep{great3}.
 
 In figure \ref{fig:Rstars} we show the measured \mcal\ responses for the
 \bdsim\  simulations.  Also shown is the response with the stars included in
-the \bdstar\ sim.  The distrubution of \mcalR\ is quite symmetric in the
-absence of stellar contamination.  We will discuss the affect of stars in \S
+the \bdstar\ sim.  The distribution of \mcalR\ is quite symmetric in the
+absence of stellar contamination\footnote{We observed that forward modeling
+methods, in which the model is convolved by the PSF, generally manifest
+an asymmetric distribution of responses \mcalR. This however does not
+generally bias the shear recovery.}.  We will discuss the affect of stars in \S
 \ref{sec:stars}.
 
 \begin{figure}
@@ -1480,9 +1484,10 @@ be considered a worst case scenario.
 
 We ran a simulation in which 10\% of the images had bad pixels or bad columns.
 We found the model replacement worked well for single bad pixels. For bad
-columns we found a multiplicative bias of a few parts in a thousand.  However,
-this bias disappeared if we also replaced pixels in a row designed to match the
-missing column, but at 90 degree rotation about the center of the image.
+columns we found a large additive $e_1$ bias, as well as a multiplicative bias
+of a few parts in a thousand.  However, this bias disappeared if we introduced
+a counterfactual ``bad column'' at 90 degree rotation about the center of the
+image, restoring symmetry to the image. 
 
 \section{Computation Time}
 
