@@ -378,8 +378,8 @@ Suppose we have a biased shear observable \est, which may be some estimate of
 an objects ellipticity. We can expand this observable in a Taylor
 series about zero shear
 \begin{align} \label{eq:Eexpand}
-    \mest(\gamma) &= \mest|_{\gamma=0} + \gamma ~ \frac{ \partial \mest }{ \partial \gamma }\bigg|_{\gamma=0}  + ... \nonumber \\
-                  &= \mest|_{\gamma=0} + \gamma \mbox{\mcalR} + ...
+    \mest &= \mest|_{\gamma=0} + \gamma ~ \frac{ \partial \mest }{ \partial \gamma }\bigg|_{\gamma=0}  + ... \nonumber \\
+          &= \mest|_{\gamma=0} + \gamma \mbox{\mcalR} + ...
 \end{align}
 where we have defined the shear response:
 \begin{align}
@@ -406,18 +406,18 @@ accomplished using a numerical derivative: the measurement of
 the shear estimator \est\ is repeated on sheared versions of the galaxy
 image and these are used to form a finite-difference central derivative
 \begin{equation} \label{eq:Rnum}
-    R = \frac{\mest(+\gamma) - \mest(-\gamma)}{\Delta \gamma},
+    R = \frac{\mest^+ - \mest^-}{\Delta \gamma},
 \end{equation}
-where $\mest(+\gamma)$ is the measurement made on a positively sheared
-image, $\mest(-\gamma)$ is the measurement made on a negatively
-sheared image, and $\Delta \gamma = 2\gamma$.
+where $\mest^+$ is the measurement made on an image sheared by $+\gamma$,
+$\mest^-$ is the measurement made on an image sheared by $-\gamma$,
+and $\Delta \gamma = 2\gamma$.
 
-The shearing is accomplished via a series of image manipulations. The original
+The shearing is accomplished via series of image manipulations. The original
 image $I$ is de-convolved from the point spread function (PSF), sheared, and
-re-convolved by the PSF.  A slightly larger PSF is used in order to suppress
-Fourier modes exposed by the shearing, that were previously hidden in the
-finite resolution of the original image.  We can represent the series of
-operations on the observed image $I$ as
+re-convolved by the PSF to suppress the amplified noise due to deconvolution.
+A slightly larger PSF is used in order to suppress Fourier modes exposed by the
+shearing, that were previously hidden in the finite resolution of the original
+image.  We can represent the series of operations on the observed image $I$ as
 \begin{equation}
     I(\gamma) = I \ast P^{-1} \oplus \gamma \ast P_{d}
 \end{equation}
@@ -448,7 +448,7 @@ equation
 We generally find that the off-diagonal terms of this matrix are negligible in the mean
 and can be ignored.
 
-\subsection{Modifications to the Original Algorithm}
+\subsection{PSF Anisotropy and Inference} 
 
 If the PSF correction is not perfect, the leading term $\langle \mest
 \rangle|_{\gamma=0}$ will not be zero.  \cite{HuffMcal} discussed another
