@@ -816,6 +816,7 @@ contributions from de-convolved, sheared and re-convolved noise:
     I_{o}(\gamma) &= (I + \eta) \ast P^{-1} \oplus \gamma \ast P_{d} \nonumber \\
     &= I(\gamma) + \eta(\gamma).
 \end{align}
+
 The de-convolution correlates the noise across the image.  This correlated
 noise is sheared, and then re-convolved by the dilated PSF, producing the
 sheared correlated noise image $\eta(\gamma)$.  The pattern of this sheared
@@ -828,9 +829,14 @@ we will denote \mcalRnoise:
     \mbox{\mcalRo}  =  R + \mbox{\mcalRnoise}.
 \end{equation}
 
-%A correction is also required for the PSF response term \mcalRpsf.  We find
-%this correction is similar in magnitude to the correction for \mcalR, although
-%it is somewhat suppressed in the final estimator due to multiplication by $e^p$.
+%It is useful to think in terms of the noise power spectrum.  For simplicity
+%consider a circular PSF.  After deconvolution, division by the PSF in Fourier
+%space, the power spectrum is no longer flat, but has contours that grow towards
+%high k.  After the shear is applied, these contours are also sheared.
+%Re-convolving by the PSF suppresses these contours, but due to the shearing
+%this suppression is not perfect.  We dilate the PSF to reduce these effects,
+%the dilation does not completely remove the effect. We also tried using a much
+%larger PSF but the effect was not not reduced.
 
 
 \subsection{Correction for Sheared, Correlated Noise} \label{sec:fixnoise}
@@ -926,8 +932,8 @@ any bias in real scenarios.
 We applied \mcal\ to a set of image simulations.  For the first set of
 simulations we used complex parametric models.  We modeled galaxies as a bulge
 and disk, with additional knots of star formation; we label this simulation
-\bdsim.  We used different ellipticities for the bulge and disk components, but
-gave both bulge and disk the same half light radius \hlr.
+\bdsim.  We used different, uncorrelated ellipticities for the bulge and disk
+components, but gave both bulge and disk the same half light radius \hlr.
 
 We drew the \hlr\ and flux from fits \citep{LacknerGunn2012} to the 25.2
 magnitude limited sample from the COSMOS data
@@ -936,7 +942,7 @@ simulation package \citep{GALSIM2015}.  In order to avoid repeating the exact
 parameters, we interpolated the joint \hlr-flux distribution using a kernel
 density estimate.
 
-The ellipticities were drawn from the simple model used in \cite{ba14}
+The ellipticities were drawn from the simple model used in \cite{bfd2016}
 \begin{align}
     P(e) &\propto \left[1-(e)^2\right]^2 \exp\left[-e^2/2\sigma^2\right],
 \end{align}
@@ -958,23 +964,24 @@ The fraction of the flux in the bulge was drawn uniformly between zero and
 unity.  The fraction of the disk flux assigned to knots of star formation
 was then also chosen uniformly between zero and unity.  The resulting 
 objects range from pure bulge, bulge+disk, pure disks, bulges+disk+knots, 
-to pure knots, which resemble irregular galaxies.
+to pure knots. A model with pure knots resembles an irregular galaxy.
 
-Finally, the entire composite bulge+disk+knots object was sheared with
-$g_1=0.02$ in reduced shear units.
+Finally, the entire composite bulge+disk+knots object was sheared with the same
+shear, $\gamma_1=0.02$.
 
 We convolved the galaxy images with a PSF modeled as a Moffat profile
-\citep{Moffat1969}, with $\beta=3.5$ and FWHM=0.9 arcsec. The PSF ellipticity was set to $g_2 = 0.025$ in reduced shear units ($e_2 =
+\citep{Moffat1969}, with $\beta=3.5$ and FWHM=0.9 arcsec. The PSF ellipticity was set to $g_2 = 0.025$ in reduced shear units ($e_2 \sim 
 0.05$ in units of distortion). 
 
-These convolved objects were rendered onto 0.263 arcsec pixels and constant
-Gaussian noise was added, with the same noise level used for all images.
+These convolved objects were rendered onto a 48 by 48 grid of 0.263 arcsec
+pixels, and constant Gaussian noise was added, with the same noise level used
+for all images.
 
 In figure \ref{fig:parametricgals} we show some example simulated galaxies with
 a range of parameters.  For visual purposes, in order to show detailed internal
-structure, we created large models, with sizes much larger than the PSF.  In
-the simulations used for shear testing, the galaxies were mostly smaller than
-the PSF.
+structure, we showed large models in this figure, with sizes much larger than
+the PSF.  In the simulations used for shear testing, the galaxies were mostly
+smaller than the PSF.
 
 
 \begin{figure*}
@@ -987,7 +994,8 @@ the PSF.
     varies.  In the upper left and upper right we show pure bulge and pure disk
     models, respectively.  In the lower left we show a disk with half the light
     in knots, and in the lower right we show a pure ``irregular'' galaxy
-    composed entirely of knots.  For demonstration purposes, we here sow very
+    composed entirely of knots.  Each model was convolved by a Moffat PSF
+	and pixelized.  For demonstration purposes, we here show very
     large models to make the detailed structure visible; the galaxies used for
     our shear tests are typically much smaller than the PSF. }
 
@@ -996,9 +1004,8 @@ the PSF.
 \end{figure*}
 
 In figure \ref{fig:psimhlrcompare} we show the distribution of \hlr\ for the
-parametric galaxies, along with the \hlr\ for the PSF,
-converted from FWHM.  Note most objects had \hlr\ significantly smaller than
-the PSF.
+parametric galaxies, along with the \hlr\ for the PSF.  Note most objects had
+\hlr\ significantly smaller than the PSF.
 
 \begin{figure}
     \centering
@@ -1007,16 +1014,18 @@ the PSF.
     \caption{Distribution of half-light-radius \hlr\ in the parametric simulations.
         The solid line represents the distribution of input \hlr, drawn from fits
         to COSMOS data.  The dashed line represents the \hlr\ for objects that passed
-		the initial $S/N > 5$ cut.  The \hlr\ of the PSF is shown as the vertical dotted
+		the initial $S/N > 5$ pre-cut.  The \hlr\ of the PSF is shown as the vertical dotted
         line.}
 
 \label{fig:psimhlrcompare}
 \end{figure}
 
 In figure \ref{fig:s2n} we show the distribution of \snr\ for the parametric
-galaxies.  Shown are both the true input \snr\ and the distribution of true
-\snr\ after applying a cut at {\it measured} \snr$ > 5$.  The measured \snr\ is
-noisy and biased, being derived from a single-gaussian model, so the cut
+galaxies.   Shown are both the true input \snr\ and the distribution of true
+\snr\ after applying a cut at {\it measured} \snr$ > 5$.  This ``true'' \snr\
+is that calculated by \galsim, and is the maximal \snr\ based on the true
+model \citep{Jarvis2016}.  The measured \snr\ is noisy and biased (see \S
+\ref{sec:results}), being derived from a single-gaussian model, so the cut
 results in a smooth rolloff in the true \snr.
 
 \begin{figure}
@@ -1074,16 +1083,14 @@ bad column. }
 \subsubsection{Pre-selection} \label{sec:preselect}
 
 We generated images with \snr\ down to $\sim 2$, as shown in figure
-\ref{fig:s2n}, but we did not fit all these images to models.  In real data,
+\ref{fig:s2n}, but we did run the \mcal\ process on all images.  In real data,
 detections at these very low \snr\ can be spurious, so in practice a threshold
 must be placed to produce what are considered reliable detections.  This type
-of selection will result in a bias in the population of galaxy shapes, since
-a round object has higher \snr\ than if it were sheared,
-and galaxies oriented in the same direction as the PSF have higher \snr\
-than objects otherwise oriented.  This effect will in turn bias
-the shear recovery.
-
-If this selection might occur before \mcal\ and object fitting, the corrections
+of selection will result in a bias in the population of galaxy shapes, since a
+round object has higher \snr\ than if it were sheared, and galaxies oriented in
+the same direction as the PSF have higher \snr\ than objects otherwise
+oriented.  This effect will in turn bias the shear recovery.  In particular, if
+this selection might occur before \mcal\ and object fitting, the corrections
 for selection effects presented in \S \ref{sec:selection} cannot be used.
 
 In order to test that we can recover the shear in the presence of this effect,
@@ -1112,6 +1119,7 @@ random variables around a fiducial value. These root-mean-squared variations,
 in units of waves in the Noll convention, are given in table \ref{tab:aberr}.
 We used a Kolmogorov model for the atmospheric component, such that
 the overall mean FWHM $\sim 0.9$ arcsec for 0.263 arcsec pixels.
+Each galaxy was rendered onto a 48 by 48 pixel grid.
 For this configuration there are
 significant variations in the PSF ellipticity, but relatively little net
 ellipticity across the entire ensemble of realizations.  The code used to
@@ -1160,12 +1168,13 @@ used for this sim, and the 25.2 sample used for our parametric simulations
 
 Note the parametric sims presented in \S \ref{sec:bdsim} used much fainter and
 smaller galaxies than the \rgsim\ simulation.  Also note the \rgsim\ simulation
-was very expensive compared to the parametric simulations, so we generated
-fewer galaxies and did not implement any pre-selection.  We thus do not expect
-the real galaxy simulation to be more challenging than the parametric sim in
-every aspect. We include it to directly address any special properties of real
-galaxies that may not appear in our bulge+disk+knots simulation, and to test
-shear recovery using a more realistic PSF.  
+was relatively expensive compared to the parametric simulations, so we
+generated fewer galaxies and did not implement any pre-selection.  We thus do
+not expect the real galaxy simulation to be more challenging than the
+parametric simulation in every aspect. We include it to directly test the
+robustness of \mcal\ to special properties of real galaxies that may not appear
+in our bulge+disk+knots simulation, and to test shear recovery using a more
+realistic PSF.  
 
 
 
@@ -1474,6 +1483,23 @@ We found the model replacement worked well for single bad pixels. For bad
 columns we found a multiplicative bias of a few parts in a thousand.  However,
 this bias disappeared if we also replaced pixels in a row designed to match the
 missing column, but at 90 degree rotation about the center of the image.
+
+\section{Computation Time}
+
+For each 48 by 48 pixel postage stamp, \mcal\ involves performing Fourier
+transforms and interpolation (for the shear), and image fitting five times: one
+for the zero shear, but re-convolved image, and four times for the sheared
+images.
+
+The total computation time per object was approximately 0.2 seconds.  In our
+tests the computation time was dominated by the image manipulations.  This is
+partly because we used the very fast \ngmix\ code, with which each image was
+fit in approximately 0.01 seconds.  For slower fitting codes, the \mcal\
+manipulations may be sub-dominant.
+
+It may be that further optimization is possible.  For example, a code that
+works entirely in Fourier space could avoid rendering the re-convolved image in
+real space, which dominates the computation.
 
 \section{Summary and Future Work}
 
