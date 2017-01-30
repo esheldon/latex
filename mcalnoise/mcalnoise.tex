@@ -1609,11 +1609,12 @@ invalidate the assumptions behind these correction methods.
 
 \subsubsection{Expected Scaling of the Bias with Noise Level} \label{sec:scaling}
 
-The bias in the ellipticity due to correlated noise should scale
-with the noise correlation function, and thus the square of the noise level in
-the image $n^2$ \citep{Kaiser2000,HirataCorrNoise}.  As stated above, this same bias will
-propagate into the response.  We can write the observed \mcalRo\ as a contribution
-from both the actual response \mcalR\ and a noise term \mcalRnoise\
+The bias in the ellipticity due to correlated noise should scale with the noise
+correlation function, and thus the square of the noise level in the image $n^2$
+\citep{Kaiser2000,HirataCorrNoise}.  As discussed in \S \ref{sec:contam}, this
+bias will propagate into the response.  We can write the observed \mcalRo\
+as a contribution from both the actual response \mcalR\ and a noise term
+\mcalRnoise\
 \begin{align} \label{eq:scaling}
     \mbox{\mcalRo} &= R + \mbox{\mcalRnoise}  \nonumber \\
                    &= R + A n^2.
@@ -1621,13 +1622,7 @@ from both the actual response \mcalR\ and a noise term \mcalRnoise\
 
 \subsubsection{De-trending Correction Scheme}
 
-The coefficient $A$ in Equation \ref{eq:scaling} can be calculated in simple
-scenarios, as shown in \cite{HirataCorrNoise}.  However, the calculation is
-more complex when modeling the effect of the PSF.  We explored an empirical
-correction.
-
-We expect the bias in \mcalR\ due to correlated noise to scale with the square
-of the noise in the image $n^2$.  We can add a small
+We add a small
 amount of noise to the image such that $n \rightarrow n + \Delta n$.  If we
 then run the new image through the \mcal\ process, we can measure
 $R^{\mathrm{before}}$, a response that will include correlated noise effects.
@@ -1663,7 +1658,6 @@ We propose the following procedure to correct for correlated noise:
         \begin{align}
             \mbox{\mcalRnoise} & \simeq A n^2.
         \end{align}
-        with a similar correction for \mcalRpsf.
 \end{enumerate}
 If the noise varies between observations, we can apply a 
 correction based on the mean variance $A
@@ -1671,7 +1665,7 @@ correction based on the mean variance $A
 
 \subsubsection{Measurements of the \detrend\ Parameters}
 
-For the \detrend\ method, we measured $\Delta R$ vs $2 n \Delta n$ to find the
+We measured $\Delta R$ vs $2 n \Delta n$ to find the
 coefficient $A$.  In figure \ref{fig:detrend}, we show this fit for the \rgsim\
 simulation.  The trend is well-fit by a linear model, as expected, with a slope
 $A \simeq $\Aslope, implying a correction $A n^2 \simeq$ \Rcorr\ for this
@@ -1775,8 +1769,9 @@ response without correlated noise
     \langle \mbox{\mcalR} \rangle = \langle \mbox{\mcalRo} \rangle - \langle \mbox{\mcalRnoise} \rangle.
 \end{equation}
 
-We found this method performed poorly.  We detected a remaining bias of  $m
-\sim 4 \times 10^{-3}$ in both the \bdsim\ and \rgsim\ simulations.
+We found this method performed poorly using exponential and Gaussian models for
+the galaxy.  We detected a remaining bias of  $m \sim 4 \times 10^{-3}$ in both
+the \bdsim\ and \rgsim\ simulations.
 
 
 \bibliographystyle{mnras}
