@@ -65,12 +65,20 @@
 
 \newcommand{\mcal}{metacalibration}
 \newcommand{\Mcal}{Metacalibration}
+
 \newcommand{\mcalR}{\mbox{\boldmath $R$}}
+\newcommand{\mcalRscalar}{\mbox{$R$}}
+
 \newcommand{\mcalRmean}{\mbox{\boldmath $\langle R \rangle$}}
+\newcommand{\mcalRscalarmean}{\mbox{$\langle R \rangle$}}
+
 \newcommand{\mcalRpsf}{$R^{p}$}
 \newcommand{\mcalRpsfnoise}{$R^{p}_\eta$}
 \newcommand{\mcalRo}{$R_o$}
 \newcommand{\mcalRnoise}{$R_\eta$}
+
+\newcommand{\mcalRmeanalpha}{\mbox{\boldmath $\langle R_\alpha \rangle$}}
+\newcommand{\mcalRmeanbeta}{\mbox{\boldmath $\langle R_\beta \rangle$}}
 
 \newcommand{\mcalRg}{\mbox{\boldmath $R_\gamma$}}
 \newcommand{\mcalRS}{\mbox{\boldmath $R_S$}}
@@ -441,7 +449,7 @@ where we have assumed the intrinsic ellipticities of galaxies are
 randomly oriented such that $\langle \vest \rangle |_{\gamma=0} = 0$.
 If we have estimates of \mcalR\ for each galaxy, we
 can form a weighted average:
-\begin{align}
+\begin{align} \label{eq:rcorr}
     \langle \vecg \rangle &\approx \langle \mbox{\mcalR} \rangle^{-1}  \langle \vest \rangle = \langle \mbox{\mcalR} \rangle^{-1} \langle \mcalR \vecg \rangle.
 \end{align}
 Note the special case of constant shear, where $\gamma$ factors out
@@ -459,6 +467,13 @@ For component $i,j$ we can write
 where $\est^+$ is the measurement made on an image sheared by $+\gamma$,
 $\est^-$ is the measurement made on an image sheared by $-\gamma$,
 and $\Delta \gamma = 2\gamma$.
+
+In practice the off-diagonal elements of the response matrix \mcalR\ are
+negligible, so the correction in equation \ref{eq:rcorr} can be done
+element-wise.  In fact, the diagonal elements of \mcalR\ are usually
+equal, reducing the correction to division by a scalar \mcalRscalarmean.
+
+
 
 The shearing is accomplished via series of image manipulations. The original
 image $I$ is de-convolved from the point spread function (PSF), sheared, and
@@ -668,33 +683,35 @@ is given by
 \begin{align}
 %    \mbox{\mcalRtwoptmean} = \left< \frac{\partial^2 \xi}{\partial \gamma_\alpha \partial \gamma_\beta}\bigg|_{\gamma=0} \right> = 
     \mbox{\mcalRtwoptmean}  = 
-    \int d e_\alpha  de_\beta  \frac{\partial^2 S_\alpha S_\beta \mbox{\probe} e_\alpha e_\beta}{\partial \gamma_\alpha \partial \gamma_\beta}\bigg|_{\gamma=0}.
+    \int d \vest_\alpha  d\vest_\beta  \frac{\partial^2 S_\alpha S_\beta \mbox{\probe} \vest_\alpha \vest_\beta}{\partial \vecg_\alpha \partial \vecg_\beta}\bigg|_{\gamma=0}.
 \end{align}
 If we know the response \mcalRtwopt, we can form an estimator for the correlation function
 that takes the form of a weighted average:
 \begin{align}
-    \xi \approx  \langle R^{2pt}\rangle^{-1} \langle \gamma_\alpha \gamma_\beta R^{2pt} \rangle.
+    \xi \approx  \mcalRtwoptmean^{-1} \langle \vest_\alpha \vest_\beta \rangle.
 \end{align}
 
 Note the probability distribution \probe\ is joint in the two ellipticities
 because the shear at each galaxy $\alpha$ is correlated with that at galaxy
 $\beta$. Assuming the shapes of galaxies are not correlated in the absence of
 shear, \probe\ is separable at zero shear such that $\mbox{\probe}|_{\gamma=0}
-= P(e_\alpha)|_{\gamma=0} P(e_\beta)|_{\gamma=0}$.  The following identities
+= P(\vest_\alpha)|_{\gamma=0} P(\vest_\beta)|_{\gamma=0}$.  The following identities
 also hold:
 \begin{align}
-    \frac{\partial \mbox{\probe}}{\partial \gamma_\alpha}\bigg|_{\gamma=0} &= P(e_\beta) \frac{\partial P(e_\alpha) }{\partial e_\alpha} \frac{\partial e_\alpha}{\partial \gamma_\alpha}\bigg|_{\gamma=0} \nonumber \\
-    \frac{\partial^2 \mbox{\probe}}{\partial \gamma_\alpha \partial \gamma_\beta}\bigg|_{\gamma=0} &= \frac{\partial P(e_\alpha) }{\partial e_\alpha} \frac{\partial P(e_\beta) }{\partial e_\beta}  \frac{\partial e_\alpha}{\partial \gamma_\alpha} \frac{\partial e_\beta}{\partial \gamma_\beta}\bigg|_{\gamma=0}.
+    \frac{\partial \mbox{\probe}}{\partial \vecg_\alpha}\bigg|_{\gamma=0} &= P(\vest_\beta) \frac{\partial P(\vest_\alpha) }{\partial \vest_\alpha} \frac{\partial \vest_\alpha}{\partial \vecg_\alpha}\bigg|_{\gamma=0} \nonumber \\
+    \frac{\partial^2 \mbox{\probe}}{\partial \vecg_\alpha \partial \vecg_\beta}\bigg|_{\gamma=0} &= \frac{\partial P(\vest_\alpha) }{\partial \vest_\alpha} \frac{\partial P(\vest_\beta) }{\partial \vest_\beta}  \frac{\partial \vest_\alpha}{\partial \vecg_\alpha} \frac{\partial \vest_\beta}{\partial \vecg_\beta}\bigg|_{\gamma=0}.
 \end{align}
 It then follows that the response can be completely factored such that
 \begin{align} \label{eq:Rseparable}
-    \int d e_\alpha  de_\beta  & \frac{\partial^2 S_\alpha S_\beta \mbox{\probe} e_\alpha e_\beta}{\partial \gamma_\alpha \partial \gamma_\beta}\bigg|_{\gamma=0}  \nonumber \\
-      & \approx \int d e_\alpha  \frac{\partial S_\alpha P(e_\alpha) e_\alpha}{\partial \gamma_\alpha}\bigg|_{\gamma=0} de_\beta   \frac{\partial S_\beta P(e_\beta) e_\beta}{\partial \gamma_\beta}\bigg|_{\gamma=0} \nonumber \\
-      &=  \left< R_\alpha \right> \left< R_\beta \right>.
+    \int d \vest_\alpha  d\vest_\beta  & \frac{\partial^2 S_\alpha S_\beta \mbox{\probe} \vest_\alpha \vest_\beta}{\partial \vecg_\alpha \partial \vecg_\beta}\bigg|_{\gamma=0}  \nonumber \\
+      & \approx \int d \vest_\alpha  \frac{\partial S_\alpha P(\vest_\alpha) \vest_\alpha}{\partial \vecg_\alpha}\bigg|_{\gamma=0} d\vest_\beta   \frac{\partial S_\beta P(\vest_\beta) \vest_\beta}{\partial \vecg_\beta}\bigg|_{\gamma=0} \nonumber \\
+      &=  \mcalRmeanalpha \mcalRmeanbeta.
 \end{align}
 
-For auto-correlations, these two responses $\left< R_\alpha \right>$ and
-$\left< R_\beta \right>$ are identical, and are each equal to the
+For cross-correlations, the separate mean responses given in equation
+\ref{eq:Rseparable} are different and should be calculated as indicated.
+For auto-correlations, these two responses \mcalRmeanalpha\ and
+\mcalRmeanbeta\ are identical, and are each equal to the
 response of the mean shear given in equation \ref{eq:Rmean}.  Thus the response
 of the two-point auto-correlation function is approximately given by
 \begin{align}
@@ -702,12 +719,18 @@ of the two-point auto-correlation function is approximately given by
     %\left< \frac{\partial^2 \xi}{\partial \gamma_\alpha \partial \gamma_\beta}\bigg|_{\gamma=0} \right> \approx \mbox{\mcalRmean}^2.
     \left< R^{2pt} \right> \approx \mbox{\mcalRmean}^2.
 \end{align}
-We can form a simple estimator for the 2-point function as:
+As noted in \S \ref{sec:mcal}, the off-diagonal elements of the response
+matrix are usually negligible, and the diagonal elements equal.  In
+this case we can form a simpler estimator for the 2-point function,
+dividing by square of the scalar mean response
+%\begin{align}
+%    \xi \approx \\langle e_\alpha e_\beta \rangle.
+%\end{align}
 \begin{align}
-    \xi \approx \frac{ \langle e_\alpha e_\beta \rangle }{\mbox{\mcalRmean}^2}.
+    \xi \approx \frac{\langle \vest_\alpha \vest_\beta \rangle}{\mcalRscalarmean^2}.
 \end{align}
-Note for cross-correlations, the separate mean responses given in equation
-\ref{eq:Rseparable} can be used.
+This approximation is useful for two point functions, in which shapes are
+typically projected along different axes.
 
 In what follows we test the formulas for mean shear.  We will test the
 response for 2-point functions in a future work.
