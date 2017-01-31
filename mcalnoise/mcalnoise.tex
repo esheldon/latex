@@ -164,12 +164,12 @@
 %$^1$Brookhaven National Laboratory, Bldg 510, Upton, New York 11973\\
 %$^2$Department of Physics, Stanford University, 382 Via Pueblo Mall, Stanford, CA 94305, USA}
 
-\shorttitle{Noise Effects in Metacalibration}
+\shorttitle{Practical Shear Measurement with Metacalibration}
 \shortauthors{Sheldon and Huff}
 
 \begin{document}
 
-\title{Noise Effects in \Mcal\ Weak Lensing Shear Estimation}
+\title{Practical Shear Measurement with Metacalibration}
 
 \author{Erin S. Sheldon}
 \affil{Brookhaven National Laboratory, Bldg 510, Upton, New York 11973}
@@ -197,24 +197,23 @@
 \begin{abstract}
 
 \Mcal\ is a newly introduced method to accurately measure weak gravitational
-    lensing shear using only the available imaging data, without any need for
-    prior information about galaxy properties or calibration from simulations.
-    The method involves introducing a counterfactual shear to the image, and
-    calculating the response of a shear estimator to that applied shear.  The
-    method was shown to be accurate in moderate sized simulations with
-    relatively high signal-to-noise galaxy images, and without the presence of
-    selection effects.  In this work we introduce a formalism to correct for
-    both shear response and selection biases.  We also observe that, for
-    relatively low signal-to-noise images,  the correlated noise that arises
-    during the \mcal\ process results in significant bias, for which we develop
-    a simple empirical correction.  To test these new ideas, we use large
-    simulations based on both parametric models and real galaxies images,
-    including tests with realistic point-spread-functions.  We introduce
-    additional challenges that arise in real data, such as detection
-    thresholds, stellar contamination, and missing data.  We apply cuts on the
-    galaxy properties to induce significant selection effects.  Using our
-    formalism, we recover the input shear with an accuracy better than a part
-    in a thousand in all cases.
+lensing shear using only the available imaging data, without need for prior
+information about galaxy properties or calibration from simulations.  The
+method involves introducing a counterfactual shear to a galaxy images, and
+calculating the response of a shear estimator to that applied shear.  The
+method was shown to be accurate in moderate sized simulations with relatively
+high signal-to-noise galaxy images, and without significant selection effects.
+In this work we introduce a formalism to correct for both shear response and
+selection biases.  We also observe that, for relatively low signal-to-noise
+images,  the correlated noise that arises during the \mcal\ process results in
+significant bias, for which we develop a simple empirical correction.  To test
+these new ideas, we use large simulations based on both parametric models and
+real galaxies images, including tests with realistic point-spread-functions.
+We introduce additional challenges that arise in real data, such as detection
+thresholds, stellar contamination, and missing data.  We apply cuts on the
+galaxy properties to induce significant selection effects.  Using our
+formalism, we recover the input shear with an accuracy better than a part in a
+thousand in all cases.
 
 \end{abstract}
 
@@ -437,7 +436,7 @@ where we have defined the shear response:
 \begin{align}
     \mbox{\mcalR} &\equiv \frac{\partial \vest}{\partial \vecg} \bigg|_{\gamma=0}.
 \end{align}
-Note the derivative is also with respect the two-component shear $\vecg$, making
+Note the derivative is also with respect to the two-component shear $\vecg$, making
 \mcalR\ a $2 \times 2$ matrix:
 %\[ \mbox{\mcalR} = \bigg( \begin{array}{cc}
 %\frac{\partial e_1}{\partial \gamma_1} & \frac{\partial e_2}{\partial \gamma_1} \\
@@ -1553,7 +1552,7 @@ We ran a simulation in which 10\% of the images had bad pixels or bad columns.
 We found the model replacement worked well for single bad pixels. For bad
 columns we found a large additive $e_1$ bias, as well as a multiplicative bias
 of a few parts in a thousand.  However, this bias disappeared if we introduced
-a counterfactual ``bad column'' at 90 degree rotation about the center of the
+a compensatory ``bad column'' at 90 degree rotation about the center of the
 image, restoring symmetry to the image. 
 
 \section{Computation Time}
@@ -1590,7 +1589,7 @@ accuracy, without reliance on calibration from simulations, and which
 accurately addresses selection effects, is the \bfd\ technique of
 \cite{bfd2016}.  At the time of this writing \mcal\ has been tested on more
 challenging simulations and has performed more accurately.  \Mcal\ also has the
-advantage of not relying on significant prior information about galaxy
+advantage that it does not rely on significant prior information about galaxy
 properties.  On the other hand, in our current implementation we add extra
 noise to deal with correlated noise effects.  This extra noise should not be
 dominant for most shear correlation studies; nevertheless we have identified
@@ -1617,13 +1616,12 @@ overlaps on the image.  The \Mcal\ procedure will correctly estimate the shear
 response for these blended objects, but in order to interpret the signal the
 redshifts of the objects must be known, at least statistically.  If the
 galaxies are so blended that they are considered one object by the pipeline, it
-is unlikely an accurate redshift can be determined.  This is a problem shared
-by any shear measurement pipeline, and may require some kind of external
-calibration.
+is unlikely an accurate redshift can be determined.  Addressing this problem
+may require some kind of external calibration.
 
-Both of the above issues may be best addressed by inserting artificial galaxy
-images into the data using something like the recently introduced \balrog\
-technique \citep{Balrog2016}.  This method has the advantage of using the
+It may be possible to address these issues by inserting artificial galaxy
+images into the data and re-running processing pipelines, including shear
+estimation \citep{Balrog2016}.  This method has the advantage of using the
 original images as the basis, so all the features of real observations need not
 be simulated from first principles.
 
@@ -1685,7 +1683,7 @@ measured in DES data.  Thanks to Mike Jarvis for many useful discussions and
 help with the \galsim\ package.  Thanks to Rachel Mandelbaum for guidance
 guidance in using the \galsim\ package isotropization and whitening features.
 Thanks to Gary Bernstein for pointing out a simpler form for the response for
-2-point functions.
+2-point functions.  Thanks for Paul Stankus for helpful comments on the draft.
 
 
 \appendix
