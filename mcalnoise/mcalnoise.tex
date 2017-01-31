@@ -94,9 +94,12 @@
 
 \newcommand{\probe}{$P(\vest_\alpha \vest_\beta)$}
 
-\newcommand{\Ihat}{\mbox{$\widetilde{I}$}}
-\newcommand{\Phat}{\mbox{$\widetilde{P}$}}
-\newcommand{\Phatd}{\mbox{$\widetilde{P_d}$}}
+\newcommand{\Itild}{\mbox{$\widetilde{I}$}}
+\newcommand{\ntil}{\mbox{$\widetilde{\eta}$}}
+\newcommand{\Ptil}{\mbox{$\widetilde{P}$}}
+\newcommand{\Ptild}{\mbox{$\widetilde{P_d}$}}
+
+\newcommand{\Ihat}{\mbox{$\hat{I}$}}
 
 
 \newcommand{\nsimShear}{0.02,0.00}
@@ -487,10 +490,10 @@ image.  We can represent the series of operations most easily
 in Fourier space, where convolutions are products are deconvolutions
 are divisions:
 \begin{equation}
-    \Ihat(\gamma) = \left[ \left( \Ihat/\Phat \right) \oplus \gamma \right] \times \Phatd
+    \Itild(\gamma) = \left[ \left( \Itild/\Ptil \right) \oplus \gamma \right] \times \Ptild
 \end{equation}
-where \Ihat\ and \Phat\ are the Fourier transforms of the image
-and PSF, and \Phatd\ is the Fourier transform of the slightly
+where \Itild\ and \Ptil\ are the Fourier transforms of the image
+and PSF, and \Ptild\ is the Fourier transform of the slightly
 larger, dilated PSF.  Shearing is represented by $\oplus$.
 Note a re-convolved, but not sheared, image should be used
 to calculate the shear estimator \vest.
@@ -854,10 +857,15 @@ using negatively sheared quantities.
 
 In the presence of noise, the observed image can be written $I_o=I+\eta$, where $\eta$
 is the ``noise image''.  The \mcal\ sheared images $I_o(\gamma)$ will contain
-contributions from de-convolved, sheared and re-convolved noise:
+contributions from de-convolved, sheared and re-convolved noise. Again working
+in Fourier space, and using the notation introduced in \S \ref{sec:mcal}:
+%\begin{align}
+%    I_{o}(\gamma) &= (I + \eta) \ast P^{-1} \oplus \gamma \ast P_{d} \nonumber \\
+%    &= I(\gamma) + \eta(\gamma).
+%\end{align}
 \begin{align}
-    I_{o}(\gamma) &= (I + \eta) \ast P^{-1} \oplus \gamma \ast P_{d} \nonumber \\
-    &= I(\gamma) + \eta(\gamma).
+    \Itild_o(\gamma) &= \left[ \left( \Itild/\Ptil + \ntil/\Ptil \right) \oplus \gamma \right] \times \Ptild  \nonumber \\
+    &= \Itild(\gamma) + \ntil(\gamma).
 \end{align}
 
 The de-convolution correlates the noise across the image.  This correlated
@@ -884,49 +892,30 @@ we will denote \mcalRnoise:
 
 \subsection{Correction for Sheared, Correlated Noise} \label{sec:fixnoise}
 
-\begin{comment}
-For shear estimators based on raw moments, without any form of iteration
-or fitting, it would be sufficient to simply measure the moments of example
-sheared correlated noise fields and subtract the mean response from the
-responses measured on the real images.  Multiple realizations can be generated
-for each galaxy to increase precision.
-\end{comment}
 
 We explored four different empirical corrections.  We describe our favored
 method here; the others are described in appendix \ref{sec:altcorr}.
-
-\begin{comment}
-There are advantages to forward modeling which we would like to retain: the
-noise in \mcalR\ using our forward-modeling approach is an order of magnitude
-smaller than that seen for the re-Gaussianization approach in \cite{HuffMcal}.
-In particular we find that applying smooth priors on the model parameters,
-which is natural in a forward-modeling approach, stabilizes the fit and results in
-a large reduction in variance.  This reduction in noise facilitates the simple
-inference method outlined in \S \ref{sec:mcal}.  The failure rate is also
-dramatically decreased when applying smooth priors:  we find a failure rate of
-$\sim$0.003\%, as opposed to $\sim$6\% for the re-Gaussianization code
-implemented in the \galsim\ package \citep{GALSIM2015}.  For these reasons we
-explore a simple empirical correction in the following section.
-\end{comment}
-
-%\subsection{Adding a Canceling Correlated Random Noise Field} \label{sec:fixnoise}
 
 This method, which we refer to as ``\fixnoise'', is designed to statistically
 cancel the effects of correlated noise caused by the \mcal\ procedure.  For each
 image that was passed through the convolution and shearing steps, producing
 an image $I(\gamma)_o$, we generated a random noise field
-$\tilde{\eta}$, and applied the same operations but using a shear with
+$\eta_r$, and applied the same operations but using a shear with
 the opposite sign:
+%\begin{equation}
+%    \tilde{\eta}(-\gamma) = \tilde{\eta} \ast P^{-1} \oplus (-\gamma) \ast P_{d}.
+%\end{equation}
 \begin{equation}
-    \tilde{\eta}(-\gamma) = \tilde{\eta} \ast P^{-1} \oplus (-\gamma) \ast P_{d}.
+    \widetilde{\eta}_r(-\gamma) = \left[ \left( \ntil/\Ptil \right) \oplus (-\gamma) \right] \times \Ptild  \nonumber \\
 \end{equation}
-We then added this image to the $I(\gamma)_o$ image.
-The result, $\tilde{I}(\gamma)$, is an approximation for the image
-without correlated noise:
+We then added this image, in real space, to the $I(\gamma)_o$ image
 \begin{equation}
-    \tilde{I}(\gamma) = I_o(\gamma) + \tilde{\eta}(-\gamma).
+    \hat{I}(\gamma) = I_o(\gamma) + \eta_r(-\gamma).
 \end{equation}
-We used these $\tilde{I}(\gamma)$ to measure the shapes and responses used in
+The result, $\hat{I}(\gamma)$, is an approximation for the image
+without correlated noise.
+
+We used these $\hat{I}(\gamma)$ to measure the shapes and responses used in
 shear recovery.  For a single image, this procedure will not exactly cancel the
 correlated noise, because the original and added noise fields are not
 identical; rather the effect should cancel when averaged over a large ensemble
@@ -941,7 +930,7 @@ noise will be unimportant.  Nevertheless, it is worthwhile to explore
 alternative corrections that do not involve adding significant noise.
 
 Because the noise is increased, it is important that both the response and
-estimator should be measured on the $\tilde{I}(\gamma)$ images, so that the
+estimator should be measured on the $\hat{I}(\gamma)$ images, so that the
 response is representative of the correct noise level.
 
 An alternative version of this method is to shear the noise exactly as the
