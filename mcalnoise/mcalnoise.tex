@@ -94,6 +94,10 @@
 
 \newcommand{\probe}{$P(\vest_\alpha \vest_\beta)$}
 
+\newcommand{\Ihat}{\mbox{$\widetilde{I}$}}
+\newcommand{\Phat}{\mbox{$\widetilde{P}$}}
+\newcommand{\Phatd}{\mbox{$\widetilde{P_d}$}}
+
 
 \newcommand{\nsimShear}{0.02,0.00}
 \newcommand{\nsimNgal}{$10^8$}
@@ -468,11 +472,10 @@ where $\est^+$ is the measurement made on an image sheared by $+\gamma$,
 $\est^-$ is the measurement made on an image sheared by $-\gamma$,
 and $\Delta \gamma = 2\gamma$.
 
-In practice the off-diagonal elements of the response matrix \mcalR\ are
-negligible, so the correction in equation \ref{eq:rcorr} can be done
-element-wise.  In fact, the diagonal elements of \mcalR\ are usually
-equal, reducing the correction to division by a scalar \mcalRscalarmean.
-
+In practice, the mean of the response matrix \mcalRmean\ is proportional to the
+identity matrix,  so the correction in equation \ref{eq:rcorr} reduces to
+division by a scalar.  This is a useful approximation we will exploit
+in what follows.
 
 
 The shearing is accomplished via series of image manipulations. The original
@@ -480,14 +483,15 @@ image $I$ is de-convolved from the point spread function (PSF), sheared, and
 re-convolved by the PSF to suppress the amplified noise due to deconvolution.
 A slightly larger PSF is used in order to suppress Fourier modes exposed by the
 shearing, that were previously hidden in the finite resolution of the original
-image.  We can represent the series of operations on the observed image $I$.
+image.  We can represent the series of operations most easily
+in Fourier space, where convolutions are products are deconvolutions
+are divisions:
 \begin{equation}
-    I(\gamma) = I \ast P^{-1} \oplus \gamma \ast P_{d}
+    \Ihat(\gamma) = \left[ \left( \Ihat/\Phat \right) \oplus \gamma \right] \times \Phatd
 \end{equation}
-where $\ast $ represents convolution, $\oplus$ represents shearing,
-and $P$ represents the point spread function.  De-convolution
-is represented as ``inverse'', $P^{-1}$.  The slightly larger PSF, or
-dilated PSF, is represented by $P_{d}$.
+where \Ihat\ and \Phat\ are the Fourier transforms of the image
+and PSF, and \Phatd\ is the Fourier transform of the slightly
+larger, dilated PSF.  Shearing is represented by $\oplus$.
 Note a re-convolved, but not sheared, image should be used
 to calculate the shear estimator \vest.
 
@@ -720,11 +724,10 @@ of the two-point auto-correlation function is approximately given by
     \left< R^{2pt} \right> \approx \mbox{\mcalRmean}^2.
 \end{align}
 
-As noted in \S \ref{sec:mcal}, the off-diagonal elements of the shear response
-matrix \mcalRg\ are usually negligible, and the diagonal elements equal.  If
-the selections are also not direction dependent, 
-we can form a simpler estimator for the 2-point function,
-dividing by square of the scalar mean response
+As noted in \S \ref{sec:mcal}, the response matrix is typically proportional to
+the identity matrix..  If the selections are also not direction dependent, we
+can form a simpler estimator for the 2-point function, dividing by square of
+the scalar mean response
 %\begin{align}
 %    \xi \approx \\langle e_\alpha e_\beta \rangle.
 %\end{align}
