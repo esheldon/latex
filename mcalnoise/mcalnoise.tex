@@ -77,14 +77,14 @@
 \newcommand{\mcalRgmean}{\mbox{\boldmath $\langle R_\gamma \rangle$}}
 \newcommand{\mcalRSmean}{\mbox{\boldmath $\langle R_S \rangle$}}
 
-\newcommand{\mcalRtwopt}{$R^{2pt}$}
-\newcommand{\mcalRtwoptmean}{$\langle R^{2pt} \rangle$}
+\newcommand{\mcalRtwopt}{\mbox{\boldmath $R^{2pt}$}}
+\newcommand{\mcalRtwoptmean}{\mbox{\boldmath $\langle R^{2pt} \rangle$}}
 
 
 \newcommand{\mcalRmodel}{$R^{model}$}
 \newcommand{\mcalRnoisemodel}{$R^{model}_\eta$}
 
-\newcommand{\probe}{$P(e_\alpha e_\beta)$}
+\newcommand{\probe}{$P(\vest_\alpha \vest_\beta)$}
 
 
 \newcommand{\nsimShear}{0.02,0.00}
@@ -589,7 +589,7 @@ Using the notation for measurements on sheared images, introduced
 in \S \ref{sec:selection}, we can rewrite the response as
 \begin{align} \label{eq:Rmean}
     \mbox{\mcalRmean} &\approx
-    \int d\vest \left [ S \left( \frac{ P^+ \vest^+ - P^- \vest^- }{\Delta \gamma}\right) + P \vest \left( \frac{ S^+ - S^- }{\Delta \gamma}\right) \right] d\vest \nonumber \\
+    \int d\vest \left [ S \left( \frac{ P^+ \est_i^+ - P^- \est_i^- }{\Delta \gamma_j}\right) + P \est_i \left( \frac{ S^+ - S^- }{\Delta \gamma}\right) \right] d\vest \nonumber \\
     &=\frac{\langle \est_i^+ \rangle^S - \langle \est_i^- \rangle^S}{\Delta \gamma_j} + 
 \frac{\langle \est_i \rangle^{S+} - \langle \est_i \rangle^{S-}}{\Delta \gamma_j} \nonumber \\
        &\equiv \langle \mbox{\mcalRg} \rangle + \langle \mbox{\mcalRS} \rangle,
@@ -642,13 +642,14 @@ following:
 We can extend this formalism to 2-point functions, which we will write
 as
 \begin{align}
-    \xi &= \langle e_\alpha e_\beta \rangle \nonumber \\
-        &= \int \mbox{\probe} e_\alpha e_\beta d e_\alpha d e_\beta
+    \xi &= \langle \vest_\alpha \vest_\beta \rangle \nonumber \\
+        &= \int \mbox{\probe} \vest_\alpha \vest_\beta d \vest_\alpha d \vest_\beta
 \end{align}
-where the indices $\alpha, \beta$ indicate the ellipticity for two different
-objects or regions of sky.  Including selection effects, this becomes
+where the $\langle \vest_\alpha \vest_\beta \rangle$ indicates the mean
+ellipticity product for pairs
+of objects at different locations, or two separated regions of sky.  Including selection effects, this becomes
 \begin{align}
-    \xi &= \int \mbox{\probe} S_\alpha S_\beta e_\alpha e_\beta d e_\alpha d e_\beta
+    \xi &= \int \mbox{\probe} S_\alpha S_\beta \vest_\alpha \vest_\beta d \vest_\alpha d \vest_\beta
 \end{align}
 where the selections are independent on each object.
 
@@ -657,8 +658,8 @@ the mean shear is zero over a large area of sky used to measure
 the 2-point function, the leading
 term in the Taylor expansion is a second derivative
 \begin{align} \label{eq:basictwopt}
-%    \xi \approx \left< \gamma_\alpha \gamma_\beta   \frac{\partial^2 \xi}{\partial \gamma_\alpha \partial \gamma_\beta}\bigg|_{\gamma=0} \right> \equiv \left< \gamma_\alpha \gamma_\beta \mbox{\mcalRtwopt} \right>.
-\xi \approx \int d e_\alpha  de_\beta  \gamma_\alpha \gamma_\beta \frac{\partial^2 S_\alpha S_\beta \mbox{\probe} e_\alpha e_\beta}{\partial \gamma_\alpha \partial \gamma_\beta}\bigg|_{\gamma=0}  \equiv \left< \gamma_\alpha \gamma_\beta \mbox{\mcalRtwopt} \right>.
+\xi &\approx \int d \vest_\alpha  d\vest_\beta  \frac{\partial^2 S_\alpha S_\beta \mbox{\probe} \vest_\alpha \vest_\beta}{\partial \vecg_\alpha \partial \vecg_\beta}\bigg|_{\gamma=0}  \vecg_\alpha \vecg_\beta \nonumber \\
+    &\equiv \left<  \mbox{\mcalRtwopt} \vecg_\alpha \vecg_\beta  \right>.
 \end{align}
 The next largest terms are of order $ \langle e_\alpha \rangle|_{\gamma=0} \gamma_\alpha^2$.
 In equation \ref{eq:basictwopt} the
@@ -672,7 +673,7 @@ is given by
 If we know the response \mcalRtwopt, we can form an estimator for the correlation function
 that takes the form of a weighted average:
 \begin{align}
-    \xi \approx \frac{\langle \gamma_\alpha \gamma_\beta R^{2pt} \rangle}{\langle R^{2pt}\rangle}.
+    \xi \approx  \langle R^{2pt}\rangle^{-1} \langle \gamma_\alpha \gamma_\beta R^{2pt} \rangle.
 \end{align}
 
 Note the probability distribution \probe\ is joint in the two ellipticities
