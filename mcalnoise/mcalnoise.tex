@@ -475,10 +475,9 @@ $\est^-$ is the measurement made on an image sheared by $-\gamma$,
 and $\Delta \gamma = 2\gamma$.  The results are rather insensitive
 to the choice of applied shear; we take $\gamma=0.01$.
 
-In practice, the mean of the response matrix \mcalRmean\ is proportional to the
-identity matrix,  so the correction in equation \ref{eq:rcorr} reduces to
-division by a scalar.  This is a useful approximation we will exploit
-in what follows.
+In practice, the mean of the response matrix \mcalRmean\ is to good
+approximation diagonal,  so the correction in equation \ref{eq:rcorr} reduces
+to element-wise division by a scalar.
 
 
 The shearing is accomplished via series of image manipulations. The original
@@ -694,7 +693,7 @@ is given by
 \end{align}
 If we know the response \mcalRtwopt, we can form an estimator for the correlation function
 that takes the form of a weighted average:
-\begin{align}
+\begin{align} \label{eq:twoptavg}
     \xi \approx  \mcalRtwoptmean^{-1} \langle \vest_\alpha \vest_\beta \rangle.
 \end{align}
 
@@ -710,8 +709,8 @@ also hold:
 \end{align}
 It then follows that the response can be completely factored such that
 \begin{align} \label{eq:Rseparable}
-    \int d \vest_\alpha  d\vest_\beta  & \frac{\partial^2 S_\alpha S_\beta \mbox{\probe} \vest_\alpha \vest_\beta}{\partial \vecg_\alpha \partial \vecg_\beta}\bigg|_{\gamma=0}  \nonumber \\
-      & \approx \int d \vest_\alpha  \frac{\partial S_\alpha P(\vest_\alpha) \vest_\alpha}{\partial \vecg_\alpha}\bigg|_{\gamma=0} d\vest_\beta   \frac{\partial S_\beta P(\vest_\beta) \vest_\beta}{\partial \vecg_\beta}\bigg|_{\gamma=0} \nonumber \\
+    \int d & \vest_\alpha  d\vest_\beta  \frac{\partial^2 S_\alpha S_\beta \mbox{\probe} \vest_\alpha \vest_\beta}{\partial \vecg_\alpha \partial \vecg_\beta}\bigg|_{\gamma=0}  \nonumber \\
+      & \approx \int d \vest_\alpha  \frac{\partial S_\alpha P(\vest_\alpha) \vest_\alpha}{\partial \vecg_\alpha}\bigg|_{\gamma=0} \int d\vest_\beta   \frac{\partial S_\beta P(\vest_\beta) \vest_\beta}{\partial \vecg_\beta}\bigg|_{\gamma=0} \nonumber \\
       &=  \mcalRmeanalpha \mcalRmeanbeta.
 \end{align}
 
@@ -727,19 +726,24 @@ of the two-point auto-correlation function is approximately given by
     \left< R^{2pt} \right> \approx \mbox{\mcalRmean}^2.
 \end{align}
 
-As noted in \S \ref{sec:mcal}, the response matrix is typically proportional to
-the identity matrix..  If the selections are also not direction dependent, we
-can form a simpler estimator for the 2-point function, dividing by square of
-the scalar mean response
+Thus it is sufficient for shear-shear correlations to calculate the mean
+response for the ensemble of objects.  This is a reflection of the assumption
+that \probe\ is separable at zero shear: under this assumption, the
+pair-weighted response equals the unweighted response.  However, this
+assumption may not hold in general if spatially correlated objects have
+correlated shapes (see \S \ref{sec:IA}) or if there are imperfections
+in image reduction and object identification (see \S \ref{sec:summary}).
+
+%As noted in \S \ref{sec:mcal}, the response matrix is to good approximation
+%diagonal.  If the selections are also not direction
+%dependent, the weighted average in equation \ref{eq:twoptavg} reduces
+%to element-wise division by the square of the scalar mean response
 %\begin{align}
-%    \xi \approx \\langle e_\alpha e_\beta \rangle.
+%    \xi \approx \frac{\langle \vest_\alpha \vest_\beta \rangle}{\mcalRscalarmean^2}.
 %\end{align}
-\begin{align}
-    \xi \approx \frac{\langle \vest_\alpha \vest_\beta \rangle}{\mcalRscalarmean^2}.
-\end{align}
-This approximation is useful for two point functions, in which shapes are
-typically projected along axes different from those used to measure the
-response.
+%This approximation is useful for two point functions, in which shapes are
+%typically projected along axes different from those used to measure the
+%response.
 
 In what follows we test the formulas for mean shear.  We will test the
 response for 2-point functions in a future work.
@@ -767,7 +771,7 @@ the absence of selection biases.  This must be taken into account separately.
 We will not treat this effect in what follows.  XXX estimate size of this
 effect
 
-\subsection{Remarks on Intrinsic Alignments}
+\subsection{Remarks on Intrinsic Alignments} \label{sec:IA}
 
 In the above we assumed that \probe\ is separable at zero shear, but this
 assumption breaks down for physically associated galaxies
@@ -1582,7 +1586,7 @@ It may be that further optimization is possible.  For example, a code that
 works entirely in Fourier space could avoid rendering the re-convolved image in
 real space, which dominates the computation.
 
-\section{Summary and Future Work}
+\section{Summary and Future Work} \label{sec:summary}
 
 We introduced a formalism for \mcal\ to calculate shear response corrections,
 including corrections for selection effects. We developed a simple empirical
