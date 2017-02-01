@@ -74,8 +74,8 @@
 
 \newcommand{\mcalRpsf}{$R^{p}$}
 \newcommand{\mcalRpsfnoise}{$R^{p}_\eta$}
-\newcommand{\mcalRo}{$R_o$}
-\newcommand{\mcalRnoise}{$R_\eta$}
+\newcommand{\mcalRo}{\mbox{\boldmath $R_o$}}
+\newcommand{\mcalRnoise}{\mbox{\boldmath $R_\eta$}}
 
 \newcommand{\mcalRmeanalpha}{\mbox{\boldmath $\langle R_\alpha \rangle$}}
 \newcommand{\mcalRmeanbeta}{\mbox{\boldmath $\langle R_\beta \rangle$}}
@@ -89,8 +89,8 @@
 \newcommand{\mcalRtwoptmean}{\mbox{\boldmath $\langle R^{2pt} \rangle$}}
 
 
-\newcommand{\mcalRmodel}{$R^{model}$}
-\newcommand{\mcalRnoisemodel}{$R^{model}_\eta$}
+\newcommand{\mcalRmodel}{\mbox{\boldmath $R^{model}$}}
+\newcommand{\mcalRnoisemodel}{\mbox{\boldmath $R^{model}_\eta$}}
 
 \newcommand{\probe}{\mbox{$P(\vest_\alpha \vest_\beta)$}}
 
@@ -477,7 +477,7 @@ to the choice of applied shear; we take $\gamma=0.01$.
 
 In practice, the mean of the response matrix \mcalRmean\ is to good
 approximation diagonal,  so the correction in equation \ref{eq:rcorr} reduces
-to element-wise division by a scalar.
+to element-wise division.
 
 
 The shearing is accomplished via series of image manipulations. The original
@@ -1704,11 +1704,10 @@ realizations could be used to increase the precision of the correction.
 ES is supported by DOE grant DE-AC02-98CH10886.
 
 We thank Aaron Roodman for providing the variation of the optical aberrations
-measured in DES data.  Thanks to Mike Jarvis for many useful discussions and
-help with the \galsim\ package.  Thanks to Rachel Mandelbaum for guidance
-guidance in using the \galsim\ package isotropization and whitening features.
-Thanks to Gary Bernstein for pointing out a simpler form for the response for
-2-point functions.  Thanks for Paul Stankus for helpful comments on the draft.
+measured in DES data.  We are grateful to Mike Jarvis and Rachel Mandelbaum for
+many useful discussions and help with the \galsim\ package Thanks to Gary
+Bernstein for pointing out a simpler form for the response for 2-point
+functions.  Many thanks to Paul Stankus for helpful comments on the draft.
 
 
 \appendix
@@ -1737,8 +1736,8 @@ bias will propagate into the response.  We can write the observed \mcalRo\
 as a contribution from both the actual response \mcalR\ and a noise term
 \mcalRnoise\
 \begin{align} \label{eq:scaling}
-    \mbox{\mcalRo} &= R + \mbox{\mcalRnoise}  \nonumber \\
-                   &= R + A n^2.
+    \mcalRo &= \mcalR + \mcalRnoise  \nonumber \\
+            &= \mcalR + A n^2.
 \end{align}
 
 \subsubsection{De-trending Correction Scheme}
@@ -1749,8 +1748,8 @@ then run the new image through the \mcal\ process, we can measure
 $R^{\mathrm{before}}$, a response that will include correlated noise effects.
 We can write this observed response as
 \begin{align}\label{eq:Rbefore}
-    R_o^{\mathrm{before}} &= R + A (n + \Delta n)^2 \nonumber \\
-       &\simeq R + A n^2 + 2 A n \Delta n
+    \mcalRo^{\mathrm{before}} &= \mcalR + A (n + \Delta n)^2 \nonumber \\
+       &\simeq \mcalR + A n^2 + 2 A n \Delta n
 \end{align}
 %&\simeq R + A n^2 + \frac{\partial (An^2)}{\partial n} \Delta n + ... \nonumber \\
 where we have dropped terms of order $(\Delta n)^2$ and higher.  In equation
@@ -1761,23 +1760,23 @@ We can also add identical noise {\em after} the original image  has been run
 through \mcal, and measure $R^{\mathrm{after}}$.  The response when adding
 noise after \mcal\ does not suffer any additional bias due to correlated noise:
 \begin{align}
-    R_o^{\mathrm{after}} &= R + A n^2.
+    \mcalRo^{\mathrm{after}} &= \mcalR + A n^2.
 \end{align}
 The difference between these responses is then 
 \begin{align}
-    \Delta R &\equiv R_o^{\mathrm{before}} - R_o^{\mathrm{after}}  \nonumber \\
+    \Delta \mcalR &\equiv \mcalRo^{\mathrm{before}} - \mcalRo^{\mathrm{after}}  \nonumber \\
              &\simeq 2 A n \Delta n.
 \end{align}
 
 We propose the following procedure to correct for correlated noise:
 \begin{enumerate}
-    \item Calculate $\Delta R$ for a series of noise offsets $\Delta n$.
-    \item Average $\Delta R$ over all objects for each noise offset.
-    \item Perform a linear fit to $\Delta R$ vs. $2 n \Delta n$ to find the 
+    \item Calculate $\Delta \mcalR$ for a series of noise offsets $\Delta n$.
+    \item Average $\Delta \mcalR$ over all objects for each noise offset.
+    \item Perform a linear fit to $\Delta \mcalR$ vs. $2 n \Delta n$ to find the 
         coefficient $A$.
     \item Apply a mean correction for correlated noise given by
         \begin{align}
-            \mbox{\mcalRnoise} & \simeq A n^2.
+            \mcalRnoise & \simeq A n^2.
         \end{align}
 \end{enumerate}
 If the noise varies between observations, we can apply a 
@@ -1856,13 +1855,13 @@ after the \mcal\ procedure.
 The measurement with correlated noise will be the sum of the response
 without correlated noise plus the response of the correlated noise field
 \begin{equation}
-    \mbox{\mcalRnoisemodel} = \mbox{\mcalRmodel} + \mbox{\mcalRnoise}
+    \mcalRnoisemodel = \mcalRmodel + \mcalRnoise.
 \end{equation}
 This measurement is quite noisy for a single galaxy, but we
 can estimate the mean correlated noise response for an ensemble
 of galaxies
 \begin{equation}
-    \langle \mbox{\mcalRnoise} \rangle = \langle \mbox{\mcalRnoisemodel} \rangle - \langle \mbox{\mcalRmodel} \rangle.
+    \langle \mcalRnoise \rangle = \langle \mcalRnoisemodel \rangle - \langle \mcalRmodel \rangle.
 \end{equation}
 Each entry used in this average corresponds to the best fit model
 and noise properties for a galaxy in the sample.
@@ -1870,10 +1869,10 @@ and noise properties for a galaxy in the sample.
 The response \mcalRnoise\ can be subtracted to recover an estimate of the mean
 response without correlated noise
 \begin{equation}
-    \langle \mbox{\mcalR} \rangle = \langle \mbox{\mcalRo} \rangle - \langle \mbox{\mcalRnoise} \rangle.
+    \langle \mcalR \rangle = \langle \mcalRo \rangle - \langle \mcalRnoise \rangle.
 \end{equation}
 
-We found this method performed poorly using either exponential or Gaussian
+We detected significant bias using both exponential and Gaussian
 models for the galaxy.  We detected a remaining bias of  $m \sim 4 \times
 10^{-3}$ in both the \bdsim\ and \rgsim\ simulations.
 
