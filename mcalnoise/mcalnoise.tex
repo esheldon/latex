@@ -17,9 +17,9 @@
 %    bottom=1.0in,
 %    hmarginratio=1:1]{geometry}
 
-%\usepackage{draftwatermark}
-%\SetWatermarkScale{5}
-%\SetWatermarkLightness{0.8}
+\usepackage{draftwatermark}
+\SetWatermarkScale{5}
+\SetWatermarkLightness{0.8}
 
 
 \usepackage{graphicx}
@@ -514,7 +514,7 @@ for the mean shear:
 
 We can calculate this response using quantities measured on artifically sheared
 images, as presented in \S \ref{sec:mcal}.  We will approximate the derivatives
-using finite differences in the shear.  
+using finite differences in the shear, such that
 \begin{align} \label{eq:basicRfinite}
     \mbox{\mcalRgmean}  &= \int \frac{\partial P(\vest) \vest  }{\partial \vecg}\bigg|_{\gamma=0} d\vest
     \approx \int d\vest \left( \frac{ P^+ \vest_i^+ - P^- \vest_i^- }{\Delta \gamma_j}\right)  d\vest   \nonumber \\
@@ -531,7 +531,7 @@ averaging the responses as measured for each object.
 Now consider a selection that modifies the distribution of the measurement
 \est.
 As a shorthand we will write this selection function as $S(\vest)$, the
-probability of selecting an object with ellipticity \est, although the
+probability of selecting an object with ellipticity \vest, although the
 selection may be indirect, for example a cut on \snr.  This selection function
 could also represent some kind of weighting scheme that indirectly weights by
 ellipticity.
@@ -549,7 +549,7 @@ leading order, as
     \langle \vest \rangle \approx \int d\vest \frac{\partial S(\vest) P(\vest) \vest  }{\partial \vecg}\bigg|_{\gamma=0}~\vecg~ d\vest = \langle \mcalR \vecg \rangle,
 \end{align}
 Thus, the mean shear in the presence of selections is also weighted by a
-response term \mcalR, and this response now includes the combined
+response term \mcalR, and this response now includes the
 shear response as well as the effects of the selections.
 The probability that an object is selected changes after it is sheared.
 %  We can
@@ -656,7 +656,7 @@ is given by
 If we know the response \mcalRtwopt, we can form an estimator for the correlation function
 that takes the form of a weighted average:
 \begin{align} \label{eq:twoptavg}
-    \xi \approx  \mcalRtwoptmean^{-1} \langle \vest_\alpha \vest_\beta \rangle.
+    \xi \approx  \mcalRtwoptmean^{-1} \langle \vest_\alpha \vest_\beta \rangle = \mcalRtwoptmean^{-1} \left<  \mbox{\mcalRtwopt} \vecg_\alpha \vecg_\beta  \right>.
 \end{align}
 
 Note the probability distribution \probe\ is joint in the two ellipticities
@@ -693,7 +693,8 @@ Thus it is sufficient for two-point functions to calculate the mean response
 for the ensemble of objects.  This is a reflection of the assumption that
 \probe\ is separable at zero shear: under this assumption, the pair-weighted
 response equals the unweighted response.  However, this assumption may not hold
-in general if spatially correlated objects have correlated shapes (see \S
+in general if spatially correlated objects have correlated shapes in
+the absence of lensing (see \S
 \ref{sec:IA}) or if there are imperfections in image reduction and object
 identification (see \S \ref{sec:summary}).
 
