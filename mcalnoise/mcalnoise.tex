@@ -323,9 +323,9 @@ Due to these biases, model fitting methods require additional calibration.
 There are no absolute calibration sources in the universe that we can use to
 derive a calibration, so those fitting models have typically resorted to
 calibration using image simulations
-\citep[e.g.][]{Zuntz13,Miller13,KidsShear2016}.  These simulations must include
-all the relevant details of the real universe in order to provide an accurate
-calibration.
+\citep[e.g.][]{Zuntz13,Miller13,KidsShear2016,Refregier13}.  These simulations
+must include all the relevant details of the real universe in order to provide
+an accurate calibration.
 
 An alternative shear estimator is based on measuring second moments of the
 galaxy light distribution, after correction for the effect of the point spread
@@ -340,7 +340,8 @@ Finally, selection effects can bias the recovered shear, but the corrections
 are typically considered as separate from the shear estimation, to be inferred
 as part of the calibration from simulations \citep{Jarvis2016,KidsShear2016}).
 
-Some methods have recently been developed to avoid these biases.  The first we
+Some methods have recently been developed to avoid these biases without
+relying on calibration from simulations.  The first we
 will discuss \citep{Zhang2017} involves measuring the moments in Fourier space,
 after subtracting off an appropriate noise power spectrum to deal with noise
 effects.  A circular weight is used to avoid non-linear fitting issues.  The
@@ -359,14 +360,15 @@ presented, in which prior information on galaxy images from a high \snr\ deep
 data set is combined with knowledge of how a particular measurement (e.g. a
 model fit or moments) responds to a shear in the absence of noise.
 Importantly, this is the first method for which selection effects are corrected
-for naturally as part of the method, without use of external simulations.  The
-method was shown to be accurate in a highly controlled, and unrealistically
-simple numerical experiment using model fitting techniques \citep{Sheldon2014}.
-A more practical version using un-normalized moments in Fourier space, known as
-the Bayesian Fourier Domain method (\bfd), was tested in \cite{bfd2016}, using
-a more challenging simulation.  In that initial study, a bias was detected at
+for naturally as part of the method, without use of external simulations.
+%The
+%method was shown to be accurate in a highly controlled, and unrealistically
+%simple numerical experiment using model fitting techniques \citep{Sheldon2014}.
+A practical version using un-normalized moments in Fourier space, 
+known as the Bayesian Fourier Domain method (\bfd), was tested in \cite{bfd2016}, using
+a challenging simulation.  In that initial study, a bias was detected at
 the $\sim 2 \times 10^{-3}$, falling just short of the part-in a thousand
-target.  However, given its rigorous foundation, it is possible the desired
+target.  However, given its rigorous foundation, it seems possible the desired
 accuracy will be achieved with further technical development.  The required
 prior information from deep data should in principle be available to current
 and future surveys
@@ -389,24 +391,24 @@ generic image manipulations quickly performed with modern computers.
 
 The \mcal\ technique was shown to be accurate in controlled simulations
 \citep{HuffMcal}.  However, the simulations used in that study \citep[based on
-those used in][]{great3} used fairly high \snr\ galaxy images, and the galaxies
-were relatively large compared to the PSF size.  In a real survey, the images
-are dominated by small faint galaxies, many of which cannot be reliably
+those used in][]{great3} contained fairly high \snr\ galaxy images, and the
+galaxies were relatively large compared to the PSF size.  In a real survey, the
+images are dominated by small faint galaxies, many of which cannot be reliably
 detected or measured.  Furthermore, due to the limited number of galaxies in
 those simulations, the accuracy of the method could only be tested to about 3
-parts in a thousand.  In this work we use a much more challenging set of
+parts in a thousand.  In this work we use a more challenging set of
 simulations.
 
 We will also address other difficulties that arise in real data.  During
 estimation of a shear statistic, further selection beyond a simple detection
 threshold is often required, such as cutting or binning based on galaxy
-properties, which can introduce significant selection biases.  We introduce a
+properties, which can cause significant selection biases.  We introduce a
 formalism to deal with selection effects, for example cuts on \snr\ and galaxy
 size, that are required for any practical analysis. 
 
-In real images, stars may enter the sample of objects used to measure shear. We
-will show that \mcal\ is robust to the presence of stars in the sample if the
-PSF is well determined.
+In real images, stars cannot be perfectly removed from the sample of objects
+used to measure shear. We will show that \mcal\ is robust to the presence of
+stars in the sample if the PSF is well determined.
 
 %There may also be missing data in the images, such as
 %bad pixels or columns; for surveys with multiple dithered epochs these portions
@@ -1764,9 +1766,9 @@ ES is supported by DOE grant DE-AC02-98CH10886.
 
 We thank Aaron Roodman for providing the variation of the optical aberrations
 measured in DES data.  We are grateful to Mike Jarvis and Rachel Mandelbaum for
-many useful discussions and help with the \galsim\ package Thanks to Gary
-Bernstein for pointing out a simpler form for the response for 2-point
-functions.  Many thanks to Paul Stankus for helpful comments on the draft.
+many useful discussions and help with the \galsim\ package. Thanks to Gary
+Bernstein for suggesting our response for 2-point functions could be
+simplified.  Many thanks to Paul Stankus for helpful comments on the draft.
 
 
 \appendix
