@@ -1585,9 +1585,11 @@ In deriving the response terms in \S \ref{sec:formalism}, we assumed the shear
 was small. We expect this approximation to break down at higher shears.  We
 expect the multiplicative bias to have the following generic form \citep{bfd2016}:
 \begin{align} \label{eq:breakdown}
-	m(\gamma) = m_0 + \alpha \gamma^2 + O(\gamma^4)
+	B(\gamma) = m + \alpha \gamma^2 + O(\gamma^4)
 \end{align}
 
+
+We tested the bias from this non-linearity using simulations.
 Rather than process the large image simulations presented in \S \ref{sec:sims} using
 different shear values, we instead tested the \mcal\ formalism using a
 simplified and fast simulation, inspired by that used in \citep{ba14}.  We drew
@@ -1602,7 +1604,7 @@ We performed \mcal\ operations by analytically shearing the shapes.  Note we
 did not shear the noise, so sheared noise effects as seen in the image
 simulations are not present.  In figure \ref{fig:weaklens} we show the results
 for a range of shears.  Fitting the model in equation \ref{eq:breakdown}, we
-found $m_0=0$ and $\alpha=1$ for this simplified test, implying  the
+found $m=0$ and $\alpha=1$ for this simplified test, implying  the
 non-linearity in this simulation becomes greater than our part in a thousand
 goal for shears greater than about 0.03.
 
@@ -1610,9 +1612,10 @@ goal for shears greater than about 0.03.
 	\centering
     \includegraphics[width=\columnwidth]{weaklens-approx.eps}
 
-	\caption{Multiplicative bias as a function of applied shear for a
+	\caption{Multiplicative bias as a function of applied shear in a
 	simplified monte-carlo simulation.  The bias scales with $\gamma^2$
-	as expected, with $\alpha=1$ and offset $m_0=0$.}
+	as expected, with $\alpha=1$ and zero offset. The gray
+	region represents the target part in a thousand accuracy.}
 
 \label{fig:weaklens}
 \end{figure}
@@ -1623,8 +1626,8 @@ shear variance of $\sigma_\gamma^2 \sim 0.02^2$.  For our value of $\alpha=1$,
 this implies a bias of 0.0012, exceeding our desired accuracy.
 
 However, we do not expect this simple test to give an accurate estimate for the
-effects of non-linear response in real data.  \cite{bfd2016} saw biases that
-varied a factor of a few between different simulations.Our value $\alpha=1$
+effects of non-linear response in real data.  \cite{bfd2016} saw $\alpha$
+varied by a factor of a few between different simulations. Our value $\alpha=1$
 predicts a bias of $\sim 4 \times 10^{-4}$ for the shear of 0.02 used in our
 parametric image simulations, consistent with our shear recovery results.  On
 the other hand we included shears as large as 0.08 in our real galaxy
