@@ -423,7 +423,7 @@ in a thousand.
 \section{Introduction to Metacalibration} \label{sec:mcal}
 
 In this section we introduce the basic concepts of \mcal. We will derive the
-full formalism for shear measurements in \S \ref{sec:selection}.
+full formalism for shear measurements in \S \ref{sec:formalism}.
 
 Suppose we have a biased shear observable \vest, which may be some estimate of
 an objects two-component ellipticity such that $\vest = (\est_1, \est_2)$. We
@@ -512,7 +512,7 @@ associated with the particular estimators used therein.  For the estimator
 we use in this work, we find simple averages suffice.
 
 
-\section{Full Metacalibration Formalism} \label{sec:selection}
+\section{Full Metacalibration Formalism} \label{sec:formalism}
 
 %  ['%.1f' % (sqrt(2)*s,) for s in [7,10,13,16,19]]
 %    ['9.9', '14.1', '18.4', '22.6', '26.9']
@@ -612,7 +612,7 @@ Note the first term is identical to the response in equation \ref{eq:basicR},
 but now with selections applied.
 We will approximate the derivatives using finite differences in the shear.
 Using the notation for measurements on sheared images, introduced
-in \S \ref{sec:selection}, we can rewrite the response as
+in \S \ref{sec:formalism}, we can rewrite the response as
 \begin{align} \label{eq:Rmean}
     \mbox{\mcalRmean} &\approx
     \int d\vest \left [ S \left( \frac{ P^+ \est_i^+ - P^- \est_i^- }{\Delta \gamma_j}\right) + P \est_i \left( \frac{ S^+ - S^- }{\Delta \gamma}\right) \right] d\vest \nonumber \\
@@ -966,7 +966,7 @@ communication}. We will explore this method in a future work.
 
 \section{Weighted Averages for Associated Parameters} \label{sec:weighting}
 
-As discussed in \S \ref{sec:selection}, if a shear estimator has
+As discussed in \S \ref{sec:formalism}, if a shear estimator has
 non-unity response, the mean shear (or 2-point function) is effectively
 weighted.  If we know the responses we can form a weighted average.
 
@@ -1039,7 +1039,7 @@ parameters, we interpolated the joint \hlr-flux distribution using a kernel
 density estimate.
 
 The ellipticities were drawn from the simple model used in \cite{bfd2016}
-\begin{align}
+\begin{align} \label{eq:edist}
     P(e) &\propto \left[1-(e)^2\right]^2 \exp\left[-e^2/2\sigma^2\right],
 \end{align}
 with $\sigma=0.2$ for the disk and $\sigma=0.1$ for the bulge.  Note, we use
@@ -1121,7 +1121,7 @@ galaxies.   Shown are both the true input \snr\ and the distribution of true
 \snr\ after applying a cut at {\it measured} \snr$ > 5$.  This ``true'' \snr\
 is that calculated by \galsim, and is the maximal \snr\ based on the true
 model \citep{Jarvis2016}.  The measured \snr\ is noisy and biased (see \S
-\ref{sec:results}), being derived from a single-gaussian model, so the cut
+\ref{sec:results}), being derived from a single-Gaussian model, so the cut
 results in a smooth rolloff in the true \snr.
 
 \begin{figure}
@@ -1187,7 +1187,7 @@ round object has higher \snr\ than if it were sheared, and galaxies oriented in
 the same direction as the PSF have higher \snr\ than objects otherwise
 oriented.  This effect will in turn bias the shear recovery.  In particular, if
 this selection might occur before \mcal\ and object fitting, the corrections
-for selection effects presented in \S \ref{sec:selection} cannot be used.
+for selection effects presented in \S \ref{sec:formalism} cannot be used.
 
 In order to test that we can recover the shear in the presence of this effect,
 we applied a pre-selection at \snr$ > 5$, and \mcal\ was not run on the
@@ -1338,7 +1338,7 @@ In table \ref{tab:results} we show results for shear recovery in each of our
 simulations.  As was discussed in \S \ref{sec:preselect}, we applied a
 pre-selection to the \bdsim\ simulation at \snr$ > 5$, which imposes a
 selection bias.  We thus placed cuts at higher \snr\ than this threshold, so
-that the corrections for selection effects presented in \S \ref{sec:selection}
+that the corrections for selection effects presented in \S \ref{sec:formalism}
 could be used accurately.  In this table we show results for \snr$ > 10$.  For
 the \rgsim\ simulation we did not apply a pre-selection.
 
@@ -1517,7 +1517,7 @@ If the additional variance is tolerable, it may be useful to include stars in a
 shear analysis if the PSF is sufficiently well known.  Attempting to remove
 faint stars from a sample is a noisy procedure, likely to induce selection
 effects.  These can be controlled using the corrections derived in \S
-\ref{sec:selection}, but only if the selection is also repeated based on
+\ref{sec:formalism}, but only if the selection is also repeated based on
 quantities measured on sheared images, so the corrections can be calculated.
 If the selection must be performed outside of the \mcal\ process, it may be
 better to avoid it altogether.
@@ -1580,6 +1580,64 @@ columns we found a large additive $e_1$ bias, as well as a multiplicative bias
 of a few parts in a thousand.  However, this bias disappeared if we introduced
 a compensatory ``bad column'' at 90 degree rotation about the center of the
 image, restoring symmetry to the image. 
+
+\section{Weak Shear Approximation}
+
+In deriving the response terms in \S \ref{sec:formalism}, we assumed the shear
+was small. We expect this approximation to break down at higher shears.
+In the mean shear case, we expect the multiplicative bias to have the
+following form \citep{bfd2016}:
+\begin{align} \label{eq:breakdown}
+	m(\gamma) = m_0 + \alpha \gamma^2 + O(\gamma^4)
+\end{align}
+
+Rather than process the large image simulations presented in \S \ref{sec:sims} using
+different shear values, we instead tested the \mcal\ formalism using a
+simplified and fast simulation, inspired by that used in \citep{ba14}.  We drew
+ellipticities from the distribution given in equation \ref{eq:edist} and added
+constant shear analytically using the standard shear transformation equations
+\citep{SeitzSchneider97}.  We then multiplied by a bias factor of 0.6, and
+added Guassian noise to each ellipticity component with scatter of 0.2. We
+truncated the total ellipticity to be less than unity, making the noise
+effectively non-Gaussian.
+
+We performed \mcal\ operations by analytically shearing the shapes.  Note we
+did not shear the noise, so sheared noise effects as seen in the image
+simulations are not present.  In figure \ref{fig:weaklens} we show the results
+for a range of shears.  Fitting the model in equation \ref{eq:breakdown}, we
+found $m_0=0$ and $\alpha=1$ for this simplified test, implying  the
+non-linearity in this simulation becomes greater than our part in a thousand
+goal for shears greater than about 0.03.
+
+\begin{figure}
+	\centering
+    \includegraphics[width=\columnwidth]{weaklens-approx.eps}
+
+	\caption{Multiplicative bias as a function of applied shear for a
+	simplified monte-carlo simulation.  The bias scales with $\gamma^2$
+	as expected, with $\alpha=1$ and offset $m_0=0$.}
+
+\label{fig:weaklens}
+\end{figure}
+
+Following the discussion in \cite{bfd2016}, we expect the bias on a cosmic
+shear measurement to be approximately $1 + 3\alpha\sigma_\gamma^2$, with a
+shear variance of $\sigma_\gamma^2 \sim 0.02^2$.  For our value of $\alpha=1$,
+this implies a bias of 0.0012, exceeding our desired accuracy.
+
+However, we can only expect this simple test to give is very approximate estimates
+for the effects of non-linear response.  This value $\alpha=1$ predicts a bias
+of $\sim 4 \times 10^{-4}$ for the shear of 0.02 used in our parametric image
+simulations, consistent with our shear recovery results.  On the other hand we
+included shears as large as 0.08 in our real galaxy simulation, for which we
+would infer a multiplicative bias of $6.4 \times 10^{-3}$, yet we did not see
+any significant bias.  It is not unlikely that $\alpha$ was significantly
+different for our processing of the full image simulations, as seen by
+\cite{bfd2016}, and this could be true for real data as well.  We will
+explore this non-linearity using full image simulations in a future work,
+as well as strategies to mitigate potential biases in real world
+measurements.
+
 
 \section{Computation Time}
 
