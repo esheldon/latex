@@ -1290,8 +1290,8 @@ such that
 \begin{align}
 	\left< \gamma_{meas} \right> = (1+m) \gamma_{true} + c.
 \end{align}
-In all cases the measured \snr\ is based on the best fit Gaussian model, the
-same definition used in the GREAT3 simulations \citep{great3}.
+In all cases the measured \snr\ is based on the best fit Gaussian model,
+using same definition implemented in the GREAT3 simulations \citep{great3}.
 
 \subsection{\Mcal\ Responses}
 
@@ -1394,10 +1394,11 @@ $\mbox{\snr} > 19 $ & $-8.33 \pm 0.36$ & $+0.17 \pm 0.73$ & $+0.05 \pm 0.37$ & $
 
 We measured and corrected for a significant multiplicative selection bias in
 each case.  These biases are generally well above our desired part in a
-thousand accuracy.  We find \mcal\ corrects these biases to better than a part
-in a thousand in all cases.  We did not find any additive selection biases,
-which suggests our procedure of reconvolving by a symmetrized PSFs was
-sufficient for these simulations.
+thousand accuracy.  We find we can correct for these biases accurately using
+the \mcal\ formalism: the multiplicative bias was less than a part in a
+thousand in all cases.  We did not find any additive selection biases, which
+suggests our procedure of reconvolving by a symmetrized PSF was sufficient for
+these simulations.
 
 
 \begin{comment}
@@ -1470,7 +1471,7 @@ sufficient for these simulations.
 \subsubsection{Results with Stellar Contamination} \label{sec:stars}
 
 Results including \nsimNstarperc\ stars in the \bdstar\ simulation are shown in
-table \ref{tab:results}. We did not detect any additional bias due to including
+table \ref{tab:results}. We did not detect any additional bias after including
 stars. The noise did, however, increase by \starnoiseincrease.
 
 %As indicated in table \ref{tab:sims}, for the \bdstar\  type simulations, we
@@ -1537,11 +1538,14 @@ discussion of weighted means.
 
 The Fourier transforms used to perform the \mcal\ convolutions cannot
 accommodate missing data.  But in real data there are features in the image,
-such as bad pixels and columns, cosmic rays, and saturated pixels, that cannot
-be used for object measurement.  This can be dealt with easily when the
-galaxies models are fit simultaneously to postage stamps drawn from all
-available observing epochs and bands \citep[e.g.][]{Jarvis2016}.  In that case,
-epochs in which there is missing data can simply be left out.
+such as bad pixels and columns, and cosmic rays that cannot be used for object
+measurement.  This can be dealt with easily when the galaxy model is fit
+simultaneously to postage stamps drawn from all available observing epochs and
+bands \citep[e.g.][]{Jarvis2016}.  If the epochs are spatially offset, such
+that the object does not always appear at the same location in the image, then
+only small fraction of images should be affected by missing data such as bad
+pixels.  In that case, epochs with missing data can simply be left out of the
+fit.
 
 If only a single image is available, one may want to replace the missing data.
 To test this scenario, we chose to replace the missing data with the value from
@@ -1565,16 +1569,16 @@ expect the multiplicative bias to have the following generic form \citep{bfd2016
 \end{align}
 
 
-We tested the bias from this non-linearity using simulations.
-Rather than process the large image simulations presented in \S \ref{sec:sims} using
+We tested the bias from this non-linearity using simulations.  Rather than
+process the large image simulations presented in \S \ref{sec:sims} using
 different shear values, we instead tested the \mcal\ formalism using a
-simplified and fast simulation, inspired by that used in \citep{ba14}.  We drew
-ellipticities from the distribution given in equation \ref{eq:edist} and added
-constant shear analytically using the standard shear transformation equations
-\citep{SeitzSchneider97}.  We then multiplied by a bias factor of 0.6, and
-added Guassian noise to each ellipticity component with scatter of 0.2. We
-truncated the total ellipticity to be less than unity, making the noise
-effectively non-Gaussian.
+simplified and fast ``toy model'' simulation, inspired by that used in
+\citep{ba14}.  We drew ellipticities from the distribution given in equation
+\ref{eq:edist} and added constant shear analytically using the standard shear
+transformation equations \citep{SeitzSchneider97}.  We then multiplied by a
+bias factor of 0.6, and added Guassian noise to each ellipticity component with
+scatter of 0.2. We truncated the total ellipticity to be less than unity,
+making the noise effectively non-Gaussian.
 
 We performed \mcal\ operations by analytically shearing the shapes.  Note we
 did not shear the noise, so sheared noise effects as seen in the image
