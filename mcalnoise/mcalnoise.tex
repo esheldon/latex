@@ -1040,25 +1040,24 @@ Finally, the entire composite bulge+disk+knots object was sheared with the same
 shear, $\gamma_1=0.02$.
 
 We convolved the galaxy images with a PSF modeled as a Moffat profile
-\citep{Moffat1969}, with $\beta=3.5$ and FWHM=0.9 arcsec. The PSF ellipticity was set to $g_2 = 0.025$ in reduced shear units ($e_2 \sim 
-0.05$ in units of distortion). 
+\citep{Moffat1969}, with $\beta=3.5$ and FWHM=0.9 arcsec. The PSF ellipticity
+was set to $g_2 = 0.025$ in reduced shear units ($e_2 \sim 0.05$ in units of
+distortion). 
 
-These convolved objects were rendered onto a 48 by 48 grid of 0.263 arcsec
-pixels, and constant Gaussian noise was added, with the same noise level used
-for all images.
+These convolved objects were randomly offset from the image center by $\pm 0.5$
+pixels, and rendered onto a 48 by 48 grid, with pixel scale 0.263 arcsec per
+pixel. Constant Gaussian noise was added, with the same noise level used for
+all images. 
 
 In figure \ref{fig:parametricgals} we show some example simulated galaxies with
-a range of parameters.  For visual purposes, in order to show detailed internal
-structure, we showed large models in this figure, with sizes much larger than
-the PSF.  In the simulations used for shear testing, the galaxies were mostly
-smaller than the PSF.
-
+a range of parameters.  Here we have shown large models, much larger than the
+PSF, in order to show detailed internal structure.
 
 \begin{figure*}[p]
     \centering
     \includegraphics[]{example-gals-007.eps}
 
-    \caption{Example simulated galaxy images.  Each image is composite of a
+    \caption{Example simulated galaxy images.  Each image is a composite of a
     bulge and disk, plus knots of star formation.  The half light radius is the
     same for all components, while the fraction of light in each component
     varies.  In the upper left and upper right we show pure bulge and pure disk
@@ -1067,7 +1066,8 @@ smaller than the PSF.
     composed entirely of knots.  Each model was convolved by a Moffat PSF
 	and pixelized.  For demonstration purposes, we here show very
     large models to make the detailed structure visible; the galaxies used for
-    our shear tests are typically much smaller than the PSF. }
+    our shear tests are typically much smaller than the PSF (see figure
+	\ref{fig:psimhlrcompare}). }
 
 	\label{fig:parametricgals}
 
@@ -1076,6 +1076,14 @@ smaller than the PSF.
 In figure \ref{fig:psimhlrcompare} we show the distribution of \hlr\ for the
 parametric galaxies, along with the \hlr\ for the PSF.  Note most objects had
 \hlr\ significantly smaller than the PSF.
+
+In figure \ref{fig:s2n} we show the distribution of \snr\ for the parametric
+galaxies.   Shown are both the true input \snr\ and the distribution of true
+\snr\ after applying a cut at {\it measured} \snr$ > 5$.  This ``true'' \snr\
+is that calculated by \galsim, and is the maximal \snr\ based on the true
+model \citep{Jarvis2016}.  The measured \snr\ is noisy and biased (see \S
+\ref{sec:results}), being derived from a single-Gaussian model, so the cut
+results in a smooth rolloff in the true \snr.
 
 \begin{figure}
     \centering
@@ -1090,13 +1098,6 @@ parametric galaxies, along with the \hlr\ for the PSF.  Note most objects had
 \label{fig:psimhlrcompare}
 \end{figure}
 
-In figure \ref{fig:s2n} we show the distribution of \snr\ for the parametric
-galaxies.   Shown are both the true input \snr\ and the distribution of true
-\snr\ after applying a cut at {\it measured} \snr$ > 5$.  This ``true'' \snr\
-is that calculated by \galsim, and is the maximal \snr\ based on the true
-model \citep{Jarvis2016}.  The measured \snr\ is noisy and biased (see \S
-\ref{sec:results}), being derived from a single-Gaussian model, so the cut
-results in a smooth rolloff in the true \snr.
 
 \begin{figure}
     \centering
@@ -1231,9 +1232,9 @@ used for this sim, and the 25.2 sample used for our parametric simulations
 \begin{figure*}[p]
 %    \centering
 	\begin{center}
-    \parbox{\textwidth}{
+%    \parbox{0.9\textwidth}{
     %\includegraphics[width=\columnwidth]{mcal-v14s01-s2n-and-r50-with-nsim.eps}
-    \includegraphics[width=\textwidth]{mcal-v14s01-s2n-and-r50-with-nsim.eps}
+    \includegraphics[width=0.8\textwidth]{mcal-v14s01-s2n-and-r50-with-nsim.eps}
 
 %    \parbox{0.9\columnwidth}{
 %    \parbox{0.8\textwidth}{
@@ -1242,10 +1243,11 @@ used for this sim, and the 25.2 sample used for our parametric simulations
 		the distribution of half-light-radius from the cosmos catalog for the input
 		galaxies.  For comparison, the distributions for the bulge+disk+knots \bdsim\ simulations
 		are overplotted as dashed lines.}
-}
+%}
 	\end{center}
 \label{fig:cosmos}
 \end{figure*}
+
 
 Note the parametric sims presented in \S \ref{sec:bdsim} used much fainter and
 smaller galaxies than the \rgsim\ simulation.  Also note the \rgsim\ simulation
@@ -1408,7 +1410,7 @@ $\mbox{\snr} > 19 $ & $-8.33 \pm 0.36$ & $+0.17 \pm 0.73$ & $+0.05 \pm 0.37$ & $
 	}
 \end{table*}
 
-\begin{figure}
+\begin{figure}[b]
     \centering
     %\includegraphics[width=0.6\textwidth]{mc-select-bias-thresh.eps}
     \includegraphics[width=\columnwidth]{mc-select-bias-thresh.eps}
@@ -1422,7 +1424,7 @@ $\mbox{\snr} > 19 $ & $-8.33 \pm 0.36$ & $+0.17 \pm 0.73$ & $+0.05 \pm 0.37$ & $
 \end{figure}
 
 
-\begin{figure}
+\begin{figure}[b]
     \centering
     %\includegraphics[width=0.6\textwidth]{mc-select-bias-thresh-with-nocorr.eps}
     \includegraphics[width=\columnwidth]{mc-select-bias-thresh-with-nocorr.eps}
@@ -1430,8 +1432,8 @@ $\mbox{\snr} > 19 $ & $-8.33 \pm 0.36$ & $+0.17 \pm 0.73$ & $+0.05 \pm 0.37$ & $
 	\caption{Same as the top panel of figure \ref{fig:s2nthresh}, but now
 additionally showing the multiplicative bias without corrections for selection
 effects.  The bias without correction for selection effects is represented as
-as red diamonds. The bias after correction for selection effects is represented
-as blue circles.  The filled grey region represents the target accuracy. } 
+red diamonds. The bias after correction for selection effects is represented as
+blue circles.  The filled grey region represents the target accuracy. } 
 
 \label{fig:s2nthresh_nocorr}
 \end{figure}
