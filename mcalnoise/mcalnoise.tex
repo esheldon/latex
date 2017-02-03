@@ -765,8 +765,9 @@ dealt with by calculating the full pair-weighted response in equation
 \ref{eq:Rseparable}.  However, the signal itself will be biased by the presence
 of IA.  A number of methods  have been proposed to correct for the
 contaminating effect of IA in the shear \citep{TroxelIAReview2015}.  With
-\mcal, we can improve these corrections by including the correct shear
-weighting that occurs due to the non-unity response of the shear estimate (see
+\mcal, we can include the correct shear
+weighting that occurs due to the non-unity response of the shear estimate,
+which should improve the accuracy of the corrections (see
 \S \ref{sec:weighting}).
 
 
@@ -873,7 +874,7 @@ The de-convolution correlates the noise across the image.  This correlated
 noise is sheared, and then re-convolved by the dilated PSF, producing the
 sheared correlated noise image $\eta(\gamma)$.  The pattern of this sheared
 noise is coherent between the positively sheared and negatively sheared images.
-The effect is small, but is amplified due to division by $\Delta \gamma$ to
+The effect is small, but it is amplified due to division by $\Delta \gamma$ to
 form the central derivative.  We thus expect the observed response \mcalRo\ to
 be contaminated by the response of the correlated, sheared noise which
 we will denote \mcalRnoise:
