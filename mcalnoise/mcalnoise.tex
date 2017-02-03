@@ -483,13 +483,15 @@ use in this work, we find simple averages of the shear and response suffice.
 %    ['9.9', '14.1', '18.4', '22.6', '26.9']
 
 In this section we derive the full \mcal\ formalism, including selection
-effects. As shorthand we will, without loss of generality, refer to the shear
-estimator \vest\ as the two component ellipticity $\vest = (\est_1,\est_2)$. We
-write the ellipticity measured from a sheared image as $\vest^+$ and $\vest^-$,
-for measurements on positive and negatively sheared images respectively.  We
-denote the selection probability as $S$;  we can also make selections based on
-sheared parameters, which we denote $S^+$ and $S^-$, the probability of
-selection after a positive or negative shear is applied, respectively.
+effects. First we introduce some notation:  In what follows, we will, without
+loss of generality, let the shear estimator \vest\ be the two component
+ellipticity $\vest = (\est_1,\est_2)$\footnote{With \mcal\ the estimator need
+not be a measure of ellipticity}.  We write the ellipticity measured from a
+sheared image as $\vest^+$ and $\vest^-$, for measurements on positive and
+negatively sheared images respectively.  We denote the selection probability as
+$S$;  we can also make selections based on sheared parameters, which we denote
+$S^+$ and $S^-$, the probability of selection after a positive or negative
+shear is applied, respectively.
 
 \subsection{Response for the Mean Shear} \label{sec:Rmean}
 
@@ -499,9 +501,10 @@ The mean ellipticity over an ensemble can be written as
 \end{align}
 where $P(\vest)$ is the probability distribution of \vest.  We choose to work
 with continuous functions so that all derivatives are well defined, in
-particular the derivative of the selection function will introduce below.  This is
-valid in the limit of a large ensemble, and we will ensure all calculations
-involve ensemble averages.
+particular the derivative of the selection function that we introduce below.
+The continuous approximation should be valid in the limit of a large ensemble.
+We will present all calculations as ensemble averages, which can be realized
+as sums over discrete measurements in real data.
 
 Assuming each galaxy experiences a small shear, and that galaxy orientations
 are random in the absence of shear, the mean ellipticity can be rewritten, to
@@ -509,11 +512,11 @@ leading order, as
 \begin{align} \label{eq:basicR}
     \langle \vest \rangle \approx \int d\vest \frac{\partial P(\vest) \vest  }{\partial \vecg}\bigg|_{\gamma=0} \vecg ~ d\vest = \langle \mcalRg \vecg \rangle,
 \end{align}
-where we have ignored the perturbation of the normalization $\int d\vest P(e)$,
+where we have ignored the perturbation of the normalization $\int d\vest P(\vest)$,
 because it leads to terms that are second order or higher in the shear.  The
 mean shear is thus weighted by a response matrix \mcalRg.  This is the same $2
 \times 2$ response matrix discussed in \S \ref{sec:mcal}; we have added the
-subscript $\gamma$ to differentiate from the selection responses discussed
+subscript $\gamma$ to differentiate this response from the selection response discussed
 below.  If the \mcalRg\ are known, we can form a weighted average estimator
 for the mean shear:
 \begin{align}
@@ -537,8 +540,7 @@ averaging the responses as measured for each object.
 \subsubsection{Selection Effects for the Mean Shear}
 
 Now consider a selection that modifies the distribution of the measurement
-\est.
-As a shorthand we will write this selection function as $S(\vest)$, the
+\vest.  We will write this selection function as $S(\vest)$, the
 probability of selecting an object with ellipticity \vest, although the
 selection may be indirect, for example a cut on \snr.  This selection function
 could also represent some kind of weighting scheme that indirectly weights by
@@ -595,6 +597,8 @@ the shear responses measured for individual galaxies, the same as shown in
 equation \ref{eq:basicRfinite}, but now with selections applied based on the
 unsheared object parameters.  The second term \mcalRSmean\ represents the
 response of the mean ellipticity to selections.  
+
+
 
 %The $\langle \vest^+ S \rangle$ represents the mean of the positively sheared
 %ellipticities, with selection based on the unsheared parameters. The $\langle
@@ -741,6 +745,13 @@ In real data, a selection may directly or indirectly select the redshift of the
 sources, which means the true shear will be different after selection, even in
 the absence of selection biases.  This must be taken into account separately.
 We will not treat this effect in what follows.
+
+Note if the selection function $S(\vest)$ is a step function, the derivative of
+$S(\vest)$ in \ref{eq:Rmean} will be infinite.  It is thus important to avoid
+placing threshold cuts directly on the ellipticities.  However, it should be
+valid to place cuts on other observables, such as \snr, that will
+result in a smooth selection on the ellipticity.
+
 
 \subsection{Remarks on Intrinsic Alignments} \label{sec:IA}
 
@@ -1730,12 +1741,11 @@ realizations could be used to increase the precision of the correction.
 
 ES is supported by DOE grant DE-AC02-98CH10886.
 
-We thank Aaron Roodman for providing the variation of the optical aberrations
-measured in DES data.  We are grateful to Mike Jarvis and Rachel Mandelbaum for
-many useful discussions and help with the \galsim\ package. Thanks to Gary
-Bernstein for suggesting our response for 2-point functions could be
-simplified.  Many thanks to Paul Stankus for helpful comments on the draft.
-
+Many thanks to Paul Stankus for helpful comments on the draft.We are grateful
+to Mike Jarvis and Rachel Mandelbaum for many useful discussions and help with
+the \galsim\ package. Thanks to Gary Bernstein for suggesting our response for
+2-point functions could be simplified.  We thank Aaron Roodman for providing
+the variation of the optical aberrations measured in DES data.  
 
 \appendix
 
