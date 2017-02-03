@@ -1022,9 +1022,9 @@ two compared to the ellipticity used in \citet{bfd2016}.
 
 For the simulated knots of star formation, we distributed 100 point sources
 according to a random walk starting at the disk centroid, with each point
-taking 40 steps\footnote{This random walk method was inspired by
-\cite{Zhang2008FourierQuadI}, but was implemented from scratch by the authors
-and is now available as a \galsim\ object class \texttt{galsim.RandomWalk}}.
+taking 40 steps.  This random walk method was inspired by
+\cite{Zhang2008FourierQuadI}\footnote{Our implementation
+of the random walk galaxy is available as a \galsim\ object class \texttt{galsim.RandomWalk}}.
 We then sheared this distribution using the same ellipticity assigned to the
 disk; but note this does not result in a purely elliptical distribution of
 point sources.  Only in the rare case of a pure bulge, or disk with no knots,
@@ -1335,7 +1335,7 @@ the \rgsim\ simulation we did not apply a pre-selection.
 	\parbox{0.9\columnwidth}{
 		\caption{\begin{flushleft}\Mcal\ results for each image simulation described in
 			\S \ref{sec:sims} and table \ref{tab:sims}.  For each simulation,
-			a cut was placed at \snr$ > 10$, and corrections were applied
+			a cut was placed at signal-to-noise ratio \snr$ > 10$, and corrections were applied
 			for selection effects (see table \ref{tab:results_sel} for more
 			results on selections).  A single Gaussian was fit
 		to the observed object, with no PSF correction applied.
@@ -1384,7 +1384,7 @@ $\mbox{\snr} > 19 $ & $-8.33 \pm 0.36$ & $+0.17 \pm 0.73$ & $+0.05 \pm 0.37$ & $
 
 	\parbox{0.9\textwidth}{
 		\caption{\begin{flushleft}\Mcal\ results for the \bdsim\ simulation with various
-			cuts on \snr.   Results are shown with and without corrections
+			cuts on signal-to-noise ratio \snr.   Results are shown with and without corrections
 			for selection effects.
 		\label{tab:results_sel}\end{flushleft}}
 	}
