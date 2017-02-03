@@ -1624,38 +1624,38 @@ how this curve looks.}
 
 \section{Computation Time}
 
-For each 48 by 48 pixel postage stamp, \mcal\ involves performing Fourier
-transforms and interpolation (for the shear), and image fitting five times: one
-for the zero shear, but re-convolved image, and four times for the sheared
-images.
+For each 48 by 48 pixel postage stamp, \mcal\ involves performing image
+manipulations (Fourier transforms for convolutions and interpolation for the
+shear), and image fitting five times: one for the zero shear, but re-convolved
+image, and four times for the sheared images.
 
 The total computation time per object was approximately 0.2 seconds.  In our
 tests the time was dominated by the image manipulations.  This is partly
-because we used the very fast \ngmix\ code; fitting each image took only about
+because we used the fast \ngmix\ code; fitting each image took only about
 0.001 seconds, about 0.005 to fit all five images.  For slower fitting codes,
 the \mcal\ manipulations may be sub-dominant.
 
 It may be that further optimization is possible.  For example, a code that
 works entirely in Fourier space could avoid rendering the re-convolved image in
-real space, which dominates the computation.
+real space.
 
 \section{Summary and Future Work} \label{sec:summary}
 
 We introduced a formalism for \mcal\ to calculate shear response corrections,
 including corrections for selection effects. We developed a simple empirical
 correction for the correlated noise associated with the \mcal\ procedure.  We
-then ran tests using simulations based on real galaxy images, as well as
+then tested the formalism using simulations based on real galaxy images, as well as
 challenging parametric simulations that included pre-selection effects and
 stellar contamination.  We applied a range of cuts on the object \snr, inducing
 significant selection affects.  In all cases we recovered the input shear to
 better than a part in a thousand.
 
 \Mcal\ compares favorably with other shear measurement techniques.  The only
-other technique of which we are aware that can recover the shear with similar
-accuracy, without reliance on calibration from simulations, and which
+other technique of which we are aware that has demonstrated shear recovery with
+similar accuracy, without reliance on calibration from simulations, and which
 accurately addresses selection effects, is the \bfd\ technique of
 \cite{bfd2016}.  At the time of this writing \mcal\ has been tested on more
-challenging simulations and has performed more accurately.  \Mcal\ also has the
+challenging simulations and has proved more accurate.  \Mcal\ also has the
 advantage that it does not rely on significant prior information about galaxy
 properties.  On the other hand, in our current implementation we add extra
 noise to deal with correlated noise effects.  This extra noise should be
@@ -1676,19 +1676,20 @@ in the shear recovery.  With \mcal\ these issues can be addressed in principle.
 Rather than work on sheared postage stamps, the entire image can be sheared,
 and the full processing framework rerun to estimate the response.  In practice,
 a real difficulty is how to address image artifacts, such as bleed trails from
-bright stars, cosmic rays, and bad pixels, that cannot be deconvolved.
+bright stars that cannot be deconvolved.
 
 Of similar difficulty is the case where the light from multiple galaxies
 overlaps on the image.  The \Mcal\ procedure will correctly estimate the shear
 response for these blended objects, but in order to interpret the signal the
-redshifts of the objects must be known, at least statistically.  If the
-galaxies are so blended that they are considered one object by the pipeline, it
-is unlikely an accurate redshift can be determined.  Addressing this problem
-may require some kind of external calibration.
+redshifts of the objects must be known, at least statistically.  If a
+significant number of galaxies are so blended that they are considered one
+object by the pipeline, it is unlikely an accurate redshift distribution can be
+determined.  Addressing this problem may require some kind of external
+calibration.
 
 It may be possible to address these issues by inserting artificial galaxy
 images into the data and re-running processing pipelines, including shear
-estimation \citep{Balrog2016}.  This method has the advantage of using the
+estimation \citep[e.g using the \balrog\ technique of][]{Balrog2016}.  This method has the advantage of using the
 original images as the basis, so all the features of real observations need not
 be simulated from first principles.
 
