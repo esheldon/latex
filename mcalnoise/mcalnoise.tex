@@ -17,9 +17,9 @@
 %    bottom=1.0in,
 %    hmarginratio=1:1]{geometry}
 
-\usepackage{draftwatermark}
-\SetWatermarkScale{5}
-\SetWatermarkLightness{0.8}
+%\usepackage{draftwatermark}
+%\SetWatermarkScale{5}
+%\SetWatermarkLightness{0.8}
 
 
 \usepackage{graphicx}
@@ -262,22 +262,22 @@ reasons: First, in order for the shear inference to be accurate, the model must
 accurately reproduce the galaxy profile before convolution by the PSF, which
 requires a large number of parameters.  If the model cannot sufficiently
 reproduce the galaxy the estimator is said to exhibit ``model bias''
-\citep{Bernstein2010}.  The second is the effect of noise on the non-linear
-fitting, which is significant for low signal-to-noise (\snr) images, and is
+\citep{Bernstein2010}.  The second is the bias in the non-linear fit caused
+by noise, which is significant for low signal-to-noise (\snr) images, and is
 difficult to predict \citep{HirataAlign04,Refreg12,Melchior12}.  This ``noise
-bias'' is exacerbated by the large number of parameters required to accurately
-represent a galaxy.
+bias'' is worsened if large number of parameters are used in an attempt
+to accurately represent the galaxy.
 
 Due to these biases, model fitting methods require additional calibration.
 There are no absolute calibration sources in the universe that we can use to
 derive a calibration, so those fitting models have typically resorted to
 calibration using image simulations
-\citep[e.g.][]{Zuntz13,Miller13,KidsShear2016,Refregier13,Jee16}.  These simulations
-must include all the relevant details of the real universe in order to provide
-an accurate calibration.  It has been suggested that model biases can partly be
-alleviated, along with noise bias, within a sufficiently flexible statistical
-framework \citep{SchneiderProbshear2015}, although control of model bias has not
-yet been demonstrated.
+\citep[e.g.][]{Zuntz13,Miller13,KidsShear2016,Refregier13,Jee16}.  These
+simulations must include all the relevant details of the real universe in order
+to provide an accurate calibration.  It has been suggested that model biases
+can partly be alleviated, along with noise bias, within a sufficiently flexible
+statistical framework \citep{SchneiderProbshear2015}, without simulations for
+calibration, although control of model bias has not yet been demonstrated.
 
 Another traditional shear estimator is based on measuring second moments of the
 galaxy light distribution, after correction for the effect of the point spread
@@ -293,7 +293,7 @@ and moment based methods, but the corrections are typically considered as
 separate from the shear estimation, to be inferred as part of a calibration
 based on simulations \citep{Jarvis2016,KidsShear2016}).
 
-Some methods have recently been developed to avoid some of these biases without
+Methods have recently been developed to avoid some of these biases without
 relying on calibration from simulations.  The method of \citep{Zhang2017}
 involves measuring the moments in Fourier space, after subtracting off an
 appropriate noise power spectrum to deal with noise effects.  A circular weight
@@ -310,14 +310,13 @@ effects.
 Another new approach is the Bayesian Fourier Domain (\bfd) method for shear
 inference introduced by \cite{ba14} and further developed by \cite{bfd2016}.  A
 rigorous Bayesian framework was presented, in which prior information on galaxy
-images from a high \snr\ deep data set is combined with knowledge of how a
-particular measurement (e.g. a model fit or moments) responds to a shear in the
-absence of noise.  Un-normalized moments in Fourier space are used as the basic
-data vector.  Importantly, this is the first method for which selection effects
-are corrected for naturally as part of the method, without use of external
+images from a high \snr\ deep data is included.  Un-normalized moments in
+Fourier space are used as the basic data vector, avoiding non-linear fitting
+issues.  \bfd\ is also the first method for which selection effects are
+corrected for naturally as part of the method, without use of external
 simulations.  The method was tested in \cite{bfd2016} using a challenging
-simulation.  In that initial study, a bias was detected at the $\sim 2 \times
-10^{-3}$, falling just short of the part in a thousand target.  However, given
+simulation.  In that initial study, a bias of $\sim 2 \times 10^{-3}$ was
+detected, falling just short of the part in a thousand target.  However, given
 its rigorous foundation, it seems possible that the desired accuracy will be
 achieved with further technical development.  The required prior information
 from deep data should in principle be available to current and future surveys
@@ -335,13 +334,15 @@ properties.  The essence of \mcal\ is to directly measure how a particular
 shear estimator responds to an applied shear, addressing both model bias and
 noise bias.  \Mcal\ can in principle be used to calibrate any shear
 estimator, including shapes derived from model fitting or weighted moments.
+A similar idea to \mcal\ was introduced by \cite{Kaiser2000}, although
+the full equivalent of \mcal\ was not implemented therein.
 
-A similar idea to \mcal\ was introduced by \cite{Kaiser2000}.  Much of the
-treatment therein was quite general, but the detailed calculations and examples
-focused on fast weighted second moment estimators; the full equivalent of
-\mcal\ was not implemented.  The focus in \citep{HuffMcal} is on generic image
-manipulations quickly performed with modern computers, which can be applied
-to any shear estimator. 
+%A similar idea to \mcal\ was introduced by \cite{Kaiser2000}.  Much of the
+%treatment therein was quite general, but the detailed calculations and examples
+%focused on fast weighted second moment estimators; the full equivalent of
+%\mcal\ was not implemented.  The focus in \citep{HuffMcal} is on generic image
+%manipulations quickly performed with modern computers, which can be applied
+%to any shear estimator. 
 
 
 The \mcal\ technique was shown to be accurate in controlled simulations
@@ -1287,8 +1288,8 @@ Gaussian fit does not completely capture the asymmetries of the true PSF.
 
 All \mcal\ image operations were performed using the \texttt{metacal} module
 from \ngmix, which in turn uses \galsim\ to perform most image manipulations.
-Before fitting, we added a noise field designed to correct for correlated
-noise, as discussed in \S \ref{sec:fixnoise}
+We used the correction for correlated noise as discussed in \S
+\ref{sec:fixnoise}
 
 
 \section{Results} \label{sec:results}
@@ -1299,6 +1300,12 @@ such that
 \begin{align}
 	\left< \gamma_{meas} \right> = (1+m) \gamma_{true} + c.
 \end{align}
+For the \bdsim\ simulations, there was only one shear value (\nsimShear),
+ and $m$ was determined from the first component and $c$ was determined from the
+second.  For the \rgsim\ simulations, there were many different shears,
+and the linear model above was fit.  We found the multiplicative
+bias was the same in each component, so they were combined into
+a single value.
 In all cases the measured \snr\ is based on the best fit Gaussian model,
 using same definition implemented in the GREAT3 simulations \citep{great3}.
 
@@ -1411,7 +1418,7 @@ $\mbox{\snr} > 19 $ & $-8.33 \pm 0.36$ & $+0.17 \pm 0.73$ & $+0.05 \pm 0.37$ & $
 	}
 \end{table*}
 
-\begin{figure}[b]
+\begin{figure}[h]
     \centering
     %\includegraphics[width=0.6\textwidth]{mc-select-bias-thresh.eps}
     \includegraphics[width=\columnwidth]{mc-select-bias-thresh.eps}
@@ -1425,7 +1432,7 @@ $\mbox{\snr} > 19 $ & $-8.33 \pm 0.36$ & $+0.17 \pm 0.73$ & $+0.05 \pm 0.37$ & $
 \end{figure}
 
 
-\begin{figure}
+\begin{figure}[h]
     \centering
     %\includegraphics[width=0.7\textwidth]{mc-select-bias-thresh-with-nocorr.eps}
     \includegraphics[width=\columnwidth]{mc-select-bias-thresh-with-nocorr.eps}
@@ -1510,7 +1517,8 @@ these simulations.
 
 Results including \nsimNstarperc\ stars in the \bdstar\ simulation are shown in
 table \ref{tab:results}. We did not detect any additional bias after including
-stars. The noise did, however, increase by \starnoiseincrease.
+stars. The noise in the recovered shear did, however, increase by
+\starnoiseincrease.
 
 %As indicated in table \ref{tab:sims}, for the \bdstar\  type simulations, we
 %included an additional \nsimNStar\ stellar objects, \nsimNstarperc, drawn
@@ -1553,7 +1561,7 @@ measurement.  This can be dealt with easily when the galaxy model is fit
 simultaneously to postage stamps drawn from all available observing epochs and
 bands \citep[e.g.][]{Jarvis2016}.  If the epochs are spatially offset, such
 that the object does not always appear at the same location in the image, then
-only small fraction of images should be affected by missing data such as bad
+a small fraction of images should be affected by missing data such as bad
 pixels.  In that case, epochs with missing data can simply be left out of the
 fit.
 
@@ -1572,19 +1580,19 @@ image, restoring symmetry to the image.
 \section{Weak Shear Approximation}
 
 In deriving the response terms in \S \ref{sec:formalism}, we assumed the shear
-was small. We expect this approximation to break down at higher shears.  We
-expect the multiplicative bias to have the following generic form \citep{bfd2016}:
+was small, so that the response of the estimator to a shear was linear in. This
+approximation will break down at higher shears.  We expect
+the multiplicative bias to have the following generic form \citep{bfd2016}:
 \begin{align} \label{eq:breakdown}
 	B(\gamma) = m + \alpha \gamma^2 + O(\gamma^4)
 \end{align}
 
-
-We tested the bias from this non-linearity using both the \bdsim\ image
+We tested the bias from non-linearity using both the \bdsim\ image
 simulations and a ``toy model'', inspired by that used in \citep{ba14}.
 For the image simulations, we ran additional tests with shears of
 0.06 and 0.10, in addition to the 0.02 discussed above.
 
-For the toy model drew ellipticities from the distribution given in equation
+For the toy model we drew ellipticities from the distribution given in equation
 \ref{eq:edist} and added constant shear analytically using the standard shear
 transformation equations \citep{SeitzSchneider97}.  We then multiplied by a
 bias factor of 0.6, and added Guassian noise to each ellipticity component with
@@ -1596,14 +1604,15 @@ noise effects as seen in the image simulations are not present.
 In figure \ref{fig:weaklens} we show the results.  Fitting the model in
 equation \ref{eq:breakdown}, we found $m \sim 0$ and $\alpha \sim 1$ for the
 toy model.  For the image simulations we found $m \sim 0$ and $\alpha \sim
-0.6$; we note that \cite{bfd2016} also found the value of $\alpha$
-depended on the type of simulation used, with values as large as 2.
+0.6$. We note that \cite{bfd2016} also found the value of $\alpha$
+depended on the type of simulation used, with values for $\alpha$
+as large as 2.
 Taking the value of $\alpha$ from the image simulation, we find that the
 non-linearity in this simulation becomes greater than our part in a thousand
 goal for shears greater than about 0.04.  Using $\alpha=1$ from the toy
-model the it would be about 0.03.
+model the threshold is reached for shears higher than about 0.03.
 
-\begin{figure}[h]
+\begin{figure}
 	\centering
     \includegraphics[width=\columnwidth]{weaklens-approx.eps}
 
@@ -1663,7 +1672,7 @@ better than a part in a thousand.
 \Mcal\ compares favorably with other shear measurement techniques.  At the time
 of writing, the only technique with demonstrated accuracy close to \mcal,
 without reliance on calibration from simulations, and which accurately
-addresses selection effects, is the \bfd\ technique of \cite{bfd2016}.  \mcal\
+addresses selection effects, is \bfd\ \citep{bfd2016}.  \mcal\
 has been tested using more challenging simulations and has proved more
 accurate.  \Mcal\ also has the advantage that it does not rely on significant
 prior information about galaxy properties.  On the other hand, in our current
@@ -1674,33 +1683,39 @@ precise correlated noise correction as a priority going forward.
 
 In order to reach part in a thousand accuracy in real data, there are a number
 of additional challenges to be addressed, and these challenges are shared with
-other shear measurement techniques. We think the most important are the effects
-of overlapping objects and the limitations of current image processing
-techniques.  The accurate determination of the PSF is also fundamental, but we
-will not address that here.
+other shear measurement techniques.
+We think the most important are the effects of overlapping objects and the
+limitations of current image processing techniques. The accurate determination
+of the PSF is also fundamental, but we will not address that here.
 
-The image processing pipeline that  determines the background, identifies
-unique detections, and assigns light to objects will potentially produce biases
-in the shear recovery.  With \mcal\ these issues can be addressed in principle.
-Rather than work on sheared postage stamps, the entire image can be sheared,
-and the full processing framework rerun to estimate the response.  In practice,
-a real difficulty is how to address image artifacts, such as bleed trails from
-bright stars that cannot be deconvolved.
+Biases in the image processing pipeline that identifies image artifacts,
+determines the background light, identifies unique detections, and assigns
+light to objects will potentially produce biases in the shear recovery.  Image
+artifacts may not be properly corrected for, or masked.  In crowded regions
+such as galaxy clusters, the pipeline may fail to determine the background
+accurately.  The \mcal\ process will in this case not accurately determine the
+response.  Furthermore, in crowded regions the detection algorithm may fail to
+identify all the unique objects, due to objects overlapping significantly on
+the sky.  The \Mcal\ procedure will correctly estimate the shear response for
+these blended objects, but in order to interpret the signal the redshifts of
+the objects must be known, at least statistically.  If a significant number of
+galaxies are so blended that they are considered one object by the pipeline, it
+is unlikely an accurate redshift distribution can be determined.
 
-Of similar difficulty is the case where the light from multiple galaxies
-overlaps on the image.  The \Mcal\ procedure will correctly estimate the shear
-response for these blended objects, but in order to interpret the signal the
-redshifts of the objects must be known, at least statistically.  If a
-significant number of galaxies are so blended that they are considered one
-object by the pipeline, it is unlikely an accurate redshift distribution can be
-determined.  Addressing this problem may require some kind of external
-calibration.
+In a given image, there will also be large numbers of faint galaxies that are
+not bright enough to exceed the detection threshold.  These galaxies
+effectively become part of the sky.  But they will also be included at some
+level in the \mcal\ shear response measured for brighter galaxies.  The effect
+is probably much smaller than if one calibrates from simulations \citep[see
+e.g.][]{Hoekstra2016}, but may not be negligible.
 
 It may be possible to address these issues by inserting artificial galaxy
 images into the data and re-running processing pipelines, including shear
-estimation \citep[e.g using the \balrog\ technique of][]{Balrog2016}.  This method has the advantage of using the
-original images as the basis, so all the features of real observations need not
-be simulated from first principles.
+estimation, using the \balrog\ framework \citep{Balrog2016}.  \balrog\
+uses the original images as the basis, so all the
+features of real observations need not be simulated.  The
+approach is particularly applicable to studying the blending effects,
+effects of undetected objects, and the effects of image artifacts.
 
 The formalism we have developed recovers a weighted average of the shear, and
 this weighting is known, being the same responses used to calibrate the shear
@@ -1709,6 +1724,12 @@ and did not test the variable shear case.  It will be important to test that
 this weighting, based on noisy estimates of the responses, can be properly
 propagated when interpreting the shear measurements, for example when
 estimating the redshift distribution of the source population.
+
+%With \mcal\ these issues can be
+%addressed in principle.  Rather than work on sheared postage stamps, the entire
+%image can be sheared, and the full processing framework rerun to estimate the
+%response.
+
 
 
 \begin{comment}
