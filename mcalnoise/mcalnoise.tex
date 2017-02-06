@@ -1579,24 +1579,29 @@ expect the multiplicative bias to have the following generic form \citep{bfd2016
 \end{align}
 
 
-We tested the bias from this non-linearity using simulations.  Rather than
-process the large image simulations presented in \S \ref{sec:sims} using
-different shear values, we instead tested the \mcal\ formalism using a
-simplified and fast ``toy model'' simulation, inspired by that used in
-\citep{ba14}.  We drew ellipticities from the distribution given in equation
+We tested the bias from this non-linearity using both the \bdsim\ image
+simulations and a ``toy model'', inspired by that used in \citep{ba14}.
+For the image simulations, we ran additional tests with shears of
+0.06 and 0.10, in addition to the 0.02 discussed above.
+
+For the toy model drew ellipticities from the distribution given in equation
 \ref{eq:edist} and added constant shear analytically using the standard shear
 transformation equations \citep{SeitzSchneider97}.  We then multiplied by a
 bias factor of 0.6, and added Guassian noise to each ellipticity component with
 scatter of 0.2. We truncated the total ellipticity to be less than unity,
-making the noise effectively non-Gaussian.
+making the noise effectively non-Gaussian.  We performed \mcal\ operations by
+analytically shearing the shapes.  Note we did not shear the noise, so sheared
+noise effects as seen in the image simulations are not present.
 
-We performed \mcal\ operations by analytically shearing the shapes.  Note we
-did not shear the noise, so sheared noise effects as seen in the image
-simulations are not present.  In figure \ref{fig:weaklens} we show the results
-for a range of shears.  Fitting the model in equation \ref{eq:breakdown}, we
-found $m=0$ and $\alpha=1$ for this simplified test, implying  the
+In figure \ref{fig:weaklens} we show the results.  Fitting the model in
+equation \ref{eq:breakdown}, we found $m \sim 0$ and $\alpha \sim 1$ for the
+toy model.  For the image simulations we found $m \sim 0$ and $\alpha \sim
+0.6$; we note that \cite{bfd2016} also found the value of $\alpha$
+depended on the type of simulation used, with values as large as 2.
+Taking the value of $\alpha$ from the image simulation, we find that the
 non-linearity in this simulation becomes greater than our part in a thousand
-goal for shears greater than about 0.03.
+goal for shears greater than about 0.04.  Using $\alpha=1$ from the toy
+model the it would be about 0.03.
 
 \begin{figure}[h]
 	\centering
@@ -1616,25 +1621,16 @@ goal for shears greater than about 0.03.
 
 Following the discussion in \cite{bfd2016}, we expect the bias on a cosmic
 shear measurement to be approximately $1 + 3\alpha\sigma_\gamma^2$, with a
-shear variance of $\sigma_\gamma^2 \sim 0.02^2$.  For our value of $\alpha=1$,
-this implies a bias of 0.0012, exceeding our desired accuracy.
-
-However, we do not expect this simple test to give an accurate estimate for the
-effects of non-linear response in real data.  \cite{bfd2016} saw $\alpha$
-varied by a factor of a few between different simulations. Our value $\alpha=1$
-predicts a bias of $\sim 4 \times 10^{-4}$ for the shear of 0.02 used in our
-parametric image simulations, consistent with our shear recovery results.  On
-the other hand we included shears as large as 0.08 in our real galaxy
-simulation, for which we would infer a multiplicative bias of $6.4 \times
-10^{-3}$, yet we did not see any significant bias.  It is not unlikely that
-$\alpha$ was significantly different for our processing of the full image
-simulations, and this could be true for real data as well.  We will explore
-this non-linearity using full image simulations in a future work, as well as
-strategies to mitigate potential biases in real world measurements.
-
-{\bf XXX currently running more full image sims at higher shear, but considerably
-smaller than the primary sims at $\gamma=0.02$, to see
-how this curve looks.}
+shear variance of $\sigma_\gamma^2 \sim 0.02^2$.  For the $\alpha=0.6$ found in
+the image simulations, the bias would be about $7.2 \times 10^{-4}$. 
+For $\alpha=1$, the bias would be be about $1.2 \times 10^{-3}$, exceeding our
+desired accuracy and requiring some correction.  As pointed out by
+\cite{bfd2016}, this correction does not require great precision.  If the bias
+were determined at the $\sim 40$\% level for $\alpha=1$,  the shear could be
+recovered accurately with 95\% confidence.  More care may be required for
+measurements of higher shear, such as tangential shear measurements near the
+centers of galaxy clusters.  We will explore strategies to mitigate this
+potential bias in a future work.  
 
 \section{Computation Time}
 
