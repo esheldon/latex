@@ -184,7 +184,7 @@
 \Mcal\ is a recently introduced method to accurately measure weak gravitational
 lensing shear using only the available imaging data, without need for prior
 information about galaxy properties or calibration from simulations.  The
-method involves introducing a counterfactual shear to a galaxy images, and
+method involves distorting the image with a small known shear, and
 calculating the response of a shear estimator to that applied shear.  The
 method was shown to be accurate in moderate sized simulations with relatively
 high signal-to-noise galaxy images, and without significant selection effects.
@@ -383,7 +383,7 @@ in a thousand.
 In this section we introduce the basic concepts of \mcal. We will derive the
 full formalism for shear measurements in \S \ref{sec:formalism}.
 
-Suppose we have a biased shear observable \vest, which may be some estimate of
+Suppose we have a biased, noisy shear observable \vest, which may be some estimate of
 an objects two-component ellipticity such that $\vest = (\est_1, \est_2)$. We
 can expand this observable in a Taylor series about zero shear
 \begin{align} \label{eq:Eexpand}
@@ -416,8 +416,12 @@ can form a weighted average:
 \begin{align} \label{eq:rcorr}
     \langle \vecg \rangle &\approx \langle \mbox{\mcalR} \rangle^{-1}  \langle \vest \rangle = \langle \mbox{\mcalR} \rangle^{-1} \langle \mcalR \vecg \rangle.
 \end{align}
-Note the special case of constant shear, where $\gamma$ factors out
-of the right hand side.
+Note the special case of constant shear, where $\gamma$ factors out of the
+right hand side.  As mentioned, the estimator \vest\ can be noisy, but in
+principle when averaging over large ensembles this noise does not cause any
+bias because \mcalR\ is very well determined (see \S \ref{sec:differences}).
+However, if the \mcal\ process alters the noise in a coherent way, an
+additional correction is required (see \S \ref{sec:fixnoise}).
 
 The essence of \mcal\ \citep{HuffMcal} is to estimate the shear response
 \mcalR\ for a measurement \vest\ directly from image data.  The measurement of
@@ -433,16 +437,6 @@ and $\Delta \gamma = 2\gamma$.  The results are rather insensitive
 to the choice of applied shear.  We tested values
 in the range of 0.001 to 0.05 and did not see significant
 changes in the results. We take $\gamma=0.01$.
-
-In practice, the response matrices measured from each image can have
-significant structure, but we find that mean of the response matrix \mcalRmean\
-is to good approximation diagonal,  in which case the correction in equation
-\ref{eq:rcorr} reduces to element-wise division.  One might expect the response
-to be proportional to the identity matrix if there is no preferred direction in
-the measurement process.  In the simulation tests we will present in \S
-\ref{sec:sims}, we found the diagonal elements can differ by as much as a few
-parts in a thousand when there is a strong directionality to the PSF.
-
 
 The shearing is accomplished via series of image manipulations. The original
 image $I$ is de-convolved from the point spread function (PSF), sheared, and
@@ -464,7 +458,21 @@ passed through these same image manipulations, but without any shear applied.
 This ensures the same re-convolution function is used for the shear estimator
 and the response measurements.
 
-\subsection{PSF Anisotropy and Inference} 
+In practice, the response matrices measured from each image can have
+significant structure, but the average \mcalRmean\ is to good approximation
+diagonal,  in which case the correction in equation \ref{eq:rcorr} reduces to
+element-wise division.  One might expect the response to be proportional to the
+identity matrix if there is no preferred direction in the measurement process.
+In the simulation tests we will present in \S \ref{sec:sims}, we found the
+diagonal elements can differ by as much as a few parts in a thousand due to the
+strong PSF ellipticity $\vest = (0, 0.025)$.  Additionally, some measurements,
+such as tangential shear or pairwise two-point functions, require projecting
+the ellipticities into different coordinate systems. The measurement may
+require projection of the response matrix as well.
+
+
+
+\subsection{PSF Anisotropy and Shear Inference}  \label{sec:differences}
 
 If the PSF correction is not perfect, the leading term $\langle \vest
 \rangle|_{\gamma=0}$ will not be zero.  \cite{HuffMcal} discussed another
@@ -473,10 +481,13 @@ this effect.  In this work we instead reconvolve the image by a symmetrized
 version of the PSF, which removes most additive effects due to the PSF  (see \S
 \ref{sec:modelfit}).
 
-In \cite{HuffMcal} a sophisticated method was used to infer the shear, which
-was needed in order to deal with the relatively large variance in \mcalR\
-associated with the particular estimators used therein.  For the estimator we
-use in this work, we find simple averages of the shear and response suffice.
+In \cite{HuffMcal} the simple averaging equation \ref{eq:rcorr} did not work
+because the shape estimators used  were quite noisy.  Instead a sophisticated
+statistical method was developed to infer the shear.  For the estimator we use
+in this work (see \S \ref{sec:modelfit}), the \mcalR\ are relatively well
+measured, even for very low \snr\ galaxies, and the average \mcalRmean\ is very well determined. We find that
+using simple averages in equation \ref{eq:rcorr} are adequate to infer the
+correct shear. 
 
 
 \section{Full Metacalibration Formalism} \label{sec:formalism}
@@ -706,10 +717,11 @@ of the two-point auto-correlation function is approximately given by
 
 Thus it may be sufficient when measuring two-point functions to calculate the
 mean response for the ensemble of objects.  This is a reflection of the
-assumption that \probe\ is separable at zero shear  However, this
+assumption that \probe\ is separable at zero shear.  However, this
 assumption may not hold in general if spatially correlated objects have
-correlated shapes in the absence of lensing (see \S \ref{sec:IA}) or if there
-are imperfections in image reduction and object identification (see \S
+correlated shapes in the absence of lensing (see \S \ref{sec:IA}) or if
+imperfections in image reduction and object identification cause
+biases that depend on the local galaxy density (see \S
 \ref{sec:summary}).
 
 %As noted in \S \ref{sec:mcal}, the response matrix is to good approximation
@@ -1232,12 +1244,12 @@ from the \sersic\ model fits distributed with the both the 23.5 COSMOS catalogs
 used for this sim, and the 25.2 sample used for our parametric simulations
 \citep{GALSIM2015}.
 
-\begin{figure*}[p]
+\begin{figure*}
 %    \centering
 	\begin{center}
 %    \parbox{0.9\textwidth}{
     %\includegraphics[width=\columnwidth]{mcal-v14s01-s2n-and-r50-with-nsim.eps}
-    \includegraphics[width=\textwidth]{mcal-v14s01-s2n-and-r50-with-nsim.eps}
+    \includegraphics[width=0.8\textwidth]{mcal-v14s01-s2n-and-r50-with-nsim.eps}
 
 %    \parbox{0.9\columnwidth}{
 %    \parbox{0.8\textwidth}{
@@ -1321,7 +1333,7 @@ an asymmetric distribution of responses \mcalR. This however does not
 generally bias the shear recovery.}.  We will discuss the affect of stars in \S
 \ref{sec:stars}.
 
-\begin{figure}[h]
+\begin{figure}[b]
     \centering
     \includegraphics[width=\columnwidth]{R-bdj03-bdj03stars.eps}
 
@@ -1621,9 +1633,9 @@ model the threshold is reached for shears higher than about 0.03.
 	simulations.  The circles represent the results for the
 	``toy'' simulation presented in the text.  The
     diamonds represent results for the parametric \bdsim\ image simulations.
-	For the toy simulation, the bias scales with $\gamma^2$
-	as expected, with $\alpha=1$ and zero offset. For the
-	image simulation XXX.  The gray
+	For the toy simulation, the bias scales with $\gamma^2$.
+	For the image simulation the bias scales 
+	as $0.6 \gamma^2$.  The gray
 	region represents the target accuracy.}
 
 \label{fig:weaklens}
