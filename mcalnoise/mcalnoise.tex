@@ -1687,16 +1687,16 @@ potential bias in a future work.
 
 \section{Computation Time}
 
-For each 48 by 48 pixel postage stamp, \mcal\ involves performing image
-manipulations (Fourier transforms for convolutions and interpolation for the
-shear), and image fitting five times: one for the zero shear, but re-convolved
-image, and four times for the sheared images.
+\mcal\ involves performing image manipulations five times, one for the zero
+shear, but re-convolved image, and four for each of the sheared images.
+We then perform image fitting on each of these images.
 
 The total computation time per object was approximately 0.2 seconds.  In our
-tests the time was dominated by the image manipulations.  This is partly
-because we used the fast \ngmix\ code; fitting each image took only about
-0.001 seconds, about 0.005 to fit all five images.  For slower fitting codes,
-the \mcal\ manipulations may be sub-dominant.
+tests the time was dominated by the image manipulations, primarily the Fourier
+transforms used for convolutions.  The image manipulations dominated partly
+because we used the fast \ngmix\ code; fitting each image took only about 0.001
+seconds, so about 0.005 to fit all five images.  For slower fitting codes, the
+\mcal\ manipulations may be sub-dominant.
 
 It may be that further optimization is possible.  For example, a code that
 works entirely in Fourier space could avoid rendering the re-convolved image in
