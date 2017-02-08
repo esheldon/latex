@@ -1706,9 +1706,10 @@ real space.
 
 We introduced a formalism for \mcal\ to calculate shear response corrections,
 including corrections for selection effects. We developed a simple empirical
-correction for the correlated noise associated with the \mcal\ procedure.  We
-then tested the formalism using simulations based on real galaxy images, as well as
-challenging parametric simulations that included pre-selection effects and
+correction for the correlated noise associated with the \mcal\ procedure.
+
+We tested the formalism using simulations based on real galaxy images, as well
+as challenging parametric simulations that included pre-selection effects and
 stellar contamination.  We applied a range of cuts on the object \snr, inducing
 significant selection affects.  In all cases we recovered the input shear to
 better than a part in a thousand.
@@ -1718,7 +1719,7 @@ of writing, the only technique with demonstrated accuracy close to \mcal,
 without reliance on calibration from simulations, and which accurately
 addresses selection effects, is \bfd\ \citep{bfd2016}.  \mcal\
 has been tested using more challenging simulations and has proved more
-accurate.  \Mcal\ also has the advantage that it does not rely on significant
+accurate.  Unlike \bfd, \Mcal\ does not rely on significant
 prior information about galaxy properties.  On the other hand, in our current
 implementation we add extra noise to deal with correlated noise effects.  This
 extra noise should be unimportant for sample-variance dominated shear
@@ -1726,46 +1727,46 @@ correlation studies; nevertheless we have identified the development of a more
 precise correlated noise correction as a priority going forward.
 
 In order to reach part in a thousand accuracy in real data, there are a number
-of additional challenges to be addressed, and these challenges are shared with
-other shear measurement techniques.
-We think the most important are the effects of overlapping objects and the
-limitations of current image processing techniques. The accurate determination
-of the PSF is also fundamental, but we will not address that here.
+of additional challenges to be addressed.  These challenges are shared with
+other shear measurement techniques.  We think the most important are the
+effects of overlapping objects and the limitations of current image processing
+techniques. The accurate determination of the PSF is also fundamental, but we
+will not address that here.
 
 Biases in the image processing pipeline that identifies image artifacts,
 determines the background light, identifies unique detections, and assigns
 light to objects will potentially produce biases in the shear recovery.  Image
 artifacts may not be properly corrected for, or masked.  In crowded regions
 such as galaxy clusters, the pipeline may fail to determine the background
-accurately.  The \mcal\ process will in this case not accurately determine the
-response.  Furthermore, in crowded regions the detection algorithm may fail to
+accurately.  The \mcal\ process will in these cases may accurately determine the
+shear response.  Furthermore, in crowded regions the detection algorithm may fail to
 identify all the unique objects, due to objects overlapping significantly on
 the sky.  The \Mcal\ procedure will correctly estimate the shear response for
 these blended objects, but in order to interpret the signal the redshifts of
 the objects must be known, at least statistically.  If a significant number of
-galaxies are so blended that they are considered one object by the pipeline, it
-is unlikely an accurate redshift distribution can be determined.
+objects are so blended that they are considered one object by the pipeline, it
+is unlikely that an accurate redshift distribution can be determined using
+standard techniques.
 
 In a given image, there will also be large numbers of faint galaxies that are
-not bright enough to exceed the detection threshold.  These galaxies
-effectively become part of the sky.  But they will also be included at some
-level in the \mcal\ shear response measured for brighter galaxies.  The effect
-is probably much smaller than if one calibrates from simulations \citep[see
-e.g.][]{Hoekstra2016}, but may not be negligible.
+not bright enough to exceed the detection threshold.  These objects will be
+included at some level in the \mcal\ shear response measured for brighter
+galaxies.  The effect is probably much smaller than if one calibrates from
+simulations \citep[see e.g.][]{Hoekstra2016}, but may not be negligible.
 
 It may be possible to address these issues by inserting artificial galaxy
-images into the data and re-running processing pipelines, including shear
-estimation, using the \balrog\ framework \citep{Balrog2016}.  \balrog\
-uses the original images as the basis, so all the
-features of real observations need not be simulated.  The
-approach is particularly applicable to studying the blending effects,
-effects of undetected objects, and the effects of image artifacts.
+images into the data using something like the \balrog\ framework
+\citep{Balrog2016}, followed by re-running processing pipelines, including
+shear estimation.  \balrog\ uses the original images as the basis, so all the
+features of real observations need not be simulated.  The approach is
+particularly applicable to studying the effects of blending, undetected
+objects, and image artifacts.
 
 The formalism we have developed recovers a weighted average of the shear, and
 this weighting is known, being the same responses used to calibrate the shear
 estimate.  In these simulations we simplified further, using a constant shear,
-and did not test the variable shear case.  It will be important to test that
-this weighting, based on noisy estimates of the responses, can be properly
+but did not test the variable shear case.  It will be important to test that
+this weighting, based on noisy estimates of the responses, is accurately
 propagated when interpreting the shear measurements, for example when
 estimating the redshift distribution of the source population.
 
