@@ -194,8 +194,8 @@ In this work we introduce a formalism to correct for both shear response and
 selection biases.  We also observe that, for relatively low signal-to-noise
 images,  the correlated noise that arises during the \mcal\ process results in
 significant bias, for which we develop a simple empirical correction.  To test
-these new ideas, we use large simulations based on both parametric models and
-real galaxies images, including tests with realistic point-spread-functions.
+this formalism, we use large simulations based on both parametric models and
+real galaxy images, including tests with realistic point-spread-functions.
 We introduce additional challenges that arise in real data, such as detection
 thresholds, stellar contamination, and missing data.  We apply cuts on the
 galaxy properties to induce significant selection effects.  Using our
@@ -1161,34 +1161,6 @@ drawn as PSFs, with the same flux distribution as used for the galaxies.  We
 refer to the simulation with stars as \bdstar; the galaxies are identical to
 those in the \bdksim\ simulation, but stars were then included in the analysis.
 
-\begin{comment}
-\subsubsection{Simulated Masking}
-
-The Fourier transforms used to perform the \mcal\ convolutions cannot
-accommodate missing data.  But in real data, ``bad pixels'' must be masked in
-order to prevent biased measurements. For the FFTs, these masked pixels must be
-replaced with some value that does not bias the shear recovery.
-
-We created another set of simulations, called \bdmask, in which we masked
-parts of the data in order to mimic certain effects in real images.  In order
-simulate these effects realistically, we chose a sample of real bit mask planes
-used in Dark Energy Survey shear analysis \citep{DESSVShear}.  These include
-masking of bad pixels, bad columns, and other image artifacts.   We chose a random
-random sample of \nmasks\ masks, after removing those for which a masked pixel
-fell within 4 pixels of the image center.  An example image and mask are shown
-in figure \ref{fig:mask}.
-
-\begin{figure}
-    \centering
-    \includegraphics[width=\columnwidth]{DES2117+0126-bmask-021223.eps}
-
-    \caption{Example DES image cutout and bitmask.  The vertical black stripe masks a
-bad column. }
-
-\label{fig:mask}
-\end{figure}
-\end{comment}
-
 \subsubsection{Pre-selection} \label{sec:preselect}
 
 In real data, detections with significance less than \snr$\sim 5$ can be
@@ -1270,20 +1242,14 @@ COSMOS simulations, as well as for the \bdkfull\ simulation
 for the two simulations.
 
 \begin{figure*}
-%    \centering
 	\begin{center}
-%    \parbox{0.9\textwidth}{
-    %\includegraphics[width=\columnwidth]{mcal-v14s01-s2n-and-r50-with-nsim.eps}
     \includegraphics[width=0.8\textwidth]{mcal-v14s01-s2n-and-r50-with-nsim.eps}
 
-%    \parbox{0.9\columnwidth}{
-%    \parbox{0.8\textwidth}{
 		\caption{Distribution of properties in the COSMOS real galaxy simulations. The
 		left panel contains the distribution of measured S/N, while the right panel contains
 		the distribution of half-light-radius from the cosmos catalog for the input
 		galaxies.  For comparison, the distributions for the \bdkfull\ \bdksim\ simulations
 		are overplotted as dashed lines.}
-%}
 	\end{center}
 \label{fig:cosmos}
 \end{figure*}
@@ -1362,7 +1328,7 @@ an asymmetric distribution of responses \mcalR. This however does not
 generally bias the shear recovery.}.  We will discuss the affect of stars in \S
 \ref{sec:stars}.
 
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=\columnwidth]{R-bdj03-bdj03stars.eps}
 
@@ -1462,7 +1428,6 @@ $\mbox{\snr} > 19 $ & $-8.33 \pm 0.36$ & $+0.17 \pm 0.73$ & $+0.05 \pm 0.37$ & $
 
 \begin{figure}[h]
     \centering
-    %\includegraphics[width=0.6\textwidth]{mc-select-bias-thresh.eps}
     \includegraphics[width=\columnwidth]{mc-select-bias-thresh.eps}
 
     \caption{Multiplicative (upper panel) and
@@ -1476,7 +1441,6 @@ $\mbox{\snr} > 19 $ & $-8.33 \pm 0.36$ & $+0.17 \pm 0.73$ & $+0.05 \pm 0.37$ & $
 
 \begin{figure}[h]
     \centering
-    %\includegraphics[width=0.7\textwidth]{mc-select-bias-thresh-with-nocorr.eps}
     \includegraphics[width=\columnwidth]{mc-select-bias-thresh-with-nocorr.eps}
 
 	\caption{Same as the top panel of figure \ref{fig:s2nthresh}, but now
@@ -1537,34 +1501,12 @@ PSF was sufficient for these simulations.
 
 
 
-%\begin{figure}
-%    \centering
-%    %\includegraphics[width=0.9\textwidth]{mc-select-bias-range.eps}
-%    \includegraphics[width=\columnwidth]{mc-select-bias-range-pyx.eps}
-
-%    \caption{Bias in the \bdksim\ simulation after applying
-%        range selections in \snr.  The left panel represents
-%        the multiplicative bias $m$ and the right panel the additive
-%        bias $c$.  The bias without correction for
-%        selection effects is represented as as red diamonds. The bias after
-%        correction for selection effects is represented as blue circles.  } 
-
-%\label{fig:s2nrange}
-%\end{figure}
-
-
-
 \subsubsection{Results with Stellar Contamination} \label{sec:stars}
 
 Results including \nsimNstarperc\ stars in the \bdstar\ simulation are shown in
 table \ref{tab:results}. We did not detect any additional bias after including
 stars. The noise in the recovered shear did, however, increase by
 \starnoiseincrease.
-
-%As indicated in table \ref{tab:sims}, for the \bdstar\  type simulations, we
-%included an additional \nsimNStar\ stellar objects, \nsimNstarperc, drawn
-%simply as a PSF with noise added.  The galaxy images were the same as used in
-%the \bdksim\ simulation.  The results are shown in table \ref{tab:results}.  
 
 \Mcal\ is robust to stellar contamination if the PSF is well
 characterized.  Images consistent with a PSF will not, in the mean, respond to the shear
