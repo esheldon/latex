@@ -217,17 +217,17 @@ thousand in all cases.
 
 Weak gravitational lensing is a fascinating phenomenon that has become a useful
 tool for testing our theories of gravity, measuring the properties and
-distribution of dark matter, and characterizing the accelerated expansion known
-as dark energy \citep[for a review, see][]{HoekstraJain2008}.
+distribution of dark matter, and characterizing the accelerated expansion 
+of the universe known as dark energy \citep[for a review, see][]{HoekstraJain2008}.
 
 Light passing massive objects undergoes a deflection, and the amount of this
 deflection depends on all the mass in the ``lens'', both luminous and dark.
 The deflection distorts, or ``shears'', the observed shape of extended objects
-such as galaxies, and this shear is spatially correlated.  By studying the
-spatial correlations in this shear, one can infer the correlations in the mass
-that caused the lensing. One can study these correlations at any place in the
-universe, including the locations of galaxies \citep{Mandelbaum06}, clusters of
-galaxies \citep{JohnstonLensing07}, voids \citep{MelchiorVoids2014}, and even
+such as galaxies, and this shear is spatially correlated.  By studying these
+spatial correlations, one can infer the correlations in the mass that caused the
+lensing. One can study these correlations at any place in the universe,
+including the locations of galaxies \citep{Mandelbaum06}, clusters of galaxies
+\citep{JohnstonLensing07}, voids \citep{MelchiorVoids2014}, and even
 correlations without reference to any particular lensing objects
 \citep{CFHTCosmicShear2013}.  Because the effect depends on the geometry of the
 lens-source system as well as mass, the expansion history and growth of
@@ -237,12 +237,12 @@ energy \citep{HeymansTomography2013}.
 
 Pioneered as a measurement technique in the 1980s and 1990s, weak lensing was
 quickly recognized to be complimentary to more standard dynamical techniques
-\citep{Tyson84}.  In particular, because the effect is independent of the
-dynamical state of the lensing mass, it can be used to study the distribution
-of mass in systems that are far from equilibrium \citep{CloweDMProof06}.   And
-because the effect can be measured anywhere, it can be used to probe very large
-scales, measuring the correlation between objects and large scale structure
- \citep{SheldonLensing09}.
+\citep{Tyson84}.  Because the effect is independent of the dynamical state of
+the lensing mass, it can be used to study the distribution of mass in systems
+that are far from equilibrium \citep{CloweDMProof06}.   And because the effect
+can be measured nearly anywhere, it can be used to probe very large scales,
+measuring the correlation between objects and large scale structure
+\citep{SheldonLensing09}.
 
 Thus far, progress in measurement has been limited by technical challenges, a
 few of which we will outline below.  To set a scale of reference, the weak
@@ -254,32 +254,32 @@ imaging surveys \citep{HutererSystematics06}.
 There have traditionally been two approaches to measuring shear from
 galaxy images: measuring moments of the light distribution and fitting models.
 
-In the traditional model fitting approach, a parametric model is fit to the
-galaxy surface brightness profile, convolved by an estimate of the point-spread
-function.  The shear estimator, the ``shape'' of the galaxy, is then determined
-from the parameters of this model.  This method is limited for two primary
-reasons: First, in order for the shear inference to be accurate, the model must
-accurately reproduce the galaxy profile before convolution by the PSF, which
-requires a large number of parameters.  If the model cannot sufficiently
-reproduce the galaxy the estimator is said to exhibit ``model bias''
-\citep{Bernstein2010}.  The second is the bias in the non-linear fit caused
-by noise, which is significant for low signal-to-noise (\snr) images, and is
-difficult to predict \citep{HirataAlign04,Refreg12,Melchior12}.  This ``noise
-bias'' is worsened if large number of parameters are used in an attempt
-to accurately represent the galaxy.
+In the model fitting approach, a parametric model is convolved by an estimate
+of the point-spread function (PSF) of the atmosphere and instrument, and fit to
+the galaxy surface brightness profile.  The shear estimator, the ``shape'' of
+the galaxy, is then determined from the parameters of this model.  This method
+is limited for two primary reasons: First, in order for the shear inference to
+be accurate, the model must accurately reproduce the galaxy profile, before
+noise and convolution by the PSF, which requires a large number of parameters.
+If the model cannot sufficiently reproduce the galaxy the estimator is said to
+exhibit ``model bias'' \citep{Bernstein2010}.  The second is the bias in the
+non-linear model fitting caused by noise, which is significant for low
+signal-to-noise (\snr) images, and is difficult to predict
+\citep{HirataAlign04,Refreg12,Melchior12}.  This ``noise bias'' is made worse
+if large number of model parameters are used in an attempt to accurately
+represent the galaxy.
 
 Due to these biases, model fitting methods require additional calibration.
 There are no absolute calibration sources in the universe that we can use to
-derive a calibration, so those fitting models have typically resorted to
-calibration using image simulations
-\citep[e.g.][]{Zuntz13,Miller13,KidsShear2016,Refregier13,Jee16}.  These
-simulations must include all the relevant details of the real universe in order
-to provide an accurate calibration.  It has been suggested that model biases
-can partly be alleviated, along with noise bias, within a sufficiently flexible
-statistical framework \citep{SchneiderProbshear2015}, without simulations for
-calibration, although control of model bias has not yet been demonstrated.
+derive a calibration, so those fitting models often use image simulations for
+calibration \citep[e.g.][]{Zuntz13,Miller13,KidsShear2016,Refregier13,Jee16}.
+These simulations must include all the relevant details of the real universe in
+order to provide an accurate calibration.  It has been suggested that model
+biases can partly be alleviated without image simulations if a sufficiently
+flexible statistical framework is used \citep{SchneiderProbshear2015}, but
+this has not yet been demonstrated.
 
-Another traditional shear estimator is based on measuring second moments of the
+Another traditional shear measurement technique uses the second moments of the
 galaxy light distribution, after correction for the effect of the point spread
 function \citep[e.g.][]{ksb95,Bernstein2010}.  These methods can be made quite
 accurate for high \snr\ galaxy images, with little model bias
@@ -295,11 +295,11 @@ based on simulations \citep{Jarvis2016,KidsShear2016}).
 
 Methods have recently been developed to avoid some of these biases without
 relying on calibration from simulations.  The method of \citep{Zhang2017}
-involves measuring the moments in Fourier space, after subtracting off an
-appropriate noise power spectrum to deal with noise effects.  A circular weight
-is used to avoid non-linear fitting issues.  The moments are then either simply
-summed to form a shear estimator \citep{Zhang2015}, or the PDF of the
-un-normalized moments is symmetrized in order to infer an applied shear
+involves measuring the weighted moments in Fourier space, after subtracting an
+appropriate noise power spectrum to deal with noise effects, and deconvolving
+the PSF.  No non-linear fitting is performed.  The shear is then estimated
+either from the ratio of sums of these moments \citep{Zhang2015}, or the PDF of
+the un-normalized moments is symmetrized in order to infer an applied shear
 \citep{Zhang2017}.  The sum method was shown to be accurate, at the part in a
 thousand level in challenging simulations, but with unacceptably high noise.
 The PDF symmetrization method was shown to be more precise, but the simulations
@@ -310,10 +310,10 @@ effects.
 Another new approach is the Bayesian Fourier Domain (\bfd) method for shear
 inference introduced by \cite{ba14} and further developed by \cite{bfd2016}.  A
 rigorous Bayesian framework was presented, in which prior information on galaxy
-images from a high \snr\ deep data is included.  Un-normalized moments in
+images from much deeper data is included.  Un-normalized moments in
 Fourier space are used as the basic data vector, avoiding non-linear fitting
 issues.  \bfd\ is also the first method for which selection effects are
-corrected for naturally as part of the method, without use of external
+corrected for naturally in the formalism, without use of external
 simulations.  The method was tested in \cite{bfd2016} using a challenging
 simulation.  In that initial study, a bias of $\sim 2 \times 10^{-3}$ was
 detected, falling just short of the part in a thousand target.  However, given
@@ -327,15 +327,15 @@ from deep data should in principle be available to current and future surveys
 %method was shown to be accurate in a highly controlled, and unrealistically
 %simple numerical experiment using model fitting techniques \citep{Sheldon2014}.
 
-\Mcal\ \citep{HuffMcal}, the subject of this work, is a new shear
-method designed to address the shortcomings of standard shear measurement
-techniques, without requiring significant prior information about galaxy
-properties.  The essence of \mcal\ is to directly measure how a particular
-shear estimator responds to an applied shear, addressing both model bias and
-noise bias.  \Mcal\ can in principle be used to calibrate any shear
-estimator, including shapes derived from model fitting or weighted moments.
-A similar idea to \mcal\ was introduced by \cite{Kaiser2000}, although
-the full equivalent of \mcal\ was not implemented therein.
+\Mcal\ \citep{HuffMcal}, the subject of this work, is a new method designed to
+calibrate standard shear estimators, without requiring significant prior
+information about galaxy properties.  This is accomplished by introducing an
+artificial shear to images, and calculating how the shear estimator responds to
+the applied shear, addressing both model bias and noise bias.  \Mcal\ can in
+principle be used to calibrate any shear estimator, including shapes derived
+from model fitting or weighted moments.  A similar idea to \mcal\ was
+introduced by \cite{Kaiser2000}, although the full equivalent of \mcal\ was not
+implemented therein.
 
 %A similar idea to \mcal\ was introduced by \cite{Kaiser2000}.  Much of the
 %treatment therein was quite general, but the detailed calculations and examples
