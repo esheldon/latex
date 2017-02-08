@@ -1038,12 +1038,12 @@ is give in table \ref{tab:sims}
 
 \subsection{Simulations with Parametric Models} \label{sec:bdsim}
 
-For the first set of
-simulations we used complex parametric models.  We modeled galaxies as a bulge
-and disk, with additional knots of star formation; we label this simulation
-\bdsim.  We used different, uncorrelated ellipticities for the bulge and disk
-components, but gave both bulge and disk the same half light radius \hlr.
+We created an image simulation using complex parametric models.  We modeled
+galaxies as a bulge and disk, with additional knots of star formation.  We
+label this simulation Bulge+Disk+Knots (\bdsim). 
 
+We used different, uncorrelated ellipticities for the bulge and disk
+components, but gave both bulge and disk the same half light radius \hlr.
 We drew the \hlr\ and flux from fits \citep{LacknerGunn2012} to the 25.2
 magnitude limited sample from the COSMOS data
 \citep{Scoville2007a,Scoville2007b}, as distributed with the \galsim\
@@ -1064,7 +1064,7 @@ according to a random walk starting at the disk centroid, with each point
 taking 40 steps.  This random walk method was inspired by
 \cite{Zhang2008FourierQuadI}\footnote{Our implementation
 of the random walk galaxy is available as a \galsim\ object class \texttt{galsim.RandomWalk}}.
-We then sheared this distribution using the same ellipticity assigned to the
+We then distorted this distribution using the same ellipticity assigned to the
 disk; but note this does not result in a purely elliptical distribution of
 point sources.  Only in the rare case of a pure bulge, or disk with no knots,
 is the model purely elliptical.
@@ -1076,7 +1076,7 @@ objects range from pure bulge, bulge+disk, pure disks, bulges+disk+knots,
 to pure knots. A model with pure knots resembles an irregular galaxy.
 
 Finally, the entire composite bulge+disk+knots object was sheared with the same
-shear, $\gamma_1=0.02$.
+shear, $\vecg = (0.02, 0.00)$.
 
 We convolved the galaxy images with a PSF modeled as a Moffat profile
 \citep{Moffat1969}, with $\beta=3.5$ and FWHM=0.9 arcsec. The PSF ellipticity
@@ -1153,14 +1153,11 @@ results in a smooth rolloff in the true \snr.
 
 \subsubsection{Simulated Stars}
 
-Ideally, the ellipticity and \mcalR\ measured for stars should both be
-consistent with zero in the mean, and thus not bias the ensemble shear
-estimate.  In order to test the robustness of \mcal\ to stellar contamination,
-we included $\sim$\nsimNstarperc\ stars in the \bdsim\ simulation.  The stars
-were simply drawn as PSFs, with the same flux distribution as used for the
-galaxies.  We refer to the simulation with stars as \bdstar; the
-galaxies are identical to those in the \bdsim\ simulation, but stars
-were then included in the analysis.
+In order to test the robustness of \mcal\ to stellar contamination, we included
+$\sim$\nsimNstarperc\ stars in the \bdsim\ simulation.  The stars were simply
+drawn as PSFs, with the same flux distribution as used for the galaxies.  We
+refer to the simulation with stars as \bdstar; the galaxies are identical to
+those in the \bdsim\ simulation, but stars were then included in the analysis.
 
 \begin{comment}
 \subsubsection{Simulated Masking}
@@ -1192,22 +1189,24 @@ bad column. }
 
 \subsubsection{Pre-selection} \label{sec:preselect}
 
-We generated images with \snr\ down to $\sim 2$, as shown in figure
-\ref{fig:s2n}, but we did run the \mcal\ process on all images.  In real data,
-detections at these very low \snr\ can be spurious, so in practice a threshold
-must be placed to produce what are considered reliable detections.  This type
-of selection will result in a bias in the population of galaxy shapes, since a
-round object has higher \snr\ than if it were sheared, and galaxies oriented in
-the same direction as the PSF have higher \snr\ than objects otherwise
-oriented.  This effect will in turn bias the shear recovery.  In particular, if
-this selection might occur before \mcal\ and object fitting, the corrections
-for selection effects presented in \S \ref{sec:formalism} cannot be used.
+In real data, detections with significance less than \snr$\sim 5$ can be
+spurious, so in practice a threshold must be placed to produce what are
+considered reliable detections.  Such a pre-selection can produce significant
+selection biases.  A round object has higher \snr\ than if it were sheared, and
+galaxies oriented in the same direction as the PSF have higher \snr\ than
+ebjects otherwise oriented.  Thus a pre-selection will tend to alter the
+distribution of ellipticities, which will bias the shear recovery.  In
+particular, if this selection occurs before \mcal\ and object fitting, the
+corrections for selection effects presented in \S \ref{sec:formalism} cannot be
+used.
 
-In order to test that we can recover the shear in the presence of this effect,
-we applied a pre-selection at \snr$ > 5$, and \mcal\ was not run on the
-galaxies that were removed.  Then, as discussed in \S \ref{sec:shear_recover},
-we applied further cuts on the \snr\ above this threshold in order to minimize
-the bias due to removal of these galaxies.
+In the \bdsim\ simulation, we generated images with \snr\ as low as $\sim 2$, as
+shown in figure \ref{fig:s2n}.  In order to test the effect of a pre-selection,
+we did not perform the \mcal\ process on all images.  We applied a
+pre-selection on objects with \snr$ > 5$, and these objects were removed
+from the analysis.  Then, as discussed in \S \ref{sec:shear_recover}, we
+applied further cuts on the \snr\ above this threshold in order to minimize the
+bias due to removal of these galaxies.
 
 
 \subsection{Real Galaxy Simulations} \label{sec:cosmosim}
