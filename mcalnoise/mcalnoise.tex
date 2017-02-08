@@ -666,15 +666,21 @@ following:
 
 \subsection{Response for 2-point Functions} \label{sec:Rtwopt}
 
-We can extend this formalism to 2-point functions, which we will write
-as
+We can extend this formalism to 2-point functions of the ellipticity also known
+as shear-shear correlations.  In this type of measurement, the product of
+ellipticites for objects or regions of sky separated by some finite distance is
+averaged.  Because the mass causing the lensing effect is correlated, the
+shears will be correlated as well. The 2-point function can thus be interpreted
+to constrain the correlations in the mass.
+
+We will write the 2-point function as
 \begin{align}
     \xi &= \langle \vest_\alpha \vest_\beta \rangle \nonumber \\
         &= \int \mbox{\probe} \vest_\alpha \vest_\beta d \vest_\alpha d \vest_\beta
 \end{align}
 where the $\langle \vest_\alpha \vest_\beta \rangle$ indicates the mean
-ellipticity product for pairs
-of objects at different locations, or two separated regions of sky.  Including selection effects, this becomes
+ellipticity product for pairs of objects at different locations, or two
+separated regions of sky.  Including selection effects, this becomes
 \begin{align}
     \xi &= \int \mbox{\probe} S_\alpha S_\beta \vest_\alpha \vest_\beta d \vest_\alpha d \vest_\beta
 \end{align}
@@ -701,7 +707,7 @@ is given by
 If we know the response \mcalRtwopt, we can form an estimator for the correlation function
 that takes the form of a weighted average:
 \begin{align} \label{eq:twoptavg}
-    \xi \approx  \mcalRtwoptmean^{-1} \langle \vest_\alpha \vest_\beta \rangle = \mcalRtwoptmean^{-1} \left<  \mbox{\mcalRtwopt} \vecg_\alpha \vecg_\beta  \right>.
+    \xi \approx  \mcalRtwoptmean^{-1} \langle \vest_\alpha \vest_\beta \rangle \approx \mcalRtwoptmean^{-1} \left<  \mbox{\mcalRtwopt} \vecg_\alpha \vecg_\beta  \right>.
 \end{align}
 
 Note the joint probability distribution \probe\ is not separable 
@@ -759,13 +765,13 @@ response for 2-point functions in a future work.
 
 \subsection{Remarks on Selections}
 
-Selections that produce additive effects are not addressed in the above.  If
-the PSF is symmetrized, as we will do (see \S \ref{sec:modelfit}), then
-selections on object properties will not be correlated with the PSF shape, by
-construction, and thus no net additive bias will be introduced. Note, however,
-that pre-selections, for example detection thresholds, will in general produce
-such biases.  We will test the importance of pre-selections with image
-simulations below.
+Selections that produce additive effects are not addressed in the above.  If a
+circular re-convolution function used, as we will do (see \S
+\ref{sec:modelfit}), then selections on object properties will not be
+correlated with the PSF shape, by construction, and thus no net additive bias
+will be introduced. Note, however, that pre-selections, for example detection
+thresholds, will in general produce such biases.  We will test the importance
+of pre-selections with image simulations below.
 
 
 It is important that the selections be placed well above any detection
@@ -780,7 +786,7 @@ the absence of selection biases.  This must be taken into account separately.
 We will not treat this effect in what follows.
 
 Note if the selection function $S(\vest)$ is a step function, the derivative of
-$S(\vest)$ in \ref{eq:Rmean} will be infinite.  It is thus important to avoid
+$S(\vest)$ in \ref{eq:Rmean} will be infinite.  Thus one should avoid
 placing threshold cuts directly on the ellipticities.  However, it should be
 valid to place cuts on other observables, such as \snr, that will
 result in a smooth selection on the ellipticity.
