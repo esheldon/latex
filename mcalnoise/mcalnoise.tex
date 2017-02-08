@@ -383,9 +383,10 @@ in a thousand.
 In this section we introduce the basic concepts of \mcal. We will derive the
 full formalism for shear measurements in \S \ref{sec:formalism}.
 
-Suppose we have a biased, noisy shear observable \vest, which may be some estimate of
-an objects two-component ellipticity such that $\vest = (\est_1, \est_2)$. We
-can expand this observable in a Taylor series about zero shear
+Suppose we have a noisy measurement \vest\ that we wish to use for shear
+estimation.  \vest\ may be some estimate of an objects two-component ellipticity
+such that $\vest = (\est_1, \est_2)$.  We can expand this observable in a
+Taylor series about zero shear
 \begin{align} \label{eq:Eexpand}
     \vest &= \vest|_{\gamma=0} + \frac{ \partial \vest }{ \partial \vecg}\bigg|_{\gamma=0} \vecg  + ... \nonumber \\
           &\equiv \vest|_{\gamma=0} + \mbox{\mcalR}\vecg  + ...
@@ -404,24 +405,27 @@ Note the derivative is also with respect to the two-component shear $\vecg$, mak
 \partial e_1/\partial \gamma_1 & \partial e_2/\partial \gamma_1 \\
 \partial e_1/\partial \gamma_2 & \partial e_2/\partial \gamma_2 \end{array} \right).\]
 We can use the ensemble mean of such measurements \vest, for
-example measured from a population of galaxies, as a shear estimator:
+example measured from a population of galaxies, as a shear estimator.
+Assuming the shear is small, we can drop terms of order $\gamma^2$ and higher, such
+that
 \begin{align}
     \langle \vest \rangle &= \langle \vest \rangle |_{\gamma=0} + \langle \mbox{\mcalR} \vecg \rangle + ... \nonumber \\
                           &\approx \langle \mbox{\mcalR} \vecg \rangle,
 \end{align}
-where we have assumed the intrinsic ellipticities of galaxies are
-randomly oriented such that $\langle \vest \rangle |_{\gamma=0} \sim (0,0)$.
-If we have estimates of \mcalR\ for each galaxy, we
-can form a weighted average:
+where we have also assumed the intrinsic ellipticities of galaxies are randomly
+oriented such that $\langle \vest \rangle |_{\gamma=0} \sim (0,0)$.  If we have
+estimates of \mcalR\ for each galaxy, we can form a weighted average:
 \begin{align} \label{eq:rcorr}
-    \langle \vecg \rangle &\approx \langle \mbox{\mcalR} \rangle^{-1}  \langle \vest \rangle = \langle \mbox{\mcalR} \rangle^{-1} \langle \mcalR \vecg \rangle.
+    \langle \vecg \rangle &\approx \langle \mbox{\mcalR} \rangle^{-1}  \langle \vest \rangle \approx \langle \mbox{\mcalR} \rangle^{-1} \langle \mcalR \vecg \rangle.
 \end{align}
 Note the special case of constant shear, where $\gamma$ factors out of the
-right hand side.  As mentioned, the estimator \vest\ can be noisy, but in
-principle when averaging over large ensembles this noise does not cause any
-bias because \mcalR\ is very well determined (see \S \ref{sec:differences}).
-However, if the \mcal\ process alters the noise in a coherent way, an
-additional correction is required (see \S \ref{sec:fixnoise}).
+right hand side.
+
+If the estimator \vest\ is unbiased, the mean response matrix \mcalRmean\
+will be consistent with the identity matrix.  If \vest\ is a biased
+estimator, \mcalRmean\ will deviate from the identity matrix,
+and could have significant structure.
+
 
 The essence of \mcal\ \citep{HuffMcal} is to estimate the shear response
 \mcalR\ for a measurement \vest\ directly from image data.  The measurement of
@@ -433,43 +437,55 @@ For component $i,j$ we can write
 \end{equation}
 where $\est^+$ is the measurement made on an image sheared by $+\gamma$,
 $\est^-$ is the measurement made on an image sheared by $-\gamma$,
-and $\Delta \gamma = 2\gamma$.  The results are rather insensitive
-to the choice of applied shear.  We tested values
-in the range of 0.001 to 0.05 and did not see significant
-changes in the results. We take $\gamma=0.01$.
+and $\Delta \gamma = 2\gamma$.
 
-The shearing is accomplished via series of image manipulations. The original
+The shearing is accomplished via a series of image manipulations. The original
 image $I$ is de-convolved from the point spread function (PSF), sheared, and
 re-convolved by the another function to suppress the amplified noise due to
 deconvolution.  This function should be slightly larger than the original PSF
 in order to suppress Fourier modes exposed by the shearing, that were
 previously hidden in the finite resolution of the original image.  We can
-represent the series of operations most easily in Fourier space, where
-convolutions are products are deconvolutions are divisions:
+represent the series of operations clearly in Fourier space, where
+convolutions are products and deconvolutions are divisions:
 \begin{equation}
     \Itild(\gamma) = \left[ \left( \Itild/\Ptil \right) \oplus \gamma \right] \times \Ptild
 \end{equation}
-where \Itild\ and \Ptil\ are the Fourier transforms of the image and PSF, and
-\Ptild\ is the Fourier transform of the slightly larger, or dilated function
-with which the image is re-convolved.  Shearing is represented by $\oplus$.
+where \Itild\ and \Ptil\ are the Fourier transforms of the image and PSF.
+\Ptild\ is the Fourier transform of the function with which the image
+is re-convolved; we use the subscript $d$ to indicated the function
+is ``dilated'' with respect to the original PSF.
+Shearing is represented by $\oplus$.
 
 Note for measurement of the shear estimator \vest, one should use an image
 passed through these same image manipulations, but without any shear applied.
 This ensures the same re-convolution function is used for the shear estimator
 and the response measurements.
 
+We find that the results are rather insensitive to the choice of applied shear.
+We tested values in the range of 0.001 to 0.05 and did not see significant
+changes in the results. We take $\gamma=0.01$.
+
 In practice, the response matrices measured from each image can have
 significant structure, but the average \mcalRmean\ is to good approximation
-diagonal,  in which case the correction in equation \ref{eq:rcorr} reduces to
-element-wise division.  One might expect the response to be proportional to the
-identity matrix if there is no preferred direction in the measurement process.
-In the simulation tests we will present in \S \ref{sec:sims}, we found the
-diagonal elements can differ by as much as a few parts in a thousand due to the
-strong PSF ellipticity $\vest = (0, 0.025)$.  Additionally, some measurements,
-such as tangential shear or pairwise two-point functions, require projecting
-the ellipticities into different coordinate systems. The measurement may
-require projection of the response matrix as well.
+diagonal.  Thus, for a straight mean shear measurement the correction in
+equation \ref{eq:rcorr} reduces to element-wise division.  However,
+measurements such as tangential shear or pairwise two-point functions involve
+projecting the ellipticities into different coordinate systems. The measurement
+may require projection of the response matrix as well, which could require
+using the full response matrix.
 
+One might expect the response to be proportional to the identity matrix if
+there is no preferred direction in the measurement process.  In the simulation
+tests we will present in \S \ref{sec:sims}, we found the diagonal elements can
+differ by as much as a few parts in a thousand due to the use of a strong PSF
+anisotropy oriented along the diagonal of the image.
+
+As mentioned, the estimator \vest\ can be noisy, but in principle when
+averaging over a large ensemble of measurements the noise does not cause any
+bias because \mcalRmean\ is very well determined (see \S \ref{sec:differences}).
+However, when working with images the \mcal\ process itself
+alters the noise in a coherent way,
+requiring a correction (see \S \ref{sec:fixnoise}).
 
 
 \subsection{PSF Anisotropy and Shear Inference}  \label{sec:differences}
@@ -477,17 +493,17 @@ require projection of the response matrix as well.
 If the PSF correction is not perfect, the leading term $\langle \vest
 \rangle|_{\gamma=0}$ will not be zero.  \cite{HuffMcal} discussed another
 response, the response of the measurement to the PSF ellipticity, to correct
-this effect.  In this work we instead reconvolve the image by a symmetrized
-version of the PSF, which removes most additive effects due to the PSF  (see \S
+this effect.  In this work we instead reconvolve the image by a circular
+function, which removes most additive effects due to the PSF  (see \S
 \ref{sec:modelfit}).
 
-In \cite{HuffMcal} the simple averaging equation \ref{eq:rcorr} did not work
-because the shape estimators used  were quite noisy.  Instead a sophisticated
+In \cite{HuffMcal} the simple averaging in equation \ref{eq:rcorr} did not work
+well because the shape estimators used  therein were relatively noisy.  Instead a sophisticated
 statistical method was developed to infer the shear.  For the estimator we use
 in this work (see \S \ref{sec:modelfit}), the \mcalR\ are relatively well
-measured, even for very low \snr\ galaxies, and the average \mcalRmean\ is very well determined. We find that
-using simple averages in equation \ref{eq:rcorr} are adequate to infer the
-correct shear. 
+measured, even for very low \snr\ galaxies, and the average \mcalRmean\ is very
+well determined. We find that using simple averages in equation \ref{eq:rcorr}
+are adequate to infer the correct shear. 
 
 
 \section{Full Metacalibration Formalism} \label{sec:formalism}
@@ -496,11 +512,11 @@ correct shear.
 %    ['9.9', '14.1', '18.4', '22.6', '26.9']
 
 In this section we derive the full \mcal\ formalism, including selection
-effects. First we introduce some notation:  In what follows, we will, without
-loss of generality, let the shear estimator \vest\ be the two component
-ellipticity $\vest = (\est_1,\est_2)$\footnote{With \mcal\ the estimator need
-not be a measure of ellipticity}.  We write the ellipticity measured from a
-sheared image as $\vest^+$ and $\vest^-$, for measurements on positive and
+effects. First we introduce some notation:  In principle the estimator \vest\
+can be any set of measurements from an image, but in what follows, we will,
+without loss of generality, write the shear estimator \vest\ as a two component
+ellipticity $\vest = (\est_1,\est_2)$.  We write the ellipticity measured from
+a sheared image as $\vest^+$ and $\vest^-$, for measurements on positive and
 negatively sheared images respectively.  We denote the selection probability as
 $S$;  we can also make selections based on sheared parameters, which we denote
 $S^+$ and $S^-$, the probability of selection after a positive or negative
@@ -508,16 +524,14 @@ shear is applied, respectively.
 
 \subsection{Response for the Mean Shear} \label{sec:Rmean}
 
-The mean ellipticity over an ensemble can be written as 
+Suppose we which to use the mean ellipticity as an estimator for the
+mean shear.  The mean ellipticity over a large ensemble can be written as 
 \begin{align}
     \langle \vest \rangle = \int P(\vest)~\vest~d\vest,
 \end{align}
 where $P(\vest)$ is the probability distribution of \vest.  We choose to work
 with continuous functions so that all derivatives are well defined, in
 particular the derivative of the selection function that we introduce below.
-The continuous approximation should be valid in the limit of a large ensemble.
-We will present all calculations as ensemble averages, which can be realized
-as sums over discrete measurements in real data.
 
 Assuming each galaxy experiences a small shear, and that galaxy orientations
 are random in the absence of shear, the mean ellipticity can be rewritten, to
@@ -533,12 +547,12 @@ subscript $\gamma$ to differentiate this response from the selection response di
 below.  If the \mcalRg\ are known, we can form a weighted average estimator
 for the mean shear:
 \begin{align}
-    \left< \vecg \right> \approx \mcalRgmean^{-1} \left< \vest \right>.
+    \left< \vecg \right> \approx \mcalRgmean^{-1} \left< \vest \right> \approx \mcalRgmean^{-1} \left< \mcalRg \vecg \right>.
 \end{align}
 
-We can calculate this response using quantities measured on artifically sheared
-images, as presented in \S \ref{sec:mcal}.  We will approximate the derivatives
-using finite differences in the shear, such that
+We can calculate this mean response \mcalRgmean\ using quantities measured on
+artifically sheared images, as discussed in \S \ref{sec:mcal}.  We will
+approximate the derivatives using finite differences in the shear, such that
 \begin{align} \label{eq:basicRfinite}
     \mbox{\mcalRgmean}  &= \int \frac{\partial P(\vest) \vest  }{\partial \vecg}\bigg|_{\gamma=0} d\vest
     \approx \int d\vest \left( \frac{ P^+ \vest_i^+ - P^- \vest_i^- }{\Delta \gamma_j}\right)  d\vest   \nonumber \\
@@ -564,7 +578,7 @@ After introducing a selection, the mean becomes
     \langle \vest \rangle^S = \int S(\vest)~P(\vest)~\vest~d\vest.
 \end{align}
 We will assume the $\int d\vest P(\vest) S(\vest) = 1$, and continue to ignore
-the higher order effect from changes in the normalization with shear.
+the higher order effect from changes in the normalization under shear.
 Again, assuming a small shear, and that galaxy orientations are random in the
 absence of shear, the mean ellipticity after selection can be rewritten, to
 leading order, as
@@ -583,14 +597,16 @@ The probability that an object is selected changes after it is sheared.
 
 This response with selections can be calculated using quantities measured on
 artifically sheared images. It is useful to examine separately the response of
-the estimator $\vest$ to a shear, and the response of selections to a shear:
+the estimator $\vest$ to a shear, and the response of selection effects to a shear:
 \begin{align}
     \mcalRmean  &= \int \frac{\partial S(\vest) P(\vest) \vest  }{\partial \vecg}\bigg|_{\gamma=0} d\vest \nonumber \\
     &= \int \left[ S(\vest) \frac{\partial P(\vest) \vest}{\partial \vecg}\bigg|_{\gamma=0} +  P(\vest) \vest  \frac{\partial S(\vest)}{\partial \vecg}\bigg|_{\gamma=0} \right] d\vest
 \end{align}
 Note the first term is identical to the response in equation \ref{eq:basicR},
-but now with selections applied.
-We will approximate the derivatives using finite differences in the shear.
+but now with selections applied.  As we will see, the second term represents the
+response of selection effects to a shear.
+
+We will again approximate the derivatives using finite differences in the shear.
 Using the notation for measurements on sheared images, introduced
 in \S \ref{sec:formalism}, we can rewrite the response as
 \begin{align} \label{eq:Rmean}
@@ -608,8 +624,11 @@ sheared parameters.
 Thus the first term \mcalRgmean\ in equation \ref{eq:Rmean} is the average of
 the shear responses measured for individual galaxies, the same as shown in
 equation \ref{eq:basicRfinite}, but now with selections applied based on the
-unsheared object parameters.  The second term \mcalRSmean\ represents the
-response of the mean ellipticity to selections.  
+unsheared object parameters.  The second term \mcalRSmean\ calculates
+how the mean ellipticity changes due to selections when measurements
+are performed on sheared images, in other words how the selection effects
+change under a shear.  We say \mcalRSmean\ represents the
+response of the selection effects to a shear.
 
 
 
