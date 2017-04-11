@@ -183,24 +183,27 @@
 
 \begin{abstract}
 
-\Mcal\ is a recently introduced method to accurately measure weak gravitational
-lensing shear using only the available imaging data, without need for prior
-information about galaxy properties or calibration from simulations.  The
-method involves distorting the image with a small known shear, and
-calculating the response of a shear estimator to that applied shear.  The
-method was shown to be accurate in moderate sized simulations with relatively
-high signal-to-noise galaxy images, and without significant selection effects.
-In this work we introduce a formalism to correct for both shear response and
-selection biases.  We also observe that, for relatively low signal-to-noise
-images,  the correlated noise that arises during the \mcal\ process results in
-significant bias, for which we develop a simple empirical correction.  To test
-this formalism, we use large simulations based on both parametric models and
-real galaxy images, including tests with realistic point-spread-functions.
-We introduce additional challenges that arise in real data, such as detection
-thresholds, stellar contamination, and missing data.  We apply cuts on the
-galaxy properties to induce significant selection effects.  Using our
-formalism, we recover the input shear with an accuracy better than a part in a
-thousand in all cases.
+    \Mcal\ is a recently introduced method to accurately measure weak
+    gravitational lensing shear using only the available imaging data, without
+    need for prior information about galaxy properties or calibration from
+    simulations.  The method involves distorting the image with a small known
+    shear, and calculating the response of a shear estimator to that applied
+    shear.  The method was shown to be accurate in moderate sized simulations
+    with relatively high signal-to-noise galaxy images, and without significant
+    selection effects.  In this work we introduce a formalism to correct for
+    both shear response and selection biases.  We also observe that, for
+    relatively low signal-to-noise images,  the correlated noise that arises
+    during the \mcal\ process results in significant bias, for which we develop
+    a simple empirical correction.  To test this formalism, we created large
+    image simulations based on both parametric models and real galaxy images,
+    including tests with realistic point-spread-functions.  We varied the PSF
+    ellipticity at the five percent level.  In each simulation we applied a
+    small, few percent shear to the galaxy images.  We introduced additional
+    challenges that arise in real data, such as detection thresholds, stellar
+    contamination, and missing data.  We applied cuts on the galaxy properties
+    to induce significant selection effects.  Using our formalism, we recovered
+    the input shear with an accuracy better than a part in a thousand in all
+    cases.
 
 \end{abstract}
 
@@ -285,10 +288,12 @@ Another traditional shear measurement technique uses the second moments of the
 galaxy light distribution, after correction for the effect of the point spread
 function \citep[e.g.][]{ksb95,Bernstein2010}.  These methods can be made quite
 accurate for high \snr\ galaxy images, with little model bias
-\citep{Bernstein2010,Okura2016}.  However, these methods still suffer the
-``noise bias'' found in model fitting methods, due to the non-linear fitting
-involved with the measurement.  Without further development, these methods are
-not accurate at the part in a thousand level.
+\citep{Bernstein2010,Okura2016}.  However, unlike model fitting approaches,
+missing data and light from nearby objects cannot be ``masked-out'' or ignored.
+Also, these methods still suffer the ``noise bias'' found in model fitting
+methods, due to the non-linear fitting involved with the measurement.  Without
+further development, these methods are not accurate at the part in a thousand
+level.
 
 Finally, selection effects can bias the recovered shear in both model fitting
 and moment based methods, but the corrections are typically considered as
@@ -335,9 +340,13 @@ information about galaxy properties.  This is accomplished by introducing an
 artificial shear to images, and calculating how the shear estimator responds to
 the applied shear, addressing both model bias and noise bias.  \Mcal\ can in
 principle be used to calibrate any shear estimator, including shapes derived
-from model fitting or weighted moments.  A similar idea to \mcal\ was
+from model fitting or weighted moments.
+
+The \mcal\ approach is not entirely new. A quite similar idea to \mcal\ was
 introduced by \cite{Kaiser2000}, although the full equivalent of \mcal\ was not
-implemented therein.
+implemented therein.  Also, \cite{ksb95} introduced the use of sheared, high
+resolution space-based images as a way to provide an overall calibration for a
+shear estimator.
 
 %A similar idea to \mcal\ was introduced by \cite{Kaiser2000}.  Much of the
 %treatment therein was quite general, but the detailed calculations and examples
@@ -406,10 +415,10 @@ Note the derivative is also with respect to the two-component shear $\vecg$, mak
 \[ \mbox{\mcalR} = \left( \begin{array}{cc}
 \partial e_1/\partial \gamma_1 & \partial e_2/\partial \gamma_1 \\
 \partial e_1/\partial \gamma_2 & \partial e_2/\partial \gamma_2 \end{array} \right).\]
-We can use the ensemble mean of such measurements \vest, for
-example measured from a population of galaxies, as a shear estimator.
-Assuming the shear is small, we can drop terms of order $\gamma^2$ and higher, such
-that
+We can use the ensemble mean of such measurements \vest, for example measured
+from a population of galaxies, as a shear estimator.  Assuming the shear is
+small, we can drop terms of order $\gamma^2$ and higher (we explore this
+approximation in \S \ref{sec:weakshear}), such that
 \begin{align}
     \langle \vest \rangle &= \langle \vest \rangle |_{\gamma=0} + \langle \mbox{\mcalR} \vecg \rangle + ... \nonumber \\
                           &\approx \langle \mbox{\mcalR} \vecg \rangle,
@@ -1032,7 +1041,8 @@ is give in table \ref{tab:sims}
 		the PSF, a  Kolmogorov atmospheric turbulence model was used, 
 		plus contributions from an optical model matched to DES; the mean PSF size
 		was approximately 0.9 arcsec. The PSF ellipticity is given in the ``reduced
-		shear'' convention.
+		shear'' convention.  For comparision, the typical DES PSF ellipticity is about
+                0.01 in these units.
 		\label{tab:sims}
 		\end{flushleft}}
 	}
@@ -1563,7 +1573,7 @@ of a few parts in a thousand.  However, this bias disappeared if we introduced
 a compensatory ``bad column'' at 90 degree rotation about the center of the
 image, restoring symmetry to the image. 
 
-\section{Weak Shear Approximation}
+\section{Weak Shear Approximation} \label{sec:weakshear}
 
 In deriving the response terms in \S \ref{sec:formalism}, we assumed the shear
 was small, so that the response of the estimator to a shear was linear. This
@@ -1602,14 +1612,12 @@ model the threshold is reached for shears higher than about 0.03.
 	\centering
     \includegraphics[width=\columnwidth]{weaklens-approx.eps}
 
-	\caption{Multiplicative bias as a function of applied shear in a
-	simulations.  The circles represent the results for the
-	``toy'' simulation presented in the text.  The
-    diamonds represent results for the parametric \bdksim\ image simulations.
-	For the toy simulation, the bias scales with $\gamma^2$.
-	For the image simulation the bias scales 
-	as $0.6 \gamma^2$.  The gray
-	region represents the target accuracy.}
+    \caption{Multiplicative bias as a function of applied shear in two types of
+    simulations.  The circles represent the results for the ``toy'' simulation
+    presented in the text.  The diamonds represent results for the parametric
+    \bdksim\ image simulations.  For the toy simulation, the bias scales with
+    $\gamma^2$.  For the image simulation the bias scales as $0.6 \gamma^2$.
+    The gray region represents the target accuracy.}
 
 \label{fig:weaklens}
 \end{figure}
