@@ -200,10 +200,10 @@
     ellipticity at the five percent level.  In each simulation we applied a
     small, few percent shear to the galaxy images.  We introduced additional
     challenges that arise in real data, such as detection thresholds, stellar
-    contamination, and missing data.  We applied cuts on the galaxy properties
-    to induce significant selection effects.  Using our formalism, we recovered
-    the input shear with an accuracy better than a part in a thousand in all
-    cases.
+    contamination, and missing data.  We applied cuts on the measured galaxy
+    properties to induce significant selection effects.  Using our formalism,
+    we recovered the input shear with an accuracy better than a part in a
+    thousand in all cases.
 
 \end{abstract}
 
@@ -627,19 +627,24 @@ in \S \ref{sec:formalism}, we can rewrite the response as
 \frac{\langle \est_i \rangle^{S+} - \langle \est_i \rangle^{S-}}{\Delta \gamma_j} \nonumber \\
        &\equiv \langle \mbox{\mcalRg} \rangle + \langle \mbox{\mcalRS} \rangle,
 \end{align}
-where $\langle \est^+ \rangle^S$ represents the mean of the
-sheared ellipticity, with
-selections based on the unsheared parameters, $\langle \vest \rangle^{S+}$
-represents the mean of the unsheared ellipticities, with selection based on the
-sheared parameters.
+where $\langle \est^+ \rangle^S$ represents the mean of the ellipticity
+measured from artificially sheared images, with selections based on parameters
+measured on images without artificial shearing.  $\langle \vest \rangle^{S+}$
+represents the mean ellipticity measured on images without artificial shearing, but with
+selection based on parameters measured from artificially sheared images.
+
 Thus the first term \mcalRgmean\ in equation \ref{eq:Rmean} is the average of
 the shear responses measured for individual galaxies, the same as shown in
 equation \ref{eq:basicRfinite}, but now with selections applied based on the
-unsheared object parameters.  The second term \mcalRSmean\ calculates
-how the mean ellipticity changes due to selections when measurements
-are performed on sheared images, in other words how the selection effects
-change under a shear.  We say \mcalRSmean\ represents the
-response of the selection effects to a shear.
+object parameters measured from images without artificial shearing.  The second
+term \mcalRSmean\ represents the response of the selection effects to
+a shear.
+
+%In what follows we will use the following shorthand terminology: parameters
+%measured on images without artificial shear we call ``unsheared parameters'',
+%for example ``unsheared ellipticity''.  Parameters measured on images
+%with artificial shearing we call ``sheared parameters'', for example the
+%``sheared ellipticity''.
 
 
 
@@ -657,9 +662,9 @@ following:
 	\item The mean ellipticity measured from unsheared images, selecting on
         measurements from unsheared images.   This is the mean shear estimator
 		we wish to calibrate.
-	\item The mean ellipticity measured from sheared images, selecting
-        on measurements from unsheared images,  $\langle e^+ \rangle^S$, $\langle e^- \rangle^S$. Alternatively, form 
-        responses for each galaxy \mcalRg\ and average those
+	\item The mean ellipticity measured from artificially sheared images, selecting
+        on measurements from unsheared images,  $\langle e^+ \rangle^S$, $\langle e^- \rangle^S$. Alternatively, 
+        one can form responses for each galaxy \mcalRg\ and average those.
     \item The mean ellipticity from unsheared images, selecting on measurements
         from positively and negatively sheared images $\langle e \rangle^{S+}$, $\langle e \rangle^{S-}$
 \end{enumerate}
@@ -797,10 +802,10 @@ the absence of selection biases.  This must be taken into account separately.
 We will not treat this effect in what follows.
 
 Note if the selection function $S(\vest)$ is a step function, the derivative of
-$S(\vest)$ in \ref{eq:Rmean} will be infinite.  Thus one should avoid
-placing threshold cuts directly on the ellipticities.  However, it should be
-valid to place cuts on other observables, such as \snr, that will
-result in a smooth selection on the ellipticity.
+$S(\vest)$ in \ref{eq:Rmean} will be infinite.  Thus one should avoid placing
+threshold cuts directly on the ellipticities.  However, it is valid to place
+cuts on other observables, such as \snr, that will result in a smooth selection
+on the ellipticity.
 
 
 \subsection{Remarks on Intrinsic Alignments} \label{sec:IA}
