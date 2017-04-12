@@ -990,6 +990,13 @@ Because the noise is increased, it is important that both the response and
 estimator should be measured on the $\hat{I}(\gamma)$ images, so that the
 response is representative of the correct noise level.
 
+Note we have assumed the original noise in the image is uncorrelated.  This
+assumption does not hold in coadded images due to the interpolation that must
+occur to put all images in the same coordinate system.  Thus in order to apply
+this correction, it is simplest to work with the original images rather than
+a coadded image.  For a description of such a processing scheme see, for example,
+\cite{DESSVShear}.
+
 %An alternative version of this method is to shear the noise exactly as the
 %original image is sheared, but then rotate by 90 degrees before adding.  This
 %version has the advantage of working even when the transformation between sky
@@ -1324,9 +1331,9 @@ This symmetrization method requires an image of the PSF be available at the
 location of the object, which is already a requirement of \mcal\ in order to
 perform deconvolutions.  To produce such an image, one must accurately model
 stars and interpolate to the location of each object, for example as provided
-by the \psfex\ package \citep{BertinPSFEx2011}.  One may avoid this symmetrization procedure if one is
-willing to also calculate the response of the estimator to a psf shear, as
-demonstrated in \citep{HuffMcal}.
+by the \psfex\ package \citep{BertinPSFEx2011}.  One may avoid this
+symmetrization procedure if one is willing to also calculate the response of
+the estimator to a psf shear, as demonstrated in \citep{HuffMcal}.
 
 All \mcal\ image operations were performed using the \texttt{metacal} module
 from \ngmix, which in turn uses \galsim\ to perform most image manipulations.
@@ -1350,8 +1357,15 @@ so the linear model above was fit.  We found the multiplicative
 bias was the same in each component, so we combined them into
 a single value in the plots and tables below.
 
-In all cases the measured \snr\ is based on the best fit Gaussian model,
-using same definition implemented in the GREAT3 simulations \citep{great3}.
+In all cases the measured \snr\ is based on the best fit Gaussian model. 
+We used a similar definition to that implemented in the GREAT3 simulations \citep[][equation
+16]{great3}, but replaced the true profile with the model
+\begin{equation}
+    (S/N)^2 = \frac{1}{\sigma^2} \int m(x,y)^2 dx dy,
+\end{equation}
+where $m$ is the value of the model at location $x,y$, and $\sigma^2$ is the
+variance of the noise in the image. A Gaussian is a poor fit in general, so
+this measure of \snr\ is biased and noisy.
 
 \subsection{\Mcal\ Responses}
 
@@ -1468,7 +1482,7 @@ $\mbox{\snr} > 19 $ & $-8.33 \pm 0.36$ & $+0.17 \pm 0.73$ & $+0.05 \pm 0.37$ & $
 
     \caption{Multiplicative (upper panel) and
 		additive bias (lower panel) in the \bdksim\ simulation after applying
-        threshold selections in \snr.   
+        threshold selections in the measured signal-to-noise ratio \snr.   
         The filled grey region represents the target accuracy. } 
 
 \label{fig:s2nthresh}
@@ -1714,15 +1728,15 @@ determines the background light, identifies unique detections, and assigns
 light to objects will potentially produce biases in the shear recovery.  Image
 artifacts may not be properly corrected for, or masked.  In crowded regions
 such as galaxy clusters, the pipeline may fail to determine the background
-accurately.  The \mcal\ process will in these cases may accurately determine the
-shear response.  Furthermore, in crowded regions the detection algorithm may fail to
-identify all the unique objects, due to objects overlapping significantly on
-the sky.  The \Mcal\ procedure will correctly estimate the shear response for
-these blended objects, but in order to interpret the signal the redshifts of
-the objects must be known, at least statistically.  If a significant number of
-objects are so blended that they are considered one object by the pipeline, it
-is unlikely that an accurate redshift distribution can be determined using
-standard techniques.
+accurately.  The \mcal\ process may not accurately determine the shear response
+in these cases.  Furthermore, in crowded regions the detection algorithm may
+fail to identify all the unique objects, due to objects overlapping
+significantly on the sky.  The \Mcal\ procedure will correctly estimate the
+shear response for these blended objects, but in order to interpret the signal
+the redshifts of the objects must be known, at least statistically.  If a
+significant number of objects are so blended that they are considered one
+object by the pipeline, it is unlikely that an accurate redshift distribution
+can be determined using standard techniques.
 
 In a given image, there will also be large numbers of faint galaxies that are
 not bright enough to exceed the detection threshold.  These objects will be
