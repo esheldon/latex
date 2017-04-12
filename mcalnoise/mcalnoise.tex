@@ -53,6 +53,8 @@
 \newcommand{\mcal}{\textsc{metacalibration}}
 \newcommand{\Mcal}{\textsc{Metacalibration}}
 
+\newcommand{\psfex}{\texttt{PSFEx}}
+
 \newcommand{\mcalR}{\mbox{\boldmath $R$}}
 \newcommand{\mcalRscalar}{\mbox{$R$}}
 
@@ -1013,10 +1015,11 @@ any bias in real scenarios.
 
 \section{Image Simulations} \label{sec:sims}
 
-We applied \mcal\ to a set of image simulations.  We used two different
-types of simulations, one based on parametric galaxies and another
-based on real galaxy images.  Information about each simulation type
-is give in table \ref{tab:sims}
+We applied \mcal\ to a set of ``postage stamp'' image simulations.  We used two
+different types of simulations, one based on parametric galaxies and another
+based on real galaxy images.  Information about each simulation type is give in
+table \ref{tab:sims}.  In both simulations, only a single object was present
+in the image to avoid the effects of blending.
 
 \begin{table*}
     \centering
@@ -1057,7 +1060,7 @@ is give in table \ref{tab:sims}
 
 We created an image simulation using complex parametric models.  We modeled
 galaxies as a bulge and disk, with additional knots of star formation.  We
-label this simulation \bdkfull\ (\bdksim). 
+label this simulation \bdkfull\ (\bdksim).
 
 We used different, uncorrelated ellipticities for the bulge and disk
 components, but gave both bulge and disk the same half light radius \hlr.
@@ -1072,9 +1075,14 @@ The ellipticities were drawn from the simple model used in \cite{bfd2016}
 \begin{align} \label{eq:edist}
     P(e) &\propto \left[1-(e)^2\right]^2 \exp\left[-e^2/2\sigma^2\right],
 \end{align}
-with $\sigma=0.2$ for the disk and $\sigma=0.1$ for the bulge.  Note, we use
-the ``reduced-shear'' style ellipticity, which differs by roughly a factor of
-two compared to the ellipticity used in \citet{bfd2016}.
+with $\sigma=0.2$ for the disk and $\sigma=0.1$ for the bulge.  Note, we used
+the ``reduced-shear'' style ellipticity
+\begin{equation}
+    e = \frac{1-q}{1+q},
+\end{equation}
+where $q$ is the axis ratio \citep{bj02}.  This definition differs by roughly a
+factor of two compared to the ``distortion'' style ellipticity
+used in \citet{bfd2016}.
 
 For the simulated knots of star formation, we distributed 100 point sources
 according to a random walk starting at the disk centroid, with each point
@@ -1097,7 +1105,7 @@ shear, $\vecg = (0.02, 0.00)$.
 
 We convolved the galaxy images with a PSF modeled as a Moffat profile
 \citep{Moffat1969}, with $\beta=3.5$ and FWHM=0.9 arcsec. The PSF ellipticity
-was set to $g_2 = 0.025$ in reduced shear units ($e_2 \sim 0.05$ in units of
+was set to $e_2 = 0.025$ in reduced shear units ($\sim0.05$ in units of
 distortion). 
 
 These convolved objects were randomly offset from the image center by $\pm 0.5$
@@ -1136,10 +1144,13 @@ parametric galaxies, along with the \hlr\ for the PSF.  Note most objects had
 In figure \ref{fig:s2n} we show the distribution of \snr\ for the parametric
 galaxies.   Shown are both the true input \snr\ and the distribution of true
 \snr\ after applying a cut at {\it measured} \snr$ > 5$.  This ``true'' \snr\
-is that calculated by \galsim, and is the maximal \snr\ based on the true
-model \citep{Jarvis2016}.  The measured \snr\ is noisy and biased (see \S
+is that calculated by \galsim, and is the maximal \snr\ based on the true model
+\citep{Jarvis2016}.  The measured \snr\ is noisy and biased (see \S
 \ref{sec:results}), being derived from a single-Gaussian model, so the cut
-results in a smooth rolloff in the true \snr.
+results in a smooth rolloff in the true \snr.  This \snr\ pre-selection results
+in a noisy cut on magnitude.  The resulting input catalog for \mcal\ has a
+limiting magnitude of COSMOS i-band $\sim$25, but with a significant number
+of objects removed at brighter magnitudes.
 
 \begin{figure}
     \centering
@@ -1161,9 +1172,11 @@ results in a smooth rolloff in the true \snr.
 
     \caption{Distribution of S/N in the parametric simulations. The
     solid curve represents the true input distribution, the dashed curve 
-	represents the objects that passed the initial cut on {\it measured}
+	represents the objects that passed the initial pre-cut on {\it measured}
     \snr$ > 5$. The measured \snr\ was biased and noisy,
-    resulting in a smooth selection on true \snr.}
+    resulting in a smooth selection on true \snr.  This pre-cut
+    does not sharply cut on magnitude, and results in a catalog that is
+    limited at COSMOS i-band magnitude $\sim$25.}
 
 \label{fig:s2n}
 \end{figure}
@@ -1216,7 +1229,7 @@ the undesired effect of cancelling some biases that we want to explore
 match that seen in the Dark Energy Survey data\footnote{Aaron Roodman, private
 communication}.  Similar to GREAT3, we varied the aberrations as Gaussian
 random variables around a fiducial value. These root-mean-squared variations,
-in units of waves in the Noll convention, are given in table \ref{tab:aberr}.
+in units of waves in the Noll convention \citep{noll1976}, are given in table \ref{tab:aberr}.
 We used a Kolmogorov model for the atmospheric component, such that
 the overall mean FWHM $\sim 0.9$ arcsec for 0.263 arcsec pixels.
 Each galaxy was rendered onto a 48 by 48 pixel grid.
@@ -1306,6 +1319,14 @@ Gaussian. This we divide by half the trace $T$, which is the mean extent of the
 object.  For a purely elliptical PSF, a factor of $1+\delta$ would be
 sufficient; we conservatively increase the factor to $1+2\delta$ in case the
 Gaussian fit does not completely capture the asymmetries of the true PSF.
+
+This symmetrization method requires an image of the PSF be available at the
+location of the object, which is already a requirement of \mcal\ in order to
+perform deconvolutions.  To produce such an image, one must accurately model
+stars and interpolate to the location of each object, for example as provided
+by the \psfex\ package \citep{BertinPSFEx2011}.  One may avoid this symmetrization procedure if one is
+willing to also calculate the response of the estimator to a psf shear, as
+demonstrated in \citep{HuffMcal}.
 
 All \mcal\ image operations were performed using the \texttt{metacal} module
 from \ngmix, which in turn uses \galsim\ to perform most image manipulations.
