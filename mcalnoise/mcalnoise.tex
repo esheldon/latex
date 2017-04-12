@@ -1309,7 +1309,9 @@ code\footnote{\url{https://github.com/esheldon/ngmix}}.  To perform the fit we u
 implementation of the ``adaptive moments'' algorithm originally presented in
 \cite{bj02}.   We applied no PSF correction.  We expected this estimator to
 respond weakly to a shear, exhibit large model bias, noise bias, and bias
-due to lack of PSF correction.
+due to lack of PSF correction.  Note we also applied \mcal\ to a forward-modeling,
+maximum likelihood estimator; we give some brief results for that method
+in the \S \ref{app:maxlike}.
 
 In order to correct for PSF anisotropy  we reconvolved by a symmetrized version
 of the PSF. We created this PSF by adding the PSF image to itself, rotated by
@@ -1372,10 +1374,7 @@ this measure of \snr\ is biased and noisy.
 In figure \ref{fig:Rstars} we show the measured \mcal\ responses for the
 \bdksim\  simulations.  Also shown is the response with the stars included in
 the \bdstar\ sim.  The distribution of \mcalR\ is quite symmetric in the
-absence of stellar contamination\footnote{We observed that forward modeling
-methods, in which the model is convolved by the PSF, generally manifest
-an asymmetric distribution of responses \mcalR. This however does not
-generally bias the shear recovery.}.  We will discuss the affect of stars in \S
+absence of stellar contamination.  We will discuss the affect of stars in \S
 \ref{sec:stars}.
 
 \begin{figure}[h]
@@ -2014,6 +2013,47 @@ models for the galaxy.  We detected a remaining bias of  $m \sim 4 \times
 %        1\% & 30\% \\
 %        5\% & 13\% \\
 %        10\% & 8\% \\
+
+\section{\Mcal\ Using Maximum-likelihood Forward Modeling} \label{app:maxlike}
+
+In \S \ref{sec:results} we discussed in detail the results for a simple moment
+based fitting method using adaptive moments (AM), with no explicit PSF correction.
+We also performed tests using a forward-modeling, maximum likelihood method.
+In this method we fit a single Gaussian to the PSF, then fit a gaussian to each
+object, convolved analytically by the Gaussian PSF model.  This method should
+be more sensitive because the PSF is accounted for in the modeling, although
+imperfectly.
+
+In the \bdkfull\ simulation, we found this method to perform equally as well as
+AM with no PSF corrections, but with some interesting differences.  The method
+is indeed more sensitive: as shown in figure \ref{fig:Rmaxlike}, the
+distribution of the response has a narrow peak near $\sim$0.7, corresponding to
+high \snr\ and disk dominated galaxies, with a tail to low response from a mix
+of low \snr\ galaxies.  Note also that the expected value for perfect response
+for this estimator is unity, whereas for adaptive moments it would be
+approximately twice as large because the estimator for AM is a distortion style
+ellipticity rather than a reduced shear style ellipticity.
+
+\begin{figure}[h]
+	\centering
+    \includegraphics[width=0.5\columnwidth]{R-bd29-bd29stars.eps}
+
+    \caption{The distribution of shear response in the \bdkfull\ simulations
+    for a shear estimator based on  forward-modeling maximum likelihood fitting.
+    The colors and line styles are the same as that used 
+    in figure \ref{fig:Rstars}.}
+
+\label{fig:Rmaxlike}
+\end{figure}
+
+We also note that the distribution of response for the forward modeling
+estimator is less symmetric than for AM without PSF correction (see figure
+\ref{fig:Rstars}), but this did not bias the shear recovery.  We see that the
+distribution of response for stars is still quite symmetric about zero for this
+estimator.  It was noted in \cite{HuffMcal} that for some very noisy
+estimators, the resulting complex distribution of response can be problematic,
+so it is worthwhile exploring in detail the performance of any alternative
+estimators that may be used.
 
 
 \bibliographystyle{mnras}
