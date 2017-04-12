@@ -982,7 +982,7 @@ This procedure necessarily increases the noise in the shear recovery.  For
 faint galaxies, which dominate the sample, the shape measurement noise is
 comparable to the intrinsic shape noise, so the increase in effective noise
 a modest 20\%.  Furthermore, for correlation function measurements over
-large scales, sample variance will dominate and this small increase in shape
+large scales, sample-variance will dominate and this small increase in shape
 noise will be unimportant.  Nevertheless, it is worthwhile to explore
 alternative corrections that do not involve adding significant noise.
 
@@ -1706,14 +1706,14 @@ better than a part in a thousand.
 \Mcal\ compares favorably with other shear measurement techniques.  At the time
 of writing, the only technique with demonstrated accuracy close to \mcal,
 without reliance on calibration from simulations, and which accurately
-addresses selection effects, is \bfd\ \citep{bfd2016}.  \mcal\
-has been tested using more challenging simulations and has proved more
-accurate.  Unlike \bfd, \Mcal\ does not rely on significant
-prior information about galaxy properties.  On the other hand, in our current
-implementation we add extra noise to deal with correlated noise effects.  This
-extra noise should be unimportant for sample-variance dominated shear
-correlation studies; nevertheless we have identified the development of a more
-precise correlated noise correction as a priority going forward.
+addresses selection effects, is \bfd\ \citep{bfd2016}.  \mcal\ has been tested
+using more challenging simulations and has proved more accurate.  Unlike \bfd,
+\Mcal\ does not rely on significant prior information about galaxy properties.
+On the other hand, in our current implementation we add extra noise to deal
+with correlated noise effects.  This extra noise should be unimportant for
+sample-variance dominated shear correlation studies on large scales;
+nevertheless we have identified the development of a more precise correlated
+noise correction as a priority going forward.
 
 In order to reach part in a thousand accuracy in real data, there are a number
 of additional challenges to be addressed.  These challenges are shared with
@@ -2027,12 +2027,13 @@ imperfectly.
 In the \bdkfull\ simulation, we found this method to perform equally as well as
 AM with no PSF corrections, but with some interesting differences.  The method
 is indeed more sensitive: as shown in figure \ref{fig:Rmaxlike}, the
-distribution of the response has a narrow peak near $\sim$0.7, corresponding to
-high \snr\ and disk dominated galaxies, with a tail to low response from a mix
-of low \snr\ galaxies.  Note also that the expected value for perfect response
-for this estimator is unity, whereas for adaptive moments it would be
-approximately twice as large because the estimator for AM is a distortion style
-ellipticity rather than a reduced shear style ellipticity.
+distribution of the response has a narrow peak near 0.7, corresponding to high
+\snr\ and disk dominated galaxies, with a tail to low response from a mix of
+low \snr\ galaxies.  Note also that the expected value for perfect response for
+this estimator is unity, whereas for adaptive moments it would be approximately
+twice as large because the estimator for AM is a distortion style ellipticity
+rather than a reduced shear style ellipticity.  However,  we do not see
+correspondingly large decrease in the variance of the shear estimator.
 
 \begin{figure}[h]
 	\centering
