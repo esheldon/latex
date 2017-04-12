@@ -1735,14 +1735,22 @@ significantly on the sky.  The \Mcal\ procedure will correctly estimate the
 shear response for these blended objects, but in order to interpret the signal
 the redshifts of the objects must be known, at least statistically.  If a
 significant number of objects are so blended that they are considered one
-object by the pipeline, it is unlikely that an accurate redshift distribution
-can be determined using standard techniques.
+object by the pipeline, so-called ``ambiguous blends'', then it is unlikely
+that an accurate redshift distribution can be determined using standard
+techniques.
 
 In a given image, there will also be large numbers of faint galaxies that are
 not bright enough to exceed the detection threshold.  These objects will be
 included at some level in the \mcal\ shear response measured for brighter
-galaxies.  The effect is probably much smaller than if one calibrates from
-simulations \citep[see e.g.][]{Hoekstra2016}, but may not be negligible.
+galaxies.  The effect on the shear calibration should be smaller than if one
+calibrates from simulations \citep[see e.g.][]{Hoekstra2016}, since the
+response itself should still be accurate.  Our primary concern is the same as
+for the bright ambiguous blends mentioned above: in order to interpret the
+recovered shear, one must know the redshift distribution of all objects that
+contribute to the shear and response measurement.  With \mcal\ this
+contribution should be suppressed by the small expected response for these
+very faint objects, but even so the effect may not be negligible.
+
 
 It may be possible to address these issues by inserting artificial galaxy
 images into the data using something like the \balrog\ framework
@@ -1756,9 +1764,10 @@ The formalism we have developed recovers a weighted average of the shear, and
 this weighting is known, being the same responses used to calibrate the shear
 estimate.  In these simulations we simplified further, using a constant shear,
 but did not test the variable shear case.  It will be important to test that
-this weighting, based on noisy estimates of the responses, is accurately
-propagated when interpreting the shear measurements, for example when
-estimating the redshift distribution of the source population.
+this weighting can be accurately propagated when interpreting the shear
+measurements, for example when estimating the redshift distribution of the
+source population, particularly when the shear and response vary as a function
+of position on the sky.
 
 %With \mcal\ these issues can be
 %addressed in principle.  Rather than work on sheared postage stamps, the entire
