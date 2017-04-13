@@ -978,12 +978,27 @@ without correlated noise.
 We used these $\hat{I}(\gamma)$ to measure the shapes and responses used in
 shear recovery.  
 
-This procedure necessarily increases the noise in the shear recovery.  For
-faint galaxies, which dominate the sample, the shape measurement noise is
-comparable to the intrinsic shape noise, so the increase in effective noise
-a modest 20\%.  Furthermore, for correlation function measurements over
-large scales, sample-variance will dominate and this small increase in shape
-noise will be unimportant.  Nevertheless, it is worthwhile to explore
+This procedure necessarily increases the noise in the measurements and shear
+recovery.  The \snr\ of the measurements after the \mcal\ procedure are reduced
+by $\sqrt{2}$, but this not a severe limitation.  As we will see below, \mcal\
+can be used to recover the shear accurately at very low \snr.  As an example,
+if one plans to make cuts at $\snr\ > 10$ for a particular analysis, one can
+simply reduce the cut by $\sqrt 2$ to $\snr\ > 7$ without expected loss of
+accuracy.  Also, for faint galaxies, which dominate the sample, the shape
+measurement noise is comparable to the intrinsic shape noise, so one might
+expect the increase in effective noise to be a more modest 20\%.  But in fact
+most of the faint sources have quite small shear response, so their effective
+weight in the shear recovery is already small.
+
+We performed a test where the above correction was made with $\snr\ > 7$ and
+compared to a ``perfect'' \mcal\ without correlated noise (all noise was added
+after the image manipulations) and cut at $\snr\ > 10$. For the simulations we
+describe below, we found the uncertainty in the shear recovery was only increased
+by about 7\%.
+
+Furthermore, for correlation function measurements over large scales, such as
+shear-shear measurements, sample-variance will dominate and this small increase
+in noise will be unimportant.  Nevertheless, it is worthwhile to explore
 alternative corrections that do not involve adding significant noise.
 
 Because the noise is increased, it is important that both the response and
@@ -1710,10 +1725,11 @@ addresses selection effects, is \bfd\ \citep{bfd2016}.  \mcal\ has been tested
 using more challenging simulations and has proved more accurate.  Unlike \bfd,
 \Mcal\ does not rely on significant prior information about galaxy properties.
 On the other hand, in our current implementation we add extra noise to deal
-with correlated noise effects.  This extra noise should be unimportant for
-sample-variance dominated shear correlation studies on large scales;
-nevertheless we have identified the development of a more precise correlated
-noise correction as a priority going forward.
+with correlated noise effects.  This extra noise only increases the uncertainty
+in the shear recovery by a modest amount in our tests, about 7\%, and should be
+even less important for sample-variance dominated studies such as shear-shear
+correlations on large scales. Nevertheless we have identified the development
+of a more precise correlated noise correction as a priority going forward.
 
 In order to reach part in a thousand accuracy in real data, there are a number
 of additional challenges to be addressed.  These challenges are shared with
