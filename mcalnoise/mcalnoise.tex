@@ -981,24 +981,8 @@ We used these $\hat{I}(\gamma)$ to measure the shapes and responses used in
 shear recovery.  
 
 This procedure necessarily increases the noise in the measurements and shear
-recovery.  The \snr\ of the measurements after the \mcal\ procedure are reduced
-by $\sqrt{2}$, but this not a severe limitation.  For faint galaxies, which
-dominate the sample, the shape measurement noise is comparable to the intrinsic
-shape noise, so one might expect the increase in effective noise to be a more
-modest 20\%.
+recovery.  We test the increased noise in \S \ref{sec:degrade}.
 
-We performed a test where the mean shear was calcualated in a simulation, with
-the above correction.  This was compared to a ``perfect'' \mcal\ procedure
-without correlated noise. To accomplish this, we only added noise after the
-\mcal\ image manipulations were performed.  In both cases we placed a cut at
-$\snr\ > 10$. For the simulations described in \S \ref{sec:bdksim}, and the
-fitting used in \S \ref{sec:modelfit}, we found that the uncertainty in the
-shear recovery was increased by $\sim$\degrade.
-
-Furthermore, for correlation function measurements over large scales, such as
-shear-shear measurements, sample-variance will dominate and this small increase
-in noise will be unimportant.  Nevertheless, it is worthwhile to explore
-alternative corrections that do not involve adding significant noise.
 
 Because the noise is increased, it is important that both the response and
 estimator should be measured on the $\hat{I}(\gamma)$ images, so that the
@@ -1626,6 +1610,35 @@ of a few parts in a thousand.  However, this bias disappeared if we introduced
 a compensatory ``bad column'' at 90 degree rotation about the center of the
 image, restoring symmetry to the image. 
 
+
+\subsubsection{Noise Degredation Due to Correlated Noise Corrections}
+
+Due to the noise added to correct for correlated noise (see \S
+\ref{sec:fixnoise}), the \snr\ of the measurements after the \mcal\ procedure
+are reduced by $\sqrt{2}$, but this not a severe limitation.  For faint
+galaxies, which dominate the sample, the shape measurement noise is comparable
+to the intrinsic shape noise, so one might expect the increase in effective
+shear noise to be less than $\sqrt{2}$.
+
+We performed a test where the mean shear was calcualated in a simulation, with
+the correlated noise correction.  This was compared to a ``perfect'' \mcal\
+procedure without correlated noise. To accomplish this, we added noise after
+the \mcal\ image manipulations were performed, rather than before.  In both
+cases we placed a cut at $\snr\ > 10$. For the simulations described in \S
+\ref{sec:bdksim}, and the fitting used in \S \ref{sec:modelfit}, we found that
+the uncertainty in the shear recovery was increased by $\sim$\degrade.  Note
+one may be tempted to decrease the \snr\ cut to recover objects that have
+lower \snr\ after the additional noise is added, but we find that including
+objects with \snr\ $< 10$ actually increases the variance.  This can also
+be seen in the results shown in table \ref{tab:results_sel}.  We
+found this to be true even when inverse variance weighting was introduced.
+
+For correlation functions measurements over large scales, such as shear-shear
+correlations, sample-variance will dominate and this small increase in noise
+will be unimportant.  Nevertheless, we consider it worthwhile to explore
+alternative corrections that do not involve adding significant noise.
+
+
 \section{Weak Shear Approximation} \label{sec:weakshear}
 
 In deriving the response terms in \S \ref{sec:formalism}, we assumed the shear
@@ -1744,28 +1757,33 @@ light to objects will potentially produce biases in the shear recovery.  Image
 artifacts may not be properly corrected for, or masked.  In crowded regions
 such as galaxy clusters, the pipeline may fail to determine the background
 accurately.  The \mcal\ process may not accurately determine the shear response
-in these cases.  Furthermore, in crowded regions the detection algorithm may
-fail to identify all the unique objects, due to objects overlapping
-significantly on the sky.  The \Mcal\ procedure will correctly estimate the
-shear response for these blended objects, but in order to interpret the signal
-the redshifts of the objects must be known, at least statistically.  If a
-significant number of objects are so blended that they are considered one
-object by the pipeline, so-called ``ambiguous blends'', then it is unlikely
-that an accurate redshift distribution can be determined using standard
-techniques.
+in these cases.
 
-In a given image, there will also be large numbers of faint galaxies that are
-not bright enough to exceed the detection threshold.  These objects will be
-included at some level in the \mcal\ shear response measured for brighter
-galaxies.  The effect on the shear calibration should be smaller than if one
-calibrates from simulations \citep[see e.g.][]{Hoekstra2016}, since the
-response itself should still be accurate.  Our primary concern is the same as
-for the bright ambiguous blends mentioned above: in order to interpret the
-recovered shear, one must know the redshift distribution of all objects that
-contribute to the shear and response measurement.  With \mcal\ this
-contribution should be suppressed by the small expected response for these
-very faint objects, but even so the effect may not be negligible.
+In crowded regions the detection algorithm may fail to identify all the unique
+objects, even those brighter than the detection threshold, due to objects
+overlapping significantly on the sky.  The \Mcal\ procedure will correctly
+estimate the shear response for blended objects, as long as the presence of
+neighbors does not result in an instability in the measurement process.  But in
+order to interpret the signal, the unique objects must be determined and the
+light properly assigned to each object, so that the redshifts of the objects
+can be determined, at least statistically, and responses must be measured
+separately for each object.  If a significant number of objects are so blended
+that they are considered one object by the pipeline, so-called ``ambiguous
+blends'', then the shear will not be properly interpreted.
 
+There will also be large numbers of faint galaxies that are not bright enough
+to exceed the detection threshold, which is an important source of bias when
+using simulations to calibrate the shear \citep[see e.g.][]{Hoekstra2016}.
+These objects will be included at some level in the \mcal\ shear response
+measured for brighter galaxies, and will contaminate the light used for flux
+and color determination.  The concern in this case is the same as for the
+bright ambiguous blends mentioned above: unique objects must be identified and
+the redshift distribution determined in order to properly interpret the shear
+measurement.   The presence of unidentified neighbors will complicate this
+process.  It may be that with \mcal, the effects of these faint neighbors will
+be partially suppressed because these objects have small shear response.  Going
+forward, it will be necessary to assess the importance of this effect on both
+the shear response measurement and redshift determination.  
 
 It may be possible to address these issues by inserting artificial galaxy
 images into the data using something like the \balrog\ framework
