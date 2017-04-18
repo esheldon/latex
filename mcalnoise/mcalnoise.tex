@@ -1763,27 +1763,28 @@ In crowded regions the detection algorithm may fail to identify all the unique
 objects, even those brighter than the detection threshold, due to objects
 overlapping significantly on the sky.  The \Mcal\ procedure will correctly
 estimate the shear response for blended objects, as long as the presence of
-neighbors does not result in an instability in the measurement process.  But in
-order to interpret the signal, the unique objects must be identified and the
-light properly assigned to each object, so that the redshifts of the objects
-can be determined, at least statistically, and responses must be measured
-separately for each object.  If a significant number of objects are so blended
-that they are considered one object by the pipeline, so-called ``ambiguous
-blends'', then a naive interpretation of the shear is likely to be biased.
+neighbors does not result in an instability in the measurement process.  This
+is sufficient for blends at the same redshift, but for blends at different
+redshift this combined shear response has no simple interpretation because each
+object will experience a different shear.  Ideally we would identify the unique
+objects and assign a fraction of the light in each pixel to each object.  Then
+separate shear responses would be measured for each object, and
+redshifts of the objects would be determined, at least statistically.
 
 There will also be large numbers of faint galaxies that are not bright enough
-to exceed the detection threshold, which is an important source of bias when
+to exceed the detection threshold. This is an important source of bias when
 using simulations to calibrate the shear \citep[see e.g.][]{Hoekstra2016}.
 These objects will be included at some level in the \mcal\ shear response
 measured for brighter galaxies, and will contaminate the light used for flux
 and color determination.  The concern in this case is the same as for the
-bright ambiguous blends mentioned above: unique objects must be identified and
-the redshift distribution determined in order to properly interpret the shear
+bright blends mentioned above: unique objects must be identified and the
+redshift distribution determined in order to properly interpret the shear
 measurement.   The presence of unidentified neighbors will complicate this
 process.  It may be that with \mcal, the effects of these faint neighbors will
-be partially suppressed because these objects have small shear response.  Going
-forward, it is imperative to assess the importance of this effect on both
-the shear response measurement and redshift determination.  
+be partially suppressed because these objects have small shear response, but we
+have not yet tested this.  Going forward, it is imperative to assess the
+importance of this effect on both the shear response measurement and redshift
+determination.  
 
 It may be possible to address these issues by inserting artificial galaxy
 images into the data using something like the \balrog\ framework
