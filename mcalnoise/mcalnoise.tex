@@ -1773,18 +1773,19 @@ redshifts of the objects would be determined, at least statistically.
 
 There will also be large numbers of faint galaxies that are not bright enough
 to exceed the detection threshold. This is an important source of bias when
-using simulations to calibrate the shear \citep[see e.g.][]{Hoekstra2016}.
-These objects will be included at some level in the \mcal\ shear response
-measured for brighter galaxies, and will contaminate the light used for flux
-and color determination.  The concern in this case is the same as for the
-bright blends mentioned above: unique objects must be identified and the
-redshift distribution determined in order to properly interpret the shear
-measurement.   The presence of unidentified neighbors will complicate this
-process.  It may be that with \mcal, the effects of these faint neighbors will
-be partially suppressed because these objects have small shear response, but we
-have not yet tested this.  Going forward, it is imperative to assess the
-importance of this effect on both the shear response measurement and redshift
-determination.  
+using simulations to calibrate the shear \citep[see e.g.][]{Hoekstra2016}, but
+it is not clear to us how this will affect an algorithm like \mcal.  These
+objects will be included at some level in the \mcal\ shear response measured
+for brighter galaxies, and will contaminate the light used for flux and color
+determination.  The concern in this case is the same as for the bright blends
+mentioned above: unique objects must be identified and the redshift
+distribution determined in order to properly interpret the shear measurement.
+The presence of unidentified neighbors will complicate this process.   Going
+forward, it is imperative to assess the importance of this effect on both the
+shear response measurement and redshift determination.  
+%It may be that with \mcal, the effects of these faint neighbors will be
+%partially suppressed because these objects have small shear response, but we
+%have not yet tested this. 
 
 It may be possible to address these issues by inserting artificial galaxy
 images into the data using something like the \balrog\ framework
@@ -1854,10 +1855,12 @@ ES is supported by DOE grant DE-AC02-98CH10886.
 
 Many thanks to Paul Stankus for helpful comments on the draft.We are grateful
 to Mike Jarvis and Rachel Mandelbaum for many useful discussions and help with
-the \galsim\ package. Thanks to Gary Bernstein for suggesting our response for
-2-point functions could be simplified.  We thank Aaron Roodman for providing
-the variation of the optical aberrations measured in DES data.   Thanks
-to Matt Becker for help using the egret simulation package.
+the \galsim\ package. Thanks to Gary Bernstein for suggesting our response
+formula for 2-point functions could be significantly simplified.  We thank
+Aaron Roodman for providing the variation of the optical aberrations measured
+in DES data.  Thanks to Matt Becker for help using the egret simulation
+package.  We thank the anonymous referee for helpful comments and questions
+that led to a significantly improved text.
 
 \appendix
 
@@ -2085,9 +2088,9 @@ estimator is less symmetric than for AM without PSF correction (see figure
 \ref{fig:Rstars}), but this did not bias the shear recovery.  We see that the
 distribution of response for stars is still quite symmetric about zero for this
 estimator.  It was noted in \cite{HuffMcal} that for some very noisy
-estimators, the resulting complex distribution of response can be problematic,
-so it is worthwhile exploring in detail the performance of any alternative
-estimators that may be used.
+estimators, the resulting complex distribution of response can be problematic.
+For this reason, we suggest that practitioners explore the performance of their
+chosen estimator in simulations before applying it to real data.
 
 
 \bibliographystyle{mnras}
