@@ -2053,23 +2053,27 @@ models for the galaxy.  We found a remaining bias of  $m \sim 4 \times
 \section{\Mcal\ Using Maximum-likelihood Forward Modeling} \label{app:maxlike}
 
 In \S \ref{sec:results} we discussed in detail the results for a simple moment
-based fitting method using adaptive moments (AM), with no explicit PSF correction.
-We also performed tests using a forward-modeling, maximum likelihood method.
-In this method we fit a single Gaussian to the PSF, then fit a gaussian to each
-object, convolved analytically by the Gaussian PSF model.  This method should
-be more sensitive because the PSF is accounted for in the modeling, although
-imperfectly.
+based fitting method using adaptive moments (AM), with no explicit PSF
+correction.  We also performed tests using a forward-modeling, maximum
+likelihood method.  In this method we fit a single Gaussian to the PSF, then
+fit a gaussian to each object, convolved analytically by the Gaussian PSF
+model.  This method should be more sensitive because the PSF is accounted for
+in the modeling, although imperfectly.  We applied smooth priors to the
+likelihood for each parameter in the model, in order to ensure a stable fit,
+but these priors were not tuned to match the true parameters of the simulated
+galaxies.
 
 In the \bdkfull\ simulation, we found this method to perform equally as well as
-AM with no PSF corrections, but with some interesting differences.  The method
-is indeed more sensitive: as shown in figure \ref{fig:Rmaxlike}, the
-distribution of the response has a narrow peak near 0.7, corresponding to high
-\snr\ and disk dominated galaxies, with a tail to low response from a mix of
-low \snr\ galaxies.  Note also that the expected value for perfect response for
-this estimator is unity, whereas for adaptive moments it would be approximately
+AM, but with some interesting differences.  The method is indeed more
+sensitive: as shown in figure \ref{fig:Rmaxlike}, the distribution of the
+response has a narrow peak near 0.7, corresponding to high \snr\ and disk
+dominated galaxies, with a tail to low response from a mix of low \snr\
+galaxies.  Note also that the expected value for perfect response for this
+estimator is unity, whereas for adaptive moments it would be approximately
 twice as large because the estimator for AM is a distortion style ellipticity
 rather than a reduced shear style ellipticity.  However,  we do not see
-correspondingly large decrease in the variance of the shear estimator.
+correspondingly large decrease in the variance of the shear estimator, so it is
+not clear whether this increased sensitivity is necessarily an advantage.
 
 \begin{figure}[h]
 	\centering
@@ -2087,10 +2091,12 @@ We also note that the distribution of response for the forward modeling
 estimator is less symmetric than for AM without PSF correction (see figure
 \ref{fig:Rstars}), but this did not bias the shear recovery.  We see that the
 distribution of response for stars is still quite symmetric about zero for this
-estimator.  It was noted in \cite{HuffMcal} that for some very noisy
-estimators, the resulting complex distribution of response can be problematic.
-For this reason, we suggest that practitioners explore the performance of their
-chosen estimator in simulations before applying it to real data.
+estimator.
+
+It was noted in \cite{HuffMcal} that for some very noisy estimators, the
+resulting complex distribution of response can be problematic.  For this
+reason, we suggest that practitioners explore the performance of their chosen
+estimator in simulations before applying it to real data.
 
 
 \bibliographystyle{mnras}
