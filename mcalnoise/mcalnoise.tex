@@ -1085,24 +1085,24 @@ the ``reduced-shear'' style ellipticity
 \begin{equation}
     e = \frac{1-q}{1+q},
 \end{equation}
-where $q$ is the axis ratio \citep{bj02}.  This definition differs by roughly a
-factor of two compared to the ``distortion'' style ellipticity
+where $q$ is the axis ratio \citep{bj02}.  This definition is roughly a
+factor of two smaller than the ``distortion'' style ellipticity
 used in \citet{bfd2016}.
 
 For the simulated knots of star formation, we distributed 100 point sources
 according to a random walk starting at the disk centroid, with each point
-taking 40 steps.  This random walk method was inspired by
-\cite{Zhang2008FourierQuadI}\footnote{Our implementation
-of the random walk galaxy is available as a \galsim\ object class \texttt{galsim.RandomWalk}}.
-We then distorted this distribution using the same ellipticity assigned to the
-disk; but note this does not result in a purely elliptical distribution of
-point sources.  Only in the rare case of a pure bulge, or disk with no knots,
-is the model purely elliptical.
+taking 40 steps.  This random walk method was inspired by the simulation
+presented in \cite{Zhang2008FourierQuadI}\footnote{Our implementation of the
+random walk galaxy is available as a \galsim\ object class
+\texttt{galsim.RandomWalk}}.  We then distorted this distribution using the
+same ellipticity assigned to the disk; but note this does not result in a
+purely elliptical distribution of point sources.  Only in the rare case of a
+pure bulge, or disk with no knots, is the model purely elliptical.
 
 The fraction of the flux in the bulge was drawn uniformly between zero and
 unity.  The fraction of the disk flux assigned to knots of star formation
 was then also chosen uniformly between zero and unity.  The resulting 
-objects range from pure bulge, bulge+disk, pure disks, Bulges+Disk+Knots, 
+objects range from pure bulge, bulge+disk, pure disks, bulge+disk+knots, 
 to pure knots. A model with pure knots resembles an irregular galaxy.
 
 Finally, the entire composite \bdkfull\ object was sheared with the same
@@ -1201,19 +1201,19 @@ spurious, so in practice a threshold must be placed to produce what are
 considered reliable detections.  Such a pre-selection can produce significant
 selection biases.  A round object has higher \snr\ than if it were sheared, and
 galaxies oriented in the same direction as the PSF have higher \snr\ than
-ebjects otherwise oriented.  Thus a pre-selection will tend to alter the
+objects otherwise oriented.  Thus a pre-selection will tend to alter the
 distribution of ellipticities, which will bias the shear recovery.  In
 particular, if this selection occurs before \mcal\ and object fitting, the
 corrections for selection effects presented in \S \ref{sec:formalism} cannot be
 used.
 
-In the \bdksim\ simulation, we generated images with \snr\ as low as $\sim 2$, as
-shown in figure \ref{fig:s2n}.  In order to test the effect of a pre-selection,
-we did not perform the \mcal\ process on all images.  We applied a
-pre-selection on objects with \snr$ > 5$, and these objects were removed
-from the analysis.  Then, as discussed in \S \ref{sec:shear_recover}, we
-applied further cuts on the \snr\ above this threshold in order to minimize the
-bias due to removal of these galaxies.
+In the \bdksim\ simulation, we generated images with \snr\ as low as $\sim 2$,
+as shown in figure \ref{fig:s2n}.  In order to test the effect of a
+pre-selection, we did not perform the \mcal\ process on all images.  We applied
+a pre-selection on objects with {\em measured} \snr$ > 5$, and these objects
+were removed from the analysis.  Then, as discussed in \S
+\ref{sec:shear_recover}, we applied further cuts on the measured \snr\ above
+this threshold in order to minimize the bias due to removal of these galaxies.
 
 
 \subsection{Real Galaxy Simulations} \label{sec:cosmosim}
@@ -1358,9 +1358,11 @@ so the linear model above was fit.  We found the multiplicative
 bias was the same in each component, so we combined them into
 a single value in the plots and tables below.
 
-In all cases the measured \snr\ is based on the best fit Gaussian model. 
-We used a similar definition to that implemented in the GREAT3 simulations \citep[][equation
-16]{great3}, but replaced the true profile with the model
+In all cases the measured \snr\ is based on the best fit Gaussian model (true
+parameters for the simulated galaxies, such as scale radius or \snr, were never
+used in the analysis).  We used a similar definition to that implemented in the
+GREAT3 simulations \citep[][equation 16]{great3}, but replaced the true profile
+with the model
 \begin{equation}
     (S/N)^2 = \frac{1}{\sigma^2} \int m(x,y)^2 dx dy,
 \end{equation}
@@ -1372,7 +1374,7 @@ this measure of \snr\ is biased and noisy.
 
 In figure \ref{fig:Rstars} we show the measured \mcal\ responses for the
 \bdksim\  simulations.  Also shown is the response with the stars included in
-the \bdstar\ sim.  The distribution of \mcalR\ is quite symmetric in the
+the \bdstar\ simulation.  The distribution of \mcalR\ is quite symmetric in the
 absence of stellar contamination.  We will discuss the affect of stars in \S
 \ref{sec:stars}.
 
@@ -1394,8 +1396,8 @@ absence of stellar contamination.  We will discuss the affect of stars in \S
 
 In table \ref{tab:results} we show results for shear recovery in each of our
 simulations.  As was discussed in \S \ref{sec:preselect}, we applied a
-pre-selection to the \bdksim\ simulation at \snr$ > 5$, which imposes a
-selection bias.  We thus placed cuts at higher \snr\ than this threshold, so
+pre-selection to the \bdksim\ simulation at measured \snr$ > 5$, which imposes
+a selection bias.  We thus placed cuts at higher \snr\ than this threshold, so
 that the corrections for selection effects presented in \S \ref{sec:formalism}
 could be used accurately.  In this table we show results for \snr$ > 10$.  For
 the \rgsim\ simulation we did not apply a pre-selection.
@@ -1576,7 +1578,7 @@ If the selection must be performed outside of the \mcal\ process, it may be
 better to avoid it altogether.
 
 For accurate interpretation of the signal, it is important to weight by the
-\mcal\ response terms in order to get the correct redshift distribution( see \S
+\mcal\ response terms in order to get the correct redshift distribution (see \S
 \ref{sec:weighting} for more discussion of weighted means).  It is also
 desirable that the redshift estimates for stars be close to zero, so that the
 weighted redshift distribution is minimally contaminated.
@@ -1596,7 +1598,7 @@ simultaneously to postage stamps drawn from all available observing epochs and
 bands \citep[e.g.][]{Jarvis2016}.  If the epochs are spatially offset, such
 that the object does not always appear at the same location in the image, then
 a small fraction of images should be affected by missing data such as bad
-pixels.  In that case, epochs with missing data can simply be left out of the
+pixels.  In that case, data deemed problematic can simply be left out of the
 fit.
 
 If only a single image is available, one may want to replace the missing data.
@@ -1609,7 +1611,9 @@ We found the model replacement worked well for single bad pixels. For bad
 columns we found a large additive $e_1$ bias, as well as a multiplicative bias
 of a few parts in a thousand.  However, this bias disappeared if we introduced
 a compensatory ``bad column'' at 90 degree rotation about the center of the
-image, restoring symmetry to the image. 
+image, restoring symmetry to the image.   Again, we wish to emphasize that such
+a procedure may not be necessary when there are many images available for
+fitting.
 
 
 \subsubsection{Noise Degredation Due to Correlated Noise Corrections} \label{sec:degrade}
@@ -1621,7 +1625,7 @@ galaxies, which dominate the sample, the shape measurement noise is comparable
 to the intrinsic shape noise, so one might expect the increase in effective
 shear noise to be less than $\sqrt{2}$.
 
-We performed a test where the mean shear was calcualated in a simulation, with
+We performed a test where the mean shear was calculated in a simulation, with
 the correlated noise correction.  This was compared to a ``perfect'' \mcal\
 procedure without correlated noise. To accomplish this, we added noise after
 the \mcal\ image manipulations were performed, rather than before.  In both
@@ -1634,9 +1638,9 @@ objects with \snr\ $< 10$ actually increases the variance.  This can also
 be seen in the results shown in table \ref{tab:results_sel}.  We
 found this to be true even when inverse variance weighting was introduced.
 
-For correlation functions measurements over large scales, such as shear-shear
-correlations, sample-variance will dominate and this small increase in noise
-will be unimportant.  Nevertheless, we consider it worthwhile to explore
+For correlation function measurements over large scales, such as shear-shear
+correlations, sample-variance will dominate and this \degrade\ increase will be
+relatively unimportant.  Nevertheless, we consider it worthwhile to explore
 alternative corrections that do not involve adding significant noise.
 
 
@@ -1775,15 +1779,15 @@ redshifts of the objects would be determined, at least statistically.
 There will also be large numbers of faint galaxies that are not bright enough
 to exceed the detection threshold. This is an important source of bias when
 using simulations to calibrate the shear \citep[see e.g.][]{Hoekstra2016}, but
-it is not clear to us how this will affect an algorithm like \mcal.  These
-objects will be included at some level in the \mcal\ shear response measured
-for brighter galaxies, and will contaminate the light used for flux and color
-determination.  The concern in this case is the same as for the bright blends
-mentioned above: unique objects must be identified and the redshift
-distribution determined in order to properly interpret the shear measurement.
-The presence of unidentified neighbors will complicate this process.   Going
-forward, it is imperative to assess the importance of this effect on both the
-shear response measurement and redshift determination.  
+we have not yet tested how this will affect \mcal.  These objects will be
+included at some level in the \mcal\ shear response measured for brighter
+galaxies, and will contaminate the light used for flux and color determination.
+The concern in this case is the same as for the bright blends mentioned above:
+unique objects must be identified and the redshift distribution determined in
+order to properly interpret the shear measurement.  The presence of
+unidentified neighbors will complicate this process.   Going forward, it is
+imperative to assess the importance of this effect on both the shear response
+measurement and redshift determination.  
 %It may be that with \mcal, the effects of these faint neighbors will be
 %partially suppressed because these objects have small shear response, but we
 %have not yet tested this. 
