@@ -1309,7 +1309,7 @@ implementation of the ``adaptive moments'' algorithm originally presented in
 respond weakly to a shear, exhibit large model bias, noise bias, and bias
 due to lack of PSF correction.  Note we also applied \mcal\ to a forward-modeling,
 maximum likelihood estimator; we give some brief results for that method
-in the \S \ref{app:maxlike}.
+in appendix \ref{app:maxlike}.
 
 In order to correct for PSF anisotropy  we reconvolved by a symmetrized version
 of the PSF. We created this PSF by adding the PSF image to itself, rotated by
@@ -1331,9 +1331,10 @@ This symmetrization method requires an image of the PSF be available at the
 location of the object, which is already a requirement of \mcal\ in order to
 perform deconvolutions.  To produce such an image, one must accurately model
 stars and interpolate to the location of each object, for example as provided
-by the \psfex\ package \citep{BertinPSFEx2011}.  One may avoid this
-symmetrization procedure if one is willing to also calculate the response of
-the estimator to a psf shear, as demonstrated in \citep{HuffMcal}.
+by the \psfex\ package \citep{BertinPSFEx2011}.  Note, rather than
+use a round reconvolution function, one may instead use
+the response of the estimator to a psf shear to address any uncorrected
+affects of PSF anisotropy \citep{HuffMcal}.
 
 All \mcal\ image operations were performed using the \texttt{metacal} module
 from \ngmix, which in turn uses \galsim\ to perform most image manipulations.
@@ -1611,7 +1612,7 @@ a compensatory ``bad column'' at 90 degree rotation about the center of the
 image, restoring symmetry to the image. 
 
 
-\subsubsection{Noise Degredation Due to Correlated Noise Corrections}
+\subsubsection{Noise Degredation Due to Correlated Noise Corrections} \label{sec:degrade}
 
 Due to the noise added to correct for correlated noise (see \S
 \ref{sec:fixnoise}), the \snr\ of the measurements after the \mcal\ procedure
