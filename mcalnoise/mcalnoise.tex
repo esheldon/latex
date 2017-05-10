@@ -4,8 +4,7 @@
 %\documentclass[a4paper,fleqn,referee,usenatbib]{mnras}
 %\pdfoutput=1
 
-\documentclass[iop]{emulateapj}
-
+\documentclass[manuscript, letterpaper]{aastex6}
 
 % only needed for draft watermark
 %\usepackage[
@@ -28,7 +27,56 @@
 \usepackage{xcolor}
 \usepackage{amsmath} % for boldsymbol
 \usepackage{enumitem}
-\usepackage[colorlinks=true, citecolor=blue, urlcolor=blue, linkcolor=blue]{hyperref}
+\usepackage{url}
+
+%\usepackage[colorlinks=true, citecolor=blue, urlcolor=blue, linkcolor=blue]{hyperref}
+
+% from here: https://github.com/dfm/peerless/blob/master/document/ms.tex#L19-L69
+% ----------------------------------- %
+% start of AASTeX mods by DWH and DFM %
+% ----------------------------------- %
+\setlength{\voffset}{0in}
+\setlength{\hoffset}{0in}
+\setlength{\textwidth}{6in}
+\setlength{\textheight}{9in}
+\setlength{\headheight}{0ex}
+\setlength{\footnotesep}{0in}
+\setlength{\topmargin}{-\headsep}
+\setlength{\oddsidemargin}{0.25in}
+\setlength{\evensidemargin}{0.25in}
+\linespread{0.54} % close to 10/13 spacing in ``manuscript''
+\setlength{\parindent}{0.55\baselineskip}
+%\hypersetup{colorlinks = false}
+\makeatletter % you know you are living your life wrong when you need to do this
+\long\def\frontmatter@title@above{
+\vspace*{-\headsep}\vspace*{\headheight}
+\noindent\footnotesize
+{\noindent\footnotesize\textsc{\@journalinfo}}\par
+{\noindent\scriptsize Preprint typeset using \LaTeX\ style AASTeX6\\
+With modifications by David W. Hogg, Daniel Foreman-Mackey, Boris Leistedt
+%}\par\vspace*{-\baselineskip}\vspace*{0.625in}
+}\par\vspace*{-\baselineskip}\vspace*{1.2in}
+}%
+\makeatother
+% Section spacing:
+\makeatletter
+\let\origsection\section
+\renewcommand\section{\@ifstar{\starsection}{\nostarsection}}
+\newcommand\nostarsection[1]{\sectionprelude\origsection{#1}}
+\newcommand\starsection[1]{\sectionprelude\origsection*{#1}}
+\newcommand\sectionprelude{\vspace{1em}}
+\let\origsubsection\subsection
+\renewcommand\subsection{\@ifstar{\starsubsection}{\nostarsubsection}}
+\newcommand\nostarsubsection[1]{\subsectionprelude\origsubsection{#1}}
+\newcommand\starsubsection[1]{\subsectionprelude\origsubsection*{#1}}
+\newcommand\subsectionprelude{\vspace{1em}}
+\makeatother
+\widowpenalty=10000
+\clubpenalty=10000
+\sloppy\sloppypar
+% ------------------ %
+% end of AASTeX mods %
+% ------------------ %
 
 
 \input{newcommands.tex}
@@ -157,7 +205,7 @@
 %$^1$Brookhaven National Laboratory, Bldg 510, Upton, New York 11973\\
 %$^2$Department of Physics, Stanford University, 382 Via Pueblo Mall, Stanford, CA 94305, USA}
 
-\shorttitle{Practical Weak Lensing Shear Measurement with Metacalibration}
+\shorttitle{Practical Shear Measurement with Metacalibration}
 \shortauthors{Sheldon and Huff}
 
 \begin{document}
@@ -180,6 +228,7 @@
 %nology, 4800 Oak Grove Dr., Pasadena, CA 91109, USA}
  
 %\maketitle
+
 
 \keywords{
     cosmology: observations --- gravitational lensing: weak --- methods: observational
@@ -211,17 +260,8 @@
 
 \end{abstract}
 
-%\keywords{
-%    cosmology: observations,
-%    gravitational lensing: weak,
-%    dark energy
-%}
-%\begin{keywords}                                                                    
-%    cosmology: observations,
-%    gravitational lensing: weak,
-%    dark energy
-%\end{keywords} 
 
+\newpage
 \section{Introduction} \label{sec:intro}
 
 Weak gravitational lensing is a fascinating phenomenon that has become a useful
@@ -1026,11 +1066,10 @@ based on real galaxy images.  Information about each simulation type is give in
 table \ref{tab:sims}.  In both simulations, only a single object was present
 in the image to avoid the effects of blending.
 
-\begin{table*}
+\begin{table}
     \centering
-
-    %\scriptsize
-    \begin{tabular}{ l c c c c c c c c}
+    \tiny
+    \begin{tabular}{lcccccccc}
 		\tableline
         \rule{0pt}{3ex}Sim          & Galaxy Model      & Size \& Flux   & PSF Model   & PSF FWHM        & PSF shape     & Shear & \# Galaxies    & \# Stars     \\
                     &                   &             &             & [arcsec]        &               &       &               &             \\
@@ -1042,8 +1081,7 @@ in the image to avoid the effects of blending.
 		\tableline
     \end{tabular}
 
-	\parbox{0.9\textwidth}{
-		\caption{\begin{flushleft}Description of the image simulations.  For the \bdksim\
+		\caption{Description of the image simulations.  For the \bdksim\
 		simulations, the Bulge and Disk had independent ellipticities but the same
 		half light radius \hlr.  The galaxy \hlr\ and flux were drawn from fits to the 25.2 mag.
 		limited COSMOS sample.  Additionally, knots of ``star formation'' were added as
@@ -1057,9 +1095,8 @@ in the image to avoid the effects of blending.
 		shear'' convention.  For comparision, the typical DES PSF ellipticity is about
                 0.01 in these units.
 		\label{tab:sims}
-		\end{flushleft}}
 	}
-\end{table*}
+\end{table}
 
 \subsection{Simulations with Parametric Models} \label{sec:bdksim}
 
@@ -1122,9 +1159,9 @@ In figure \ref{fig:parametricgals} we show some example simulated galaxies with
 a range of parameters.  Here we have shown large models, much larger than the
 PSF, in order to show detailed internal structure.
 
-\begin{figure*}[p]
+\begin{figure}[p]
     \centering
-    \includegraphics[]{example-gals-007.eps}
+    \includegraphics[width=\textwidth]{example-gals-007.eps}
 
     \caption{Example of simulated galaxy images.  Each image is a composite of a
     bulge and disk, plus knots of star formation.  The half-light radius is the
@@ -1140,7 +1177,7 @@ PSF, in order to show detailed internal structure.
 
 	\label{fig:parametricgals}
 
-\end{figure*}
+\end{figure}
 
 In figure \ref{fig:psimhlrcompare} we show the distribution of \hlr\ for the
 parametric galaxies, along with the \hlr\ for the PSF.  Note that most objects
@@ -1159,7 +1196,7 @@ of objects removed at brighter magnitudes.
 
 \begin{figure}
     \centering
-    \includegraphics[width=\columnwidth]{run-bdj03mcal02-r50.eps}
+    \includegraphics[width=0.8\textwidth]{run-bdj03mcal02-r50.eps}
 
     \caption{Distribution of half-light-radius \hlr\ in the parametric simulations.
         The solid line represents the distribution of input \hlr, drawn from fits
@@ -1173,7 +1210,7 @@ of objects removed at brighter magnitudes.
 
 \begin{figure}
     \centering
-    \includegraphics[width=\columnwidth]{run-bdj03mcal02-s2n.eps}
+    \includegraphics[width=0.8\textwidth]{run-bdj03mcal02-s2n.eps}
 
     \caption{Distribution of S/N in the parametric simulations. The
     solid curve represents the true input distribution, the dashed curve 
@@ -1262,30 +1299,15 @@ is freely available online\footnote{\url{https://github.com/esheldon/egret}}.
 		\tableline
     \end{tabular}
 
-	\parbox{0.8\columnwidth}{
-		\caption{\begin{flushleft}Root-mean-squared variation for the aberrations in the optical model,
+	\caption{Root-mean-squared variation for the aberrations in the optical model,
 			in units of waves in the Noll convention, derived 
-		from Dark Energy Survey data. \label{tab:aberr}\end{flushleft}}
-	}
+		from Dark Energy Survey data. \label{tab:aberr}}
 \end{table}
 
 In figure \ref{fig:cosmos} we show the distribution of measured \snr\ for the
 COSMOS simulations, as well as for the \bdkfull\ simulation
 \bdksim.  Also shown is the distribution of the half-light-radius \hlr\
 for the two simulations.
-
-\begin{figure*}
-	\begin{center}
-    \includegraphics[width=0.8\textwidth]{mcal-v14s01-s2n-and-r50-with-nsim.eps}
-
-		\caption{Distribution of properties in the COSMOS real galaxy simulations. The
-		left panel contains the distribution of measured S/N, while the right panel contains
-		the distribution of half-light-radius from the cosmos catalog for the input
-		galaxies.  For comparison, the distributions for the \bdkfull\ \bdksim\ simulations
-		are overplotted as dashed lines.}
-	\end{center}
-\label{fig:cosmos}
-\end{figure*}
 
 
 Note that the galaxies used in the parametric sims presented in \S
@@ -1297,6 +1319,18 @@ simulation to be more challenging than the parametric simulation in every
 aspect. We include it to directly test the robustness of \mcal\ to special
 properties of real galaxies that may not appear in our \bdkfull\ simulation,
 and to test shear recovery using a more realistic PSF.  
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.8\textwidth]{mcal-v14s01-s2n-and-r50-with-nsim.eps}
+
+		\caption{Distribution of properties in the COSMOS real galaxy simulations. The
+		left panel contains the distribution of measured S/N, while the right panel contains
+		the distribution of half-light-radius from the cosmos catalog for the input
+		galaxies.  For comparison, the distributions for the \bdkfull\ \bdksim\ simulations
+		are overplotted as dashed lines.}
+\label{fig:cosmos}
+\end{figure}
 
 
 \section{Model Fitting and Metacalibration Operations} \label{sec:modelfit}
@@ -1377,9 +1411,9 @@ the \bdstar\ simulation.  The distribution of \mcalR\ is quite symmetric in the
 absence of stellar contamination.  We will discuss the affect of stars in \S
 \ref{sec:stars}.
 
-\begin{figure}[h]
+\begin{figure}
     \centering
-    \includegraphics[width=\columnwidth]{R-bdj03-bdj03stars.eps}
+    \includegraphics[width=0.8\textwidth]{R-bdj03-bdj03stars.eps}
 
     \caption{Distribution of \mcal\ responses for galaxies and stars in
     the \bdstar\ simulation.  Stars have mean response close to zero,
@@ -1387,20 +1421,6 @@ absence of stellar contamination.  We will discuss the affect of stars in \S
 
 \label{fig:Rstars}
 \end{figure}
-
-
-
-\subsection{Shear Recovery} \label{sec:shear_recover}
-
-
-In table \ref{tab:results} we show results for shear recovery in each of our
-simulations.  As was discussed in \S \ref{sec:preselect}, we applied a
-preselection to the \bdksim\ simulation at measured \snr$ > 5$, which imposes
-a selection bias.  We thus placed cuts at higher \snr\ than this threshold, so
-that the corrections for selection effects presented in \S \ref{sec:formalism}
-could be used accurately.  In this table we show results for \snr$ > 10$.  For
-the \rgsim\ simulation we did not apply a preselection.
-
 
 \begin{table}
     \centering
@@ -1417,21 +1437,34 @@ the \rgsim\ simulation we did not apply a preselection.
 		\tableline
     \end{tabular}
 
-	\parbox{0.9\columnwidth}{
-		\caption{\begin{flushleft}\Mcal\ results for each image simulation described in
-			\S \ref{sec:sims} and table \ref{tab:sims}.  For each simulation,
-			a cut was placed at \snr$ > 10$, and corrections were applied
-			for selection effects (see table \ref{tab:results_sel} for more
-			results on selections).  A single Gaussian was fit
-		to the observed object, with no PSF correction applied.
-		No multiplicative or additive bias was detected in any case. 
-		Stellar contamination at the level of \nsimNstarperc\ increases
-		the noise in the recovered shear by \starnoiseincrease\ but does not introduce 
-		a significant bias.  
-		\label{tab:results}\end{flushleft}}
-	}
+        \caption{\Mcal\ results for each image simulation described in
+            \S \ref{sec:sims} and table \ref{tab:sims}.  For each simulation,
+            a cut was placed at \snr$ > 10$, and corrections were applied
+            for selection effects (see table \ref{tab:results_sel} for more
+            results on selections).  A single Gaussian was fit
+        to the observed object, with no PSF correction applied.
+        No multiplicative or additive bias was detected in any case. 
+        Stellar contamination at the level of \nsimNstarperc\ increases
+        the noise in the recovered shear by \starnoiseincrease\ but does not introduce 
+        a significant bias.  
+        \label{tab:results}}
 
 \end{table}
+
+
+
+
+\subsection{Shear Recovery} \label{sec:shear_recover}
+
+
+In table \ref{tab:results} we show results for shear recovery in each of our
+simulations.  As was discussed in \S \ref{sec:preselect}, we applied a
+preselection to the \bdksim\ simulation at measured \snr$ > 5$, which imposes
+a selection bias.  We thus placed cuts at higher \snr\ than this threshold, so
+that the corrections for selection effects presented in \S \ref{sec:formalism}
+could be used accurately.  In this table we show results for \snr$ > 10$.  For
+the \rgsim\ simulation we did not apply a preselection.
+
 
 Using \mcal\ we found no significant multiplicative or additive biases.
 Without applying the \mcal\ responses, the multiplicative bias $m$ was of order
@@ -1450,34 +1483,11 @@ graphically in figures \ref{fig:s2nthresh} and \ref{fig:s2nthresh_nocorr}.  The
 cuts were all placed above the preselection at \snr$ > 5$ to guarantee the
 validity of the corrections.
 
-\begin{table*}
-    \centering
-    \begin{tabular}{ l cc  cc}
-        \tableline
-       \rule{0pt}{3ex} & \multicolumn{2}{c}{Uncorrected for Selection}                      & \multicolumn{2}{c}{Corrected for Selection} \\
-        Selection                   & $m$             & $c$            & $m$               & $c$  \\
-                                    & $[10^{-3}]$     & $[10^{-5}]$    & $[10^{-3}]$       & $[10^{-5}]$ \\
-        \tableline
-        \tableline
-\rule{0pt}{3ex}$\mbox{\snr} > 7 $ & $+15.55 \pm 0.34$ & $+0.80 \pm 0.68$ & $+0.55 \pm 0.34$ & $+0.79 \pm 0.67$ \\
-$\mbox{\snr} > 10 $ & $+3.78 \pm 0.31$ & $-0.15 \pm 0.62$ & $+0.03 \pm 0.31$ & $-0.15 \pm 0.62$ \\
-$\mbox{\snr} > 13 $ & $-1.46 \pm 0.31$ & $+0.27 \pm 0.63$ & $+0.03 \pm 0.31$ & $+0.27 \pm 0.63$ \\
-$\mbox{\snr} > 16 $ & $-4.58 \pm 0.33$ & $+0.44 \pm 0.67$ & $+0.26 \pm 0.34$ & $+0.44 \pm 0.67$ \\
-$\mbox{\snr} > 19 $ & $-8.33 \pm 0.36$ & $+0.17 \pm 0.73$ & $+0.05 \pm 0.37$ & $+0.18 \pm 0.73$ \\
-        \tableline
-    \end{tabular}
 
-	\parbox{0.9\textwidth}{
-		\caption{\begin{flushleft}\Mcal\ results for the \bdksim\ simulation with various
-			cuts on signal-to-noise ratio \snr.   Results are shown with and without corrections
-			for selection effects.
-		\label{tab:results_sel}\end{flushleft}}
-	}
-\end{table*}
 
-\begin{figure}[h]
+\begin{figure}
     \centering
-    \includegraphics[width=\columnwidth]{mc-select-bias-thresh.eps}
+    \includegraphics[width=0.8\textwidth]{mc-select-bias-thresh.eps}
 
     \caption{Multiplicative (upper panel) and
 		additive bias (lower panel) in the \bdksim\ simulation after applying
@@ -1487,10 +1497,9 @@ $\mbox{\snr} > 19 $ & $-8.33 \pm 0.36$ & $+0.17 \pm 0.73$ & $+0.05 \pm 0.37$ & $
 \label{fig:s2nthresh}
 \end{figure}
 
-
-\begin{figure}[h]
+\begin{figure}
     \centering
-    \includegraphics[width=\columnwidth]{mc-select-bias-thresh-with-nocorr.eps}
+    \includegraphics[width=0.8\textwidth]{mc-select-bias-thresh-with-nocorr.eps}
 
 	\caption{Same as the top panel of figure \ref{fig:s2nthresh}, but now
 additionally showing the multiplicative bias without corrections for selection
@@ -1509,45 +1518,6 @@ part-in-a-thousand accuracy.  After correction, we found that the
 multiplicative bias was less than a part in a thousand in all cases.  We did
 not find any additive selection biases, which suggests that our procedure of
 reconvolving by a symmetrized PSF was sufficient for these simulations.
-
-
-\begin{comment}
-\begin{table*}
-    \centering
-    \caption{\Mcal\ results for the \bdksim\ simulation with various
-        cuts on \snr.   Results are shown with and without corrections
-        for selection effects.
-    \label{tab:results_sel}}
-    \begin{tabular}{ |l| |c| c|c|c|  c|c|c|}
-        \hline
-        & & \multicolumn{3}{c}{Uncorrected for Selection}                      & \multicolumn{3}{c}{Corrected for Selection} \\
-        Selection                   & Fraction Kept & $m$             & $c_1$            & $c_2$            & $m$               & $c_1$            & $c_2$ \\
-                                    &               & $[10^{-3}]$      & $[10^{-4}]$      & $[10^{-4}]$      & $[10^{-3}]$       & $[10^{-4}]$      & $[10^{-4}]$ \\
-        \hline
-        $\mbox{\snr} > 0$           & 1.00          & -                & -                & -                & $-0.91 \pm 0.19$  & $-0.04 \pm 0.09$ & $+0.17 \pm 0.09$  \\
-        $\mbox{\snr} > 7$           & 0.83          & $+2.53 \pm 0.19$ & $-0.05 \pm 0.10$ & $0.93 \pm 0.10$  & $-0.15 \pm 0.19$  & $-0.05 \pm 0.10$ & $+0.17 \pm 0.10$  \\
-        $\mbox{\snr} > 10$          & 0.60          & $+3.48 \pm 0.20$ & $-0.00 \pm 0.10$ & $0.81 \pm 0.10$  & $-0.10 \pm 0.20$  & $-0.00 \pm 0.10$ & $+0.15 \pm 0.10$  \\
-        $\mbox{\snr} > 13$          & 0.46          & $+2.61 \pm 0.20$ & $+0.04 \pm 0.10$ & $0.58 \pm 0.10$  & $-0.09 \pm 0.20$  & $+0.04 \pm 0.10$ & $+0.13 \pm 0.10$  \\
-        $\mbox{\snr} > 16$          & 0.39          & $+1.85 \pm 0.21$ & $+0.07 \pm 0.11$ & $0.49 \pm 0.11$  & $-0.04 \pm 0.21$  & $+0.07 \pm 0.11$ & $+0.14 \pm 0.11$  \\
-        $\mbox{\snr} > 19$          & 0.33          & $+0.98 \pm 0.22$ & $+0.03 \pm 0.11$ & $0.42 \pm 0.11$  & $-0.23 \pm 0.22$  & $+0.03 \pm 0.11$ & $+0.12 \pm 0.11$  \\
-
-        \hline
-
-        $\mbox{\snr} \in [ 7,  16]$ & 0.44          & $+3.68 \pm 0.38$ & $-0.29 \pm 0.19$ & $1.70 \pm 0.19$  & $-0.37 \pm 0.38$  & $-0.29 \pm 0.19$ & $+0.22 \pm 0.19$  \\
-        $\mbox{\snr} \in [16,  37]$ & 0.22          & $+4.55 \pm 0.33$ & $+0.12 \pm 0.17$ & $0.70 \pm 0.17$  & $-0.41 \pm 0.33$  & $+0.12 \pm 0.17$ & $+0.21 \pm 0.17$  \\
-        $\mbox{\snr} \in [37,  87]$ & 0.10          & $+0.21 \pm 0.37$ & $-0.27 \pm 0.19$ & $0.04 \pm 0.19$  & $+0.14 \pm 0.37$  & $-0.13 \pm 0.19$ & $-0.17 \pm 0.19$  \\
-        $\mbox{\snr} \in [87, 200]$ & 0.04          & $-2.00 \pm 0.52$ & $-0.04 \pm 0.26$ & $0.81 \pm 0.26$  & $+0.22 \pm 0.52$  & $-0.04 \pm 0.26$ & $+0.61 \pm 0.26$  \\
-
-        %$\mbox{\snr} \in [7, 10.84]$      & 0.27     & $-0.37 \pm 0.55$ & $-0.38 \pm 0.27$ & $1.78 \pm 0.27$  & $-0.11 \pm 0.55$  & $-0.38 \pm 0.27$ & $0.27 \pm 0.27$  \\
-        %$\mbox{\snr} \in [10.84, 22.73]$  & 0.27     & $+7.44 \pm 0.37$ & $-0.03 \pm 0.18$ & $1.16 \pm 0.18$  & $-0.41 \pm 0.37$  & $-0.03 \pm 0.18$ & $0.09 \pm 0.18$  \\
-        %$\mbox{\snr} > 22.73$          & 0.27     & $+0.47 \pm 0.23$ & $+0.05 \pm 0.12$ & $0.46 \pm 0.12$  & $-0.02 \pm 0.23$  & $+0.05 \pm 0.12$ & $0.20 \pm 0.12$  \\
-
-
-    \end{tabular}
-\end{table*}
-\end{comment}
-
-
 
 
 \subsubsection{Results with Stellar Contamination} \label{sec:stars}
@@ -1583,6 +1553,31 @@ desirable that the redshift estimates for stars be close to zero, so that the
 weighted redshift distribution is minimally contaminated.
 
 
+
+\begin{table}
+    \centering
+    \begin{tabular}{ l cc  cc}
+        \tableline
+       \rule{0pt}{3ex} & \multicolumn{2}{c}{Uncorrected for Selection}                      & \multicolumn{2}{c}{Corrected for Selection} \\
+        Selection                   & $m$             & $c$            & $m$               & $c$  \\
+                                    & $[10^{-3}]$     & $[10^{-5}]$    & $[10^{-3}]$       & $[10^{-5}]$ \\
+        \tableline
+        \tableline
+\rule{0pt}{3ex}$\mbox{\snr} > 7 $ & $+15.55 \pm 0.34$ & $+0.80 \pm 0.68$ & $+0.55 \pm 0.34$ & $+0.79 \pm 0.67$ \\
+$\mbox{\snr} > 10 $ & $+3.78 \pm 0.31$ & $-0.15 \pm 0.62$ & $+0.03 \pm 0.31$ & $-0.15 \pm 0.62$ \\
+$\mbox{\snr} > 13 $ & $-1.46 \pm 0.31$ & $+0.27 \pm 0.63$ & $+0.03 \pm 0.31$ & $+0.27 \pm 0.63$ \\
+$\mbox{\snr} > 16 $ & $-4.58 \pm 0.33$ & $+0.44 \pm 0.67$ & $+0.26 \pm 0.34$ & $+0.44 \pm 0.67$ \\
+$\mbox{\snr} > 19 $ & $-8.33 \pm 0.36$ & $+0.17 \pm 0.73$ & $+0.05 \pm 0.37$ & $+0.18 \pm 0.73$ \\
+        \tableline
+    \end{tabular}
+
+	\parbox{0.9\textwidth}{
+		\caption{\Mcal\ results for the \bdksim\ simulation with various
+			cuts on signal-to-noise ratio \snr.   Results are shown with and without corrections
+			for selection effects.
+		\label{tab:results_sel}}
+	}
+\end{table}
 
 
 
@@ -1643,6 +1638,7 @@ relatively unimportant.  Nevertheless, we consider it worthwhile to explore
 alternative corrections that do not involve adding significant noise.
 
 
+\newpage
 \section{Weak Shear Approximation} \label{sec:weakshear}
 
 In deriving the response terms in \S \ref{sec:formalism}, we assumed the shear
@@ -1679,7 +1675,7 @@ we reach the threshold for shears higher than about 0.03.
 
 \begin{figure}
 	\centering
-    \includegraphics[width=\columnwidth]{weaklens-approx.eps}
+    \includegraphics[width=0.8\textwidth]{weaklens-approx.eps}
 
     \caption{Multiplicative bias as a function of applied shear in two types of
     simulations.  The circles represent the results for the toy simulation
@@ -1704,6 +1700,7 @@ measurements of higher shear, such as tangential shear measurements near the
 centers of galaxy clusters.  We will explore strategies to mitigate this
 potential bias in a future work.  
 
+\newpage
 \section{Computation Time}
 
 \mcal\ involves performing image manipulations five times, one for the zero
@@ -1817,7 +1814,7 @@ As indicated in table \ref{tab:selresults},
 these cuts lead to a monotonic change in the recovered shear, with a few
 tenths of a percent bias for a $S/N > 20$ cut.
 
-\begin{table*}
+\begin{table}
     \centering
     \caption{\Mcal\ results when applying selections on the signal-to-noise ratio (S/N) to the \bdksim\ simulations. Selections
     were applied to an initially unbiased sample; i.e. no {\em detection}
@@ -1833,7 +1830,7 @@ tenths of a percent bias for a $S/N > 20$ cut.
         $(S/N) > 15$   & $-2.3 \pm 0.5$ & $0.0 \pm 0.3$ & $0.0 \pm 0.3$ & $-0.9 \pm 0.5$ & $0.0 \pm 0.3$ & $0.0 \pm 0.3$  \\
         $(S/N) > 20$   & $-2.7 \pm 0.6$ & $-0.3 \pm 0.3$ & $-0.2\pm 0.3$ & $-0.9 \pm 0.6$ & $-0.3 \pm 0.3$ & $-0.2 \pm 0.3$  \\
     \end{tabular}
-\end{table*}
+\end{table}
 
 We implemented a simple correction based on our \mcal\ measurements.  We
 sheared the population of ellipticities with a fake shear using the measured
@@ -1948,13 +1945,11 @@ simulation.
 
 \begin{figure}
 	\centering
-    \includegraphics[width=0.5\columnwidth]{mcal-v14s01-Rnoise-detrend-R11.eps}
-
+    \includegraphics[width=0.8\textwidth]{mcal-v14s01-Rnoise-detrend-R11.eps}
     \caption{Trend of $\Delta R_{1,1}$ with $2 n \Delta n$ for the
         real galaxy simulation.   $n$ is the
     original noise level and $\Delta n$ is the additional noise added.  The
     trend is linear as predicted.}
-
 \label{fig:detrend}
 \end{figure}
 
@@ -2031,7 +2026,7 @@ We detected significant bias using both exponential and Gaussian
 models for the galaxy.  We found a remaining bias of  $m \sim 4 \times
 10^{-3}$ in the \rgsim\ simulations.
 
-\begin{table*}
+\begin{table}
     \centering
     \begin{tabular}{ c  c }
         Subset Size & Extra Error \\
@@ -2041,14 +2036,12 @@ models for the galaxy.  We found a remaining bias of  $m \sim 4 \times
         10\% & 0.3\% \\
     \end{tabular}
 
-    \parbox{0.7\columnwidth}{
-		\caption{\begin{flushleft}Additional variance in the recovered shear 
+		\caption{Additional variance in the recovered shear 
 			using differently sized subsets to
 			estimate the detrending corrections.  Values were obtained
-		from 100 bootstrap samples. \label{tab:subsets}\end{flushleft}}
-	}
+		from 100 bootstrap samples. \label{tab:subsets}}
 
-\end{table*}
+\end{table}
 %        1\% & 30\% \\
 %        5\% & 13\% \\
 %        10\% & 8\% \\
@@ -2079,7 +2072,7 @@ this increased sensitivity is necessarily an advantage.
 
 \begin{figure}[h]
 	\centering
-    \includegraphics[width=0.5\columnwidth]{R-bd29-bd29stars.eps}
+    \includegraphics[width=0.8\textwidth]{R-bd29-bd29stars.eps}
 
     \caption{Distribution of shear response in the \bdkfull\ simulations
     for a shear estimator based on  forward-modeling maximum likelihood fitting.
