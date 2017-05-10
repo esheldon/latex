@@ -272,7 +272,7 @@ be accurate, the model must accurately reproduce the galaxy profile before
 noise and convolution by the PSF, which requires a large number of parameters.
 If the model cannot sufficiently reproduce the galaxy the estimator is said to
 exhibit ``model bias'' \citep{Bernstein2010}.  The second is the bias in the
-non-linear model fitting caused by noise, which is significant for images with low
+nonlinear model fitting caused by noise, which is significant for images with low
 signal-to-noise ratios (\snr), and is difficult to predict
 \citep{HirataAlign04,Refreg12,Melchior12}.  This ``noise bias'' is made worse
 if large number of model parameters are used in an attempt to accurately
@@ -296,7 +296,7 @@ for galaxy images with high \snr, with little model bias
 \citep{Bernstein2010,Okura2016}.  However, unlike model fitting approaches,
 missing data and light from nearby objects cannot be ``masked-out'' or ignored.
 Also, these methods still suffer the ``noise bias'' found in model fitting
-methods as a result of the non-linear fitting involved with the measurement.
+methods as a result of the nonlinear fitting involved with the measurement.
 Without further development, these methods are not accurate at the part in a
 thousand level.
 
@@ -309,7 +309,7 @@ Methods have recently been developed to avoid some of these biases without
 relying on calibration from simulations.  The method of \cite{Zhang2017}
 involves measuring the weighted moments in Fourier space, after subtracting an
 appropriate noise power spectrum to deal with noise effects, and deconvolving
-the PSF.  No non-linear fitting is performed.  The shear is then estimated
+the PSF.  No nonlinear fitting is performed.  The shear is then estimated
 either from the ratio of sums of these moments \citep{Zhang2015}, or the PDF of
 the un-normalized moments is symmetrized in order to infer an applied shear
 \citep{Zhang2017}.  The sum method was shown to be accurate at the part in a
@@ -323,7 +323,7 @@ Another new approach is the Bayesian Fourier Domain (\bfd) method for shear
 inference introduced by \cite{ba14} and further developed by \cite{bfd2016}.  A
 rigorous Bayesian framework was presented, in which prior information on galaxy
 images from much deeper data is included.  Un-normalized moments in
-Fourier space are used as the basic data vector, avoiding non-linear fitting
+Fourier space are used as the basic data vector, avoiding nonlinear fitting
 issues.  \bfd\ is also the first method for which selection effects are
 corrected for naturally in the formalism, without use of external
 simulations.  The method was tested in \cite{bfd2016} using a challenging
@@ -1653,30 +1653,29 @@ the multiplicative bias to have the following generic form \citep{bfd2016}:
 	B(\gamma) = m + \alpha \gamma^2 + O(\gamma^4)
 \end{align}
 
-We tested the bias from non-linearity using both the \bdksim\ image
-simulations and a ``toy model'', inspired by that used in \citep{ba14}.
+We tested the bias from nonlinearity using both the \bdksim\ image
+simulations and a ``toy model,'' inspired by that used in \citep{ba14}.
 For the \bdksim\ image simulations, we ran tests with shears of
 0.06 and 0.10, in addition to the 0.02 discussed above.
 
 For the toy model we drew ellipticities from the distribution given in equation
 \ref{eq:edist} and added constant shear analytically using the standard shear
 transformation equations \citep{SeitzSchneider97}.  We then multiplied by a
-bias factor of 0.6, and added Guassian noise to each ellipticity component with
+bias factor of 0.6 and added Guassian noise to each ellipticity component with
 scatter of 0.2. We truncated the total ellipticity to be less than unity,
 making the noise effectively non-Gaussian.  We performed \mcal\ operations by
-analytically shearing the shapes.  Note we did not shear the noise, so sheared
-noise effects as seen in the image simulations are not present.
+analytically shearing the shapes.  Note that we did not shear the noise, so
+sheared noise effects as seen in the image simulations are not present.
 
 In figure \ref{fig:weaklens} we show the results.  Fitting the bias model in
 equation \ref{eq:breakdown}, we found $m \sim 0$ and $\alpha \sim 1$ for the
 toy model.  For the image simulations we found $m \sim 0$ and $\alpha \sim
-0.6$. We note that \cite{bfd2016} also found the value of $\alpha$
-depended on the type of simulation used, with values for $\alpha$
-as large as 2.
-Taking the value of $\alpha$ from the image simulation, we find that the
-non-linearity in this simulation becomes greater than our part in a thousand
-goal for shears greater than about 0.04.  Using $\alpha=1$ from the toy
-model the threshold is reached for shears higher than about 0.03.
+0.6$. We note that \cite{bfd2016} also found that the value of $\alpha$
+depended on the type of simulation used, with values for $\alpha$ as high as
+2.  Taking the value of $\alpha$ from the image simulation, we find that the
+nonlinearity in this simulation becomes greater than our part in a thousand
+goal for shears greater than about 0.04.  Using $\alpha=1$ from the toy model,
+we reach the threshold for shears higher than about 0.03.
 
 \begin{figure}
 	\centering
@@ -1716,7 +1715,7 @@ tests the time was dominated by the image manipulations, primarily the Fourier
 transforms used for convolutions.  The image manipulations dominated partly
 because we used the fast \ngmix\ code; fitting each image took only about 0.001
 seconds, so about 0.005 to fit all five images.  For slower fitting codes, the
-\mcal\ manipulations may be sub-dominant.
+\mcal\ manipulations may be subdominant.
 
 It may be that further optimization is possible.  For example, a code that
 works entirely in Fourier space could avoid rendering the reconvolved image in
@@ -1967,7 +1966,7 @@ simulation.
 Measuring the \detrend\ parameters requires extra computations, at least a
 factor of three to fit the linear parameters given in \S \ref{sec:detrend}, and
 a factor of four if an additional point is used to check for possible
-non-linearity. These extra computations could be expensive for large surveys.  
+nonlinearity. These extra computations could be expensive for large surveys.  
 
 However, the \detrend\ parameters are more precisely measured than the shear
 itself.  Here we explore the precision of the recovered shear using smaller
