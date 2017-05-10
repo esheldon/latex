@@ -4,7 +4,7 @@
 %\documentclass[a4paper,fleqn,referee,usenatbib]{mnras}
 %\pdfoutput=1
 
-\documentclass[iop]{emulateapj}
+\documentclass[iop, twocolappendix, appendixfloats, numberedappendix, apj]{emulateapj}
 
 
 % only needed for draft watermark
@@ -522,6 +522,7 @@ are relatively well measured, even for galaxies with very low \snr, and the aver
 equation \ref{eq:rcorr} is adequate to infer the correct shear. 
 
 
+\pagebreak
 \section{Full Metacalibration Formalism} \label{sec:formalism}
 
 %  ['%.1f' % (sqrt(2)*s,) for s in [7,10,13,16,19]]
@@ -1216,6 +1217,7 @@ were removed from the analysis.  Then, as discussed in \S
 this threshold in order to minimize the bias that is due to removal of these galaxies.
 
 
+\pagebreak
 \subsection{Real-Galaxy Simulations} \label{sec:cosmosim}
 
 We designed a second set of simulations to mimic the ``real-galaxy'' constant
@@ -1275,7 +1277,7 @@ COSMOS simulations, as well as for the \bdkfull\ simulation
 for the two simulations.
 
 \begin{figure*}
-	\begin{center}
+    \centering
     \includegraphics[width=0.8\textwidth]{mcal-v14s01-s2n-and-r50-with-nsim.eps}
 
 		\caption{Distribution of properties in the COSMOS real galaxy simulations. The
@@ -1283,7 +1285,6 @@ for the two simulations.
 		the distribution of half-light-radius from the cosmos catalog for the input
 		galaxies.  For comparison, the distributions for the \bdkfull\ \bdksim\ simulations
 		are overplotted as dashed lines.}
-	\end{center}
 \label{fig:cosmos}
 \end{figure*}
 
@@ -1297,7 +1298,6 @@ simulation to be more challenging than the parametric simulation in every
 aspect. We include it to directly test the robustness of \mcal\ to special
 properties of real galaxies that may not appear in our \bdkfull\ simulation,
 and to test shear recovery using a more realistic PSF.  
-
 
 \section{Model Fitting and Metacalibration Operations} \label{sec:modelfit}
 
@@ -1948,7 +1948,7 @@ simulation.
 
 \begin{figure}
 	\centering
-    \includegraphics[width=0.5\columnwidth]{mcal-v14s01-Rnoise-detrend-R11.eps}
+    \includegraphics[width=\columnwidth]{mcal-v14s01-Rnoise-detrend-R11.eps}
 
     \caption{Trend of $\Delta R_{1,1}$ with $2 n \Delta n$ for the
         real galaxy simulation.   $n$ is the
@@ -2031,7 +2031,7 @@ We detected significant bias using both exponential and Gaussian
 models for the galaxy.  We found a remaining bias of  $m \sim 4 \times
 10^{-3}$ in the \rgsim\ simulations.
 
-\begin{table*}
+\begin{table}
     \centering
     \begin{tabular}{ c  c }
         Subset Size & Extra Error \\
@@ -2048,7 +2048,7 @@ models for the galaxy.  We found a remaining bias of  $m \sim 4 \times
 		from 100 bootstrap samples. \label{tab:subsets}\end{flushleft}}
 	}
 
-\end{table*}
+\end{table}
 %        1\% & 30\% \\
 %        5\% & 13\% \\
 %        10\% & 8\% \\
@@ -2079,7 +2079,7 @@ this increased sensitivity is necessarily an advantage.
 
 \begin{figure}[h]
 	\centering
-    \includegraphics[width=0.5\columnwidth]{R-bd29-bd29stars.eps}
+    \includegraphics[width=\columnwidth]{R-bd29-bd29stars.eps}
 
     \caption{Distribution of shear response in the \bdkfull\ simulations
     for a shear estimator based on  forward-modeling maximum likelihood fitting.
