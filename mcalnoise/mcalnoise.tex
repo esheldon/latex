@@ -585,7 +585,7 @@ averaging the responses as measured for each object.
 Now consider a selection that modifies the distribution of the measurement
 \vest.  We will write this selection function as $S(\vest)$, the
 probability of selecting an object with ellipticity \vest, although the
-selection may be indirect, for example a cut on \snr.  This selection function
+selection may be indirect, for example, a cut on \snr.  This selection function
 could also represent some kind of weighting scheme that indirectly weights by
 ellipticity.
 
@@ -595,7 +595,7 @@ After introducing a selection, the mean becomes
 \end{align}
 We will assume the $\int d\vest P(\vest) S(\vest) = 1$, and continue to ignore
 the higher order effect from changes in the normalization under shear.
-Again, assuming a small shear, and that galaxy orientations are random in the
+Again, assuming a small shear and that galaxy orientations are random in the
 absence of shear, the mean ellipticity after selection can be rewritten, to
 leading order, as
 \begin{align}
@@ -613,13 +613,13 @@ The probability that an object is selected changes after it is sheared.
 
 This response with selections can be calculated using quantities measured on
 artifically sheared images. It is useful to examine separately the response of
-the estimator $\vest$ to a shear, and the response of selection effects to a shear:
+the estimator $\vest$ to a shear and the response of selection effects to a shear:
 \begin{align}
     \mcalRmean  &= \int \frac{\partial S(\vest) P(\vest) \vest  }{\partial \vecg}\bigg|_{\gamma=0} d\vest \nonumber \\
     &= \int \left[ S(\vest) \frac{\partial P(\vest) \vest}{\partial \vecg}\bigg|_{\gamma=0} +  P(\vest) \vest  \frac{\partial S(\vest)}{\partial \vecg}\bigg|_{\gamma=0} \right] d\vest
 \end{align}
-Note the first term is identical to the response in equation \ref{eq:basicR},
-but now with selections applied.  As we will see, the second term represents the
+Note that the first term is identical to the response in equation \ref{eq:basicR},
+but now with selections applied.  As we show below, the second term represents the
 response of selection effects to a shear.
 
 We will again approximate the derivatives using finite differences in the shear.
@@ -685,16 +685,16 @@ following:
 
 
 
-\subsection{Response for 2-point Functions} \label{sec:Rtwopt}
+\subsection{Response for Two-point Functions} \label{sec:Rtwopt}
 
-We can extend this formalism to 2-point functions of the ellipticity also known
+We can extend this formalism to two-point functions of the ellipticity also known
 as shear-shear correlations.  In this type of measurement, the product of
 ellipticites for objects or regions of sky separated by some finite distance is
 averaged.  Because the mass causing the lensing effect is correlated, the
-shears will be correlated as well. The 2-point function can thus be interpreted
+shears will be correlated as well. The two-point function can thus be interpreted
 to constrain the correlations in the mass.
 
-We will write the 2-point function as
+We will write the two-point function as
 \begin{align}
     \xi &= \langle \vest_\alpha \vest_\beta \rangle \nonumber \\
         &= \int \mbox{\probe} \vest_\alpha \vest_\beta d \vest_\alpha d \vest_\beta
@@ -705,13 +705,13 @@ separated regions of sky.  Including selection effects, this becomes
 \begin{align}
     \xi &= \int \mbox{\probe} S_\alpha S_\beta \vest_\alpha \vest_\beta d \vest_\alpha d \vest_\beta
 \end{align}
-where the selections are independent on each object.  Note we have used
+where the selections are independent for each object.  Note that we have used
 the shorthand $S(\vest_\alpha) \rightarrow S_\alpha$.
 
-Adopting the symmetry assumptions used in \S \ref{sec:Rmean}, and additionally that
-the mean shear is zero over a large area of sky used to measure
-the 2-point function, the leading
-term in the Taylor expansion is a second derivative
+Adopting the symmetry assumptions used in \S \ref{sec:Rmean} and additionally
+assuming that the mean shear is zero over a large area of sky used to measure
+the two-point function, the leading term in the Taylor expansion is a second
+derivative,
 \begin{align} \label{eq:basictwopt}
 \xi &\approx \int d \vest_\alpha  d\vest_\beta  \frac{\partial^2 S_\alpha S_\beta \mbox{\probe} \vest_\alpha \vest_\beta}{\partial \vecg_\alpha \partial \vecg_\beta}\bigg|_{\gamma=0}  \vecg_\alpha \vecg_\beta \nonumber \\
     &\equiv \left<  \mbox{\mcalRtwopt} \vecg_\alpha \vecg_\beta  \right>.
@@ -731,7 +731,7 @@ that takes the form of a weighted average:
     \xi \approx  \mcalRtwoptmean^{-1} \langle \vest_\alpha \vest_\beta \rangle \approx \mcalRtwoptmean^{-1} \left<  \mbox{\mcalRtwopt} \vecg_\alpha \vecg_\beta  \right>.
 \end{align}
 
-Note the joint probability distribution \probe\ is not separable 
+Note that the joint probability distribution \probe\ is not separable 
 because the shear at each galaxy $\alpha$ is correlated with that at galaxy
 $\beta$. However, assuming the shapes of galaxies are not correlated in the absence of
 lensing, \probe\ is separable at zero shear such that $\mbox{\probe}|_{\gamma=0}
@@ -753,7 +753,7 @@ For cross-correlations, the separate mean responses given in equation
 For auto-correlations, these two responses \mcalRmeanalpha\ and
 \mcalRmeanbeta\ are identical, and are each equal to the
 response of the mean shear given in equation \ref{eq:Rmean}.  In
-that case the response
+that case, the response
 of the two-point auto-correlation function is approximately given by
 \begin{align}
     %\left< R^{2pt} \right> = \left< \frac{\partial^2 \xi}{\partial \gamma_\alpha \partial \gamma_\beta}\bigg|_{\gamma=0} \right> \approx \mbox{\mcalRmean}^2.
@@ -782,7 +782,7 @@ biases that depend on the local galaxy density (see \S
 %response.
 
 In what follows we test the formulas for mean shear.  We will test the
-response for 2-point functions in a future work.
+response for two-point functions in a future work.
 
 \subsection{Remarks on Selections}
 
@@ -790,27 +790,27 @@ Selections that produce additive effects are not addressed in the above.  If a
 circular reconvolution function used, as we will do (see \S
 \ref{sec:modelfit}), then selections on object properties will not be
 correlated with the PSF shape, by construction, and thus no net additive bias
-will be introduced. Note, however, that pre-selections, for example detection
+will be introduced. Note, however, that preselections, for example detection
 thresholds, will in general produce such biases.  We will test the importance
-of pre-selections with image simulations below.
+of preselections with image simulations below.
 
 
 It is important that the selections be placed well above any detection
-thresholds, such that, after shearing, detected objects can move into and out
+thresholds, such that after shearing, detected objects can move into and out
 of the selected sample.  If the selection were too close to a detection
 threshold, some objects that should become detectable after
 a shear would not be included.
 
 In real data, a selection may directly or indirectly select the redshift of the
-sources, which means the true shear will be different after selection, even in
-the absence of selection biases.  This must be taken into account separately.
-We will not treat this effect in what follows.
+sources, which means that the true shear will be different after selection,
+even in the absence of selection biases.  This must be taken into account
+separately.  We do not treat this effect in what follows.
 
-Note if the selection function $S(\vest)$ is a step function, the derivative of
-$S(\vest)$ in \ref{eq:Rmean} will be infinite.  Thus one should avoid placing
-threshold cuts directly on the ellipticities.  However, it is valid to place
-cuts on other observables, such as \snr, that will result in a smooth selection
-on the ellipticity.
+Note that if the selection function $S(\vest)$ is a step function, the
+derivative of $S(\vest)$ in \ref{eq:Rmean} will be infinite.  Thus one should
+avoid placing threshold cuts directly on the ellipticities.  However, it is
+valid to place cuts on other observables, such as \snr, which will result in a
+smooth selection on the ellipticity.
 
 
 \subsection{Remarks on Intrinsic Alignments} \label{sec:IA}
@@ -825,10 +825,9 @@ dealt with by calculating the full pair-weighted response in equation
 \ref{eq:Rseparable}.  However, the signal itself will be biased by the presence
 of IA.  A number of methods  have been proposed to correct for the
 contaminating effect of IA in the shear \citep{TroxelIAReview2015}.  With
-\mcal, we can include the correct shear
-weighting that occurs due to the non-unity response of the shear estimate,
-which should improve the accuracy of the corrections (see
-\S \ref{sec:weighting}).
+\mcal, we can include the correct shear weighting that occurs as a result of
+the non-unity response of the shear estimate, which should improve the accuracy
+of the corrections (see \S \ref{sec:weighting}).
 
 
 \begin{comment}
@@ -1005,7 +1004,7 @@ a coadded image.  For a description of such a processing scheme see, for example
 \section{Weighted Averages for Associated Parameters} \label{sec:weighting}
 
 As discussed in \S \ref{sec:formalism}, if a shear estimator has
-non-unity response, the mean shear (or 2-point function) is effectively
+non-unity response, the mean shear (or two-point function) is effectively
 weighted.  If we know the responses we can form a weighted average.
 
 When averaging associated quantities, such as redshifts, one should also weight
@@ -1153,7 +1152,7 @@ galaxies.   Shown are both the true input \snr\ and the distribution of true
 is that calculated by \galsim, and is the maximal \snr\ based on the true model
 \citep{Jarvis2016}.  The measured \snr\ is noisy and biased (see \S
 \ref{sec:results}), being derived from a single-Gaussian model, so the cut
-results in a smooth rolloff in the true \snr.  This \snr\ pre-selection results
+results in a smooth rolloff in the true \snr.  This \snr\ preselection results
 in a noisy cut on magnitude.  The resulting input catalog for \mcal\ has a
 limiting magnitude of COSMOS i-band $\sim$25, but with a significant number
 of objects removed at brighter magnitudes.
@@ -1195,14 +1194,14 @@ drawn as PSFs, with the same flux distribution as used for the galaxies.  We
 refer to the simulation with stars as \bdstar; the galaxies are identical to
 those in the \bdksim\ simulation, but stars were then included in the analysis.
 
-\subsubsection{Pre-selection} \label{sec:preselect}
+\subsubsection{Preselection} \label{sec:preselect}
 
 In real data, detections with significance less than \snr$\sim 5$ can be
 spurious, so in practice a threshold must be placed to produce what are
-considered reliable detections.  Such a pre-selection can produce significant
+considered reliable detections.  Such a preselection can produce significant
 selection biases.  A round object has higher \snr\ than if it were sheared, and
 galaxies oriented in the same direction as the PSF have higher \snr\ than
-objects otherwise oriented.  Thus a pre-selection will tend to alter the
+objects otherwise oriented.  Thus a preselection will tend to alter the
 distribution of ellipticities, which will bias the shear recovery.  In
 particular, if this selection occurs before \mcal\ and object fitting, the
 corrections for selection effects presented in \S \ref{sec:formalism} cannot be
@@ -1210,8 +1209,8 @@ used.
 
 In the \bdksim\ simulation, we generated images with \snr\ as low as $\sim 2$,
 as shown in figure \ref{fig:s2n}.  In order to test the effect of a
-pre-selection, we did not perform the \mcal\ process on all images.  We applied
-a pre-selection on objects with {\em measured} \snr$ > 5$, and these objects
+preselection, we did not perform the \mcal\ process on all images.  We applied
+a preselection on objects with {\em measured} \snr$ > 5$, and these objects
 were removed from the analysis.  Then, as discussed in \S
 \ref{sec:shear_recover}, we applied further cuts on the measured \snr\ above
 this threshold in order to minimize the bias due to removal of these galaxies.
@@ -1293,7 +1292,7 @@ Note the galaxies used in the parametric sims presented in \S \ref{sec:bdksim}
 are much fainter and
 smaller than those used in the \rgsim\ simulation.  Also note the \rgsim\ simulation
 was relatively expensive compared to the parametric simulations, so we
-generated fewer galaxies and did not implement any pre-selection.  We thus do
+generated fewer galaxies and did not implement any preselection.  We thus do
 not expect the real galaxy simulation to be more challenging than the
 parametric simulation in every aspect. We include it to directly test the
 robustness of \mcal\ to special properties of real galaxies that may not appear
@@ -1397,11 +1396,11 @@ absence of stellar contamination.  We will discuss the affect of stars in \S
 
 In table \ref{tab:results} we show results for shear recovery in each of our
 simulations.  As was discussed in \S \ref{sec:preselect}, we applied a
-pre-selection to the \bdksim\ simulation at measured \snr$ > 5$, which imposes
+preselection to the \bdksim\ simulation at measured \snr$ > 5$, which imposes
 a selection bias.  We thus placed cuts at higher \snr\ than this threshold, so
 that the corrections for selection effects presented in \S \ref{sec:formalism}
 could be used accurately.  In this table we show results for \snr$ > 10$.  For
-the \rgsim\ simulation we did not apply a pre-selection.
+the \rgsim\ simulation we did not apply a preselection.
 
 
 \begin{table}
@@ -1449,7 +1448,7 @@ In table \ref{tab:results_sel}, we show the results for different \snr\
 threshold cuts in the \bdksim\ simulations.  We show the recovered bias with and
 without corrections for selection effects.  These results are also shown
 graphically in figures \ref{fig:s2nthresh} and \ref{fig:s2nthresh_nocorr}.  The
-cuts were all placed above the pre-selection at \snr$ > 5$, to guarantee the
+cuts were all placed above the preselection at \snr$ > 5$, to guarantee the
 validity of the corrections.
 
 \begin{table*}
@@ -1731,7 +1730,7 @@ including corrections for selection effects. We developed a simple empirical
 correction for the correlated noise associated with the \mcal\ procedure.
 
 We tested the formalism using simulations based on real galaxy images, as well
-as challenging parametric simulations that included pre-selection effects and
+as challenging parametric simulations that included preselection effects and
 stellar contamination.  We applied a range of cuts on the object \snr, inducing
 significant selection affects.  In all cases we recovered the input shear to
 better than a part in a thousand.
@@ -1862,7 +1861,7 @@ ES is supported by DOE grant DE-AC02-98CH10886.
 Many thanks to Paul Stankus for helpful comments on the draft.We are grateful
 to Mike Jarvis and Rachel Mandelbaum for many useful discussions and help with
 the \galsim\ package. Thanks to Gary Bernstein for suggesting our response
-formula for 2-point functions could be significantly simplified.  We thank
+formula for two-point functions could be significantly simplified.  We thank
 Aaron Roodman for providing the variation of the optical aberrations measured
 in DES data.  Thanks to Matt Becker for help using the egret simulation
 package.  We thank the anonymous referee for helpful comments and questions
