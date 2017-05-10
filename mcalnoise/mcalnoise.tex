@@ -917,9 +917,9 @@ using negatively sheared quantities.
 \section{Contamination of the Response by Correlated Noise} \label{sec:contam}
 
 In the presence of noise, the observed image can be written $I_o=I+\eta$, where $\eta$
-is the ``noise image''.  The \mcal\ sheared images $I_o(\gamma)$ will contain
+is the ``noise image.''  The \mcal\ sheared images $I_o(\gamma)$ will contain
 contributions from deconvolved, sheared and reconvolved noise. Again working
-in Fourier space, and using the notation introduced in \S \ref{sec:mcal}:
+in Fourier space, and using the notation introduced in \S \ref{sec:mcal},
 %\begin{align}
 %    I_{o}(\gamma) &= (I + \eta) \ast P^{-1} \oplus \gamma \ast P_{d} \nonumber \\
 %    &= I(\gamma) + \eta(\gamma).
@@ -930,18 +930,18 @@ in Fourier space, and using the notation introduced in \S \ref{sec:mcal}:
 \end{align}
 
 The deconvolution correlates the noise across the image.  This correlated
-noise is sheared, and then reconvolved by \Ptild, producing the
+noise is sheared and then reconvolved by \Ptild, producing the
 sheared correlated noise image $\eta(\gamma)$.  The pattern of this sheared
 noise is coherent between the positively sheared and negatively sheared images.
-The effect is small, but it is amplified due to division by $\Delta \gamma$ to
+The effect is small, but it is amplified through division by $\Delta \gamma$ to
 form the central derivative.  We thus expect the observed response \mcalRo\ to
-be contaminated by the response of the correlated, sheared noise which
-we will denote \mcalRnoise:
+be contaminated by the response of the correlated sheared noise which
+we denote \mcalRnoise:
 \begin{equation}
     \mbox{\mcalRo}  =  \mcalR + \mbox{\mcalRnoise}.
 \end{equation}
 For the simulations and fitting method employed in this work, we generally
-found \mcalRnoise\ to be -5 to -10\%.
+found \mcalRnoise\ to be $-5$ to $-10$\%.
 
 %It is useful to think in terms of the noise power spectrum.  For simplicity
 %consider a circular PSF.  After deconvolution, division by the PSF in Fourier
@@ -953,7 +953,7 @@ found \mcalRnoise\ to be -5 to -10\%.
 %larger PSF but the effect was not not reduced.
 
 
-\subsection{Correction for Sheared, Correlated Noise} \label{sec:fixnoise}
+\subsection{Correction for Sheared Correlated Noise} \label{sec:fixnoise}
 
 
 We explored four different empirical corrections.  We describe our favored
@@ -963,7 +963,7 @@ This method, which we refer to as ``\fixnoise'', is designed to statistically
 cancel the effects of correlated noise caused by the \mcal\ procedure.  For each
 image that was passed through the convolution and shearing steps, producing
 an image $I(\gamma)_o$, we generated a random noise field
-$\eta_r$, and applied the same operations but using a shear with
+$\eta_r$, and applied the same operations, but using a shear with
 the opposite sign:
 %\begin{equation}
 %    \tilde{\eta}(-\gamma) = \tilde{\eta} \ast P^{-1} \oplus (-\gamma) \ast P_{d}.
@@ -971,7 +971,7 @@ the opposite sign:
 \begin{equation}
     \widetilde{\eta}_r(-\gamma) = \left[ \left( \ntil/\Ptil \right) \oplus (-\gamma) \right] \times \Ptild  \nonumber \\
 \end{equation}
-We then added this image, in real space, to the $I(\gamma)_o$ image
+We then added this image in real space to the $I(\gamma)_o$ image
 \begin{equation}
     \hat{I}(\gamma) = I_o(\gamma) + \eta_r(-\gamma).
 \end{equation}
@@ -988,12 +988,12 @@ Because the noise is increased, it is important that both the response and
 estimator should be measured on the $\hat{I}(\gamma)$ images, so that the
 response is representative of the correct noise level.
 
-Note we have assumed the original noise in the image is uncorrelated.  This
-assumption does not hold in coadded images due to the interpolation that must
-occur to put all images in the same coordinate system.  Thus in order to apply
-this correction, it is simplest to work with the original images rather than
-a coadded image.  For a description of such a processing scheme see, for example,
-\cite{Jarvis2016}.
+Note that we have assumed that the original noise in the image is uncorrelated.
+This assumption does not hold in coadded images because of the interpolation
+that must occur to place all images in the same coordinate system.  In order to
+apply this correction, it is therefore simplest to work with the original
+images rather than a coadded image.  For a description of such a processing
+scheme, see, for example, \cite{Jarvis2016}.
 
 %An alternative version of this method is to shear the noise exactly as the
 %original image is sheared, but then rotate by 90 degrees before adding.  This
@@ -1005,7 +1005,7 @@ a coadded image.  For a description of such a processing scheme see, for example
 
 As discussed in \S \ref{sec:formalism}, if a shear estimator has
 non-unity response, the mean shear (or two-point function) is effectively
-weighted.  If we know the responses we can form a weighted average.
+weighted.  If we know the responses, we can form a weighted average.
 
 When averaging associated quantities, such as redshifts, one should also weight
 by these responses.  For example, a quantity $x$ should be averaged as
@@ -1067,8 +1067,8 @@ We created an image simulation using complex parametric models.  We modeled
 galaxies as a bulge and disk, with additional knots of star formation.  We
 label this simulation \bdkfull\ (\bdksim).
 
-We used different, uncorrelated ellipticities for the bulge and disk
-components, but gave both bulge and disk the same half light radius \hlr.
+We used different uncorrelated ellipticities for the bulge and disk
+components, but gave both bulge and disk the same half-light radius \hlr.
 We drew the \hlr\ and flux from fits \citep{LacknerGunn2012} to the 25.2
 magnitude limited sample from the COSMOS data
 \citep{Scoville2007a,Scoville2007b}, as distributed with the \galsim\
@@ -1076,12 +1076,12 @@ simulation package \citep{GALSIM2015}.  In order to avoid repeating the exact
 parameters, we interpolated the joint \hlr-flux distribution using a kernel
 density estimate.
 
-The ellipticities were drawn from the simple model used in \cite{bfd2016}
+The ellipticities were drawn from the simple model used in \cite{bfd2016},
 \begin{align} \label{eq:edist}
     P(e) &\propto \left[1-(e)^2\right]^2 \exp\left[-e^2/2\sigma^2\right],
 \end{align}
-with $\sigma=0.2$ for the disk and $\sigma=0.1$ for the bulge.  Note, we used
-the ``reduced-shear'' style ellipticity
+with $\sigma=0.2$ for the disk and $\sigma=0.1$ for the bulge.  Note that we
+used the ``reduced-shear'' style ellipticity
 \begin{equation}
     e = \frac{1-q}{1+q},
 \end{equation}
@@ -1095,9 +1095,9 @@ taking 40 steps.  This random walk method was inspired by the simulation
 presented in \cite{Zhang2008FourierQuadI}\footnote{Our implementation of the
 random walk galaxy is available as a \galsim\ object class
 \texttt{galsim.RandomWalk}}.  We then distorted this distribution using the
-same ellipticity assigned to the disk; but note this does not result in a
+same ellipticity assigned to the disk; but note that this does not result in a
 purely elliptical distribution of point sources.  Only in the rare case of a
-pure bulge, or disk with no knots, is the model purely elliptical.
+pure bulge or disk with no knots is the model purely elliptical.
 
 The fraction of the flux in the bulge was drawn uniformly between zero and
 unity.  The fraction of the disk flux assigned to knots of star formation
@@ -1110,7 +1110,7 @@ shear, $\vecg = (0.02, 0.00)$.
 
 We convolved the galaxy images with a PSF modeled as a Moffat profile
 \citep{Moffat1969}, with $\beta=3.5$ and FWHM=0.9 arcsec. The PSF ellipticity
-was set to $e_2 = 0.025$ in reduced shear units ($\sim0.05$ in units of
+was set to $e_2 = 0.025$ in reduced-shear units ($\sim0.05$ in units of
 distortion). 
 
 These convolved objects were randomly offset from the image center by $\pm 0.5$
@@ -1126,8 +1126,8 @@ PSF, in order to show detailed internal structure.
     \centering
     \includegraphics[]{example-gals-007.eps}
 
-    \caption{Example simulated galaxy images.  Each image is a composite of a
-    bulge and disk, plus knots of star formation.  The half light radius is the
+    \caption{Example of simulated galaxy images.  Each image is a composite of a
+    bulge and disk, plus knots of star formation.  The half-light radius is the
     same for all components, while the fraction of light in each component
     varies.  In the upper left and upper right we show pure bulge and pure disk
     models, respectively.  In the lower left we show a disk with half the light
@@ -1143,8 +1143,8 @@ PSF, in order to show detailed internal structure.
 \end{figure*}
 
 In figure \ref{fig:psimhlrcompare} we show the distribution of \hlr\ for the
-parametric galaxies, along with the \hlr\ for the PSF.  Note most objects had
-\hlr\ significantly smaller than the PSF.
+parametric galaxies, along with the \hlr\ for the PSF.  Note that most objects
+had \hlr\ significantly smaller than the PSF.
 
 In figure \ref{fig:s2n} we show the distribution of \snr\ for the parametric
 galaxies.   Shown are both the true input \snr\ and the distribution of true
@@ -1199,8 +1199,8 @@ those in the \bdksim\ simulation, but stars were then included in the analysis.
 In real data, detections with significance less than \snr$\sim 5$ can be
 spurious, so in practice a threshold must be placed to produce what are
 considered reliable detections.  Such a preselection can produce significant
-selection biases.  A round object has higher \snr\ than if it were sheared, and
-galaxies oriented in the same direction as the PSF have higher \snr\ than
+selection biases.  A round object has a higher \snr\ than if it were sheared, and
+galaxies oriented in the same direction as the PSF have a higher \snr\ than
 objects otherwise oriented.  Thus a preselection will tend to alter the
 distribution of ellipticities, which will bias the shear recovery.  In
 particular, if this selection occurs before \mcal\ and object fitting, the
@@ -1213,13 +1213,13 @@ preselection, we did not perform the \mcal\ process on all images.  We applied
 a preselection on objects with {\em measured} \snr$ > 5$, and these objects
 were removed from the analysis.  Then, as discussed in \S
 \ref{sec:shear_recover}, we applied further cuts on the measured \snr\ above
-this threshold in order to minimize the bias due to removal of these galaxies.
+this threshold in order to minimize the bias that is due to removal of these galaxies.
 
 
-\subsection{Real Galaxy Simulations} \label{sec:cosmosim}
+\subsection{Real-Galaxy Simulations} \label{sec:cosmosim}
 
 We designed a second set of simulations to mimic the ``real-galaxy'' constant
-shear simulations used in GREAT3 challenge \citep{great3}, which used
+shear simulations used in the GREAT3 challenge \citep{great3}, which used
 real galaxy images from COSMOS data.  The galaxies were
 drawn from the 23.5 magnitude limited sample distributed
 with the \galsim\ simulation package \citep{GALSIM2015}.  We generated 1000
@@ -1228,8 +1228,8 @@ different fields in which galaxies were given a constant shear ranging from
 
 We implemented two important changes as compared to GREAT3.  First, we oriented
 the galaxies randomly, whereas in GREAT3 the galaxies were placed in pairs
-rotated by 90 degrees, in order cancel shape noise.  Using paired galaxies has
-the undesired effect of cancelling some biases that we want to explore
+rotated by 90 degrees, in order to cancel shape noise.  Using paired galaxies has
+the undesired effect of cancelling some biases that we wish to explore
 \citep{Jarvis2016}.  Second, we used optical aberrations in the PSF designed to
 match that seen in the Dark Energy Survey data\footnote{Aaron Roodman, private
 communication}.  Similar to GREAT3, we varied the aberrations as Gaussian
@@ -1288,16 +1288,15 @@ for the two simulations.
 \end{figure*}
 
 
-Note the galaxies used in the parametric sims presented in \S \ref{sec:bdksim}
-are much fainter and
-smaller than those used in the \rgsim\ simulation.  Also note the \rgsim\ simulation
-was relatively expensive compared to the parametric simulations, so we
-generated fewer galaxies and did not implement any preselection.  We thus do
-not expect the real galaxy simulation to be more challenging than the
-parametric simulation in every aspect. We include it to directly test the
-robustness of \mcal\ to special properties of real galaxies that may not appear
-in our \bdkfull\ simulation, and to test shear recovery using a more
-realistic PSF.  
+Note that the galaxies used in the parametric sims presented in \S
+\ref{sec:bdksim} are much fainter and smaller than those used in the \rgsim\
+simulation.  Also note that the \rgsim\ simulation was relatively expensive
+compared to the parametric simulations, so we generated fewer galaxies and did
+not implement any preselection.  We thus do not expect the real galaxy
+simulation to be more challenging than the parametric simulation in every
+aspect. We include it to directly test the robustness of \mcal\ to special
+properties of real galaxies that may not appear in our \bdkfull\ simulation,
+and to test shear recovery using a more realistic PSF.  
 
 
 \section{Model Fitting and Metacalibration Operations} \label{sec:modelfit}
