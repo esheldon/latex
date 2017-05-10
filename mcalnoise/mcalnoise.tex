@@ -1180,7 +1180,7 @@ of objects removed at brighter magnitudes.
 	represents the objects that passed the initial pre-cut on {\it measured}
     \snr$ > 5$. The measured \snr\ was biased and noisy,
     resulting in a smooth selection on true \snr.  This pre-cut
-    does not sharply cut on magnitude, and results in a catalog that is
+    does not sharply cut on magnitude and results in a catalog that is
     limited at COSMOS i-band magnitude $\sim$25.}
 
 \label{fig:s2n}
@@ -1302,15 +1302,15 @@ and to test shear recovery using a more realistic PSF.
 \section{Model Fitting and Metacalibration Operations} \label{sec:modelfit}
 
 We fit the images with a single Gaussian model using the \ngmix\
-code\footnote{\url{https://github.com/esheldon/ngmix}}.  To perform the fit we used an
-implementation of the ``adaptive moments'' algorithm originally presented in
-\cite{bj02}.   We applied no PSF correction.  We expected this estimator to
-respond weakly to a shear, exhibit large model bias, noise bias, and bias
-due to lack of PSF correction.  Note we also applied \mcal\ to a forward-modeling,
-maximum likelihood estimator; we give some brief results for that method
-in appendix \ref{app:maxlike}.
+code\footnote{\url{https://github.com/esheldon/ngmix}}.  To perform the fit we
+used an implementation of the ``adaptive moments (AM)'' algorithm originally
+presented in \cite{bj02}.   We applied no PSF correction.  We expected this
+estimator to respond weakly to a shear, exhibit large model bias, noise bias,
+and bias due to lack of PSF correction.  Note that we also applied \mcal\ to a
+forward-modeling, maximum likelihood estimator; we give some brief results for
+that method in appendix \ref{app:maxlike}.
 
-In order to correct for PSF anisotropy  we reconvolved by a symmetrized version
+In order to correct for PSF anisotropy, we reconvolved by a symmetrized version
 of the PSF. We created this PSF by adding the PSF image to itself, rotated by
 90, 120, and 180 degrees.  This averaging can result in a Fourier space image
 that is larger in some dimensions than the original, so we further shrunk
@@ -1326,25 +1326,25 @@ object.  For a purely elliptical PSF, a factor of $1+\delta$ would be
 sufficient; we conservatively increase the factor to $1+2\delta$ in case the
 Gaussian fit does not completely capture the asymmetries of the true PSF.
 
-This symmetrization method requires an image of the PSF be available at the
-location of the object, which is already a requirement of \mcal\ in order to
-perform deconvolutions.  To produce such an image, one must accurately model
+This symmetrization method requires that an image of the PSF is available at
+the location of the object, which is already a requirement of \mcal\ in order
+to perform deconvolutions.  To produce such an image, one must accurately model
 stars and interpolate to the location of each object, for example as provided
-by the \psfex\ package \citep{BertinPSFEx2011}.  Note, rather than
-use a round reconvolution function, one may instead use
-the response of the estimator to a psf shear to address any uncorrected
-affects of PSF anisotropy \citep{HuffMcal}.
+by the \psfex\ package \citep{BertinPSFEx2011}.  Note that instead of using a
+round reconvolution function, one may instead use the response of the estimator
+to a PSF shear to address any uncorrected affects of PSF anisotropy
+\citep{HuffMcal}.
 
 All \mcal\ image operations were performed using the \texttt{metacal} module
 from \ngmix, which in turn uses \galsim\ to perform most image manipulations.
-We used the correction for correlated noise as discussed in \S
+We used the correction for correlated noise, as discussed in \S
 \ref{sec:fixnoise}
 
 
 \section{Results} \label{sec:results}
 
-In what follows we will characterize the bias using the standard linear model
-\citep[e.g.][]{great3} with multiplicative part $m$ and an additive part $c$,
+In what follows, we will characterize the bias using the standard linear model
+\citep[e.g.][]{great3} with a multiplicative part $m$ and an additive part $c$,
 such that
 \begin{align}
 	\left< \gamma_{meas} \right> = (1+m) \gamma_{true} + c.
@@ -1357,7 +1357,7 @@ so the linear model above was fit.  We found the multiplicative
 bias was the same in each component, so we combined them into
 a single value in the plots and tables below.
 
-In all cases the measured \snr\ is based on the best fit Gaussian model (true
+In all cases the measured \snr\ is based on the best-fit Gaussian model (true
 parameters for the simulated galaxies, such as scale radius or \snr, were never
 used in the analysis).  We used a similar definition to that implemented in the
 GREAT3 simulations \citep[][equation 16]{great3}, but replaced the true profile
@@ -1367,7 +1367,7 @@ with the model
 \end{equation}
 where $m$ is the value of the model at location $x,y$, and $\sigma^2$ is the
 variance of the noise in the image. A Gaussian is a poor fit in general, so
-this measure of \snr\ is biased and noisy.
+this measure of the \snr\ is biased and noisy.
 
 \subsection{\Mcal\ Responses}
 
@@ -1420,7 +1420,7 @@ the \rgsim\ simulation we did not apply a preselection.
 	\parbox{0.9\columnwidth}{
 		\caption{\begin{flushleft}\Mcal\ results for each image simulation described in
 			\S \ref{sec:sims} and table \ref{tab:sims}.  For each simulation,
-			a cut was placed at signal-to-noise ratio \snr$ > 10$, and corrections were applied
+			a cut was placed at \snr$ > 10$, and corrections were applied
 			for selection effects (see table \ref{tab:results_sel} for more
 			results on selections).  A single Gaussian was fit
 		to the observed object, with no PSF correction applied.
@@ -1443,11 +1443,11 @@ Without applying the \mcal\ responses, the multiplicative bias $m$ was of order
 
 \subsubsection{Results with Selection Effects}
 
-In table \ref{tab:results_sel}, we show the results for different \snr\
+In table \ref{tab:results_sel} we show the results for different \snr\
 threshold cuts in the \bdksim\ simulations.  We show the recovered bias with and
 without corrections for selection effects.  These results are also shown
 graphically in figures \ref{fig:s2nthresh} and \ref{fig:s2nthresh_nocorr}.  The
-cuts were all placed above the preselection at \snr$ > 5$, to guarantee the
+cuts were all placed above the preselection at \snr$ > 5$ to guarantee the
 validity of the corrections.
 
 \begin{table*}
@@ -1459,7 +1459,7 @@ validity of the corrections.
                                     & $[10^{-3}]$     & $[10^{-5}]$    & $[10^{-3}]$       & $[10^{-5}]$ \\
         \tableline
         \tableline
-\rule{0pt}{3ex} $\mbox{\snr} > 7 $ & $+15.55 \pm 0.34$ & $+0.80 \pm 0.68$ & $+0.55 \pm 0.34$ & $+0.79 \pm 0.67$ \\
+\rule{0pt}{3ex}$\mbox{\snr} > 7 $ & $+15.55 \pm 0.34$ & $+0.80 \pm 0.68$ & $+0.55 \pm 0.34$ & $+0.79 \pm 0.67$ \\
 $\mbox{\snr} > 10 $ & $+3.78 \pm 0.31$ & $-0.15 \pm 0.62$ & $+0.03 \pm 0.31$ & $-0.15 \pm 0.62$ \\
 $\mbox{\snr} > 13 $ & $-1.46 \pm 0.31$ & $+0.27 \pm 0.63$ & $+0.03 \pm 0.31$ & $+0.27 \pm 0.63$ \\
 $\mbox{\snr} > 16 $ & $-4.58 \pm 0.33$ & $+0.44 \pm 0.67$ & $+0.26 \pm 0.34$ & $+0.44 \pm 0.67$ \\
@@ -1482,7 +1482,7 @@ $\mbox{\snr} > 19 $ & $-8.33 \pm 0.36$ & $+0.17 \pm 0.73$ & $+0.05 \pm 0.37$ & $
     \caption{Multiplicative (upper panel) and
 		additive bias (lower panel) in the \bdksim\ simulation after applying
         threshold selections in the measured signal-to-noise ratio \snr.   
-        The filled grey region represents the target accuracy. } 
+        The filled gray region represents the target accuracy. } 
 
 \label{fig:s2nthresh}
 \end{figure}
@@ -1496,7 +1496,7 @@ $\mbox{\snr} > 19 $ & $-8.33 \pm 0.36$ & $+0.17 \pm 0.73$ & $+0.05 \pm 0.37$ & $
 additionally showing the multiplicative bias without corrections for selection
 effects.  The bias without correction for selection effects is represented as
 red diamonds. The bias after correction for selection effects is represented as
-blue circles.  The filled grey region represents the target accuracy. } 
+blue circles.  The filled gray region represents the target accuracy. } 
 
 \label{fig:s2nthresh_nocorr}
 \end{figure}
@@ -1504,11 +1504,11 @@ blue circles.  The filled grey region represents the target accuracy. }
 
 
 We measured and corrected for a significant multiplicative selection bias in
-each case.  These biases are generally well above our desired part in a
-thousand accuracy.  After correction, we found the  multiplicative bias was
-less than a part in a thousand in all cases.  We did not find any additive
-selection biases, which suggests our procedure of reconvolving by a symmetrized
-PSF was sufficient for these simulations.
+each case.  These biases are generally well above our desired
+part-in-a-thousand accuracy.  After correction, we found that the
+multiplicative bias was less than a part in a thousand in all cases.  We did
+not find any additive selection biases, which suggests that our procedure of
+reconvolving by a symmetrized PSF was sufficient for these simulations.
 
 
 \begin{comment}
@@ -1557,15 +1557,15 @@ table \ref{tab:results}. We did not detect any additional bias after including
 stars. The noise in the recovered shear did, however, increase by
 \starnoiseincrease.
 
-\Mcal\ is robust to stellar contamination if the PSF is well
-characterized.  Images consistent with a PSF will not, in the mean, respond to the shear
-applied during the \mcal\ process.  Measurement on stars also yields zero average shape, as
-long as the PSF correction is sufficiently accurate: our use of a symmetrized
-PSF (see \S \ref{sec:modelfit}) appears to be sufficient in this case.
-In figure \ref{fig:Rstars} we show the measured response \mcalR\ for stars and
-galaxies.  Indeed we see that, for stars, the \mcalR\ is noisy but consistent
-with zero.  Thus, in the mean, stars contribute zero to both the estimator and
-response, leaving equation \ref{eq:rcorr} unbiased.
+\Mcal\ is robust to stellar contamination if the PSF is well characterized.
+Images consistent with a PSF will not, in the mean, respond to the shear
+applied during the \mcal\ process.  Measurement on stars also yields zero
+average shape as long as the PSF correction is sufficiently accurate: our use
+of a symmetrized PSF (see \S \ref{sec:modelfit}) appears to be sufficient in
+this case.  In figure \ref{fig:Rstars} we show the measured response \mcalR\
+for stars and galaxies.  Indeed we see that for stars, the \mcalR\ is noisy
+but consistent with zero.  Thus, in the mean, stars contribute zero to both the
+estimator and response, leaving equation \ref{eq:rcorr} unbiased.
 
 If the additional variance is tolerable, it may be useful to include stars in a
 shear analysis if the PSF is sufficiently well known.  Attempting to remove
@@ -1577,7 +1577,7 @@ If the selection must be performed outside of the \mcal\ process, it may be
 better to avoid it altogether.
 
 For accurate interpretation of the signal, it is important to weight by the
-\mcal\ response terms in order to get the correct redshift distribution (see \S
+\mcal\ response terms in order to obtain the correct redshift distribution (see \S
 \ref{sec:weighting} for more discussion of weighted means).  It is also
 desirable that the redshift estimates for stars be close to zero, so that the
 weighted redshift distribution is minimally contaminated.
@@ -1590,23 +1590,23 @@ weighted redshift distribution is minimally contaminated.
 \subsubsection{Effects of Missing Data}
 
 The Fourier transforms used to perform the \mcal\ convolutions cannot
-accommodate missing data.  But in real data there are features in the image,
-such as bad pixels and columns, and cosmic rays that cannot be used for object
-measurement.  This can be dealt with easily when the galaxy model is fit
-simultaneously to postage stamps drawn from all available observing epochs and
-bands \citep[e.g.][]{Jarvis2016}.  If the epochs are spatially offset, such
+accommodate missing data.  In real data there are features in the image,
+however, such as bad pixels and columns, and cosmic rays that cannot be used
+for object measurement.  This can be dealt with easily when the galaxy model is
+fit simultaneously to postage stamps drawn from all available observing epochs
+and bands \citep[e.g.][]{Jarvis2016}.  If the epochs are spatially offset, such
 that the object does not always appear at the same location in the image, then
 a small fraction of images should be affected by missing data such as bad
 pixels.  In that case, data deemed problematic can simply be left out of the
 fit.
 
-If only a single image is available, one may want to replace the missing data.
+If only a single image is available, one may wish to replace the missing data.
 To test this scenario, we chose to replace the missing data with the value from
 the best fit Gaussian model.  Using a better model would be preferred; this may
-be considered a worst case scenario.
+be considered a worst-case scenario.
 
 We ran a simulation in which 10\% of the images had bad pixels or bad columns.
-We found the model replacement worked well for single bad pixels. For bad
+We found that the model replacement worked well for single bad pixels. For bad
 columns we found a large additive $e_1$ bias, as well as a multiplicative bias
 of a few parts in a thousand.  However, this bias disappeared if we introduced
 a compensatory ``bad column'' at 90 degree rotation about the center of the
