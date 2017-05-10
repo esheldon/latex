@@ -114,8 +114,8 @@
 %\newcommand{\cosmosname}{COSMOS 23.5}
 \newcommand{\cosmosname}{COSMOS}
 
-\newcommand{\detrend}{de-trending}
-\newcommand{\Detrend}{De-trending}
+\newcommand{\detrend}{detrending}
+\newcommand{\Detrend}{Detrending}
 
 \newcommand{\fixnoise}{\texttt{fixnoise}}
 
@@ -297,8 +297,8 @@ for galaxy images with high \snr, with little model bias
 missing data and light from nearby objects cannot be ``masked-out'' or ignored.
 Also, these methods still suffer the ``noise bias'' found in model fitting
 methods as a result of the nonlinear fitting involved with the measurement.
-Without further development, these methods are not accurate at the part in a
-thousand level.
+Without further development, these methods are not accurate at the
+part-in-a-thousand level.
 
 Finally, selection effects can bias the recovered shear in both model fitting
 and moment based methods, but the corrections are typically considered as
@@ -312,12 +312,12 @@ appropriate noise power spectrum to deal with noise effects, and deconvolving
 the PSF.  No nonlinear fitting is performed.  The shear is then estimated
 either from the ratio of sums of these moments \citep{Zhang2015}, or the PDF of
 the un-normalized moments is symmetrized in order to infer an applied shear
-\citep{Zhang2017}.  The sum method was shown to be accurate at the part in a
-thousand level in challenging simulations, but with unacceptably high noise.
-The PDF symmetrization method was shown to be more precise, but the simulations
-used were not large enough to determine the accuracy of the method to the part
-in a thousand level.  No formalism has been proposed as yet to deal with
-selection effects. 
+\citep{Zhang2017}.  The sum method was shown to be accurate at the
+part-in-a-thousand level in challenging simulations, but with unacceptably high
+noise.  The PDF symmetrization method was shown to be more precise, but the
+simulations used were not large enough to determine the accuracy of the method
+to the part-in-a-thousand level.  No formalism has been proposed as yet to deal
+with selection effects. 
 
 Another new approach is the Bayesian Fourier Domain (\bfd) method for shear
 inference introduced by \cite{ba14} and further developed by \cite{bfd2016}.  A
@@ -328,7 +328,7 @@ issues.  \bfd\ is also the first method for which selection effects are
 corrected for naturally in the formalism, without use of external
 simulations.  The method was tested in \cite{bfd2016} using a challenging
 simulation.  In that initial study, a bias of $\sim 2 \times 10^{-3}$ was
-detected, falling just short of the part in a thousand target.  However, given
+detected, falling just short of the part-in-a-thousand target.  However, given
 its rigorous foundation, it seems possible that the desired accuracy will be
 achieved with further technical development.  The required prior information
 from deep data should in principle be available to current and future surveys
@@ -1673,7 +1673,7 @@ toy model.  For the image simulations we found $m \sim 0$ and $\alpha \sim
 0.6$. We note that \cite{bfd2016} also found that the value of $\alpha$
 depended on the type of simulation used, with values for $\alpha$ as high as
 2.  Taking the value of $\alpha$ from the image simulation, we find that the
-nonlinearity in this simulation becomes greater than our part in a thousand
+nonlinearity in this simulation becomes greater than our part-in-a-thousand
 goal for shears greater than about 0.04.  Using $\alpha=1$ from the toy model,
 we reach the threshold for shears higher than about 0.03.
 
@@ -1682,7 +1682,7 @@ we reach the threshold for shears higher than about 0.03.
     \includegraphics[width=\columnwidth]{weaklens-approx.eps}
 
     \caption{Multiplicative bias as a function of applied shear in two types of
-    simulations.  The circles represent the results for the ``toy'' simulation
+    simulations.  The circles represent the results for the toy simulation
     presented in the text.  The diamonds represent results for the parametric
     \bdksim\ image simulations.  For the toy simulation, the bias scales with
     $\gamma^2$.  For the image simulation the bias scales as $0.6 \gamma^2$.
@@ -1743,16 +1743,16 @@ On the other hand, in our current implementation we add extra noise to deal
 with correlated noise effects.  This extra noise increases the uncertainty in
 the shear recovery by about \degrade\ in our tests. The relative increase in
 noise should be smaller for studies that are sample-variance limited, such as
-shear-shear correlations on large scales. Nevertheless we have identified the
+shear-shear correlations on large scales. Nevertheless, we have identified the
 development of a more precise correlated noise correction as a priority going
 forward.
 
-In order to reach part in a thousand accuracy in real data, there are a number
+In order to reach part-in-a-thousand accuracy in real data, there are a number
 of additional challenges to be addressed.  These challenges are shared with
 other shear measurement techniques.  We think the most important are the
 effects of overlapping objects and the limitations of current image processing
 techniques. The accurate determination of the PSF is also fundamental, but we
-will not address that here.
+do not address that here.
 
 Biases in the image processing pipeline that identifies image artifacts,
 determines the background light, identifies unique detections, and assigns
@@ -1763,16 +1763,16 @@ accurately.  The \mcal\ process may not accurately determine the shear response
 in these cases.
 
 In crowded regions the detection algorithm may fail to identify all the unique
-objects, even those brighter than the detection threshold, due to objects
-overlapping significantly on the sky.  The \Mcal\ procedure will correctly
-estimate the shear response for blended objects, as long as the presence of
-neighbors does not result in an instability in the measurement process.  This
-is sufficient for blends at the same redshift, but for blends at different
-redshift this combined shear response has no simple interpretation because each
-object will experience a different shear.  Ideally we would identify the unique
+objects, even those brighter than the detection threshold, because objects
+overlap significantly on the sky.  The \Mcal\ procedure will correctly estimate
+the shear response for blended objects, as long as the presence of neighbors
+does not result in an instability in the measurement process.  This is
+sufficient for blends at the same redshift, but for blends at different
+redshift, this combined shear response has no simple interpretation because each
+object will experience a different shear.  Ideally, we would identify the unique
 objects and assign a fraction of the light in each pixel to each object.  Then
-separate shear responses would be measured for each object, and
-redshifts of the objects would be determined, at least statistically.
+separate shear responses would be measured for each object, and redshifts of
+the objects would be determined, at least statistically.
 
 There will also be large numbers of faint galaxies that are not bright enough
 to exceed the detection threshold. This is an important source of bias when
@@ -1792,7 +1792,7 @@ measurement and redshift determination.
 
 It may be possible to address these issues by inserting artificial galaxy
 images into the data using something like the \balrog\ framework
-\citep{Balrog2016}, followed by re-running processing pipelines, including
+\citep{Balrog2016}, followed by rerunning processing pipelines, including
 shear estimation.  \balrog\ uses the original images as the basis, so all the
 features of real observations need not be simulated.  The approach is
 particularly applicable to studying the effects of blending, undetected
@@ -1873,7 +1873,7 @@ that led to a significantly improved text.
 
 With guidance from the \galsim\ developers, we attempted to use the \galsim\
 noise isotropization and whitening functionality to correct the correlated
-noise.  Isotropization enforces four fold symmetry, introducing minimal extra
+noise.  Isotropization enforces four-fold symmetry, introducing minimal extra
 noise, while whitening completely whitens the image, introducing significant
 extra noise.  However, neither of these methods improved the shear recovery in
 our simulations.  It may be that some aspects of the \mcal\ procedure
@@ -1884,18 +1884,18 @@ invalidate the assumptions behind these correction methods.
 
 \subsubsection{Expected Scaling of the Bias with Noise Level} \label{sec:scaling}
 
-The bias in the ellipticity due to correlated noise should scale with the noise
-correlation function, and thus the square of the noise level in the image $n^2$
-\citep{Kaiser2000,HirataCorrNoise}.  As discussed in \S \ref{sec:contam}, this
-bias will propagate into the response.  We can write the observed \mcalRo\
-as a contribution from both the actual response \mcalR\ and a noise term
-\mcalRnoise\
+The bias in the ellipticity that is due to correlated noise should scale with
+the noise correlation function, and thus the square of the noise level in the
+image $n^2$ \citep{Kaiser2000,HirataCorrNoise}.  As discussed in \S
+\ref{sec:contam}, this bias will propagate into the response.  We can write the
+observed \mcalRo\ as a contribution from both the actual response \mcalR\ and a
+noise term \mcalRnoise\
 \begin{align} \label{eq:scaling}
     \mcalRo &= \mcalR + \mcalRnoise  \nonumber \\
             &= \mcalR + A n^2.
 \end{align}
 
-\subsubsection{De-trending Correction Scheme}
+\subsubsection{Detrending Correction Scheme}
 
 We add a small
 amount of noise to the image such that $n \rightarrow n + \Delta n$.  If we
@@ -1942,7 +1942,7 @@ correction based on the mean variance $A
 
 We measured $\Delta R$ vs $2 n \Delta n$ to find the
 coefficient $A$.  In figure \ref{fig:detrend}, we show this fit for the \rgsim\
-simulation.  The trend is well-fit by a linear model, as expected, with a slope
+simulation.  The trend is well fit by a linear model, as expected, with a slope
 $A \simeq $\Aslope, implying a correction $A n^2 \simeq$ \Rcorr\ for this
 simulation.
 
@@ -1972,7 +1972,7 @@ However, the \detrend\ parameters are more precisely measured than the shear
 itself.  Here we explore the precision of the recovered shear using smaller
 subsets of the object catalog to measure the \detrend\ parameters, and
 applying the corrections to the full sample.  In Table \ref{tab:subsets}
-we show the shear recovery parameters for various subset sizes, for the
+we show the shear recovery parameters for various subset sizes for the
 \bdksim\ simulation described in \S \ref{sec:results}
 
 
@@ -1982,7 +1982,7 @@ noise correction.  Calculating the detrending terms for 10\% of the sample
 leads to only 0.3\% extra variance in the recovered shear, and using 1\% of
 galaxies leads to only 4.4\% increase in variance.
 
-To calculate these numbers we have assumed the extra uncertainty is added
+To calculate these numbers, we have assumed the extra uncertainty is added
 quadratically with the uncertainty measured using all galaxies to estimate the
 \detrend\ parameters; e.g for the first row, we have added approximately 30\%
 quadratically with the measured uncertainty, resulting in a net increase of
@@ -1996,33 +1996,33 @@ random subset.
 
 \subsubsection{Performance of the \detrend\ method}
 
-We found this method did not work as well as the \fixnoise\ method
-described in \S \ref{sec:fixnoise}.  We detected a remaining bias
-of $m \sim 2 \times 10^{-3}$ in the \rgsim\ simulations.
+We found that this method did not work as well as the \fixnoise\ method
+described in \S \ref{sec:fixnoise}.  We detected a remaining bias of $m \sim 2
+\times 10^{-3}$ in the \rgsim\ simulations.
 
 \subsection{Simulating Models}
 
-In this method, we generated model images with the correct noise level corresponding
-to each real image.  We then measured the response of the noise due to the
-convolutions and shears used in \mcal, with noise added before and
-after the \mcal\ procedure.
+In this method, we generated model images with the correct noise level
+corresponding to each real image.  We then measured the response of the noise
+that is due to the convolutions and shears used in \mcal, with noise added
+before and after the \mcal\ procedure.
 
 The measurement with correlated noise will be the sum of the response
-without correlated noise plus the response of the correlated noise field
+without correlated noise plus the response of the correlated noise field,
 \begin{equation}
     \mcalRnoisemodel = \mcalRmodel + \mcalRnoise.
 \end{equation}
 This measurement is quite noisy for a single galaxy, but we
 can estimate the mean correlated noise response for an ensemble
-of galaxies
+of galaxies,
 \begin{equation}
     \langle \mcalRnoise \rangle = \langle \mcalRnoisemodel \rangle - \langle \mcalRmodel \rangle.
 \end{equation}
-Each entry used in this average corresponds to the best fit model
+Each entry used in this average corresponds to the best-fit model
 and noise properties for a galaxy in the sample.
 
 The response \mcalRnoise\ can be subtracted to recover an estimate of the mean
-response without correlated noise
+response without correlated noise,
 \begin{equation}
     \langle \mcalR \rangle = \langle \mcalRo \rangle - \langle \mcalRnoise \rangle.
 \end{equation}
@@ -2043,7 +2043,7 @@ models for the galaxy.  We found a remaining bias of  $m \sim 4 \times
 
     \parbox{0.7\columnwidth}{
 		\caption{\begin{flushleft}Additional variance in the recovered shear 
-			using different sized subsets to
+			using differently sized subsets to
 			estimate the detrending corrections.  Values were obtained
 		from 100 bootstrap samples. \label{tab:subsets}\end{flushleft}}
 	}
@@ -2055,34 +2055,33 @@ models for the galaxy.  We found a remaining bias of  $m \sim 4 \times
 
 \section{\Mcal\ Using Maximum-likelihood Forward Modeling} \label{app:maxlike}
 
-In \S \ref{sec:results} we discussed in detail the results for a simple moment
-based fitting method using adaptive moments (AM), with no explicit PSF
-correction.  We also performed tests using a forward-modeling, maximum
-likelihood method.  In this method we fit a single Gaussian to the PSF, then
-fit a gaussian to each object, convolved analytically by the Gaussian PSF
-model.  This method should be more sensitive because the PSF is accounted for
-in the modeling, although imperfectly.  We applied smooth priors to the
-likelihood for each parameter in the model, in order to ensure a stable fit,
-but these priors were not tuned to match the true parameters of the simulated
-galaxies.
+In \S \ref{sec:results} we discussed in detail the results for a moment based
+fitting method using adaptive moments (AM), with no explicit PSF correction.
+We also performed tests using a forward-modeling maximum likelihood method.
+In this method we fit a single Gaussian to the PSF and then fit a Gaussian to each
+object, convolved analytically by the Gaussian PSF model.  This method should
+be more sensitive because the PSF is accounted for in the modeling, although
+imperfectly.  We applied smooth priors to the likelihood for each parameter in
+the model in order to ensure a stable fit, but these priors were not tuned to
+match the true parameters of the simulated galaxies.
 
 In the \bdkfull\ simulation, we found this method to perform equally as well as
 AM, but with some interesting differences.  The method is indeed more
 sensitive: as shown in figure \ref{fig:Rmaxlike}, the distribution of the
-response has a narrow peak near 0.7, corresponding to high \snr\ and disk
-dominated galaxies, with a tail to low response from a mix of low \snr\
-galaxies.  Note also that the expected value for perfect response for this
-estimator is unity, whereas for adaptive moments it would be approximately
-twice as large because the estimator for AM is a distortion style ellipticity
-rather than a reduced shear style ellipticity.  However,  we do not see
-correspondingly large decrease in the variance of the shear estimator, so it is
-not clear whether this increased sensitivity is necessarily an advantage.
+response has a narrow peak near 0.7, corresponding to disk-dominated galaxies
+with a high \snr, with a tail to low response from a mix galaxies with low
+\snr.  Note also that the expected value for perfect response for this
+estimator is unity, whereas for AM it would be approximately twice as large
+because the estimator for AM is a distortion style ellipticity rather than a
+reduced shear style ellipticity.  However,  we do not see correspondingly large
+decrease in the variance of the shear estimator, so it is not clear whether
+this increased sensitivity is necessarily an advantage.
 
 \begin{figure}[h]
 	\centering
     \includegraphics[width=0.5\columnwidth]{R-bd29-bd29stars.eps}
 
-    \caption{The distribution of shear response in the \bdkfull\ simulations
+    \caption{Distribution of shear response in the \bdkfull\ simulations
     for a shear estimator based on  forward-modeling maximum likelihood fitting.
     The colors and line styles are the same as that used 
     in figure \ref{fig:Rstars}.}
@@ -2090,7 +2089,7 @@ not clear whether this increased sensitivity is necessarily an advantage.
 \label{fig:Rmaxlike}
 \end{figure}
 
-We also note that the distribution of response for the forward modeling
+We also note that the distribution of response for the forward-modeling
 estimator is less symmetric than for AM without PSF correction (see figure
 \ref{fig:Rstars}), but this did not bias the shear recovery.  We see that the
 distribution of response for stars is still quite symmetric about zero for this
