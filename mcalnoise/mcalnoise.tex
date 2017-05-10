@@ -193,21 +193,21 @@
     simulations.  The method involves distorting the image with a small known
     shear, and calculating the response of a shear estimator to that applied
     shear.  The method was shown to be accurate in moderate sized simulations
-    with relatively high signal-to-noise galaxy images, and without significant
-    selection effects.  In this work we introduce a formalism to correct for
-    both shear response and selection biases.  We also observe that, for
-    relatively low signal-to-noise images,  the correlated noise that arises
-    during the \mcal\ process results in significant bias, for which we develop
-    a simple empirical correction.  To test this formalism, we created large
-    image simulations based on both parametric models and real galaxy images,
-    including tests with realistic point-spread-functions.  We varied the PSF
-    ellipticity at the five percent level.  In each simulation we applied a
-    small, few percent shear to the galaxy images.  We introduced additional
-    challenges that arise in real data, such as detection thresholds, stellar
-    contamination, and missing data.  We applied cuts on the measured galaxy
-    properties to induce significant selection effects.  Using our formalism,
-    we recovered the input shear with an accuracy better than a part in a
-    thousand in all cases.
+    with galaxy images that had relatively high signal-to-noise ratios, and
+    without significant selection effects.  In this work we introduce a
+    formalism to correct for both shear response and selection biases.  We also
+    observe that, for images with relatively low signal-to-noise ratios,  the
+    correlated noise that arises during the \mcal\ process results in
+    significant bias, for which we develop a simple empirical correction.  To
+    test this formalism, we created large image simulations based on both
+    parametric models and real galaxy images, including tests with realistic
+    point-spread functions.  We varied the point-spread function ellipticity at
+    the five percent level.  In each simulation we applied a small, few percent
+    shear to the galaxy images.  We introduced additional challenges that arise
+    in real data, such as detection thresholds, stellar contamination, and
+    missing data.  We applied cuts on the measured galaxy properties to induce
+    significant selection effects.  Using our formalism, we recovered the input
+    shear with an accuracy better than a part in a thousand in all cases.
 
 \end{abstract}
 
@@ -240,7 +240,7 @@ including the locations of galaxies \citep{Mandelbaum06}, clusters of galaxies
 correlations without reference to any particular lensing objects
 \citep{CFHTCosmicShear2013}.  Because the effect depends on the geometry of the
 lens-source system as well as mass, the expansion history and growth of
-structure can be inferred  and thus weak lensing is also sensitive to dark
+structure can be inferred, and thus weak lensing is also sensitive to dark
 energy \citep{HeymansTomography2013}.
 
 
@@ -267,42 +267,43 @@ In the model fitting approach, a parametric model is convolved by an estimate
 of the point-spread function (PSF) of the atmosphere and instrument, and fit to
 the galaxy surface brightness profile.  The shear estimator, the ``shape'' of
 the galaxy, is then determined from the parameters of this model.  This method
-is limited for two primary reasons: First, in order for the shear inference to
-be accurate, the model must accurately reproduce the galaxy profile, before
+is limited for two primary reasons: first, in order for the shear inference to
+be accurate, the model must accurately reproduce the galaxy profile before
 noise and convolution by the PSF, which requires a large number of parameters.
 If the model cannot sufficiently reproduce the galaxy the estimator is said to
 exhibit ``model bias'' \citep{Bernstein2010}.  The second is the bias in the
-non-linear model fitting caused by noise, which is significant for low
-signal-to-noise (\snr) images, and is difficult to predict
+non-linear model fitting caused by noise, which is significant for images with low
+signal-to-noise ratios (\snr), and is difficult to predict
 \citep{HirataAlign04,Refreg12,Melchior12}.  This ``noise bias'' is made worse
 if large number of model parameters are used in an attempt to accurately
 represent the galaxy.
 
-Due to these biases, model fitting methods require additional calibration.
-There are no absolute calibration sources in the universe that we can use to
-derive a calibration, so those fitting models often use image simulations for
-calibration \citep[e.g.][]{Zuntz13,Miller13,KidsShear2016,Refregier13,Jee16}.
-These simulations must include all the relevant details of the real universe in
-order to provide an accurate calibration.  It has been suggested that model
-biases can partly be alleviated without image simulations if a sufficiently
-flexible statistical framework is used \citep{SchneiderProbshear2015}, but
-this has not yet been demonstrated.
+Because of these biases, model fitting methods require additional
+calibration.  However, there are no absolute calibration sources in the
+universe that can be used to derive a calibration.  Instead, image
+simulations have often been used to determine the shear calibration
+\citep[e.g.][]{Zuntz13,Miller13,KidsShear2017,Refregier13,Jee16}.  These
+simulations must include all the relevant details of the real universe in order
+to provide an accurate calibration.  It has been suggested that model biases
+can partly be alleviated without image simulations if a sufficiently flexible
+statistical framework is used \citep{SchneiderProbshear2015}, but this has not
+yet been demonstrated.
 
 Another traditional shear measurement technique uses the second moments of the
-galaxy light distribution, after correction for the effect of the point spread
-function \citep[e.g.][]{ksb95,Bernstein2010}.  These methods can be made quite
-accurate for high \snr\ galaxy images, with little model bias
+galaxy light distribution, after correction for the effect of the PSF
+\citep[e.g.][]{ksb95,Bernstein2010}.  These methods can be made quite accurate
+for galaxy images with high \snr, with little model bias
 \citep{Bernstein2010,Okura2016}.  However, unlike model fitting approaches,
 missing data and light from nearby objects cannot be ``masked-out'' or ignored.
 Also, these methods still suffer the ``noise bias'' found in model fitting
-methods, due to the non-linear fitting involved with the measurement.  Without
-further development, these methods are not accurate at the part in a thousand
-level.
+methods as a result of the non-linear fitting involved with the measurement.
+Without further development, these methods are not accurate at the part in a
+thousand level.
 
 Finally, selection effects can bias the recovered shear in both model fitting
 and moment based methods, but the corrections are typically considered as
 separate from the shear estimation, to be inferred as part of a calibration
-based on simulations \citep{Jarvis2016,KidsShear2016}).
+based on simulations \citep{Jarvis2016,KidsShear2017}).
 
 Methods have recently been developed to avoid some of these biases without
 relying on calibration from simulations.  The method of \cite{Zhang2017}
@@ -311,12 +312,12 @@ appropriate noise power spectrum to deal with noise effects, and deconvolving
 the PSF.  No non-linear fitting is performed.  The shear is then estimated
 either from the ratio of sums of these moments \citep{Zhang2015}, or the PDF of
 the un-normalized moments is symmetrized in order to infer an applied shear
-\citep{Zhang2017}.  The sum method was shown to be accurate, at the part in a
+\citep{Zhang2017}.  The sum method was shown to be accurate at the part in a
 thousand level in challenging simulations, but with unacceptably high noise.
 The PDF symmetrization method was shown to be more precise, but the simulations
 used were not large enough to determine the accuracy of the method to the part
-in a thousand level.  No formalism was yet proposed to deal with selection
-effects. 
+in a thousand level.  No formalism has been proposed as yet to deal with
+selection effects. 
 
 Another new approach is the Bayesian Fourier Domain (\bfd) method for shear
 inference introduced by \cite{ba14} and further developed by \cite{bfd2016}.  A
@@ -348,9 +349,9 @@ from model fitting or weighted moments.
 
 The \mcal\ approach is not entirely new. A quite similar idea to \mcal\ was
 introduced by \cite{Kaiser2000}, although the full equivalent of \mcal\ was not
-implemented therein.  Also, \cite{ksb95} introduced the use of sheared, high
-resolution space-based images as a way to provide an overall calibration for a
-shear estimator.
+implemented therein.  \cite{ksb95} also introduced the use of sheared
+high-resolution space-based images as a way to provide an overall calibration
+for a shear estimator.
 
 %A similar idea to \mcal\ was introduced by \cite{Kaiser2000}.  Much of the
 %treatment therein was quite general, but the detailed calculations and examples
@@ -362,19 +363,19 @@ shear estimator.
 
 The \mcal\ technique was shown to be accurate in controlled simulations
 \citep{HuffMcal}.  However, the simulations used in that study \citep[based on
-those used in][]{great3} contained fairly high \snr\ galaxy images, and the
+those used in][]{great3} contained galaxy images with fairly high \snr, and the
 galaxies were relatively large compared to the PSF size.  In a real survey, the
 images are dominated by small faint galaxies, many of which cannot be reliably
-detected or measured.  Furthermore, due to the limited number of galaxies in
-those simulations, the accuracy of the method could only be tested to about 3
-parts in a thousand.  In this work we use a more challenging set of
+detected or measured.  Furthermore, owing to the limited number of galaxies in
+those simulations, the accuracy of the method could only be tested to about
+three parts in a thousand.  In this work we use a more challenging set of
 simulations.
 
 We will also address other difficulties that arise in real data.  During
 estimation of a shear statistic, further selection beyond a simple detection
 threshold is often required, such as cutting or binning based on galaxy
 properties, which can cause significant selection biases.  We introduce a
-formalism to deal with selection effects, for example cuts on \snr\ and galaxy
+formalism to deal with selection effects, for example, cuts on \snr\ and galaxy
 size, that are required for any practical analysis. 
 
 In real images, stars cannot be perfectly removed from the sample of objects
@@ -387,7 +388,7 @@ stars in the sample if the PSF is well determined.
 %missing data can be address sufficiently.
 
 Finally, the \mcal\ procedure itself correlates the noise across the image,
-which becomes a dominant source of error for low \snr\ galaxy images.  We
+which becomes a dominant source of error for galaxy images with low \snr.  We
 introduce a simple image-level correction for this correlated noise.
 
 We show that, in all scenarios we tested, \mcal\ is indeed accurate to a part
@@ -395,8 +396,8 @@ in a thousand.
 
 \section{Introduction to Metacalibration} \label{sec:mcal}
 
-In this section we introduce the basic concepts of \mcal. We will derive the
-full formalism for shear measurements in \S \ref{sec:formalism}.
+In this section we introduce the basic concepts of \mcal. We derive the full
+formalism for shear measurements in \S \ref{sec:formalism}.
 
 Suppose we have a noisy measurement \vest\ that we wish to use for shear
 estimation.  \vest\ may be some estimate of an objects two-component ellipticity
@@ -410,7 +411,7 @@ where we have defined the shear response:
 \begin{align}
     \mbox{\mcalR} &\equiv \frac{\partial \vest}{\partial \vecg} \bigg|_{\gamma=0}.
 \end{align}
-Note the derivative is also with respect to the two-component shear $\vecg$, making
+Note that the derivative is also with respect to the two-component shear $\vecg$, making
 \mcalR\ a $2 \times 2$ matrix:
 %\[ \mbox{\mcalR} = \bigg( \begin{array}{cc}
 %\frac{\partial e_1}{\partial \gamma_1} & \frac{\partial e_2}{\partial \gamma_1} \\
@@ -419,7 +420,7 @@ Note the derivative is also with respect to the two-component shear $\vecg$, mak
 \[ \mbox{\mcalR} = \left( \begin{array}{cc}
 \partial e_1/\partial \gamma_1 & \partial e_2/\partial \gamma_1 \\
 \partial e_1/\partial \gamma_2 & \partial e_2/\partial \gamma_2 \end{array} \right).\]
-We can use the ensemble mean of such measurements \vest, for example measured
+We can use the ensemble mean of such measurements \vest, for example, measured
 from a population of galaxies, as a shear estimator.  Assuming the shear is
 small, we can drop terms of order $\gamma^2$ and higher (we explore this
 approximation in \S \ref{sec:weakshear}), such that
@@ -434,7 +435,7 @@ estimates of \mcalR\ for each galaxy, we can form a weighted average:
     \langle \vecg \rangle &\approx \langle \mbox{\mcalR} \rangle^{-1}  \langle \vest \rangle \approx \langle \mbox{\mcalR} \rangle^{-1} \langle \mcalR \vecg \rangle.
 \end{align}
 Note the special case of constant shear, where $\gamma$ factors out of the
-right hand side.
+right-hand side.
 
 If the estimator \vest\ is unbiased, the mean response matrix \mcalRmean\
 will be consistent with the identity matrix.  If \vest\ is a biased
@@ -455,10 +456,10 @@ $\est^-$ is the measurement made on an image sheared by $-\gamma$,
 and $\Delta \gamma = 2\gamma$.
 
 The shearing is accomplished via a series of image manipulations. The original
-image $I$ is de-convolved from the point spread function (PSF), sheared, and
-re-convolved by the another function to suppress the amplified noise due to
+image $I$ is deconvolved from the point spread function (PSF), sheared, and
+reconvolved by the another function to suppress the amplified noise that is due to
 deconvolution.  This function should be slightly larger than the original PSF
-in order to suppress Fourier modes exposed by the shearing, that were
+in order to suppress Fourier modes exposed by the shearing that were
 previously hidden in the finite resolution of the original image.  We can
 represent the series of operations clearly in Fourier space, where
 convolutions are products and deconvolutions are divisions:
@@ -467,14 +468,14 @@ convolutions are products and deconvolutions are divisions:
 \end{equation}
 where \Itild\ and \Ptil\ are the Fourier transforms of the image and PSF.
 \Ptild\ is the Fourier transform of the function with which the image
-is re-convolved; we use the subscript $d$ to indicated the function
+is reconvolved; we use the subscript $d$ to indicated that the function
 is ``dilated'' with respect to the original PSF.
 Shearing is represented by $\oplus$.
 
-Note for measurement of the shear estimator \vest, one should use an image
+Note that for measurement of the shear estimator \vest, one should use an image
 passed through these same image manipulations, but without any shear applied.
-This ensures the same re-convolution function is used for the shear estimator
-and the response measurements.
+This ensures that the same reconvolution function is used for the shear
+estimator and the response measurements.
 
 We find that the results are rather insensitive to the choice of applied shear.
 We tested values in the range of 0.001 to 0.05 and did not see significant
@@ -491,16 +492,16 @@ using the full response matrix.
 
 One might expect the response to be proportional to the identity matrix if
 there is no preferred direction in the measurement process.  In the simulation
-tests we will present in \S \ref{sec:sims}, we found the diagonal elements can
+tests we present in \S \ref{sec:sims}, we found that the diagonal elements can
 differ by as much as a few parts in a thousand due to the use of a strong PSF
 anisotropy oriented along the diagonal of the image.
 
-As mentioned, the estimator \vest\ can be noisy, but in principle when
-averaging over a large ensemble of measurements the noise does not cause any
-bias because \mcalRmean\ is very well determined (see \S \ref{sec:differences}).
-However, when working with images the \mcal\ process itself
-alters the noise in a coherent way,
-requiring a correction (see \S \ref{sec:fixnoise}).
+As mentioned, the estimator \vest\ can be noisy, but in principle, when
+averaging over a large ensemble of measurements, the noise does not cause any
+bias because \mcalRmean\ is very well determined (see \S
+\ref{sec:differences}).  However, when working with images, the \mcal\ process
+itself alters the noise in a coherent way, requiring a correction (see \S
+\ref{sec:fixnoise}).
 
 
 \subsection{PSF Anisotropy and Shear Inference}  \label{sec:differences}
@@ -509,16 +510,16 @@ If the PSF correction is not perfect, the leading term $\langle \vest
 \rangle|_{\gamma=0}$ will not be zero.  \cite{HuffMcal} discussed another
 response, the response of the measurement to the PSF ellipticity, to correct
 this effect.  In this work we instead reconvolve the image by a circular
-function, which removes most additive effects due to the PSF  (see \S
+function, which removes most additive effects that are due to the PSF  (see \S
 \ref{sec:modelfit}).
 
 In \cite{HuffMcal} the simple averaging in equation \ref{eq:rcorr} did not work
-well because the shape estimators used  therein were relatively noisy.  Instead a sophisticated
-statistical method was developed to infer the shear.  For the estimator we use
-in this work (see \S \ref{sec:modelfit}), the \mcalR\ are relatively well
-measured, even for very low \snr\ galaxies, and the average \mcalRmean\ is very
-well determined. We find that using simple averages in equation \ref{eq:rcorr}
-are adequate to infer the correct shear. 
+well because the shape estimators used  therein were relatively noisy.
+Instead, a sophisticated statistical method was developed to infer the shear.
+For the estimator we use in this work (see \S \ref{sec:modelfit}), the \mcalR\
+are relatively well measured, even for galaxies with very low \snr, and the average
+\mcalRmean\ is very well determined. We find that using simple averages in
+equation \ref{eq:rcorr} is adequate to infer the correct shear. 
 
 
 \section{Full Metacalibration Formalism} \label{sec:formalism}
@@ -527,12 +528,12 @@ are adequate to infer the correct shear.
 %    ['9.9', '14.1', '18.4', '22.6', '26.9']
 
 In this section we derive the full \mcal\ formalism, including selection
-effects. First we introduce some notation:  In principle the estimator \vest\
-can be any set of measurements from an image, but in what follows, we will,
-without loss of generality, write the shear estimator \vest\ as a two component
+effects. First we introduce some notation:  in principle, the estimator \vest\
+can be any set of measurements from an image, but in what follows, without loss
+of generality, we write the shear estimator \vest\ as a two-component
 ellipticity $\vest = (\est_1,\est_2)$.  We write the ellipticity measured from
 a sheared image as $\vest^+$ and $\vest^-$, for measurements on positive and
-negatively sheared images respectively.  We denote the selection probability as
+negatively sheared images, respectively.  We denote the selection probability as
 $S$;  we can also make selections based on sheared parameters, which we denote
 $S^+$ and $S^-$, the probability of selection after a positive or negative
 shear is applied, respectively.
@@ -548,18 +549,18 @@ where $P(\vest)$ is the probability distribution of \vest.  We choose to work
 with continuous functions so that all derivatives are well defined, in
 particular the derivative of the selection function that we introduce below.
 
-Assuming each galaxy experiences a small shear, and that galaxy orientations
+Assuming each galaxy experiences a small shear and that galaxy orientations
 are random in the absence of shear, the mean ellipticity can be rewritten, to
 leading order, as
 \begin{align} \label{eq:basicR}
     \langle \vest \rangle \approx \int d\vest \frac{\partial P(\vest) \vest  }{\partial \vecg}\bigg|_{\gamma=0} \vecg ~ d\vest = \langle \mcalRg \vecg \rangle,
 \end{align}
-where we have ignored the perturbation of the normalization $\int d\vest P(\vest)$,
+where we have ignored the perturbation of the normalization $\int d\vest P(\vest)$
 because it leads to terms that are second order or higher in the shear.  The
 mean shear is thus weighted by a response matrix \mcalRg.  This is the same $2
-\times 2$ response matrix discussed in \S \ref{sec:mcal}; we have added the
+\times 2$ response matrix as discussed in \S \ref{sec:mcal}; we have added the
 subscript $\gamma$ to differentiate this response from the selection response discussed
-below.  If the \mcalRg\ are known, we can form a weighted average estimator
+below.  If the \mcalRg\ are known, we can form a weighted-average estimator
 for the mean shear:
 \begin{align} \label{eq:full_rcorr}
     \left< \vecg \right> \approx \mcalRgmean^{-1} \left< \vest \right> \approx \mcalRgmean^{-1} \left< \mcalRg \vecg \right>.
@@ -574,8 +575,8 @@ approximate the derivatives using finite differences in the shear, such that
     &= \frac{\langle \est_i^+ \rangle - \langle \est_i^- \rangle}{\Delta \gamma_j},
 \end{align}
 where we switched to component notation, such that
-$i,j$ denotes derivative of the $i$-th ellipticity component with respect
-to the $j$-th shear component.  In practice, this averaging is performed
+$i,j$ denotes the derivative of the $i$th ellipticity component with respect
+to the $j$th shear component.  In practice, this averaging is performed
 over an ensemble of measurements for discrete objects. It is equivalent to
 averaging the responses as measured for each object.
 
@@ -786,7 +787,7 @@ response for 2-point functions in a future work.
 \subsection{Remarks on Selections}
 
 Selections that produce additive effects are not addressed in the above.  If a
-circular re-convolution function used, as we will do (see \S
+circular reconvolution function used, as we will do (see \S
 \ref{sec:modelfit}), then selections on object properties will not be
 correlated with the PSF shape, by construction, and thus no net additive bias
 will be introduced. Note, however, that pre-selections, for example detection
@@ -918,7 +919,7 @@ using negatively sheared quantities.
 
 In the presence of noise, the observed image can be written $I_o=I+\eta$, where $\eta$
 is the ``noise image''.  The \mcal\ sheared images $I_o(\gamma)$ will contain
-contributions from de-convolved, sheared and re-convolved noise. Again working
+contributions from deconvolved, sheared and reconvolved noise. Again working
 in Fourier space, and using the notation introduced in \S \ref{sec:mcal}:
 %\begin{align}
 %    I_{o}(\gamma) &= (I + \eta) \ast P^{-1} \oplus \gamma \ast P_{d} \nonumber \\
@@ -929,8 +930,8 @@ in Fourier space, and using the notation introduced in \S \ref{sec:mcal}:
     &= \Itild(\gamma) + \ntil(\gamma).
 \end{align}
 
-The de-convolution correlates the noise across the image.  This correlated
-noise is sheared, and then re-convolved by \Ptild, producing the
+The deconvolution correlates the noise across the image.  This correlated
+noise is sheared, and then reconvolved by \Ptild, producing the
 sheared correlated noise image $\eta(\gamma)$.  The pattern of this sheared
 noise is coherent between the positively sheared and negatively sheared images.
 The effect is small, but it is amplified due to division by $\Delta \gamma$ to
@@ -947,7 +948,7 @@ found \mcalRnoise\ to be -5 to -10\%.
 %consider a circular PSF.  After deconvolution, division by the PSF in Fourier
 %space, the power spectrum is no longer flat, but has contours that grow towards
 %high k.  After the shear is applied, these contours are also sheared.
-%Re-convolving by the PSF suppresses these contours, but due to the shearing
+%Reconvolving by the PSF suppresses these contours, but due to the shearing
 %this suppression is not perfect.  We dilate the PSF to reduce these effects,
 %the dilation does not completely remove the effect. We also tried using a much
 %larger PSF but the effect was not not reduced.
@@ -993,7 +994,7 @@ assumption does not hold in coadded images due to the interpolation that must
 occur to put all images in the same coordinate system.  Thus in order to apply
 this correction, it is simplest to work with the original images rather than
 a coadded image.  For a description of such a processing scheme see, for example,
-\cite{DESSVShear}.
+\cite{Jarvis2016}.
 
 %An alternative version of this method is to shear the noise exactly as the
 %original image is sheared, but then rotate by 90 degrees before adding.  This
@@ -1230,7 +1231,7 @@ We implemented two important changes as compared to GREAT3.  First, we oriented
 the galaxies randomly, whereas in GREAT3 the galaxies were placed in pairs
 rotated by 90 degrees, in order cancel shape noise.  Using paired galaxies has
 the undesired effect of cancelling some biases that we want to explore
-\citep{DESSVShear}.  Second, we used optical aberrations in the PSF designed to
+\citep{Jarvis2016}.  Second, we used optical aberrations in the PSF designed to
 match that seen in the Dark Energy Survey data\footnote{Aaron Roodman, private
 communication}.  Similar to GREAT3, we varied the aberrations as Gaussian
 random variables around a fiducial value. These root-mean-squared variations,
@@ -1709,7 +1710,7 @@ potential bias in a future work.
 \section{Computation Time}
 
 \mcal\ involves performing image manipulations five times, one for the zero
-shear, but re-convolved image, and four for each of the sheared images.
+shear, but reconvolved image, and four for each of the sheared images.
 We then perform image fitting on each of these images.
 
 The total computation time per object was approximately 0.2 seconds.  In our
@@ -1720,7 +1721,7 @@ seconds, so about 0.005 to fit all five images.  For slower fitting codes, the
 \mcal\ manipulations may be sub-dominant.
 
 It may be that further optimization is possible.  For example, a code that
-works entirely in Fourier space could avoid rendering the re-convolved image in
+works entirely in Fourier space could avoid rendering the reconvolved image in
 real space.
 
 \section{Summary and Future Work} \label{sec:summary}
@@ -1778,7 +1779,7 @@ redshifts of the objects would be determined, at least statistically.
 
 There will also be large numbers of faint galaxies that are not bright enough
 to exceed the detection threshold. This is an important source of bias when
-using simulations to calibrate the shear \citep[see e.g.][]{Hoekstra2016}, but
+using simulations to calibrate the shear \citep[see e.g.][]{Hoekstra2017}, but
 we have not yet tested how this will affect \mcal.  These objects will be
 included at some level in the \mcal\ shear response measured for brighter
 galaxies, and will contaminate the light used for flux and color determination.
