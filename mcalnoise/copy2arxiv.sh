@@ -1,4 +1,5 @@
 dest=arxiv
+mkdir -p $dest
 
 epslist=$(grep "\.eps" mcalnoise.tex | cut -d { -f 2 | cut -d } -f 1)
 
