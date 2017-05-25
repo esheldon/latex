@@ -97,7 +97,16 @@ Metacal Don't Care}
 \frame{\titlepage}
 
 
+
+\usebackgroundtemplate{%
+%\includegraphics[trim=100 0 0 0,clip,height=\paperheight]{nbrsim-003f-009969-image-crop.jpg}
+    \includegraphics[height=\paperheight]{DES0056-5248_gri_crop.jpg}}
+\frame
+{
+}
+
 \setbeamertemplate{background canvas}[vertical shading][bottom=mgray,top=mblack]
+
 
 \frame
 {
@@ -160,7 +169,7 @@ Metacal Don't Care}
         \item Galaxy models used to infer ellipticity and shear 
             typically wildly inaccurate, error exceeds budget.
 
-        \item Noise biases shape determination, exceed error budget.
+        \item Noise biases shape determination, error exceed budget.
 
         \item Most of the galaxies in ground based surveys are
             unresolved, worsening modeling and noise effects.
@@ -263,7 +272,7 @@ Metacal Don't Care}
 {
     \frametitle{Correlated Noise}
 
-    \setbeamerfont*{itemize/enumerate body}{size=\Large}
+    \setbeamerfont*{itemize/enumerate body}{size=\large}
     \setbeamerfont*{itemize/enumerate subbody}{parent=itemize/enumerate body}
     \setbeamerfont*{itemize/enumerate subsubbody}{parent=itemize/enumerate body}
  
@@ -277,10 +286,16 @@ Metacal Don't Care}
         \item Add a noise field that has been run through the same
             operations, and then rotated by 90 degrees.
 
-        \item Cancels all correlated noise effects at the cost of
-            increasing the noise in the shear recovery by 20\% (less
-            than $\sqrt 2$ because shape noise dominates).
+        \item Cancels all correlated noise effects
+            
+            \begin{itemize}
+                \item Increases the noise in the shear recovery by 20\% (less
+                    than $\sqrt 2$ because shape noise dominates).
 
+                \item Even smaller relative effect
+                    for cosmic shear which is sample variance dominated
+                \item Search for a less noisy correction is ongoing
+             \end{itemize}
     \end{itemize}
 
 }
