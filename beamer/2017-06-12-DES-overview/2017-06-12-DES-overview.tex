@@ -75,7 +75,7 @@
 \newcommand{\uberseg}{{\"u}berseg}
 
 
-\title{\Mcal\ Overview}
+\title{Y1 \Mcal\ Overview}
 \author{Erin Sheldon}
 \institute{Brookhaven National Laboratory}
 
@@ -356,8 +356,8 @@
             functions.
 
         \item If you are calculating a statistic other than mean shear or
-            2-pt shear, let's discuss how to calculate responses.  It may
-            require a specially crafted calibration.
+            2-pt shear, let's discuss how to calculate responses.  We may
+            need to work out how to apply the response.
 
         \item See papers for examples (mass mapping, shear 2pt, etc.) as well
             as the DES wiki
@@ -426,6 +426,27 @@
     \end{itemize}
 }
 
+\frame
+{
+    \frametitle{How to Use the Catalogs: galaxy-galaxy lensing}
+
+    \setbeamerfont*{itemize/enumerate body}{size=\large}
+    \setbeamerfont*{itemize/enumerate subbody}{parent=itemize/enumerate body}
+    \setbeamerfont*{itemize/enumerate subsubbody}{parent=itemize/enumerate body}
+ 
+    \begin{itemize}
+
+
+        \item {\color{gold} \mcalRgmean} is typically 0.6 
+        \item {\color{gold} \mcalRSmean} is typically 0.007-0.013
+
+        \item Cannot ignore selection effects, would get the shear calibration
+            wrong by $\approx$2\%.
+
+
+    \end{itemize}
+}
+
 
 
 
@@ -444,7 +465,7 @@
                 \end{align}
             }
 
-        \item We have been averaging the diagonal elements of the
+        \item We have been using the mean of the diagonal elements of the
             response matrix
 
             {\color{gold}
@@ -452,6 +473,24 @@
                     0.5 \times ( \mcalRg[0,0] + \mcalRg[1,1] )
                 \end{align}
             }
+    \end{itemize}
+}
+
+
+\frame
+{
+    \frametitle{Summary}
+ 
+    \begin{itemize}
+
+        \item Catalogs are available for Y1
+
+        \item Go do your measurements!
+
+        \item Let me, Daniel, Troxel etc. know if you need help calibrating
+            your measurement.
+
+
     \end{itemize}
 }
 
