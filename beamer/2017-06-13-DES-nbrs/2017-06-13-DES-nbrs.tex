@@ -250,7 +250,7 @@
                 \item https://github.com/esheldon/ngmixer
             \end{itemize}
 
-        \item \uberseg-only is the catalog we are using in Y1, since we
+        \item \uberseg-only is the catalog we are using in Y1, because we
             lack photozs for the \uberseg+MOF catalog.
 
     \end{itemize}
@@ -300,21 +300,47 @@
 
     \frametitle{Comparison with Test on DES Data}
 
+    \begin{itemize}
+
+        \item $\approx$2\% bias for \uberseg-only, no bias
+            for MOF+\uberseg
+
+        \item Would not take the 2\% number as indicative of the actual $m$ in
+            DES, the simulations do not match real data perfectly.
+            \begin{itemize}
+
+                \item Galaxies have the right size-flux distribution,
+                    approaching the complexity of real galaxies, but detailed
+                    properties not tuned to real data
+
+                \item Density is Y5 depth, greater than Y1
+
+            \end{itemize}
+
+    \end{itemize}
+}
+\frame
+{
+
+    \frametitle{Comparison with Test on DES Data}
+
 
     \begin{itemize}
 
         \item Test by Daniel Gruen in DES data
 
-        \item \uberseg+MOF also $\approx$2\% lower than \uberseg\ alone.
+        \item \uberseg+MOF also $\approx$2.4\% lower than \uberseg\ alone.
 
-        \item Agrees remarkably well with the simulation value.
+        \item When limiting to objects with few neighbors, we find $0.011 \pm 0.013$,
+            no longer detected, which is expected.
 
-        \item But there is a twist: when limiting to objects
-            with few neighbors, a difference of $\approx$1\% remains.
+        \item 2\% agrees remarkably well with the simulation value, but note the
+            simulation is higher density than Y1 so we would expect the effect
+            to be lower in Y1.
 
-        \item We think \uberseg+MOF is better based on the simulations,
-            but we can't explain this 1\% and thus include it as a non-zero
-            centered multiplicative bias prior. 
+        \item Could be \uberseg\ is biased, or both are biased differently.  Adopting
+            a prior of $m = 0.012 \pm 0.012$ which overlaps zero and 2.4\% at $1-\sigma$.
+
 
     \end{itemize}
 
