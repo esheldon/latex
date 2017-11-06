@@ -1,0 +1,536 @@
+\documentclass{beamer}
+
+\usepackage{beamerthemesplit}
+\usepackage{verbatim}
+\usepackage[normalem]{ulem}
+
+\usepackage{xcolor}
+
+\usepackage{hyperref}
+
+\definecolor{gold}{rgb}{1.,0.84,0.}
+\definecolor{brightred}{rgb}{1.,0.4,0.4}
+\definecolor{mygray}{RGB}{200,200,200}
+\definecolor{lightsteelblue}{RGB}{176,196,222}
+\definecolor{lightskyblue}{RGB}{135,206,250}
+\definecolor{cadetblue}{RGB}{95,158,160}
+
+\usetheme{default}
+\usecolortheme{mule}
+
+\usefonttheme{serif}
+
+%\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+
+\newcommand{\mcal}{\textsc{metacalibration}}
+\newcommand{\Mcal}{\textsc{Metacalibration}}
+
+\newcommand{\mcalR}{\mbox{\boldmath $R$}}
+\newcommand{\mcalRscalar}{\mbox{$R$}}
+
+\newcommand{\mcalRmean}{\mbox{\boldmath $\langle R \rangle$}}
+\newcommand{\mcalRscalarmean}{\mbox{$\langle R \rangle$}}
+
+\newcommand{\mcalRpsf}{$R^{p}$}
+\newcommand{\mcalRpsfnoise}{$R^{p}_\eta$}
+\newcommand{\mcalRo}{\mbox{\boldmath $R_o$}}
+\newcommand{\mcalRnoise}{\mbox{\boldmath $R_\eta$}}
+
+\newcommand{\mcalRmeanalpha}{\mbox{\boldmath $\langle R_\alpha \rangle$}}
+\newcommand{\mcalRmeanbeta}{\mbox{\boldmath $\langle R_\beta \rangle$}}
+
+\newcommand{\mcalRg}{\mbox{\boldmath $R_\gamma$}}
+\newcommand{\mcalRS}{\mbox{\boldmath $R_S$}}
+\newcommand{\mcalRgmean}{\mbox{\boldmath $\langle R_\gamma \rangle$}}
+\newcommand{\mcalRSmean}{\mbox{\boldmath $\langle R_S \rangle$}}
+
+\newcommand{\mcalRtwopt}{\mbox{\boldmath $R^{2pt}$}}
+\newcommand{\mcalRtwoptmean}{\mbox{\boldmath $\langle R^{2pt} \rangle$}}
+
+
+\newcommand{\mcalRmodel}{\mbox{\boldmath $R^{model}$}}
+\newcommand{\mcalRnoisemodel}{\mbox{\boldmath $R^{model}_\eta$}}
+
+
+\newcommand{\vecg}{\mbox{\boldmath $\gamma$}}
+\newcommand{\vest}{\mbox{\boldmath $e$}}
+
+\newcommand{\snr}{$S/N$}
+\newcommand{\snT}{$(S/N)_{\textrm{size}}$}
+%\newcommand{\snT}{$\left( \frac{S}{N}\right)_{\textrm{size}}$}
+\newcommand{\snflux}{$(S/N)_{\textrm{flux}}$}
+%\newcommand{\snflux}{$\left( \frac{S}{N}\right)_{\textrm{flux}}$}
+
+\newcommand{\lensfit}{\texttt{LENSFIT}}
+\newcommand{\numba}{\texttt{Numba}}
+\newcommand{\python}{\texttt{Python}}
+\newcommand{\ngmix}{\texttt{ngmix}}
+\newcommand{\ngmixer}{\texttt{ngmixer}}
+\newcommand{\shear}{{\bf g}}
+\newcommand{\redmapper}{redMaPPer}
+\newcommand{\est}{$e$}
+
+
+\newcommand{\prelim}{{\bf{\it Preliminary}}}
+
+\newcommand{\uberseg}{{\color{lightsteelblue} {\"u}berseg}}
+\newcommand{\MOF}{{\color{brightred}MOF}}
+
+
+\title{MOF, the Multi-object Fitting Deblender}
+\author{Erin Sheldon}
+\institute{Brookhaven National Laboratory}
+
+% http://texblog.net/latex-archive/plaintex/beamer-footline-frame-number/
+% to add the page (frame ) number and not screw up the bottom line
+% works for split themes?
+\expandafter\def\expandafter\insertshorttitle\expandafter{%
+      \insertshorttitle\hfill%
+        \insertframenumber\,/\,\inserttotalframenumber}
+
+% suppress navigation bar
+\beamertemplatenavigationsymbolsempty
+\setbeamertemplate{footline}{}
+
+\begin{document}
+
+\usebackgroundtemplate{%
+    \includegraphics[height=\paperheight]{DES0056-5248_gri_crop.jpg}
+}
+\frame
+{
+}
+\setbeamertemplate{background canvas}[vertical shading][bottom=mgray,top=mblack]
+
+\setbeamerfont*{itemize/enumerate body}{size=\Large}
+\setbeamerfont*{itemize/enumerate subbody}{parent=itemize/enumerate body}
+\setbeamerfont*{itemize/enumerate subsubbody}{parent=itemize/enumerate body}
+
+
+\frame{\titlepage}
+
+
+
+
+\frame
+{
+    \frametitle{Outline}
+
+    \begin{itemize}
+
+        \item Introduction
+        \item Algorithm
+        \item Simulations
+        \item \Mcal\ Performance with and without \MOF\ neighbor subtraction
+        \item Future Work
+
+    \end{itemize}
+
+}
+
+\frame
+{
+    \frametitle{Too Close for Comfort}
+ 
+    \setbeamerfont*{itemize/enumerate body}{size=\footnotesize}
+    \setbeamerfont*{itemize/enumerate subbody}{parent=itemize/enumerate body}
+    \setbeamerfont*{itemize/enumerate subsubbody}{parent=itemize/enumerate body}
+ 
+    \begin{columns}
+        \begin{column}{0.6\textwidth}
+            \begin{itemize}
+                \item \mcal\ has sufficient accuracy for LSST (Sheldon \& Huff 2017)
+                \item \mcal\ will calculate the correct response
+                    for blended objects.
+                \item Good enough if they are at the same redshift, as long as the deblender
+                    doesn't have important shear-dependence
+                \item If they are at different redshifts, then in principle
+                    should identify unique objects and separately
+                    determine their {\color{brightred} redshifts} and \mcal\ {\color{gold} responses}.
+
+                \item As Gary noted, the difference in the shears felt by fg/bg
+                    galaxies are decorrelated, so the effect may be suppressed
+                    (Eric Huff is also working on this idea, paper to appear
+                    soon)
+
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.4\textwidth}
+            \begin{center}
+                %\includegraphics[width=\textwidth]{DES0428-4748_gri_crop.jpg}
+                \includegraphics[width=1.2\textwidth, angle=90]{DES0056-5248_gri_crop.jpg}
+            \end{center}
+        \end{column}
+    \end{columns}
+
+
+}
+
+
+\frame
+{
+    \frametitle{It's Only Going to Get Harder}
+ 
+    \begin{center}
+        \includegraphics[width=\columnwidth]{HSC-DES-interacting-pair.jpg}
+        \newline
+         HSC deep  ~~~~~~~~~~~ DES Y1
+    \end{center}
+
+
+}
+
+\frame
+{
+
+    \frametitle{Multi-object Fitting}
+
+    \begin{itemize}
+        \item Base code is \ngmix\ (Sheldon \url{https://github.com/esheldon/ngmix}).
+            \begin{itemize}
+                \item Gaussian mixtures for speed
+                \item Multi-band, multi-epoch model fitting
+                \item Shear estimation (\mcal, lensfit, etc.)
+            \end{itemize}
+
+        \item \MOF\ is implemented in the \ngmixer\ package (Sheldon, Becker \url{https://github.com/esheldon/ngmixer}).
+
+        \item Used in the Dark Energy Survey for deblending:  photometry and lensing shear
+
+    \end{itemize}
+
+}
+
+\frame
+{
+
+    \frametitle{\uberseg\ Masking}
+
+    \begin{itemize}
+
+        \item We always mask neighbors using the \uberseg\ algorithm of N.
+            MacCrann (Jarvis et al. 2016)
+
+        \begin{itemize}
+            \item Use pixels closer to the object than any other.
+            \item Don't use pixels assigned to another
+                object in the SExtractor segmentation map
+        \end{itemize}
+    \end{itemize}
+
+}
+
+
+\frame
+{
+
+    \frametitle{Multi-object Fitting Algorithm}
+
+    \begin{enumerate}
+        \item Identify groups of objects using a friends-of-friends algorithm
+
+        \item Perform an initial fit of all objects, masking neighbors using
+            the \uberseg\ algorithm
+
+        \item Re-fit all objects in the group
+            \begin{enumerate}
+                \item Pick a random object
+                \item Subtract the light from neighbors
+                \item Perform a model fit (\uberseg\ still used)
+                \item Update model parameters
+
+            \end{enumerate}
+        \item Repeat 3. until all fits in the group converge or 15 iterations have been performed.
+    \end{enumerate}
+
+}
+
+\setbeamertemplate{background canvas}[vertical shading][bottom=white,top=white]
+\frame
+{
+
+    \begin{center}
+        \includegraphics[width=0.9\columnwidth]{mb-cm-max-nbrs-band0-icut1.pdf}
+        \newline
+        {\color{black} Example in real DES data}
+    \end{center}
+
+
+}
+    \setbeamertemplate{background canvas}[vertical shading][bottom=mgray,top=mblack]
+
+\frame
+{
+
+    \frametitle{Failure Modes}
+
+    \setbeamerfont*{itemize/enumerate body}{size=\large}
+    \setbeamerfont*{itemize/enumerate subbody}{parent=itemize/enumerate body}
+    \setbeamerfont*{itemize/enumerate subsubbody}{parent=itemize/enumerate body}
+
+    \begin{itemize}
+
+        \item Primarily failure mode is objects ``stealing'' flux from neighbors
+
+        \item Eli Rykoff has seen this in the cores of galaxy clusters
+
+        \item Usually involves a bright and a faint object.
+            \begin{itemize}
+                \item The centroid of the faint object will move toward the bright neighbor
+                \item The faint object will steal flux
+                \item Might be mitigated by better ``guesses'', starting points for the
+                    model fit
+            \end{itemize}
+
+    \end{itemize}
+
+}
+
+
+\frame
+{
+
+    \frametitle{Tests with Simulation}
+
+    \setbeamerfont*{itemize/enumerate body}{size=\large}
+    \setbeamerfont*{itemize/enumerate subbody}{parent=itemize/enumerate body}
+    \setbeamerfont*{itemize/enumerate subsubbody}{parent=itemize/enumerate body}
+
+    \begin{itemize}
+        \item Galsim
+        \item Flux/size drawn jointly from COSMOS 25.2 sample
+
+        \item ``Fake'' a fainter sample to {\bf {\color{brightred} mag 27.5}} by scaling
+            the flux and size of 25.2 sample.  Also extra bright galaxies.
+
+        \item Bulge+Disk with different ellipticities/orientation.
+        \item Knots of star formation (\texttt{galsim.RandomWalk})
+
+        \item Half galaxies get shear 0.01, half get 0.02
+
+        \item Place galaxies randomly on images mimicking DES coadds
+
+        \item Add noise to achieve DES 5-year depth in $i\approx 24.1$
+
+        \item Run through SExtractor, make MEDS files.
+
+        \item PSF Moffat $e=0.05$, FWHM = 0.9 arcsec.
+    \end{itemize}
+
+}
+
+\setbeamertemplate{background canvas}[vertical shading][bottom=white,top=white]
+{
+
+    \frame
+    {
+        \frametitle{Example Galaxies}
+     
+    {\color{black}
+        {\small Large examples to show internal structure:  actual simulation
+        galaxies are almost all smaller than the PSF }
+        }
+
+        \begin{center}
+            \includegraphics[width=0.65\textwidth]{mosaic-009086.pdf}
+            \newline
+        \end{center}
+
+    }
+
+
+}
+
+\setbeamertemplate{background canvas}[vertical shading][bottom=mgray,top=mblack]
+
+
+\frame
+{
+    \frametitle{Simulation for Deblending Tests }
+ 
+    \begin{center}
+        \includegraphics[width=\columnwidth]{nbrsim-003f-009969-image-crop.jpg}
+    \end{center}
+
+}
+
+
+\frame
+{
+
+    \frametitle{Results for Deblending Tests}
+
+    \setbeamerfont*{itemize/enumerate body}{size=\large}
+    \setbeamerfont*{itemize/enumerate subbody}{parent=itemize/enumerate body}
+    \setbeamerfont*{itemize/enumerate subsubbody}{parent=itemize/enumerate body}
+
+
+    \begin{itemize}
+
+        \item Run in two modes
+
+        \item Mask neighbors using \uberseg\ algorithm (Jarvis et al. 2016)
+
+        \item Deblended: Subtract the light from neighbors using \MOF
+
+
+    \end{itemize}
+
+
+}
+
+\frame
+{
+
+    \frametitle{Results for Deblending Tests}
+
+    \begin{table}
+        \centering
+        \begin{tabular}{ l c c}
+            \hline
+            Method         & \snr\ Cut & m            \\
+                       &           & $[10^{-2}]$  \\
+            \hline
+            \hline
+
+            \uberseg       & \snr$ > 10$ & 2.18 $\pm$ 0.16  \\
+            \uberseg       & \snr$ > 15$ & 1.73 $\pm$ 0.17  \\
+            \uberseg       & \snr$ > 20$ & 1.74 $\pm$ 0.18  \\
+
+
+            \hline
+
+            \uberseg+\MOF   & \snr$ > 10$ & 0.10 $\pm$ 0.20  \\
+            \uberseg+\MOF   & \snr$ > 15$ & -0.24 $\pm$ 0.21 \\
+            \uberseg+\MOF   & \snr$ > 20$ & -0.04 $\pm$ 0.22 \\
+
+
+
+            \hline
+        \end{tabular}
+
+        \caption{\snr\ cuts in addition to flags$<= 3$ and
+        $T/T_{\mathrm{PSF}} > 0.5$}
+    \end{table}
+
+
+}
+
+\frame
+{
+
+    \frametitle{Simulation results}
+
+    \setbeamerfont*{itemize/enumerate body}{size=\large}
+    \setbeamerfont*{itemize/enumerate subbody}{parent=itemize/enumerate body}
+    \setbeamerfont*{itemize/enumerate subsubbody}{parent=itemize/enumerate body}
+
+    \begin{itemize}
+
+        \item No bias when deblending with \MOF.
+
+        \item About 2\% bias using \uberseg-only.
+
+        \item Would not take the 2\% number as indicative of the actual $m$ in
+            DES, the simulations do not match real data perfectly.
+            \begin{itemize}
+
+                \item Galaxies have the right size-flux distribution,
+                    approaching the complexity of real galaxies, but detailed
+                    properties not tuned to real data
+
+                \item Density is Y5 depth, greater than Y1
+
+            \end{itemize}
+
+
+
+        \item \mcal\ not biased at all by undetected population in these sims.
+            Compare to large bias seen by methods that rely in simulations for
+            calibration (e.g. Hoekstra et al.)
+
+        \item Keep in mind there is no clustering in these sims; TBD
+
+    \end{itemize}
+}
+
+\frame
+{
+
+    \frametitle{Comparison with Test on DES Data}
+
+    \setbeamerfont*{itemize/enumerate body}{size=\large}
+    \setbeamerfont*{itemize/enumerate subbody}{parent=itemize/enumerate body}
+    \setbeamerfont*{itemize/enumerate subsubbody}{parent=itemize/enumerate body}
+
+    \begin{itemize}
+
+        \item Test by Daniel Gruen in DES data
+
+        \item \uberseg+\MOF also $\approx$2\% lower than \uberseg\ alone.
+
+        \item When limiting to objects with few neighbors, we find $0.011 \pm 0.013$,
+            no longer detected, which is expected, but noisy
+
+        \item 2\% agrees with the simulation value, but note the
+            simulation is higher density than Y1 so we might expect the effect
+            to be lower in Y1.
+
+        \item Could be \uberseg\ is biased, or both are biased differently.
+
+
+    \end{itemize}
+
+
+}
+
+
+
+
+
+\frame
+{
+    \frametitle{Future Work}
+
+    \begin{itemize}
+
+        \item Try to break \MOF\ with more difficult simulations
+
+        \item Add realistic clustering
+
+        \item Insert galaxy clusters into sim
+
+
+    \end{itemize}
+}
+
+\frame
+{
+    \frametitle{\MOF\ in LSST}
+
+    \setbeamerfont*{itemize/enumerate body}{size=\large}
+    \setbeamerfont*{itemize/enumerate subbody}{parent=itemize/enumerate body}
+    \setbeamerfont*{itemize/enumerate subsubbody}{parent=itemize/enumerate body}
+
+    \begin{itemize}
+
+        \item Code is ready to go but need a few pieces
+            \begin{itemize}
+                \item Full astrometric solutions in MEDS files
+                \item Better mock-up of \uberseg\ (there are no seg maps in LSST)
+            \end{itemize}
+
+        \item Due to iteration, \MOF\ is too slow for multi-epoch fitting in LSST
+            \begin{itemize}
+                \item We have another project to understand in which circumstances
+                    coadds can be used (Sheldon, Armstrong, Huff)
+                \item Would save factor of $\sim 100$ in processing time.
+            \end{itemize}
+
+    \end{itemize}
+}
+
+
+
+
+\end{document}
